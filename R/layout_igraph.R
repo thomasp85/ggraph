@@ -58,6 +58,76 @@ layout_igraph_igraph <- function(graph, type, circular, use.dummy = FALSE, ...) 
     layout$circular <- circular
     layout
 }
+#' @importFrom igraph gorder degree neighbors
+layout_igraph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, direction = 'out') {
+    reverseDir <- if (direction == 'out') 'in' else 'out'
+    nodes <- data.frame(
+        x = rep(NA_real_, gorder(graph)),
+        y = rep(NA_real_, gorder(graph)),
+        leaf = degree(graph, mode = direction) == 0,
+        stringsAsFactors = FALSE
+    )
+    startnode <- which(degree(graph, mode = reverseDir) == 0)
+    if (length(startnode)  < 1) stop('No root nodes in graph')
+    recurse_layout <- function(gr, node, layout, direction) {
+        children <- as.numeric(neighbors(gr, node, direction))
+        if (length(children) == 0) {
+            x <- if (all(is.na(layout$x[layout$leaf]))) {
+                1
+            } else {
+                max(layout$x[layout$leaf], na.rm = TRUE) + 1
+            }
+            layout$x[node] <- x
+            layout$y[node] <- 0
+            layout
+        } else {
+            childrenMissing <- children[is.na(layout$x[children])]
+            for (i in childrenMissing) {
+                layout <- recurse_layout(gr, i, layout, direction)
+            }
+            layout$x[node] <- mean(layout$x[children])
+            layout$y[node] <- max(layout$y[children]) + 1
+            layout
+        }
+    }
+    for (i in startnode) {
+        nodes <- recurse_layout(graph, i, nodes, direction = direction)
+    }
+    if (circular) {
+        radial <- radial_trans(r.range = rev(range(nodes$y)),
+                               a.range = range(nodes$x),
+                               offset = offset)
+        coords <- radial$transform(nodes$y, nodes$x)
+        nodes$x <- coords$x
+        nodes$y <- coords$y
+    }
+    extraData <- as.data.frame(vertex_attr(graph))
+    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(nodes)))
+    nodes <- cbind(nodes, extraData)
+    nodes$circular <- circular
+    nodes
+}
+#' @importFrom igraph gorder vertex_attr
+layout_igraph_manual <- function(graph, node.positions, circular) {
+    if (circular) {
+        warning('circular argument ignored for manual layout')
+    }
+    if (!inherits(node.positions, 'data.frame')) {
+        stop('node.positions must be supplied as data.frame')
+    }
+    if (gorder(graph) != nrow(node.positions)) {
+        stop('Number of rows in node.position must correspond to number of nodes in graph')
+    }
+    if (!all(c('x', 'y') %in% names(node.positions))) {
+        stop('node.position must contain the columns "x" and "y"')
+    }
+    layout <- data.frame(x = node.positions$x, y = node.positions$y)
+    extraData <- as.data.frame(vertex_attr(graph))
+    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(nodes)))
+    layout <- cbind(layout, extraData)
+    layout$circular <- FALSE
+    layout
+}
 is.igraphlayout <- function(type) {
     if (type %in% igraphlayouts) {
         TRUE
