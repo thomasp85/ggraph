@@ -1,0 +1,19 @@
+Package: ggraph
+Type: Package
+Title: An Implementation of Grammar of Graphics for Graphs and Networks
+Version: 0.0.1
+Date: 2016-01-11
+Author: Thomas Lin Pedersen
+Maintainer: Thomas Lin Pedersen <thomasp85@gmail.com>
+Description: More about what it does (maybe more than one line)
+License: GPL (>=2)
+LazyData: TRUE
+Imports: 
+    Rcpp (>= 0.12.2),
+    dplyr,
+    ggforce,
+    grid,
+    igraph
+LinkingTo: Rcpp
+RoxygenNote: 5.0.1
+Depends: ggplot2 (>= 2.0.0)
