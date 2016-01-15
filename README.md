@@ -79,9 +79,37 @@ ggraph(graph = gr, layout = 'fr') +
 ![Dendrogram](https://dl.dropboxusercontent.com/u/2323585/ggraph/hairball1.png)
 
 ### Scope
-The plan is that ggraph should support all types of graph related visulaization;
-not just hairballs and trees - This means that treemaps, circle packing, 
+The plan is that ggraph should support all types of graph related visualization;
+not just hairballs and trees. This means that treemaps, circle packing, 
 sunburst, hive plots etc. will all find their place in ggraph. For a start I'll
 draw inspiration from the vast library of graph visualizations available in 
 D3.js, but if someone has a specific visualization approach they feel strongly 
 for file an issue or a PR.
+
+#### Roadmap
+**Layouts**
+- H-tree
+- Treemap
+- Sunburst / icicle
+- Circle packing
+- Hive plots
+- Matrix plot
+- Sorted linear (for arc diagrams etc)
+- Sankey diagram (maybe - undecided if it fits in ggraph)
+- Dendrogramix
+
+**Connecions**
+- Hierarchical Edge bundling (migrate from ggforce)
+
+**geom_node_**
+- density
+- shape
+
+**geom_edge_**
+- diagonal
+- arc
+- density
+
+**Other stuff**
+- guide.edge
+- scale_edge_... (all the regular scales)
