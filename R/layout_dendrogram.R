@@ -25,7 +25,7 @@ getEdges.layout_dendrogram <- function(layout) {
     edges$edgePar <- NULL
     edges <- cbind(edges, extraPar)
     edges$circular <- attr(layout, 'circular')
-    checkEdges(addEdgeCoordinates(edges, layout))
+    edges
 }
 #' @importFrom dplyr bind_rows
 #' @importFrom ggforce radial_trans

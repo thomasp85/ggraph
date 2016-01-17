@@ -26,7 +26,7 @@ createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
 getEdges.layout_igraph <- function(layout) {
     edges <- as_data_frame(attr(layout, 'graph'), 'edges')
     edges$circular <- attr(layout, 'circular')
-    checkEdges(addEdgeCoordinates(edges, layout))
+    edges
 }
 #' @importFrom igraph layout_as_bipartite layout_as_star layout_as_tree layout_in_circle layout_nicely layout_with_dh layout_with_drl layout_with_gem layout_with_graphopt layout_on_grid layout_with_mds layout_with_sugiyama layout_on_sphere layout_randomly layout_with_fr layout_with_kk layout_with_lgl
 #' @importFrom igraph vertex_attr
