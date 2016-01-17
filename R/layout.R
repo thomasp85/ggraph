@@ -24,14 +24,29 @@ getEdges <- function(layout) {
 }
 #' @export
 getEdges.default <- function(layout) {
-    checkEdges(attr(layout, 'edges'))
+    attr(layout, 'edges')
 }
-checkEdges <- function(edges) {
+checkShortEdges <- function(edges) {
     if (!inherits(edges, 'data.frame')) {
         stop('edges must by of class data.frame', call. = FALSE)
     }
     if (!all(c('from', 'to', 'x', 'y', 'xend', 'yend', 'circular') %in% names(edges))) {
         stop('edges must contain the columns from, to, x, y, xend, yend and circular', call. = FALSE)
+    }
+    if (!is.logical(edges$circular)) {
+        stop('circular column must be logical', call. = FALSE)
+    }
+    edges
+}
+checkLongEdges <- function(edges) {
+    if (!inherits(edges, 'data.frame')) {
+        stop('edges must by of class data.frame', call. = FALSE)
+    }
+    if (!all(c('edge.id', 'node', 'x', 'y', 'circular') %in% names(edges))) {
+        stop('edges must contain the columns edge.id, node, x, y and circular', call. = FALSE)
+    }
+    if (all(range(table(edges$edge.id)) == 2)) {
+        stop('Each edge must consist of two rows')
     }
     if (!is.logical(edges$circular)) {
         stop('circular column must be logical', call. = FALSE)
