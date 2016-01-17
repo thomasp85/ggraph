@@ -11,3 +11,20 @@ eAngle <- function(x, y, xend, yend, degrees = TRUE) {
     y <- yend - y
     nAngle(x, y, degrees)
 }
+#' @importFrom scales rescale_mid
+mid_rescaler <- function(mid) {
+    function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
+        rescale_mid(x, to, from, mid)
+    }
+}
+manual_scale <- function(aesthetic, values, ...) {
+    pal <- function(n) {
+        if (n > length(values)) {
+            stop("Insufficient values in manual scale. ", n,
+                 " needed but only ", length(values), " provided.",
+                 call. = FALSE)
+        }
+        values
+    }
+    discrete_scale(aesthetic, "manual", pal, ...)
+}
