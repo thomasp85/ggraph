@@ -26,3 +26,17 @@ geom_edge_link2 <- function(mapping = NULL, data = gEdges('long'), stat = "link2
           params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n = n, interpolate = TRUE, ...)
     )
 }
+#' @importFrom ggplot2 layer aes
+#' @importFrom ggforce StatLink2
+#' @export
+geom_edge_link0 <- function(mapping = NULL, data = gEdges(), stat = "identity",
+                            position = "identity", arrow = NULL,
+                            lineend = "butt", na.rm = FALSE, show.legend = NA,
+                            inherit.aes = TRUE, ...) {
+    mapping <- completeEdgeAes(mapping)
+    mapping <- aesIntersect(mapping, aes(x=x, y=y, xend=xend, yend=yend))
+    layer(data = data, mapping = mapping, stat = stat, geom = GeomEdgeSegment,
+          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+          params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
+    )
+}
