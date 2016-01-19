@@ -71,5 +71,7 @@ scale_edge_fill_identity <- function(..., guide = "none") {
 scale_edge_fill_manual <- function(..., values) {
     manual_scale("edge_fill", values, ...)
 }
+#' @export
 scale_edge_fill_continuous <- scale_edge_fill_gradient
+#' @export
 scale_edge_fill_discrete <- scale_edge_fill_hue
