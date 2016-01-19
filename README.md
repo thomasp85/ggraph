@@ -103,13 +103,14 @@ for file an issue or a PR.
 
 **geom_node_**
 - density
-- shape
+- box
 
 **geom_edge_**
 - diagonal
-- arc
+- fan
 - density
 
 **Other stuff**
 - guide.edge
-- scale_edge_... (all the regular scales)
+- layout based on subset of edges
+- 

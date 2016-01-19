@@ -86,6 +86,34 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
     default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
                     edge_alpha = NA)
 )
+#' @importFrom ggplot2 GeomSegment ggproto zeroGrob alpha aes
+#' @importFrom grid gpar segmentsGrob
+#' @export
+GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
+    draw_panel = function(data, panel_scales, coord, arrow = NULL, lineend = "butt",
+                          na.rm = FALSE) {
+        if (is.null(data) || nrow(data) == 0 || ncol(data) == 0)
+            return(zeroGrob())
+        coord <- coord$transform(data, panel_scales)
+        segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
+                     default.units = "native",
+                     gp = gpar(col = alpha(coord$edge_colour, coord$edge_alpha),
+                               fill = alpha(coord$edge_colour, coord$edge_alpha),
+                               lwd = coord$edge_width * .pt,
+                               lty = coord$edge_linetype,
+                               lineend = lineend),
+                     arrow = arrow)
+    },
+    draw_key = function(data, params, size) {
+        segmentsGrob(0.1, 0.5, 0.9, 0.5,
+                     gp = gpar(col = alpha(data$edge_colour, data$edge_alpha),
+                               lwd = data$edge_width * .pt,
+                               lty = data$edge_linetype, lineend = "butt"),
+                     arrow = params$arrow)
+    },
+    default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
+                      edge_alpha = NA)
+)
 #' @importFrom ggplot2 ggproto Stat
 #' @importFrom grid arcCurvature
 #' @export

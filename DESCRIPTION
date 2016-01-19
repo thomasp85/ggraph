@@ -14,7 +14,8 @@ Imports:
     ggforce,
     grid,
     igraph (>= 1.0.0),
-    scales
+    scales,
+    MASS
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Depends: ggplot2 (>= 2.0.0)
