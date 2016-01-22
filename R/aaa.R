@@ -1,8 +1,14 @@
 #' @importFrom ggplot2 ggproto StatIdentity
 #' @export
 StatFilter <- ggproto('StatFilter', StatIdentity,
-    compute_layer = function(data, scales, params) {
-        data[data$filter, ]
+    setup_data = function(data, params) {
+        if (any(names(data) == 'filter')) {
+            if (!is.logical(data$filter)) {
+                stop('filter must be logical')
+            }
+            data <- data[data$filter, names(data) != 'filter']
+        }
+        data
     }
 )
 
