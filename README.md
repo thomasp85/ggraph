@@ -91,7 +91,6 @@ for file an issue or a PR.
 
 #### Roadmap
 **Layouts**
-- H-tree
 - Treemap
 - Sunburst / icicle
 - Circle packing
@@ -99,6 +98,7 @@ for file an issue or a PR.
 - Matrix plot
 - Sorted linear (for arc diagrams etc)
 - Sankey diagram (maybe - undecided if it fits in ggraph)
+- H-tree
 
 **Connecions**
 - Hierarchical Edge bundling (migrate from ggforce)
