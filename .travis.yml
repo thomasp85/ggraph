@@ -1,0 +1,8 @@
+# Sample .travis.yml for R projects
+
+language: r
+warnings_are_errors: false
+sudo: required
+r_github_packages:
+ - thomasp85/ggplot2@patch-2
+ - thomasp85/ggforce

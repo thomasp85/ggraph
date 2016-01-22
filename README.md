@@ -1,6 +1,8 @@
 # ggraph
 */dʒiː.dʒɪˈrɑːf/*  (or g-giraffe)
 
+[![Travis-CI Build Status](https://travis-ci.org/thomasp85/ggraph.svg?branch=master)](https://travis-ci.org/thomasp85/ggraph)
+
 ### What it is
 ggraph is an extension of ggplot2 tailored at plotting graph-like data 
 structures (graphs, networks, trees, hierarchies...). It is not a graph plotting
