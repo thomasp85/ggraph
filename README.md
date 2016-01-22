@@ -30,7 +30,8 @@ devtools::install_github('thomasp85/ggraph')
 
 ### Examples
 Currently ggraph understands dendrogram and igraph objects. Others might be
-added in the future, but until then see if your object is convertible into one
+added in the future (please file an issue if there is a particular class you
+want supported), but until then see if your object is convertible into one
 of the two.
 
 #### Dendrogram
@@ -96,21 +97,20 @@ for file an issue or a PR.
 - Matrix plot
 - Sorted linear (for arc diagrams etc)
 - Sankey diagram (maybe - undecided if it fits in ggraph)
-- Dendrogramix
 
 **Connecions**
 - Hierarchical Edge bundling (migrate from ggforce)
+- geom_edge_trace
+- geom_edge_connect
 
 **geom_node_**
 - density
 - box
 
 **geom_edge_**
-- diagonal
-- fan
-- density
+- arc
 
 **Other stuff**
 - guide.edge
+- guide.colorbar with support for edge aesthetics
 - layout based on subset of edges
-- 
