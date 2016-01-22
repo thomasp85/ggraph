@@ -115,6 +115,30 @@ GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
                       edge_alpha = NA)
 )
 #' @importFrom ggplot2 ggproto Stat
+#' @importFrom ggforce GeomBezier0
+#' @export
+GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
+    draw_panel = function(data, panel_scales, coord, arrow = NULL,
+                          lineend = "butt", linejoin = "round", linemitre = 1,
+                          na.rm = FALSE) {
+        names(data) <- sub('edge_', '', names(data))
+        names(data)[names(data) == 'width'] <- 'size'
+        GeomBezier0$draw_panel(data, panel_scales, coord, arrow, lineend, linejoin, linemitre, na.rm)
+    },
+    draw_key = function(data, params, size) {
+        segmentsGrob(0.1, 0.5, 0.9, 0.5,
+                     gp = gpar(col = alpha(data$edge_colour, data$edge_alpha),
+                               lwd = data$edge_width * .pt,
+                               lty = data$edge_linetype, lineend = "butt"),
+                     arrow = params$arrow)
+    },
+    default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
+                      edge_alpha = NA),
+    handle_na = function(data, ...) {
+        data
+    }
+)
+#' @importFrom ggplot2 ggproto Stat
 #' @importFrom grid arcCurvature
 #' @export
 StatEdgeCurve <- ggproto('StatEdgeCurve', Stat,
@@ -161,65 +185,4 @@ geom_edge_curve <- function(mapping = NULL, data = NULL, stat = "edge_curve",
           position = position, show.legend = show.legend, inherit.aes = inherit.aes,
           params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, ...)
     )
-}
-#' @export
-gEdges <- function(format = 'short', nodeFilter = NULL, nodePar = NULL) {
-    function(layout) {
-        edges <- getEdges(layout)
-        if (!is.null(nodeFilter)) {
-            keep <- with(
-                list(node1 = layout[edges$from, ], node2 = layout[edges$to, ]),
-                nodeFilter
-            )
-            edges <- edges[keep, ]
-        }
-        edges <- switch(
-            format,
-            short = formatShortEdges(edges, layout, nodePar),
-            long = formatLongEdges(edges, layout, nodePar),
-            stop('Unknown format. Use either "short" or "long"')
-        )
-        edges
-    }
-}
-formatShortEdges <- function(edges, layout, nodePar) {
-    edges <- addEdgeCoordinates(edges, layout)
-    if (!is.null(nodePar)) {
-        nodes1 <- layout[edges$from, nodePar, drop = FALSE]
-        names(nodes1) <- paste0('node1.', names(nodes1))
-        nodes2 <- layout[edges$to, nodePar, drop = FALSE]
-        names(nodes2) <- paste0('node2.', names(nodes2))
-        edges <- cbind(edges, nodes1, nodes2)
-    }
-    rownames(edges) <- NULL
-    checkShortEdges(edges)
-}
-formatLongEdges <- function(edges, layout, nodePar) {
-    from <- cbind(edge.id = seq_len(nrow(edges)),
-                  node = edges$from,
-                  layout[edges$from, c('x', 'y')],
-                  edges[, !names(edges) %in% c('from', 'to'), drop = FALSE])
-    to <- cbind(edge.id = seq_len(nrow(edges)),
-                node = edges$to,
-                layout[edges$to, c('x', 'y')],
-                edges[, !names(edges) %in% c('from', 'to'), drop = FALSE])
-    edges <- rbind(from, to)
-    if (!is.null(nodePar)) {
-        node <- layout[edges$node, nodePar, drop = FALSE]
-        names(node) <- paste0('node.', names(node))
-        edges <- cbind(edges, node)
-    }
-    rownames(edges) <- NULL
-    edges[order(edges$edge.id), ]
-}
-completeEdgeAes <- function(aesthetics) {
-    if (is.null(aesthetics)) return(aesthetics)
-    if (any(names(aesthetics) == 'color')) {
-        names(aesthetics)[names(aesthetics) == 'color'] <- 'colour'
-    }
-    shortNames <- names(aesthetics) %in% c(
-        'colour', 'fill', 'linetype', 'shape', 'size', 'width'
-    )
-    names(aesthetics)[shortNames] <- paste0('edge_', names(aesthetics)[shortNames])
-    aesthetics
 }
