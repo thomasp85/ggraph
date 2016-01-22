@@ -66,7 +66,15 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
         }
         paths[order(paths$group), ]
     },
-
+    setup_data = function(data, params) {
+        if (any(names(data) == 'filter')) {
+            if (!is.logical(data$filter)) {
+                stop('filter must be logical')
+            }
+            data <- data[data$filter, names(data) != 'filter']
+        }
+        data
+    },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction')
 )
 #' @importFrom ggplot2 layer aes
@@ -103,6 +111,15 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
             }
         }
         newData
+    },
+    setup_data = function(data, params) {
+        if (any(names(data) == 'filter')) {
+            if (!is.logical(data$filter)) {
+                stop('filter must be logical')
+            }
+            data <- data[data$filter, names(data) != 'filter']
+        }
+        data
     },
     required_aes = c('x', 'y', 'group', 'circular', 'direction')
 )
@@ -172,6 +189,15 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
             paths <- pathCirc
         }
         paths[order(paths$group), ]
+    },
+    setup_data = function(data, params) {
+        if (any(names(data) == 'filter')) {
+            if (!is.logical(data$filter)) {
+                stop('filter must be logical')
+            }
+            data <- data[data$filter, names(data) != 'filter']
+        }
+        data
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction')
 )

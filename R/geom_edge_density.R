@@ -22,6 +22,15 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
         names(df) <- c("x", "y", "density", "group")
         df
     },
+    setup_data = function(data, params) {
+        if (any(names(data) == 'filter')) {
+            if (!is.logical(data$filter)) {
+                stop('filter must be logical')
+            }
+            data <- data[data$filter, names(data) != 'filter']
+        }
+        data
+    },
     required_aes = c('x', 'y', 'xend', 'yend')
 )
 #' @importFrom ggplot2 ggproto GeomRaster alpha
