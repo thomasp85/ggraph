@@ -21,10 +21,14 @@ createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
     )
     checkLayout(layout)
 }
-#' @importFrom igraph as_data_frame
+#' @importFrom igraph as_data_frame V
 #' @export
 getEdges.layout_igraph <- function(layout) {
     edges <- as_data_frame(attr(layout, 'graph'), 'edges')
+    if (is.character(edges$from)) {
+        edges$from <- match(edges$from, V(gr)$name)
+        edges$to <- match(edges$to, V(gr)$name)
+    }
     edges$circular <- attr(layout, 'circular')
     edges
 }
