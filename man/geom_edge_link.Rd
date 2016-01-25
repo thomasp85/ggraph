@@ -135,6 +135,6 @@ Thomas Lin Pedersen
 Other geom_edge_*: \code{\link{geom_edge_density}},
   \code{\link{geom_edge_diagonal}},
   \code{\link{geom_edge_elbow}},
-  \code{\link{geom_edge_fan}}
+  \code{\link{geom_edge_fan}}, \code{\link{geom_edge_loop}}
 }
 

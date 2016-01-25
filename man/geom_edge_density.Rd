@@ -88,6 +88,8 @@ Thomas Lin Pedersen
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_diagonal}},
   \code{\link{geom_edge_elbow}},
-  \code{\link{geom_edge_fan}}, \code{\link{geom_edge_link}}
+  \code{\link{geom_edge_fan}},
+  \code{\link{geom_edge_link}},
+  \code{\link{geom_edge_loop}}
 }
 
