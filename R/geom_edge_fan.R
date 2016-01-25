@@ -222,21 +222,7 @@ geom_edge_fan2 <- function(mapping = NULL, data = gEdges('long'),
 #' @export
 StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
     setup_data = function(data, params) {
-        if (any(names(data) == 'filter')) {
-            if (!is.logical(data$filter)) {
-                stop('filter must be logical')
-            }
-            data <- data[data$filter, names(data) != 'filter']
-        }
-        data$group <- seq_len(nrow(data))
-        data2 <- data
-        data2$x <- data2$xend
-        data2$y <- data2$yend
-        data$xend <- NULL
-        data$yend <- NULL
-        data2$xend <- NULL
-        data2$yend <- NULL
-        createFans(data, data2, params)
+        StatEdgeFan$setup_data(data, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),
     extra_params = c('na.rm', 'spread')
