@@ -215,6 +215,58 @@ layout_igraph_manual <- function(graph, node.positions, circular) {
     layout$circular <- FALSE
     layout
 }
+#' Place nodes on a line or circle
+#'
+#' This layout puts all nodes on a line, possibly sorted by a node attribute. If
+#' \code{circular = TRUE} the nodes will be laid out on the unit circle instead.
+#' In the case where the \code{sort.by} attribute is numeric, the numeric values
+#' will be used as the x-position and it is thus possible to have uneven spacing
+#' between the nodes.
+#'
+#' @param graph An igraph object
+#'
+#' @param circular Logical. Should the layout be transformed to a circular
+#' representation. Defaults to \code{FALSE}.
+#'
+#' @param sort.by The name of a vertex attribute to sort the nodes by.
+#'
+#' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
+#' \code{pi/2} which is equivalent to 12 o'clock.
+#'
+#' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} as
+#' well as any information stored as vertex attributes on the igraph object.
+#'
+#' @importFrom igraph vertex_attr_names vertex_attr gorder
+#'
+layout_igraph_linear <- function(graph, circular, sort.by = NULL, offset = pi/2) {
+    if (!is.null(sort.by)) {
+        if (!sort.by %in% vertex_attr_names(graph)) {
+            stop('sort.by must be a vertex attribute of the graph')
+        }
+        sort.by <- vertex_attr(graph, sort.by)
+        if (is.numeric(sort.by)) {
+            x <- sort.by
+        } else {
+            x <- order(sort.by)
+        }
+    } else {
+        x <- seq_len(gorder(graph))
+    }
+    nodes <- data.frame(x = x, y = 0)
+    if (circular) {
+        radial <- radial_trans(r.range = rev(range(nodes$y)),
+                               a.range = range(nodes$x),
+                               offset = offset)
+        coords <- radial$transform(nodes$y, nodes$x)
+        nodes$x <- coords$x
+        nodes$y <- coords$y
+    }
+    extraData <- as.data.frame(vertex_attr(graph))
+    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(nodes)))
+    nodes <- cbind(nodes, extraData)
+    nodes$circular <- circular
+    nodes
+}
 is.igraphlayout <- function(type) {
     if (type %in% igraphlayouts) {
         TRUE
