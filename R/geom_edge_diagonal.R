@@ -1,3 +1,130 @@
+#' Draw edges as diagonals
+#'
+#' This geom draws edges as diagonal bezier curves as known from
+#' \href{https://github.com/mbostock/d3/wiki/SVG-Shapes#_diagonal}{d3.svg.diagonal}.
+#' A diagonal in this context is a quadratic bezier with the control points
+#' positioned halfway between the start and end points but on the same axis.
+#' This produces a pleasing fan-in, fan-out line that is mostly relevant for
+#' heirarchical layouts as it implies an overall directionality in the plot.
+#'
+#' @details
+#' Many geom_edge_* layers comes in 3 flavors depending on the level of control
+#' needed over the drawing. The default (no numeric postfix) generate a number
+#' of points (\code{n}) along the edge and draws it as a path. Each point along
+#' the line has a numeric value associated with it giving the position along the
+#' path, and it is therefore possible to show the direction of the edge by
+#' mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
+#' "2" uses the "long" edge format (see \code{\link{gEdges}}) and makes it
+#' possible to interpolate node parameter between the start and end node along
+#' the edge. It is considerable less performant so should only be used if this
+#' is needed. The version postfixed with a "0" draws the edge in the most
+#' performant way, often directly using an appropriate grob from the grid
+#' package, but does not allow for gradients along the edge.
+#'
+#' @note In order to avoid excessive typing edge aesthetic names are
+#' automatically expanded. Because of this it is not necessary to write
+#' \code{edge_colour} within the \code{aes()} call as \code{colour} will
+#' automatically be renamed appropriately.
+#'
+#' @section Aesthetics:
+#' geom_edge_diagonal and geom_edge_diagonal0 understand the following
+#' aesthetics. Bold aesthetics are automatically set, but can be overridden.
+#' \itemize{
+#'  \item{\strong{x}}
+#'  \item{\strong{y}}
+#'  \item{\strong{xend}}
+#'  \item{\strong{yend}}
+#'  \item{\strong{circular}}
+#'  \item{edge_colour}
+#'  \item{edge_width}
+#'  \item{edge_linetype}
+#'  \item{edge_alpha}
+#'  \item{filter}
+#' }
+#' geom_edge_diagonal2 understand the following aesthetics. Bold aesthetics are
+#' automatically set, but can be overridden.
+#' \itemize{
+#'  \item{\strong{x}}
+#'  \item{\strong{y}}
+#'  \item{\strong{group}}
+#'  \item{\strong{circular}}
+#'  \item{edge_colour}
+#'  \item{edge_width}
+#'  \item{edge_linetype}
+#'  \item{edge_alpha}
+#'  \item{filter}
+#' }
+#'
+#' @section Computed variables:
+#'
+#' \describe{
+#'  \item{index}{The position along the path (not computed for the *0 version)}
+#' }
+#'
+#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
+#' or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+#' circular are mapped to x, y, xend, yend, edge.id and circular in the edge
+#' data.
+#'
+#' @param data The return of a call to \code{gEdges()} or a data.frame
+#' giving edges in corrent format (see details for for guidance on the format).
+#' See \code{\link{gEdges}} for more details on edge extraction.
+#'
+#' @param position Position adjustment, either as a string, or the result of a
+#' call to a position adjustment function. Currently no meaningful position
+#' adjustment exists for edges.
+#'
+#' @param n The number of points to create along the path.
+#'
+#' @param flipped Logical, Has the layout been flipped by reassigning the
+#' mapping of x, y etc?
+#'
+#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
+#'
+#' @param lineend Line end style (round, butt, square)
+#'
+#' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
+#' are three types of arguments you can use here:
+#' \itemize{
+#'  \item{Aesthetics: to set an aesthetic to a fixed value, like
+#'  \code{color = "red"} or \code{size = 3.}}
+#'  \item{Other arguments to the layer, for example you override the default
+#'  \code{stat} associated with the layer.}
+#'  \item{Other arguments passed on to the stat.}
+#' }
+#'
+#' @param show.legend logical. Should this layer be included in the legends?
+#' \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
+#' never includes, and \code{TRUE} always includes.
+#'
+#' @author Thomas Lin Pedersen
+#'
+#' @family geom_edge_*
+#'
+#' @examples
+#' require(igraph)
+#' gr <- make_tree(20, 4, 'out')
+#' E(gr)$class <- sample(letters[1:3], gsize(gr), replace = TRUE)
+#' V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
+#'
+#' ggraph(gr, 'igraph', type = 'tree') +
+#'   geom_edge_diagonal(aes(alpha = ..index..))
+#'
+#' ggraph(gr, 'igraph', type = 'tree') +
+#'   geom_edge_diagonal2(aes(colour = node.class),
+#'                       gEdges('long', nodePar = 'class'))
+#'
+#' ggraph(gr, 'igraph', type = 'tree') +
+#'   geom_edge_diagonal0(aes(colour = class))
+#'
+#' @rdname geom_edge_diagonal
+#' @name geom_edge_diagonal
+#'
+NULL
+
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier
 #' @export
@@ -22,19 +149,27 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
     extra_params = c('na.rm', 'flipped', 'n')
 )
-#' @importFrom ggplot2 layer aes
+#' @rdname geom_edge_diagonal
+#'
+#' @importFrom ggplot2 layer aes_
 #' @export
-geom_edge_diagonal <- function(mapping = NULL, data = gEdges(), stat = "edge_diagonal",
-                               position = "identity", arrow = NULL, flipped = FALSE,
-                               lineend = "butt", na.rm = FALSE, show.legend = NA,
-                               inherit.aes = TRUE, n = 100, ...) {
+geom_edge_diagonal <- function(mapping = NULL, data = gEdges(),
+                               position = "identity", arrow = NULL,
+                               flipped = FALSE, lineend = "butt",
+                               show.legend = NA, n = 100, ...) {
     mapping <- completeEdgeAes(mapping)
-    mapping <- aesIntersect(mapping, aes(x=x, y=y, xend=xend, yend=yend, circular=circular, direction=direction))
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomEdgePath,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n = n, interpolate = FALSE, flipped = flipped, ...)
+    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
+                                          circular=~circular))
+    layer(data = data, mapping = mapping, stat = StatEdgeDiagonal,
+          geom = GeomEdgePath, position = position, show.legend = show.legend,
+          inherit.aes = FALSE,
+          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+                        interpolate = FALSE, flipped = flipped, ...)
     )
 }
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce StatBezier2
 #' @export
@@ -51,22 +186,30 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
         data <- data[c(TRUE, FALSE), ]
         createDiagonal(data, data2, params)
     },
-    required_aes = c('x', 'y', 'group', 'circular', 'direction'),
+    required_aes = c('x', 'y', 'group', 'circular'),
     extra_params = c('na.rm', 'flipped', 'n')
 )
-#' @importFrom ggplot2 layer aes
+#' @rdname geom_edge_diagonal
+#'
+#' @importFrom ggplot2 layer aes_
 #' @export
-geom_edge_diagonal2 <- function(mapping = NULL, data = gEdges('long'), stat = "edge_diagonal2",
-                             position = "identity", arrow = NULL, flipped = FALSE,
-                             lineend = "butt", na.rm = FALSE, show.legend = NA,
-                             inherit.aes = TRUE, n = 100, ...) {
+geom_edge_diagonal2 <- function(mapping = NULL, data = gEdges('long'),
+                                position = "identity", arrow = NULL,
+                                flipped = FALSE, lineend = "butt",
+                                show.legend = NA, n = 100, ...) {
     mapping <- completeEdgeAes(mapping)
-    mapping <- aesIntersect(mapping, aes(x=x, y=y, group=edge.id, circular=circular, direction=direction))
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomEdgePath,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, n = n, interpolate = TRUE, flipped = flipped, ...)
+    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
+                                          circular=~circular))
+    layer(data = data, mapping = mapping, stat = StatEdgeDiagonal2,
+          geom = GeomEdgePath, position = position, show.legend = show.legend,
+          inherit.aes = FALSE,
+          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+                        interpolate = TRUE, flipped = flipped, ...)
     )
 }
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier0
 #' @export
@@ -91,17 +234,22 @@ StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
     extra_params = c('na.rm', 'flipped')
 )
-#' @importFrom ggplot2 layer aes
+#' @rdname geom_edge_diagonal
+#'
+#' @importFrom ggplot2 layer aes_
 #' @export
-geom_edge_diagonal0 <- function(mapping = NULL, data = gEdges(), stat = "edge_diagonal0",
-                             position = "identity", arrow = NULL, flipped = FALSE,
-                             lineend = "butt", na.rm = FALSE, show.legend = NA,
-                             inherit.aes = TRUE, ...) {
+geom_edge_diagonal0 <- function(mapping = NULL, data = gEdges(),
+                                position = "identity", arrow = NULL,
+                                flipped = FALSE, lineend = "butt",
+                                show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)
-    mapping <- aesIntersect(mapping, aes(x=x, y=y, xend=xend, yend=yend, circular=circular, direction=direction))
-    layer(data = data, mapping = mapping, stat = stat, geom = GeomEdgeBezier,
-          position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-          params = list(arrow = arrow, lineend = lineend, na.rm = na.rm, flipped = flipped, ...)
+    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
+                                          circular=~circular))
+    layer(data = data, mapping = mapping, stat = StatEdgeDiagonal0,
+          geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+          inherit.aes = FALSE,
+          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE,
+                        flipped = flipped, ...)
     )
 }
 

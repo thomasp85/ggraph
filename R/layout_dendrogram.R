@@ -1,4 +1,7 @@
+#' @rdname createLayout
+#'
 #' @export
+#'
 createLayout.dendrogram <- function(graph, layout, circular = FALSE, ...) {
     graph <- identifyNodes(graph)
     if (inherits(layout, 'function')) {
@@ -18,7 +21,6 @@ createLayout.dendrogram <- function(graph, layout, circular = FALSE, ...) {
     )
     checkLayout(layout)
 }
-#' @export
 getEdges.layout_dendrogram <- function(layout) {
     edges <- getConnections(attr(layout, 'graph'))
     extraPar <- bind_rows(lapply(edges$edgePar, as.data.frame, stringsAsFactors = FALSE))
@@ -27,8 +29,37 @@ getEdges.layout_dendrogram <- function(layout) {
     edges$circular <- attr(layout, 'circular')
     edges
 }
+#' Dendrogram layout for layout_dendrogram
+#'
+#' This layout positions the branches and leafs according to the values given in
+#' the \code{height} attribute of the dendrogram object. If \code{repel = FALSE}
+#' the layout is equivalent to the one shown with the plot function on
+#' dendrogram objects.
+#'
+#' @note This function is not intended to be used directly but by setting
+#' \code{layout = 'dendrogram'} in \code{\link{createLayout}}
+#'
+#' @param graph A dendrogram object.
+#'
+#' @param circular Logical. Should the layout be transformed to a circular
+#' representation. Defaults to \code{FALSE}.
+#'
+#' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
+#' \code{pi/2} which is equivalent to 12 o'clock.
+#'
+#' @param repel Logical. Should leafs be distanced from their neighbors as a
+#' function of their distance in the tree. Defaults to \code{FALSE}.
+#'
+#' @param ratio If \code{repel = TRUE}, the strength of the repelation. Defaults
+#' to 1.
+#'
+#' @return A data.frame with the columns \code{x}, \code{y}, \code{circular},
+#' \code{label}, \code{members}, \code{leaf} as well as any value stored in the
+#' nodePar attribute of the dendrogram.
+#'
 #' @importFrom dplyr bind_rows
 #' @importFrom ggforce radial_trans
+#'
 layout_dendrogram_dendrogram <- function(graph, circular = FALSE, offset = pi/2, repel = FALSE, ratio = 1) {
     if (repel) {
         heights <- getHeights(graph)
@@ -57,8 +88,25 @@ layout_dendrogram_dendrogram <- function(graph, circular = FALSE, offset = pi/2,
     layout$circular <- circular
     layout[, !names(layout) %in% c('ggraph.id')]
 }
+#' Even layout for layout_dendrogram
+#'
+#' This layout sets the heights of the branch points to be the maximum distance
+#' to a leaf. In this way the branch points are spread out evenly in the
+#' y-direction. After modifying the height it calls
+#' \code{\link{layout_dendrogram_dendrogram}}.
+#'
+#' @note This function is not intended to be used directly but by setting
+#' \code{layout = 'even'} in \code{\link{createLayout}}
+#'
+#' @param graph A dendrogram object
+#'
+#' @param ... parameters passed on to \code{\link{layout_dendrogram_dendrogram}}
+#'
+#' @return A data.frame as \code{\link{layout_dendrogram_dendrogram}}
+#'
 #' @importFrom dplyr bind_rows
 #' @importFrom ggforce radial_trans
+#'
 layout_dendrogram_even <- function(graph, ...) {
     graph <- spreadHeights(graph)
     layout_dendrogram_dendrogram(graph, ...)

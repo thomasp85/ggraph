@@ -1,25 +1,63 @@
+#' Edge size scales
+#'
+#' This set of scales defines new size scales for edge geoms equivalent to the
+#' ones already defined by ggplot2. See \code{\link[ggplot2]{scale_size}} for
+#' more information. The different geoms will know whether to use edge scales or
+#' the standard scales so it is not necessary to write \code{edge_size} in
+#' the call to the geom - just use \code{size}.
+#'
+#' @note In ggplot2 size conflates both line width and point size into one
+#' scale. In ggraph there is also a width scale (\code{\link{scale_edge_width}})
+#' that is used for linewidth. As edges are often represented by lines the width
+#' scale is the most common.
+#'
+#' @param ... Other arguments passed on to
+#' \code{\link[ggplot2]{continuous_scale}} or
+#' \code{\link[ggplot2]{discrete_scale}} as appropriate, to control name,
+#' limits, breaks, labels and so forth.
+#'
+#' @param range Range of output size values.
+#'
+#' @param max_size Size of largest point
+#'
+#' @param values A set of aesthetic values to map data values to. If this is a
+#' named vector, then the values will be matched based on the names. If unnamed,
+#' values will be matched in order (usually alphabetical) with the limits of the
+#' scale. Any data values that don't match will be given na.value.
+#'
+#' @param guide Guide to use for this scale.
+#'
+#' @return A ggproto object inheriting from \code{Scale}
+#'
+#' @family scale_edge_*
+#'
+#' @name scale_edge_size
+#' @rdname scale_edge_size
+#'
+NULL
+
+#' @rdname scale_edge_size
+#'
 #' @importFrom ggplot2 waiver continuous_scale
 #' @importFrom scales area_pal
 #' @export
-scale_edge_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                                  limits = NULL, range = c(1, 6),
-                                  trans = "identity", guide = "legend") {
-    continuous_scale("edge_size", "area", area_pal(range), name = name,
-                     breaks = breaks, labels = labels, limits = limits, trans = trans,
-                     guide = guide)
+scale_edge_size_continuous <- function(..., range = c(1, 6)) {
+    continuous_scale("edge_size", "area", area_pal(range), ...)
 }
+#' @rdname scale_edge_size
+#'
 #' @importFrom ggplot2 waiver continuous_scale
 #' @importFrom scales rescale_pal
 #' @export
-scale_edge_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                         limits = NULL, range = c(1, 6),
-                         trans = "identity", guide = "legend") {
-    continuous_scale("edge_size", "radius", rescale_pal(range), name = name,
-                     breaks = breaks, labels = labels, limits = limits, trans = trans,
-                     guide = guide)
+scale_edge_radius <- function(..., range = c(1, 6)) {
+    continuous_scale("edge_size", "radius", rescale_pal(range), ...)
 }
+#' @rdname scale_edge_size
+#'
 #' @export
 scale_edge_size <- scale_edge_size_continuous
+#' @rdname scale_edge_size
+#'
 #' @importFrom ggplot2 discrete_scale
 #' @importFrom scales rescale_pal
 #' @export
@@ -29,6 +67,8 @@ scale_edge_size_discrete <- function(..., range = c(2, 6)) {
         sqrt(area)
     }, ...)
 }
+#' @rdname scale_edge_size
+#'
 #' @importFrom ggplot2 waiver continuous_scale
 #' @importFrom scales abs_area rescale_max
 #' @export
@@ -37,10 +77,14 @@ scale_edge_size_area <- function(..., max_size = 6) {
                      palette = abs_area(max_size),
                      rescaler = rescale_max, ...)
 }
+#' @rdname scale_edge_size
+#'
 #' @export
 scale_edge_size_manual <- function(..., values) {
     manual_scale("edge_size", values, ...)
 }
+#' @rdname scale_edge_size
+#'
 #' @importFrom ggplot2 discrete_scale ScaleDiscreteIdentity
 #' @importFrom scales identity_pal
 #' @export

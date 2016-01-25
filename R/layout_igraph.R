@@ -1,4 +1,7 @@
+#' @rdname createLayout
+#'
 #' @export
+#'
 createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
     if (inherits(layout, 'function')) {
         layout <- layout(graph, circular = circular, ...)
@@ -22,9 +25,10 @@ createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
     checkLayout(layout)
 }
 #' @importFrom igraph as_data_frame V
-#' @export
+#'
 getEdges.layout_igraph <- function(layout) {
-    edges <- as_data_frame(attr(layout, 'graph'), 'edges')
+    gr <- attr(layout, 'graph')
+    edges <- igraph::as_data_frame(gr, 'edges')
     if (is.character(edges$from)) {
         edges$from <- match(edges$from, V(gr)$name)
         edges$to <- match(edges$to, V(gr)$name)
@@ -32,9 +36,45 @@ getEdges.layout_igraph <- function(layout) {
     edges$circular <- attr(layout, 'circular')
     edges
 }
+#' Use igraph layout algorithms for layout_igraph
+#'
+#' This layout function makes it easy to apply one of the layout algorithms
+#' supplied in igraph when plotting with ggraph. Layout names are auto completed
+#' so there is no need to write \code{layout_with_graphopt} or
+#' \code{layout_as_tree}, just \code{graphopt} and \code{tree} (though the
+#' former will also work if you want to be super explicit). Circular layout is
+#' only supported for tree-like layout (\code{tree} and \code{sugiyama}) and
+#' will throw an error when applied to other layouts.
+#'
+#' @note This function is not intended to be used directly but by setting
+#' \code{layout = 'igraph'} in \code{\link{createLayout}}
+#'
+#' @param graph An igraph object.
+#'
+#' @param type The type of layout algorithm to apply. See
+#' \code{\link[igraph]{layout_}} for links to the layouts supplied by igraph.
+#'
+#' @param circular Logical. Should the layout be transformed to a circular
+#' representation. Defaults to \code{FALSE}. Only applicable to
+#' \code{type = 'tree'} and \code{type = 'sugiyama'}.
+#'
+#' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
+#' \code{pi/2} which is equivalent to 12 o'clock.
+#'
+#' @param use.dummy Logical. In the case of \code{type = 'sugiyama'} should the
+#' dummy-infused graph be used rather than the original. Defaults to
+#' \code{FALSE}.
+#'
+#' @param ... Arguments passed on to the respective layout functions
+#'
+#' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} as
+#' well as any information stored as vertex attributes on the igraph object.
+#'
 #' @importFrom igraph layout_as_bipartite layout_as_star layout_as_tree layout_in_circle layout_nicely layout_with_dh layout_with_drl layout_with_gem layout_with_graphopt layout_on_grid layout_with_mds layout_with_sugiyama layout_on_sphere layout_randomly layout_with_fr layout_with_kk layout_with_lgl
 #' @importFrom igraph vertex_attr
-layout_igraph_igraph <- function(graph, type, circular, use.dummy = FALSE, ...) {
+#'
+layout_igraph_igraph <- function(graph, type, circular, offset = pi/2,
+                                 use.dummy = FALSE, ...) {
     type <- as.igraphlayout(type)
     layout <- do.call(type, list(graph, ...))
     if (type == 'layout_with_sugiyama') {
@@ -62,7 +102,33 @@ layout_igraph_igraph <- function(graph, type, circular, use.dummy = FALSE, ...) 
     layout$circular <- circular
     layout
 }
+#' Apply a dendrogram layout to layout_igraph
+#'
+#' This layout mimicks the \code{\link[igraph]{layout_as_tree}} algorithm
+#' supplied by igraph, but puts all leaves at 0 and builds it up from there,
+#' instead of starting from the root and building it from there. The height of
+#' branch points are related to the maximum distance to an edge from the branch
+#' node.
+#'
+#' @note This function is not intended to be used directly but by setting
+#' \code{layout = 'dendrogram'} in \code{\link{createLayout}}
+#'
+#' @param graph An igraph object
+#'
+#' @param circular Logical. Should the layout be transformed to a circular
+#' representation. Defaults to \code{FALSE}.
+#'
+#' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
+#' \code{pi/2} which is equivalent to 12 o'clock.
+#'
+#' @param direction The direction to the leaves. Defaults to 'out'
+#'
+#' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} and
+#' \code{leaf} as well as any information stored as vertex attributes on the
+#' igraph object.
+#'
 #' @importFrom igraph gorder degree neighbors
+#'
 layout_igraph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, direction = 'out') {
     reverseDir <- if (direction == 'out') 'in' else 'out'
     nodes <- data.frame(
@@ -111,7 +177,24 @@ layout_igraph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, dir
     nodes$circular <- circular
     nodes
 }
+#' Manually specify a layout for layout_igraph
+#'
+#' This layout function lets you pass the node positions in manually. Each row
+#' in the supplied data frame will correspond to a vertex in the igraph object
+#' matched by index.
+#'
+#' @param graph An igraph object
+#'
+#' @param node.positions A data.frame with the columns \code{x} and \code{y}
+#' (additional columns are ignored).
+#'
+#' @param circular Ignored
+#'
+#' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} as
+#' well as any information stored as vertex attributes on the igraph object.
+#'
 #' @importFrom igraph gorder vertex_attr
+#'
 layout_igraph_manual <- function(graph, node.positions, circular) {
     if (circular) {
         warning('circular argument ignored for manual layout')
@@ -127,7 +210,7 @@ layout_igraph_manual <- function(graph, node.positions, circular) {
     }
     layout <- data.frame(x = node.positions$x, y = node.positions$y)
     extraData <- as.data.frame(vertex_attr(graph))
-    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(nodes)))
+    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(layout)))
     layout <- cbind(layout, extraData)
     layout$circular <- FALSE
     layout
