@@ -111,6 +111,9 @@ for file an issue or a PR.
 
 **geom_edge_**
 - arc
+- text
+- tile (for matrix representations mainly)
+- point (for matrix representations mainly)
 
 **Other stuff**
 - guide.edge
