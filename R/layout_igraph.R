@@ -230,6 +230,10 @@ layout_igraph_manual <- function(graph, node.positions, circular) {
 #'
 #' @param sort.by The name of a vertex attribute to sort the nodes by.
 #'
+#' @param use.numeric Logical. Should a numeric sort.by attribute be used as the
+#' actual x-coordinates in the layout. May lead to overlapping nodes. Defaults
+#' to FALSE
+#'
 #' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
 #' \code{pi/2} which is equivalent to 12 o'clock.
 #'
@@ -238,16 +242,16 @@ layout_igraph_manual <- function(graph, node.positions, circular) {
 #'
 #' @importFrom igraph vertex_attr_names vertex_attr gorder
 #'
-layout_igraph_linear <- function(graph, circular, sort.by = NULL, offset = pi/2) {
+layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = FALSE, offset = pi/2) {
     if (!is.null(sort.by)) {
         if (!sort.by %in% vertex_attr_names(graph)) {
             stop('sort.by must be a vertex attribute of the graph')
         }
         sort.by <- vertex_attr(graph, sort.by)
-        if (is.numeric(sort.by)) {
+        if (is.numeric(sort.by) && use.numeric) {
             x <- sort.by
         } else {
-            x <- order(sort.by)
+            x <- order(order(sort.by))
         }
     } else {
         x <- seq_len(gorder(graph))

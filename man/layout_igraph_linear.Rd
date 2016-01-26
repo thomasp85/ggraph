@@ -4,7 +4,8 @@
 \alias{layout_igraph_linear}
 \title{Place nodes on a line or circle}
 \usage{
-layout_igraph_linear(graph, circular, sort.by = NULL, offset = pi/2)
+layout_igraph_linear(graph, circular, sort.by = NULL, use.numeric = FALSE,
+  offset = pi/2)
 }
 \arguments{
 \item{graph}{An igraph object}
@@ -13,6 +14,10 @@ layout_igraph_linear(graph, circular, sort.by = NULL, offset = pi/2)
 representation. Defaults to \code{FALSE}.}
 
 \item{sort.by}{The name of a vertex attribute to sort the nodes by.}
+
+\item{use.numeric}{Logical. Should a numeric sort.by attribute be used as the
+actual x-coordinates in the layout. May lead to overlapping nodes. Defaults
+to FALSE}
 
 \item{offset}{If \code{circular = TRUE}, where should it begin. Defaults to
 \code{pi/2} which is equivalent to 12 o'clock.}
