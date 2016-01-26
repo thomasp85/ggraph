@@ -95,7 +95,7 @@ scale_edge_colour_brewer <- function(..., type = "seq", palette = 1, direction =
 #' @importFrom ggplot2 continuous_scale
 #' @importFrom scales gradient_n_pal brewer_pal
 #' @export
-scale_edge_colour_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar") {
+scale_edge_colour_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "edge_colourbar") {
     # warn about using a qualitative brewer palette to generate the gradient
     type <- match.arg(type, c("seq", "div", "qual"))
     if (type == "qual") {
@@ -110,7 +110,7 @@ scale_edge_colour_distiller <- function(..., type = "seq", palette = 1, directio
 #' @importFrom ggplot2 continuous_scale
 #' @importFrom scales seq_gradient_pal
 #' @export
-scale_edge_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50", guide = "colourbar") {
+scale_edge_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50", guide = "edge_colourbar") {
     continuous_scale("edge_colour", "gradient", seq_gradient_pal(low, high, space),
                      na.value = na.value, guide = guide, ...)
 }
@@ -119,7 +119,7 @@ scale_edge_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", s
 #' @importFrom ggplot2 continuous_scale
 #' @importFrom scales div_gradient_pal muted
 #' @export
-scale_edge_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "Lab", na.value = "grey50", guide = "colourbar") {
+scale_edge_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "Lab", na.value = "grey50", guide = "edge_colourbar") {
     continuous_scale("edge_colour", "gradient2",
                      div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
                      rescaler = mid_rescaler(mid = midpoint))
@@ -129,7 +129,7 @@ scale_edge_colour_gradient2 <- function(..., low = muted("red"), mid = "white", 
 #' @importFrom ggplot2 continuous_scale
 #' @importFrom scales gradient_n_pal
 #' @export
-scale_edge_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "colourbar", colors) {
+scale_edge_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "edge_colourbar", colors) {
     colours <- if (missing(colours)) colors else colours
 
     continuous_scale("edge_colour", "gradientn",

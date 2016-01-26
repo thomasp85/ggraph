@@ -33,17 +33,17 @@ scale_edge_colour_brewer(..., type = "seq", palette = 1, direction = 1)
 
 scale_edge_colour_distiller(..., type = "seq", palette = 1,
   direction = -1, values = NULL, space = "Lab", na.value = "grey50",
-  guide = "colourbar")
+  guide = "edge_colourbar")
 
 scale_edge_colour_gradient(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "colourbar")
+  space = "Lab", na.value = "grey50", guide = "edge_colourbar")
 
 scale_edge_colour_gradient2(..., low = muted("red"), mid = "white",
   high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "colourbar")
+  na.value = "grey50", guide = "edge_colourbar")
 
 scale_edge_colour_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", colors)
+  na.value = "grey50", guide = "edge_colourbar", colors)
 
 scale_edge_colour_grey(..., start = 0.2, end = 0.8, na.value = "red")
 
@@ -52,7 +52,7 @@ scale_edge_colour_identity(..., guide = "none")
 scale_edge_colour_manual(..., values)
 
 scale_edge_colour_continuous(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "colourbar")
+  space = "Lab", na.value = "grey50", guide = "edge_colourbar")
 
 scale_edge_colour_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
   h.start = 0, direction = 1, na.value = "grey50")
@@ -64,17 +64,17 @@ scale_edge_color_brewer(..., type = "seq", palette = 1, direction = 1)
 
 scale_edge_color_distiller(..., type = "seq", palette = 1, direction = -1,
   values = NULL, space = "Lab", na.value = "grey50",
-  guide = "colourbar")
+  guide = "edge_colourbar")
 
 scale_edge_color_gradient(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "colourbar")
+  space = "Lab", na.value = "grey50", guide = "edge_colourbar")
 
 scale_edge_color_gradient2(..., low = muted("red"), mid = "white",
   high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "colourbar")
+  na.value = "grey50", guide = "edge_colourbar")
 
 scale_edge_color_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "colourbar", colors)
+  na.value = "grey50", guide = "edge_colourbar", colors)
 
 scale_edge_color_grey(..., start = 0.2, end = 0.8, na.value = "red")
 
@@ -83,7 +83,7 @@ scale_edge_color_identity(..., guide = "none")
 scale_edge_color_manual(..., values)
 
 scale_edge_color_continuous(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "colourbar")
+  space = "Lab", na.value = "grey50", guide = "edge_colourbar")
 
 scale_edge_color_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
   h.start = 0, direction = 1, na.value = "grey50")

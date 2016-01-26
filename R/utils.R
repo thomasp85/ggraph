@@ -29,7 +29,7 @@ manual_scale <- function(aesthetic, values, ...) {
     discrete_scale(aesthetic, "manual", pal, ...)
 }
 #' @importFrom scales zero_range
-resolution <- function (x, zero = TRUE) {
+resolution <- function(x, zero = TRUE) {
     if (is.integer(x) || zero_range(range(x, na.rm = TRUE)))
         return(1)
     x <- unique(as.numeric(x))
@@ -37,4 +37,9 @@ resolution <- function (x, zero = TRUE) {
         x <- unique(c(0, x))
     }
     min(diff(sort(x)))
+}
+"%||%" <- function(a, b) {
+    if (!is.null(a))
+        a
+    else b
 }

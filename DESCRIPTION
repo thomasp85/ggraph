@@ -11,14 +11,15 @@ Description: The grammar of graphics as implemented in ggplot2 is a poor fit for
     and provides the same flexible approach to building up plots layer by layer.
 License: GPL (>=2)
 LazyData: TRUE
-Imports:
+Imports: 
     Rcpp (>= 0.12.2),
     dplyr,
     ggforce,
     grid,
     igraph (>= 1.0.0),
     scales,
-    MASS
+    MASS,
+    digest
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Depends: ggplot2 (>= 2.0.0)
