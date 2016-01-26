@@ -1,3 +1,5 @@
+![ggraph logo](inst/ggraph.png)
+
 # ggraph
 */dʒiː.dʒɪˈrɑːf/*  (or g-giraffe)
 
@@ -117,6 +119,7 @@ classes)
 - box
 
 **geom_edge_**
+- route (avoid node-edge collision)
 - text
 - tile (for matrix representations mainly)
 - point (for matrix representations mainly)
@@ -124,3 +127,4 @@ classes)
 **Other stuff**
 - guide.edge
 - layout based on subset of edges
+- Cut off edges before they reach node
