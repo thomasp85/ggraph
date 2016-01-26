@@ -90,13 +90,20 @@ D3.js, but if someone has a specific visualization approach they feel strongly
 for file an issue or a PR.
 
 #### Roadmap
+**Class support** *In order of importance*
+- graph from package graph
+- phylo from ape
+- network from network
+- data.tree from data.tree
+- hypergraph from hypergraph (way down in the bottom along with all hypergraph
+classes)
+
 **Layouts**
 - Treemap
 - Sunburst / icicle
 - Circle packing
 - Hive plots
 - Matrix plot
-- Sorted linear (for arc diagrams etc)
 - Sankey diagram (maybe - undecided if it fits in ggraph)
 - H-tree
 
@@ -110,12 +117,10 @@ for file an issue or a PR.
 - box
 
 **geom_edge_**
-- arc
 - text
 - tile (for matrix representations mainly)
 - point (for matrix representations mainly)
 
 **Other stuff**
 - guide.edge
-- guide.colorbar with support for edge aesthetics
 - layout based on subset of edges
