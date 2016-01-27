@@ -12,7 +12,7 @@ framework that uses ggplot2 underneath, but rather an extension of the ggplot2
 API to make sense for graph data.
 
 ### State
-ggraph is currently in early alpha stage development. There is still a lot of
+ggraph is currently in beta stage development. There is still a lot of
 implementations that needs to be done, as well as some interface quirks that 
 needs to be decided on. Most importantly it currently relies on a [proposed 
 change](https://github.com/hadley/ggplot2/pull/1486) to some ggplot2 internals
@@ -125,6 +125,5 @@ classes)
 - point (for matrix representations mainly)
 
 **Other stuff**
-- guide.edge
 - layout based on subset of edges
 - Cut off edges before they reach node

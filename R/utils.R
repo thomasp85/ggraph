@@ -11,6 +11,9 @@ eAngle <- function(x, y, xend, yend, degrees = TRUE) {
     y <- yend - y
     nAngle(x, y, degrees)
 }
+
+
+### COPY FROM GGPLOT2 NON-EXPORTS
 #' @importFrom scales rescale_mid
 mid_rescaler <- function(mid) {
     function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
@@ -42,4 +45,17 @@ resolution <- function(x, zero = TRUE) {
     if (!is.null(a))
         a
     else b
+}
+ggname <- function(prefix, grob) {
+    grob$name <- grobName(grob, prefix)
+    grob
+}
+#' @importFrom ggplot2 calc_element element_grob
+element_render <- function(theme, element, ..., name = NULL) {
+    el <- calc_element(element, theme)
+    if (is.null(el)) {
+        message("Theme element ", element, " missing")
+        return(zeroGrob())
+    }
+    ggname(paste(element, name, sep = "."), element_grob(el, ...))
 }
