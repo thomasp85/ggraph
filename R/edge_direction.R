@@ -2,7 +2,7 @@
 #' @importFrom digest digest
 #' @export
 guide_edge_direction <- function(title = waiver(), title.position = NULL,
-                                 title.theme = NULL, title.hjust = 0,
+                                 title.theme = NULL, title.hjust = NULL,
                                  title.vjust = NULL, arrow = TRUE,
                                  arrow.position = NULL,
                                  barwidth = NULL, barheight = NULL, nbin = 500,
@@ -20,7 +20,7 @@ guide_edge_direction <- function(title = waiver(), title.position = NULL,
              barheight = barheight, nbin = nbin, direction = direction,
              default.unit = default.unit, reverse = reverse, order = order,
              available_aes = c("edge_colour", "edge_alpha", "edge_width"), ...,
-             name = "edge_colourbar"),
+             name = "edge_direction"),
         class = c("guide", "edge_direction")
     )
 }
@@ -53,6 +53,7 @@ guide_train.edge_direction <- function(guide, scale) {
     guide$bar <- as.data.frame(setNames(list(scale$map(.bar)),
                                   scale$aesthetics[1]))
     guide$bar$.value <- .bar
+    guide$bar <- guide$bar[order(.bar), ]
     if (guide$reverse) {
         guide$key <- guide$key[nrow(guide$key):1, ]
         guide$bar <- guide$bar[nrow(guide$bar):1, ]
@@ -109,28 +110,23 @@ guide_gengrob.edge_direction <- function(guide, theme) {
         arrow.position <- guide$arrow.position %||% "bottom"
         if (!arrow.position %in% c("top", "bottom"))
             stop("label position \"", arrow.position, "\" is invalid")
-        barwidth <- convertWidth(guide$barwidth %||%
-                                     (theme$legend.key.width * 5), "mm")
-        barheight <- convertHeight(guide$barheight %||%
-                                       theme$legend.key.height, "mm")
     }, vertical = {
         arrow.position <- guide$arrow.position %||% "right"
         if (!arrow.position %in% c("left", "right"))
             stop("label position \"", arrow.position, "\" is invalid")
-        barwidth <- convertWidth(guide$barwidth %||%
-                                     theme$legend.key.width, "mm")
-        barheight <- convertHeight(guide$barheight %||%
-                                       (theme$legend.key.height * 5), "mm")
     })
-    barwidth.c <- c(barwidth)
-    barheight.c <- c(barheight)
-    barlength.c <- switch(guide$direction, horizontal = barwidth.c,
-                          vertical = barheight.c)
+    arrowlength <- convertWidth(guide$arrowlength %||%
+                                    (theme$legend.key.width * 5), "mm")
+    arrowwidth <- convertWidth(unit(sin(30/360*2*pi) * 0.25 * 2, 'in'), 'mm')
+    edgewidth <- max(sapply(guide$geoms, function(g) {
+        max(g$data$edge_width)
+    })) * .pt
+    edgewidth <- convertWidth(unit(edgewidth, 'points'), 'mm')
     hgap <- c(convertWidth(unit(0.3, "lines"), "mm"))
     vgap <- hgap
-    x <- rep(0, nrow(guide$bar))
+    x <- rep(c(edgewidth)/2, nrow(guide$bar))
     xend <- x
-    y <- seq(0, 1, length.out = nrow(guide$bar) + 1) * barlength.c
+    y <- seq(0, 1, length.out = nrow(guide$bar) + 1) * c(arrowlength)
     yend <- y[-1]
     y <- y[-length(y)]
     grob.bar <- switch(
@@ -177,15 +173,15 @@ guide_gengrob.edge_direction <- function(guide, theme) {
             switch(
                 guide$direction,
                 horizontal = {
-                    segmentsGrob(x0 = y[1], y0 = x[1], x1 = tail(yend, 1),
-                                 y1 = tail(xend, 1), default.units = 'mm',
+                    segmentsGrob(x0 = y[1], y0 = c(arrowwidth)/2, x1 = tail(yend, 1),
+                                 y1 = c(arrowwidth)/2, default.units = 'mm',
                                  gp = gpar(col = 'black', lwd = 0.5 * .pt,
                                            lty = 'solid', lineend = 'round'),
                                  arrow = arrow(ends = if (guide$reverse)
                                      'first' else 'last'))
                 },
                 vertical = {
-                    segmentsGrob(x0 = x[1], y0 = y[1], x1 = tail(xend, 1),
+                    segmentsGrob(x0 = c(arrowwidth)/2, y0 = y[1], x1 = c(arrowwidth)/2,
                                  y1 = tail(yend, 1), default.units = 'mm',
                                  gp = gpar(col = 'black', lwd = 0.5 * .pt,
                                            lty = 'solid', lineend = 'round'),
@@ -195,31 +191,27 @@ guide_gengrob.edge_direction <- function(guide, theme) {
             )
         }
     }
-    arrow_width <- convertWidth(grobWidth(grob.arrow), "mm")
-    arrow_width.c <- c(arrow_width)
-    arrow_height <- convertHeight(grobHeight(grob.arrow), "mm")
-    arrow_height.c <- c(arrow_height)
     switch(guide$direction, horizontal = {
         switch(arrow.position, top = {
-            bl_widths <- barwidth.c
-            bl_heights <- c(arrow_height.c, vgap, barheight.c)
+            bl_widths <- c(arrowlength)
+            bl_heights <- c(c(arrowwidth), vgap, c(edgewidth))
             vps <- list(bar.row = 3, bar.col = 1, label.row = 1,
                         label.col = 1)
         }, bottom = {
-            bl_widths <- barwidth.c
-            bl_heights <- c(barheight.c, vgap, arrow_height.c)
+            bl_widths <- c(arrowlength)
+            bl_heights <- c(c(edgewidth), vgap, c(arrowwidth))
             vps <- list(bar.row = 1, bar.col = 1, label.row = 3,
                         label.col = 1)
         })
     }, vertical = {
         switch(arrow.position, left = {
-            bl_widths <- c(arrow_width.c, vgap, barwidth.c)
-            bl_heights <- barheight.c
+            bl_widths <- c(c(arrowwidth), vgap, c(edgewidth))
+            bl_heights <- c(arrowlength)
             vps <- list(bar.row = 1, bar.col = 3, label.row = 1,
                         label.col = 1)
         }, right = {
-            bl_widths <- c(barwidth.c, vgap, arrow_width.c)
-            bl_heights <- barheight.c
+            bl_widths <- c(c(edgewidth), vgap, c(arrowwidth))
+            bl_heights <- c(arrowlength)
             vps <- list(bar.row = 1, bar.col = 1, label.row = 1,
                         label.col = 3)
         })
