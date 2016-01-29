@@ -14,9 +14,8 @@ or \code{\link[ggplot2]{aes_}}. By default x, y, xend and yend are mapped to
 x, y, xend and yend in the edge data. Thus only edge_fill is really relevant
 to set.}
 
-\item{data}{The return of a call to \code{gEdges('short', ...)} or a
-data.frame giving edges in the short format. See \code{\link{gEdges}} for
-more details.}
+\item{data}{A data frame. If specified, overrides the default data frame
+defined at the top level of the plot.}
 
 \item{position}{Position adjustment, either as a string, or the result of a
 call to a position adjustment function. Currently no meaningful position
@@ -82,6 +81,7 @@ ggraph(gr, 'igraph', type = 'nicely') + geom_node_point(aes(label = class))
 Thomas Lin Pedersen
 }
 \seealso{
-Other geom_node_*: \code{\link{geom_node_point}}
+Other geom_node_*: \code{\link{geom_node_point}},
+  \code{\link{geom_treemap}}
 }
 
