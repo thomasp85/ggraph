@@ -27,7 +27,7 @@ compelling to pass on, do the following:
 if(!require(devtools)) {
   install.packages('devtools')
 }
-devtools::install_github('thomasp85/ggplot2@patch-2')
+devtools::install_github('thomasp85/ggplot2@function_as_data')
 devtools::install_github('thomasp85/ggforce')
 devtools::install_github('thomasp85/ggraph')
 ```
