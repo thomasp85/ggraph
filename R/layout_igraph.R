@@ -443,6 +443,9 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight) {
         if (any(hierarchy$weight[!leaf] != 0)) {
             message('Non-leaf weights ignored')
         }
+        if (any(hierarchy$weight[leaf] == 0)) {
+            stop('Leafs must have a weight')
+        }
         hierarchy$weight[!leaf] <- 0
     }
     hierarchy
