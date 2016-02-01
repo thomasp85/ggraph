@@ -348,7 +348,6 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #'
 layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, circular = FALSE, sort.by = NULL, mode = 'out', height = 1, width = 1) {
     graph <- graph_to_tree(graph, mode)
-    if (is.named(graph)) graph <- delete_vertex_attr(graph, 'name')
     hierarchy <- tree_to_hierarchy(graph, mode, sort.by, weight)
     layout <- switch(
         algorithm,
@@ -417,7 +416,9 @@ graph_to_tree <- function(graph, mode) {
     }
     graph
 }
+#' @importFrom igraph gorder as_edgelist delete_vertex_attr is.named
 tree_to_hierarchy <- function(graph, mode, sort.by, weight) {
+    if (is.named(graph)) graph <- delete_vertex_attr(graph, 'name')
     parentCol <- if (mode == 'out') 1 else 2
     nodeCol <- if (mode == 'out') 2 else 1
     edges <- as_edgelist(graph)
