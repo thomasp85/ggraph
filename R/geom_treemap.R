@@ -13,7 +13,9 @@ GeomTreemap <- ggproto('GeomTreemap', GeomTile,
 #'
 #' A treemap is a space filling layout that recursively divides a rectangle to
 #' the children of the node. Often only the leaf nodes are drawn as nodes higher
-#' up in the hierarchy would obscure what is below.
+#' up in the hierarchy would obscure what is below. \code{geom_treemap} is a
+#' shorthand for \code{geom_node_treemap} as node is implicit in the case of
+#' treemap drawing
 #'
 #' @section Aesthetics:
 #' geom_treemap understand the following aesthetics. Bold aesthetics are
@@ -63,15 +65,31 @@ GeomTreemap <- ggproto('GeomTreemap', GeomTile,
 #'
 #' @examples
 #' require(igraph)
-#' gr <- make_graph('bull')
-#' V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
+#' gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
 #'
-#' ggraph(gr, 'igraph', type = 'nicely') + geom_node_point()
+#' ggraph(gr, 'treemap', weight = 'size') + geom_treemap()
+#'
+#' # We can color by modifying the graph
+#' gr <- treeApply(gr, function(node, parent, depth, tree) {
+#'   tree <- set_vertex_attr(tree, 'depth', node, depth)
+#'   if (depth == 1) {
+#'     tree <- set_vertex_attr(tree, 'Class', node, V(tree)$shortName[node])
+#'   } else if (depth > 1) {
+#'     tree <- set_vertex_attr(tree, 'Class', node, V(tree)$Class[parent])
+#'   }
+#'   tree
+#' })
+#'
+#' ggraph(gr, 'treemap', weight = 'size') +
+#'   geom_treemap(aes(fill = Class, filter = leaf, alpha = depth), colour = NA) +
+#'   geom_treemap(aes(size = depth), colour = 'white') +
+#'   scale_alpha(range = c(1, 0.5), guide = 'none') +
+#'   scale_size(range = c(4, 0.2), guide = 'none')
 #'
 #' @importFrom ggplot2 GeomTile aes_
 #' @export
 #'
-geom_treemap <- function(mapping = NULL, data = NULL, position = "identity",
+geom_node_treemap <- function(mapping = NULL, data = NULL, position = "identity",
                          show.legend = NA, ...) {
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, width=~width,
                                           height=~height))
@@ -80,3 +98,6 @@ geom_treemap <- function(mapping = NULL, data = NULL, position = "identity",
           params = list(na.rm = FALSE, ...)
     )
 }
+#' @rdname geom_node_treemap
+#' @export
+geom_treemap <- geom_node_treemap
