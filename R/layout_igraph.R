@@ -70,6 +70,8 @@ getEdges.layout_igraph <- function(layout) {
 #' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} as
 #' well as any information stored as vertex attributes on the igraph object.
 #'
+#' @family layout_igraph_*
+#'
 #' @importFrom igraph layout_as_bipartite layout_as_star layout_as_tree layout_in_circle layout_nicely layout_with_dh layout_with_drl layout_with_gem layout_with_graphopt layout_on_grid layout_with_mds layout_with_sugiyama layout_on_sphere layout_randomly layout_with_fr layout_with_kk layout_with_lgl
 #' @importFrom igraph vertex_attr
 #'
@@ -126,6 +128,8 @@ layout_igraph_igraph <- function(graph, algorithm, circular, offset = pi/2,
 #' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} and
 #' \code{leaf} as well as any information stored as vertex attributes on the
 #' igraph object.
+#'
+#' @family layout_igraph_*
 #'
 #' @importFrom igraph gorder degree neighbors
 #'
@@ -193,6 +197,8 @@ layout_igraph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, dir
 #' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} as
 #' well as any information stored as vertex attributes on the igraph object.
 #'
+#' @family layout_igraph_*
+#'
 #' @importFrom igraph gorder vertex_attr
 #'
 layout_igraph_manual <- function(graph, node.positions, circular) {
@@ -239,6 +245,8 @@ layout_igraph_manual <- function(graph, node.positions, circular) {
 #'
 #' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} as
 #' well as any information stored as vertex attributes on the igraph object.
+#'
+#' @family layout_igraph_*
 #'
 #' @importFrom igraph vertex_attr_names vertex_attr gorder
 #'
