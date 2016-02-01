@@ -67,7 +67,7 @@
 #' gr <- make_graph('bull')
 #' V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
 #'
-#' ggraph(gr, 'igraph', type = 'nicely') + geom_node_point(aes(label = class))
+#' ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point(aes(label = class))
 #'
 #' @importFrom ggplot2 GeomText aes_
 #' @export

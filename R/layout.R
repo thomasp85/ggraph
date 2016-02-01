@@ -33,7 +33,7 @@
 #'
 #' \describe{
 #'   \item{igraph}{Use one of the internal igraph layout algorithms.
-#'   The algorithm is specified using the \code{type} argument. See
+#'   The algorithm is specified using the \code{algorithm} argument. See
 #'   \code{\link{layout_igraph_igraph}} for further details}
 #'   \item{dendrogram}{Lays out the nodes in a tree-like graph as a dendrogram
 #'   with leaves set at 0. See \code{\link{layout_igraph_dendrogram}} for
@@ -75,7 +75,7 @@
 #' @examples
 #' require(igraph)
 #' gr <- make_graph('bull')
-#' layout <- createLayout(gr, layout = 'igraph', type = 'kk')
+#' layout <- createLayout(gr, layout = 'igraph', algorithm = 'kk')
 #'
 #' @export
 createLayout <- function(graph, layout, circular, ...) {

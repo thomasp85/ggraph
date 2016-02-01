@@ -60,7 +60,7 @@ require(igraph)
 gr <- make_graph('bull')
 V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
 
-ggraph(gr, 'igraph', type = 'nicely') + geom_node_point()
+ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point()
 
 }
 \author{

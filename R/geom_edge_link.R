@@ -98,14 +98,14 @@
 #' E(gr)$class <- sample(letters[1:3], gsize(gr), replace = TRUE)
 #' V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
 #'
-#' ggraph(gr, 'igraph', type = 'nicely') +
+#' ggraph(gr, 'igraph', algorithm = 'nicely') +
 #'   geom_edge_link(aes(alpha = ..index..))
 #'
-#' ggraph(gr, 'igraph', type = 'nicely') +
+#' ggraph(gr, 'igraph', algorithm = 'nicely') +
 #'   geom_edge_link2(aes(colour = node.class),
 #'                  gEdges('long', nodePar = 'class'))
 #'
-#' ggraph(gr, 'igraph', type = 'nicely') +
+#' ggraph(gr, 'igraph', algorithm = 'nicely') +
 #'   geom_edge_link0(aes(colour = class))
 #'
 #' @rdname geom_edge_link

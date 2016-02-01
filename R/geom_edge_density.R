@@ -69,7 +69,8 @@
 #' gr <- make_graph('bull')
 #' E(gr)$class <- sample(letters[1:3], gsize(gr), replace = TRUE)
 #'
-#' ggraph(gr, 'igraph', type = 'nicely') + geom_edge_density(aes(fill = class)) +
+#' ggraph(gr, 'igraph', algorithm = 'nicely') +
+#'   geom_edge_density(aes(fill = class)) +
 #'   geom_edge_link() + geom_node_point()
 #'
 #' @rdname geom_edge_density

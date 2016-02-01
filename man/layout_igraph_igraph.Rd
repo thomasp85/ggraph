@@ -15,12 +15,12 @@ layout_igraph_igraph(graph, algorithm, circular, offset = pi/2,
 
 \item{circular}{Logical. Should the layout be transformed to a circular
 representation. Defaults to \code{FALSE}. Only applicable to
-\code{type = 'tree'} and \code{type = 'sugiyama'}.}
+\code{algorithm = 'tree'} and \code{algorithm = 'sugiyama'}.}
 
 \item{offset}{If \code{circular = TRUE}, where should it begin. Defaults to
 \code{pi/2} which is equivalent to 12 o'clock.}
 
-\item{use.dummy}{Logical. In the case of \code{type = 'sugiyama'} should the
+\item{use.dummy}{Logical. In the case of \code{algorithm = 'sugiyama'} should the
 dummy-infused graph be used rather than the original. Defaults to
 \code{FALSE}.}
 

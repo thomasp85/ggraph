@@ -109,11 +109,11 @@ gr <- graph_from_data_frame(
   data.frame(from=c(1,1,2,2,3,3,3), to=c(1,2,2,3,3,1,2))
 )
 
-ggraph(gr, 'igraph', type = 'nicely') +
+ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_loop(aes(alpha = ..index..)) +
   geom_edge_fan(aes(alpha = ..index..))
 
-ggraph(gr, 'igraph', type = 'nicely') +
+ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_loop0() +
   geom_edge_fan0()
 
