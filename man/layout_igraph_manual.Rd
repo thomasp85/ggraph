@@ -23,4 +23,10 @@ This layout function lets you pass the node positions in manually. Each row
 in the supplied data frame will correspond to a vertex in the igraph object
 matched by index.
 }
+\seealso{
+Other layout_igraph_*: \code{\link{layout_igraph_dendrogram}},
+  \code{\link{layout_igraph_igraph}},
+  \code{\link{layout_igraph_linear}},
+  \code{\link{layout_igraph_treemap}}
+}
 

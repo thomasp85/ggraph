@@ -4,13 +4,13 @@
 \alias{layout_igraph_igraph}
 \title{Use igraph layout algorithms for layout_igraph}
 \usage{
-layout_igraph_igraph(graph, type, circular, offset = pi/2,
+layout_igraph_igraph(graph, algorithm, circular, offset = pi/2,
   use.dummy = FALSE, ...)
 }
 \arguments{
 \item{graph}{An igraph object.}
 
-\item{type}{The type of layout algorithm to apply. See
+\item{algorithm}{The type of layout algorithm to apply. See
 \code{\link[igraph]{layout_}} for links to the layouts supplied by igraph.}
 
 \item{circular}{Logical. Should the layout be transformed to a circular
@@ -42,5 +42,11 @@ will throw an error when applied to other layouts.
 \note{
 This function is not intended to be used directly but by setting
 \code{layout = 'igraph'} in \code{\link{createLayout}}
+}
+\seealso{
+Other layout_igraph_*: \code{\link{layout_igraph_dendrogram}},
+  \code{\link{layout_igraph_linear}},
+  \code{\link{layout_igraph_manual}},
+  \code{\link{layout_igraph_treemap}}
 }
 

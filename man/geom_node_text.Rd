@@ -82,6 +82,6 @@ Thomas Lin Pedersen
 }
 \seealso{
 Other geom_node_*: \code{\link{geom_node_point}},
-  \code{\link{geom_treemap}}
+  \code{\link{geom_node_treemap}}
 }
 

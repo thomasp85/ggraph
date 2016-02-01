@@ -80,6 +80,11 @@ long range of different layout functions that are all available through the
   \item{manual}{Lets the user manually specify the location of each node by
   supplying a data.frame with an \code{x} and \code{y} column. See
   \code{\link{layout_igraph_manual}} for further details}
+  \item{linear}{Arranges the nodes linearly in order to make an arc diagram.
+  See \code{\link{layout_igraph_linear}} for further details}
+  \item{treemap}{Creates a treemap from the graph, possibly forcing the graph
+  into a tree structure if it isn't already. See
+  \code{\link{layout_igraph_treemap}} for further details}
 }
 }
 \examples{
