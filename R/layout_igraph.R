@@ -51,7 +51,7 @@ getEdges.layout_igraph <- function(layout) {
 #'
 #' @param graph An igraph object.
 #'
-#' @param type The type of layout algorithm to apply. See
+#' @param algorithm The type of layout algorithm to apply. See
 #' \code{\link[igraph]{layout_}} for links to the layouts supplied by igraph.
 #'
 #' @param circular Logical. Should the layout be transformed to a circular
@@ -73,11 +73,11 @@ getEdges.layout_igraph <- function(layout) {
 #' @importFrom igraph layout_as_bipartite layout_as_star layout_as_tree layout_in_circle layout_nicely layout_with_dh layout_with_drl layout_with_gem layout_with_graphopt layout_on_grid layout_with_mds layout_with_sugiyama layout_on_sphere layout_randomly layout_with_fr layout_with_kk layout_with_lgl
 #' @importFrom igraph vertex_attr
 #'
-layout_igraph_igraph <- function(graph, type, circular, offset = pi/2,
+layout_igraph_igraph <- function(graph, algorithm, circular, offset = pi/2,
                                  use.dummy = FALSE, ...) {
-    type <- as.igraphlayout(type)
-    layout <- do.call(type, list(graph, ...))
-    if (type == 'layout_with_sugiyama') {
+    algorithm <- as.igraphlayout(algorithm)
+    layout <- do.call(algorithm, list(graph, ...))
+    if (algorithm == 'layout_with_sugiyama') {
         if (use.dummy) {
             layout <- layout$layout.dummy
             graph <- layout$graph
@@ -89,7 +89,7 @@ layout_igraph_igraph <- function(graph, type, circular, offset = pi/2,
     if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(layout)))
     layout <- cbind(x=layout[,1], y=layout[,2], extraData)
     if (circular) {
-        if (!type %in% c('layout_as_tree', 'layout_with_sugiyama')) {
+        if (!algorithm %in% c('layout_as_tree', 'layout_with_sugiyama')) {
             stop('Circular layout only applicable to tree and DAG layout')
         }
         radial <- radial_trans(r.range = rev(range(layout$y)),
