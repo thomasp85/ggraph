@@ -387,11 +387,12 @@ as.igraphlayout <- function(type) {
     }
     paste0('layout_', layout)
 }
-#' @importFrom igraph degree unfold_tree components induced_subgraph vertex_attr_names
+#' @importFrom igraph degree unfold_tree components induced_subgraph vertex_attr vertex_attr<- is.directed simplify
 graph_to_tree <- function(graph, mode) {
     if (!is.directed(graph)) {
         stop('Graph must be directed')
     }
+    graph <- simplify(graph)
     parentDir <- if (mode == 'out') 'in' else 'out'
     comp <- components(graph, 'weak')
     if (comp$no > 1) {
