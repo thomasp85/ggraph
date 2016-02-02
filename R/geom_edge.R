@@ -147,3 +147,30 @@ GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
         data
     }
 )
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @importFrom ggplot2 ggproto Stat
+#' @importFrom ggforce GeomBspline0
+#' @export
+GeomEdgeBspline <- ggproto('GeomEdgeBspline', GeomBspline0,
+    draw_panel = function(data, panel_scales, coord, arrow = NULL,
+                          lineend = "butt", linejoin = "round", linemitre = 1,
+                          na.rm = FALSE) {
+        names(data) <- sub('edge_', '', names(data))
+        names(data)[names(data) == 'width'] <- 'size'
+        GeomBspline0$draw_panel(data, panel_scales, coord, arrow, lineend, linejoin, linemitre, na.rm)
+    },
+    draw_key = function(data, params, size) {
+        segmentsGrob(0.1, 0.5, 0.9, 0.5,
+                     gp = gpar(col = alpha(data$edge_colour, data$edge_alpha),
+                               lwd = data$edge_width * .pt,
+                               lty = data$edge_linetype, lineend = "butt"),
+                     arrow = params$arrow)
+    },
+    default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
+                      edge_alpha = NA),
+    handle_na = function(data, ...) {
+        data
+    }
+)
