@@ -19,15 +19,20 @@ change](https://github.com/hadley/ggplot2/pull/1486) to some ggplot2 internals
 and unless these are merged in, I'm unsure how I will implement the API.
 
 ### Installation
-As it relies on a still-unaccepted change to ggplot2, installation is at your
-own risk (though it shouldn't blow up anything). If you just find this too 
-compelling to pass on, do the following:
+ggraph relies on functionality in the development version of ggplot2, so until
+the next version of ggplot2 hits CRAN you'll need to install from GitHub. 
+Furthermore ggraph is developed in concert with 
+[ggforce](https://github.com/thomasp85/ggforce) so that general purpose 
+functionality will appear in ggforce and be adapted to graph visualization in
+ggraph (e.g geom_edge_bundle uses geom_bspline from ggforce underneath). ggforce
+is still not on CRAN as it is undergoing fast development alongside ggraph so it
+needs to be installed from GitHub too.
 
 ```r
 if(!require(devtools)) {
   install.packages('devtools')
 }
-devtools::install_github('thomasp85/ggplot2@function_as_data')
+devtools::install_github('hadley/ggplot2')
 devtools::install_github('thomasp85/ggforce')
 devtools::install_github('thomasp85/ggraph')
 ```
@@ -101,7 +106,6 @@ for file an issue or a PR.
 classes)
 
 **Layouts**
-- Treemap
 - Sunburst / icicle
 - Circle packing
 - Hive plots
@@ -110,7 +114,6 @@ classes)
 - H-tree
 
 **Connecions**
-- Hierarchical Edge bundling (migrate from ggforce)
 - geom_edge_trace
 - geom_edge_connect
 
