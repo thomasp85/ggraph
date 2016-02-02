@@ -248,8 +248,8 @@ createDiagonal <- function(from, to, params) {
     data2$index <- bezierStart + 1
     data3$index <- bezierStart + 2
     if (any(from$circular)) {
-        r0 <- sqrt(to$x[to$circular]^2 + to$y[from$circular]^2)
-        r1 <- sqrt(to$x[from$circular]^2 + to$y[from$circular]^2)
+        r0 <- sqrt(from$x[from$circular]^2 + from$y[from$circular]^2)
+        r1 <- sqrt(to$x[to$circular]^2 + to$y[to$circular]^2)
         root <- r0 == 0 | r1 == 0
         rMid <- r0 + (r1 - r0)/2
 
