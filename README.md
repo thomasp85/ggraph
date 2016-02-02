@@ -14,9 +14,7 @@ API to make sense for graph data.
 ### State
 ggraph is currently in beta stage development. There is still a lot of
 implementations that needs to be done, as well as some interface quirks that 
-needs to be decided on. Most importantly it currently relies on a [proposed 
-change](https://github.com/hadley/ggplot2/pull/1486) to some ggplot2 internals
-and unless these are merged in, I'm unsure how I will implement the API.
+needs to be decided on.
 
 ### Installation
 ggraph relies on functionality in the development version of ggplot2, so until
