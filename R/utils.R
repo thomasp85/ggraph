@@ -1,3 +1,4 @@
+#' @export
 nAngle <- function(x, y, degrees = TRUE) {
     angles <- atan(y/x)
     if (degrees) {
@@ -6,6 +7,7 @@ nAngle <- function(x, y, degrees = TRUE) {
         angles
     }
 }
+#' @export
 eAngle <- function(x, y, xend, yend, degrees = TRUE) {
     x <- xend - x
     y <- yend - y
