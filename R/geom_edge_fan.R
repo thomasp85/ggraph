@@ -248,7 +248,7 @@ geom_edge_fan0 <- function(mapping = NULL, data = gEdges(),
 createFans <- function(from, to, params) {
     from$.id <- paste(pmin(from$from, to$to), pmax(from$from, to$to), sep = '-')
     from$.origInd <- seq_len(nrow(from))
-    position <- from %>% group_by_(~.id) %>%
+    position <- from %>% group_by_(~PANEL, ~.id) %>%
         arrange_(~from) %>%
         mutate_(position = ~seq_len(n()) - 0.5 - n()/2) %>%
         mutate_(position = ~position * ifelse(from < to, 1, -1)) %>%
