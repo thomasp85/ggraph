@@ -22,7 +22,7 @@ createLayout.dendrogram <- function(graph, layout, circular = FALSE, ...) {
     checkLayout(layout)
 }
 getEdges.layout_dendrogram <- function(layout) {
-    edges <- getConnections(attr(layout, 'graph'))
+    edges <- getLinks(attr(layout, 'graph'))
     extraPar <- bind_rows(lapply(edges$edgePar, as.data.frame, stringsAsFactors = FALSE))
     edges$edgePar <- NULL
     edges <- cbind(edges, extraPar)
@@ -170,13 +170,13 @@ getCoords <- function(den) {
         )
     }
 }
-getConnections <- function(den) {
+getLinks <- function(den) {
     id <- attr(den, 'ggraph.id')
     if (is.leaf(den)) {
         data.frame(row.names = 1)
     } else {
-        conn1 <- getConnections(den[[1]])
-        conn2 <- getConnections(den[[2]])
+        conn1 <- getLinks(den[[1]])
+        conn2 <- getLinks(den[[2]])
         list(
             from = c(conn1$from, conn2$from, rep(id, 2)),
             to = c(conn1$to, conn2$to, unlist(lapply(den, attr, which = 'ggraph.id'))),

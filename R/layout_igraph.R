@@ -36,6 +36,21 @@ getEdges.layout_igraph <- function(layout) {
     edges$circular <- attr(layout, 'circular')
     edges
 }
+#' @importFrom igraph shortest_paths
+getConnections.layout_igraph <- function(layout, from, to, weight = NULL, mode = 'all') {
+    if (is.null(weight)) {
+        weight <- NA
+    } else {
+        weight <- layout[[weight]]
+    }
+    graph <- attr(layout, 'graph')
+    to <- split(to, from)
+    connections <- lapply(seq_along(to), function(i) {
+        paths <- shortest_paths(graph, as.integer(names(to)[i]), to[[i]], mode = mode, weights = weight)$vpath
+        lapply(paths, as.numeric)
+    })
+    unlist(connections, recursive = FALSE)
+}
 #' Use igraph layout algorithms for layout_igraph
 #'
 #' This layout function makes it easy to apply one of the layout algorithms

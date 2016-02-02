@@ -86,6 +86,14 @@ createLayout <- function(graph, layout, circular, ...) {
 createLayout.default <- function(graph, layout, ...) {
     stop('No layout function defined for objects of class ', class(graph))
 }
+#' @export
+as.data.frame.layout_ggraph <- function(x, ...) {
+    extraAttr <- names(attributes(x))
+    extraAttr <- extraAttr[!extraAttr %in% c('names', 'row.names')]
+    attributes(x)[extraAttr] <- NULL
+    class(x) <- 'data.frame'
+    x
+}
 checkLayout <- function(layout) {
     if (!inherits(layout, 'data.frame')) {
         stop('layout must subclass data.frame', call. = FALSE)
