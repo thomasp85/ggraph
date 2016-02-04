@@ -1,4 +1,31 @@
+#' Get the angle of nodes and edges
+#'
+#' These helper functions makes it easy to calculate the angle associated with
+#' nodes and edges. For nodes the angle is defined as the angle of the vector
+#' pointing towards the node position, and is thus mainly suited for circular
+#' layouts where it can be used to calculate the angle of labels. For edges it
+#' is simply the angle of the vector describing the edge.
+#'
+#' @param x,y A vector of positions
+#'
+#' @param xend,yend The end position of the edge
+#'
+#' @param degrees Logical. Should the angle be returned in degree (\code{TRUE})
+#' or radians (\code{FALSE}). Defaults to \code{TRUE}.
+#'
+#' @return A vector with the angle of each node/edge
+#'
+#' @examples
+#' flareGraph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+#'
+#' ggraph(flareGraph, 'dendrogram', circular = TRUE) +
+#'   geom_edge_diagonal0() +
+#'   geom_node_text(aes(filter = leaf, angle = nAngle(x, y), label = shortName),
+#'                  hjust = 'outward', size = 2) +
+#'   expand_limits(x = c(-1.3, 1.3), y = c(-1.3, 1.3))
+#'
 #' @export
+#'
 nAngle <- function(x, y, degrees = TRUE) {
     angles <- atan(y/x)
     if (degrees) {
@@ -7,6 +34,8 @@ nAngle <- function(x, y, degrees = TRUE) {
         angles
     }
 }
+#' @rdname nAngle
+#'
 #' @export
 eAngle <- function(x, y, xend, yend, degrees = TRUE) {
     x <- xend - x
