@@ -71,7 +71,8 @@ gr <- treeApply(gr, function(node, parent, depth, tree) {
 })
 
 # For dendrograms it's slightly different
-irisDen <- as.dendrogram(hclust(dist(`rownames<-`(iris[1:4], iris[,5]), method='euclidean', ), method='ward.D2'))
+irisDen <- as.dendrogram(hclust(dist(iris[1:4], method='euclidean'),
+                         method='ward.D2'))
 # Add the species information to the leafs
 irisDen <- dendrapply(irisDen, function(d) {
   if(is.leaf(d))
