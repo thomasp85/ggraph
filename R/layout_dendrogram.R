@@ -129,7 +129,7 @@ setCoord <- function(den, offset = 1, repel = TRUE, pad = 0, ratio = 1) {
         den[[1]] <- setCoord(den[[1]], offset, repel = repel, ratio)
         offset <- attr(den[[1]], 'rightmost')
         offset <- if (repel) {
-            offset + (attr(den, 'height') + pad)/ratio
+            offset + (attr(den, 'height') + pad) * ratio
         } else {
             offset + 1 + pad
         }
