@@ -28,6 +28,7 @@ layouts where it can be used to calculate the angle of labels. For edges it
 is simply the angle of the vector describing the edge.
 }
 \examples{
+require(igraph)
 flareGraph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
 
 ggraph(flareGraph, 'dendrogram', circular = TRUE) +
