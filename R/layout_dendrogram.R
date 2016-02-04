@@ -80,7 +80,7 @@ layout_dendrogram_dendrogram <- function(graph, circular = FALSE, offset = pi/2,
         radial <- radial_trans(r.range = rev(range(layout$y)),
                                a.range = range(layout$x),
                                offset = offset,
-                               pad = if (repel) (attr(graph, 'height')/2)/ratio else 0.5)
+                               pad = if (repel) (attr(graph, 'height')/2)*ratio else 0.5)
         coords <- radial$transform(layout$y, layout$x)
         layout$x <- coords$x
         layout$y <- coords$y
