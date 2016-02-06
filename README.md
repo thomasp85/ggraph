@@ -11,6 +11,17 @@ structures (graphs, networks, trees, hierarchies...). It is not a graph plotting
 framework that uses ggplot2 underneath, but rather an extension of the ggplot2 
 API to make sense for graph data.
 
+### Why not just use [*insert framework*]
+You're certainly free to do that. My reason for developing this is that I feel
+the rigor enforced by ggplot2 could benefit the graph visualization world, and
+in addition, a lot of people are familiar with the ggplot2 API. Lastly it seems
+a lot of frameworks are uniquely focused on creating node-edge diagrams; 
+certainly the lowest denominator when it comes to graph visualization. While 
+[D3.js](http://d3js.org) offers a lot of capabilities for different graph 
+related visualizations, its API will seem foreign to a lot of people working in
+R and, on top of that, its not straightforward to extract a static image based
+on D3.js (safe for a screenshot).
+
 ### State
 ggraph is currently in beta stage development. There is still a lot of
 implementations that needs to be done, as well as some interface quirks that 
@@ -155,6 +166,7 @@ classes)
 
 **Layouts**
 
+- Unrooted tree layouts
 - Sunburst / icicle
 - Circle packing
 - Hive plots
