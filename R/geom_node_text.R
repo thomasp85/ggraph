@@ -42,7 +42,11 @@
 #' Useful for offsetting text from points, particularly on discrete scales.
 #'
 #' @param check_overlap If \code{TRUE}, text that overlaps previous text in the
-#' same layer will not be plotted. A quick and dirty way
+#' same layer will not be plotted. Ignored if repel = TRUE. A quick and dirty way.
+#' 
+#' @param repel If \code{TRUE}, text labels will be repelled from each other
+#' to avoid overlapping, using the \code{GeomTextRepel} geom from the
+#' ggrepel package.
 #'
 #' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
 #' are three types of arguments you can use here:
@@ -74,11 +78,19 @@
 #'
 geom_node_text <- function(mapping = NULL, data = NULL, position = "identity",
                            parse = FALSE, nudge_x = 0, nudge_y = 0,
-                           check_overlap = FALSE, show.legend = NA, ...) {
+                           check_overlap = FALSE, show.legend = NA,
+                           repel = FALSE, ...) {
+    params <- list(parse = parse, na.rm = FALSE, ...)
+    if (repel) {
+      geom <- ggrepel::GeomTextRepel
+    } else {
+      geom <- GeomText
+      params$check_overlap <- check_overlap
+    }
+  
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y))
-    layer(data = data, mapping = mapping, stat = StatFilter, geom = GeomText,
+    layer(data = data, mapping = mapping, stat = StatFilter, geom = geom,
           position = position, show.legend = show.legend, inherit.aes = FALSE,
-          params = list(parse = parse, check_overlap = check_overlap,
-                        na.rm = FALSE, ...)
+          params = params
     )
 }
