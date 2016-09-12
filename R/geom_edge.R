@@ -42,7 +42,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         group_diff <- data$group[-1] != data$group[-n]
         start <- c(TRUE, group_diff)
         end <- c(group_diff, TRUE)
-        if (!constant) {
+        edgeGrob <- if (!constant) {
             segmentsGrob(data$x[!end], data$y[!end], data$x[!start],
                          data$y[!start], default.units = "native", arrow = arrow,
                          gp = gpar(col = alpha(data$edge_colour, data$edge_alpha)[!end],
@@ -60,6 +60,45 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
                                    lty = data$edge_linetype[start],
                                    lineend = lineend, linejoin = linejoin,
                                    linemitre = linemitre))
+        }
+        if (any(!is.na(data$label))) {
+            edge_ind <- split(seq_len(nrow(data)), data$group)
+            edge_length <- lengths(edge_ind)
+            edge_start <- cumsum(edge_length)
+            label_pos <- data$label_pos[sapply(edge_ind, head, n = 1)]
+            label_pos <- 1 + floor((edge_length - 1) * label_pos)
+            label_ind <- edge_start + label_pos
+            label_data <- data[label_ind, ]
+            if (any(!is.na(label_data$angle))) {
+                angle_start <- ifelse(label_pos == 1, 1, label_pos - 1)
+                angle_end <- ifelse(label_pos == edge_length, edge_length, label_pos + 1)
+                label_data$angle <- eAngle(data$x[angle_start + edge_start],
+                                           data$y[angle_start + edge_start],
+                                           data$x[angle_end + edge_start],
+                                           data$y[angle_end + edge_start])
+
+            }
+            lab <- label_data$label
+            if (parse) {
+                lab <- parse(text = as.character(lab))
+            }
+            labelGrob <- textGrob(
+                lab,
+                label_data$x, label_data$y, default.units = "native",
+                hjust = label_data$hjust, vjust = label_data$vjust,
+                rot = label_data$angle,
+                gp = gpar(
+                    col = alpha(label_colour, label_alpha),
+                    fontsize = label_data$label_size * .pt,
+                    fontfamily = label_data$family,
+                    fontface = label_data$fontface,
+                    lineheight = label_data$lineheight
+                ),
+                check.overlap = check_overlap
+            )
+            gList(edgeGrob, labelGrob)
+        } else {
+            edgeGrob
         }
     },
     draw_key = function (data, params, size) {
@@ -90,7 +129,9 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         data
     },
     default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
-                    edge_alpha = NA)
+                    edge_alpha = NA, label = NA, label_pos = 0.5,
+                    label_size = 3.88, angle = NA, hjust = 0.5, vjust = 0.5,
+                    family = '', fontface = 1, lineheight = 1.2)
 )
 #' @rdname ggraph-extensions
 #' @format NULL
