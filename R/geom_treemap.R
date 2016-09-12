@@ -9,7 +9,7 @@ GeomTreemap <- ggproto('GeomTreemap', GeomTile,
                       alpha = NA)
 )
 
-#' Show nodes as points
+#' Draw the rectangles in a treemap
 #'
 #' A treemap is a space filling layout that recursively divides a rectangle to
 #' the children of the node. Often only the leaf nodes are drawn as nodes higher

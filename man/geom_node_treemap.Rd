@@ -3,7 +3,7 @@
 \name{geom_node_treemap}
 \alias{geom_node_treemap}
 \alias{geom_treemap}
-\title{Show nodes as points}
+\title{Draw the rectangles in a treemap}
 \usage{
 geom_node_treemap(mapping = NULL, data = NULL, position = "identity",
   show.legend = NA, ...)
