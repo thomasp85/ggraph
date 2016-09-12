@@ -5,6 +5,18 @@
 
 using namespace Rcpp;
 
+// pathAttr
+DataFrame pathAttr(DataFrame paths, int ngroups);
+RcppExport SEXP ggraph_pathAttr(SEXP pathsSEXP, SEXP ngroupsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject __result;
+    Rcpp::RNGScope __rngScope;
+    Rcpp::traits::input_parameter< DataFrame >::type paths(pathsSEXP);
+    Rcpp::traits::input_parameter< int >::type ngroups(ngroupsSEXP);
+    __result = Rcpp::wrap(pathAttr(paths, ngroups));
+    return __result;
+END_RCPP
+}
 // splitTreemap
 NumericMatrix splitTreemap(IntegerVector parent, IntegerVector order, NumericVector weight, double width, double height);
 RcppExport SEXP ggraph_splitTreemap(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP widthSEXP, SEXP heightSEXP) {

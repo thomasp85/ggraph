@@ -9,7 +9,9 @@
 GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
     draw_panel = function(data, panel_scales, coord, arrow = NULL,
                           lineend = "butt", linejoin = "round", linemitre = 1,
-                          na.rm = FALSE, interpolate = TRUE) {
+                          na.rm = FALSE, interpolate = TRUE,
+                          label_colour = 'black',  label_alpha = 1,
+                          check_overlap = FALSE) {
         if (!anyDuplicated(data$group)) {
             message("geom_edge_path: Each group consists of only one observation. ",
                          "Do you need to adjust the group aesthetic?")
@@ -20,13 +22,14 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         }
         data <- coord$transform(data, panel_scales)
         if (nrow(data) < 2) return(zeroGrob())
-        attr <- data %>% group_by_(~group) %>%
-            do({
-                data.frame(solid = identical(unique(.$edge_linetype), 1),
-                           constant = nrow(unique(.[, c("edge_alpha", "edge_colour",
-                                                         "edge_width", "edge_linetype")])) == 1)
-            }) %>%
-            ungroup()
+        attr <- pathAttr(data, length(unique(data$group)))
+        # attr <- data %>% group_by_(~group) %>%
+        #     do({
+        #         data.frame(solid = identical(unique(.$edge_linetype), 1),
+        #                    constant = nrow(unique(.[, c("edge_alpha", "edge_colour",
+        #                                                  "edge_width", "edge_linetype")])) == 1)
+        #     }) %>%
+        #     ungroup()
 
         solid_lines <- all(attr$solid)
         constant <- all(attr$constant)

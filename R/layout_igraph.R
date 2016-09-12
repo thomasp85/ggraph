@@ -15,7 +15,9 @@ createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
     } else {
         stop('Unknown layout')
     }
-    attr(layout, 'graph') <- graph
+    if (is.null(attr(layout, 'graph'))) {
+        attr(layout, 'graph') <- graph
+    }
     attr(layout, 'circular') <- circular
     class(layout) <- c(
         'layout_igraph',
@@ -24,15 +26,14 @@ createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
     )
     checkLayout(layout)
 }
-#' @importFrom igraph as_data_frame V
+#' @importFrom igraph as_edgelist V
 #'
 getEdges.layout_igraph <- function(layout) {
     gr <- attr(layout, 'graph')
-    edges <- igraph::as_data_frame(gr, 'edges')
-    if (is.character(edges$from)) {
-        edges$from <- match(edges$from, V(gr)$name)
-        edges$to <- match(edges$to, V(gr)$name)
-    }
+    edges <- as.data.frame(as_edgelist(gr, names = FALSE))
+    names(edges) <- c('from', 'to')
+    eattr <- attr_df(gr, 'edge')
+    edges <- cbind(edges, eattr)
     edges$circular <- attr(layout, 'circular')
     edges
 }
@@ -102,8 +103,7 @@ layout_igraph_igraph <- function(graph, algorithm, circular, offset = pi/2,
             layout <- layout$layout
         }
     }
-    extraData <- as.data.frame(vertex_attr(graph))
-    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(layout)))
+    extraData <- attr_df(graph)
     layout <- cbind(x=layout[,1], y=layout[,2], extraData)
     if (circular) {
         if (!algorithm %in% c('layout_as_tree', 'layout_with_sugiyama')) {
@@ -190,8 +190,7 @@ layout_igraph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, dir
         nodes$x <- coords$x
         nodes$y <- coords$y
     }
-    extraData <- as.data.frame(vertex_attr(graph))
-    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(nodes)))
+    extraData <- attr_df(graph)
     nodes <- cbind(nodes, extraData)
     nodes$circular <- circular
     nodes
@@ -230,8 +229,7 @@ layout_igraph_manual <- function(graph, node.positions, circular) {
         stop('node.position must contain the columns "x" and "y"')
     }
     layout <- data.frame(x = node.positions$x, y = node.positions$y)
-    extraData <- as.data.frame(vertex_attr(graph))
-    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(layout)))
+    extraData <- attr_df(graph)
     layout <- cbind(layout, extraData)
     layout$circular <- FALSE
     layout
@@ -288,8 +286,7 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
         nodes$x <- coords$x
         nodes$y <- coords$y
     }
-    extraData <- as.data.frame(vertex_attr(graph))
-    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(nodes)))
+    extraData <- attr_df(graph)
     nodes <- cbind(nodes, extraData)
     nodes$circular <- circular
     nodes
@@ -375,10 +372,163 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
                          height = layout[, 4],
                          circular = FALSE,
                          leaf = degree(graph, mode = mode) == 0)
-    extraData <- as.data.frame(vertex_attr(graph))
-    if (nrow(extraData) == 0) extraData <- data.frame(row.names = seq_len(nrow(layout)))
+    extraData <- attr_df(graph)
     layout <- cbind(layout, extraData)
     layout
+}
+#' @importFrom igraph gorder vertex_attr gsize induced_subgraph add_vertices E ends add_edges delete_edges %--% edge_attr
+#' @export
+layout_igraph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, divide.by = NULL, divide.order = NULL, normalize = TRUE, center.size = 0.1, divide.size = 0.05, use.numeric = FALSE, offset = pi/2, split.axes = 'none', split.angle = pi/6, circular = FALSE) {
+    axes <- split(seq_len(gorder(graph)), vertex_attr(graph, axis))
+    if (is.null(axis.pos)) {
+        axis.pos <- rep(1, length(axes))
+    } else {
+        if (length(axis.pos) != length(axes)) {
+            warning("Number of axes not matching axis.pos argument. Recycling as needed")
+            axis.pos <- rep(axis.pos, length.out = length(axes))
+        }
+    }
+    axis.pos <- -cumsum(axis.pos)
+    axis.pos <- c(0, axis.pos[-length(axis.pos)]) / -tail(axis.pos, 1) * 2 * pi + offset
+    if (use.numeric) {
+        if (is.null(sort.by) || !is.numeric(vertex_attr(graph, sort.by))) {
+            stop('sort.by must be a numeric vertex attribute when use.numeric = TRUE')
+        }
+        numeric.range <- range(vertex_attr(graph, sort.by))
+    }
+    if (normalize) {
+        normalizeTo <- rep(1, length(axes))
+    } else {
+        normalizeTo <- lengths(axes) / max(lengths(axes))
+    }
+    node.pos <- Map(function(nodes, axisLength, axis, angle) {
+        splitAxis <- switch(
+            split.axes,
+            all = TRUE,
+            loops = gsize(induced_subgraph(graph, nodes)) > 0,
+            none = FALSE,
+            stop('Unknown split argument. Use "all", "loops" or "none"')
+        )
+        nodeDiv <- axisLength / length(nodes)
+        if (is.null(divide.by)) {
+            nodeSplit <- list(`1` = nodes)
+        } else {
+            if (use.numeric) {
+                stop('Cannot divide axis while use.numeric = TRUE')
+            }
+            nodeSplit <- split(nodes, vertex_attr(graph, divide.by, nodes))
+            if (!is.null(divide.order)) {
+                if (!all(divide.order %in% names(nodeSplit))) {
+                    stop('All ', divide.by, ' levels must be present in divide.order')
+                }
+                nodeSplit <- nodeSplit[order(match(names(nodeSplit), divide.order))]
+            }
+        }
+        nodePos <- lapply(nodeSplit, function(nodes) {
+            if (length(nodes) == 0) return(numeric())
+            if (is.null(sort.by)) {
+                pos <- match(seq_along(nodes), order(nodes)) - 1
+                pos <- pos * nodeDiv
+            } else {
+                pos <- vertex_attr(graph, sort.by, nodes)
+                if (use.numeric) {
+                    if (!is.numeric(pos)) {
+                        stop('sort.by must contain numeric data when use.numeric = TRUE')
+                    }
+                    if (normalize) {
+                        if (diff(range(pos)) == 0) {
+                            pos <- rep(0.5, length.out = length(pos))
+                        } else {
+                            pos <- (pos - min(pos))/diff(range(pos))
+                        }
+                    } else {
+                        pos <- (pos - numeric.range[1])/diff(numeric.range)
+                    }
+                } else {
+                    pos <- match(seq_along(pos), order(pos)) - 1
+                    pos <- pos * nodeDiv
+                }
+            }
+            pos
+        })
+        nodePos <- Reduce(function(l, r) {
+            append(l, list(r + nodeDiv + divide.size + max(l[[length(l)]])))
+        }, x = nodePos[-1], init = nodePos[1])
+        nodePos <- unlist(nodePos) + center.size
+        data.frame(
+            node = nodes,
+            r = nodePos[match(nodes, unlist(nodeSplit))],
+            centerSize = center.size,
+            split = splitAxis,
+            axis = axis,
+            section = rep(names(nodeSplit), lengths(nodeSplit))[match(nodes, unlist(nodeSplit))],
+            angle = angle,
+            circular = FALSE,
+            stringsAsFactors = FALSE
+        )
+    }, nodes = axes, axisLength = normalizeTo, axis = names(axes), angle = axis.pos)
+    for (i in seq_along(node.pos)) {
+        if (node.pos[[i]]$split[1]) {
+            nNewNodes <- nrow(node.pos[[i]])
+            newNodeStart <- gorder(graph) + 1
+            extraNodes <- node.pos[[i]]
+            extraNodes$node <- seq(newNodeStart, length.out = nNewNodes)
+            vattr <- lapply(vertex_attr(graph), `[`, i = node.pos[[i]]$node)
+            graph  <- add_vertices(graph, nNewNodes, attr = vattr)
+
+            loopEdges <- E(graph)[node.pos[[i]]$node %--% node.pos[[i]]$node]
+            if (length(loopEdges) != 0) {
+                loopEdgesEnds <- ends(graph, loopEdges, names = FALSE)
+                correctOrderEnds <- node.pos[[i]]$r[match(loopEdgesEnds[,1], node.pos[[i]]$node)] <
+                    node.pos[[i]]$r[match(loopEdgesEnds[,2], node.pos[[i]]$node)]
+                loopEdgesEnds <- data.frame(
+                    from = ifelse(correctOrderEnds, loopEdgesEnds[,1], loopEdgesEnds[,2]),
+                    to = ifelse(correctOrderEnds, loopEdgesEnds[,2], loopEdgesEnds[,1])
+                )
+                loopEdgesEnds$to <- extraNodes$node[match(loopEdgesEnds$to, node.pos[[i]]$node)]
+                loopEdgesEnds <- matrix(c(
+                    ifelse(correctOrderEnds, loopEdgesEnds$from, loopEdgesEnds$to),
+                    ifelse(correctOrderEnds, loopEdgesEnds$to, loopEdgesEnds$from)
+                ), nrow = 2, byrow = TRUE)
+                eattr <- lapply(edge_attr(graph), `[`, i = as.numeric(loopEdges))
+                graph <- add_edges(graph, as.vector(loopEdgesEnds), attr = eattr)
+                graph <- delete_edges(graph, as.numeric(loopEdges))
+            }
+
+            nodeCorrection <- unlist(lapply(node.pos[-i], function(ax) {
+                correct <- if (ax$angle[1] < node.pos[[i]]$angle[1]) {
+                    ax$angle[1] - node.pos[[i]]$angle[1] < -pi
+                } else {
+                    ax$angle[1] - node.pos[[i]]$angle[1] < pi
+                }
+                if (correct) ax$node
+            }))
+            if (length(nodeCorrection) != 0) {
+                correctEdges <- E(graph)[node.pos[[i]]$node %--% nodeCorrection]
+                correctEdgesEnds <- ends(graph, correctEdges, names = FALSE)
+                newNodeInd <- correctEdgesEnds %in% node.pos[[i]]$node
+                correctEdgesEnds[newNodeInd] <- extraNodes$node[match(correctEdgesEnds[newNodeInd], node.pos[[i]]$node)]
+                eattr <- lapply(edge_attr(graph), `[`, i = as.numeric(correctEdges))
+                graph <- add_edges(graph, as.vector(t(correctEdgesEnds)), attr = eattr)
+                graph <- delete_edges(graph, as.numeric(correctEdges))
+            }
+
+            node.pos[[i]]$angle <- node.pos[[i]]$angle - split.angle/2
+            extraNodes$angle <- extraNodes$angle + split.angle/2
+            node.pos <- append(node.pos, list(extraNodes))
+        }
+    }
+    node.pos <- lapply(node.pos, function(nodes) {
+        nodes$x <- nodes$r * cos(nodes$angle)
+        nodes$y <- nodes$r * sin(nodes$angle)
+        nodes
+    })
+    node.pos <- do.call(rbind, node.pos)
+    node.pos <- node.pos[order(node.pos$node), names(node.pos) != 'node']
+    extraData <- attr_df(graph)
+    node.pos <- cbind(node.pos, extraData)
+    attr(node.pos, 'graph') <- graph
+    node.pos
 }
 is.igraphlayout <- function(type) {
     if (type %in% igraphlayouts) {
@@ -465,6 +615,34 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight) {
     }
     hierarchy
 }
+
+#' @importFrom igraph vertex_attr edge_attr gorder gsize
+attr_df <- function(gr, type = 'vertex') {
+    attrList <- switch(
+        type,
+        vertex = vertex_attr(gr),
+        edge = edge_attr(gr),
+        stop('type must be either "vertex" or "edge"')
+    )
+    if (length(attrList) == 0) {
+        nrows <- switch(
+            type,
+            vertex = gorder(gr),
+            edge = gsize(gr),
+            stop('type must be either "vertex" or "edge"')
+        )
+        return(data.frame(matrix(nrow = nrows, ncol = 0)))
+    }
+    attrList <- lapply(attrList, function(attr) {
+        if (class(attr) == 'list') {
+            I(attr)
+        } else {
+            attr
+        }
+    })
+    as.data.frame(attrList)
+}
+
 igraphlayouts <- c(
     'as_bipartite',
     'as_star',
