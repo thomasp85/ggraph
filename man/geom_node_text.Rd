@@ -6,7 +6,7 @@
 \usage{
 geom_node_text(mapping = NULL, data = NULL, position = "identity",
   parse = FALSE, nudge_x = 0, nudge_y = 0, check_overlap = FALSE,
-  show.legend = NA, ...)
+  show.legend = NA, repel = FALSE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
@@ -33,6 +33,10 @@ same layer will not be plotted. A quick and dirty way}
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
 never includes, and \code{TRUE} always includes.}
+
+\item{repel}{If \code{TRUE}, text labels will be repelled from each other
+to avoid overlapping, using the \code{GeomTextRepel} geom from the
+ggrepel package.}
 
 \item{...}{other arguments passed on to \code{\link[ggplot2]{layer}}. There
 are three types of arguments you can use here:

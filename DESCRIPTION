@@ -20,7 +20,8 @@ Imports:
     scales,
     MASS,
     digest,
-    gtable
+    gtable,
+    ggrepel
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Depends: ggplot2 (>= 2.0.0)
