@@ -22,3 +22,12 @@ aesIntersect <- function(aes1, aes2) {
         class = 'uneval'
     )
 }
+
+dataType <- function(data) {
+    type <- attr(data, 'type_ggraph')
+    if (is.null(type)) {
+        if (inherits(data, 'layout_ggraph')) return('node_ggraph')
+        else return('other')
+    }
+    type
+}

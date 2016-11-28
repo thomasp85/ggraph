@@ -9,11 +9,12 @@ gCon <- function(from = integer(), to = integer(), ...) {
         nodes <- as.data.frame(layout)[unlist(connections), ]
         nodes$con.id <- rep(seq_along(connections), lengths(connections))
         extra <- list(...)
-        if (length(extra) > 0) {
+        nodes <- if (length(extra) > 0) {
             cbind(nodes, as.data.frame(extra))
         } else {
             nodes
         }
+        structure(nodes, type = 'connection_ggraph')
     }
 }
 #' @export

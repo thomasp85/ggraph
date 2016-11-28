@@ -113,7 +113,7 @@ gEdges <- function(format = 'short', nodeFilter = NULL, nodePar = NULL, collapse
             long = formatLongEdges(edges, layout, nodePar),
             stop('Unknown format. Use either "short" or "long"')
         )
-        edges
+        structure(edges, type_ggraph = 'edge_ggraph')
     }
 }
 getEdges <- function(layout) {
