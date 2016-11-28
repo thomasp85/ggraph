@@ -210,3 +210,15 @@ getHeights <- function(den) {
         c(getHeights(den[[1]]), getHeights(den[[2]]), attr(den, 'height'))
     }
 }
+#' @importFrom igraph graph_from_data_frame
+#' @export
+den_to_igraph <- function(den, even = FALSE, ...) {
+    layout <- if (even) {
+        createLayout(den, 'even', ...)
+    } else {
+        createLayout(den, 'dendrogram', ...)
+    }
+    edges <- getEdges(layout)
+    names(layout)[1:2] <- paste0('layout.', names(layout)[1:2])
+    graph_from_data_frame(edges, vertices = cbind(node.name = seq_len(nrow(layout)), layout))
+}
