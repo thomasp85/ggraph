@@ -4,6 +4,7 @@
 */dʒiː.dʒɪˈrɑːf/*  (or g-giraffe)
 
 [![Travis-CI Build Status](https://travis-ci.org/thomasp85/ggraph.svg?branch=master)](https://travis-ci.org/thomasp85/ggraph)
+[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/thomasp85/ggraph?branch=master&svg=true)](https://ci.appveyor.com/project/thomasp85/ggraph)
 
 ### What it is
 ggraph is an extension of ggplot2 tailored at plotting graph-like data 
