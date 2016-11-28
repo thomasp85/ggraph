@@ -220,6 +220,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
         }
         data
     },
+    default_aes = aes(filter = TRUE),
     required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction')
 )
 #' @rdname geom_edge_elbow
@@ -275,6 +276,7 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
         }
         data
     },
+    default_aes = aes(filter = TRUE),
     required_aes = c('x', 'y', 'group', 'circular', 'direction')
 )
 #' @rdname geom_edge_elbow
@@ -365,6 +367,7 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
         }
         data
     },
+    default_aes = aes(filter = TRUE),
     required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction')
 )
 #' @rdname geom_edge_elbow

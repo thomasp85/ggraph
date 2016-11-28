@@ -128,7 +128,8 @@ StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
             data <- data[data$filter, names(data) != 'filter']
         }
         StatLink$setup_data(data, params)
-    }
+    },
+    default_aes = aes(filter = TRUE)
 )
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -145,7 +146,8 @@ StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
             data <- data[data$filter, names(data) != 'filter']
         }
         StatLink2$setup_data(data, params)
-    }
+    },
+    default_aes = aes(filter = TRUE)
 )
 #' @rdname geom_edge_link
 #'

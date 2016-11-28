@@ -38,6 +38,7 @@ StatEdgeBundle <- ggproto('StatEdgeBundle', StatBspline,
         params
     },
     required_aes = c('x', 'y'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n', 'tension')
 )
 #' @rdname geom_edge_bundle
@@ -71,6 +72,7 @@ StatEdgeBundle2 <- ggproto('StatEdgeBundle2', StatBspline2,
         StatEdgeBundle$setup_params(data, params)
     },
     required_aes = c('x', 'y'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n', 'tension')
 )
 #' @rdname geom_edge_bundle
@@ -103,6 +105,7 @@ StatEdgeBundle0 <- ggproto('StatEdgeBundle0', StatIdentity,
         StatEdgeBundle$setup_params(data, params)
     },
     required_aes = c('x', 'y'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n', 'tension')
 )
 #' @rdname geom_edge_bundle

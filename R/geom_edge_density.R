@@ -121,6 +121,7 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
         }
         data
     },
+    default_aes = aes(filter = TRUE),
     required_aes = c('x', 'y', 'xend', 'yend')
 )
 #' @rdname ggraph-extensions

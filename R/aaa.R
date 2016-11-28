@@ -12,7 +12,8 @@ StatFilter <- ggproto('StatFilter', StatIdentity,
             data <- data[data$filter, names(data) != 'filter']
         }
         data
-    }
+    },
+    default_aes = aes(filter = TRUE)
 )
 
 aesIntersect <- function(aes1, aes2) {

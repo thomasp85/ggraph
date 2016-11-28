@@ -131,6 +131,7 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
         }
     },
     required_aes = c('x', 'y', 'from', 'to', 'angle', 'direction', 'strength'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n')
 )
 #' @rdname geom_edge_loop
@@ -161,6 +162,7 @@ StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
         StatEdgeLoop$setup_data(data, params)
     },
     required_aes = c('x', 'y', 'from', 'to', 'angle', 'direction', 'strength'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm')
 )
 #' @rdname geom_edge_loop

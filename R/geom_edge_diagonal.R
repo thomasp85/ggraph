@@ -147,6 +147,7 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
         createDiagonal(data, data2, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'flipped', 'n')
 )
 #' @rdname geom_edge_diagonal
@@ -187,6 +188,7 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
         createDiagonal(data, data2, params)
     },
     required_aes = c('x', 'y', 'group', 'circular'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'flipped', 'n')
 )
 #' @rdname geom_edge_diagonal
@@ -218,6 +220,7 @@ StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
         StatEdgeDiagonal$setup_data(data, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'flipped')
 )
 #' @rdname geom_edge_diagonal

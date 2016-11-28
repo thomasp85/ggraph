@@ -147,6 +147,7 @@ StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
         createHiveBezier(data[keep, ], data2[keep, ], params)
     },
     required_aes = c('x', 'y', 'xend', 'yend'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n', 'curvature')
 )
 #' @rdname geom_edge_hive
@@ -186,6 +187,7 @@ StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
         createHiveBezier(data[keep, ], data2[keep, ], params)
     },
     required_aes = c('x', 'y', 'group'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n', 'curvature')
 )
 #' @rdname geom_edge_hive
@@ -215,6 +217,7 @@ StatEdgeHive0 <- ggproto('StatEdgeHive0', StatBezier0,
         StatEdgeHive$setup_data(data, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'curvature')
 )
 #' @rdname geom_edge_hive
