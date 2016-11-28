@@ -36,7 +36,6 @@ Collate:
     'edge_colourbar.R'
     'edge_direction.R'
     'edges.R'
-    'facet_graph.R'
     'geom_axis_hive.R'
     'geom_edge.R'
     'geom_edge_arc.R'
