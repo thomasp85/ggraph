@@ -15,6 +15,7 @@ createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
     } else {
         stop('Unknown layout')
     }
+    layout$ggraph.index <- seq_len(nrow(layout))
     if (is.null(attr(layout, 'graph'))) {
         attr(layout, 'graph') <- graph
     }

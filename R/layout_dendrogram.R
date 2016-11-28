@@ -12,6 +12,7 @@ createLayout.dendrogram <- function(graph, layout, circular = FALSE, ...) {
     } else {
         stop('Unknown layout')
     }
+    layout$ggraph.index <- seq_len(nrow(layout))
     attr(layout, 'graph') <- graph
     attr(layout, 'circular') <- circular
     class(layout) <- c(
