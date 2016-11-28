@@ -6,7 +6,8 @@
 #'
 GeomTreemap <- ggproto('GeomTreemap', GeomTile,
     default_aes = aes(fill = NA, colour = 'black', size = 0.5, linetype = 1,
-                      alpha = NA)
+                      alpha = NA, width = 1, height = 1),
+    required_aes = c('x', 'y')
 )
 
 #' Draw the rectangles in a treemap
