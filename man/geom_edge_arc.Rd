@@ -8,14 +8,15 @@
 \usage{
 geom_edge_arc(mapping = NULL, data = gEdges(), position = "identity",
   arrow = NULL, curvature = 1, lineend = "butt", show.legend = NA,
-  n = 100, ...)
+  n = 100, fold = FALSE, ...)
 
 geom_edge_arc2(mapping = NULL, data = gEdges("long"),
   position = "identity", arrow = NULL, curvature = 1, lineend = "butt",
-  show.legend = NA, n = 100, ...)
+  show.legend = NA, n = 100, fold = FALSE, ...)
 
 geom_edge_arc0(mapping = NULL, data = gEdges(), position = "identity",
-  arrow = NULL, curvature = 1, lineend = "butt", show.legend = NA, ...)
+  arrow = NULL, curvature = 1, lineend = "butt", show.legend = NA,
+  fold = fold, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}

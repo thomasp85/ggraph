@@ -28,7 +28,7 @@ displayed as described in ?plotmath}
 Useful for offsetting text from points, particularly on discrete scales.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
-same layer will not be plotted. A quick and dirty way}
+same layer will not be plotted. Ignored if repel = TRUE. A quick and dirty way.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
