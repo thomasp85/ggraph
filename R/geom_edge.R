@@ -10,7 +10,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
     draw_panel = function(data, panel_scales, coord, arrow = NULL,
                           lineend = "butt", linejoin = "round", linemitre = 1,
                           na.rm = FALSE, interpolate = TRUE,
-                          label_colour = 'black',  label_alpha = 1,
+                          label_colour = 'black',  label_alpha = 1, label_parse = FALSE,
                           check_overlap = FALSE) {
         if (!anyDuplicated(data$group)) {
             message("geom_edge_path: Each group consists of only one observation. ",
@@ -64,12 +64,12 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         if (any(!is.na(data$label))) {
             edge_ind <- split(seq_len(nrow(data)), data$group)
             edge_length <- lengths(edge_ind)
-            edge_start <- cumsum(edge_length)
+            edge_start <- c(0, cumsum(edge_length)[-length(edge_length)]) + 1
             label_pos <- data$label_pos[sapply(edge_ind, head, n = 1)]
             label_pos <- 1 + floor((edge_length - 1) * label_pos)
             label_ind <- edge_start + label_pos
             label_data <- data[label_ind, ]
-            if (any(!is.na(label_data$angle))) {
+            if (any(is.na(label_data$angle))) {
                 angle_start <- ifelse(label_pos == 1, 1, label_pos - 1)
                 angle_end <- ifelse(label_pos == edge_length, edge_length, label_pos + 1)
                 label_data$angle <- eAngle(data$x[angle_start + edge_start],
@@ -79,7 +79,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
 
             }
             lab <- label_data$label
-            if (parse) {
+            if (label_parse) {
                 lab <- parse(text = as.character(lab))
             }
             labelGrob <- textGrob(
