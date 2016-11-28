@@ -153,7 +153,7 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
         createArc(data, data2, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
-    extra_params = c('na.rm', 'n', 'curvature')
+    extra_params = c('na.rm', 'n', 'curvature', 'fold')
 )
 #' @rdname geom_edge_arc
 #'
@@ -161,7 +161,7 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
 #' @export
 geom_edge_arc <- function(mapping = NULL, data = gEdges(),
                           position = "identity", arrow = NULL, curvature = 1,
-                          lineend = "butt", show.legend = NA, n = 100, ...) {
+                          lineend = "butt", show.legend = NA, n = 100, fold = FALSE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular))
@@ -169,7 +169,7 @@ geom_edge_arc <- function(mapping = NULL, data = gEdges(),
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
           params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = FALSE, curvature = curvature, ...)
+                        interpolate = FALSE, curvature = curvature, fold = fold, ...)
     )
 }
 #' @rdname ggraph-extensions
@@ -192,7 +192,7 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
         createArc(data, data2, params)
     },
     required_aes = c('x', 'y', 'group', 'circular'),
-    extra_params = c('na.rm', 'n', 'curvature')
+    extra_params = c('na.rm', 'n', 'curvature', 'fold')
 )
 #' @rdname geom_edge_arc
 #'
@@ -200,7 +200,7 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
 #' @export
 geom_edge_arc2 <- function(mapping = NULL, data = gEdges('long'),
                            position = "identity", arrow = NULL, curvature = 1,
-                           lineend = "butt", show.legend = NA, n = 100, ...) {
+                           lineend = "butt", show.legend = NA, n = 100, fold = FALSE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
                                           circular=~circular))
@@ -208,7 +208,7 @@ geom_edge_arc2 <- function(mapping = NULL, data = gEdges('long'),
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
           params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = TRUE, curvature = curvature, ...)
+                        interpolate = TRUE, curvature = curvature, fold = fold, ...)
     )
 }
 #' @rdname ggraph-extensions
@@ -222,7 +222,7 @@ StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
         StatEdgeArc$setup_data(data, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
-    extra_params = c('na.rm', 'curvature')
+    extra_params = c('na.rm', 'curvature', 'fold')
 )
 #' @rdname geom_edge_arc
 #'
@@ -230,7 +230,7 @@ StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
 #' @export
 geom_edge_arc0 <- function(mapping = NULL, data = gEdges(),
                            position = "identity", arrow = NULL, curvature = 1,
-                           lineend = "butt", show.legend = NA, ...) {
+                           lineend = "butt", show.legend = NA, fold = fold, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular))
@@ -238,7 +238,7 @@ geom_edge_arc0 <- function(mapping = NULL, data = gEdges(),
           geom = GeomEdgeBezier, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
           params = list(arrow = arrow, lineend = lineend, na.rm = FALSE,
-                        curvature = curvature, ...)
+                        curvature = curvature, fold = FALSE, ...)
     )
 }
 
@@ -271,6 +271,12 @@ createArc <- function(from, to, params) {
         data2$y[!circ] <- data2$y[!circ] + sin(startAngle) * nodeDist[!circ]
         data3$x[!circ] <- data3$x[!circ] + cos(endAngle) * nodeDist[!circ]
         data3$y[!circ] <- data3$y[!circ] + sin(endAngle) * nodeDist[!circ]
+        if (params$fold) {
+            data2$x[!circ] <- abs(data2$x[!circ])
+            data2$y[!circ] <- abs(data2$y[!circ])
+            data3$x[!circ] <- abs(data3$x[!circ])
+            data3$y[!circ] <- abs(data3$y[!circ])
+        }
     }
     data <- rbind(from, data2, data3, to)
     data[order(data$index), names(data) != 'index']
