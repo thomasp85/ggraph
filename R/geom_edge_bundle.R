@@ -125,7 +125,7 @@ geom_edge_bundle0 <- function(mapping = NULL, data = gCon(),
                         tension = tension, ...)
     )
 }
-
+#' @importFrom utils head tail
 relax <- function(data, strength) {
     formula <- function(p, startInd, endInd, pathLengths) {
         start <- rep(p[startInd], pathLengths)

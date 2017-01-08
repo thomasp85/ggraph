@@ -378,6 +378,7 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
     layout
 }
 #' @importFrom igraph gorder vertex_attr gsize induced_subgraph add_vertices E ends add_edges delete_edges %--% edge_attr
+#' @importFrom utils tail
 #' @export
 layout_igraph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, divide.by = NULL, divide.order = NULL, normalize = TRUE, center.size = 0.1, divide.size = 0.05, use.numeric = FALSE, offset = pi/2, split.axes = 'none', split.angle = pi/6, circular = FALSE) {
     axes <- split(seq_len(gorder(graph)), vertex_attr(graph, axis))

@@ -104,6 +104,8 @@ guide_geom.edge_direction <- function(guide, layers, default_mapping) {
 #' @importFrom grid convertWidth convertHeight unit grobWidth grobHeight arrow grobName
 #' @importFrom ggplot2 element_grob calc_element
 #' @importFrom gtable gtable gtable_add_grob
+#' @importFrom utils tail
+#' @importFrom stats setNames
 #' @export
 guide_gengrob.edge_direction <- function(guide, theme) {
     switch(guide$direction, horizontal = {

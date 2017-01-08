@@ -34,6 +34,7 @@ guide_edge_colourbar <- function(title = waiver(), title.position = NULL,
 guide_edge_colorbar <- guide_edge_colourbar
 
 #' @importFrom scales discard
+#' @importFrom stats setNames
 #' @export
 guide_train.edge_colourbar <- function(guide, scale) {
     if (length(intersect(scale$aesthetics, c("edge_colour",

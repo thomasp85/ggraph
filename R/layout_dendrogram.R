@@ -112,6 +112,7 @@ layout_dendrogram_even <- function(graph, ...) {
     graph <- spreadHeights(graph)
     layout_dendrogram_dendrogram(graph, ...)
 }
+#' @importFrom stats is.leaf
 identifyNodes <- function(den, start = 1) {
     if (is.leaf(den)) {
         attr(den, 'ggraph.id') <- start
@@ -122,6 +123,7 @@ identifyNodes <- function(den, start = 1) {
     }
     den
 }
+#' @importFrom stats is.leaf
 setCoord <- function(den, offset = 1, repel = TRUE, pad = 0, ratio = 1) {
     if (is.leaf(den)) {
         attr(den, 'ggraph.coord') <- offset
@@ -140,6 +142,7 @@ setCoord <- function(den, offset = 1, repel = TRUE, pad = 0, ratio = 1) {
     }
     den
 }
+#' @importFrom stats is.leaf
 getCoords <- function(den) {
     id <- attr(den, 'ggraph.id')
     label <- attr(den, 'label')
@@ -171,6 +174,7 @@ getCoords <- function(den) {
         )
     }
 }
+#' @importFrom stats is.leaf
 getLinks <- function(den) {
     id <- attr(den, 'ggraph.id')
     if (is.leaf(den)) {
@@ -193,6 +197,7 @@ getLinks <- function(den) {
         )
     }
 }
+#' @importFrom stats is.leaf
 spreadHeights <- function(den) {
     if (is.leaf(den)) {
         attr(den, 'height') <- 0
@@ -203,6 +208,7 @@ spreadHeights <- function(den) {
     }
     den
 }
+#' @importFrom stats is.leaf
 getHeights <- function(den) {
     if (is.leaf(den)) {
         attr(den, 'height')

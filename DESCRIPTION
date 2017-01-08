@@ -21,7 +21,9 @@ Imports:
     MASS,
     digest,
     gtable,
-    ggrepel
+    ggrepel,
+    utils,
+    stats
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Depends:
