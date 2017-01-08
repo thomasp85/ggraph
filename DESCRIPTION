@@ -27,6 +27,7 @@ Imports:
 LinkingTo: Rcpp
 RoxygenNote: 5.0.1
 Depends:
+    R (>= 2.10),
     ggplot2 (>= 2.0.0)
 Collate:
     'RcppExports.R'
