@@ -21,8 +21,7 @@ This dataset shows the membership of 136 colonial Americans in 5 whig
 organization and is a bipartite graph. The data appeared in the appendix to
 David Hackett Fischer's \emph{Paul Revere's Ride} (Oxford University Press,
 1995) and compiled by Kieran Healy for the blog post
-\href{http://kieranhealy.org/blog/archives/2013/06/09/using-metadata-to-find-
-paul-revere/}{Using Metadata to Find Paul Revere}.
+\href{http://kieranhealy.org/blog/archives/2013/06/09/using-metadata-to-find-paul-revere/}{Using Metadata to Find Paul Revere}.
 }
 \keyword{datasets}
 

@@ -57,7 +57,7 @@ slice-and-dice will eventually be implemented.
 
 \emph{Split} (default)
 
-The Split algorithm was developed by Björn Engdahl in order to address the
+The Split algorithm was developed by Bjorn Engdahl in order to address the
 downsides of both the original slice-and-dice algorithm (poor aspect ratio)
 and the popular squarify algorithm (no ordering of nodes). It works by
 finding the best cut in the ordered list of children in terms of making sure
@@ -70,7 +70,7 @@ applications on handheld devices}. Master's Degree Project.
 
 Johnson, B., & Ben Shneiderman. (1991). \emph{Tree maps: A Space-Filling
 Approach to the Visualization of Hierarchical Information Structures}. IEEE
-Visualization, 284–291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
+Visualization, 284-291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
 }
 \seealso{
 Other layout_igraph_*: \code{\link{layout_igraph_dendrogram}},
