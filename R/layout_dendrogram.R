@@ -216,6 +216,25 @@ getHeights <- function(den) {
         c(getHeights(den[[1]]), getHeights(den[[2]]), attr(den, 'height'))
     }
 }
+#' Convert a dendrogram into an igraph object
+#'
+#' This small helper function converts a dendrogram into an igraph object with
+#' the same node indexes as would be had were the dendrogram used directly in
+#' a ggraph plot. The nodes would have the same attributes as would have been
+#' calculated had the dendrogram been used in layout creation, meaning that e.g.
+#' it contains a leaf attribute which is \code{TRUE} for leaf nodes and
+#' \code{FALSE} for the rest.
+#'
+#' @param den A dendrogram object
+#'
+#' @param even Logical should the position information be calculated based on an
+#' even layout (see \code{\link{layout_dendrogram_even}}).
+#'
+#' @param ... Additional parameters to pass off to
+#' \code{\link{layout_dendrogram_dendrogram}}
+#'
+#' @return An igraph object.
+#'
 #' @importFrom igraph graph_from_data_frame
 #' @export
 den_to_igraph <- function(den, even = FALSE, ...) {
