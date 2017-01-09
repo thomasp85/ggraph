@@ -4,7 +4,7 @@
 \alias{geom_edge_bundle}
 \alias{geom_edge_bundle0}
 \alias{geom_edge_bundle2}
-\title{Create edge bundles between nodes}
+\title{Create heirarchical edge bundles between nodes}
 \usage{
 geom_edge_bundle(mapping = NULL, data = gCon(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, n = 100,
@@ -17,13 +17,120 @@ geom_edge_bundle2(mapping = NULL, data = gCon(), position = "identity",
 geom_edge_bundle0(mapping = NULL, data = gCon(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, tension = 0.8, ...)
 }
+\arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
+\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
+default), it is combined with the default mapping at the top level of the
+plot. You must supply \code{mapping} if there is no plot mapping.}
+
+\item{data}{The result of a call to \code{\link{gCon}}}
+
+\item{position}{Position adjustment, either as a string, or the result of
+a call to a position adjustment function.}
+
+\item{arrow}{Arrow specification, as created by \code{\link[grid]{arrow}}}
+
+\item{lineend}{Line end style (round, butt, square)}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
+
+\item{n}{The number of points to calculate along the edge. Defaults to 100}
+
+\item{tension}{How "loose" should the bundles be. 1 will give very tight
+bundles, while 0 will turn of bundling completely and give straight lines.
+Defaults to 0.8}
+
+\item{...}{other arguments passed on to \code{\link{layer}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{color = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
+}
 \description{
-The concept of edge bundles...
+Hierarchical edge bundling is a technique to introduce some order into the
+hairball structure that can appear when there's a lot of overplotting and
+edge crossing in a network plot. The concept requires that the network has
+an intrinsic hierarchical structure that defines the layout but is not shown.
+Connections between points (that is, not edges) are then drawn so that they
+loosely follows the underlying hierarchical structure. This results in a
+flow-like structure where lines that partly move in the same direction will
+be bundled togeether.
+}
+\note{
+In order to avoid excessive typing edge aesthetic names are
+automatically expanded. Because of this it is not necessary to write
+\code{edge_colour} within the \code{aes()} call as \code{colour} will
+automatically be renamed appropriately.
+}
+\section{Aesthetics}{
+
+geom_edge_bundle* understands the following aesthetics. Bold aesthetics are
+automatically set, but can be overridden.
+\itemize{
+ \item{\strong{x}}
+ \item{\strong{y}}
+ \item{\strong{group}}
+ \item{\strong{circular}}
+ \item{edge_colour}
+ \item{edge_width}
+ \item{edge_linetype}
+ \item{edge_alpha}
+ \item{filter}
+}
+}
+
+\section{Computed variables}{
+
+
+\describe{
+ \item{index}{The position along the path (not computed for the *0 version)}
+}
+}
+\examples{
+# Create a graph of the flare class system
+library(igraph)
+flareGraph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+importFrom <- match(flare$imports$from, flare$vertices$name)
+importTo <- match(flare$imports$to, flare$vertices$name)
+flareGraph <- treeApply(flareGraph, function(node, parent, depth, tree) {
+    tree <- set_vertex_attr(tree, 'depth', node, depth)
+    if (depth == 1) {
+        tree <- set_vertex_attr(tree, 'class', node, V(tree)$shortName[node])
+    } else if (depth > 1) {
+        tree <- set_vertex_attr(tree, 'class', node, V(tree)$class[parent])
+    }
+    tree
+})
+V(flareGraph)$leaf <- degree(flareGraph, mode = 'out') == 0
+
+# Use class inheritance for layout but plot class imports as bundles
+ggraph(flareGraph, 'dendrogram', circular = TRUE) +
+    geom_edge_bundle(aes(colour = ..index..), data = gCon(importFrom, importTo),
+                     edge_alpha = 0.25) +
+    geom_node_point(aes(filter = leaf, colour = class)) +
+    scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') +
+    coord_fixed() +
+    ggforce::theme_no_axes()
+
+}
+\author{
+Thomas Lin Pedersen
 }
 \references{
 Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
 of adjacency relations in hierarchical data.} IEEE Transactions on
 Visualization and Computer Graphics, \strong{12}(5), 741-748.
 http://doi.org/10.1109/TVCG.2006.147
+}
+\seealso{
+Other geom_edge_*: \code{\link{geom_edge_arc}},
+  \code{\link{geom_edge_density}},
+  \code{\link{geom_edge_diagonal}},
+  \code{\link{geom_edge_elbow}},
+  \code{\link{geom_edge_fan}},
+  \code{\link{geom_edge_hive}},
+  \code{\link{geom_edge_link}},
+  \code{\link{geom_edge_loop}}
 }
 
