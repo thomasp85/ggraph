@@ -40,7 +40,7 @@ a call to a position adjustment function.}
 \item{parse}{If TRUE, the labels will be parsed into expressions and
 displayed as described in ?plotmath}
 
-\item{nudge_x}{Horizontal and vertical adjustment to nudge labels by.
+\item{nudge_x, nudge_y}{Horizontal and vertical adjustment to nudge labels by.
 Useful for offsetting text from points, particularly on discrete scales.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the

@@ -24,6 +24,9 @@
 #'
 #' @inheritParams ggplot2::geom_text
 #'
+#' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
+#' Useful for offsetting text from points, particularly on discrete scales.
+#'
 #' @param repel If \code{TRUE}, text labels will be repelled from each other
 #' to avoid overlapping, using the \code{GeomTextRepel} geom from the
 #' ggrepel package.
@@ -74,7 +77,7 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = "identity",
 #'
 #' @inheritParams ggplot2::geom_label
 #'
-#' @importFrom ggplot2 GeomText aes_ layer position_nudge
+#' @importFrom ggplot2 GeomLabel aes_ layer position_nudge
 #' @importFrom ggrepel GeomLabelRepel
 #' @export
 #'
@@ -96,7 +99,7 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = "identity",
     if (repel) {
         geom <- GeomLabelRepel
     } else {
-        geom <- GeomText
+        geom <- GeomLabel
     }
 
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y))
