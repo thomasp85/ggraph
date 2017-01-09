@@ -86,6 +86,8 @@
 #'   columns to the data.frame}
 #' }
 #'
+#' @family extractors
+#'
 #' @export
 #'
 gEdges <- function(format = 'short', nodeFilter = NULL, nodePar = NULL, collapse = 'none') {

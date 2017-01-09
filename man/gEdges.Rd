@@ -96,4 +96,7 @@ taken from the first occuring edge, so if some more sophisticated summary is
 needed it is suggested that the graph be tidied up before plotting with
 ggraph.
 }
+\seealso{
+Other extractors: \code{\link{gCon}}
+}
 
