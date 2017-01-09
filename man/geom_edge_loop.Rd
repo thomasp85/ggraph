@@ -9,8 +9,7 @@ geom_edge_loop(mapping = NULL, data = gEdges(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, n = 100, ...)
 
 geom_edge_loop0(mapping = NULL, data = gEdges(), position = "identity",
-  arrow = NULL, flipped = FALSE, lineend = "butt", show.legend = NA,
-  ...)
+  arrow = NULL, lineend = "butt", show.legend = NA, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
@@ -123,6 +122,7 @@ Thomas Lin Pedersen
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
+  \code{\link{geom_edge_bundle}},
   \code{\link{geom_edge_density}},
   \code{\link{geom_edge_diagonal}},
   \code{\link{geom_edge_elbow}},

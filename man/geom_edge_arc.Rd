@@ -46,6 +46,9 @@ never includes, and \code{TRUE} always includes.}
 
 \item{n}{The number of points to create along the path.}
 
+\item{fold}{Logical. Should arcs appear on the same side of the nodes despite
+different directions. Default to \code{FALSE}.}
+
 \item{...}{other arguments passed on to \code{\link[ggplot2]{layer}}. There
 are three types of arguments you can use here:
 \itemize{
@@ -148,7 +151,8 @@ ggraph(gr, 'linear', circular = TRUE) +
 Thomas Lin Pedersen
 }
 \seealso{
-Other geom_edge_*: \code{\link{geom_edge_density}},
+Other geom_edge_*: \code{\link{geom_edge_bundle}},
+  \code{\link{geom_edge_density}},
   \code{\link{geom_edge_diagonal}},
   \code{\link{geom_edge_elbow}},
   \code{\link{geom_edge_fan}},

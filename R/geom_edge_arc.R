@@ -82,6 +82,9 @@
 #' will give a straight line. Negative number will change the direction of the
 #' curve. Only used if \code{circular = FALSE}.
 #'
+#' @param fold Logical. Should arcs appear on the same side of the nodes despite
+#' different directions. Default to \code{FALSE}.
+#'
 #' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
 #'
 #' @param lineend Line end style (round, butt, square)

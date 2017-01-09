@@ -170,9 +170,8 @@ StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
 #' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_loop0 <- function(mapping = NULL, data = gEdges(),
-                                position = "identity", arrow = NULL,
-                                flipped = FALSE, lineend = "butt",
-                                show.legend = NA, ...) {
+                            position = "identity", arrow = NULL,
+                            lineend = "butt", show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, from=~from, to=~to,
                                           angle=90, direction=45, strength=1))
