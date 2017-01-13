@@ -70,7 +70,7 @@
 #' representation.
 #'
 #' @seealso \code{\link{gEdges}} for extracting edge information from the
-#' layout.
+#' layout and \code{\link{gCon}} for extracting path information.
 #'
 #' @examples
 #' require(igraph)

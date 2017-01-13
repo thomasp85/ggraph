@@ -20,6 +20,10 @@
 #'
 #' @inheritParams ggplot2::geom_point
 #'
+#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
+#' or \code{\link[ggplot2]{aes_}}. By default x and y are mapped to x and y in
+#' the node data.
+#'
 #' @author Thomas Lin Pedersen
 #'
 #' @family geom_node_*

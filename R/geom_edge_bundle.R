@@ -35,11 +35,11 @@
 #'  \item{index}{The position along the path (not computed for the *0 version)}
 #' }
 #'
+#'
+#' @inheritParams geom_edge_link
 #' @inheritParams ggplot2::geom_path
 #'
 #' @param data The result of a call to \code{\link{gCon}}
-#'
-#' @param n The number of points to calculate along the edge. Defaults to 100
 #'
 #' @param tension How "loose" should the bundles be. 1 will give very tight
 #' bundles, while 0 will turn of bundling completely and give straight lines.

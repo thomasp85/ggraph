@@ -15,10 +15,9 @@ geom_node_label(mapping = NULL, data = NULL, position = "identity",
   show.legend = NA, repel = FALSE, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
+or \code{\link[ggplot2]{aes_}}. By default x and y are mapped to x and y in
+the node data.}
 
 \item{data}{The data to be displayed in this layer. There are three
    options:

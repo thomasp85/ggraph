@@ -9,34 +9,28 @@ geom_edge_density(mapping = NULL, data = gEdges("short"),
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x, y, xend and yend are mapped to
-x, y, xend and yend in the edge data. Thus only edge_fill is really relevant
-to set.}
+or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+circular are mapped to x, y, xend, yend, edge.id and circular in the edge
+data.}
 
-\item{data}{The return of a call to \code{gEdges('short', ...)} or a
-data.frame giving edges in the short format. See \code{\link{gEdges}} for
-more details.}
+\item{data}{The return of a call to \code{gEdges()} or a data.frame
+giving edges in corrent format (see details for for guidance on the format).
+See \code{\link{gEdges}} for more details on edge extraction.}
 
-\item{position}{Position adjustment, either as a string, or the result of a
-call to a position adjustment function. Currently no meaningful position
-adjustment exists for edges.}
+\item{position}{Position adjustment, either as a string, or the result of
+a call to a position adjustment function.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
-\code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-never includes, and \code{TRUE} always includes.}
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.}
 
 \item{n}{The number of points to estimate in the x and y direction, i.e. the
 resolution of the raster.}
 
-\item{...}{other arguments passed on to \code{\link[ggplot2]{layer}}. There
-are three types of arguments you can use here:
-\itemize{
- \item{Aesthetics: to set an aesthetic to a fixed value, like
- \code{color = "red"} or \code{size = 3.}}
- \item{Other arguments to the layer, for example you override the default
- \code{stat} associated with the layer.}
- \item{Other arguments passed on to the stat.}
-}}
+\item{...}{other arguments passed on to \code{\link{layer}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{color = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 }
 \description{
 This geom makes it possible to add a layer showing edge presence as a density

@@ -95,6 +95,6 @@ layout <- createLayout(gr, layout = 'igraph', algorithm = 'kk')
 }
 \seealso{
 \code{\link{gEdges}} for extracting edge information from the
-layout.
+layout and \code{\link{gCon}} for extracting path information.
 }
 

@@ -30,35 +30,11 @@
 #'  \item{density}{The density associated with the pixel}
 #' }
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. By default x, y, xend and yend are mapped to
-#' x, y, xend and yend in the edge data. Thus only edge_fill is really relevant
-#' to set.
-#'
-#' @param data The return of a call to \code{gEdges('short', ...)} or a
-#' data.frame giving edges in the short format. See \code{\link{gEdges}} for
-#' more details.
-#'
-#' @param position Position adjustment, either as a string, or the result of a
-#' call to a position adjustment function. Currently no meaningful position
-#' adjustment exists for edges.
+#' @inheritParams geom_edge_link
+#' @inheritParams ggplot2::geom_raster
 #'
 #' @param n The number of points to estimate in the x and y direction, i.e. the
 #' resolution of the raster.
-#'
-#' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
-#' are three types of arguments you can use here:
-#' \itemize{
-#'  \item{Aesthetics: to set an aesthetic to a fixed value, like
-#'  \code{color = "red"} or \code{size = 3.}}
-#'  \item{Other arguments to the layer, for example you override the default
-#'  \code{stat} associated with the layer.}
-#'  \item{Other arguments passed on to the stat.}
-#' }
-#'
-#' @param show.legend logical. Should this layer be included in the legends?
-#' \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-#' never includes, and \code{TRUE} always includes.
 #'
 #' @author Thomas Lin Pedersen
 #'

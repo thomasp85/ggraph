@@ -18,10 +18,10 @@ geom_edge_bundle0(mapping = NULL, data = gCon(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, tension = 0.8, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link{aes}} or
-\code{\link{aes_}}. If specified and \code{inherit.aes = TRUE} (the
-default), it is combined with the default mapping at the top level of the
-plot. You must supply \code{mapping} if there is no plot mapping.}
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
+or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+circular are mapped to x, y, xend, yend, edge.id and circular in the edge
+data.}
 
 \item{data}{The result of a call to \code{\link{gCon}}}
 
@@ -36,7 +36,7 @@ a call to a position adjustment function.}
 \code{NA}, the default, includes if any aesthetics are mapped.
 \code{FALSE} never includes, and \code{TRUE} always includes.}
 
-\item{n}{The number of points to calculate along the edge. Defaults to 100}
+\item{n}{The number of points to create along the path.}
 
 \item{tension}{How "loose" should the bundles be. 1 will give very tight
 bundles, while 0 will turn of bundling completely and give straight lines.
