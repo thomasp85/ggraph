@@ -3,7 +3,6 @@
 #' @usage NULL
 #' @importFrom grid segmentsGrob polylineGrob gpar
 #' @importFrom dplyr %>% group_by_ do ungroup
-#' @importFrom ggplot2 ggproto GeomPath alpha .pt zeroGrob
 #' @importFrom ggforce interpolateDataFrame
 #' @export
 GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
@@ -136,7 +135,6 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 GeomSegment ggproto zeroGrob alpha aes
 #' @importFrom grid gpar segmentsGrob
 #' @export
 GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
@@ -167,7 +165,6 @@ GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce GeomBezier0
 #' @export
 GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
@@ -194,7 +191,6 @@ GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce GeomBspline0
 #' @export
 GeomEdgeBspline <- ggproto('GeomEdgeBspline', GeomBspline0,

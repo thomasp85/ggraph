@@ -111,7 +111,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier
 #' @export
 StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
@@ -136,7 +135,6 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
 )
 #' @rdname geom_edge_loop
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_loop <- function(mapping = NULL, data = gEdges(),
                            position = "identity", arrow = NULL,
@@ -154,7 +152,6 @@ geom_edge_loop <- function(mapping = NULL, data = gEdges(),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier0
 #' @export
 StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
@@ -167,7 +164,6 @@ StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
 )
 #' @rdname geom_edge_loop
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_loop0 <- function(mapping = NULL, data = gEdges(),
                             position = "identity", arrow = NULL,

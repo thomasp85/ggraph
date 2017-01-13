@@ -62,4 +62,5 @@ not allow for drawing gradients or interpolations though, so use only for
 simple edge drawings.
 }
 \keyword{datasets}
+\keyword{internal}
 

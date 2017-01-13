@@ -1,7 +1,6 @@
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 aes
 #' @export
 #'
 GeomTreemap <- ggproto('GeomTreemap', GeomTile,
@@ -87,7 +86,6 @@ GeomTreemap <- ggproto('GeomTreemap', GeomTile,
 #'   scale_alpha(range = c(1, 0.5), guide = 'none') +
 #'   scale_size(range = c(4, 0.2), guide = 'none')
 #'
-#' @importFrom ggplot2 GeomTile aes_
 #' @export
 #'
 geom_node_treemap <- function(mapping = NULL, data = NULL, position = "identity",

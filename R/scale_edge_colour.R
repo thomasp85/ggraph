@@ -75,7 +75,6 @@ NULL
 
 #' @rdname scale_edge_colour
 #'
-#' @importFrom ggplot2 discrete_scale
 #' @importFrom scales hue_pal
 #' @export
 scale_edge_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1, na.value = "grey50") {
@@ -84,7 +83,6 @@ scale_edge_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.st
 }
 #' @rdname scale_edge_colour
 #'
-#' @importFrom ggplot2 discrete_scale
 #' @importFrom scales brewer_pal
 #' @export
 scale_edge_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1) {
@@ -92,7 +90,6 @@ scale_edge_colour_brewer <- function(..., type = "seq", palette = 1, direction =
 }
 #' @rdname scale_edge_colour
 #'
-#' @importFrom ggplot2 continuous_scale
 #' @importFrom scales gradient_n_pal brewer_pal
 #' @export
 scale_edge_colour_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "edge_colourbar") {
@@ -107,7 +104,6 @@ scale_edge_colour_distiller <- function(..., type = "seq", palette = 1, directio
 }
 #' @rdname scale_edge_colour
 #'
-#' @importFrom ggplot2 continuous_scale
 #' @importFrom scales seq_gradient_pal
 #' @export
 scale_edge_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50", guide = "edge_colourbar") {
@@ -116,7 +112,6 @@ scale_edge_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", s
 }
 #' @rdname scale_edge_colour
 #'
-#' @importFrom ggplot2 continuous_scale
 #' @importFrom scales div_gradient_pal muted
 #' @export
 scale_edge_colour_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "Lab", na.value = "grey50", guide = "edge_colourbar") {
@@ -126,7 +121,6 @@ scale_edge_colour_gradient2 <- function(..., low = muted("red"), mid = "white", 
 }
 #' @rdname scale_edge_colour
 #'
-#' @importFrom ggplot2 continuous_scale
 #' @importFrom scales gradient_n_pal
 #' @export
 scale_edge_colour_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "edge_colourbar", colors) {
@@ -137,7 +131,6 @@ scale_edge_colour_gradientn <- function(..., colours, values = NULL, space = "La
 }
 #' @rdname scale_edge_colour
 #'
-#' @importFrom ggplot2 discrete_scale
 #' @importFrom scales grey_pal
 #' @export
 scale_edge_colour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red") {
@@ -146,7 +139,6 @@ scale_edge_colour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red"
 }
 #' @rdname scale_edge_colour
 #'
-#' @importFrom ggplot2 discrete_scale ScaleDiscreteIdentity
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_colour_identity <- function(..., guide = "none") {

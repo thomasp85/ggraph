@@ -38,7 +38,6 @@ NULL
 
 #' @rdname scale_edge_size
 #'
-#' @importFrom ggplot2 waiver continuous_scale
 #' @importFrom scales area_pal
 #' @export
 scale_edge_size_continuous <- function(..., range = c(1, 6)) {
@@ -46,7 +45,6 @@ scale_edge_size_continuous <- function(..., range = c(1, 6)) {
 }
 #' @rdname scale_edge_size
 #'
-#' @importFrom ggplot2 waiver continuous_scale
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_radius <- function(..., range = c(1, 6)) {
@@ -58,7 +56,6 @@ scale_edge_radius <- function(..., range = c(1, 6)) {
 scale_edge_size <- scale_edge_size_continuous
 #' @rdname scale_edge_size
 #'
-#' @importFrom ggplot2 discrete_scale
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_size_discrete <- function(..., range = c(2, 6)) {
@@ -69,7 +66,6 @@ scale_edge_size_discrete <- function(..., range = c(2, 6)) {
 }
 #' @rdname scale_edge_size
 #'
-#' @importFrom ggplot2 waiver continuous_scale
 #' @importFrom scales abs_area rescale_max
 #' @export
 scale_edge_size_area <- function(..., max_size = 6) {
@@ -85,7 +81,6 @@ scale_edge_size_manual <- function(..., values) {
 }
 #' @rdname scale_edge_size
 #'
-#' @importFrom ggplot2 discrete_scale ScaleDiscreteIdentity
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_size_identity <- function(..., guide = "none") {

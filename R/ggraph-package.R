@@ -5,6 +5,8 @@
 #'
 #' @useDynLib ggraph
 #'
+#' @import ggplot2
+#'
 #' @docType package
 #' @name ggraph-package
 #' @rdname ggraph-package

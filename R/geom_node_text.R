@@ -44,7 +44,6 @@
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_label(aes(label = class))
 #'
-#' @importFrom ggplot2 GeomText aes_ layer position_nudge
 #' @importFrom ggrepel GeomTextRepel
 #' @export
 #'
@@ -77,7 +76,6 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = "identity",
 #'
 #' @inheritParams ggplot2::geom_label
 #'
-#' @importFrom ggplot2 GeomLabel aes_ layer position_nudge
 #' @importFrom ggrepel GeomLabelRepel
 #' @export
 #'

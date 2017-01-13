@@ -31,7 +31,6 @@
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point()
 #'
-#' @importFrom ggplot2 GeomPoint aes_
 #' @export
 #'
 geom_node_point <- function(mapping = NULL, data = NULL, position = "identity",

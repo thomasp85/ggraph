@@ -30,7 +30,6 @@ NULL
 
 #' @rdname scale_edge_shape
 #'
-#' @importFrom ggplot2 discrete_scale
 #' @importFrom scales shape_pal
 #' @export
 scale_edge_shape <- function(..., solid = TRUE) {
@@ -54,7 +53,6 @@ scale_edge_shape_manual <- function(..., values) {
 }
 #' @rdname scale_edge_shape
 #'
-#' @importFrom ggplot2 discrete_scale ScaleDiscreteIdentity
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_shape_identity <- function(..., guide = "none") {

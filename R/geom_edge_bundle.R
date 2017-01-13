@@ -90,7 +90,6 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggforce StatBspline
-#' @importFrom ggplot2 ggproto
 #' @export
 StatEdgeBundle <- ggproto('StatEdgeBundle', StatBspline,
     setup_data = function(data, params) {
@@ -116,7 +115,6 @@ StatEdgeBundle <- ggproto('StatEdgeBundle', StatBspline,
 )
 #' @rdname geom_edge_bundle
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_bundle <- function(mapping = NULL, data = gCon(),
                              position = "identity", arrow = NULL,
@@ -135,7 +133,6 @@ geom_edge_bundle <- function(mapping = NULL, data = gCon(),
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggforce StatBspline2
-#' @importFrom ggplot2 ggproto
 #' @export
 StatEdgeBundle2 <- ggproto('StatEdgeBundle2', StatBspline2,
     setup_data = function(data, params) {
@@ -150,7 +147,6 @@ StatEdgeBundle2 <- ggproto('StatEdgeBundle2', StatBspline2,
 )
 #' @rdname geom_edge_bundle
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_bundle2 <- function(mapping = NULL, data = gCon(),
                               position = "identity", arrow = NULL,
@@ -168,7 +164,6 @@ geom_edge_bundle2 <- function(mapping = NULL, data = gCon(),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @export
 StatEdgeBundle0 <- ggproto('StatEdgeBundle0', StatIdentity,
     setup_data = function(data, params) {
@@ -183,7 +178,6 @@ StatEdgeBundle0 <- ggproto('StatEdgeBundle0', StatIdentity,
 )
 #' @rdname geom_edge_bundle
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_bundle0 <- function(mapping = NULL, data = gCon(),
                               position = "identity", arrow = NULL,

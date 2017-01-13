@@ -78,11 +78,11 @@ resolution <- function(x, zero = TRUE) {
         a
     else b
 }
+#' @importFrom grid grobName
 ggname <- function(prefix, grob) {
     grob$name <- grobName(grob, prefix)
     grob
 }
-#' @importFrom ggplot2 calc_element element_grob
 element_render <- function(theme, element, ..., name = NULL) {
     el <- calc_element(element, theme)
     if (is.null(el)) {

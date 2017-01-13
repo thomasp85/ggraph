@@ -133,7 +133,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce radial_trans
 #' @export
 StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
@@ -225,7 +224,6 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
 )
 #' @rdname geom_edge_elbow
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_elbow <- function(mapping = NULL, data = gEdges(),
                             position = "identity", arrow = NULL, flipped = FALSE,
@@ -244,7 +242,6 @@ geom_edge_elbow <- function(mapping = NULL, data = gEdges(),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
     compute_panel = function(data, scales, flipped = FALSE, n = 100) {
@@ -281,7 +278,6 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
 )
 #' @rdname geom_edge_elbow
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_elbow2 <- function(mapping = NULL, data = gEdges('long'),
                             position = "identity", arrow = NULL, flipped = FALSE,
@@ -300,7 +296,6 @@ geom_edge_elbow2 <- function(mapping = NULL, data = gEdges('long'),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @export
 StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
     compute_panel = function(data, scales, flipped = FALSE) {
@@ -372,7 +367,6 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
 )
 #' @rdname geom_edge_elbow
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_elbow0 <- function(mapping = NULL, data = gEdges(),
                             position = "identity", arrow = NULL, flipped = FALSE,

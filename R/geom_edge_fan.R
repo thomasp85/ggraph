@@ -132,7 +132,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier
 #' @export
 StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
@@ -159,7 +158,6 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
 )
 #' @rdname geom_edge_fan
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_fan <- function(mapping = NULL, data = gEdges(),
                                position = "identity", arrow = NULL,
@@ -178,7 +176,6 @@ geom_edge_fan <- function(mapping = NULL, data = gEdges(),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce StatBezier2
 #' @export
 StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
@@ -200,7 +197,6 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
 )
 #' @rdname geom_edge_fan
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_fan2 <- function(mapping = NULL, data = gEdges('long'),
                                 position = "identity", arrow = NULL, spread = 1,
@@ -219,7 +215,6 @@ geom_edge_fan2 <- function(mapping = NULL, data = gEdges('long'),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier0
 #' @export
 StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
@@ -232,7 +227,6 @@ StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
 )
 #' @rdname geom_edge_fan
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_fan0 <- function(mapping = NULL, data = gEdges(),
                                 position = "identity", arrow = NULL, spread = 1,

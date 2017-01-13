@@ -124,7 +124,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier
 #' @export
 StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
@@ -152,7 +151,6 @@ StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
 )
 #' @rdname geom_edge_hive
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_hive <- function(mapping = NULL, data = gEdges(),
                            position = "identity", arrow = NULL, curvature = 0.5,
@@ -169,7 +167,6 @@ geom_edge_hive <- function(mapping = NULL, data = gEdges(),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce StatBezier2
 #' @export
 StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
@@ -192,7 +189,6 @@ StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
 )
 #' @rdname geom_edge_hive
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_hive2 <- function(mapping = NULL, data = gEdges('long'),
                             position = "identity", arrow = NULL, curvature = 0.5,
@@ -209,7 +205,6 @@ geom_edge_hive2 <- function(mapping = NULL, data = gEdges('long'),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier0
 #' @export
 StatEdgeHive0 <- ggproto('StatEdgeHive0', StatBezier0,
@@ -222,7 +217,6 @@ StatEdgeHive0 <- ggproto('StatEdgeHive0', StatBezier0,
 )
 #' @rdname geom_edge_hive
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_hive0 <- function(mapping = NULL, data = gEdges(),
                            position = "identity", arrow = NULL, curvature = 0.5,

@@ -31,7 +31,6 @@ NULL
 
 #' @rdname scale_edge_alpha
 #'
-#' @importFrom ggplot2 continuous_scale
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_alpha <- function(..., range = c(0.1, 1)) {
@@ -45,7 +44,6 @@ scale_edge_alpha_continuous <- scale_edge_alpha
 
 #' @rdname scale_edge_alpha
 #'
-#' @importFrom ggplot2 discrete_scale
 #' @export
 scale_edge_alpha_discrete <- function(..., range = c(0.1, 1)) {
     discrete_scale("edge_alpha", "alpha_d",
@@ -60,7 +58,6 @@ scale_edge_alpha_manual <- function(..., values) {
 
 #' @rdname scale_edge_alpha
 #'
-#' @importFrom ggplot2 continuous_scale ScaleContinuousIdentity
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_alpha_identity <- function(..., guide = "none") {

@@ -125,7 +125,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier
 #' @export
 StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
@@ -152,7 +151,6 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
 )
 #' @rdname geom_edge_diagonal
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_diagonal <- function(mapping = NULL, data = gEdges(),
                                position = "identity", arrow = NULL,
@@ -171,7 +169,6 @@ geom_edge_diagonal <- function(mapping = NULL, data = gEdges(),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce StatBezier2
 #' @export
 StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
@@ -193,7 +190,6 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
 )
 #' @rdname geom_edge_diagonal
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_diagonal2 <- function(mapping = NULL, data = gEdges('long'),
                                 position = "identity", arrow = NULL,
@@ -212,7 +208,6 @@ geom_edge_diagonal2 <- function(mapping = NULL, data = gEdges('long'),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier0
 #' @export
 StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
@@ -225,7 +220,6 @@ StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
 )
 #' @rdname geom_edge_diagonal
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_diagonal0 <- function(mapping = NULL, data = gEdges(),
                                 position = "identity", arrow = NULL,

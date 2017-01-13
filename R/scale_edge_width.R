@@ -34,7 +34,6 @@ NULL
 
 #' @rdname scale_edge_width
 #'
-#' @importFrom ggplot2 waiver continuous_scale
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_width_continuous <- function(..., range = c(1, 6)) {
@@ -46,7 +45,6 @@ scale_edge_width_continuous <- function(..., range = c(1, 6)) {
 scale_edge_width <- scale_edge_width_continuous
 #' @rdname scale_edge_width
 #'
-#' @importFrom ggplot2 discrete_scale
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_width_discrete <- function(..., range = c(2, 6)) {
@@ -63,7 +61,6 @@ scale_edge_width_manual <- function(..., values) {
 }
 #' @rdname scale_edge_width
 #'
-#' @importFrom ggplot2 discrete_scale ScaleDiscreteIdentity
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_width_identity <- function(..., guide = "none") {

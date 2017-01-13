@@ -1,7 +1,6 @@
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto StatIdentity
 #' @export
 StatFilter <- ggproto('StatFilter', StatIdentity,
     setup_data = function(data, params) {

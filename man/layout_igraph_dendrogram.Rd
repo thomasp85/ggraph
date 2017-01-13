@@ -35,7 +35,8 @@ This function is not intended to be used directly but by setting
 \code{layout = 'dendrogram'} in \code{\link{createLayout}}
 }
 \seealso{
-Other layout_igraph_*: \code{\link{layout_igraph_igraph}},
+Other layout_igraph_*: \code{\link{layout_igraph_hive}},
+  \code{\link{layout_igraph_igraph}},
   \code{\link{layout_igraph_linear}},
   \code{\link{layout_igraph_manual}},
   \code{\link{layout_igraph_treemap}}

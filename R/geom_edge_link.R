@@ -116,7 +116,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatLink
 #' @export
 StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
@@ -134,7 +133,6 @@ StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatLink2
 #' @export
 StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
@@ -151,7 +149,6 @@ StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
 )
 #' @rdname geom_edge_link
 #'
-#' @importFrom ggplot2 layer aes_
 #' @importFrom ggforce StatLink
 #' @export
 geom_edge_link <- function(mapping = NULL, data = gEdges('short'),
@@ -168,7 +165,6 @@ geom_edge_link <- function(mapping = NULL, data = gEdges('short'),
 }
 #' @rdname geom_edge_link
 #'
-#' @importFrom ggplot2 layer aes_
 #' @importFrom ggforce StatLink2
 #' @export
 geom_edge_link2 <- function(mapping = NULL, data = gEdges('long'),
@@ -185,7 +181,6 @@ geom_edge_link2 <- function(mapping = NULL, data = gEdges('long'),
 }
 #' @rdname geom_edge_link
 #'
-#' @importFrom ggplot2 layer aes_
 #' @importFrom ggforce StatLink2
 #' @export
 geom_edge_link0 <- function(mapping = NULL, data = gEdges(),

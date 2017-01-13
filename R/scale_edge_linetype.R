@@ -31,7 +31,6 @@ NULL
 
 #' @rdname scale_edge_linetype
 #'
-#' @importFrom ggplot2 discrete_scale
 #' @importFrom scales linetype_pal
 #' @export
 scale_edge_linetype <- function(..., na.value = "blank") {
@@ -56,7 +55,6 @@ scale_edge_linetype_manual <- function(..., values) {
 }
 #' @rdname scale_edge_linetype
 #'
-#' @importFrom ggplot2 discrete_scale ScaleDiscreteIdentity
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_linetype_identity <- function(..., guide = "none") {

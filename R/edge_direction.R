@@ -1,6 +1,25 @@
+#' Edge direction guide
+#'
+#' This guide is intended to show the direction of edges based on the aesthetics
+#' mapped to its progression, such as changing width, colour and opacity.
+#'
+#' @inheritParams ggplot2::guide_colourbar
+#'
+#' @param arrow Logical. Should an arrow be drawn to illustrate the direction.
+#' Defaults to \code{TRUE}
+#'
+#' @param arrow.position The position of the arrow relative to the example edge.
+#'
 #' @importFrom grid is.unit unit
 #' @importFrom digest digest
 #' @export
+#'
+#' @examples
+#' gr <- igraph::graph_from_data_frame(highschool)
+#' ggraph(gr, layout = 'kk') +
+#'   geom_edge_fan(aes(alpha = ..index..)) +
+#'   guides(edge_alpha = guide_edge_direction())
+#'
 guide_edge_direction <- function(title = waiver(), title.position = NULL,
                                  title.theme = NULL, title.hjust = NULL,
                                  title.vjust = NULL, arrow = TRUE,
@@ -24,8 +43,12 @@ guide_edge_direction <- function(title = waiver(), title.position = NULL,
         class = c("guide", "edge_direction")
     )
 }
+#' Helper methods for guides
+#'
 #' @importFrom scales discard
 #' @export
+#' @rdname guide-helpers
+#' @keywords internal
 guide_train.edge_direction <- function(guide, scale) {
     if (length(intersect(scale$aesthetics, c("edge_colour",
                                              "edge_alpha",
@@ -62,12 +85,14 @@ guide_train.edge_direction <- function(guide, scale) {
                                                   direction, name)))
     guide
 }
+#' @rdname guide-helpers
 #' @export
 guide_merge.edge_direction <- function(guide, new_guide) {
     guide$bar <- merge(guide$bar, new_guide$bar, sort = FALSE)
     guide
 }
 #' @export
+#' @rdname guide-helpers
 guide_geom.edge_direction <- function(guide, layers, default_mapping) {
     guide$geoms <- lapply(layers, function(layer) {
         all <- names(c(layer$mapping, if (layer$inherit.aes) default_mapping,
@@ -102,10 +127,10 @@ guide_geom.edge_direction <- function(guide, layers, default_mapping) {
     guide
 }
 #' @importFrom grid convertWidth convertHeight unit grobWidth grobHeight arrow grobName
-#' @importFrom ggplot2 element_grob calc_element
 #' @importFrom gtable gtable gtable_add_grob
 #' @importFrom utils tail
 #' @importFrom stats setNames
+#' @rdname guide-helpers
 #' @export
 guide_gengrob.edge_direction <- function(guide, theme) {
     switch(guide$direction, horizontal = {

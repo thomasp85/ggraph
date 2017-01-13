@@ -18,7 +18,6 @@
 #'
 #' @return An object of class gg onto which layers and scales can be added.
 #'
-#' @importFrom ggplot2 ggplot
 #' @export
 #'
 ggraph <- function(graph, layout, data, ...) {

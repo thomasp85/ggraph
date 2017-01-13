@@ -81,7 +81,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat PositionJitter
 #' @importFrom ggforce StatLink
 #' @importFrom MASS bandwidth.nrd kde2d
 #' @export
@@ -127,7 +126,6 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto GeomRaster alpha
 #' @importFrom grid gTree gList grobName rasterGrob rectGrob gpar
 GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
     draw_panel = function(self, data, panel_scales, coord, ...) {
@@ -172,7 +170,6 @@ GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
 )
 #' @rdname geom_edge_density
 #'
-#' @importFrom ggplot2 layer aes_
 #' @importFrom ggforce StatLink
 #' @export
 geom_edge_density <- function(mapping = NULL, data = gEdges('short'),

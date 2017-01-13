@@ -134,7 +134,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier
 #' @export
 StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
@@ -161,7 +160,6 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
 )
 #' @rdname geom_edge_arc
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_arc <- function(mapping = NULL, data = gEdges(),
                           position = "identity", arrow = NULL, curvature = 1,
@@ -179,7 +177,6 @@ geom_edge_arc <- function(mapping = NULL, data = gEdges(),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce StatBezier2
 #' @export
 StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
@@ -201,7 +198,6 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
 )
 #' @rdname geom_edge_arc
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_arc2 <- function(mapping = NULL, data = gEdges('long'),
                            position = "identity", arrow = NULL, curvature = 1,
@@ -219,7 +215,6 @@ geom_edge_arc2 <- function(mapping = NULL, data = gEdges('long'),
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier0
 #' @export
 StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
@@ -232,7 +227,6 @@ StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
 )
 #' @rdname geom_edge_arc
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_arc0 <- function(mapping = NULL, data = gEdges(),
                            position = "identity", arrow = NULL, curvature = 1,
