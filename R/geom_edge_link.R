@@ -139,8 +139,10 @@ geom_edge_link <- function(mapping = NULL, data = gEdges('short'),
     layer(data = data, mapping = mapping, stat = StatEdgeLink,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = FALSE, ...)
+          )
     )
 }
 #' @rdname geom_edge_link
@@ -155,8 +157,10 @@ geom_edge_link2 <- function(mapping = NULL, data = gEdges('long'),
     layer(data = data, mapping = mapping, stat = StatEdgeLink2,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = TRUE, ...)
+          )
     )
 }
 #' @rdname geom_edge_link
@@ -171,6 +175,8 @@ geom_edge_link0 <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatFilter,
           geom = GeomEdgeSegment, position = position,
           show.legend = show.legend, inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+          )
     )
 }

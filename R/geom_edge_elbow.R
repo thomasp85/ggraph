@@ -203,8 +203,10 @@ geom_edge_elbow <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeElbow,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = FALSE, flipped = flipped, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
@@ -257,8 +259,10 @@ geom_edge_elbow2 <- function(mapping = NULL, data = gEdges('long'),
     layer(data = data, mapping = mapping, stat = StatEdgeElbow2,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = TRUE, flipped = flipped, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
@@ -346,7 +350,9 @@ geom_edge_elbow0 <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeElbow0,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE,
                         interpolate = FALSE, flipped = flipped, ...)
+          )
     )
 }

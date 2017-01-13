@@ -115,8 +115,10 @@ geom_edge_loop <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeLoop,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = FALSE, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
@@ -144,7 +146,9 @@ geom_edge_loop0 <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeLoop0,
           geom = GeomEdgeBezier, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+          )
     )
 }
 

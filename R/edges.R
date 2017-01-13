@@ -193,11 +193,14 @@ completeEdgeAes <- function(aesthetics) {
     if (any(names(aesthetics) == 'color')) {
         names(aesthetics)[names(aesthetics) == 'color'] <- 'colour'
     }
-    shortNames <- names(aesthetics) %in% c(
-        'colour', 'fill', 'linetype', 'shape', 'size', 'width', 'alpha'
+    expand_edge_aes(aesthetics)
+}
+expand_edge_aes <- function(x) {
+    shortNames <- names(x) %in% c(
+        'colour', 'color', 'fill', 'linetype', 'shape', 'size', 'width', 'alpha'
     )
-    names(aesthetics)[shortNames] <- paste0('edge_', names(aesthetics)[shortNames])
-    aesthetics
+    names(x)[shortNames] <- paste0('edge_', names(x)[shortNames])
+    x
 }
 #' @importFrom dplyr %>% group_by_ top_n ungroup
 collapseAllEdges <- function(edges) {

@@ -156,6 +156,8 @@ geom_edge_density <- function(mapping = NULL, data = gEdges('short'),
     layer(data = data, mapping = mapping, stat = StatEdgeDensity,
           geom = GeomEdgeDensity, position = position,
           show.legend = show.legend, inherit.aes = FALSE,
-          params = list(na.rm = FALSE, n = n, ...)
+          params = expand_edge_aes(
+              list(na.rm = FALSE, n = n, ...)
+          )
     )
 }

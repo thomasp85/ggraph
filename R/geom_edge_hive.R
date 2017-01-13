@@ -132,8 +132,10 @@ geom_edge_hive <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeHive,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = FALSE, curvature = curvature, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
@@ -170,8 +172,10 @@ geom_edge_hive2 <- function(mapping = NULL, data = gEdges('long'),
     layer(data = data, mapping = mapping, stat = StatEdgeHive2,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = TRUE, curvature = curvature, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
@@ -198,8 +202,10 @@ geom_edge_hive0 <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeHive0,
           geom = GeomEdgeBezier, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE,
                         curvature = curvature, ...)
+          )
     )
 }
 createHiveBezier <- function(from, to, params) {

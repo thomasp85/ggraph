@@ -125,8 +125,10 @@ geom_edge_bundle <- function(mapping = NULL, data = gCon(),
     layer(data = data, mapping = mapping, stat = StatEdgeBundle,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = FALSE, tension = tension, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
@@ -157,8 +159,10 @@ geom_edge_bundle2 <- function(mapping = NULL, data = gCon(),
     layer(data = data, mapping = mapping, stat = StatEdgeBundle2,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = TRUE, tension = tension, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
@@ -188,8 +192,10 @@ geom_edge_bundle0 <- function(mapping = NULL, data = gCon(),
     layer(data = data, mapping = mapping, stat = StatEdgeBundle0,
           geom = GeomEdgeBspline, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE,
                         tension = tension, ...)
+          )
     )
 }
 #' @importFrom utils head tail

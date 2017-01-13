@@ -139,8 +139,10 @@ geom_edge_fan <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeFan,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = FALSE, spread = spread, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
@@ -178,8 +180,10 @@ geom_edge_fan2 <- function(mapping = NULL, data = gEdges('long'),
     layer(data = data, mapping = mapping, stat = StatEdgeFan2,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = TRUE, spread = spread, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
@@ -207,8 +211,10 @@ geom_edge_fan0 <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeFan0,
           geom = GeomEdgeBezier, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE,
                         spread = spread, ...)
+          )
     )
 }
 #' @importFrom dplyr %>% group_by_ arrange_ mutate_ n ungroup transmute_
