@@ -73,4 +73,3 @@ ggraph(gr, layout = 'kk') +
   guides(edge_alpha = guide_edge_direction())
 
 }
-

@@ -2,10 +2,11 @@
 % Please edit documentation in R/scale_edge_alpha.R
 \name{scale_edge_alpha}
 \alias{scale_edge_alpha}
+\alias{scale_edge_alpha}
 \alias{scale_edge_alpha_continuous}
 \alias{scale_edge_alpha_discrete}
-\alias{scale_edge_alpha_identity}
 \alias{scale_edge_alpha_manual}
+\alias{scale_edge_alpha_identity}
 \title{Edge alpha scales}
 \usage{
 scale_edge_alpha(..., range = c(0.1, 1))
@@ -51,4 +52,3 @@ Other scale_edge_*: \code{\link{scale_edge_colour}},
   \code{\link{scale_edge_size}},
   \code{\link{scale_edge_width}}
 }
-

@@ -2,10 +2,11 @@
 % Please edit documentation in R/scale_edge_linetype.R
 \name{scale_edge_linetype}
 \alias{scale_edge_linetype}
+\alias{scale_edge_linetype}
 \alias{scale_edge_linetype_continuous}
 \alias{scale_edge_linetype_discrete}
-\alias{scale_edge_linetype_identity}
 \alias{scale_edge_linetype_manual}
+\alias{scale_edge_linetype_identity}
 \title{Edge linetype scales}
 \usage{
 scale_edge_linetype(..., na.value = "blank")
@@ -52,4 +53,3 @@ Other scale_edge_*: \code{\link{scale_edge_alpha}},
   \code{\link{scale_edge_size}},
   \code{\link{scale_edge_width}}
 }
-

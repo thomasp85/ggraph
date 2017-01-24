@@ -24,4 +24,3 @@ y-direction. After modifying the height it calls
 This function is not intended to be used directly but by setting
 \code{layout = 'even'} in \code{\link{createLayout}}
 }
-

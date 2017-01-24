@@ -2,8 +2,9 @@
 % Please edit documentation in R/geom_edge_fan.R
 \name{geom_edge_fan}
 \alias{geom_edge_fan}
-\alias{geom_edge_fan0}
+\alias{geom_edge_fan}
 \alias{geom_edge_fan2}
+\alias{geom_edge_fan0}
 \title{Draw edges as curves of different curvature}
 \usage{
 geom_edge_fan(mapping = NULL, data = gEdges(), position = "identity",
@@ -118,6 +119,7 @@ automatically set, but can be overridden.
  \item{index}{The position along the path (not computed for the *0 version)}
 }
 }
+
 \examples{
 require(igraph)
 gr <- graph_from_data_frame(data.frame(
@@ -138,9 +140,6 @@ ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_fan0(aes(colour = class))
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_bundle}},
@@ -151,4 +150,6 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

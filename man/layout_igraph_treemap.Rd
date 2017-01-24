@@ -18,7 +18,7 @@ the weight of leaf nodes as the weight of non-leaf nodes are derived from
 their children.}
 
 \item{circular}{Logical. Should the layout be transformed to a circular
-representation. Defaults to \code{FALSE}.}
+representation. Ignored.}
 
 \item{sort.by}{The name of a vertex attribute to sort the nodes by.}
 
@@ -32,8 +32,8 @@ children point towards their parent.}
 }
 \value{
 A data.frame with the columns \code{x}, \code{y}, \code{width},
-\code{height}, \code{circular} as well as any information stored as vertex
-attributes on the igraph object.
+\code{height}, \code{leaf}, \code{depth}, \code{circular} as well as any
+information stored as vertex attributes on the igraph object.
 }
 \description{
 A treemap is a space filling hierarchical layout that maps nodes to
@@ -64,6 +64,11 @@ finding the best cut in the ordered list of children in terms of making sure
 that the two rectangles associated with the split will have optimal aspect
 ratio.
 }
+\note{
+Treemap is a layout intended for trees, that is, graphs where nodes
+only have one parent and zero or more children. If the provided graph does
+not fit this format an attempt to convert it to such a format will be made.
+}
 \references{
 Engdahl, B. (2005). \emph{Ordered and unordered treemap algorithms and their
 applications on handheld devices}. Master's Degree Project.
@@ -73,10 +78,10 @@ Approach to the Visualization of Hierarchical Information Structures}. IEEE
 Visualization, 284-291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
 }
 \seealso{
-Other layout_igraph_*: \code{\link{layout_igraph_dendrogram}},
+Other layout_igraph_*: \code{\link{layout_igraph_circlepack}},
+  \code{\link{layout_igraph_dendrogram}},
   \code{\link{layout_igraph_hive}},
   \code{\link{layout_igraph_igraph}},
   \code{\link{layout_igraph_linear}},
   \code{\link{layout_igraph_manual}}
 }
-

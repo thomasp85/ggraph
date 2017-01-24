@@ -26,4 +26,3 @@ calculated had the dendrogram been used in layout creation, meaning that e.g.
 it contains a leaf attribute which is \code{TRUE} for leaf nodes and
 \code{FALSE} for the rest.
 }
-

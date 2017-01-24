@@ -39,8 +39,8 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 }
 \description{
-This geom is equivalent in functionality to geom_point and allows for simple
-plotting of nodes in different shapes, colours and sizes.
+This geom is equivalent in functionality to \code{\link[ggplot2]{geom_point}}
+and allows for simple plotting of nodes in different shapes, colours and sizes.
 }
 \section{Aesthetics}{
 
@@ -58,6 +58,7 @@ automatically set, but can be overridden.
  \item{filter}
 }
 }
+
 \examples{
 require(igraph)
 gr <- make_graph('bull')
@@ -66,11 +67,11 @@ V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
 ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point()
 
 }
+\seealso{
+Other geom_node_*: \code{\link{geom_node_circle}},
+  \code{\link{geom_node_text}},
+  \code{\link{geom_node_treemap}}
+}
 \author{
 Thomas Lin Pedersen
 }
-\seealso{
-Other geom_node_*: \code{\link{geom_node_text}},
-  \code{\link{geom_node_treemap}}
-}
-

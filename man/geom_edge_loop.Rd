@@ -2,6 +2,7 @@
 % Please edit documentation in R/geom_edge_loop.R
 \name{geom_edge_loop}
 \alias{geom_edge_loop}
+\alias{geom_edge_loop}
 \alias{geom_edge_loop0}
 \title{Draw edges as diagonals}
 \usage{
@@ -96,6 +97,7 @@ aesthetics. Bold aesthetics are automatically set, but can be overridden.
  \item{index}{The position along the path (not computed for the *0 version)}
 }
 }
+
 \examples{
 require(igraph)
 gr <- graph_from_data_frame(
@@ -111,9 +113,6 @@ ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_fan0()
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_bundle}},
@@ -124,4 +123,6 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_hive}},
   \code{\link{geom_edge_link}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

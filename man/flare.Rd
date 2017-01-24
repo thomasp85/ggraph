@@ -34,4 +34,3 @@ and examples and are included here to make it easy to redo the examples in
 ggraph.
 }
 \keyword{datasets}
-

@@ -27,4 +27,3 @@ for the plot based on the graph and the specification passed in.
 Alternatively a layout can be prepared in advance using
 \code{\link{createLayout}} and passed as the data argument.
 }
-

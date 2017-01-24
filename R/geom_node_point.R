@@ -1,7 +1,7 @@
 #' Show nodes as points
 #'
-#' This geom is equivalent in functionality to geom_point and allows for simple
-#' plotting of nodes in different shapes, colours and sizes.
+#' This geom is equivalent in functionality to \code{\link[ggplot2]{geom_point}}
+#' and allows for simple plotting of nodes in different shapes, colours and sizes.
 #'
 #' @section Aesthetics:
 #' geom_node_point understand the following aesthetics. Bold aesthetics are

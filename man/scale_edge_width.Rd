@@ -3,9 +3,10 @@
 \name{scale_edge_width}
 \alias{scale_edge_width}
 \alias{scale_edge_width_continuous}
+\alias{scale_edge_width}
 \alias{scale_edge_width_discrete}
-\alias{scale_edge_width_identity}
 \alias{scale_edge_width_manual}
+\alias{scale_edge_width_identity}
 \title{Edge width scales}
 \usage{
 scale_edge_width_continuous(..., range = c(1, 6))
@@ -54,4 +55,3 @@ Other scale_edge_*: \code{\link{scale_edge_alpha}},
   \code{\link{scale_edge_shape}},
   \code{\link{scale_edge_size}}
 }
-

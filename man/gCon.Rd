@@ -33,4 +33,3 @@ connection.
 \seealso{
 Other extractors: \code{\link{gEdges}}
 }
-

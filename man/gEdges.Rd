@@ -99,4 +99,3 @@ ggraph.
 \seealso{
 Other extractors: \code{\link{gCon}}
 }
-

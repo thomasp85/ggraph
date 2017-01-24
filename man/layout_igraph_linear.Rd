@@ -34,10 +34,10 @@ will be used as the x-position and it is thus possible to have uneven spacing
 between the nodes.
 }
 \seealso{
-Other layout_igraph_*: \code{\link{layout_igraph_dendrogram}},
+Other layout_igraph_*: \code{\link{layout_igraph_circlepack}},
+  \code{\link{layout_igraph_dendrogram}},
   \code{\link{layout_igraph_hive}},
   \code{\link{layout_igraph_igraph}},
   \code{\link{layout_igraph_manual}},
   \code{\link{layout_igraph_treemap}}
 }
-

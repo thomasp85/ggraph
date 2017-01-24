@@ -58,6 +58,7 @@ geom_axis_hive understand the following aesthetics.
  \item{linetype}
 }
 }
+
 \examples{
 # Plot the flare import graph as a hive plot
 library(igraph)
@@ -78,4 +79,3 @@ ggraph(flareGr, 'hive', axis = 'type') +
 \author{
 Thomas Lin Pedersen
 }
-
