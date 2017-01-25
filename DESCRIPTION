@@ -25,7 +25,7 @@ Imports:
     utils,
     stats
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
+RoxygenNote: 5.0.1.9000
 Depends:
     R (>= 2.10),
     ggplot2 (>= 2.0.0)

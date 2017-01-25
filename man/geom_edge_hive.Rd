@@ -2,8 +2,9 @@
 % Please edit documentation in R/geom_edge_hive.R
 \name{geom_edge_hive}
 \alias{geom_edge_hive}
-\alias{geom_edge_hive0}
+\alias{geom_edge_hive}
 \alias{geom_edge_hive2}
+\alias{geom_edge_hive0}
 \title{Draw edges in hive plots}
 \usage{
 geom_edge_hive(mapping = NULL, data = gEdges(), position = "identity",
@@ -113,6 +114,7 @@ automatically set, but can be overridden.
  \item{index}{The position along the path (not computed for the *0 version)}
 }
 }
+
 \examples{
 # Plot the flare import graph as a hive plot
 library(igraph)
@@ -132,9 +134,6 @@ ggraph(flareGr, 'hive', axis = 'type') +
   coord_fixed()
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_bundle}},
@@ -145,4 +144,6 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

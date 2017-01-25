@@ -53,6 +53,11 @@ getConnections.layout_igraph <- function(layout, from, to, weight = NULL, mode =
     })
     unlist(connections, recursive = FALSE)
 }
+#' @rdname layout_igraph_igraph
+layout_igraph_auto <- function(graph, circular, ...) {
+    message('Using `nicely` as default layout')
+    layout_igraph_igraph(graph, algorithm = 'nicely', circular = circular, ...)
+}
 #' Use igraph layout algorithms for layout_igraph
 #'
 #' This layout function makes it easy to apply one of the layout algorithms

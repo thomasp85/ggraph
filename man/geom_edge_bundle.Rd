@@ -2,8 +2,9 @@
 % Please edit documentation in R/geom_edge_bundle.R
 \name{geom_edge_bundle}
 \alias{geom_edge_bundle}
-\alias{geom_edge_bundle0}
+\alias{geom_edge_bundle}
 \alias{geom_edge_bundle2}
+\alias{geom_edge_bundle0}
 \title{Create heirarchical edge bundles between nodes}
 \usage{
 geom_edge_bundle(mapping = NULL, data = gCon(), position = "identity",
@@ -87,6 +88,7 @@ automatically set, but can be overridden.
  \item{index}{The position along the path (not computed for the *0 version)}
 }
 }
+
 \examples{
 # Create a graph of the flare class system
 library(igraph)
@@ -114,9 +116,6 @@ ggraph(flareGraph, 'dendrogram', circular = TRUE) +
     ggforce::theme_no_axes()
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \references{
 Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
 of adjacency relations in hierarchical data.} IEEE Transactions on
@@ -133,4 +132,6 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

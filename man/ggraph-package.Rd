@@ -11,9 +11,6 @@ This package is an extension of the grammar of graphics defined in
 constructor that helps you build up your network visualization layer by layer
 in the same manner as you know from \code{ggplot2}.
 }
-\author{
-Thomas Lin Pedersen \email{thomasp85@gmail.com}
-}
 \seealso{
 Useful links:
 \describe{
@@ -21,4 +18,6 @@ Useful links:
   \item{Feature requests and bug reports}{\url{https://github.com/thomasp85/ggraph/issues}}
 }
 }
-
+\author{
+Thomas Lin Pedersen \email{thomasp85@gmail.com}
+}

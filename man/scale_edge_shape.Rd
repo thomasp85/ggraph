@@ -2,10 +2,11 @@
 % Please edit documentation in R/scale_edge_shape.R
 \name{scale_edge_shape}
 \alias{scale_edge_shape}
-\alias{scale_edge_shape_continuous}
+\alias{scale_edge_shape}
 \alias{scale_edge_shape_discrete}
-\alias{scale_edge_shape_identity}
+\alias{scale_edge_shape_continuous}
 \alias{scale_edge_shape_manual}
+\alias{scale_edge_shape_identity}
 \title{Edge shape scales}
 \usage{
 scale_edge_shape(..., solid = TRUE)
@@ -52,4 +53,3 @@ Other scale_edge_*: \code{\link{scale_edge_alpha}},
   \code{\link{scale_edge_size}},
   \code{\link{scale_edge_width}}
 }
-

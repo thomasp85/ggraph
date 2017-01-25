@@ -58,6 +58,7 @@ automatically set, but can be overridden.
  \item{filter}
 }
 }
+
 \examples{
 require(igraph)
 gr <- make_graph('bull')
@@ -66,11 +67,10 @@ V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
 ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point()
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 Other geom_node_*: \code{\link{geom_node_text}},
   \code{\link{geom_node_treemap}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

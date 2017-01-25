@@ -66,6 +66,7 @@ automatically set, but can be overridden.
  \item{filter}
 }
 }
+
 \examples{
 require(igraph)
 gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
@@ -90,11 +91,10 @@ ggraph(gr, 'treemap', weight = 'size') +
   scale_size(range = c(4, 0.2), guide = 'none')
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 Other geom_node_*: \code{\link{geom_node_point}},
   \code{\link{geom_node_text}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

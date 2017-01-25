@@ -3,8 +3,8 @@
 \name{treeApply}
 \alias{treeApply}
 \alias{treeApply.default}
-\alias{treeApply.dendrogram}
 \alias{treeApply.igraph}
+\alias{treeApply.dendrogram}
 \title{Apply a function recursively to a tree}
 \usage{
 treeApply(tree, FUN, ...)
@@ -96,4 +96,3 @@ irisDen <- treeApply(irisDen, function(node, children, ...) {
 }, direction = 'up')
 
 }
-

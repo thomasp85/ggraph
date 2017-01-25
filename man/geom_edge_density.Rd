@@ -2,6 +2,7 @@
 % Please edit documentation in R/geom_edge_density.R
 \name{geom_edge_density}
 \alias{geom_edge_density}
+\alias{geom_edge_density}
 \title{Show edges as a density map}
 \usage{
 geom_edge_density(mapping = NULL, data = gEdges("short"),
@@ -67,6 +68,7 @@ automatically set, but can be overridden.
  \item{density}{The density associated with the pixel}
 }
 }
+
 \examples{
 require(igraph)
 gr <- make_graph('bull')
@@ -76,9 +78,6 @@ ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_density(aes(fill = class)) +
   geom_edge_link() + geom_node_point()
 
-}
-\author{
-Thomas Lin Pedersen
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
@@ -90,4 +89,6 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

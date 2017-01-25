@@ -4,7 +4,7 @@
 \alias{ggraph}
 \title{Create a ggraph plot}
 \usage{
-ggraph(graph, layout, data, ...)
+ggraph(graph, layout = "auto", data, ...)
 }
 \arguments{
 \item{graph}{The object containing the graph. See \code{\link{createLayout}}
@@ -27,4 +27,3 @@ for the plot based on the graph and the specification passed in.
 Alternatively a layout can be prepared in advance using
 \code{\link{createLayout}} and passed as the data argument.
 }
-

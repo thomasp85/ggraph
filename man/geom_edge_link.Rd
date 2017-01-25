@@ -2,8 +2,9 @@
 % Please edit documentation in R/geom_edge_link.R
 \name{geom_edge_link}
 \alias{geom_edge_link}
-\alias{geom_edge_link0}
+\alias{geom_edge_link}
 \alias{geom_edge_link2}
+\alias{geom_edge_link0}
 \title{Draw edges as straight lines between nodes}
 \usage{
 geom_edge_link(mapping = NULL, data = gEdges("short"),
@@ -105,6 +106,7 @@ automatically set, but can be overridden.
  \item{index}{The position along the path (not computed for the *0 version)}
 }
 }
+
 \examples{
 require(igraph)
 gr <- make_graph('bull')
@@ -122,9 +124,6 @@ ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_link0(aes(colour = class))
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_bundle}},
@@ -135,4 +134,6 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_hive}},
   \code{\link{geom_edge_loop}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

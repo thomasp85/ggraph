@@ -24,4 +24,3 @@ David Hackett Fischer's \emph{Paul Revere's Ride} (Oxford University Press,
 \href{http://kieranhealy.org/blog/archives/2013/06/09/using-metadata-to-find-paul-revere/}{Using Metadata to Find Paul Revere}.
 }
 \keyword{datasets}
-

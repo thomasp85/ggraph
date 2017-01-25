@@ -2,8 +2,9 @@
 % Please edit documentation in R/geom_edge_diagonal.R
 \name{geom_edge_diagonal}
 \alias{geom_edge_diagonal}
-\alias{geom_edge_diagonal0}
+\alias{geom_edge_diagonal}
 \alias{geom_edge_diagonal2}
+\alias{geom_edge_diagonal0}
 \title{Draw edges as diagonals}
 \usage{
 geom_edge_diagonal(mapping = NULL, data = gEdges(), position = "identity",
@@ -115,6 +116,7 @@ automatically set, but can be overridden.
  \item{index}{The position along the path (not computed for the *0 version)}
 }
 }
+
 \examples{
 require(igraph)
 gr <- make_tree(20, 4, 'out')
@@ -132,9 +134,6 @@ ggraph(gr, 'igraph', algorithm = 'tree') +
   geom_edge_diagonal0(aes(colour = class))
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_bundle}},
@@ -145,4 +144,6 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

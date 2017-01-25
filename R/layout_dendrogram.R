@@ -30,6 +30,13 @@ getEdges.layout_dendrogram <- function(layout) {
     edges$circular <- attr(layout, 'circular')
     edges
 }
+#' @rdname layout_dendrogram_dendrogram
+#'
+#' @param ... Parameters passed on to layout_dendrogram_dendrogram
+layout_dendrogram_auto <- function(graph, circular, ...) {
+    message('Using `dendrogram` as default layout')
+    layout_dendrogram_dendrogram(graph, circular = circular, ...)
+}
 #' Dendrogram layout for layout_dendrogram
 #'
 #' This layout positions the branches and leafs according to the values given in

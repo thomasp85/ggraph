@@ -2,17 +2,17 @@
 % Please edit documentation in R/scale_edge_fill.R
 \name{scale_edge_fill}
 \alias{scale_edge_fill}
+\alias{scale_edge_fill_hue}
 \alias{scale_edge_fill_brewer}
-\alias{scale_edge_fill_continuous}
-\alias{scale_edge_fill_discrete}
 \alias{scale_edge_fill_distiller}
 \alias{scale_edge_fill_gradient}
 \alias{scale_edge_fill_gradient2}
 \alias{scale_edge_fill_gradientn}
 \alias{scale_edge_fill_grey}
-\alias{scale_edge_fill_hue}
 \alias{scale_edge_fill_identity}
 \alias{scale_edge_fill_manual}
+\alias{scale_edge_fill_continuous}
+\alias{scale_edge_fill_discrete}
 \title{Edge fill scales}
 \usage{
 scale_edge_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
@@ -111,4 +111,3 @@ Other scale_edge_*: \code{\link{scale_edge_alpha}},
   \code{\link{scale_edge_size}},
   \code{\link{scale_edge_width}}
 }
-

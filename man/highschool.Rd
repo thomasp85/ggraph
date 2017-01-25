@@ -24,4 +24,3 @@ The question was posed twice, with one year in between (1957 and 1958) and
 shows the evolution in friendship between the two timepoints.
 }
 \keyword{datasets}
-

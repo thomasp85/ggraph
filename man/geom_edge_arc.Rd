@@ -2,8 +2,9 @@
 % Please edit documentation in R/geom_edge_arc.R
 \name{geom_edge_arc}
 \alias{geom_edge_arc}
-\alias{geom_edge_arc0}
+\alias{geom_edge_arc}
 \alias{geom_edge_arc2}
+\alias{geom_edge_arc0}
 \title{Draw edges as Arcs}
 \usage{
 geom_edge_arc(mapping = NULL, data = gEdges(), position = "identity",
@@ -121,6 +122,7 @@ automatically set, but can be overridden.
  \item{index}{The position along the path (not computed for the *0 version)}
 }
 }
+
 \examples{
 require(igraph)
 # Make a graph with different directions of edges
@@ -141,9 +143,6 @@ ggraph(gr, 'linear', circular = TRUE) +
   geom_edge_arc0(aes(colour = class))
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_bundle}},
   \code{\link{geom_edge_density}},
@@ -154,4 +153,6 @@ Other geom_edge_*: \code{\link{geom_edge_bundle}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}}
 }
-
+\author{
+Thomas Lin Pedersen
+}

@@ -2,8 +2,9 @@
 % Please edit documentation in R/geom_edge_elbow.R
 \name{geom_edge_elbow}
 \alias{geom_edge_elbow}
-\alias{geom_edge_elbow0}
+\alias{geom_edge_elbow}
 \alias{geom_edge_elbow2}
+\alias{geom_edge_elbow0}
 \title{Draw edges as elbows}
 \usage{
 geom_edge_elbow(mapping = NULL, data = gEdges(), position = "identity",
@@ -117,6 +118,7 @@ automatically set, but can be overridden.
  \item{index}{The position along the path (not computed for the *0 version)}
 }
 }
+
 \examples{
 irisDen <- as.dendrogram(
   hclust(dist(iris[1:4],
@@ -140,9 +142,6 @@ ggraph(irisDen, 'dendrogram') +
   geom_edge_elbow0(aes(colour = class))
 
 }
-\author{
-Thomas Lin Pedersen
-}
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_bundle}},
@@ -153,4 +152,6 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}}
 }
-
+\author{
+Thomas Lin Pedersen
+}
