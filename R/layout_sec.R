@@ -1,17 +1,35 @@
+#' @rdname createLayout
+#'
 #' @export
+#' @importFrom stats as.dendrogram
 createLayout.hclust <- function(graph, layout, circular = FALSE, ...) {
     message('Converting hclust object to dendrogram')
     createLayout(as.dendrogram(graph), layout = layout, circular = circular, ...)
 }
+#' @rdname createLayout
+#'
 #' @export
 createLayout.network <- function(graph, layout, circular = FALSE, ...) {
     message('Converting network object to igraph')
     createLayout(network_to_igraph(graph), layout = layout, circular = circular, ...)
 }
 
-#' @importFrom igraph graph_from_edgelist
-#' @importFrom utils modifyList
+#' Coerce network to igraph
+#'
+#' This utility function performs a conversion of network objects from the
+#' network package into igraph object compatible with ggraph. Edge and node
+#' attributes are preserved which, for the context of ggraph, is the most
+#' important.
+#'
+#' @param graph A graph as a network object
+#'
+#' @return A representation of the same graph as given in the function call but
+#' as an igraph object.
+#'
+#' @importFrom igraph graph_from_edgelist graph_attr<- edge_attr<- vertex_attr<-
+#' @importFrom utils modifyList installed.packages
 #' @export
+#'
 network_to_igraph <- function(graph) {
     if (!is.element('network', installed.packages()[,1])) {
         stop('`network` must be installed')

@@ -398,7 +398,8 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
 #' be optimized by choosing a different ordering. The algorithm for finding the
 #' enclosing circle is that randomized incremental algorithm proposed by Emo
 #' Welzl. Both of the above algorithms are the same as used in the D3.js
-#' implementation of circle packing.
+#' implementation of circle packing and their C++ implementation in ggraph is
+#' inspired by Mike Bostocks JavaScript implementation.
 #'
 #' @note
 #' Circle packing is a layout intended for trees, that is, graphs where nodes
@@ -426,7 +427,7 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
 #'
 #' @references
 #' Wang, W., Wang, H. H., Dai, G., & Wang, H. (2006). \emph{Visualization of
-#' large hierarchical data by circle packing}. Chi, 517–520.
+#' large hierarchical data by circle packing}. Chi, 517-520.
 #'
 #' Welzl, E. (1991). \emph{Smallest enclosing disks (balls and ellipsoids)}. New
 #' Results and New Trends in Computer Science, 359-370.
