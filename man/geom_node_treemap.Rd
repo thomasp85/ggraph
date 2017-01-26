@@ -92,7 +92,8 @@ ggraph(gr, 'treemap', weight = 'size') +
 
 }
 \seealso{
-Other geom_node_*: \code{\link{geom_node_point}},
+Other geom_node_*: \code{\link{geom_node_circle}},
+  \code{\link{geom_node_point}},
   \code{\link{geom_node_text}}
 }
 \author{
