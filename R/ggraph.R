@@ -20,7 +20,7 @@
 #'
 #' @export
 #'
-ggraph <- function(graph, layout, data, ...) {
+ggraph <- function(graph, layout = 'auto', data, ...) {
     envir <- parent.frame()
     if (missing(data)) {
         layout <- createLayout(graph, layout, ...)
