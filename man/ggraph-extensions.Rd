@@ -3,7 +3,7 @@
 %   R/geom_edge_arc.R, R/geom_edge_bundle.R, R/geom_edge_density.R,
 %   R/geom_edge_diagonal.R, R/geom_edge_elbow.R, R/geom_edge_fan.R,
 %   R/geom_edge_hive.R, R/geom_edge_link.R, R/geom_edge_loop.R,
-%   R/geom_treemap.R, R/ggproto-classes.R
+%   R/geom_node_circle.R, R/geom_treemap.R, R/ggproto-classes.R
 \docType{data}
 \name{StatFilter}
 \alias{StatFilter}
@@ -37,6 +37,7 @@
 \alias{StatEdgeLink2}
 \alias{StatEdgeLoop}
 \alias{StatEdgeLoop0}
+\alias{StatNodeCircle}
 \alias{GeomTreemap}
 \alias{ggraph-extensions}
 \title{ggraph extensions to ggplot2}

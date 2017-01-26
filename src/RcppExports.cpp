@@ -5,6 +5,29 @@
 
 using namespace Rcpp;
 
+// pack
+NumericMatrix pack(NumericVector areas);
+RcppExport SEXP ggraph_pack(SEXP areasSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type areas(areasSEXP);
+    rcpp_result_gen = Rcpp::wrap(pack(areas));
+    return rcpp_result_gen;
+END_RCPP
+}
+// circlePackLayout
+NumericMatrix circlePackLayout(IntegerVector parent, NumericVector weight);
+RcppExport SEXP ggraph_circlePackLayout(SEXP parentSEXP, SEXP weightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type weight(weightSEXP);
+    rcpp_result_gen = Rcpp::wrap(circlePackLayout(parent, weight));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pathAttr
 DataFrame pathAttr(DataFrame paths, int ngroups);
 RcppExport SEXP ggraph_pathAttr(SEXP pathsSEXP, SEXP ngroupsSEXP) {

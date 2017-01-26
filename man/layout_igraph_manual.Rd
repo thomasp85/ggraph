@@ -24,7 +24,7 @@ in the supplied data frame will correspond to a vertex in the igraph object
 matched by index.
 }
 \seealso{
-Other layout_igraph_*: \code{\link{layout_igraph_auto}},
+Other layout_igraph_*: \code{\link{layout_igraph_circlepack}},
   \code{\link{layout_igraph_dendrogram}},
   \code{\link{layout_igraph_hive}},
   \code{\link{layout_igraph_linear}},

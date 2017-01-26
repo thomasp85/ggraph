@@ -327,6 +327,11 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #' that the two rectangles associated with the split will have optimal aspect
 #' ratio.
 #'
+#'
+#' @note
+#' Treemap is a layout intended for trees, that is, graphs where nodes
+#' only have one parent and zero or more children. If the provided graph does
+#' not fit this format an attempt to convert it to such a format will be made.
 #' @param graph An igraph object
 #'
 #' @param algorithm The name of the tiling algorithm to use. Defaults to 'split'
@@ -336,7 +341,7 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #' their children.
 #'
 #' @param circular Logical. Should the layout be transformed to a circular
-#' representation. Defaults to \code{FALSE}.
+#' representation. Ignored.
 #'
 #' @param sort.by The name of a vertex attribute to sort the nodes by.
 #'
@@ -349,8 +354,8 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #' @param width The width of the bounding rectangle
 #'
 #' @return A data.frame with the columns \code{x}, \code{y}, \code{width},
-#' \code{height}, \code{circular} as well as any information stored as vertex
-#' attributes on the igraph object.
+#' \code{height}, \code{leaf}, \code{depth}, \code{circular} as well as any
+#' information stored as vertex attributes on the igraph object.
 #'
 #' @references
 #' Engdahl, B. (2005). \emph{Ordered and unordered treemap algorithms and their
@@ -361,8 +366,6 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #' Visualization, 284-291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
 #'
 #' @family layout_igraph_*
-#'
-#' @importFrom igraph vertex_attr_names vertex_attr gorder
 #'
 layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, circular = FALSE, sort.by = NULL, mode = 'out', height = 1, width = 1) {
     graph <- graph_to_tree(graph, mode)
@@ -377,9 +380,78 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
                          width = layout[, 3],
                          height = layout[, 4],
                          circular = FALSE,
-                         leaf = degree(graph, mode = mode) == 0)
+                         leaf = degree(graph, mode = mode) == 0,
+                         depth = node_depth(graph, mode = mode))
     extraData <- attr_df(graph)
     layout <- cbind(layout, extraData)
+    layout <- layout[order(layout$depth), , drop = FALSE]
+    layout
+}
+#' Calculate nodes as circles packed within their parent circle
+#'
+#' The circle packing algorithm is basically a treemap using circles instead of
+#' rectangles. Due to the nature of circles they cannot be packed as efficeintly
+#' leading to increased amount of "empty space" as compared to a treemap. This
+#' can be beneficial though, as the added empty space can aid in visually
+#' showing the hierarchy.
+#'
+#' @details
+#' The circle packing is based on the algorithm developed by Weixin Wang and
+#' collaborators which tries to find the most dense packing of circles as they
+#' are added, one by one. This makes the algorithm very dependent on the order
+#' in which circles are added and it is possible that layouts could sometimes
+#' be optimized by choosing a different ordering. The algorithm for finding the
+#' enclosing circle is that randomized incremental algorithm proposed by Emo
+#' Welzl. Both of the above algorithms are the same as used in the D3.js
+#' implementation of circle packing and their C++ implementation in ggraph is
+#' inspired by Mike Bostocks JavaScript implementation.
+#'
+#' @note
+#' Circle packing is a layout intended for trees, that is, graphs where nodes
+#' only have one parent and zero or more children. If the provided graph does
+#' not fit this format an attempt to convert it to such a format will be made.
+#'
+#' @param graph An igraph object
+#'
+#' @param weight An optional vertex attribute to use as weight. Will only affect
+#' the weight of leaf nodes as the weight of non-leaf nodes are derived from
+#' their children.
+#'
+#' @param circular Logical. Should the layout be transformed to a circular
+#' representation. Ignored.
+#'
+#' @param sort.by The name of a vertex attribute to sort the nodes by.
+#'
+#' @param mode The direction of the tree in the graph. \code{'out'} (default)
+#' means that parents point towards their children, while \code{'in'} means that
+#' children point towards their parent.
+#'
+#' @return A data.frame with the columns \code{x}, \code{y}, \code{r}, \code{leaf},
+#' \code{depth}, \code{circular} as well as any information stored as vertex
+#' attributes on the igraph object.
+#'
+#' @references
+#' Wang, W., Wang, H. H., Dai, G., & Wang, H. (2006). \emph{Visualization of
+#' large hierarchical data by circle packing}. Chi, 517-520.
+#'
+#' Welzl, E. (1991). \emph{Smallest enclosing disks (balls and ellipsoids)}. New
+#' Results and New Trends in Computer Science, 359-370.
+#'
+#' @family layout_igraph_*
+#'
+layout_igraph_circlepack <- function(graph, weight = NULL, circular = FALSE, sort.by = NULL, mode = 'out') {
+    graph <- graph_to_tree(graph, mode)
+    hierarchy <- tree_to_hierarchy(graph, mode, sort.by, weight)
+    layout <- circlePackLayout(hierarchy$parent, hierarchy$weight)
+    layout <- data.frame(x = layout[, 1],
+                         y = layout[, 2],
+                         r = layout[, 3],
+                         circular = FALSE,
+                         leaf = degree(graph, mode = mode) == 0,
+                         depth = node_depth(graph, mode = mode))
+    extraData <- attr_df(graph)
+    layout <- cbind(layout, extraData)
+    layout <- layout[order(layout$depth), , drop = FALSE]
     layout
 }
 layout_igraph_partition <- function(graph, weight = NULL, circular = FALSE, height = NULL, sort.by = NULL, mode = 'out') {
@@ -712,7 +784,20 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
     }
     hierarchy
 }
-
+#' @importFrom igraph bfs degree
+node_depth <- function(graph, mode) {
+    mode_rev <- switch(
+        mode,
+        `in` = 'out',
+        out = 'in',
+        stop('unknown mode')
+    )
+    root <- which(degree(graph, mode = mode_rev) == 0)
+    if (length(root) != 1) {
+        stop('Graph must have one root', call. = FALSE)
+    }
+    unname(bfs(graph, root = root, dist = T)$dist)
+}
 #' @importFrom igraph vertex_attr edge_attr gorder gsize
 attr_df <- function(gr, type = 'vertex') {
     attrList <- switch(
