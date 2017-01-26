@@ -1,5 +1,5 @@
 #include <Rcpp.h>
-#include "treemap.cpp"
+#include "nodes.h"
 using namespace Rcpp;
 
 std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight, std::vector<double> height) {
@@ -41,8 +41,8 @@ NumericMatrix partitionTree(IntegerVector parent, IntegerVector order, NumericVe
         nodes[i]->sortChildren();
     }
 
-    int startNode = findTopNode(nodes);
-    icicleLayout(nodes[startNode], 0, 0);
+    Node* startNode = nodes[0]->getRoot();
+    icicleLayout(startNode, 0, 0);
 
     for (i = 0; i < nodes.size(); ++i) {
         rect(i, 0) = nodes[i]->bounds.x;

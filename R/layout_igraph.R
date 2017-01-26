@@ -463,9 +463,22 @@ layout_igraph_partition <- function(graph, weight = NULL, circular = FALSE, heig
                          width = layout[, 3],
                          height = layout[, 4],
                          circular = FALSE,
-                         leaf = degree(graph, mode = mode) == 0)
+                         leaf = degree(graph, mode = mode) == 0,
+                         depth = node_depth(graph, mode = mode))
+    if (circular) {
+        width_range <- c(0, max(layout$x + layout$width/2))
+        height_range <- c(0, max(layout$y + layout$height/2))
+        radial <- radial_trans(r.range = rev(height_range),
+                               a.range = width_range,
+                               offset = offset)
+        coords <- radial$transform(layout$y, layout$x)
+        layout$x <- coords$x
+        layout$y <- coords$y
+        layout$width <- 2*pi*layout$width/width_range[2]
+    }
     extraData <- attr_df(graph)
     layout <- cbind(layout, extraData)
+    layout <- layout[order(layout$depth), , drop = FALSE]
     layout
 }
 #' Place nodes in a Hive Plot layout
