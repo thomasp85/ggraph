@@ -382,6 +382,20 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
     layout <- cbind(layout, extraData)
     layout
 }
+layout_igraph_partition <- function(graph, weight = NULL, circular = FALSE, height = NULL, sort.by = NULL, mode = 'out') {
+    graph <- graph_to_tree(graph, mode)
+    hierarchy <- tree_to_hierarchy(graph, mode, sort.by, weight, height)
+    layout <- partitionTree(hierarchy$parent, hierarchy$order, hierarchy$weight, hierarchy$height)
+    layout <- data.frame(x = layout[, 1] + layout[, 3]/2,
+                         y = layout[, 2] + layout[, 4]/2,
+                         width = layout[, 3],
+                         height = layout[, 4],
+                         circular = FALSE,
+                         leaf = degree(graph, mode = mode) == 0)
+    extraData <- attr_df(graph)
+    layout <- cbind(layout, extraData)
+    layout
+}
 #' Place nodes in a Hive Plot layout
 #'
 #' Hive plots were invented by Martin Krzywinski as a perceptually uniform and
@@ -661,7 +675,7 @@ graph_to_tree <- function(graph, mode) {
     graph
 }
 #' @importFrom igraph gorder as_edgelist delete_vertex_attr is.named
-tree_to_hierarchy <- function(graph, mode, sort.by, weight) {
+tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
     if (is.named(graph)) graph <- delete_vertex_attr(graph, 'name')
     parentCol <- if (mode == 'out') 1 else 2
     nodeCol <- if (mode == 'out') 2 else 1
@@ -672,6 +686,11 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight) {
         hierarchy$order <- seq_len(nrow(hierarchy))
     } else {
         hierarchy$order <- order(vertex_attr(graph, sort.by))
+    }
+    if (is.null(height)) {
+        hierarchy$height <- 1
+    } else {
+        hierarchy$height <- vertex_attr(graph, height)
     }
     leaf <- degree(graph, mode = mode) == 0
     if (is.null(weight)) {
