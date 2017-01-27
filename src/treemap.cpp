@@ -8,7 +8,7 @@ struct Rectangle {
     double height;
 };
 class Node {
-    std::vector<Node*> children;
+    std::deque<Node*> children;
     Node* parent;
     bool hasParent;
     double Weight;
@@ -31,8 +31,8 @@ public:
         Order = order;
         Weight = weight;
     };
-    std::vector<Node*> getChildren() {
-        std::vector<Node*> childVec;
+    std::deque<Node*> getChildren() {
+        std::deque<Node*> childVec;
         for (int i = 0; i < children.size(); ++i) {
             childVec.push_back(children[i]);
         }
@@ -75,14 +75,14 @@ public:
 
     Rectangle bounds;
 };
-double w(std::vector<Node*>& nodes) {
+double w(std::deque<Node*>& nodes) {
     double w = 0;
     for (int i = 0; i < nodes.size(); ++i) {
         w += nodes[i]->weight();
     }
     return w;
 }
-void splitLayout(std::vector<Node*> items, Rectangle r) {
+void splitLayout(std::deque<Node*> items, Rectangle r) {
     if (items.size() == 0) {
         return;
     }
@@ -91,7 +91,7 @@ void splitLayout(std::vector<Node*> items, Rectangle r) {
         splitLayout(items[0]->getChildren(), r); // Layout the children within
     } else {
         Rectangle r1, r2;
-        std::vector<Node*> s1, s2;
+        std::deque<Node*> s1, s2;
         if (items.size() == 2) {
             s1.push_back(items[0]);
             s2.push_back(items[1]);
@@ -142,8 +142,8 @@ void splitLayout(std::vector<Node*> items, Rectangle r) {
         splitLayout(s2, r2);
     }
 }
-std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight) {
-    std::vector<Node*> nodes;
+std::deque<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight) {
+    std::deque<Node*> nodes;
     int i;
     for (i = 0; i < parent.size(); ++i) {
         Node* node = new Node(i, order[i], weight[i]);
@@ -156,7 +156,7 @@ std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> ord
     }
     return nodes;
 }
-int findTopNode(std::vector<Node*>& nodes) {
+int findTopNode(std::deque<Node*>& nodes) {
     int i;
     bool found = false;
     for (i = 0; i < nodes.size(); ++i) {
@@ -176,7 +176,7 @@ NumericMatrix splitTreemap(IntegerVector parent, IntegerVector order, NumericVec
     NumericMatrix rect(parent.size(), 4);
     int i;
 
-    std::vector<Node*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<int> >(order), as< std::vector<double> >(weight));
+    std::deque<Node*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<int> >(order), as< std::vector<double> >(weight));
 
     for (i = 0; i < nodes.size(); ++i) {
         nodes[i]->sortChildren();
