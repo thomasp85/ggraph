@@ -82,10 +82,11 @@ plots-rational approach to visualizing networks}. Brief Bioinform 13 (5):
 \url{http://www.hiveplot.net}
 }
 \seealso{
-Other layout_igraph_*: \code{\link{layout_igraph_circlepack}},
+Other layout_igraph_*: \code{\link{layout_igraph_auto}},
+  \code{\link{layout_igraph_circlepack}},
   \code{\link{layout_igraph_dendrogram}},
-  \code{\link{layout_igraph_igraph}},
   \code{\link{layout_igraph_linear}},
   \code{\link{layout_igraph_manual}},
+  \code{\link{layout_igraph_partition}},
   \code{\link{layout_igraph_treemap}}
 }

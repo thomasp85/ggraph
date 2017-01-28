@@ -52,5 +52,6 @@ Other layout_igraph_*: \code{\link{layout_igraph_circlepack}},
   \code{\link{layout_igraph_hive}},
   \code{\link{layout_igraph_linear}},
   \code{\link{layout_igraph_manual}},
+  \code{\link{layout_igraph_partition}},
   \code{\link{layout_igraph_treemap}}
 }

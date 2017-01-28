@@ -9,6 +9,7 @@ createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
         if (is.igraphlayout(layout)) {
             layout <- layout_igraph_igraph(graph, layout, circular, ...)
         } else {
+            graph <- prepare_graph(graph, layout, ...)
             layoutName <- paste0('layout_igraph_', layout)
             layout <- do.call(layoutName, list(graph, circular = circular, ...))
         }
@@ -345,7 +346,7 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #'
 #' @param sort.by The name of a vertex attribute to sort the nodes by.
 #'
-#' @param mode The direction of the tree in the graph. \code{'out'} (default)
+#' @param direction The direction of the tree in the graph. \code{'out'} (default)
 #' means that parents point towards their children, while \code{'in'} means that
 #' children point towards their parent.
 #'
@@ -367,9 +368,8 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #'
 #' @family layout_igraph_*
 #'
-layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, circular = FALSE, sort.by = NULL, mode = 'out', height = 1, width = 1) {
-    graph <- graph_to_tree(graph, mode)
-    hierarchy <- tree_to_hierarchy(graph, mode, sort.by, weight)
+layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, circular = FALSE, sort.by = NULL, direction = 'out', height = 1, width = 1) {
+    hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
     layout <- switch(
         algorithm,
         split = splitTreemap(hierarchy$parent, hierarchy$order, hierarchy$weight, width, height),
@@ -380,11 +380,10 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
                          width = layout[, 3],
                          height = layout[, 4],
                          circular = FALSE,
-                         leaf = degree(graph, mode = mode) == 0,
-                         depth = node_depth(graph, mode = mode))
+                         leaf = degree(graph, mode = direction) == 0,
+                         depth = node_depth(graph, mode = direction))
     extraData <- attr_df(graph)
     layout <- cbind(layout, extraData)
-    layout <- layout[order(layout$depth), , drop = FALSE]
     layout
 }
 #' Calculate nodes as circles packed within their parent circle
@@ -422,7 +421,7 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
 #'
 #' @param sort.by The name of a vertex attribute to sort the nodes by.
 #'
-#' @param mode The direction of the tree in the graph. \code{'out'} (default)
+#' @param direction The direction of the tree in the graph. \code{'out'} (default)
 #' means that parents point towards their children, while \code{'in'} means that
 #' children point towards their parent.
 #'
@@ -439,46 +438,118 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
 #'
 #' @family layout_igraph_*
 #'
-layout_igraph_circlepack <- function(graph, weight = NULL, circular = FALSE, sort.by = NULL, mode = 'out') {
-    graph <- graph_to_tree(graph, mode)
-    hierarchy <- tree_to_hierarchy(graph, mode, sort.by, weight)
+layout_igraph_circlepack <- function(graph, weight = NULL, circular = FALSE, sort.by = NULL, direction = 'out') {
+    hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
     layout <- circlePackLayout(hierarchy$parent, hierarchy$weight)
     layout <- data.frame(x = layout[, 1],
                          y = layout[, 2],
                          r = layout[, 3],
                          circular = FALSE,
-                         leaf = degree(graph, mode = mode) == 0,
-                         depth = node_depth(graph, mode = mode))
+                         leaf = degree(graph, mode = direction) == 0,
+                         depth = node_depth(graph, mode = direction))
     extraData <- attr_df(graph)
     layout <- cbind(layout, extraData)
-    layout <- layout[order(layout$depth), , drop = FALSE]
     layout
 }
-layout_igraph_partition <- function(graph, weight = NULL, circular = FALSE, height = NULL, sort.by = NULL, mode = 'out') {
-    graph <- graph_to_tree(graph, mode)
-    hierarchy <- tree_to_hierarchy(graph, mode, sort.by, weight, height)
+#' Calculate nodes as areas dividing their parent
+#'
+#' The partition layout is a way to show hierarchical data in the same way as
+#' \code{\link{layout_igraph_treemap}}. Instead of subdividing the parent area
+#' the partition layout shows the division of a nodes children next to the area
+#' of the node itself. As such the node positions will be very reminicent of
+#' a reingold-tilford tree layout but by plotting nodes as areas it better
+#' communicate the total weight of a node by summing up all its children.
+#' Often partition layouts are called icicle plots or sunburst diagrams (in case
+#' a radial transform is applied).
+#'
+#' @note
+#' partition is a layout intended for trees, that is, graphs where nodes
+#' only have one parent and zero or more children. If the provided graph does
+#' not fit this format an attempt to convert it to such a format will be made.
+#'
+#' @param graph An igraph object
+#'
+#' @param weight An optional vertex attribute to use as weight. Will only affect
+#' the weight of leaf nodes as the weight of non-leaf nodes are derived from
+#' their children.
+#'
+#' @param circular Logical. Should the layout be transformed to a circular
+#' representation. If \code{TRUE} the resulting layout will be a sunburst
+#' diagram.
+#'
+#' @param height An optional vertex attribute to use as height. If \code{NULL}
+#' all nodes will be given a height of 1.
+#'
+#' @param sort.by The name of a vertex attribute to sort the nodes by.
+#'
+#' @param direction The direction of the tree in the graph. \code{'out'} (default)
+#' means that parents point towards their children, while \code{'in'} means that
+#' children point towards their parent.
+#'
+#' @param const.area Logical. Should 'height' be scaled for area proportionality
+#' when using \code{circular = TRUE}. Defaults to \code{TRUE}.
+#'
+#' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
+#' \code{pi/2} which is equivalent to 12 o'clock.
+#'
+#' @return If \code{circular = FALSE} A data.frame with the columns \code{x},
+#' \code{y}, \code{width}, \code{height}, \code{leaf},
+#' \code{depth}, \code{circular} as well as any information stored as vertex
+#' attributes on the igraph object.
+#' If \code{circular = TRUE} A data.frame with the columns \code{x}, \code{y},
+#' \code{r0}, \code{r}, \code{start}, \code{end}, \code{leaf},
+#' \code{depth}, \code{circular} as well as any information stored as vertex
+#' attributes on the igraph object.
+#'
+#' @references
+#' Kruskal, J. B., Landwehr, J. M. (1983). \emph{Icicle Plots: Better Displays
+#' for Hierarchical Clustering}. American Statistician Vol 37(2), 162-168.
+#' \url{http://doi.org/10.2307/2685881}
+#'
+#'
+#'
+#' @family layout_igraph_*
+#'
+#' @importFrom ggforce radial_trans
+#'
+layout_igraph_partition <- function(graph, weight = NULL, circular = FALSE, height = NULL, sort.by = NULL, direction = 'out', offset = pi/2, const.area = TRUE) {
+    hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight, height)
     layout <- partitionTree(hierarchy$parent, hierarchy$order, hierarchy$weight, hierarchy$height)
-    layout <- data.frame(x = layout[, 1] + layout[, 3]/2,
-                         y = layout[, 2] + layout[, 4]/2,
-                         width = layout[, 3],
-                         height = layout[, 4],
-                         circular = FALSE,
-                         leaf = degree(graph, mode = mode) == 0,
-                         depth = node_depth(graph, mode = mode))
     if (circular) {
-        width_range <- c(0, max(layout$x + layout$width/2))
-        height_range <- c(0, max(layout$y + layout$height/2))
-        radial <- radial_trans(r.range = rev(height_range),
+        if (const.area) {
+            layout <- partitionTree(hierarchy$parent, hierarchy$order, hierarchy$weight, hierarchy$height / sqrt(layout[, 2] + layout[, 4]/2))
+        }
+        width_range <- c(0, max(rowSums(layout[, c(1, 3)])))
+        radial <- radial_trans(r.range = c(0, 1),
                                a.range = width_range,
-                               offset = offset)
-        coords <- radial$transform(layout$y, layout$x)
-        layout$x <- coords$x
-        layout$y <- coords$y
-        layout$width <- 2*pi*layout$width/width_range[2]
+                               offset = offset,
+                               pad = 0)
+        coords <- radial$transform(layout[, 2] + layout[, 4]/2,
+                                   layout[, 1] + layout[, 3]/2)
+        layout <- data.frame(
+            x = coords$x,
+            y = coords$y,
+            r0 = layout[, 2],
+            r = layout[, 2] + layout[, 4],
+            start = 2*pi*layout[, 1]/width_range[2],
+            end = 2*pi*(layout[, 1] + layout[, 3])/width_range[2],
+            circular = TRUE
+        )
+        layout$x[1] <- 0
+        layout$y[1] <- 0
+    } else {
+        layout <- data.frame(
+            x = layout[, 1] + layout[, 3]/2,
+            y = layout[, 2] + layout[, 4]/2,
+            width = layout[, 3],
+            height = layout[, 4],
+            circular = FALSE
+        )
     }
+    layout$leaf = degree(graph, mode = direction) == 0
+    layout$depth = node_depth(graph, mode = direction)
     extraData <- attr_df(graph)
     layout <- cbind(layout, extraData)
-    layout <- layout[order(layout$depth), , drop = FALSE]
     layout
 }
 #' Place nodes in a Hive Plot layout
@@ -728,6 +799,20 @@ as.igraphlayout <- function(type) {
         layout <- newType[typeInd]
     }
     paste0('layout_', layout)
+}
+#' @importFrom igraph gorder permute
+prepare_graph <- function(graph, layout, direction = 'out', ...) {
+    is_hierarchy <- layout %in% c(
+        'dendrogram',
+        'treemap',
+        'circlepack',
+        'partition'
+    )
+    if (is_hierarchy) {
+        graph <- graph_to_tree(graph, mode = direction)
+        graph <- permute(graph, match(seq_len(gorder(graph)), order(node_depth(graph, direction))))
+    }
+    graph
 }
 #' @importFrom igraph degree unfold_tree components induced_subgraph vertex_attr vertex_attr<- is.directed simplify
 graph_to_tree <- function(graph, mode) {
