@@ -38,12 +38,12 @@
 #' ggraph(gr, 'circlepack', weight = 'size') + geom_node_circle() + coord_fixed()
 #'
 #' @export
-#' @importFrom ggforce GeomCircle
+#' @importFrom ggforce GeomArcBar
 #'
-geom_node_circle <- function(mapping = NULL, data = NULL, position = "identity",
+geom_node_arc_bar <- function(mapping = NULL, data = NULL, position = "identity",
                              show.legend = NA, ...) {
-    mapping <- aesIntersect(mapping, aes_(x0=~x, y0=~y, r=~r))
-    layer(data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
+    mapping <- aesIntersect(mapping, aes_(x0=~0, y0=~0, r0=~r0, r=~r, start=~start, end=~end))
+    layer(data = data, mapping = mapping, stat = StatNodeArcBar, geom = GeomArcBar,
           position = position, show.legend = show.legend, inherit.aes = FALSE,
           params = list(na.rm = FALSE, ...)
     )
@@ -52,9 +52,9 @@ geom_node_circle <- function(mapping = NULL, data = NULL, position = "identity",
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggforce StatCircle
+#' @importFrom ggforce StatArcBar
 #' @export
-StatNodeCircle <- ggproto('StatNodeCircle', StatCircle,
+StatNodeArcBar <- ggproto('StatNodeArcBar', StatArcBar,
     setup_data = function(data, params) {
         if (any(names(data) == 'filter')) {
             if (!is.logical(data$filter)) {

@@ -5,7 +5,7 @@
 \title{Calculate nodes as circles packed within their parent circle}
 \usage{
 layout_igraph_circlepack(graph, weight = NULL, circular = FALSE,
-  sort.by = NULL, mode = "out")
+  sort.by = NULL, direction = "out")
 }
 \arguments{
 \item{graph}{An igraph object}
@@ -19,7 +19,7 @@ representation. Ignored.}
 
 \item{sort.by}{The name of a vertex attribute to sort the nodes by.}
 
-\item{mode}{The direction of the tree in the graph. \code{'out'} (default)
+\item{direction}{The direction of the tree in the graph. \code{'out'} (default)
 means that parents point towards their children, while \code{'in'} means that
 children point towards their parent.}
 }
@@ -59,10 +59,11 @@ Welzl, E. (1991). \emph{Smallest enclosing disks (balls and ellipsoids)}. New
 Results and New Trends in Computer Science, 359-370.
 }
 \seealso{
-Other layout_igraph_*: \code{\link{layout_igraph_dendrogram}},
+Other layout_igraph_*: \code{\link{layout_igraph_auto}},
+  \code{\link{layout_igraph_dendrogram}},
   \code{\link{layout_igraph_hive}},
-  \code{\link{layout_igraph_igraph}},
   \code{\link{layout_igraph_linear}},
   \code{\link{layout_igraph_manual}},
+  \code{\link{layout_igraph_partition}},
   \code{\link{layout_igraph_treemap}}
 }

@@ -9,6 +9,10 @@ circlePackLayout <- function(parent, weight) {
     .Call('ggraph_circlePackLayout', PACKAGE = 'ggraph', parent, weight)
 }
 
+partitionTree <- function(parent, order, weight, height) {
+    .Call('ggraph_partitionTree', PACKAGE = 'ggraph', parent, order, weight, height)
+}
+
 pathAttr <- function(paths, ngroups) {
     .Call('ggraph_pathAttr', PACKAGE = 'ggraph', paths, ngroups)
 }

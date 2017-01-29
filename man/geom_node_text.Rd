@@ -100,9 +100,10 @@ ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_label(aes(label = class))
 
 }
 \seealso{
-Other geom_node_*: \code{\link{geom_node_circle}},
+Other geom_node_*: \code{\link{geom_node_arc_bar}},
+  \code{\link{geom_node_circle}},
   \code{\link{geom_node_point}},
-  \code{\link{geom_node_treemap}}
+  \code{\link{geom_node_tile}}
 }
 \author{
 Thomas Lin Pedersen

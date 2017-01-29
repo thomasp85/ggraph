@@ -28,6 +28,20 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// partitionTree
+NumericMatrix partitionTree(IntegerVector parent, IntegerVector order, NumericVector weight, NumericVector height);
+RcppExport SEXP ggraph_partitionTree(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP heightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type order(orderSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type weight(weightSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type height(heightSEXP);
+    rcpp_result_gen = Rcpp::wrap(partitionTree(parent, order, weight, height));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pathAttr
 DataFrame pathAttr(DataFrame paths, int ngroups);
 RcppExport SEXP ggraph_pathAttr(SEXP pathsSEXP, SEXP ngroupsSEXP) {
