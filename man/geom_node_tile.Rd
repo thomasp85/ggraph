@@ -69,7 +69,7 @@ automatically set, but can be overridden.
 require(igraph)
 gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
 
-ggraph(gr, 'treemap', weight = 'size') + geom_treemap()
+ggraph(gr, 'treemap', weight = 'size') + geom_node_tile()
 
 # We can color by modifying the graph
 gr <- treeApply(gr, function(node, parent, depth, tree) {

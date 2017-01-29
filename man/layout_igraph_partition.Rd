@@ -30,6 +30,9 @@ children point towards their parent.}
 
 \item{offset}{If \code{circular = TRUE}, where should it begin. Defaults to
 \code{pi/2} which is equivalent to 12 o'clock.}
+
+\item{const.area}{Logical. Should 'height' be scaled for area proportionality
+when using \code{circular = TRUE}. Defaults to \code{TRUE}.}
 }
 \value{
 If \code{circular = FALSE} A data.frame with the columns \code{x},

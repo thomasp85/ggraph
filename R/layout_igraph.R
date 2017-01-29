@@ -506,8 +506,6 @@ layout_igraph_circlepack <- function(graph, weight = NULL, circular = FALSE, sor
 #' for Hierarchical Clustering}. American Statistician Vol 37(2), 162-168.
 #' \url{http://doi.org/10.2307/2685881}
 #'
-#'
-#'
 #' @family layout_igraph_*
 #'
 #' @importFrom ggforce radial_trans
