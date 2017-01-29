@@ -517,7 +517,10 @@ layout_igraph_partition <- function(graph, weight = NULL, circular = FALSE, heig
     layout <- partitionTree(hierarchy$parent, hierarchy$order, hierarchy$weight, hierarchy$height)
     if (circular) {
         if (const.area) {
-            layout <- partitionTree(hierarchy$parent, hierarchy$order, hierarchy$weight, hierarchy$height / sqrt(layout[, 2] + layout[, 4]/2))
+            y0 <- sqrt(layout[, 2])
+            y1 <- sqrt(layout[, 2] + layout[, 4])
+            layout[, 2] <- y0
+            layout[, 4] <- y1 - y0
         }
         width_range <- c(0, max(rowSums(layout[, c(1, 3)])))
         radial <- radial_trans(r.range = c(0, 1),
