@@ -1,4 +1,6 @@
-#' @rdname createLayout
+#' @rdname ggraph
+#'
+#' @aliases layout_hclust
 #'
 #' @export
 #' @importFrom stats as.dendrogram
@@ -6,7 +8,9 @@ createLayout.hclust <- function(graph, layout, circular = FALSE, ...) {
     message('Converting hclust object to dendrogram')
     createLayout(as.dendrogram(graph), layout = layout, circular = circular, ...)
 }
-#' @rdname createLayout
+#' @rdname ggraph
+#'
+#' @aliases layout_network
 #'
 #' @export
 createLayout.network <- function(graph, layout, circular = FALSE, ...) {

@@ -1,4 +1,6 @@
-#' @rdname createLayout
+#' @rdname ggraph
+#'
+#' @aliases layout_dendrogram
 #'
 #' @export
 #'

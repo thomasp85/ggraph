@@ -42,6 +42,60 @@ former will also work if you want to be super explicit). Circular layout is
 only supported for tree-like layout (\code{tree} and \code{sugiyama}) and
 will throw an error when applied to other layouts.
 }
+\details{
+igraph provides a huge amount of possible layouts. They are all briefly
+described below:
+
+\strong{Hierarchical layouts}
+
+\describe{
+  \item{\code{tree}}{Uses the \emph{Reingold-Tilford} algorithm to place the
+  nodes below their parent with the parent centered above its children. See
+  \code{\link[igraph]{as_tree}}}
+  \item{\code{sugiyama}}{Designed for directed acyclic graphs (that is,
+  hierarchies where multiple parents are allowed) it minimizes the number of
+  crossing edges. See \code{\link[igraph]{with_sugiyama}}}
+}
+
+\strong{Standard layouts}
+
+\describe{
+  \item{\code{bipartite}}{Minimize edge-crossings in a simple two-row (or
+  column) layout for bipartite graphs. See \code{\link[igraph]{as_bipartite}}}
+  \item{\code{star}}{Place one node in the center and the rest equidistantly
+  around it. See \code{\link[igraph]{as_star}}}
+  \item{\code{circle}}{Place nodes in a circle in the order of their index.
+  Consider using \code{\link{layout_igraph_linear}} with \code{circular=TRUE}
+  for more control. See \code{\link[igraph]{in_circle}}}
+  \item{\code{nicely}}{Tries to pick an appropriate layout. See
+  \code{\link[igraph]{nicely}} for a description of the simpe decision tree
+  it uses}
+  \item{\code{dh}}{Uses \emph{Davidson and Harels} simulated annealing
+  algorithm to place nodes. See \code{\link[igraph]{with_dh}}}
+  \item{\code{gem}}{Place nodes on the plane using the GEM force-directed
+  layout algorithm. See \code{\link[igraph]{with_gem}}}
+  \item{\code{graphopt}}{Uses the Graphopt algorithm based on alternating
+  attraction and repulsion to place nodes. See
+  \code{\link[igraph]{with_graphopt}}}
+  \item{\code{grid}}{Place nodes on a rectangular grid. See
+  \code{\link[igraph]{on_grid}}}
+  \item{\code{mds}}{Perform a multidimensional scaling of nodes using either
+  the shortest path or a user supplied distance. See
+  \code{\link[igraph]{with_mds}}}
+  \item{\code{sphere}}{Place nodes uniformly on a sphere - less relevant for
+  2D visualizations of networks. See \code{\link[igraph]{on_sphere}}}
+  \item{\code{randomly}}{Places nodes uniformly random. See
+  \code{\link[igraph]{randomly}}}
+  \item{\code{fr}}{Places nodes according to the force-directed algorithm of
+  Fruchterman and Reingold. See \code{\link[igraph]{with_fr}}}
+  \item{\code{kk}}{Uses the spring-based algorithm by Kamada and Kawai to
+  place nodes. See \code{\link[igraph]{with_kk}}}
+  \item{\code{drl}}{Uses the force directed algorithm from the DrL toolbox to
+  place nodes. See \code{\link[igraph]{with_drl}}}
+  \item{\code{lgl}}{Uses the algorithm from Large Graph Layout to place
+  nodes. See \code{\link[igraph]{with_lgl}}}
+}
+}
 \note{
 This function is not intended to be used directly but by setting
 \code{layout = 'igraph'} in \code{\link{createLayout}}
