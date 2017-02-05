@@ -1,3 +1,95 @@
+#include <Rcpp.h>
+using namespace Rcpp;
+
+struct Point {
+    double x;
+    double y;
+    bool REAL;
+};
+Point bad_point() {
+    Point p = {0, 0, false};
+    return p;
+}
+Point point(double x, double y) {
+    Point p = {x, y, true};
+    return p;
+}
+Point segment_intersect(Point p, Point p0, Point k, Point k0) {
+
+}
+
+Point intersection(Point p, Point p0, double width, double height) {
+    double xmin, xmax, ymin, ymax;
+    xmin = p0.x - width;
+    xmax = p0.x + width;
+    ymin = p0.y - height;
+    ymax = p0.y + height;
+
+    if (p.x < xmin) {
+        if (p.y > ymin && p.y < ymax) {
+            return segment_intersect(p, p0, point(xmin, ymin), point(xmin, ymax));
+        } else if (p.y < ymin) {
+            Point p_tmp = segment_intersect(p, p0, point(xmin, ymin), point(xmin, ymax));
+            if (p_tmp.REAL) {
+                return p_tmp;
+            } else {
+                return segment_intersect(p, p0, point(xmin, ymin), point(xmax, ymin));
+            }
+        } else {
+            Point p_tmp = segment_intersect(p, p0, point(xmin, ymax), point(xmax, ymax));
+            if (p_tmp.REAL) {
+                return p_tmp;
+            } else {
+                return segment_intersect(p, p0, point(xmin, ymax), point(xmin, ymin));
+            }
+        }
+    } else if (p.x > xmax) {
+        if (p.y > ymin && p.y < ymax) {
+            return segment_intersect(p, p0, point(xmax, ymin), point(xmax, ymax));
+        } else if (p.y < ymin) {
+            Point p_tmp = segment_intersect(p, p0, point(xmax, ymin), point(xmin, ymin));
+            if (p_tmp.REAL) {
+                return p_tmp;
+            } else {
+                return segment_intersect(p, p0, point(xmax, ymin), point(xmax, ymax));
+            }
+        } else {
+            Point p_tmp = segment_intersect(p, p0, point(xmax, ymax), point(xmin, ymax));
+            if (p_tmp.REAL) {
+                return p_tmp;
+            } else {
+                return segment_intersect(p, p0, point(xmax, ymax), point(xmax, ymin));
+            }
+        }
+    } else {
+        if (p.y < ymin) {
+            return segment_intersect(p, p0, point(xmin, ymin), point(xmax, ymin));
+        } else {
+            return segment_intersect(p, p0, point(xmin, ymax), point(xmax, ymax));
+        }
+    }
+}
+
+NumericMatrix capSquareStart(NumericMatrix coord, double width, double height) {
+    int i;
+    Point p;
+    Point p0 = point(coord(0, 0), coord(0, 1));
+    width /= 2;
+    height /= 2;
+    for (i = 0; i < coord.nrow(); ++i) {
+        p.x = coord(i, 0);
+        p.y = coord(i, 1);
+        if (std::abs(p.x - p0.x) <= width && std::abs(p.y - p0.y) <= height) {
+            coord(i, 0) = NA_REAL;
+            coord(i, 1) = NA_REAL;
+        } else {
+            Point intersect = intersection(p, p0, width, height);
+            coord(i-1, 0) = intersect.x;
+            coord(i-1, 0) = intersect.y;
+            break;
+        }
+    }
+}
 /*
  * Copyright (c) 1970-2003, Wm. Randolph Franklin
  *
