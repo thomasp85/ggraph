@@ -17,7 +17,9 @@ createLayout.network <- function(graph, layout, circular = FALSE, ...) {
     message('Converting network object to igraph')
     createLayout(network_to_igraph(graph), layout = layout, circular = circular, ...)
 }
-
+createLayout.layout_ggraph <- function(graph, ...) {
+    graph
+}
 #' Coerce network to igraph
 #'
 #' This utility function performs a conversion of network objects from the
