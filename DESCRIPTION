@@ -26,7 +26,7 @@ Imports:
     stats
 Suggests: network
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.0.9000
 Depends:
     R (>= 2.10),
     ggplot2 (>= 2.0.0)
@@ -43,7 +43,7 @@ Collate:
     'geom_axis_hive.R'
     'geom_edge.R'
     'geom_edge_arc.R'
-    'geom_edge_bundle.R'
+    'geom_conn_bundle.R'
     'geom_edge_density.R'
     'geom_edge_diagonal.R'
     'geom_edge_elbow.R'

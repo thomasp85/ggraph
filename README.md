@@ -34,7 +34,7 @@ the next version of ggplot2 hits CRAN you'll need to install from GitHub.
 Furthermore ggraph is developed in concert with 
 [ggforce](https://github.com/thomasp85/ggforce) so that general purpose 
 functionality will appear in ggforce and be adapted to graph visualization in
-ggraph (e.g geom_edge_bundle uses geom_bspline from ggforce underneath). ggforce
+ggraph (e.g geom_conn_bundle uses geom_bspline from ggforce underneath). ggforce
 is still not on CRAN as it is undergoing fast development alongside ggraph so it
 needs to be installed from GitHub too.
 
@@ -120,7 +120,7 @@ flareGraph <- treeApply(flareGraph, function(node, parent, depth, tree) {
 V(flareGraph)$leaf <- degree(flareGraph, mode = 'out') == 0
 
 ggraph(flareGraph, 'dendrogram', circular = TRUE) + 
-  geom_edge_bundle(aes(colour = ..index..), data = gCon(importFrom, importTo), 
+  geom_conn_bundle(aes(colour = ..index..), data = gCon(importFrom, importTo), 
                    edge_alpha = 0.25) +
   geom_node_point(aes(filter = leaf, colour = class)) +
   scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') + 

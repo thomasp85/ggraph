@@ -136,7 +136,6 @@ ggraph(flareGr, 'hive', axis = 'type') +
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
-  \code{\link{geom_edge_bundle}},
   \code{\link{geom_edge_density}},
   \code{\link{geom_edge_diagonal}},
   \code{\link{geom_edge_elbow}},
