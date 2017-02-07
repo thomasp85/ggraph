@@ -9,7 +9,7 @@ Description: The grammar of graphics as implemented in ggplot2 is a poor fit for
     graph and network visualizations due to its reliance on tabular data input.
     ggraph is an extension of the ggplot2 API tailored to graph visualizations
     and provides the same flexible approach to building up plots layer by layer.
-License: GPL (>=2)
+License: GPL-3 + file LICENSE
 LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.2),
@@ -21,7 +21,54 @@ Imports:
     MASS,
     digest,
     gtable,
-    ggrepel
+    ggrepel,
+    utils,
+    stats
+Suggests: network
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1
-Depends: ggplot2 (>= 2.0.0)
+RoxygenNote: 6.0.1
+Depends:
+    R (>= 2.10),
+    ggplot2 (>= 2.0.0)
+Collate:
+    'RcppExports.R'
+    'aaa.R'
+    'connections.R'
+    'data_flare.R'
+    'data_highschool.R'
+    'data_whigs.R'
+    'edge_colourbar.R'
+    'edge_direction.R'
+    'edges.R'
+    'geom_axis_hive.R'
+    'geom_edge.R'
+    'geom_edge_arc.R'
+    'geom_conn_bundle.R'
+    'geom_edge_density.R'
+    'geom_edge_diagonal.R'
+    'geom_edge_elbow.R'
+    'geom_edge_fan.R'
+    'geom_edge_hive.R'
+    'geom_edge_link.R'
+    'geom_edge_loop.R'
+    'geom_node_arc_bar.R'
+    'geom_node_circle.R'
+    'geom_node_point.R'
+    'geom_node_text.R'
+    'geom_node_tile.R'
+    'ggproto-classes.R'
+    'ggraph-package.R'
+    'ggraph.R'
+    'layout.R'
+    'layout_dendrogram.R'
+    'layout_igraph.R'
+    'layout_sec.R'
+    'scale_edge_alpha.R'
+    'scale_edge_colour.R'
+    'scale_edge_fill.R'
+    'scale_edge_linetype.R'
+    'scale_edge_shape.R'
+    'scale_edge_size.R'
+    'scale_edge_width.R'
+    'treeApply.R'
+    'utils.R'

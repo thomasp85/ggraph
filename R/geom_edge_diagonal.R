@@ -61,41 +61,11 @@
 #'  \item{index}{The position along the path (not computed for the *0 version)}
 #' }
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
-#' circular are mapped to x, y, xend, yend, edge.id and circular in the edge
-#' data.
-#'
-#' @param data The return of a call to \code{gEdges()} or a data.frame
-#' giving edges in corrent format (see details for for guidance on the format).
-#' See \code{\link{gEdges}} for more details on edge extraction.
-#'
-#' @param position Position adjustment, either as a string, or the result of a
-#' call to a position adjustment function. Currently no meaningful position
-#' adjustment exists for edges.
-#'
-#' @param n The number of points to create along the path.
+#' @inheritParams geom_edge_link
+#' @inheritParams ggplot2::geom_path
 #'
 #' @param flipped Logical, Has the layout been flipped by reassigning the
 #' mapping of x, y etc?
-#'
-#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
-#'
-#' @param lineend Line end style (round, butt, square)
-#'
-#' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
-#' are three types of arguments you can use here:
-#' \itemize{
-#'  \item{Aesthetics: to set an aesthetic to a fixed value, like
-#'  \code{color = "red"} or \code{size = 3.}}
-#'  \item{Other arguments to the layer, for example you override the default
-#'  \code{stat} associated with the layer.}
-#'  \item{Other arguments passed on to the stat.}
-#' }
-#'
-#' @param show.legend logical. Should this layer be included in the legends?
-#' \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-#' never includes, and \code{TRUE} always includes.
 #'
 #' @author Thomas Lin Pedersen
 #'
@@ -125,7 +95,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier
 #' @export
 StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
@@ -147,11 +116,11 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
         createDiagonal(data, data2, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'flipped', 'n')
 )
 #' @rdname geom_edge_diagonal
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_diagonal <- function(mapping = NULL, data = gEdges(),
                                position = "identity", arrow = NULL,
@@ -163,14 +132,15 @@ geom_edge_diagonal <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeDiagonal,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = FALSE, flipped = flipped, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce StatBezier2
 #' @export
 StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
@@ -187,11 +157,11 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
         createDiagonal(data, data2, params)
     },
     required_aes = c('x', 'y', 'group', 'circular'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'flipped', 'n')
 )
 #' @rdname geom_edge_diagonal
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_diagonal2 <- function(mapping = NULL, data = gEdges('long'),
                                 position = "identity", arrow = NULL,
@@ -203,14 +173,15 @@ geom_edge_diagonal2 <- function(mapping = NULL, data = gEdges('long'),
     layer(data = data, mapping = mapping, stat = StatEdgeDiagonal2,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
                         interpolate = TRUE, flipped = flipped, ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier0
 #' @export
 StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
@@ -218,11 +189,11 @@ StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
         StatEdgeDiagonal$setup_data(data, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
+    default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'flipped')
 )
 #' @rdname geom_edge_diagonal
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_diagonal0 <- function(mapping = NULL, data = gEdges(),
                                 position = "identity", arrow = NULL,
@@ -234,8 +205,10 @@ geom_edge_diagonal0 <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatEdgeDiagonal0,
           geom = GeomEdgeBezier, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE,
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE,
                         flipped = flipped, ...)
+          )
     )
 }
 

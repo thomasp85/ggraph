@@ -1,4 +1,5 @@
-#' @rdname createLayout
+#' @rdname ggraph
+#' @aliases layout_igraph
 #'
 #' @export
 #'
@@ -9,12 +10,14 @@ createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
         if (is.igraphlayout(layout)) {
             layout <- layout_igraph_igraph(graph, layout, circular, ...)
         } else {
+            graph <- prepare_graph(graph, layout, ...)
             layoutName <- paste0('layout_igraph_', layout)
             layout <- do.call(layoutName, list(graph, circular = circular, ...))
         }
     } else {
         stop('Unknown layout')
     }
+    layout$ggraph.index <- seq_len(nrow(layout))
     if (is.null(attr(layout, 'graph'))) {
         attr(layout, 'graph') <- graph
     }
@@ -52,6 +55,11 @@ getConnections.layout_igraph <- function(layout, from, to, weight = NULL, mode =
     })
     unlist(connections, recursive = FALSE)
 }
+#' @rdname layout_igraph_igraph
+layout_igraph_auto <- function(graph, circular, ...) {
+    message('Using `nicely` as default layout')
+    layout_igraph_igraph(graph, algorithm = 'nicely', circular = circular, ...)
+}
 #' Use igraph layout algorithms for layout_igraph
 #'
 #' This layout function makes it easy to apply one of the layout algorithms
@@ -61,6 +69,60 @@ getConnections.layout_igraph <- function(layout, from, to, weight = NULL, mode =
 #' former will also work if you want to be super explicit). Circular layout is
 #' only supported for tree-like layout (\code{tree} and \code{sugiyama}) and
 #' will throw an error when applied to other layouts.
+#'
+#' @details
+#' igraph provides a huge amount of possible layouts. They are all briefly
+#' described below:
+#'
+#' \strong{Hierarchical layouts}
+#'
+#' \describe{
+#'   \item{\code{tree}}{Uses the \emph{Reingold-Tilford} algorithm to place the
+#'   nodes below their parent with the parent centered above its children. See
+#'   \code{\link[igraph]{as_tree}}}
+#'   \item{\code{sugiyama}}{Designed for directed acyclic graphs (that is,
+#'   hierarchies where multiple parents are allowed) it minimizes the number of
+#'   crossing edges. See \code{\link[igraph]{with_sugiyama}}}
+#' }
+#'
+#' \strong{Standard layouts}
+#'
+#' \describe{
+#'   \item{\code{bipartite}}{Minimize edge-crossings in a simple two-row (or
+#'   column) layout for bipartite graphs. See \code{\link[igraph]{as_bipartite}}}
+#'   \item{\code{star}}{Place one node in the center and the rest equidistantly
+#'   around it. See \code{\link[igraph]{as_star}}}
+#'   \item{\code{circle}}{Place nodes in a circle in the order of their index.
+#'   Consider using \code{\link{layout_igraph_linear}} with \code{circular=TRUE}
+#'   for more control. See \code{\link[igraph]{in_circle}}}
+#'   \item{\code{nicely}}{Tries to pick an appropriate layout. See
+#'   \code{\link[igraph]{nicely}} for a description of the simpe decision tree
+#'   it uses}
+#'   \item{\code{dh}}{Uses \emph{Davidson and Harels} simulated annealing
+#'   algorithm to place nodes. See \code{\link[igraph]{with_dh}}}
+#'   \item{\code{gem}}{Place nodes on the plane using the GEM force-directed
+#'   layout algorithm. See \code{\link[igraph]{with_gem}}}
+#'   \item{\code{graphopt}}{Uses the Graphopt algorithm based on alternating
+#'   attraction and repulsion to place nodes. See
+#'   \code{\link[igraph]{with_graphopt}}}
+#'   \item{\code{grid}}{Place nodes on a rectangular grid. See
+#'   \code{\link[igraph]{on_grid}}}
+#'   \item{\code{mds}}{Perform a multidimensional scaling of nodes using either
+#'   the shortest path or a user supplied distance. See
+#'   \code{\link[igraph]{with_mds}}}
+#'   \item{\code{sphere}}{Place nodes uniformly on a sphere - less relevant for
+#'   2D visualizations of networks. See \code{\link[igraph]{on_sphere}}}
+#'   \item{\code{randomly}}{Places nodes uniformly random. See
+#'   \code{\link[igraph]{randomly}}}
+#'   \item{\code{fr}}{Places nodes according to the force-directed algorithm of
+#'   Fruchterman and Reingold. See \code{\link[igraph]{with_fr}}}
+#'   \item{\code{kk}}{Uses the spring-based algorithm by Kamada and Kawai to
+#'   place nodes. See \code{\link[igraph]{with_kk}}}
+#'   \item{\code{drl}}{Uses the force directed algorithm from the DrL toolbox to
+#'   place nodes. See \code{\link[igraph]{with_drl}}}
+#'   \item{\code{lgl}}{Uses the algorithm from Large Graph Layout to place
+#'   nodes. See \code{\link[igraph]{with_lgl}}}
+#' }
 #'
 #' @note This function is not intended to be used directly but by setting
 #' \code{layout = 'igraph'} in \code{\link{createLayout}}
@@ -314,13 +376,18 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #'
 #' \emph{Split} (default)
 #'
-#' The Split algorithm was developed by Björn Engdahl in order to address the
+#' The Split algorithm was developed by Bjorn Engdahl in order to address the
 #' downsides of both the original slice-and-dice algorithm (poor aspect ratio)
 #' and the popular squarify algorithm (no ordering of nodes). It works by
 #' finding the best cut in the ordered list of children in terms of making sure
 #' that the two rectangles associated with the split will have optimal aspect
 #' ratio.
 #'
+#'
+#' @note
+#' Treemap is a layout intended for trees, that is, graphs where nodes
+#' only have one parent and zero or more children. If the provided graph does
+#' not fit this format an attempt to convert it to such a format will be made.
 #' @param graph An igraph object
 #'
 #' @param algorithm The name of the tiling algorithm to use. Defaults to 'split'
@@ -330,11 +397,11 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #' their children.
 #'
 #' @param circular Logical. Should the layout be transformed to a circular
-#' representation. Defaults to \code{FALSE}.
+#' representation. Ignored.
 #'
 #' @param sort.by The name of a vertex attribute to sort the nodes by.
 #'
-#' @param mode The direction of the tree in the graph. \code{'out'} (default)
+#' @param direction The direction of the tree in the graph. \code{'out'} (default)
 #' means that parents point towards their children, while \code{'in'} means that
 #' children point towards their parent.
 #'
@@ -343,8 +410,8 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #' @param width The width of the bounding rectangle
 #'
 #' @return A data.frame with the columns \code{x}, \code{y}, \code{width},
-#' \code{height}, \code{circular} as well as any information stored as vertex
-#' attributes on the igraph object.
+#' \code{height}, \code{leaf}, \code{depth}, \code{circular} as well as any
+#' information stored as vertex attributes on the igraph object.
 #'
 #' @references
 #' Engdahl, B. (2005). \emph{Ordered and unordered treemap algorithms and their
@@ -352,15 +419,12 @@ layout_igraph_linear <- function(graph, circular, sort.by = NULL, use.numeric = 
 #'
 #' Johnson, B., & Ben Shneiderman. (1991). \emph{Tree maps: A Space-Filling
 #' Approach to the Visualization of Hierarchical Information Structures}. IEEE
-#' Visualization, 284–291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
+#' Visualization, 284-291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
 #'
 #' @family layout_igraph_*
 #'
-#' @importFrom igraph vertex_attr_names vertex_attr gorder
-#'
-layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, circular = FALSE, sort.by = NULL, mode = 'out', height = 1, width = 1) {
-    graph <- graph_to_tree(graph, mode)
-    hierarchy <- tree_to_hierarchy(graph, mode, sort.by, weight)
+layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, circular = FALSE, sort.by = NULL, direction = 'out', height = 1, width = 1) {
+    hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
     layout <- switch(
         algorithm,
         split = splitTreemap(hierarchy$parent, hierarchy$order, hierarchy$weight, width, height),
@@ -371,13 +435,253 @@ layout_igraph_treemap <- function(graph, algorithm = 'split', weight = NULL, cir
                          width = layout[, 3],
                          height = layout[, 4],
                          circular = FALSE,
-                         leaf = degree(graph, mode = mode) == 0)
+                         leaf = degree(graph, mode = direction) == 0,
+                         depth = node_depth(graph, mode = direction))
     extraData <- attr_df(graph)
     layout <- cbind(layout, extraData)
     layout
 }
+#' Calculate nodes as circles packed within their parent circle
+#'
+#' The circle packing algorithm is basically a treemap using circles instead of
+#' rectangles. Due to the nature of circles they cannot be packed as efficeintly
+#' leading to increased amount of "empty space" as compared to a treemap. This
+#' can be beneficial though, as the added empty space can aid in visually
+#' showing the hierarchy.
+#'
+#' @details
+#' The circle packing is based on the algorithm developed by Weixin Wang and
+#' collaborators which tries to find the most dense packing of circles as they
+#' are added, one by one. This makes the algorithm very dependent on the order
+#' in which circles are added and it is possible that layouts could sometimes
+#' be optimized by choosing a different ordering. The algorithm for finding the
+#' enclosing circle is that randomized incremental algorithm proposed by Emo
+#' Welzl. Both of the above algorithms are the same as used in the D3.js
+#' implementation of circle packing and their C++ implementation in ggraph is
+#' inspired by Mike Bostocks JavaScript implementation.
+#'
+#' @note
+#' Circle packing is a layout intended for trees, that is, graphs where nodes
+#' only have one parent and zero or more children. If the provided graph does
+#' not fit this format an attempt to convert it to such a format will be made.
+#'
+#' @param graph An igraph object
+#'
+#' @param weight An optional vertex attribute to use as weight. Will only affect
+#' the weight of leaf nodes as the weight of non-leaf nodes are derived from
+#' their children.
+#'
+#' @param circular Logical. Should the layout be transformed to a circular
+#' representation. Ignored.
+#'
+#' @param sort.by The name of a vertex attribute to sort the nodes by.
+#'
+#' @param direction The direction of the tree in the graph. \code{'out'} (default)
+#' means that parents point towards their children, while \code{'in'} means that
+#' children point towards their parent.
+#'
+#' @return A data.frame with the columns \code{x}, \code{y}, \code{r}, \code{leaf},
+#' \code{depth}, \code{circular} as well as any information stored as vertex
+#' attributes on the igraph object.
+#'
+#' @references
+#' Wang, W., Wang, H. H., Dai, G., & Wang, H. (2006). \emph{Visualization of
+#' large hierarchical data by circle packing}. Chi, 517-520.
+#'
+#' Welzl, E. (1991). \emph{Smallest enclosing disks (balls and ellipsoids)}. New
+#' Results and New Trends in Computer Science, 359-370.
+#'
+#' @family layout_igraph_*
+#'
+layout_igraph_circlepack <- function(graph, weight = NULL, circular = FALSE, sort.by = NULL, direction = 'out') {
+    hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
+    layout <- circlePackLayout(hierarchy$parent, hierarchy$weight)
+    layout <- data.frame(x = layout[, 1],
+                         y = layout[, 2],
+                         r = layout[, 3],
+                         circular = FALSE,
+                         leaf = degree(graph, mode = direction) == 0,
+                         depth = node_depth(graph, mode = direction))
+    extraData <- attr_df(graph)
+    layout <- cbind(layout, extraData)
+    layout
+}
+#' Calculate nodes as areas dividing their parent
+#'
+#' The partition layout is a way to show hierarchical data in the same way as
+#' \code{\link{layout_igraph_treemap}}. Instead of subdividing the parent area
+#' the partition layout shows the division of a nodes children next to the area
+#' of the node itself. As such the node positions will be very reminicent of
+#' a reingold-tilford tree layout but by plotting nodes as areas it better
+#' communicate the total weight of a node by summing up all its children.
+#' Often partition layouts are called icicle plots or sunburst diagrams (in case
+#' a radial transform is applied).
+#'
+#' @note
+#' partition is a layout intended for trees, that is, graphs where nodes
+#' only have one parent and zero or more children. If the provided graph does
+#' not fit this format an attempt to convert it to such a format will be made.
+#'
+#' @param graph An igraph object
+#'
+#' @param weight An optional vertex attribute to use as weight. Will only affect
+#' the weight of leaf nodes as the weight of non-leaf nodes are derived from
+#' their children.
+#'
+#' @param circular Logical. Should the layout be transformed to a circular
+#' representation. If \code{TRUE} the resulting layout will be a sunburst
+#' diagram.
+#'
+#' @param height An optional vertex attribute to use as height. If \code{NULL}
+#' all nodes will be given a height of 1.
+#'
+#' @param sort.by The name of a vertex attribute to sort the nodes by.
+#'
+#' @param direction The direction of the tree in the graph. \code{'out'} (default)
+#' means that parents point towards their children, while \code{'in'} means that
+#' children point towards their parent.
+#'
+#' @param const.area Logical. Should 'height' be scaled for area proportionality
+#' when using \code{circular = TRUE}. Defaults to \code{TRUE}.
+#'
+#' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
+#' \code{pi/2} which is equivalent to 12 o'clock.
+#'
+#' @return If \code{circular = FALSE} A data.frame with the columns \code{x},
+#' \code{y}, \code{width}, \code{height}, \code{leaf},
+#' \code{depth}, \code{circular} as well as any information stored as vertex
+#' attributes on the igraph object.
+#' If \code{circular = TRUE} A data.frame with the columns \code{x}, \code{y},
+#' \code{r0}, \code{r}, \code{start}, \code{end}, \code{leaf},
+#' \code{depth}, \code{circular} as well as any information stored as vertex
+#' attributes on the igraph object.
+#'
+#' @references
+#' Kruskal, J. B., Landwehr, J. M. (1983). \emph{Icicle Plots: Better Displays
+#' for Hierarchical Clustering}. American Statistician Vol 37(2), 162-168.
+#' \url{http://doi.org/10.2307/2685881}
+#'
+#' @family layout_igraph_*
+#'
+#' @importFrom ggforce radial_trans
+#'
+layout_igraph_partition <- function(graph, weight = NULL, circular = FALSE, height = NULL, sort.by = NULL, direction = 'out', offset = pi/2, const.area = TRUE) {
+    hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight, height)
+    layout <- partitionTree(hierarchy$parent, hierarchy$order, hierarchy$weight, hierarchy$height)
+    if (circular) {
+        if (const.area) {
+            y0 <- sqrt(layout[, 2])
+            y1 <- sqrt(layout[, 2] + layout[, 4])
+            layout[, 2] <- y0
+            layout[, 4] <- y1 - y0
+        }
+        width_range <- c(0, max(rowSums(layout[, c(1, 3)])))
+        radial <- radial_trans(r.range = c(0, 1),
+                               a.range = width_range,
+                               offset = offset,
+                               pad = 0)
+        coords <- radial$transform(layout[, 2] + layout[, 4]/2,
+                                   layout[, 1] + layout[, 3]/2)
+        layout <- data.frame(
+            x = coords$x,
+            y = coords$y,
+            r0 = layout[, 2],
+            r = layout[, 2] + layout[, 4],
+            start = 2*pi*layout[, 1]/width_range[2],
+            end = 2*pi*(layout[, 1] + layout[, 3])/width_range[2],
+            circular = TRUE
+        )
+        layout$x[1] <- 0
+        layout$y[1] <- 0
+    } else {
+        layout <- data.frame(
+            x = layout[, 1] + layout[, 3]/2,
+            y = layout[, 2] + layout[, 4]/2,
+            width = layout[, 3],
+            height = layout[, 4],
+            circular = FALSE
+        )
+    }
+    layout$leaf = degree(graph, mode = direction) == 0
+    layout$depth = node_depth(graph, mode = direction)
+    extraData <- attr_df(graph)
+    layout <- cbind(layout, extraData)
+    layout
+}
+#' Place nodes in a Hive Plot layout
+#'
+#' Hive plots were invented by Martin Krzywinski as a perceptually uniform and
+#' scalable alternative to standard node-edge layouts. In hive plots nodes are
+#' positioned on axes radiating out from a center based on their own information
+#' e.g. membership of a class, size of neighborhood, etc. Edges are then drawn
+#' between nodes as bezier curves. As the placement of nodes is not governed by
+#' convoluted algorithms but directly reflects the qualities of the nodes itself
+#' the resulting plot can be easier to interpret as well as compare to other
+#' graphs.
+#'
+#' @details
+#' In order to be able to draw all edges without edges crossing axes you should
+#' not assign nodes to axes based on a variable with more than three levels.
+#'
+#' @param graph An igraph object
+#'
+#' @param axis The node attribute to use for assigning nodes to axes
+#'
+#' @param axis.pos The relative distance to the prior axis. Default
+#' (\code{NULL}) places axes equidistant.
+#'
+#' @param sort.by The node attribute to use for placing nodes along their axis.
+#' Defaults (\code{NULL}) places nodes sequentially.
+#'
+#' @param divide.by An optional node attribute to subdivide each axis by.
+#'
+#' @param divide.order The order the axis subdivisions should appear in
+#'
+#' @param normalize Logical. Should axis lengths be equal or reflect the number
+#' of nodes in each axis. Defaults to \code{TRUE}.
+#'
+#' @param center.size The size of the blank center, that is, the start position
+#' of the axes.
+#'
+#' @param divide.size The distance between subdivided axis segments.
+#'
+#' @param use.numeric Logical, If the \code{sort.by} attribute is numeric,
+#' should these values be used directly in positioning the nodes along the axes.
+#' Defaults to \code{FALSE} which sorts the numeric values and positions them
+#' equidistant from each other.
+#'
+#' @param offset Change the overall rotation of the hive plot by changing the
+#' offset of the first axis.
+#'
+#' @param split.axes Should axes be split to show edges between nodes on the
+#' same axis? One of:
+#' \describe{
+#'   \item{\code{'none'}}{Do not split axes and show in-between edges}
+#'   \item{\code{'loops'}}{Only split axes that contain in-between edges}
+#'   \item{\code{'all'}}{Split all axes}
+#' }
+#'
+#' @param split.angle The angular distance between the two axes resulting from a
+#' split.
+#'
+#' @param circular Ignored.
+#'
+#' @return A data.frame with the columns \code{x}, \code{y}, \code{r},
+#' \code{centerSize}, \code{split}, \code{axis}, \code{section}, \code{angle},
+#' \code{circular} as well as any information stored as vertex attributes on the
+#' igraph object.
+#'
+#' @references
+#' Krzywinski, M., Birol, I., Jones, SJM., and Marra, MA. (2012). \emph{Hive
+#' plots-rational approach to visualizing networks}. Brief Bioinform 13 (5):
+#' 627-644. \url{http://doi.org/10.1093/bib/bbr069}
+#'
+#' \url{http://www.hiveplot.net}
+#'
+#' @family layout_igraph_*
+#'
 #' @importFrom igraph gorder vertex_attr gsize induced_subgraph add_vertices E ends add_edges delete_edges %--% edge_attr
-#' @export
+#' @importFrom utils tail
 layout_igraph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, divide.by = NULL, divide.order = NULL, normalize = TRUE, center.size = 0.1, divide.size = 0.05, use.numeric = FALSE, offset = pi/2, split.axes = 'none', split.angle = pi/6, circular = FALSE) {
     axes <- split(seq_len(gorder(graph)), vertex_attr(graph, axis))
     if (is.null(axis.pos)) {
@@ -552,6 +856,20 @@ as.igraphlayout <- function(type) {
     }
     paste0('layout_', layout)
 }
+#' @importFrom igraph gorder permute
+prepare_graph <- function(graph, layout, direction = 'out', ...) {
+    is_hierarchy <- layout %in% c(
+        'dendrogram',
+        'treemap',
+        'circlepack',
+        'partition'
+    )
+    if (is_hierarchy) {
+        graph <- graph_to_tree(graph, mode = direction)
+        graph <- permute(graph, match(seq_len(gorder(graph)), order(node_depth(graph, direction))))
+    }
+    graph
+}
 #' @importFrom igraph degree unfold_tree components induced_subgraph vertex_attr vertex_attr<- is.directed simplify
 graph_to_tree <- function(graph, mode) {
     if (!is.directed(graph)) {
@@ -583,7 +901,7 @@ graph_to_tree <- function(graph, mode) {
     graph
 }
 #' @importFrom igraph gorder as_edgelist delete_vertex_attr is.named
-tree_to_hierarchy <- function(graph, mode, sort.by, weight) {
+tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
     if (is.named(graph)) graph <- delete_vertex_attr(graph, 'name')
     parentCol <- if (mode == 'out') 1 else 2
     nodeCol <- if (mode == 'out') 2 else 1
@@ -594,6 +912,11 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight) {
         hierarchy$order <- seq_len(nrow(hierarchy))
     } else {
         hierarchy$order <- order(vertex_attr(graph, sort.by))
+    }
+    if (is.null(height)) {
+        hierarchy$height <- 1
+    } else {
+        hierarchy$height <- vertex_attr(graph, height)
     }
     leaf <- degree(graph, mode = mode) == 0
     if (is.null(weight)) {
@@ -615,7 +938,20 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight) {
     }
     hierarchy
 }
-
+#' @importFrom igraph bfs degree
+node_depth <- function(graph, mode) {
+    mode_rev <- switch(
+        mode,
+        `in` = 'out',
+        out = 'in',
+        stop('unknown mode')
+    )
+    root <- which(degree(graph, mode = mode_rev) == 0)
+    if (length(root) != 1) {
+        stop('Graph must have one root', call. = FALSE)
+    }
+    unname(bfs(graph, root = root, dist = T)$dist)
+}
 #' @importFrom igraph vertex_attr edge_attr gorder gsize
 attr_df <- function(gr, type = 'vertex') {
     attrList <- switch(

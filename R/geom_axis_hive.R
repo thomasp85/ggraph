@@ -1,7 +1,6 @@
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom dplyr %>% group_by_ mutate_ slice ungroup
 #' @export
 StatAxisHive <- ggproto('StatAxisHive', StatFilter,
@@ -24,7 +23,6 @@ StatAxisHive <- ggproto('StatAxisHive', StatFilter,
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto GeomSegment
 #' @importFrom grid textGrob nullGrob
 #' @importFrom dplyr %>% group_by_ summarise_
 #' @export
@@ -79,7 +77,47 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     default_aes = aes(colour = 'black', size = 0.5, linetype = 1, alpha = NA)
 )
 
+#' Draw rectangular bars and labels on hive axes
+#'
+#' This function lets you annotate the axes in a hive plot with labels and
+#' color coded bars.
+#'
+#' @inheritParams ggplot2::geom_point
+#'
+#' @param label Should the axes be labelled. Defaults to \code{TRUE}
+#'
+#' @param axis Should a rectangle be drawn along the axis. Defaults to \code{TRUE}
+#'
+#' @section Aesthetics:
+#' geom_axis_hive understand the following aesthetics.
+#' \itemize{
+#'  \item{alpha}
+#'  \item{colour}
+#'  \item{fill}
+#'  \item{size}
+#'  \item{linetype}
+#' }
+#'
+#' @author Thomas Lin Pedersen
+#'
 #' @export
+#'
+#' @examples
+#' # Plot the flare import graph as a hive plot
+#' library(igraph)
+#' flareGr <- graph_from_data_frame(flare$imports)
+#' # Add some metadata to divide nodes by
+#' V(flareGr)$type <- 'Both'
+#' V(flareGr)$type[degree(flareGr, mode = 'in') == 0] <- 'Source'
+#' V(flareGr)$type[degree(flareGr, mode = 'out') == 0] <- 'Sink'
+#' analyticsNodes <- grep('flare.analytics', V(flareGr)$name)
+#' E(flareGr)$type <- 'Other'
+#' E(flareGr)[inc(analyticsNodes)]$type <- 'Analytics'
+#' ggraph(flareGr, 'hive', axis = 'type') +
+#'     geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
+#'     geom_axis_hive(aes(colour = type)) +
+#'     coord_fixed()
+#'
 geom_axis_hive <- function(mapping = NULL, data = NULL,
                            position = "identity", label = TRUE, axis = TRUE, show.legend = NA, ...) {
     mapping <- aesIntersect(mapping, aes_(r=~r, angle=~angle, centerSize=~centerSize, axis=~axis, section=~section))

@@ -1,4 +1,6 @@
-#' @rdname createLayout
+#' @rdname ggraph
+#'
+#' @aliases layout_dendrogram
 #'
 #' @export
 #'
@@ -12,6 +14,7 @@ createLayout.dendrogram <- function(graph, layout, circular = FALSE, ...) {
     } else {
         stop('Unknown layout')
     }
+    layout$ggraph.index <- seq_len(nrow(layout))
     attr(layout, 'graph') <- graph
     attr(layout, 'circular') <- circular
     class(layout) <- c(
@@ -28,6 +31,13 @@ getEdges.layout_dendrogram <- function(layout) {
     edges <- cbind(edges, extraPar)
     edges$circular <- attr(layout, 'circular')
     edges
+}
+#' @rdname layout_dendrogram_dendrogram
+#'
+#' @param ... Parameters passed on to layout_dendrogram_dendrogram
+layout_dendrogram_auto <- function(graph, circular, ...) {
+    message('Using `dendrogram` as default layout')
+    layout_dendrogram_dendrogram(graph, circular = circular, ...)
 }
 #' Dendrogram layout for layout_dendrogram
 #'
@@ -111,6 +121,7 @@ layout_dendrogram_even <- function(graph, ...) {
     graph <- spreadHeights(graph)
     layout_dendrogram_dendrogram(graph, ...)
 }
+#' @importFrom stats is.leaf
 identifyNodes <- function(den, start = 1) {
     if (is.leaf(den)) {
         attr(den, 'ggraph.id') <- start
@@ -121,6 +132,7 @@ identifyNodes <- function(den, start = 1) {
     }
     den
 }
+#' @importFrom stats is.leaf
 setCoord <- function(den, offset = 1, repel = TRUE, pad = 0, ratio = 1) {
     if (is.leaf(den)) {
         attr(den, 'ggraph.coord') <- offset
@@ -139,6 +151,7 @@ setCoord <- function(den, offset = 1, repel = TRUE, pad = 0, ratio = 1) {
     }
     den
 }
+#' @importFrom stats is.leaf
 getCoords <- function(den) {
     id <- attr(den, 'ggraph.id')
     label <- attr(den, 'label')
@@ -170,6 +183,7 @@ getCoords <- function(den) {
         )
     }
 }
+#' @importFrom stats is.leaf
 getLinks <- function(den) {
     id <- attr(den, 'ggraph.id')
     if (is.leaf(den)) {
@@ -192,6 +206,7 @@ getLinks <- function(den) {
         )
     }
 }
+#' @importFrom stats is.leaf
 spreadHeights <- function(den) {
     if (is.leaf(den)) {
         attr(den, 'height') <- 0
@@ -202,10 +217,42 @@ spreadHeights <- function(den) {
     }
     den
 }
+#' @importFrom stats is.leaf
 getHeights <- function(den) {
     if (is.leaf(den)) {
         attr(den, 'height')
     } else {
         c(getHeights(den[[1]]), getHeights(den[[2]]), attr(den, 'height'))
     }
+}
+#' Convert a dendrogram into an igraph object
+#'
+#' This small helper function converts a dendrogram into an igraph object with
+#' the same node indexes as would be had were the dendrogram used directly in
+#' a ggraph plot. The nodes would have the same attributes as would have been
+#' calculated had the dendrogram been used in layout creation, meaning that e.g.
+#' it contains a leaf attribute which is \code{TRUE} for leaf nodes and
+#' \code{FALSE} for the rest.
+#'
+#' @param den A dendrogram object
+#'
+#' @param even Logical should the position information be calculated based on an
+#' even layout (see \code{\link{layout_dendrogram_even}}).
+#'
+#' @param ... Additional parameters to pass off to
+#' \code{\link{layout_dendrogram_dendrogram}}
+#'
+#' @return An igraph object.
+#'
+#' @importFrom igraph graph_from_data_frame
+#' @export
+den_to_igraph <- function(den, even = FALSE, ...) {
+    layout <- if (even) {
+        createLayout(den, 'even', ...)
+    } else {
+        createLayout(den, 'dendrogram', ...)
+    }
+    edges <- getEdges(layout)
+    names(layout)[1:2] <- paste0('layout.', names(layout)[1:2])
+    graph_from_data_frame(edges, vertices = cbind(node.name = seq_len(nrow(layout)), layout))
 }

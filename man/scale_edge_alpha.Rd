@@ -2,10 +2,11 @@
 % Please edit documentation in R/scale_edge_alpha.R
 \name{scale_edge_alpha}
 \alias{scale_edge_alpha}
+\alias{scale_edge_alpha}
 \alias{scale_edge_alpha_continuous}
 \alias{scale_edge_alpha_discrete}
-\alias{scale_edge_alpha_identity}
 \alias{scale_edge_alpha_manual}
+\alias{scale_edge_alpha_identity}
 \title{Edge alpha scales}
 \usage{
 scale_edge_alpha(..., range = c(0.1, 1))
@@ -19,19 +20,19 @@ scale_edge_alpha_manual(..., values)
 scale_edge_alpha_identity(..., guide = "none")
 }
 \arguments{
-\item{...}{Other arguments passed on to
-\code{\link[ggplot2]{continuous_scale}} or
-\code{\link[ggplot2]{discrete_scale}} as appropriate, to control name,
-limits, breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
+or \code{\link{discrete_scale}} as appropriate, to control name, limits,
+breaks, labels and so forth.}
 
-\item{range}{Range of output alpha values. Should lie between 0 and 1.}
+\item{range}{Output range of alpha values. Must lie between 0 and 1.}
 
-\item{values}{A set of aesthetic values to map data values to. If this is a
-named vector, then the values will be matched based on the names. If unnamed,
-values will be matched in order (usually alphabetical) with the limits of the
-scale. Any data values that don't match will be given na.value.}
+\item{values}{a set of aesthetic values to map data values to. If this
+is a named vector, then the values will be matched based on the names.
+If unnamed, values will be matched in order (usually alphabetical) with
+the limits of the scale. Any data values that don't match will be
+given \code{na.value}.}
 
-\item{guide}{Guide to use for this scale.}
+\item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
 }
 \value{
 A ggproto object inheriting from \code{Scale}
@@ -51,4 +52,3 @@ Other scale_edge_*: \code{\link{scale_edge_colour}},
   \code{\link{scale_edge_size}},
   \code{\link{scale_edge_width}}
 }
-

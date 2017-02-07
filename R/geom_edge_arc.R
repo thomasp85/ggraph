@@ -63,42 +63,15 @@
 #'  \item{index}{The position along the path (not computed for the *0 version)}
 #' }
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
-#' circular are mapped to x, y, xend, yend, edge.id and circular in the edge
-#' data.
-#'
-#' @param data The return of a call to \code{gEdges()} or a data.frame
-#' giving edges in corrent format (see details for for guidance on the format).
-#' See \code{\link{gEdges}} for more details on edge extraction.
-#'
-#' @param position Position adjustment, either as a string, or the result of a
-#' call to a position adjustment function. Currently no meaningful position
-#' adjustment exists for edges.
-#'
-#' @param n The number of points to create along the path.
+#' @inheritParams geom_edge_link
+#' @inheritParams ggplot2::geom_path
 #'
 #' @param curvature The bend of the curve. 1 approximates a halfcircle while 0
 #' will give a straight line. Negative number will change the direction of the
 #' curve. Only used if \code{circular = FALSE}.
 #'
-#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
-#'
-#' @param lineend Line end style (round, butt, square)
-#'
-#' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
-#' are three types of arguments you can use here:
-#' \itemize{
-#'  \item{Aesthetics: to set an aesthetic to a fixed value, like
-#'  \code{color = "red"} or \code{size = 3.}}
-#'  \item{Other arguments to the layer, for example you override the default
-#'  \code{stat} associated with the layer.}
-#'  \item{Other arguments passed on to the stat.}
-#' }
-#'
-#' @param show.legend logical. Should this layer be included in the legends?
-#' \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-#' never includes, and \code{TRUE} always includes.
+#' @param fold Logical. Should arcs appear on the same side of the nodes despite
+#' different directions. Default to \code{FALSE}.
 #'
 #' @author Thomas Lin Pedersen
 #'
@@ -131,7 +104,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier
 #' @export
 StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
@@ -153,29 +125,31 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
         createArc(data, data2, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
-    extra_params = c('na.rm', 'n', 'curvature')
+    default_aes = aes(filter = TRUE),
+    extra_params = c('na.rm', 'n', 'curvature', 'fold')
 )
 #' @rdname geom_edge_arc
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_arc <- function(mapping = NULL, data = gEdges(),
                           position = "identity", arrow = NULL, curvature = 1,
-                          lineend = "butt", show.legend = NA, n = 100, ...) {
+                          lineend = "butt", show.legend = NA, n = 100, fold = FALSE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular))
     layer(data = data, mapping = mapping, stat = StatEdgeArc,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = FALSE, curvature = curvature, ...)
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+                   interpolate = FALSE, curvature = curvature, fold = fold,
+                   ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto Stat
 #' @importFrom ggforce StatBezier2
 #' @export
 StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
@@ -192,29 +166,31 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
         createArc(data, data2, params)
     },
     required_aes = c('x', 'y', 'group', 'circular'),
-    extra_params = c('na.rm', 'n', 'curvature')
+    default_aes = aes(filter = TRUE),
+    extra_params = c('na.rm', 'n', 'curvature', 'fold')
 )
 #' @rdname geom_edge_arc
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_arc2 <- function(mapping = NULL, data = gEdges('long'),
                            position = "identity", arrow = NULL, curvature = 1,
-                           lineend = "butt", show.legend = NA, n = 100, ...) {
+                           lineend = "butt", show.legend = NA, n = 100, fold = FALSE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
                                           circular=~circular))
     layer(data = data, mapping = mapping, stat = StatEdgeArc2,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = TRUE, curvature = curvature, ...)
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+                        interpolate = TRUE, curvature = curvature, fold = fold,
+                   ...)
+          )
     )
 }
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatBezier0
 #' @export
 StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
@@ -222,23 +198,25 @@ StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
         StatEdgeArc$setup_data(data, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
-    extra_params = c('na.rm', 'curvature')
+    default_aes = aes(filter = TRUE),
+    extra_params = c('na.rm', 'curvature', 'fold')
 )
 #' @rdname geom_edge_arc
 #'
-#' @importFrom ggplot2 layer aes_
 #' @export
 geom_edge_arc0 <- function(mapping = NULL, data = gEdges(),
                            position = "identity", arrow = NULL, curvature = 1,
-                           lineend = "butt", show.legend = NA, ...) {
+                           lineend = "butt", show.legend = NA, fold = fold, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular))
     layer(data = data, mapping = mapping, stat = StatEdgeArc0,
           geom = GeomEdgeBezier, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE,
-                        curvature = curvature, ...)
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE,
+                        curvature = curvature, fold = FALSE, ...)
+          )
     )
 }
 
@@ -271,6 +249,12 @@ createArc <- function(from, to, params) {
         data2$y[!circ] <- data2$y[!circ] + sin(startAngle) * nodeDist[!circ]
         data3$x[!circ] <- data3$x[!circ] + cos(endAngle) * nodeDist[!circ]
         data3$y[!circ] <- data3$y[!circ] + sin(endAngle) * nodeDist[!circ]
+        if (params$fold) {
+            data2$x[!circ] <- abs(data2$x[!circ])
+            data2$y[!circ] <- abs(data2$y[!circ])
+            data3$x[!circ] <- abs(data3$x[!circ])
+            data3$y[!circ] <- abs(data3$y[!circ])
+        }
     }
     data <- rbind(from, data2, data3, to)
     data[order(data$index), names(data) != 'index']

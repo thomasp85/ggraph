@@ -26,5 +26,6 @@
 #'
 #' @name ggraph-extensions
 #' @rdname ggraph-extensions
+#' @keywords internal
 #'
 NULL
