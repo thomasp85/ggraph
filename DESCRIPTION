@@ -26,7 +26,7 @@ Imports:
     stats
 Suggests: network
 LinkingTo: Rcpp
-RoxygenNote: 6.0.0.9000
+RoxygenNote: 6.0.1
 Depends:
     R (>= 2.10),
     ggplot2 (>= 2.0.0)
@@ -63,6 +63,7 @@ Collate:
     'layout_dendrogram.R'
     'layout_igraph.R'
     'layout_sec.R'
+    'plotly.R'
     'scale_edge_alpha.R'
     'scale_edge_colour.R'
     'scale_edge_fill.R'
