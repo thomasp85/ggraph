@@ -11,7 +11,6 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
                           na.rm = FALSE, interpolate = TRUE,
                           label_colour = 'black',  label_alpha = 1, label_parse = FALSE,
                           check_overlap = FALSE) {
-        browser()
         if (!anyDuplicated(data$group)) {
             message("geom_edge_path: Each group consists of only one observation. ",
                          "Do you need to adjust the group aesthetic?")
@@ -31,9 +30,9 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
             start_cap2 <- NULL
         } else {
             scap <- data$start_cap[!duplicated(data$group)]
-            start_captype <- scap[[1]]
-            start_cap <- unit(scap[[2]], scap[[4]])
-            start_cap2 <- unit(scap[[3]], scap[[5]])
+            start_captype <- geo_type(scap)
+            start_cap <- geo_width(scap)
+            start_cap2 <- geo_height(scap)
             if (any(attr(start_cap, 'unit') == 'native') ||
                 any(attr(start_cap2, 'unit') == 'native')) {
                 recalc <- coord$transform(
@@ -50,9 +49,9 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
             end_cap2 <- NULL
         } else {
             ecap <- data$end_cap[!duplicated(data$group)]
-            end_captype <- ecap[[1]]
-            end_cap <- unit(ecap[[2]], ecap[[4]])
-            end_cap2 <- unit(ecap[[3]], ecap[[5]])
+            end_captype <- geo_type(ecap)
+            end_cap <- geo_width(ecap)
+            end_cap2 <- geo_height(ecap)
             if (any(attr(end_cap, 'unit') == 'native') ||
                 any(attr(end_cap2, 'unit') == 'native')) {
                 recalc <- coord$transform(

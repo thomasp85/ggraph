@@ -1,17 +1,17 @@
 #' @export
 geometry <- function(type = 'circle', width = 1, height = width, width_unit = 'cm', height_unit = width_unit) {
     l <- max(length(type), length(width), length(height))
-    g <- structure(list(
-        rep(type, length.out = l),
-        rep(width, length.out = l),
-        rep(height, length.out = l),
-        rep(width_unit, length.out = l),
-        rep(height_unit, length.out = l)
-    ), class = 'geometry')
+    g <- rep(type, length.out = l)
     g_na <- is.na(g)
-    g[[1]][g_na] <- 'circle'
-    g[[2]][g_na] <- 0
-    g[[3]][g_na] <- 0
+    width <- rep(width, length.out = l)
+    width[g_na] <- 0
+    height <- rep(height, length.out = l)
+    height[g_na] <- 0
+    uwidth <- rep(width_unit, length.out = l)
+    uheight <- rep(height_unit, length.out = l)
+    g[g_na] <- 'circle'
+    attributes(g) <- list(width = width, uwidth = uwidth, height = height,
+                          uheight = uheight, class = 'geometry')
     g
 }
 #' @export
@@ -32,7 +32,7 @@ rectangle <- function(width = 1, height = 1, width_unit = 'cm', height_unit = wi
 }
 #' @export
 #' @importFrom grid convertWidth convertHeight textGrob grobWidth grobHeight
-label_rect <- function(label, padding = margin(), ...) {
+label_rect <- function(label, padding = margin(1,1,1.5,1,'mm'), ...) {
     grobs <- lapply(label, textGrob, ...)
     width <- abs_width(grobs)
     height <- abs_height(grobs)
@@ -41,16 +41,46 @@ label_rect <- function(label, padding = margin(), ...) {
     geometry('rect', width = width, height = height)
 }
 #' @export
-length.geometry <- function(x) length(x[[1]])
+is.geometry <- function(x) inherits(x, 'geometry')
+#' @export
+length.geometry <- function(x) length(unclass(x))
 #' @export
 `[.geometry` <- function(x, i, ...) {
-    structure(lapply(x, function(par) {
-        par[i]
-    }), class = 'geometry')
+    structure(
+        unclass(x)[i],
+        width = attr(x, 'width')[i],
+        height = attr(x, 'height')[i],
+        uwidth = attr(x, 'uwidth')[i],
+        uheight = attr(x, 'uheight')[i],
+        class = 'geometry'
+    )
+}
+#' @export
+`[<-.geometry` <- function(x, ..., value) {
+    stopifnot(is.geometry(value))
+    type <- unclass(x)
+    type[...] <- unclass(value)
+    width <- attr(x, 'width')
+    width[...] <- attr(value, 'width')
+    height <- attr(x, 'height')
+    height[...] <- attr(value, 'height')
+    uwidth <- attr(x, 'uwidth')
+    uwidth[...] <- attr(value, 'uwidth')
+    uheight <- attr(x, 'uheight')
+    uheight[...] <- attr(value, 'uheight')
+    structure(
+        type,
+        width = width,
+        height = height,
+        uwidth = uwidth,
+        uheight = uheight,
+        class = 'geometry'
+    )
 }
 #' @export
 format.geometry <- function(x, ...) {
-    paste0(x[[1]], '(', x[[2]], x[[4]], ', ', x[[3]], x[[5]], ')')
+    paste0(unclass(x), '(', attr(x, 'width'), attr(x, 'uwidth'),
+           ', ', attr(x, 'height'), attr(x, 'uheight'), ')')
 }
 #' @export
 print.geometry <- function(x) {
@@ -58,28 +88,51 @@ print.geometry <- function(x) {
 }
 #' @export
 rep.geometry <- function(x, ...) {
-    structure(lapply(x, function(par) {
-        rep(par, ...)
-    }), class = 'geometry')
+    i <- rep(seq_along(x), ...)
+    x[i]
 }
 #' @export
 as.data.frame.geometry <- function(x, row.names = NULL, optional = FALSE, ...) {
-    structure(
-        list(x),
-        row.names = if (is.null(row.names)) as.character(seq_along(x)) else row.names,
-        class = 'data.frame'
-    )
+    nrows <- length(x)
+    if (!(is.null(row.names) || (is.character(row.names) && length(row.names) ==
+                                 nrows))) {
+        stop(gettextf("'row.names' is not a character vector of length %d -- omitting it. Will be an error!",
+                         nrows), call. = FALSE)
+        row.names <- NULL
+    }
+    if (is.null(row.names)) {
+        if (nrows == 0L) {
+            row.names <- character()
+        } else {
+            row.names <- .set_row_names(nrows)
+        }
+    }
+    structure(list(x), row.names = row.names, class = 'data.frame')
 }
 #' @export
 c.geometry <- function(...) {
-    structure(
-        do.call(Map, c(list(f = c), lapply(list(...), unclass))),
-        class = 'geometry'
-    )
+    geometries <- list(...)
+    base <- do.call(c, lapply(geometries, unclass))
+    g_attr <- do.call(Map, c(list(f = c), lapply(geometries, attributes)))
+    g_attr$class <- 'geometry'
+    attributes(base) <- g_attr
+    base
 }
 #' @export
 is.na.geometry <- function(x) {
-    is.na(x[[1]])
+    is.na(unclass(x))
+}
+geo_type <- function(x) {
+    stopifnot(is.geometry(x))
+    unclass(x)
+}
+geo_width <- function(x) {
+    stopifnot(is.geometry(x))
+    unit(attr(x, 'width'), attr(x, 'uwidth'))
+}
+geo_height <- function(x) {
+    stopifnot(is.geometry(x))
+    unit(attr(x, 'height'), attr(x, 'uheight'))
 }
 #' @importFrom grid convertHeight grobHeight
 abs_height <- function(grobs) {
