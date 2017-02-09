@@ -42,6 +42,25 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// cut_lines
+List cut_lines(NumericVector x, NumericVector y, IntegerVector id, NumericVector start_width, NumericVector start_height, NumericVector end_width, NumericVector end_height, CharacterVector start_type, CharacterVector end_type);
+RcppExport SEXP ggraph_cut_lines(SEXP xSEXP, SEXP ySEXP, SEXP idSEXP, SEXP start_widthSEXP, SEXP start_heightSEXP, SEXP end_widthSEXP, SEXP end_heightSEXP, SEXP start_typeSEXP, SEXP end_typeSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type x(xSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type id(idSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type start_width(start_widthSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type start_height(start_heightSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type end_width(end_widthSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type end_height(end_heightSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type start_type(start_typeSEXP);
+    Rcpp::traits::input_parameter< CharacterVector >::type end_type(end_typeSEXP);
+    rcpp_result_gen = Rcpp::wrap(cut_lines(x, y, id, start_width, start_height, end_width, end_height, start_type, end_type));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pathAttr
 DataFrame pathAttr(DataFrame paths, int ngroups);
 RcppExport SEXP ggraph_pathAttr(SEXP pathsSEXP, SEXP ngroupsSEXP) {

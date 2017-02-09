@@ -13,6 +13,10 @@ partitionTree <- function(parent, order, weight, height) {
     .Call('ggraph_partitionTree', PACKAGE = 'ggraph', parent, order, weight, height)
 }
 
+cut_lines <- function(x, y, id, start_width, start_height, end_width, end_height, start_type, end_type) {
+    .Call('ggraph_cut_lines', PACKAGE = 'ggraph', x, y, id, start_width, start_height, end_width, end_height, start_type, end_type)
+}
+
 pathAttr <- function(paths, ngroups) {
     .Call('ggraph_pathAttr', PACKAGE = 'ggraph', paths, ngroups)
 }

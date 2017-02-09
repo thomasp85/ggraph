@@ -26,13 +26,14 @@ Imports:
     stats
 Suggests: network
 LinkingTo: Rcpp
-RoxygenNote: 5.0.1.9000
+RoxygenNote: 6.0.0.9000
 Depends:
     R (>= 2.10),
     ggplot2 (>= 2.0.0)
 Collate:
     'RcppExports.R'
     'aaa.R'
+    'cappedPath.R'
     'geometry.R'
     'connections.R'
     'data_flare.R'

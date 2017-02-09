@@ -15,10 +15,22 @@ Point point(double x, double y) {
     return p;
 }
 Point segment_intersect(Point p, Point p0, Point k, Point k0) {
-
+    double pX = p0.x - p.x;
+    double pY = p0.y - p.y;
+    double kX = k0.x - k.x;
+    double kY = k0.y - k.y;
+    double delta = pX*pY - kX*kY;
+    if (delta == 0) return bad_point();
+    double s = (-pY * (p.x - k.x) + pX * (p.y - k.y)) / (-kX * pY + pX * kY);
+    double t = (kX * (p.y - k.y) - kY * (p.x - k.x)) / (-kX * pY + pX * kY);
+    if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
+        return point(p.x + t * pX, p.y + t * pY);
+    } else {
+        return bad_point();
+    }
 }
 
-Point intersection(Point p, Point p0, double width, double height) {
+Point rect_intersection(Point p, Point p0, double width, double height) {
     double xmin, xmax, ymin, ymax;
     xmin = p0.x - width;
     xmax = p0.x + width;
@@ -29,36 +41,36 @@ Point intersection(Point p, Point p0, double width, double height) {
         if (p.y > ymin && p.y < ymax) {
             return segment_intersect(p, p0, point(xmin, ymin), point(xmin, ymax));
         } else if (p.y < ymin) {
-            Point p_tmp = segment_intersect(p, p0, point(xmin, ymin), point(xmin, ymax));
+            Point p_tmp = segment_intersect(p, p0, point(xmin, ymin), point(xmax, ymin));
             if (p_tmp.REAL) {
                 return p_tmp;
             } else {
-                return segment_intersect(p, p0, point(xmin, ymin), point(xmax, ymin));
+                return segment_intersect(p, p0, point(xmin, ymin), point(xmin, ymax));
             }
         } else {
             Point p_tmp = segment_intersect(p, p0, point(xmin, ymax), point(xmax, ymax));
             if (p_tmp.REAL) {
                 return p_tmp;
             } else {
-                return segment_intersect(p, p0, point(xmin, ymax), point(xmin, ymin));
+                return segment_intersect(p, p0, point(xmin, ymin), point(xmin, ymax));
             }
         }
     } else if (p.x > xmax) {
         if (p.y > ymin && p.y < ymax) {
             return segment_intersect(p, p0, point(xmax, ymin), point(xmax, ymax));
         } else if (p.y < ymin) {
-            Point p_tmp = segment_intersect(p, p0, point(xmax, ymin), point(xmin, ymin));
+            Point p_tmp = segment_intersect(p, p0, point(xmin, ymin), point(xmax, ymin));
             if (p_tmp.REAL) {
                 return p_tmp;
             } else {
                 return segment_intersect(p, p0, point(xmax, ymin), point(xmax, ymax));
             }
         } else {
-            Point p_tmp = segment_intersect(p, p0, point(xmax, ymax), point(xmin, ymax));
+            Point p_tmp = segment_intersect(p, p0, point(xmin, ymax), point(xmax, ymax));
             if (p_tmp.REAL) {
                 return p_tmp;
             } else {
-                return segment_intersect(p, p0, point(xmax, ymax), point(xmax, ymin));
+                return segment_intersect(p, p0, point(xmax, ymin), point(xmax, ymax));
             }
         }
     } else {
@@ -69,69 +81,145 @@ Point intersection(Point p, Point p0, double width, double height) {
         }
     }
 }
-
-NumericMatrix capSquareStart(NumericMatrix coord, double width, double height) {
+Point ellipsis_intersection(Point p, Point p0, double width, double height) {
+    double pX = p.x - p0.x;
+    double pY = p.y - p0.y;
+    double mod = (width * height) / std::sqrt(float(width*width*pY*pY + height*height*pX*pX));
+    double x = mod * pX;
+    double y = mod * pY;
+    x = std::copysign(x, pX);
+    y = std::copysign(y, pY);
+    return point(x + p0.x, y + p0.y);
+}
+bool inside_ellipsis(Point p, Point p0, double width, double height) {
+    double pX = p.x - p0.x;
+    double pY = p.y - p0.y;
+    return (pX * pX) / (width * width) + (pY * pY) / (height * height) < 1;
+}
+void capRectStart(NumericVector &x, NumericVector &y, int from, int to, double width, double height) {
     int i;
     Point p;
-    Point p0 = point(coord(0, 0), coord(0, 1));
+    Point p0 = point(x[from], y[from]);
     width /= 2;
     height /= 2;
-    for (i = 0; i < coord.nrow(); ++i) {
-        p.x = coord(i, 0);
-        p.y = coord(i, 1);
+    for (i = from; i < to; ++i) {
+        p.x = x[i];
+        p.y = y[i];
         if (std::abs(p.x - p0.x) <= width && std::abs(p.y - p0.y) <= height) {
-            coord(i, 0) = NA_REAL;
-            coord(i, 1) = NA_REAL;
+            x[i] = NA_REAL;
+            y[i] = NA_REAL;
         } else {
-            Point intersect = intersection(p, p0, width, height);
-            coord(i-1, 0) = intersect.x;
-            coord(i-1, 0) = intersect.y;
+            Point intersect = rect_intersection(p, p0, width, height);
+            x[i-1] = intersect.x;
+            y[i-1] = intersect.y;
             break;
         }
     }
 }
-/*
- * Copyright (c) 1970-2003, Wm. Randolph Franklin
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * 1. Redistributions of source code must retain the above copyright notice, this
- *    list of conditions and the following disclaimers.
- * 2. Redistributions in binary form must reproduce the above copyright notice
- *    in the documentation and/or other materials provided with the
- *    distribution.
- * 3. The name of W. Randolph Franklin may not be used to endorse or promote
- *    products derived from this Software without specific prior written
- *    permission.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-int pnpoly(int nvert, float *vertx, float *verty, float testx, float testy) {
-    int i, j, c = 0;
-    for (i = 0, j = nvert-1; i < nvert; j = i++) {
-        if ( ((verty[i]>testy) != (verty[j]>testy)) &&
-             (testx < (vertx[j]-vertx[i]) * (testy-verty[i]) / (verty[j]-verty[i]) + vertx[i]) )
-            c = !c;
+void capRectEnd(NumericVector &x, NumericVector &y, int from, int to, double width, double height) {
+    int i = to - 1;
+    Point p;
+    Point p0 = point(x[i], y[i]);
+    width /= 2;
+    height /= 2;
+    for (; i >= from; --i) {
+        p.x = x[i];
+        p.y = y[i];
+        if (std::abs(p.x - p0.x) <= width && std::abs(p.y - p0.y) <= height) {
+            x[i] = NA_REAL;
+            y[i] = NA_REAL;
+        } else {
+            Point intersect = rect_intersection(p, p0, width, height);
+            x[i+1] = intersect.x;
+            y[i+1] = intersect.y;
+            break;
+        }
     }
-    return c;
 }
-int pnellipsis(float x, float y, float rx, float ry, float testx, float testy) {
-    float xdir = (testx - x)*(testx - x) / (rx*rx);
-    float ydir = (testy - y)*(testy - y) / (ry*ry);
-    if (xdir + ydir <= 1) {
-        return 1;
-    } else {
-        return 0;
+void capEllipStart(NumericVector &x, NumericVector &y, int from, int to, double width, double height) {
+    int i;
+    Point p;
+    Point p0 = point(x[from], y[from]);
+    width /= 2;
+    height /= 2;
+    for (i = from; i < to; ++i) {
+        p.x = x[i];
+        p.y = y[i];
+        if (inside_ellipsis(p, p0, width, height)) {
+            x[i] = NA_REAL;
+            y[i] = NA_REAL;
+        } else {
+            Point intersect = ellipsis_intersection(p, p0, width, height);
+            x[i-1] = intersect.x;
+            y[i-1] = intersect.y;
+            break;
+        }
     }
+}
+void capEllipEnd(NumericVector &x, NumericVector &y, int from, int to, double width, double height) {
+    int i = to - 1;
+    Point p;
+    Point p0 = point(x[i], y[i]);
+    width /= 2;
+    height /= 2;
+    for (; i >= from; --i) {
+        p.x = x[i];
+        p.y = y[i];
+        if (inside_ellipsis(p, p0, width, height)) {
+            x[i] = NA_REAL;
+            y[i] = NA_REAL;
+        } else {
+            Point intersect = ellipsis_intersection(p, p0, width, height);
+            x[i+1] = intersect.x;
+            y[i+1] = intersect.y;
+            break;
+        }
+    }
+}
+
+//[[Rcpp::export]]
+List cut_lines(NumericVector x, NumericVector y, IntegerVector id, NumericVector start_width, NumericVector start_height, NumericVector end_width, NumericVector end_height, CharacterVector start_type, CharacterVector end_type) {
+    NumericVector new_x = clone(x);
+    NumericVector new_y = clone(y);
+    int i, j, group, group_ind;
+    group_ind = j = 0;
+    group = id[group_ind];
+
+    for (i = 0; i < id.size(); ++i) {
+        if (group != id[i]) {
+            if (start_width[group_ind] != 0 && start_height[group_ind] != 0) {
+                if (start_type[group_ind] == "circle") {
+                    capEllipStart(x, y, j, i, start_width[group_ind], start_height[group_ind]);
+                } else if (start_type[group_ind] == "rect") {
+                    capRectStart(x, y, j, i, start_width[group_ind], start_height[group_ind]);
+                }
+            }
+            if (end_width[group_ind] != 0 && end_height[group_ind] != 0) {
+                if (end_type[group_ind] == "circle") {
+                    capEllipEnd(x, y, j, i, end_width[group_ind], end_height[group_ind]);
+                } else if (end_type[group_ind] == "rect") {
+                    capRectEnd(x, y, j, i, end_width[group_ind], end_height[group_ind]);
+                }
+            }
+            group = id[i];
+            ++group_ind;
+            j = i;
+        }
+    }
+    if (start_width[group_ind] != 0 && start_height[group_ind] != 0) {
+        if (start_type[group_ind] == "circle") {
+            capEllipStart(x, y, j, i, start_width[group_ind], start_height[group_ind]);
+        } else if (start_type[group_ind] == "rect") {
+            capRectStart(x, y, j, i, start_width[group_ind], start_height[group_ind]);
+        }
+    }
+    if (end_width[group_ind] != 0 && end_height[group_ind] != 0) {
+        if (end_type[group_ind] == "circle") {
+            capEllipEnd(x, y, j, i, end_width[group_ind], end_height[group_ind]);
+        } else if (end_type[group_ind] == "rect") {
+            capRectEnd(x, y, j, i, end_width[group_ind], end_height[group_ind]);
+        }
+    }
+
+    return List::create(Named("x") = x, Named("y") = y);
 }
