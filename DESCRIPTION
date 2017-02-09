@@ -33,6 +33,8 @@ Depends:
 Collate:
     'RcppExports.R'
     'aaa.R'
+    'cappedPath.R'
+    'geometry.R'
     'connections.R'
     'data_flare.R'
     'data_highschool.R'
