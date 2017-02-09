@@ -72,6 +72,15 @@ the edge. It is considerable less performant so should only be used if this
 is needed. The version postfixed with a "0" draws the edge in the most
 performant way, often directly using an appropriate grob from the grid
 package, but does not allow for gradients along the edge.
+
+Often it is beneficial to stop the drawing of the edge before it reaches the
+node, for instance in cases where an arrow should be drawn and the arrowhead
+shouldn't lay ontop or below the node point. geom_edge_* and geom_edge_*2
+supports this through the start_cap and end_cap aesthetics that takes a
+\code{\link{geometry}} specification and dynamically caps the termini of the
+edges based on the given specifications. This means that if
+\code{end_cap = circle(1, 'cm')} the edges will end at a distance of 1cm even
+during resizing of the plot window.
 }
 \note{
 In order to avoid excessive typing edge aesthetic names are
@@ -109,6 +118,12 @@ automatically set, but can be overridden.
  \item{edge_linetype}
  \item{edge_alpha}
  \item{filter}
+}
+geom_edge_fan and geom_edge_fan2 furthermore takes the following
+aesthetics.
+\itemize{
+  \item{start_cap}
+  \item{end_cap}
 }
 }
 
