@@ -144,8 +144,7 @@ ggraph(gr, 'linear', circular = TRUE) +
 
 }
 \seealso{
-Other geom_edge_*: \code{\link{geom_edge_bundle}},
-  \code{\link{geom_edge_density}},
+Other geom_edge_*: \code{\link{geom_edge_density}},
   \code{\link{geom_edge_diagonal}},
   \code{\link{geom_edge_elbow}},
   \code{\link{geom_edge_fan}},

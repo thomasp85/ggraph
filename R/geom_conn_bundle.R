@@ -1,4 +1,4 @@
-#' Create heirarchical edge bundles between nodes
+#' Create heirarchical edge bundles between node connections
 #'
 #' Hierarchical edge bundling is a technique to introduce some order into the
 #' hairball structure that can appear when there's a lot of overplotting and
@@ -15,7 +15,7 @@
 #' automatically be renamed appropriately.
 #'
 #' @section Aesthetics:
-#' geom_edge_bundle* understands the following aesthetics. Bold aesthetics are
+#' geom_conn_bundle* understands the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden.
 #' \itemize{
 #'  \item{\strong{x}}
@@ -47,7 +47,7 @@
 #'
 #' @author Thomas Lin Pedersen
 #'
-#' @family geom_edge_*
+#' @family geom_conn_*
 #'
 #' @references
 #' Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
@@ -74,15 +74,15 @@
 #'
 #' # Use class inheritance for layout but plot class imports as bundles
 #' ggraph(flareGraph, 'dendrogram', circular = TRUE) +
-#'     geom_edge_bundle(aes(colour = ..index..), data = gCon(importFrom, importTo),
+#'     geom_conn_bundle(aes(colour = ..index..), data = gCon(importFrom, importTo),
 #'                      edge_alpha = 0.25) +
 #'     geom_node_point(aes(filter = leaf, colour = class)) +
 #'     scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') +
 #'     coord_fixed() +
 #'     ggforce::theme_no_axes()
 #'
-#' @rdname geom_edge_bundle
-#' @name geom_edge_bundle
+#' @rdname geom_conn_bundle
+#' @name geom_conn_bundle
 #'
 NULL
 
@@ -91,7 +91,7 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatBspline
 #' @export
-StatEdgeBundle <- ggproto('StatEdgeBundle', StatBspline,
+StatConnBundle <- ggproto('StatConnBundle', StatBspline,
     setup_data = function(data, params) {
         if (any(names(data) == 'filter')) {
             if (!is.logical(data$filter)) {
@@ -113,16 +113,16 @@ StatEdgeBundle <- ggproto('StatEdgeBundle', StatBspline,
     default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n', 'tension')
 )
-#' @rdname geom_edge_bundle
+#' @rdname geom_conn_bundle
 #'
 #' @export
-geom_edge_bundle <- function(mapping = NULL, data = gCon(),
+geom_conn_bundle <- function(mapping = NULL, data = gCon(),
                              position = "identity", arrow = NULL,
                              lineend = "butt", show.legend = NA,
                              n = 100, tension = 0.8, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~con.id))
-    layer(data = data, mapping = mapping, stat = StatEdgeBundle,
+    layer(data = data, mapping = mapping, stat = StatConnBundle,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
           params = expand_edge_aes(
@@ -136,27 +136,27 @@ geom_edge_bundle <- function(mapping = NULL, data = gCon(),
 #' @usage NULL
 #' @importFrom ggforce StatBspline2
 #' @export
-StatEdgeBundle2 <- ggproto('StatEdgeBundle2', StatBspline2,
+StatConnBundle2 <- ggproto('StatConnBundle2', StatBspline2,
     setup_data = function(data, params) {
-        StatEdgeBundle$setup_data(data, params)
+        StatConnBundle$setup_data(data, params)
     },
     setup_params = function(data, params) {
-        StatEdgeBundle$setup_params(data, params)
+        StatConnBundle$setup_params(data, params)
     },
     required_aes = c('x', 'y'),
     default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n', 'tension')
 )
-#' @rdname geom_edge_bundle
+#' @rdname geom_conn_bundle
 #'
 #' @export
-geom_edge_bundle2 <- function(mapping = NULL, data = gCon(),
+geom_conn_bundle2 <- function(mapping = NULL, data = gCon(),
                               position = "identity", arrow = NULL,
                               lineend = "butt", show.legend = NA,
                               n = 100, tension = 0.8, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~con.id))
-    layer(data = data, mapping = mapping, stat = StatEdgeBundle2,
+    layer(data = data, mapping = mapping, stat = StatConnBundle2,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
           params = expand_edge_aes(
@@ -169,27 +169,27 @@ geom_edge_bundle2 <- function(mapping = NULL, data = gCon(),
 #' @format NULL
 #' @usage NULL
 #' @export
-StatEdgeBundle0 <- ggproto('StatEdgeBundle0', StatIdentity,
+StatConnBundle0 <- ggproto('StatConnBundle0', StatIdentity,
     setup_data = function(data, params) {
-        StatEdgeBundle$setup_data(data, params)
+        StatConnBundle$setup_data(data, params)
     },
     setup_params = function(data, params) {
-        StatEdgeBundle$setup_params(data, params)
+        StatConnBundle$setup_params(data, params)
     },
     required_aes = c('x', 'y'),
     default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n', 'tension')
 )
-#' @rdname geom_edge_bundle
+#' @rdname geom_conn_bundle
 #'
 #' @export
-geom_edge_bundle0 <- function(mapping = NULL, data = gCon(),
+geom_conn_bundle0 <- function(mapping = NULL, data = gCon(),
                               position = "identity", arrow = NULL,
                               lineend = "butt", show.legend = NA,
                               tension = 0.8, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~con.id))
-    layer(data = data, mapping = mapping, stat = StatEdgeBundle0,
+    layer(data = data, mapping = mapping, stat = StatConnBundle0,
           geom = GeomEdgeBspline, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
           params = expand_edge_aes(

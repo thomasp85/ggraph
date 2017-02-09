@@ -80,12 +80,10 @@
 #' }
 #'
 #' @param graph The object containing the graph. See \emph{Details} for a list
-#' of supported classes.
+#' of supported classes. Or a \code{layout_ggraph} object as returned from
+#' \code{createLayout} in which case all subsequent arguments is ignored.
 #'
 #' @param layout The type of layout to create.
-#'
-#' @param data A layout_ggraph object. If supplied \code{graph} and
-#' \code{layout} are ignored.
 #'
 #' @param circular Should the layout be transformed into a radial
 #' representation. Only possible for some layouts. Defaults to \code{FALSE}
@@ -116,16 +114,7 @@
 #'
 #' @export
 #'
-ggraph <- function(graph, layout = 'auto', data, ...) {
+ggraph <- function(graph, layout = 'auto', ...) {
     envir <- parent.frame()
-    if (missing(data)) {
-        layout <- createLayout(graph, layout, ...)
-    } else {
-        if (inherits(data, 'layout_ggraph')) {
-            layout <- data
-        } else {
-            stop('Supplied data must inherit from layout_ggraph')
-        }
-    }
-    ggplot(data = layout, environment = envir)
+    ggplot(data = createLayout(graph, layout, ...), environment = envir)
 }

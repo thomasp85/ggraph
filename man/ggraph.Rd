@@ -16,7 +16,7 @@
 \alias{layout_network}
 \title{Create a ggraph plot}
 \usage{
-ggraph(graph, layout = "auto", data, ...)
+ggraph(graph, layout = "auto", ...)
 
 createLayout(graph, layout, circular, ...)
 
@@ -32,12 +32,10 @@ createLayout(graph, layout, circular, ...)
 }
 \arguments{
 \item{graph}{The object containing the graph. See \emph{Details} for a list
-of supported classes.}
+of supported classes. Or a \code{layout_ggraph} object as returned from
+\code{createLayout} in which case all subsequent arguments is ignored.}
 
 \item{layout}{The type of layout to create.}
-
-\item{data}{A layout_ggraph object. If supplied \code{graph} and
-\code{layout} are ignored.}
 
 \item{...}{Arguments passed on to the layout function.}
 
