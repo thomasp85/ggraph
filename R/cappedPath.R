@@ -71,8 +71,14 @@ cappedPathGrob <- function(x, y, id=NULL, id.lengths=NULL, arrow = NULL,
              name = name, gp = gp, vp = vp, cl = "cappedpathgrob")
     }
 }
+#' Dynamic capping of paths
+#'
+#' This function takes care of updating which parts of the paths gets removed
+#' when the device dimensions are updated.
+#'
 #' @importFrom grid convertX convertY convertWidth convertHeight unit grob
 #' @export
+#' @keywords internal
 makeContent.cappedpathgrob <- function(x) {
     x_new <- convertX(x$x, 'mm', TRUE)
     y_new <- convertY(x$y, 'mm', TRUE)
@@ -90,20 +96,12 @@ makeContent.cappedpathgrob <- function(x) {
              id.lengths = NULL, arrow = x$arrow, name = x$name, gp = x$gp,
              vp = x$vp, cl = "polyline")
     } else {
-        keep <- !is.na(truncated$x[!x$end]) && !is.na(truncated$x[!x$start])
-        x0 <- truncated$x[!x$end][keep]
-        y0 <- truncated$y[!x$end][keep]
-        x1 <- truncated$x[!x$start][keep]
-        y1 <- truncated$y[!x$start][keep]
-        gp <- structure(lapply(x$gp, function(par) {
-            if (length(par) == length(keep)) {
-                par[keep]
-            } else {
-                par
-            }
-        }), class = 'gpar')
+        x0 <- truncated$x[!x$end]
+        y0 <- truncated$y[!x$end]
+        x1 <- truncated$x[!x$start]
+        y1 <- truncated$y[!x$start]
         grob(x0 = unit(x0, 'mm'), y0 = unit(y0, 'mm'), x1 = unit(x1, 'mm'),
-             y1 = unit(y1, 'mm'), arrow = x$arrow, name = x$name, gp = gp,
+             y1 = unit(y1, 'mm'), arrow = x$arrow, name = x$name, gp = x$gp,
              vp = x$vp, cl = "segments")
     }
 }
