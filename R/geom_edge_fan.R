@@ -103,8 +103,7 @@
 #'   geom_edge_fan(aes(alpha = ..index..))
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
-#'   geom_edge_fan2(aes(colour = node.class),
-#'                  gEdges('long', nodePar = 'class'))
+#'   geom_edge_fan2(aes(colour = node.class))
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
 #'   geom_edge_fan0(aes(colour = class))

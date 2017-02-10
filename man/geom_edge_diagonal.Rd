@@ -142,8 +142,7 @@ ggraph(gr, 'igraph', algorithm = 'tree') +
   geom_edge_diagonal(aes(alpha = ..index..))
 
 ggraph(gr, 'igraph', algorithm = 'tree') +
-  geom_edge_diagonal2(aes(colour = node.class),
-                      gEdges('long', nodePar = 'class'))
+  geom_edge_diagonal2(aes(colour = node.class))
 
 ggraph(gr, 'igraph', algorithm = 'tree') +
   geom_edge_diagonal0(aes(colour = class))

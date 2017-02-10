@@ -150,8 +150,7 @@ ggraph(irisDen, 'even', circular = TRUE) +
   geom_edge_elbow(aes(alpha = ..index..))
 
 ggraph(irisDen, 'even') +
-  geom_edge_elbow2(aes(colour = node.class),
-                      gEdges('long', nodePar = 'class'))
+  geom_edge_elbow2(aes(colour = node.class))
 
 ggraph(irisDen, 'dendrogram') +
   geom_edge_elbow0(aes(colour = class))

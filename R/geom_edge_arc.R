@@ -105,8 +105,7 @@
 #'   geom_edge_arc(aes(alpha = ..index..))
 #'
 #' ggraph(gr, 'linear') +
-#'   geom_edge_arc2(aes(colour = node.class),
-#'                  gEdges('long', nodePar = 'class'), curvature = 0.6)
+#'   geom_edge_arc2(aes(colour = node.class), curvature = 0.6)
 #'
 #' ggraph(gr, 'linear', circular = TRUE) +
 #'   geom_edge_arc0(aes(colour = class))
