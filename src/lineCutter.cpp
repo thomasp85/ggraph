@@ -1,7 +1,7 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-double copysign(double from, double to) {
+double copy_sign(double from, double to) {
     if (from > 0) {
         return to > 0 ? to : -1 * to;
     } else if (from < 0) {
@@ -96,8 +96,8 @@ Point ellipsis_intersection(Point p, Point p0, double width, double height) {
     double mod = (width * height) / std::sqrt(float(width*width*pY*pY + height*height*pX*pX));
     double x = mod * pX;
     double y = mod * pY;
-    x = copysign(x, pX);
-    y = copysign(y, pY);
+    x = copy_sign(x, pX);
+    y = copy_sign(y, pY);
     return point(x + p0.x, y + p0.y);
 }
 bool inside_ellipsis(Point p, Point p0, double width, double height) {
