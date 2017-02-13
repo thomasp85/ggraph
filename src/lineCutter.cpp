@@ -96,8 +96,8 @@ Point ellipsis_intersection(Point p, Point p0, double width, double height) {
     double mod = (width * height) / std::sqrt(float(width*width*pY*pY + height*height*pX*pX));
     double x = mod * pX;
     double y = mod * pY;
-    x = copy_sign(x, pX);
-    y = copy_sign(y, pY);
+    x = copy_sign(pX, x);
+    y = copy_sign(pY, y);
     return point(x + p0.x, y + p0.y);
 }
 bool inside_ellipsis(Point p, Point p0, double width, double height) {
