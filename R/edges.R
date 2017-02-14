@@ -48,6 +48,9 @@
 #' \code{'direction'}. Specifies whether parallel edges should be merged. See
 #' details for more information
 #'
+#' @param ... Additional data that will be cbind'ed together with the returned
+#' edge data.
+#'
 #' @return A data.frame with columns dependent on format as well as the graph
 #' type. In addition to the columns discussed in the details section,
 #' the data.frame will always contain the columns \code{from}, \code{to} and
@@ -69,7 +72,7 @@
 #'
 #' @export
 #'
-gEdges <- function(format = 'short', collapse = 'none') {
+gEdges <- function(format = 'short', collapse = 'none', ...) {
     if (!collapse %in% c('none', 'all', 'direction')) {
         stop('Collapse must be either "none", "all" or "direction"')
     }
@@ -86,6 +89,12 @@ gEdges <- function(format = 'short', collapse = 'none') {
             short = formatShortEdges(edges, layout),
             long = formatLongEdges(edges, layout),
             stop('Unknown format. Use either "short" or "long"')
+        )
+        edges <- do.call(
+            cbind,
+            c(list(edges),
+              lapply(list(...), rep, length.out = nrow(edges)),
+              list(stringsAsFactors = FALSE))
         )
         structure(edges, type_ggraph = 'edge_ggraph')
     }

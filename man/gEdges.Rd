@@ -4,7 +4,7 @@
 \alias{gEdges}
 \title{Create edge extractor function}
 \usage{
-gEdges(format = "short", collapse = "none")
+gEdges(format = "short", collapse = "none", ...)
 }
 \arguments{
 \item{format}{Either \code{'short'} (the default) or \code{'long'}. See
@@ -13,6 +13,9 @@ details for a descriptions of the differences}
 \item{collapse}{Either \code{'none'} (the default), \code{'all'} or
 \code{'direction'}. Specifies whether parallel edges should be merged. See
 details for more information}
+
+\item{...}{Additional data that will be cbind'ed together with the returned
+edge data.}
 }
 \value{
 A data.frame with columns dependent on format as well as the graph
