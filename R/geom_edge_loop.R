@@ -32,6 +32,18 @@
 #' \code{end_cap = circle(1, 'cm')} the edges will end at a distance of 1cm even
 #' during resizing of the plot window.
 #'
+#' All \code{geom_edge_*} and \code{geom_edge_*2} have the ability to draw a
+#' label along the edge. The reason this is not a separate geom is that in order
+#' for the label to know the location of the edge it needs to know the edge type
+#' etc. Labels are drawn by providing a label aesthetic. The label_pos can be
+#' used to specify where along the edge it should be drawn by supplying a number
+#' between 0 and 1. The label_size aesthetic can be used to control the size of
+#' the label. Often it is needed to have the label written along the direction
+#' of the edge, but since the actual angle is dependent on the plot dimensions
+#' this cannot be calculated beforehand. Using the angle_calc argument allows
+#' you to specify whether to use the supplied angle aesthetic or whether to draw
+#' the label along or across the edge.
+#'
 #' @note In order to avoid excessive typing edge aesthetic names are
 #' automatically expanded. Because of this it is not necessary to write
 #' \code{edge_colour} within the \code{aes()} call as \code{colour} will
@@ -45,7 +57,7 @@
 #'  \item{\strong{y}}
 #'  \item{\strong{from}}
 #'  \item{\strong{to}}
-#'  \item{\strong{angle} \emph{90}}
+#'  \item{\strong{span} \emph{90}}
 #'  \item{\strong{direction} \emph{45}}
 #'  \item{\strong{strength} \emph{1}}
 #'  \item{edge_colour}
@@ -59,6 +71,15 @@
 #' \itemize{
 #'   \item{start_cap}
 #'   \item{end_cap}
+#'   \item{label}
+#'   \item{label_pos}
+#'   \item{label_size}
+#'   \item{angle}
+#'   \item{hjust}
+#'   \item{vjust}
+#'   \item{family}
+#'   \item{fontface}
+#'   \item{lineheight}
 #' }
 #'
 #' @section Computed variables:
@@ -114,7 +135,7 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
             NULL
         }
     },
-    required_aes = c('x', 'y', 'from', 'to', 'angle', 'direction', 'strength'),
+    required_aes = c('x', 'y', 'from', 'to', 'span', 'direction', 'strength'),
     default_aes = aes(filter = TRUE),
     extra_params = c('na.rm', 'n')
 )
@@ -122,17 +143,27 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
 #'
 #' @export
 geom_edge_loop <- function(mapping = NULL, data = gEdges(),
-                           position = "identity", arrow = NULL,
-                           lineend = "butt", show.legend = NA, n = 100, ...) {
+                           position = "identity", arrow = NULL, n = 100,
+                           lineend = "butt", linejoin = "round", linemitre = 1,
+                           label_colour = 'black',  label_alpha = 1,
+                           label_parse = FALSE, check_overlap = FALSE,
+                           angle_calc = 'rot', force_flip = TRUE,
+                           label_dodge = NULL, label_push = NULL,
+                           show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, from=~from, to=~to,
-                                          angle=90, direction=45, strength=1))
+                                          span=90, direction=45, strength=1))
     layer(data = data, mapping = mapping, stat = StatEdgeLoop,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
           params = expand_edge_aes(
-              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = FALSE, ...)
+              list(arrow = arrow, lineend = lineend, linejoin = linejoin,
+                   linemitre = linemitre, na.rm = FALSE, n = n,
+                   interpolate = FALSE,
+                   label_colour = label_colour, label_alpha = label_alpha,
+                   label_parse = label_parse, check_overlap = check_overlap,
+                   angle_calc = angle_calc, force_flip = force_flip,
+                   label_dodge = label_dodge, label_push = label_push, ...)
           )
     )
 }
@@ -145,7 +176,7 @@ StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
     setup_data = function(data, params) {
         StatEdgeLoop$setup_data(data, params)
     },
-    required_aes = c('x', 'y', 'from', 'to', 'angle', 'direction', 'strength'),
+    required_aes = c('x', 'y', 'from', 'to', 'span', 'direction', 'strength'),
     default_aes = aes(filter = TRUE),
     extra_params = c('na.rm')
 )
@@ -157,7 +188,7 @@ geom_edge_loop0 <- function(mapping = NULL, data = gEdges(),
                             lineend = "butt", show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, from=~from, to=~to,
-                                          angle=90, direction=45, strength=1))
+                                          span=90, direction=45, strength=1))
     layer(data = data, mapping = mapping, stat = StatEdgeLoop0,
           geom = GeomEdgeBezier, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
@@ -168,8 +199,8 @@ geom_edge_loop0 <- function(mapping = NULL, data = gEdges(),
 }
 
 createLoops <- function(loops, params) {
-    controlAngle1 <- loops$direction - loops$angle/2
-    controlAngle2 <- loops$direction + loops$angle/2
+    controlAngle1 <- loops$direction - loops$span/2
+    controlAngle2 <- loops$direction + loops$span/2
     controls1 <- findLoopControls(loops, controlAngle1)
     controls2 <- findLoopControls(loops, controlAngle2)
     end <- loops

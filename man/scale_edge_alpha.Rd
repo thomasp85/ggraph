@@ -50,5 +50,6 @@ Other scale_edge_*: \code{\link{scale_edge_colour}},
   \code{\link{scale_edge_linetype}},
   \code{\link{scale_edge_shape}},
   \code{\link{scale_edge_size}},
-  \code{\link{scale_edge_width}}
+  \code{\link{scale_edge_width}},
+  \code{\link{scale_label_size}}
 }
