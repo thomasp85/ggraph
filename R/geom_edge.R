@@ -152,7 +152,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         }
         data
     },
-    default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
+    default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 'solid',
                       edge_alpha = NA, start_cap = NA, end_cap = NA, label = NA,
                       label_pos = 0.5, label_size = 3.88, angle = NA,
                       hjust = 0.5, vjust = 0.5, family = '', fontface = 1,

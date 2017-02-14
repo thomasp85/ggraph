@@ -13,7 +13,7 @@ DataFrame pathAttr(DataFrame paths, int ngroups) {
     LogicalVector alpha_na = is_na(alpha);
     NumericVector width = paths["edge_width"];
     LogicalVector width_na = is_na(width);
-    IntegerVector lty = paths["edge_linetype"];
+    CharacterVector lty = paths["edge_linetype"];
     LogicalVector lty_na = is_na(lty);
     CharacterVector colour = paths["edge_colour"];
     LogicalVector colour_na = is_na(colour);
