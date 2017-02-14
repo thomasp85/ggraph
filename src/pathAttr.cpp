@@ -24,7 +24,7 @@ DataFrame pathAttr(DataFrame paths, int ngroups) {
     for (i = 1; i < group.size(); ++i) {
         if (group[i] == currentGroup) {
             if (solid[currentIndex]) {
-                solid[currentIndex] = lty[i] == 1 && lty[i] == lty[i-1];
+                solid[currentIndex] = lty[i] == "solid" && lty[i] == lty[i-1];
             }
             if (constant[currentIndex]) {
                 constant[currentIndex] =
