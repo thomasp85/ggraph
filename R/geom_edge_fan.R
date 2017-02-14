@@ -32,6 +32,18 @@
 #' \code{end_cap = circle(1, 'cm')} the edges will end at a distance of 1cm even
 #' during resizing of the plot window.
 #'
+#' All \code{geom_edge_*} and \code{geom_edge_*2} have the ability to draw a
+#' label along the edge. The reason this is not a separate geom is that in order
+#' for the label to know the location of the edge it needs to know the edge type
+#' etc. Labels are drawn by providing a label aesthetic. The label_pos can be
+#' used to specify where along the edge it should be drawn by supplying a number
+#' between 0 and 1. The label_size aesthetic can be used to control the size of
+#' the label. Often it is needed to have the label written along the direction
+#' of the edge, but since the actual angle is dependent on the plot dimensions
+#' this cannot be calculated beforehand. Using the angle_calc argument allows
+#' you to specify whether to use the supplied angle aesthetic or whether to draw
+#' the label along or across the edge.
+#'
 #' @note In order to avoid excessive typing edge aesthetic names are
 #' automatically expanded. Because of this it is not necessary to write
 #' \code{edge_colour} within the \code{aes()} call as \code{colour} will
@@ -72,6 +84,15 @@
 #' \itemize{
 #'   \item{start_cap}
 #'   \item{end_cap}
+#'   \item{label}
+#'   \item{label_pos}
+#'   \item{label_size}
+#'   \item{angle}
+#'   \item{hjust}
+#'   \item{vjust}
+#'   \item{family}
+#'   \item{fontface}
+#'   \item{lineheight}
 #' }
 #'
 #' @section Computed variables:
@@ -144,9 +165,14 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
 #'
 #' @export
 geom_edge_fan <- function(mapping = NULL, data = gEdges(),
-                               position = "identity", arrow = NULL,
-                               lineend = "butt", show.legend = NA,
-                               n = 100, spread = 1, ...) {
+                          position = "identity", arrow = NULL,
+                          spread = 1, n = 100, lineend = "butt",
+                          linejoin = "round", linemitre = 1,
+                          label_colour = 'black',  label_alpha = 1,
+                          label_parse = FALSE, check_overlap = FALSE,
+                          angle_calc = 'rot', force_flip = TRUE,
+                          label_dodge = NULL, label_push = NULL,
+                          show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           from=~from, to=~to))
@@ -154,8 +180,13 @@ geom_edge_fan <- function(mapping = NULL, data = gEdges(),
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
           params = expand_edge_aes(
-              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = FALSE, spread = spread, ...)
+              list(arrow = arrow, lineend = lineend, linejoin = linejoin,
+                   linemitre = linemitre, na.rm = FALSE, n = n,
+                   interpolate = FALSE, spread = spread,
+                   label_colour = label_colour, label_alpha = label_alpha,
+                   label_parse = label_parse, check_overlap = check_overlap,
+                   angle_calc = angle_calc, force_flip = force_flip,
+                   label_dodge = label_dodge, label_push = label_push, ...)
           )
     )
 }
@@ -185,9 +216,14 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
 #'
 #' @export
 geom_edge_fan2 <- function(mapping = NULL, data = gEdges('long'),
-                                position = "identity", arrow = NULL, spread = 1,
-                                lineend = "butt", show.legend = NA,
-                                n = 100, ...) {
+                           position = "identity", arrow = NULL,
+                           spread = 1, n = 100, lineend = "butt",
+                           linejoin = "round", linemitre = 1,
+                           label_colour = 'black',  label_alpha = 1,
+                           label_parse = FALSE, check_overlap = FALSE,
+                           angle_calc = 'rot', force_flip = TRUE,
+                           label_dodge = NULL, label_push = NULL,
+                           show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
                                           from=~from, to=~to))
@@ -195,8 +231,13 @@ geom_edge_fan2 <- function(mapping = NULL, data = gEdges('long'),
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
           params = expand_edge_aes(
-              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = TRUE, spread = spread, ...)
+              list(arrow = arrow, lineend = lineend, linejoin = linejoin,
+                   linemitre = linemitre, na.rm = FALSE, n = n,
+                   interpolate = TRUE, spread = spread,
+                   label_colour = label_colour, label_alpha = label_alpha,
+                   label_parse = label_parse, check_overlap = check_overlap,
+                   angle_calc = angle_calc, force_flip = force_flip,
+                   label_dodge = label_dodge, label_push = label_push, ...)
           )
     )
 }

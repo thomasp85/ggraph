@@ -10,7 +10,8 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
                           lineend = "butt", linejoin = "round", linemitre = 1,
                           na.rm = FALSE, interpolate = TRUE,
                           label_colour = 'black',  label_alpha = 1, label_parse = FALSE,
-                          check_overlap = FALSE) {
+                          check_overlap = FALSE, angle_calc = 'none', force_flip = TRUE,
+                          label_dodge = NULL, label_push = NULL) {
         if (!anyDuplicated(data$group)) {
             message("geom_edge_path: Each group consists of only one observation. ",
                          "Do you need to adjust the group aesthetic?")
@@ -86,6 +87,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
             default.units="native", gp=gp, constant = constant
         )
         if (any(!is.na(data$label))) {
+            if (angle_calc == 'none') angle_calc <- 'rot'
             edge_ind <- split(seq_len(nrow(data)), data$group)
             edge_length <- lengths(edge_ind)
             edge_start <- c(0, cumsum(edge_length)[-length(edge_length)]) + 1
@@ -93,22 +95,24 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
             label_pos <- 1 + floor((edge_length - 1) * label_pos)
             label_ind <- edge_start + label_pos
             label_data <- data[label_ind, ]
-            if (any(is.na(label_data$angle))) {
-                angle_start <- ifelse(label_pos == 1, 1, label_pos - 1)
-                angle_end <- ifelse(label_pos == edge_length, edge_length, label_pos + 1)
-                label_data$angle <- eAngle(data$x[angle_start + edge_start],
-                                           data$y[angle_start + edge_start],
-                                           data$x[angle_end + edge_start],
-                                           data$y[angle_end + edge_start])
-
-            }
+            label_data$label_colour <- ifelse(is.na(label_data$label_colour),
+                                              label_data$colour,
+                                              label_data$label_colour)
+            label_data$label_alpha <- ifelse(is.na(label_data$label_alpha),
+                                             label_data$alpha,
+                                             label_data$label_alpha)
+            angle_start <- ifelse(label_pos == 1, 1, label_pos - 1)
+            angle_end <- ifelse(label_pos == edge_length, edge_length, label_pos + 1)
+            label_x0 <- data$x[angle_start + edge_start]
+            label_y0 <- data$y[angle_start + edge_start]
+            label_x1 <- data$x[angle_end + edge_start]
+            label_y1 <- data$y[angle_end + edge_start]
             lab <- label_data$label
             if (label_parse) {
                 lab <- parse(text = as.character(lab))
             }
-            labelGrob <- textGrob(
-                lab,
-                label_data$x, label_data$y, default.units = "native",
+            labelGrob <- textAlongGrob(
+                lab, label_data$x, label_data$y, default.units = "native",
                 hjust = label_data$hjust, vjust = label_data$vjust,
                 rot = label_data$angle,
                 gp = gpar(
@@ -118,7 +122,9 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
                     fontface = label_data$fontface,
                     lineheight = label_data$lineheight
                 ),
-                check.overlap = check_overlap
+                check.overlap = check_overlap, rot.type = angle_calc,
+                x0 = label_x0, y0 = label_y0, x1 = label_x1, y1 = label_y1,
+                force.rot = force_flip, dodge = label_dodge, push = label_push
             )
             gList(edgeGrob, labelGrob)
         } else {
@@ -154,7 +160,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
     },
     default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 'solid',
                       edge_alpha = NA, start_cap = NA, end_cap = NA, label = NA,
-                      label_pos = 0.5, label_size = 3.88, angle = NA,
+                      label_pos = 0.5, label_size = 3.88, angle = 0,
                       hjust = 0.5, vjust = 0.5, family = '', fontface = 1,
                       lineheight = 1.2)
 )

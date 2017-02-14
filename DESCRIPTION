@@ -73,5 +73,7 @@ Collate:
     'scale_edge_shape.R'
     'scale_edge_size.R'
     'scale_edge_width.R'
+    'scale_label_size.R'
+    'textAlong.R'
     'treeApply.R'
     'utils.R'
