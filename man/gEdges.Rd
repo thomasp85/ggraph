@@ -75,5 +75,5 @@ needed it is suggested that the graph be tidied up before plotting with
 ggraph.
 }
 \seealso{
-Other extractors: \code{\link{gCon}}
+Other extractors: \code{\link{gCon}}, \code{\link{gNodes}}
 }

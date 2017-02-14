@@ -65,6 +65,7 @@ Collate:
     'layout_dendrogram.R'
     'layout_igraph.R'
     'layout_sec.R'
+    'nodes.R'
     'scale_edge_alpha.R'
     'scale_edge_colour.R'
     'scale_edge_fill.R'

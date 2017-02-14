@@ -31,5 +31,6 @@ also possible to supply a list of vectors giving node indexes that defines a
 connection.
 }
 \seealso{
-Other extractors: \code{\link{gEdges}}
+Other extractors: \code{\link{gEdges}},
+  \code{\link{gNodes}}
 }
