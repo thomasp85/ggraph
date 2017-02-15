@@ -133,19 +133,19 @@ identifyNodes <- function(den, start = 1) {
     den
 }
 #' @importFrom stats is.leaf
-setCoord <- function(den, offset = 1, repel = TRUE, pad = 0, ratio = 1) {
+setCoord <- function(den, offset = 0, repel = TRUE, pad = 0, ratio = 1) {
     if (is.leaf(den)) {
         attr(den, 'ggraph.coord') <- offset
         attr(den, 'rightmost') <- offset
     } else {
-        den[[1]] <- setCoord(den[[1]], offset, repel = repel, ratio)
+        den[[1]] <- setCoord(den[[1]], offset, repel = repel, pad = pad, ratio = ratio)
         offset <- attr(den[[1]], 'rightmost')
         offset <- if (repel) {
             offset + (attr(den, 'height') + pad) * ratio
         } else {
             offset + 1 + pad
         }
-        den[[2]] <- setCoord(den[[2]], offset, repel = repel, ratio)
+        den[[2]] <- setCoord(den[[2]], offset, repel = repel, pad = pad, ratio = ratio)
         attr(den, 'ggraph.coord') <- mean(unlist(lapply(den, attr, which = 'ggraph.coord')))
         attr(den, 'rightmost') <- attr(den[[2]], 'rightmost')
     }
