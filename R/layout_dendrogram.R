@@ -4,7 +4,7 @@
 #'
 #' @export
 #'
-createLayout.dendrogram <- function(graph, layout, circular = FALSE, ...) {
+create_layout.dendrogram <- function(graph, layout, circular = FALSE, ...) {
     graph <- identifyNodes(graph)
     if (inherits(layout, 'function')) {
         layout <- layout(graph, circular = circular, ...)
@@ -47,7 +47,7 @@ layout_dendrogram_auto <- function(graph, circular, ...) {
 #' dendrogram objects.
 #'
 #' @note This function is not intended to be used directly but by setting
-#' \code{layout = 'dendrogram'} in \code{\link{createLayout}}
+#' \code{layout = 'dendrogram'} in \code{\link{create_layout}}
 #'
 #' @param graph A dendrogram object.
 #'
@@ -106,7 +106,7 @@ layout_dendrogram_dendrogram <- function(graph, circular = FALSE, offset = pi/2,
 #' \code{\link{layout_dendrogram_dendrogram}}.
 #'
 #' @note This function is not intended to be used directly but by setting
-#' \code{layout = 'even'} in \code{\link{createLayout}}
+#' \code{layout = 'even'} in \code{\link{create_layout}}
 #'
 #' @param graph A dendrogram object
 #'
@@ -248,9 +248,9 @@ getHeights <- function(den) {
 #' @export
 den_to_igraph <- function(den, even = FALSE, ...) {
     layout <- if (even) {
-        createLayout(den, 'even', ...)
+        create_layout(den, 'even', ...)
     } else {
-        createLayout(den, 'dendrogram', ...)
+        create_layout(den, 'dendrogram', ...)
     }
     edges <- getEdges(layout)
     names(layout)[1:2] <- paste0('layout.', names(layout)[1:2])

@@ -10,7 +10,7 @@
 #' the line has a numeric value associated with it giving the position along the
 #' path, and it is therefore possible to show the direction of the edge by
 #' mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
-#' "2" uses the "long" edge format (see \code{\link{gEdges}}) and makes it
+#' "2" uses the "long" edge format (see \code{\link{get_edges}}) and makes it
 #' possible to interpolate node parameter between the start and end node along
 #' the edge. It is considerable less performant so should only be used if this
 #' is needed. The version postfixed with a "0" draws the edge in the most
@@ -99,9 +99,9 @@
 #' circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 #' data.
 #'
-#' @param data The return of a call to \code{gEdges()} or a data.frame
+#' @param data The return of a call to \code{get_edges()} or a data.frame
 #' giving edges in corrent format (see details for for guidance on the format).
-#' See \code{\link{gEdges}} for more details on edge extraction.
+#' See \code{\link{get_edges}} for more details on edge extraction.
 #'
 #' @param n The number of points to create along the path.
 #'
@@ -190,7 +190,7 @@ StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
 #'
 #' @importFrom ggforce StatLink
 #' @export
-geom_edge_link <- function(mapping = NULL, data = gEdges('short'),
+geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
                            position = "identity", arrow = NULL, n = 100,
                            lineend = "butt", linejoin = "round", linemitre = 1,
                            label_colour = 'black',  label_alpha = 1,
@@ -218,7 +218,7 @@ geom_edge_link <- function(mapping = NULL, data = gEdges('short'),
 #'
 #' @importFrom ggforce StatLink2
 #' @export
-geom_edge_link2 <- function(mapping = NULL, data = gEdges('long'),
+geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
                             position = "identity", arrow = NULL, n = 100,
                             lineend = "butt", linejoin = "round", linemitre = 1,
                             label_colour = 'black',  label_alpha = 1,
@@ -246,7 +246,7 @@ geom_edge_link2 <- function(mapping = NULL, data = gEdges('long'),
 #'
 #' @importFrom ggforce StatLink2
 #' @export
-geom_edge_link0 <- function(mapping = NULL, data = gEdges(),
+geom_edge_link0 <- function(mapping = NULL, data = get_edges(),
                             position = "identity", arrow = NULL,
                             lineend = "butt", show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)

@@ -148,7 +148,7 @@ GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
 #'
 #' @importFrom ggforce StatLink
 #' @export
-geom_edge_density <- function(mapping = NULL, data = gEdges('short'),
+geom_edge_density <- function(mapping = NULL, data = get_edges('short'),
                               position = "identity", show.legend = NA,
                               n=100, ...) {
     mapping <- completeEdgeAes(mapping)

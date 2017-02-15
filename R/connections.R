@@ -5,7 +5,7 @@
 #' affect the layout calculation in any way and will not be drawn by the
 #' standard \code{geom_edge_*} functions. A connection does not need to only be
 #' defined by a start and end node, but can include intermediary nodes.
-#' \code{gCon} helps in creating connection data by letting you specify start
+#' \code{get_con} helps in creating connection data by letting you specify start
 #' and end node and automatically find the shortest path within the graph
 #' structure that connects the given points. If this is not what is needed it is
 #' also possible to supply a list of vectors giving node indexes that defines a
@@ -24,7 +24,7 @@
 #' @family extractors
 #'
 #' @export
-gCon <- function(from = integer(), to = integer(), paths = NULL, ...) {
+get_con <- function(from = integer(), to = integer(), paths = NULL, ...) {
     if (length(from) != length(to)) {
         stop('from and to must be of equal length')
     }
@@ -39,13 +39,37 @@ gCon <- function(from = integer(), to = integer(), paths = NULL, ...) {
                                 lengths(paths))
             nodes <- rbind(nodes, extra)
         }
-        extra <- list(...)
-        if (length(extra) != 0) {
-            nodes <- cbind(nodes, as.data.frame(extra))
-        }
+        nodes <- do.call(
+            cbind,
+            c(list(nodes),
+              lapply(list(...), rep, length.out = nrow(nodes)),
+              list(stringsAsFactors = FALSE))
+        )
         structure(nodes, type = 'connection_ggraph')
     }
 }
+#' @rdname get_con
+#' @usage NULL
+#' @export
+gCon <- function(...) {
+    .Deprecated('get_con')
+    get_con(...)
+}
+#' Internal data extractors
+#'
+#' These functions exists for supporting different data structures. There is no
+#' need to call these directly
+#'
+#' @param layout The layout data
+#'
+#' @param from,to A numeric vector giving the indexes of the start and end nodes
+#'
+#' @param ... Additional parameters passed on to the specific method
+#'
+#' @keywords internal
+#' @export
+#' @rdname internal_extractors
+#' @name internal_extractors
 getConnections <- function(layout, from, to, ...) {
     UseMethod('getConnections', layout)
 }

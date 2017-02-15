@@ -3,12 +3,19 @@
 #' @aliases layout_ggraph
 #'
 #' @export
-createLayout <- function(graph, layout, circular, ...) {
-    UseMethod('createLayout', graph)
+create_layout <- function(graph, layout, circular, ...) {
+    UseMethod('create_layout', graph)
+}
+#' @rdname ggraph
+#' @usage NULL
+#' @export
+createLayout <- function(...) {
+    .Deprecated('create_layout')
+    create_layout(...)
 }
 #' @rdname ggraph
 #' @export
-createLayout.default <- function(graph, layout, ...) {
+create_layout.default <- function(graph, layout, ...) {
     stop('No layout function defined for objects of class ', class(graph))
 }
 #' @export

@@ -16,7 +16,7 @@
 #' the line has a numeric value associated with it giving the position along the
 #' path, and it is therefore possible to show the direction of the edge by
 #' mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
-#' "2" uses the "long" edge format (see \code{\link{gEdges}}) and makes it
+#' "2" uses the "long" edge format (see \code{\link{get_edges}}) and makes it
 #' possible to interpolate node parameter between the start and end node along
 #' the edge. It is considerable less performant so should only be used if this
 #' is needed. The version postfixed with a "0" draws the edge in the most
@@ -142,7 +142,7 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
 #' @rdname geom_edge_loop
 #'
 #' @export
-geom_edge_loop <- function(mapping = NULL, data = gEdges(),
+geom_edge_loop <- function(mapping = NULL, data = get_edges(),
                            position = "identity", arrow = NULL, n = 100,
                            lineend = "butt", linejoin = "round", linemitre = 1,
                            label_colour = 'black',  label_alpha = 1,
@@ -183,7 +183,7 @@ StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
 #' @rdname geom_edge_loop
 #'
 #' @export
-geom_edge_loop0 <- function(mapping = NULL, data = gEdges(),
+geom_edge_loop0 <- function(mapping = NULL, data = get_edges(),
                             position = "identity", arrow = NULL,
                             lineend = "butt", show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)

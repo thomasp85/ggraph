@@ -75,5 +75,5 @@ Collate:
     'scale_edge_width.R'
     'scale_label_size.R'
     'textAlong.R'
-    'treeApply.R'
+    'tree_apply.R'
     'utils.R'
