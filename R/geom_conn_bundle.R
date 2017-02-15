@@ -39,7 +39,7 @@
 #' @inheritParams geom_edge_link
 #' @inheritParams ggplot2::geom_path
 #'
-#' @param data The result of a call to \code{\link{gCon}}
+#' @param data The result of a call to \code{\link{get_con}}
 #'
 #' @param tension How "loose" should the bundles be. 1 will give very tight
 #' bundles, while 0 will turn of bundling completely and give straight lines.
@@ -61,7 +61,7 @@
 #' flareGraph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
 #' importFrom <- match(flare$imports$from, flare$vertices$name)
 #' importTo <- match(flare$imports$to, flare$vertices$name)
-#' flareGraph <- treeApply(flareGraph, function(node, parent, depth, tree) {
+#' flareGraph <- tree_apply(flareGraph, function(node, parent, depth, tree) {
 #'     tree <- set_vertex_attr(tree, 'depth', node, depth)
 #'     if (depth == 1) {
 #'         tree <- set_vertex_attr(tree, 'class', node, V(tree)$shortName[node])
@@ -74,7 +74,7 @@
 #'
 #' # Use class inheritance for layout but plot class imports as bundles
 #' ggraph(flareGraph, 'dendrogram', circular = TRUE) +
-#'     geom_conn_bundle(aes(colour = ..index..), data = gCon(importFrom, importTo),
+#'     geom_conn_bundle(aes(colour = ..index..), data = get_con(importFrom, importTo),
 #'                      edge_alpha = 0.25) +
 #'     geom_node_point(aes(filter = leaf, colour = class)) +
 #'     scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') +
@@ -116,7 +116,7 @@ StatConnBundle <- ggproto('StatConnBundle', StatBspline,
 #' @rdname geom_conn_bundle
 #'
 #' @export
-geom_conn_bundle <- function(mapping = NULL, data = gCon(),
+geom_conn_bundle <- function(mapping = NULL, data = get_con(),
                              position = "identity", arrow = NULL,
                              lineend = "butt", show.legend = NA,
                              n = 100, tension = 0.8, ...) {
@@ -150,7 +150,7 @@ StatConnBundle2 <- ggproto('StatConnBundle2', StatBspline2,
 #' @rdname geom_conn_bundle
 #'
 #' @export
-geom_conn_bundle2 <- function(mapping = NULL, data = gCon(),
+geom_conn_bundle2 <- function(mapping = NULL, data = get_con(),
                               position = "identity", arrow = NULL,
                               lineend = "butt", show.legend = NA,
                               n = 100, tension = 0.8, ...) {
@@ -183,7 +183,7 @@ StatConnBundle0 <- ggproto('StatConnBundle0', StatIdentity,
 #' @rdname geom_conn_bundle
 #'
 #' @export
-geom_conn_bundle0 <- function(mapping = NULL, data = gCon(),
+geom_conn_bundle0 <- function(mapping = NULL, data = get_con(),
                               position = "identity", arrow = NULL,
                               lineend = "butt", show.legend = NA,
                               tension = 0.8, ...) {

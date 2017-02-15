@@ -22,5 +22,5 @@ y-direction. After modifying the height it calls
 }
 \note{
 This function is not intended to be used directly but by setting
-\code{layout = 'even'} in \code{\link{createLayout}}
+\code{layout = 'even'} in \code{\link{create_layout}}
 }

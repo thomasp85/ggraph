@@ -16,7 +16,7 @@
 #' the line has a numeric value associated with it giving the position along the
 #' path, and it is therefore possible to show the direction of the edge by
 #' mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
-#' "2" uses the "long" edge format (see \code{\link{gEdges}}) and makes it
+#' "2" uses the "long" edge format (see \code{\link{get_edges}}) and makes it
 #' possible to interpolate node parameter between the start and end node along
 #' the edge. It is considerable less performant so should only be used if this
 #' is needed. The version postfixed with a "0" draws the edge in the most
@@ -164,7 +164,7 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
 #' @rdname geom_edge_fan
 #'
 #' @export
-geom_edge_fan <- function(mapping = NULL, data = gEdges(),
+geom_edge_fan <- function(mapping = NULL, data = get_edges(),
                           position = "identity", arrow = NULL,
                           spread = 1, n = 100, lineend = "butt",
                           linejoin = "round", linemitre = 1,
@@ -215,7 +215,7 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
 #' @rdname geom_edge_fan
 #'
 #' @export
-geom_edge_fan2 <- function(mapping = NULL, data = gEdges('long'),
+geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
                            position = "identity", arrow = NULL,
                            spread = 1, n = 100, lineend = "butt",
                            linejoin = "round", linemitre = 1,
@@ -257,7 +257,7 @@ StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
 #' @rdname geom_edge_fan
 #'
 #' @export
-geom_edge_fan0 <- function(mapping = NULL, data = gEdges(),
+geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
                                 position = "identity", arrow = NULL, spread = 1,
                                 lineend = "butt", show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)

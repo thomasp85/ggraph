@@ -7,21 +7,21 @@
 \alias{geom_edge_link0}
 \title{Draw edges as straight lines between nodes}
 \usage{
-geom_edge_link(mapping = NULL, data = gEdges("short"),
+geom_edge_link(mapping = NULL, data = get_edges("short"),
   position = "identity", arrow = NULL, n = 100, lineend = "butt",
   linejoin = "round", linemitre = 1, label_colour = "black",
   label_alpha = 1, label_parse = FALSE, check_overlap = FALSE,
   angle_calc = "rot", force_flip = TRUE, label_dodge = NULL,
   label_push = NULL, show.legend = NA, ...)
 
-geom_edge_link2(mapping = NULL, data = gEdges("long"),
+geom_edge_link2(mapping = NULL, data = get_edges("long"),
   position = "identity", arrow = NULL, n = 100, lineend = "butt",
   linejoin = "round", linemitre = 1, label_colour = "black",
   label_alpha = 1, label_parse = FALSE, check_overlap = FALSE,
   angle_calc = "rot", force_flip = TRUE, label_dodge = NULL,
   label_push = NULL, show.legend = NA, ...)
 
-geom_edge_link0(mapping = NULL, data = gEdges(), position = "identity",
+geom_edge_link0(mapping = NULL, data = get_edges(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, ...)
 }
 \arguments{
@@ -30,9 +30,9 @@ or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
 circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
-\item{data}{The return of a call to \code{gEdges()} or a data.frame
+\item{data}{The return of a call to \code{get_edges()} or a data.frame
 giving edges in corrent format (see details for for guidance on the format).
-See \code{\link{gEdges}} for more details on edge extraction.}
+See \code{\link{get_edges}} for more details on edge extraction.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -93,7 +93,7 @@ of points (\code{n}) along the edge and draws it as a path. Each point along
 the line has a numeric value associated with it giving the position along the
 path, and it is therefore possible to show the direction of the edge by
 mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
-"2" uses the "long" edge format (see \code{\link{gEdges}}) and makes it
+"2" uses the "long" edge format (see \code{\link{get_edges}}) and makes it
 possible to interpolate node parameter between the start and end node along
 the edge. It is considerable less performant so should only be used if this
 is needed. The version postfixed with a "0" draws the edge in the most

@@ -3,37 +3,38 @@
 %   R/layout_igraph.R, R/layout_sec.R
 \name{ggraph}
 \alias{ggraph}
-\alias{createLayout}
+\alias{create_layout}
 \alias{layout_ggraph}
-\alias{createLayout.default}
-\alias{createLayout.dendrogram}
+\alias{createLayout}
+\alias{create_layout.default}
+\alias{create_layout.dendrogram}
 \alias{layout_dendrogram}
-\alias{createLayout.igraph}
+\alias{create_layout.igraph}
 \alias{layout_igraph}
-\alias{createLayout.hclust}
+\alias{create_layout.hclust}
 \alias{layout_hclust}
-\alias{createLayout.network}
+\alias{create_layout.network}
 \alias{layout_network}
 \title{Create a ggraph plot}
 \usage{
 ggraph(graph, layout = "auto", ...)
 
-createLayout(graph, layout, circular, ...)
+create_layout(graph, layout, circular, ...)
 
-\method{createLayout}{default}(graph, layout, ...)
+\method{create_layout}{default}(graph, layout, ...)
 
-\method{createLayout}{dendrogram}(graph, layout, circular = FALSE, ...)
+\method{create_layout}{dendrogram}(graph, layout, circular = FALSE, ...)
 
-\method{createLayout}{igraph}(graph, layout, circular = FALSE, ...)
+\method{create_layout}{igraph}(graph, layout, circular = FALSE, ...)
 
-\method{createLayout}{hclust}(graph, layout, circular = FALSE, ...)
+\method{create_layout}{hclust}(graph, layout, circular = FALSE, ...)
 
-\method{createLayout}{network}(graph, layout, circular = FALSE, ...)
+\method{create_layout}{network}(graph, layout, circular = FALSE, ...)
 }
 \arguments{
 \item{graph}{The object containing the graph. See \emph{Details} for a list
 of supported classes. Or a \code{layout_ggraph} object as returned from
-\code{createLayout} in which case all subsequent arguments is ignored.}
+\code{create_layout} in which case all subsequent arguments is ignored.}
 
 \item{layout}{The type of layout to create.}
 
@@ -44,7 +45,7 @@ representation. Only possible for some layouts. Defaults to \code{FALSE}}
 }
 \value{
 For \code{ggraph()} an object of class gg onto which layers, scales,
-  etc. can be added. For \code{createLayout()} an object inherting from
+  etc. can be added. For \code{create_layout()} an object inherting from
   \code{layout_ggraph}. \code{layout_ggraph} itself inherits from
   \code{data.frame} and can be considered as such. The data.frame contains
   the node positions in the \code{x} and \code{y} column along with
@@ -60,7 +61,7 @@ This function is the equivalent of \code{\link[ggplot2]{ggplot}} in ggplot2.
 It takes care of setting up the plot object along with creating the layout
 for the plot based on the graph and the specification passed in.
 Alternatively a layout can be prepared in advance using
-\code{createLayout} and passed as the data argument. See \emph{Details} for
+\code{create_layout} and passed as the data argument. See \emph{Details} for
 a desciption of all available layouts.
 }
 \details{
@@ -138,12 +139,12 @@ same layouts.
 \examples{
 require(igraph)
 gr <- make_graph('bull')
-layout <- createLayout(gr, layout = 'igraph', algorithm = 'kk')
+layout <- create_layout(gr, layout = 'igraph', algorithm = 'kk')
 
 }
 \seealso{
-\code{\link{gEdges}} for extracting edge information from the
-layout and \code{\link{gCon}} for extracting path information.
+\code{\link{get_edges}} for extracting edge information from the
+layout and \code{\link{get_con}} for extracting path information.
 }
 \keyword{graph}
 \keyword{hierarchy}

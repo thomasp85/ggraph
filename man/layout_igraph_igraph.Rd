@@ -98,7 +98,7 @@ described below:
 }
 \note{
 This function is not intended to be used directly but by setting
-\code{layout = 'igraph'} in \code{\link{createLayout}}
+\code{layout = 'igraph'} in \code{\link{create_layout}}
 }
 \seealso{
 Other layout_igraph_*: \code{\link{layout_igraph_circlepack}},
