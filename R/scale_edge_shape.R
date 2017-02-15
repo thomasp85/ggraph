@@ -6,17 +6,6 @@
 #' the standard scales so it is not necessary to write \code{edge_shape} in
 #' the call to the geom - just use \code{shape}.
 #'
-#' @param ... Other arguments passed on to
-#' \code{\link[ggplot2]{discrete_scale}} as appropriate, to control name,
-#' limits, breaks, labels and so forth.
-#'
-#' @param solid Are the shapes solid, \code{TRUE}, or hollow \code{FALSE}?
-#'
-#' @param values A set of aesthetic values to map data values to. If this is a
-#' named vector, then the values will be matched based on the names. If unnamed,
-#' values will be matched in order (usually alphabetical) with the limits of the
-#' scale. Any data values that don't match will be given na.value.
-#'
 #' @param guide Guide to use for this scale.
 #'
 #' @return A ggproto object inheriting from \code{Scale}
@@ -30,7 +19,8 @@ NULL
 
 #' @rdname scale_edge_shape
 #'
-#' @importFrom ggplot2 discrete_scale
+#' @inheritParams ggplot2::scale_shape
+#'
 #' @importFrom scales shape_pal
 #' @export
 scale_edge_shape <- function(..., solid = TRUE) {
@@ -48,21 +38,20 @@ scale_edge_shape_continuous <- function(...) {
 }
 #' @rdname scale_edge_shape
 #'
+#' @inheritParams ggplot2::scale_shape_manual
+#'
 #' @export
 scale_edge_shape_manual <- function(..., values) {
     manual_scale("edge_shape", values, ...)
 }
 #' @rdname scale_edge_shape
 #'
-#' @importFrom ggplot2 discrete_scale ScaleDiscreteIdentity
+#' @inheritParams ggplot2::scale_shape_identity
+#'
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_shape_identity <- function(..., guide = "none") {
-    sc <- discrete_scale("edge_shape", "identity", identity_pal(), ..., guide = guide)
-
-    # TODO: Fix this hack. We're reassigning the parent ggproto object, but this
-    # object should in the first place be created with the correct parent.
-    sc$super <- ScaleDiscreteIdentity
-    class(sc) <- class(ScaleDiscreteIdentity)
+    sc <- discrete_scale("edge_shape", "identity", identity_pal(), ...,
+                         guide = guide, ScaleDiscreteIdentity)
     sc
 }

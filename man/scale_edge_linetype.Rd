@@ -2,10 +2,11 @@
 % Please edit documentation in R/scale_edge_linetype.R
 \name{scale_edge_linetype}
 \alias{scale_edge_linetype}
+\alias{scale_edge_linetype}
 \alias{scale_edge_linetype_continuous}
 \alias{scale_edge_linetype_discrete}
-\alias{scale_edge_linetype_identity}
 \alias{scale_edge_linetype_manual}
+\alias{scale_edge_linetype_identity}
 \title{Edge linetype scales}
 \usage{
 scale_edge_linetype(..., na.value = "blank")
@@ -19,18 +20,19 @@ scale_edge_linetype_manual(..., values)
 scale_edge_linetype_identity(..., guide = "none")
 }
 \arguments{
-\item{...}{Other arguments passed on to
-\code{\link[ggplot2]{discrete_scale}} as appropriate, to control name,
-limits, breaks, labels and so forth.}
+\item{...}{common discrete scale parameters: \code{name}, \code{breaks},
+\code{labels}, \code{na.value}, \code{limits} and \code{guide}.  See
+\code{\link{discrete_scale}} for more details}
 
-\item{na.value}{The linetype to use for NA values.}
+\item{na.value}{The linetype to use for \code{NA} values.}
 
-\item{values}{A set of aesthetic values to map data values to. If this is a
-named vector, then the values will be matched based on the names. If unnamed,
-values will be matched in order (usually alphabetical) with the limits of the
-scale. Any data values that don't match will be given na.value.}
+\item{values}{a set of aesthetic values to map data values to. If this
+is a named vector, then the values will be matched based on the names.
+If unnamed, values will be matched in order (usually alphabetical) with
+the limits of the scale. Any data values that don't match will be
+given \code{na.value}.}
 
-\item{guide}{Guide to use for this scale.}
+\item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
 }
 \value{
 A ggproto object inheriting from \code{Scale}
@@ -49,6 +51,6 @@ Other scale_edge_*: \code{\link{scale_edge_alpha}},
   \code{\link{scale_edge_fill}},
   \code{\link{scale_edge_shape}},
   \code{\link{scale_edge_size}},
-  \code{\link{scale_edge_width}}
+  \code{\link{scale_edge_width}},
+  \code{\link{scale_label_size}}
 }
-

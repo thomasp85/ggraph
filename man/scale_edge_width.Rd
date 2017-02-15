@@ -3,9 +3,10 @@
 \name{scale_edge_width}
 \alias{scale_edge_width}
 \alias{scale_edge_width_continuous}
+\alias{scale_edge_width}
 \alias{scale_edge_width_discrete}
-\alias{scale_edge_width_identity}
 \alias{scale_edge_width_manual}
+\alias{scale_edge_width_identity}
 \title{Edge width scales}
 \usage{
 scale_edge_width_continuous(..., range = c(1, 6))
@@ -19,19 +20,19 @@ scale_edge_width_manual(..., values)
 scale_edge_width_identity(..., guide = "none")
 }
 \arguments{
-\item{...}{Other arguments passed on to
-\code{\link[ggplot2]{continuous_scale}} or
-\code{\link[ggplot2]{discrete_scale}} as appropriate, to control name,
-limits, breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
+to control name, limits, breaks, labels and so forth.}
 
-\item{range}{Range of output width values.}
+\item{range}{a numeric vector of length 2 that specifies the minimum and
+maximum size of the plotting symbol after transformation.}
 
-\item{values}{A set of aesthetic values to map data values to. If this is a
-named vector, then the values will be matched based on the names. If unnamed,
-values will be matched in order (usually alphabetical) with the limits of the
-scale. Any data values that don't match will be given na.value.}
+\item{values}{a set of aesthetic values to map data values to. If this
+is a named vector, then the values will be matched based on the names.
+If unnamed, values will be matched in order (usually alphabetical) with
+the limits of the scale. Any data values that don't match will be
+given \code{na.value}.}
 
-\item{guide}{Guide to use for this scale.}
+\item{guide}{Name of guide object, or object itself.}
 }
 \value{
 A ggproto object inheriting from \code{Scale}
@@ -52,6 +53,6 @@ Other scale_edge_*: \code{\link{scale_edge_alpha}},
   \code{\link{scale_edge_fill}},
   \code{\link{scale_edge_linetype}},
   \code{\link{scale_edge_shape}},
-  \code{\link{scale_edge_size}}
+  \code{\link{scale_edge_size}},
+  \code{\link{scale_label_size}}
 }
-

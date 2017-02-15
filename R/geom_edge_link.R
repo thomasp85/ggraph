@@ -17,6 +17,27 @@
 #' performant way, often directly using an appropriate grob from the grid
 #' package, but does not allow for gradients along the edge.
 #'
+#' Often it is beneficial to stop the drawing of the edge before it reaches the
+#' node, for instance in cases where an arrow should be drawn and the arrowhead
+#' shouldn't lay ontop or below the node point. geom_edge_* and geom_edge_*2
+#' supports this through the start_cap and end_cap aesthetics that takes a
+#' \code{\link{geometry}} specification and dynamically caps the termini of the
+#' edges based on the given specifications. This means that if
+#' \code{end_cap = circle(1, 'cm')} the edges will end at a distance of 1cm even
+#' during resizing of the plot window.
+#'
+#' All \code{geom_edge_*} and \code{geom_edge_*2} have the ability to draw a
+#' label along the edge. The reason this is not a separate geom is that in order
+#' for the label to know the location of the edge it needs to know the edge type
+#' etc. Labels are drawn by providing a label aesthetic. The label_pos can be
+#' used to specify where along the edge it should be drawn by supplying a number
+#' between 0 and 1. The label_size aesthetic can be used to control the size of
+#' the label. Often it is needed to have the label written along the direction
+#' of the edge, but since the actual angle is dependent on the plot dimensions
+#' this cannot be calculated beforehand. Using the angle_calc argument allows
+#' you to specify whether to use the supplied angle aesthetic or whether to draw
+#' the label along or across the edge.
+#'
 #' @note In order to avoid excessive typing edge aesthetic names are
 #' automatically expanded. Because of this it is not necessary to write
 #' \code{edge_colour} within the \code{aes()} call as \code{colour} will
@@ -48,12 +69,30 @@
 #'  \item{edge_alpha}
 #'  \item{filter}
 #' }
+#' geom_edge_link and geom_edge_link2 furthermore takes the following
+#' aesthetics.
+#' \itemize{
+#'   \item{start_cap}
+#'   \item{end_cap}
+#'   \item{label}
+#'   \item{label_pos}
+#'   \item{label_size}
+#'   \item{angle}
+#'   \item{hjust}
+#'   \item{vjust}
+#'   \item{family}
+#'   \item{fontface}
+#'   \item{lineheight}
+#' }
 #'
 #' @section Computed variables:
 #'
 #' \describe{
 #'  \item{index}{The position along the path (not computed for the *0 version)}
 #' }
+#'
+#' @inheritParams ggplot2::geom_path
+#' @inheritParams ggplot2::geom_text
 #'
 #' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
 #' or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
@@ -64,29 +103,30 @@
 #' giving edges in corrent format (see details for for guidance on the format).
 #' See \code{\link{gEdges}} for more details on edge extraction.
 #'
-#' @param position Position adjustment, either as a string, or the result of a
-#' call to a position adjustment function. Currently no meaningful position
-#' adjustment exists for edges.
-#'
 #' @param n The number of points to create along the path.
 #'
-#' @param arrow Arrow specification, as created by \code{\link[grid]{arrow}}
+#' @param label_colour The colour of the edge label. If \code{NA} it will use
+#' the colour of the edge.
 #'
-#' @param lineend Line end style (round, butt, square)
+#' @param label_alpha The opacity of the edge label. If \code{NA} it will use
+#' the opacity of the edge.
 #'
-#' @param ... other arguments passed on to \code{\link[ggplot2]{layer}}. There
-#' are three types of arguments you can use here:
-#' \itemize{
-#'  \item{Aesthetics: to set an aesthetic to a fixed value, like
-#'  \code{color = "red"} or \code{size = 3.}}
-#'  \item{Other arguments to the layer, for example you override the default
-#'  \code{stat} associated with the layer.}
-#'  \item{Other arguments passed on to the stat.}
-#' }
+#' @param label_parse If \code{TRUE}, the labels will be parsed into expressions
+#' and displayed as described in \code{\link[grDevices]{plotmath}}.
 #'
-#' @param show.legend logical. Should this layer be included in the legends?
-#' \code{NA}, the default, includes if any aesthetics are mapped. \code{FALSE}
-#' never includes, and \code{TRUE} always includes.
+#' @param angle_calc Either 'none', 'along', or 'across'. If 'none' the label will
+#' use the angle aesthetic of the geom. If 'along' The label will be written
+#' along the edge direction. If 'across' the label will be written across the
+#' edge direction.
+#'
+#' @param force_flip Logical. If \code{angle_calc} is either 'along' or 'across'
+#' should the label be flipped if it is on it's head. Default to \code{TRUE}.
+#'
+#' @param label_dodge A \code{\link[grid]{unit}} giving a fixed vertical shift
+#' to add to the label in case of \code{angle_calc} is either 'along' or 'across'
+#'
+#' @param label_push A \code{\link[grid]{unit}} giving a fixed horizontal shift
+#' to add to the label in case of \code{angle_calc} is either 'along' or 'across'
 #'
 #' @author Thomas Lin Pedersen
 #'
@@ -102,8 +142,7 @@
 #'   geom_edge_link(aes(alpha = ..index..))
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
-#'   geom_edge_link2(aes(colour = node.class),
-#'                  gEdges('long', nodePar = 'class'))
+#'   geom_edge_link2(aes(colour = node.class))
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
 #'   geom_edge_link0(aes(colour = class))
@@ -116,7 +155,6 @@ NULL
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatLink
 #' @export
 StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
@@ -128,12 +166,12 @@ StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
             data <- data[data$filter, names(data) != 'filter']
         }
         StatLink$setup_data(data, params)
-    }
+    },
+    default_aes = aes(filter = TRUE)
 )
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom ggplot2 ggproto
 #' @importFrom ggforce StatLink2
 #' @export
 StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
@@ -145,45 +183,67 @@ StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
             data <- data[data$filter, names(data) != 'filter']
         }
         StatLink2$setup_data(data, params)
-    }
+    },
+    default_aes = aes(filter = TRUE)
 )
 #' @rdname geom_edge_link
 #'
-#' @importFrom ggplot2 layer aes_
 #' @importFrom ggforce StatLink
 #' @export
 geom_edge_link <- function(mapping = NULL, data = gEdges('short'),
-                           position = "identity", arrow = NULL,
-                           lineend = "butt", show.legend = NA, n=100, ...) {
+                           position = "identity", arrow = NULL, n = 100,
+                           lineend = "butt", linejoin = "round", linemitre = 1,
+                           label_colour = 'black',  label_alpha = 1,
+                           label_parse = FALSE, check_overlap = FALSE,
+                           angle_calc = 'rot', force_flip = TRUE,
+                           label_dodge = NULL, label_push = NULL,
+                           show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
     layer(data = data, mapping = mapping, stat = StatEdgeLink,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = FALSE, ...)
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, linejoin = linejoin,
+                   linemitre = linemitre, na.rm = FALSE, n = n,
+                   interpolate = FALSE,
+                   label_colour = label_colour, label_alpha = label_alpha,
+                   label_parse = label_parse, check_overlap = check_overlap,
+                   angle_calc = angle_calc, force_flip = force_flip,
+                   label_dodge = label_dodge, label_push = label_push, ...)
+          )
     )
 }
 #' @rdname geom_edge_link
 #'
-#' @importFrom ggplot2 layer aes_
 #' @importFrom ggforce StatLink2
 #' @export
 geom_edge_link2 <- function(mapping = NULL, data = gEdges('long'),
-                           position = "identity", arrow = NULL,
-                           lineend = "butt", show.legend = NA, n=100, ...) {
+                            position = "identity", arrow = NULL, n = 100,
+                            lineend = "butt", linejoin = "round", linemitre = 1,
+                            label_colour = 'black',  label_alpha = 1,
+                            label_parse = FALSE, check_overlap = FALSE,
+                            angle_calc = 'rot', force_flip = TRUE,
+                            label_dodge = NULL, label_push = NULL,
+                            show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id))
     layer(data = data, mapping = mapping, stat = StatEdgeLink2,
           geom = GeomEdgePath, position = position, show.legend = show.legend,
           inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = TRUE, ...)
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, linejoin = linejoin,
+                   linemitre = linemitre, na.rm = FALSE, n = n,
+                   interpolate = TRUE,
+                   label_colour = label_colour, label_alpha = label_alpha,
+                   label_parse = label_parse, check_overlap = check_overlap,
+                   angle_calc = angle_calc, force_flip = force_flip,
+                   label_dodge = label_dodge, label_push = label_push, ...)
+          )
     )
 }
 #' @rdname geom_edge_link
 #'
-#' @importFrom ggplot2 layer aes_
 #' @importFrom ggforce StatLink2
 #' @export
 geom_edge_link0 <- function(mapping = NULL, data = gEdges(),
@@ -194,6 +254,8 @@ geom_edge_link0 <- function(mapping = NULL, data = gEdges(),
     layer(data = data, mapping = mapping, stat = StatFilter,
           geom = GeomEdgeSegment, position = position,
           show.legend = show.legend, inherit.aes = FALSE,
-          params = list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+          params = expand_edge_aes(
+              list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+          )
     )
 }

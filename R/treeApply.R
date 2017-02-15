@@ -123,6 +123,7 @@ treeApply.dendrogram <- function(tree, FUN, direction = 'down', ...) {
         up = upApplyDen(tree, FUN, ...)
     )
 }
+#' @importFrom stats is.leaf
 downApplyDen <- function(node, FUN, parent = NULL, depth = 0, tree = node, ...) {
     args <- list(node = node, parent = parent, depth = depth, tree = tree, ...)
     node <- do.call(FUN, args)
@@ -133,6 +134,7 @@ downApplyDen <- function(node, FUN, parent = NULL, depth = 0, tree = node, ...) 
     }
     node
 }
+#' @importFrom stats is.leaf
 upApplyDen <- function(node, FUN, children = list(), depth = 0, tree = node, ...) {
     if (!is.leaf(node)) {
         for (i in seq_along(node)) {

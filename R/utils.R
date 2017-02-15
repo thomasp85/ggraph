@@ -28,7 +28,8 @@
 #' @export
 #'
 nAngle <- function(x, y, degrees = TRUE) {
-    angles <- atan(y/x)
+    angles <- atan2(y, x)
+    angles[angles < 0] <- angles[angles < 0] + 2*pi
     if (degrees) {
         angles*360/(2*pi)
     } else {
@@ -78,11 +79,11 @@ resolution <- function(x, zero = TRUE) {
         a
     else b
 }
+#' @importFrom grid grobName
 ggname <- function(prefix, grob) {
     grob$name <- grobName(grob, prefix)
     grob
 }
-#' @importFrom ggplot2 calc_element element_grob
 element_render <- function(theme, element, ..., name = NULL) {
     el <- calc_element(element, theme)
     if (is.null(el)) {

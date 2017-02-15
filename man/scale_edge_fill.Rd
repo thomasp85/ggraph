@@ -2,17 +2,17 @@
 % Please edit documentation in R/scale_edge_fill.R
 \name{scale_edge_fill}
 \alias{scale_edge_fill}
+\alias{scale_edge_fill_hue}
 \alias{scale_edge_fill_brewer}
-\alias{scale_edge_fill_continuous}
-\alias{scale_edge_fill_discrete}
 \alias{scale_edge_fill_distiller}
 \alias{scale_edge_fill_gradient}
 \alias{scale_edge_fill_gradient2}
 \alias{scale_edge_fill_gradientn}
 \alias{scale_edge_fill_grey}
-\alias{scale_edge_fill_hue}
 \alias{scale_edge_fill_identity}
 \alias{scale_edge_fill_manual}
+\alias{scale_edge_fill_continuous}
+\alias{scale_edge_fill_discrete}
 \title{Edge fill scales}
 \usage{
 scale_edge_fill_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
@@ -47,10 +47,8 @@ scale_edge_fill_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
   h.start = 0, direction = 1, na.value = "grey50")
 }
 \arguments{
-\item{...}{Other arguments passed on to
-\code{\link[ggplot2]{continuous_scale}} or
-\code{\link[ggplot2]{discrete_scale}} as appropriate, to control name,
-limits, breaks, labels and so forth.}
+\item{...}{Other arguments passed on to \code{\link{discrete_scale}}
+to control name, limits, breaks, labels and so forth.}
 
 \item{h}{range of hues to use, in [0, 360]}
 
@@ -61,45 +59,35 @@ combination of hue and luminance.}
 
 \item{h.start}{hue to start at}
 
-\item{direction}{For hue the direction to travel around the colour wheel,
-1 = clockwise, -1 = counter-clockwise. For brewer and distiller the order of
-colors in the scale. If 1, the default, colors are as output by
-\code{\link[RColorBrewer]{brewer.pal}}. If -1, the order of colors is
-reversed.}
+\item{direction}{direction to travel around the colour wheel,
+1 = clockwise, -1 = counter-clockwise}
 
 \item{na.value}{Colour to use for missing values}
 
 \item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
-\item{palette}{If a string, will use that named palette. If a number, will
-index into the list of palettes of appropriate type}
+\item{palette}{If a string, will use that named palette.  If a number, will
+index into the list of palettes of appropriate \code{type}}
 
-\item{values}{For gradient and distiller if colours should not be evenly
-positioned along the gradient this vector gives the position (between 0 and
-1) for each colour in the colours vector. See \code{\link[scales]{rescale}}
-for a convience function to map an arbitrary range to between 0 and 1. For
-manual a set of aesthetic values to map data values to. If this is a
-named vector, then the values will be matched based on the names. If unnamed,
-values will be matched in order (usually alphabetical) with the limits of the
-scale. Any data values that don't match will be given na.value.}
+\item{values}{if colours should not be evenly positioned along the gradient
+this vector gives the position (between 0 and 1) for each colour in the
+\code{colours} vector. See \code{\link{rescale}} for a convience function
+to map an arbitrary range to between 0 and 1.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -
 other values are deprecated.}
 
-\item{guide}{Guide to use for this scale.}
+\item{guide}{Type of legend. Use \code{"colourbar"} for continuous
+colour bar, or \code{"legend"} for discrete colour legend.}
 
-\item{low}{The low end of the gradient}
+\item{low, high}{Colours for low and high ends of the gradient.}
 
-\item{high}{The high end of the gradient}
+\item{mid}{colour for mid point}
 
-\item{mid}{The midpoint colour of the gradient}
+\item{midpoint}{The midpoint (in data value) of the diverging scale.
+Defaults to 0.}
 
-\item{midpoint}{The midpoint (in data value) of the diverging scale. Defaults
-to 0.}
-
-\item{colours}{Vector of colours to use for n-colour gradient.}
-
-\item{colors}{As above. Use preferred spelling}
+\item{colours, colors}{Vector of colours to use for n-colour gradient.}
 
 \item{start}{gray value at low end of palette}
 
@@ -121,6 +109,6 @@ Other scale_edge_*: \code{\link{scale_edge_alpha}},
   \code{\link{scale_edge_linetype}},
   \code{\link{scale_edge_shape}},
   \code{\link{scale_edge_size}},
-  \code{\link{scale_edge_width}}
+  \code{\link{scale_edge_width}},
+  \code{\link{scale_label_size}}
 }
-

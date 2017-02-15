@@ -5,7 +5,7 @@
 \title{Calculate nodes as rectangels subdividing that of their parent}
 \usage{
 layout_igraph_treemap(graph, algorithm = "split", weight = NULL,
-  circular = FALSE, sort.by = NULL, mode = "out", height = 1,
+  circular = FALSE, sort.by = NULL, direction = "out", height = 1,
   width = 1)
 }
 \arguments{
@@ -18,11 +18,11 @@ the weight of leaf nodes as the weight of non-leaf nodes are derived from
 their children.}
 
 \item{circular}{Logical. Should the layout be transformed to a circular
-representation. Defaults to \code{FALSE}.}
+representation. Ignored.}
 
 \item{sort.by}{The name of a vertex attribute to sort the nodes by.}
 
-\item{mode}{The direction of the tree in the graph. \code{'out'} (default)
+\item{direction}{The direction of the tree in the graph. \code{'out'} (default)
 means that parents point towards their children, while \code{'in'} means that
 children point towards their parent.}
 
@@ -32,8 +32,8 @@ children point towards their parent.}
 }
 \value{
 A data.frame with the columns \code{x}, \code{y}, \code{width},
-\code{height}, \code{circular} as well as any information stored as vertex
-attributes on the igraph object.
+\code{height}, \code{leaf}, \code{depth}, \code{circular} as well as any
+information stored as vertex attributes on the igraph object.
 }
 \description{
 A treemap is a space filling hierarchical layout that maps nodes to
@@ -57,12 +57,17 @@ slice-and-dice will eventually be implemented.
 
 \emph{Split} (default)
 
-The Split algorithm was developed by Björn Engdahl in order to address the
+The Split algorithm was developed by Bjorn Engdahl in order to address the
 downsides of both the original slice-and-dice algorithm (poor aspect ratio)
 and the popular squarify algorithm (no ordering of nodes). It works by
 finding the best cut in the ordered list of children in terms of making sure
 that the two rectangles associated with the split will have optimal aspect
 ratio.
+}
+\note{
+Treemap is a layout intended for trees, that is, graphs where nodes
+only have one parent and zero or more children. If the provided graph does
+not fit this format an attempt to convert it to such a format will be made.
 }
 \references{
 Engdahl, B. (2005). \emph{Ordered and unordered treemap algorithms and their
@@ -70,12 +75,14 @@ applications on handheld devices}. Master's Degree Project.
 
 Johnson, B., & Ben Shneiderman. (1991). \emph{Tree maps: A Space-Filling
 Approach to the Visualization of Hierarchical Information Structures}. IEEE
-Visualization, 284–291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
+Visualization, 284-291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
 }
 \seealso{
-Other layout_igraph_*: \code{\link{layout_igraph_dendrogram}},
-  \code{\link{layout_igraph_igraph}},
+Other layout_igraph_*: \code{\link{layout_igraph_auto}},
+  \code{\link{layout_igraph_circlepack}},
+  \code{\link{layout_igraph_dendrogram}},
+  \code{\link{layout_igraph_hive}},
   \code{\link{layout_igraph_linear}},
-  \code{\link{layout_igraph_manual}}
+  \code{\link{layout_igraph_manual}},
+  \code{\link{layout_igraph_partition}}
 }
-

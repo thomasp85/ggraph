@@ -4,8 +4,7 @@
 #' organization and is a bipartite graph. The data appeared in the appendix to
 #' David Hackett Fischer's \emph{Paul Revere's Ride} (Oxford University Press,
 #' 1995) and compiled by Kieran Healy for the blog post
-#' \href{http://kieranhealy.org/blog/archives/2013/06/09/using-metadata-to-find-
-#' paul-revere/}{Using Metadata to Find Paul Revere}.
+#' \href{http://kieranhealy.org/blog/archives/2013/06/09/using-metadata-to-find-paul-revere/}{Using Metadata to Find Paul Revere}.
 #'
 #' @format
 #' The data is stored as an incidence matrix with persons as rows and
