@@ -140,7 +140,7 @@ NULL
 #' @export
 StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
     compute_panel = function(data, scales, flipped = FALSE, n = 100) {
-        if (n %% 2) n <- n + 1
+        if (n %% 2 == 0) n <- n + 1
         index <- seq(0, 1, length.out = n)
         if (any(data$circular)) {
             circId <- which(data$circular)
