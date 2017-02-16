@@ -1,9 +1,11 @@
 #' @rdname ggraph
 #' @aliases layout_igraph
 #'
+#' @importFrom igraph V<-
 #' @export
 #'
 create_layout.igraph <- function(graph, layout, circular = FALSE, ...) {
+    V(graph)$ggraph.orig_index <- seq_len(gorder(graph))
     if (inherits(layout, 'function')) {
         layout <- layout(graph, circular = circular, ...)
     } else if (inherits(layout, 'character')) {
@@ -42,6 +44,8 @@ getEdges.layout_igraph <- function(layout) {
 }
 #' @importFrom igraph shortest_paths
 getConnections.layout_igraph <- function(layout, from, to, weight = NULL, mode = 'all') {
+    from <- match(from, layout$ggraph.orig_index)
+    to <- match(to, layout$ggraph.orig_index)
     if (is.null(weight)) {
         weight <- NA
     } else {
