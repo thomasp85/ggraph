@@ -40,5 +40,5 @@ dendrogram objects.
 }
 \note{
 This function is not intended to be used directly but by setting
-\code{layout = 'dendrogram'} in \code{\link{createLayout}}
+\code{layout = 'dendrogram'} in \code{\link{create_layout}}
 }

@@ -14,7 +14,7 @@
 #' the line has a numeric value associated with it giving the position along the
 #' path, and it is therefore possible to show the direction of the edge by
 #' mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
-#' "2" uses the "long" edge format (see \code{\link{gEdges}}) and makes it
+#' "2" uses the "long" edge format (see \code{\link{get_edges}}) and makes it
 #' possible to interpolate node parameter between the start and end node along
 #' the edge. It is considerable less performant so should only be used if this
 #' is needed. The version postfixed with a "0" draws the edge in the most
@@ -140,7 +140,7 @@ NULL
 #' @export
 StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
     compute_panel = function(data, scales, flipped = FALSE, n = 100) {
-        if (n %% 2) n <- n + 1
+        if (n %% 2 == 0) n <- n + 1
         index <- seq(0, 1, length.out = n)
         if (any(data$circular)) {
             circId <- which(data$circular)
@@ -228,7 +228,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
 #' @rdname geom_edge_elbow
 #'
 #' @export
-geom_edge_elbow <- function(mapping = NULL, data = gEdges(),
+geom_edge_elbow <- function(mapping = NULL, data = get_edges(),
                             position = "identity", arrow = NULL,
                             flipped = FALSE, n = 100, lineend = "butt",
                             linejoin = "round", linemitre = 1,
@@ -295,7 +295,7 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
 #' @rdname geom_edge_elbow
 #'
 #' @export
-geom_edge_elbow2 <- function(mapping = NULL, data = gEdges('long'),
+geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
                              position = "identity", arrow = NULL,
                              flipped = FALSE, n = 100, lineend = "butt",
                              linejoin = "round", linemitre = 1,
@@ -397,7 +397,7 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
 #' @rdname geom_edge_elbow
 #'
 #' @export
-geom_edge_elbow0 <- function(mapping = NULL, data = gEdges(),
+geom_edge_elbow0 <- function(mapping = NULL, data = get_edges(),
                             position = "identity", arrow = NULL, flipped = FALSE,
                             lineend = "butt", show.legend = NA, ...) {
     mapping <- completeEdgeAes(mapping)

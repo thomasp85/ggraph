@@ -21,13 +21,13 @@
 #'
 #' ggraph(flareGraph, 'dendrogram', circular = TRUE) +
 #'   geom_edge_diagonal0() +
-#'   geom_node_text(aes(filter = leaf, angle = nAngle(x, y), label = shortName),
+#'   geom_node_text(aes(filter = leaf, angle = node_angle(x, y), label = shortName),
 #'                  hjust = 'outward', size = 2) +
 #'   expand_limits(x = c(-1.3, 1.3), y = c(-1.3, 1.3))
 #'
 #' @export
 #'
-nAngle <- function(x, y, degrees = TRUE) {
+node_angle <- function(x, y, degrees = TRUE) {
     angles <- atan2(y, x)
     angles[angles < 0] <- angles[angles < 0] + 2*pi
     if (degrees) {
@@ -36,13 +36,27 @@ nAngle <- function(x, y, degrees = TRUE) {
         angles
     }
 }
-#' @rdname nAngle
+#' @rdname node_angle
+#' @usage NULL
+#' @export
+nAngle <- function(...) {
+    .Deprecated('node_angle')
+    node_angle(...)
+}
+#' @rdname node_angle
 #'
 #' @export
-eAngle <- function(x, y, xend, yend, degrees = TRUE) {
+edge_angle <- function(x, y, xend, yend, degrees = TRUE) {
     x <- xend - x
     y <- yend - y
-    nAngle(x, y, degrees)
+    node_angle(x, y, degrees)
+}
+#' @rdname node_angle
+#' @usage NULL
+#' @export
+eAngle <- function(...) {
+    .Deprecated('edge_angle')
+    edge_angle(...)
 }
 
 

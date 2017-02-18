@@ -5,7 +5,7 @@
 \alias{geom_edge_density}
 \title{Show edges as a density map}
 \usage{
-geom_edge_density(mapping = NULL, data = gEdges("short"),
+geom_edge_density(mapping = NULL, data = get_edges("short"),
   position = "identity", show.legend = NA, n = 100, ...)
 }
 \arguments{
@@ -14,9 +14,9 @@ or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
 circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
-\item{data}{The return of a call to \code{gEdges()} or a data.frame
+\item{data}{The return of a call to \code{get_edges()} or a data.frame
 giving edges in corrent format (see details for for guidance on the format).
-See \code{\link{gEdges}} for more details on edge extraction.}
+See \code{\link{get_edges}} for more details on edge extraction.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}

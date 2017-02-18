@@ -47,7 +47,7 @@ makeContent.textalong <- function(x) {
     y1 <- convertY(x$y1, 'mm', TRUE)
     xpos <- convertX(x$x, 'mm', TRUE)
     ypos <- convertY(x$y, 'mm', TRUE)
-    angle <- eAngle(x0, y0, x1, y1)
+    angle <- edge_angle(x0, y0, x1, y1)
     if (x$rot.type == 'across') {
         angle <- angle - 90
     }

@@ -41,7 +41,7 @@
 #' gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
 #'
 #' # Set depth and a class based on the name of the 2nd level node name
-#' gr <- treeApply(gr, function(node, parent, depth, tree) {
+#' gr <- tree_apply(gr, function(node, parent, depth, tree) {
 #'   tree <- set_vertex_attr(tree, 'depth', node, depth)
 #'   if (depth == 1) {
 #'     tree <- set_vertex_attr(tree, 'Class', node, V(tree)$shortName[node])
@@ -62,7 +62,7 @@
 #' })
 #'
 #' # Set class of node to the class of it's children they are of equal class
-#' irisDen <- treeApply(irisDen, function(node, children, ...) {
+#' irisDen <- tree_apply(irisDen, function(node, children, ...) {
 #'   if (is.leaf(node)) {
 #'     attr(node, 'Class') <- attr(node, 'nodePar')$species
 #'   } else {
@@ -78,18 +78,25 @@
 #'
 #' @export
 #'
-treeApply <- function(tree, FUN, ...) {
-    UseMethod('treeApply')
+tree_apply <- function(tree, FUN, ...) {
+    UseMethod('tree_apply')
 }
-#' @rdname treeApply
+#' @rdname tree_apply
+#' @usage NULL
 #' @export
-treeApply.default <- function(tree, FUN, ...) {
-    stop('treeApply not implemented for ', class(tree), ' objects')
+treeApply <- function(...) {
+    .Deprecated('tree_apply')
+    tree_apply(...)
 }
-#' @rdname treeApply
+#' @rdname tree_apply
+#' @export
+tree_apply.default <- function(tree, FUN, ...) {
+    stop('tree_apply not implemented for ', class(tree), ' objects')
+}
+#' @rdname tree_apply
 #' @importFrom igraph bfs
 #' @export
-treeApply.igraph <- function(tree, FUN, direction = 'down', mode = 'out', ...) {
+tree_apply.igraph <- function(tree, FUN, direction = 'down', mode = 'out', ...) {
     root <- which(degree(tree, mode = if (mode == 'out') 'in' else 'out') == 0)
     traverse <- bfs(tree, root, mode, father = TRUE, dist = TRUE)
     father <- as.integer(traverse$father)
@@ -114,9 +121,9 @@ treeApply.igraph <- function(tree, FUN, direction = 'down', mode = 'out', ...) {
     }
     args$tree
 }
-#' @rdname treeApply
+#' @rdname tree_apply
 #' @export
-treeApply.dendrogram <- function(tree, FUN, direction = 'down', ...) {
+tree_apply.dendrogram <- function(tree, FUN, direction = 'down', ...) {
     switch(
         direction,
         down = downApplyDen(tree, FUN, ...),

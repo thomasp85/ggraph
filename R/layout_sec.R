@@ -4,20 +4,20 @@
 #'
 #' @export
 #' @importFrom stats as.dendrogram
-createLayout.hclust <- function(graph, layout, circular = FALSE, ...) {
+create_layout.hclust <- function(graph, layout, circular = FALSE, ...) {
     message('Converting hclust object to dendrogram')
-    createLayout(as.dendrogram(graph), layout = layout, circular = circular, ...)
+    create_layout(as.dendrogram(graph), layout = layout, circular = circular, ...)
 }
 #' @rdname ggraph
 #'
 #' @aliases layout_network
 #'
 #' @export
-createLayout.network <- function(graph, layout, circular = FALSE, ...) {
+create_layout.network <- function(graph, layout, circular = FALSE, ...) {
     message('Converting network object to igraph')
-    createLayout(network_to_igraph(graph), layout = layout, circular = circular, ...)
+    create_layout(network_to_igraph(graph), layout = layout, circular = circular, ...)
 }
-createLayout.layout_ggraph <- function(graph, ...) {
+create_layout.layout_ggraph <- function(graph, ...) {
     graph
 }
 #' Coerce network to igraph

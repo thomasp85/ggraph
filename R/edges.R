@@ -2,7 +2,7 @@
 #'
 #' This function returns another function that can extract edges from a
 #' ggraph_layout object. The functionality of the returned function is decided
-#' by the arguments to \code{gEdges}. The need for \code{gEdges} is mainly to
+#' by the arguments to \code{get_edges}. The need for \code{get_edges} is mainly to
 #' pass to the \code{data} argument of the different \code{geom_edge_*}
 #' functions in order to present them with the right kind of data. In general
 #' each \code{geom_edge_*} has the default set correctly so there is only need
@@ -72,7 +72,7 @@
 #'
 #' @export
 #'
-gEdges <- function(format = 'short', collapse = 'none', ...) {
+get_edges <- function(format = 'short', collapse = 'none', ...) {
     if (!collapse %in% c('none', 'all', 'direction')) {
         stop('Collapse must be either "none", "all" or "direction"')
     }
@@ -99,6 +99,15 @@ gEdges <- function(format = 'short', collapse = 'none', ...) {
         structure(edges, type_ggraph = 'edge_ggraph')
     }
 }
+#' @rdname get_edges
+#' @usage NULL
+#' @export
+gEdges <- function(...) {
+    .Deprecated('get_edges')
+    get_edges(...)
+}
+#' @rdname internal_extractors
+#' @export
 getEdges <- function(layout) {
     UseMethod('getEdges', layout)
 }

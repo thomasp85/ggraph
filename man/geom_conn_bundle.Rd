@@ -7,15 +7,15 @@
 \alias{geom_conn_bundle0}
 \title{Create heirarchical edge bundles between node connections}
 \usage{
-geom_conn_bundle(mapping = NULL, data = gCon(), position = "identity",
+geom_conn_bundle(mapping = NULL, data = get_con(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, n = 100,
   tension = 0.8, ...)
 
-geom_conn_bundle2(mapping = NULL, data = gCon(), position = "identity",
+geom_conn_bundle2(mapping = NULL, data = get_con(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, n = 100,
   tension = 0.8, ...)
 
-geom_conn_bundle0(mapping = NULL, data = gCon(), position = "identity",
+geom_conn_bundle0(mapping = NULL, data = get_con(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, tension = 0.8, ...)
 }
 \arguments{
@@ -24,7 +24,7 @@ or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
 circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
-\item{data}{The result of a call to \code{\link{gCon}}}
+\item{data}{The result of a call to \code{\link{get_con}}}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -95,7 +95,7 @@ library(igraph)
 flareGraph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
 importFrom <- match(flare$imports$from, flare$vertices$name)
 importTo <- match(flare$imports$to, flare$vertices$name)
-flareGraph <- treeApply(flareGraph, function(node, parent, depth, tree) {
+flareGraph <- tree_apply(flareGraph, function(node, parent, depth, tree) {
     tree <- set_vertex_attr(tree, 'depth', node, depth)
     if (depth == 1) {
         tree <- set_vertex_attr(tree, 'class', node, V(tree)$shortName[node])
@@ -108,7 +108,7 @@ V(flareGraph)$leaf <- degree(flareGraph, mode = 'out') == 0
 
 # Use class inheritance for layout but plot class imports as bundles
 ggraph(flareGraph, 'dendrogram', circular = TRUE) +
-    geom_conn_bundle(aes(colour = ..index..), data = gCon(importFrom, importTo),
+    geom_conn_bundle(aes(colour = ..index..), data = get_con(importFrom, importTo),
                      edge_alpha = 0.25) +
     geom_node_point(aes(filter = leaf, colour = class)) +
     scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') +

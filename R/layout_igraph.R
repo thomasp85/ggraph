@@ -1,9 +1,11 @@
 #' @rdname ggraph
 #' @aliases layout_igraph
 #'
+#' @importFrom igraph V<-
 #' @export
 #'
-createLayout.igraph <- function(graph, layout, circular = FALSE, ...) {
+create_layout.igraph <- function(graph, layout, circular = FALSE, ...) {
+    V(graph)$ggraph.orig_index <- seq_len(gorder(graph))
     if (inherits(layout, 'function')) {
         layout <- layout(graph, circular = circular, ...)
     } else if (inherits(layout, 'character')) {
@@ -42,6 +44,8 @@ getEdges.layout_igraph <- function(layout) {
 }
 #' @importFrom igraph shortest_paths
 getConnections.layout_igraph <- function(layout, from, to, weight = NULL, mode = 'all') {
+    from <- match(from, layout$ggraph.orig_index)
+    to <- match(to, layout$ggraph.orig_index)
     if (is.null(weight)) {
         weight <- NA
     } else {
@@ -125,7 +129,7 @@ layout_igraph_auto <- function(graph, circular, ...) {
 #' }
 #'
 #' @note This function is not intended to be used directly but by setting
-#' \code{layout = 'igraph'} in \code{\link{createLayout}}
+#' \code{layout = 'igraph'} in \code{\link{create_layout}}
 #'
 #' @param graph An igraph object.
 #'
@@ -190,7 +194,7 @@ layout_igraph_igraph <- function(graph, algorithm, circular, offset = pi/2,
 #' node.
 #'
 #' @note This function is not intended to be used directly but by setting
-#' \code{layout = 'dendrogram'} in \code{\link{createLayout}}
+#' \code{layout = 'dendrogram'} in \code{\link{create_layout}}
 #'
 #' @param graph An igraph object
 #'

@@ -95,12 +95,16 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
             label_pos <- 1 + floor((edge_length - 1) * label_pos)
             label_ind <- edge_start + label_pos
             label_data <- data[label_ind, ]
-            label_data$label_colour <- ifelse(is.na(label_data$label_colour),
-                                              label_data$colour,
-                                              label_data$label_colour)
-            label_data$label_alpha <- ifelse(is.na(label_data$label_alpha),
-                                             label_data$alpha,
-                                             label_data$label_alpha)
+            label_data$label_colour <- if (is.na(label_colour)) {
+                label_data$edge_colour
+            } else {
+                label_colour
+            }
+            label_data$label_alpha <- if (is.na(label_alpha)) {
+                label_data$edge_alpha
+            } else {
+                label_alpha
+            }
             angle_start <- ifelse(label_pos == 1, 1, label_pos - 1)
             angle_end <- ifelse(label_pos == edge_length, edge_length, label_pos + 1)
             label_x0 <- data$x[angle_start + edge_start]

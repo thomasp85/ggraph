@@ -4,7 +4,7 @@
 #'
 #' @export
 #'
-createLayout.dendrogram <- function(graph, layout, circular = FALSE, ...) {
+create_layout.dendrogram <- function(graph, layout, circular = FALSE, ...) {
     graph <- identifyNodes(graph)
     if (inherits(layout, 'function')) {
         layout <- layout(graph, circular = circular, ...)
@@ -47,7 +47,7 @@ layout_dendrogram_auto <- function(graph, circular, ...) {
 #' dendrogram objects.
 #'
 #' @note This function is not intended to be used directly but by setting
-#' \code{layout = 'dendrogram'} in \code{\link{createLayout}}
+#' \code{layout = 'dendrogram'} in \code{\link{create_layout}}
 #'
 #' @param graph A dendrogram object.
 #'
@@ -106,7 +106,7 @@ layout_dendrogram_dendrogram <- function(graph, circular = FALSE, offset = pi/2,
 #' \code{\link{layout_dendrogram_dendrogram}}.
 #'
 #' @note This function is not intended to be used directly but by setting
-#' \code{layout = 'even'} in \code{\link{createLayout}}
+#' \code{layout = 'even'} in \code{\link{create_layout}}
 #'
 #' @param graph A dendrogram object
 #'
@@ -133,19 +133,19 @@ identifyNodes <- function(den, start = 1) {
     den
 }
 #' @importFrom stats is.leaf
-setCoord <- function(den, offset = 1, repel = TRUE, pad = 0, ratio = 1) {
+setCoord <- function(den, offset = 0, repel = TRUE, pad = 0, ratio = 1) {
     if (is.leaf(den)) {
         attr(den, 'ggraph.coord') <- offset
         attr(den, 'rightmost') <- offset
     } else {
-        den[[1]] <- setCoord(den[[1]], offset, repel = repel, ratio)
+        den[[1]] <- setCoord(den[[1]], offset, repel = repel, pad = pad, ratio = ratio)
         offset <- attr(den[[1]], 'rightmost')
         offset <- if (repel) {
             offset + (attr(den, 'height') + pad) * ratio
         } else {
             offset + 1 + pad
         }
-        den[[2]] <- setCoord(den[[2]], offset, repel = repel, ratio)
+        den[[2]] <- setCoord(den[[2]], offset, repel = repel, pad = pad, ratio = ratio)
         attr(den, 'ggraph.coord') <- mean(unlist(lapply(den, attr, which = 'ggraph.coord')))
         attr(den, 'rightmost') <- attr(den[[2]], 'rightmost')
     }
@@ -248,9 +248,9 @@ getHeights <- function(den) {
 #' @export
 den_to_igraph <- function(den, even = FALSE, ...) {
     layout <- if (even) {
-        createLayout(den, 'even', ...)
+        create_layout(den, 'even', ...)
     } else {
-        createLayout(den, 'dendrogram', ...)
+        create_layout(den, 'dendrogram', ...)
     }
     edges <- getEdges(layout)
     names(layout)[1:2] <- paste0('layout.', names(layout)[1:2])

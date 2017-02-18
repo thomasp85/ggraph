@@ -4,7 +4,7 @@
 #' It takes care of setting up the plot object along with creating the layout
 #' for the plot based on the graph and the specification passed in.
 #' Alternatively a layout can be prepared in advance using
-#' \code{createLayout} and passed as the data argument. See \emph{Details} for
+#' \code{create_layout} and passed as the data argument. See \emph{Details} for
 #' a desciption of all available layouts.
 #'
 #' @details
@@ -81,7 +81,7 @@
 #'
 #' @param graph The object containing the graph. See \emph{Details} for a list
 #' of supported classes. Or a \code{layout_ggraph} object as returned from
-#' \code{createLayout} in which case all subsequent arguments is ignored.
+#' \code{create_layout} in which case all subsequent arguments is ignored.
 #'
 #' @param layout The type of layout to create.
 #'
@@ -91,7 +91,7 @@
 #' @param ... Arguments passed on to the layout function.
 #'
 #' @return For \code{ggraph()} an object of class gg onto which layers, scales,
-#'   etc. can be added. For \code{createLayout()} an object inherting from
+#'   etc. can be added. For \code{create_layout()} an object inherting from
 #'   \code{layout_ggraph}. \code{layout_ggraph} itself inherits from
 #'   \code{data.frame} and can be considered as such. The data.frame contains
 #'   the node positions in the \code{x} and \code{y} column along with
@@ -104,17 +104,17 @@
 #'
 #' @keywords layout network graph hierarchy visualisation
 #'
-#' @seealso \code{\link{gEdges}} for extracting edge information from the
-#' layout and \code{\link{gCon}} for extracting path information.
+#' @seealso \code{\link{get_edges}} for extracting edge information from the
+#' layout and \code{\link{get_con}} for extracting path information.
 #'
 #' @examples
 #' require(igraph)
 #' gr <- make_graph('bull')
-#' layout <- createLayout(gr, layout = 'igraph', algorithm = 'kk')
+#' layout <- create_layout(gr, layout = 'igraph', algorithm = 'kk')
 #'
 #' @export
 #'
 ggraph <- function(graph, layout = 'auto', ...) {
     envir <- parent.frame()
-    ggplot(data = createLayout(graph, layout, ...), environment = envir)
+    ggplot(data = create_layout(graph, layout, ...), environment = envir)
 }

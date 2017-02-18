@@ -72,7 +72,7 @@ gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
 ggraph(gr, 'treemap', weight = 'size') + geom_node_tile()
 
 # We can color by modifying the graph
-gr <- treeApply(gr, function(node, parent, depth, tree) {
+gr <- tree_apply(gr, function(node, parent, depth, tree) {
   if (depth == 1) {
     tree <- set_vertex_attr(tree, 'Class', node, V(tree)$shortName[node])
   } else if (depth > 1) {
