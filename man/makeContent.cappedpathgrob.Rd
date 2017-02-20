@@ -4,7 +4,7 @@
 \alias{makeContent.cappedpathgrob}
 \title{Dynamic capping of paths}
 \usage{
-makeContent.cappedpathgrob(x)
+\method{makeContent}{cappedpathgrob}(x)
 }
 \description{
 This function takes care of updating which parts of the paths gets removed

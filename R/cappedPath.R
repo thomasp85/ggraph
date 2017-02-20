@@ -76,7 +76,7 @@ cappedPathGrob <- function(x, y, id=NULL, id.lengths=NULL, arrow = NULL,
 #' This function takes care of updating which parts of the paths gets removed
 #' when the device dimensions are updated.
 #'
-#' @importFrom grid convertX convertY convertWidth convertHeight unit grob
+#' @importFrom grid convertX convertY convertWidth convertHeight unit grob makeContent
 #' @export
 #' @keywords internal
 makeContent.cappedpathgrob <- function(x) {
