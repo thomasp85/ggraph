@@ -88,3 +88,7 @@ ggraph(gr) +
     facet_graph(year~popularity)
 
 }
+\seealso{
+Other ggraph-facets: \code{\link{facet_edges}},
+  \code{\link{facet_nodes}}
+}
