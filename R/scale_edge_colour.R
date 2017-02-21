@@ -116,6 +116,28 @@ scale_edge_colour_manual <- function(..., values) {
 }
 #' @rdname scale_edge_colour
 #'
+#' @inheritParams viridis::scale_colour_viridis
+#'
+#' @importFrom viridis viridis viridis_pal
+#' @export
+scale_edge_colour_viridis <- function (..., alpha = 1, begin = 0, end = 1,
+                                       discrete = FALSE, option = "D",
+                                       direction = 1) {
+    if (direction == -1) {
+        tmp <- begin
+        begin <- end
+        end <- tmp
+    }
+    if (discrete) {
+        discrete_scale("edge_colour", "viridis",
+                       viridis_pal(alpha, begin, end, option), ...)
+    } else {
+        scale_edge_colour_gradientn(colours = viridis(256, alpha, begin,
+                                                      end, option), ...)
+    }
+}
+#' @rdname scale_edge_colour
+#'
 #' @export
 scale_edge_colour_continuous <- scale_edge_colour_gradient
 #' @rdname scale_edge_colour
@@ -167,3 +189,7 @@ scale_edge_color_continuous <- scale_edge_colour_continuous
 #'
 #' @export
 scale_edge_color_discrete <- scale_edge_colour_discrete
+#' @rdname scale_edge_colour
+#'
+#' @export
+scale_edge_color_viridis <- scale_edge_colour_viridis

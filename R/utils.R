@@ -106,3 +106,11 @@ element_render <- function(theme, element, ..., name = NULL) {
     }
     ggname(paste(element, name, sep = "."), element_grob(el, ...))
 }
+
+#' @importFrom viridis scale_color_viridis
+#' @export
+viridis::scale_color_viridis
+
+#' @importFrom viridis scale_fill_viridis
+#' @export
+viridis::scale_fill_viridis
