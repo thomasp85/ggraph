@@ -160,7 +160,8 @@ ggraph(graph, layout = 'linear') +
 ```{r}
 # A coord diagram
 ggraph(graph, layout = 'linear', circular = TRUE) + 
-    geom_edge_arc(aes(colour = factor(year)))
+    geom_edge_arc(aes(colour = factor(year))) + 
+    coord_fixed()
 ```
 
 ```{r}
@@ -173,7 +174,8 @@ ggraph(graph, 'partition') +
 ```{r}
 # A sunburst plot
 ggraph(graph, 'partition', circular = TRUE) + 
-    geom_node_arc_bar(aes(fill = depth), size = 0.25)
+    geom_node_arc_bar(aes(fill = depth), size = 0.25) + 
+    coord_fixed()
 ```
 
 Not every layout has a meaningful circular representation in which cases the 
@@ -190,7 +192,7 @@ and remember to take the end result with a grain of salt, as it is just one of a
 range of possible "optimal node position" results. Below is a sample of some of
 the layouts available through `igraph` applied to the highschool graph.
 
-```{r, fig.show='hold', results='hide', out.height='40%', out.width='40%'}
+```{r, fig.show='hold', results='hide', out.height='46%', out.width='46%'}
 graph <- graph_from_data_frame(highschool)
 V(graph)$degree <- degree(graph)
 lapply(c('fr', 'kk', 'lgl', 'graphopt'), function(layout) {

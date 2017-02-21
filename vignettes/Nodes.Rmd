@@ -1,58 +1,139 @@
 ---
-title: "Vignette Title"
-author: "Vignette Author"
+title: "Nodes"
+author: "Thomas Lin Pedersen"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
+output: 
+    rmarkdown::html_vignette:
+        fig_width: 7
+        fig_height: 5
 vignette: >
-  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteIndexEntry{Nodes}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
-Vignettes are long form documentation commonly included in packages. Because they are part of the distribution of the package, they need to be as compact as possible. The `html_vignette` output type provides a custom style sheet (and tweaks some options) to ensure that the resulting html is as small as possible. The `html_vignette` format:
+Nodes in a network are the entities that are connected. Sometimes these are also
+referred to as vertices, but `ggraph` has opted for this nomenclature and use it
+consistently. While the nodes in a graph are the abstract concepts of entities, 
+and the layout is their physical placement, the node geoms is the visual 
+manifestation of the entities. Conceptually one can simply think of it in terms
+of a scatter plot --- the layout provides the x, and y coordinates and these can
+be used to draw nodes in different ways in the plotting window. Actually, due
+to the design of `ggraph` the standard *scatterplot-like* geoms from `ggplot2`
+can be used directly for plotting nodes:
 
-- Never uses retina figures
-- Has a smaller default figure size
-- Uses a custom CSS stylesheet instead of the default Twitter Bootstrap style
+```{r, message=FALSE}
+library(ggraph)
+library(igraph)
+gr <- graph_from_data_frame(highschool)
 
-## Vignette Info
-
-Note the various macros within the `vignette` section of the metadata block above. These are required in order to instruct R how to build the vignette. Note that you should change the `title` field and the `\VignetteIndexEntry` to match the title of your vignette.
-
-## Styles
-
-The `html_vignette` template includes a basic CSS theme. To override this theme you can specify your own CSS in the document metadata as follows:
-
-    output: 
-      rmarkdown::html_vignette:
-        css: mystyles.css
-
-## Figures
-
-The figure sizes have been customised so that you can easily put two images side-by-side. 
-
-```{r, fig.show='hold'}
-plot(1:10)
-plot(10:1)
+ggraph(gr, layout = 'kk') + 
+    geom_point(aes(x=x, y=y))
 ```
 
-You can enable figure captions by `fig_caption: yes` in YAML:
+The reason this works is that, as discussed in the previous post, layouts return
+a `data.frame` of node positions and metadata and this is used as the default
+plot data:
 
-    output:
-      rmarkdown::html_vignette:
-        fig_caption: yes
-
-Then you can use the chunk option `fig.cap = "Your figure caption."` in **knitr**.
-
-## More Examples
-
-You can write math expressions, e.g. $Y = X\beta + \epsilon$, footnotes^[A footnote here.], and tables, e.g. using `knitr::kable()`.
-
-```{r, echo=FALSE, results='asis'}
-knitr::kable(head(mtcars, 10))
+```{r}
+head(create_layout(gr, layout = 'kk'))
 ```
 
-Also a quote using `>`:
+## `geom_node_*()`
+While usage of the default `ggplot2` is absolutely allowed, `ggraph` comes with
+its own set of node geoms. Many of these are direct translations of `ggplot2`
+own geoms like `geom_point()` so one could wonder why bother to use them. 
 
-> "He who gives up [code] safety for [code] speed deserves neither."
-([via](https://twitter.com/hadleywickham/status/504368538874703872))
+The first reason is to provide clear code. It is not apparent anywhere that the
+standard geoms are addressing the nodes and using `geom_node_*()` makes it clear
+that this layer will draw nodes. 
+
+The second reason is that it will save typing.
+Since `ggraph` are in control of the shape of the input data through the layout
+calculations, it knows that *x* and *y* position is encoded in an `x` and `y` 
+column. This means that `geom_node_*` can default the x and y aesthetics so 
+there's no need to type them:
+
+```{r}
+ggraph(gr, layout = 'kk') + 
+    geom_node_point()
+```
+
+sometimes there is a need for addressing the x and y aesthetics, which is still
+possible, for instance if a partition layout should be inverted:
+
+```{r}
+gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+
+ggraph(gr, layout = 'partition') + 
+    geom_node_tile(aes(y = -y, fill = depth))
+```
+
+of course this could also be accomplished by reversing the y-axis using 
+`scale_y_reverse()` so this is just to illustrate that the defaults are easily
+overwritten if needed.
+
+The third reason is for the added functionality. All `ggraph` geoms gets a 
+`filter` aesthetic that allows you to quickly filter the input data. The use of
+this can be illustrated when plotting a tree:
+
+```{r}
+ggraph(gr, layout = 'dendrogram', circular = TRUE) + 
+    geom_edge_diagonal() + 
+    geom_node_point(aes(filter = leaf)) + 
+    coord_fixed()
+```
+
+In the above plot only the terminal nodes are drawn by filtering on the logical
+leaf column provided by the dendrogram layout.
+
+## The different node geoms
+The usual suspects are of course provided in the form of `geom_node_point()` 
+(showcased above), `geom_node_text()`, and `geom_node_label()`. These works as
+expected, taking in the usual aesthetics (plus *filter*). Only x and y are
+defaulted so everything else must be provided e.g. label which does not defaults
+to the `name` column like is done in `igraph`. One feature sets 
+`geom_node_text()` and `geom_node_label()` from their `ggplot2` counterparts:
+both have a `repel` argument that, when set to `TRUE` will use the repel 
+functionality provided by the 
+[ggrepel](https://CRAN.R-project.org/package=ggrepel) package to avoid 
+overlapping text.
+
+Apart from these three geoms there's a set of geoms mainly useful for spatial
+node layouts such as treemaps, partition, and circle packing. `geom_node_tile()`
+is the `ggraph` counterpart to `ggplot2`s `geom_tile()` while 
+`geom_node_circle()` and `geom_node_arc_bar()` maps to `ggforce`s 
+`geom_circle()` and `geom_arc_bar()`. Collective for these is that the spatial
+dimensions of the geoms (e.g. radius, width, and height) are precalculated by
+their intended layouts and defaulted be the geoms:
+
+```{r}
+ggraph(gr, layout = 'treemap', weight = 'size') + 
+    geom_node_tile(aes(fill = depth))
+```
+
+all spatial node geoms will be center-based, meaning that the x and y value of
+the layout will refer to the center of the layout and not e.g. the bottom-left
+corner. This makes it easier to add labels to spatial layouts as well as using
+spatial layouts in a non-spatial way:
+
+```{r}
+l <- ggraph(gr, layout = 'partition', circular = TRUE)
+l + geom_node_arc_bar(aes(fill = depth)) + 
+    coord_fixed()
+```
+
+```{r}
+l + geom_edge_diagonal(aes(width = ..index.., alpha = ..index..), lineend = 'round') + 
+    scale_edge_width(range = c(0.2, 1.5)) + 
+    geom_node_point(aes(colour = depth)) + 
+    coord_fixed()
+```
+
+More node geoms are sure to appear in `ggraph` with time but they will generally
+be quite easily comprehensible due to their strong assemblance to the standard
+`ggplot2` geoms. After all it is just points on a plane...
+
+## Want more
+Check out the other vignettes for more information on how to specify 
+[layouts](Layouts.html) and draw [edges](Edges.html)...
