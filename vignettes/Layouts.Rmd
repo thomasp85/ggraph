@@ -1,0 +1,287 @@
+---
+title: "Layouts"
+author: "Thomas Lin Pedersen"
+date: "`r Sys.Date()`"
+output: 
+    rmarkdown::html_vignette:
+        fig_width: 7
+        fig_height: 5
+vignette: >
+  %\VignetteIndexEntry{Layouts}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+In very short terms, a layout is the vertical and horizontal placement of nodes
+when plotting a particular graph structure. Conversely, a layout algorithm is an
+algorithm that takes in a graph structure (and potentially some additional 
+parameters) and return the vertical and horizontal position of the nodes. Often,
+when people think of network visualizations, they think of node-edge diagrams
+where strongly connected nodes are attempted to be plotted in close proximity.
+Layouts can be a lot of other things too though --- e.g. hive plots and 
+treemaps. One of the driving factors behind `ggraph` has been to develop an API
+where any type of visual representation of graph structures is supported. In 
+order to achieve this we first need a flexible way of defining the layout...
+
+## `ggraph()` and `create_layout()`
+As the layout is a global specification of the spatial position of the nodes it
+spans all layers in the plot and should thus be defined outside of calls to 
+geoms or stats. In `ggraph` it is often done as part of the plot initialization
+using `ggraph()` --- a function equivalent in intent to `ggplot()`. As a minimum
+`ggraph()` must be passed a graph object supported by `ggraph`:
+
+```{r, message=FALSE}
+library(ggraph)
+library(igraph)
+graph <- graph_from_data_frame(highschool)
+
+# Not specifying the layout - defaults to "auto"
+ggraph(graph) + 
+    geom_edge_link(aes(colour = factor(year))) + 
+    geom_node_point()
+```
+
+Not specifying a layout will make `ggraph` pick one for you. This is only 
+intended to get quickly up and running. The choice of layout should be 
+deliberate on the part of the user as it will have a great effect on what the 
+end result will communicate. From now on all calls to `ggraph()` will contain a
+specification of the layout:
+
+```{r}
+ggraph(graph, layout = 'kk') + 
+    geom_edge_link(aes(colour = factor(year))) + 
+    geom_node_point()
+```
+
+If the layout algorithm accepts additional parameters (most do), they can be
+supplied in the call to `ggraph()` as well:
+
+```{r}
+ggraph(graph, layout = 'kk', maxiter = 100) + 
+    geom_edge_link(aes(colour = factor(year))) + 
+    geom_node_point()
+```
+
+In addition to specifying the layout during plot creation it can also happen 
+separately using `create_layout()`. This function takes the same arguments as 
+`ggraph()` but returns a `layout_ggraph` object that can later be used in place
+of a graph structure in ggraph call:
+
+```{r}
+layout <- create_layout(graph, layout = 'drl')
+ggraph(layout) + 
+    geom_edge_link(aes(colour = factor(year))) + 
+    geom_node_point()
+```
+
+Examining the return of `create_layout()` we see that it is really just a 
+`data.frame` of node positions and (possible) attributes. Furthermore the 
+original graph object along with other relevant information is passed along as
+attributes:
+
+```{r}
+head(layout)
+```
+
+```{r}
+attributes(layout)
+```
+
+As it is just a `data.frame` it means that any standard `ggplot2` call will work
+by addressing the nodes. Still, use of the `geom_node_*()` family provided by 
+`ggraph` is encouraged as it makes it explicit which part of the data structure
+is being worked with.
+
+## Adding support for new data sources
+Out of the box `ggraph` supports `dendrogram` and `igraph` objects natively as
+well as `hclust` and `network` through conversion to one of the above. If there
+is wish for support for additional classes this can be achieved by adding a set
+of specific methods to the class. The `ggraph` source code should be your guide
+in this but I will briefly describe the methods below:
+
+### `create_layout.myclass()`
+This method is responsible for taking a graph structure and returning a 
+`layout_ggraph` object. The object is just a `data.frame` with the correct class
+and attributes added. The class should be 
+`c('layout_myclass', 'layout_ggraph', 'data.frame')` and it should at least have 
+a `graph` attribute holding the original graph object as well as a `circular`
+attribute with a logical giving whether the layout has been transformed to a
+circular representation or not. If the graph structure contains any additional
+information about the nodes this should be added to the `data.frame` as columns
+so these are accessible during plotting.
+
+### `getEdges.layout_myclass()`
+This method takes the return value of `create_layout.myclass()` and returns the
+edges of the graph structure. The return value should be in the form of an edge
+list with a `to` and `from` column giving the indexes of the terminal nodes of
+the edge. Furthermore, it must contain a `circular` column, again indicating
+whether the layout should be considered circular. If there are any additional
+data attached to the edges in the graph structure these should be added as 
+columns to the `data.frame`.
+
+### `getConnection.layout_myclass()`
+This method is intended to return the shortest path between two nodes as a list
+of node indexes. This method can be ignored but will result in lack of support
+for `geom_conn_*` layers.
+
+### `layout_myclass_*()`
+Any type of layout algorithm that needs to be available to this class should be
+defined as a separate `layout_myclass_layoutname()` function. This function will
+be called when `'layoutname'` is used in the `layout` argument in `ggraph()` or
+`create_layout()`. At a minimum each new class should have a 
+`layout_myclass_auto()` defined.
+
+## Layouts abound
+There's a lot of different layouts in `ggraph` --- first and foremost because
+`igraph` implements a lot of layouts for drawing node-edge diagrams and all of
+these are available in `ggraph`. Additionally, `ggraph` provides a lot of new
+layout types and algorithms for your drawing pleasure.
+
+### A note on circularity
+Some layouts can be shown effectively both in a standard Cartesian projection as
+well as in a polar projection. The standard approach in `ggplot2` has been to 
+change the coordinate system with the addition of e.g. `coord_polar()`. This
+approach --- while consistent with the grammar --- is not optimal for `ggraph`
+as it does not allow layers to decide how to respond to circularity. The prime
+example of this is trying to draw straight lines in a plot using 
+`coord_polar()`. Instead circularity is part of the layout specification and
+gets communicated to the layers with the `circular` column in the data, allowing
+each layer to respond appropriately. Sometimes standard and circular 
+representations of the same layout get used so often that they get different
+names. In `ggraph` they'll have the same name and only differ in whether or not
+`circular` is set to `TRUE`:
+
+```{r}
+# An arc diagram
+ggraph(graph, layout = 'linear') + 
+    geom_edge_arc(aes(colour = factor(year)))
+```
+
+```{r}
+# A coord diagram
+ggraph(graph, layout = 'linear', circular = TRUE) + 
+    geom_edge_arc(aes(colour = factor(year)))
+```
+
+```{r}
+graph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+# An icicle plot
+ggraph(graph, 'partition') + 
+    geom_node_tile(aes(fill = depth), size = 0.25)
+```
+
+```{r}
+# A sunburst plot
+ggraph(graph, 'partition', circular = TRUE) + 
+    geom_node_arc_bar(aes(fill = depth), size = 0.25)
+```
+
+Not every layout has a meaningful circular representation in which cases the 
+`circular` argument will be ignored.
+
+### Node-edge diagram layouts
+`igraph` provides a total of 13 different layout algorithms for classic 
+node-edge diagrams (colloquially referred to as hairballs). Some of these are
+incredibly simple such as *randomly*, *grid*, *circle*, and *star*, while others
+tries to optimize the position of nodes based on different characteristics of
+the graph. There is no such thing as "the best layout algorithm" as algorithms
+have been optimized for different scenarios. Experiment with the choices at hand
+and remember to take the end result with a grain of salt, as it is just one of a 
+range of possible "optimal node position" results. Below is a sample of some of
+the layouts available through `igraph` applied to the highschool graph.
+
+```{r, fig.show='hold', results='hide', out.height='40%', out.width='40%'}
+graph <- graph_from_data_frame(highschool)
+V(graph)$degree <- degree(graph)
+lapply(c('fr', 'kk', 'lgl', 'graphopt'), function(layout) {
+    ggraph(graph, layout = layout) + 
+        geom_edge_fan(aes(alpha = ..index.., colour = factor(year))) +
+        geom_node_point(aes(size = degree)) + 
+        scale_edge_color_brewer(palette = 'Dark2') + 
+        ggtitle(paste0('Layout: ', layout)) + 
+        theme_void() + 
+        theme(legend.position = 'none')
+})
+```
+
+### Hive plots
+A hive plot, while still technically a node-edge diagram, is a bit different
+from the rest as it uses information pertaining to the nodes, rather than the
+connection information in the graph. This means that hive plots, to a certain
+extend is more interpretable as well as less vulnerable to small changes in the
+graph structure. They are less common though, so use will often require some 
+additional explanation.
+
+```{r}
+V(graph)$friends <- degree(graph, mode = 'in')
+V(graph)$friends <- ifelse(V(graph)$friends < 5, 'few', 
+                           ifelse(V(graph)$friends >= 15, 'many', 'medium'))
+ggraph(graph, 'hive', axis = 'friends', sort.by = 'degree') + 
+    geom_edge_hive(aes(colour = factor(year), alpha = ..index..)) + 
+    geom_axis_hive(aes(colour = friends), size = 3, label = FALSE) + 
+    coord_fixed()
+```
+
+### Hierarchical layouts
+Trees and hierarchies are an important subset of graph structures, and `ggraph`
+provides a range of layouts optimized for their visual representation. Some of
+these uses enclosure and position rather than edges to communicate relations
+(e.g. treemaps and circle packing). Still, these layouts can just as well be 
+used for drawing edges if you wish to:
+
+```{r}
+graph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+set.seed(1)
+ggraph(graph, 'circlepack', weight = 'size') + 
+    geom_node_circle(aes(fill = depth), size = 0.25, n = 50) + 
+    coord_fixed()
+```
+
+```{r}
+set.seed(1)
+ggraph(graph, 'circlepack', weight = 'size') + 
+    geom_edge_link() + 
+    geom_node_point(aes(colour = depth)) +
+    coord_fixed()
+```
+
+```{r}
+ggraph(graph, 'treemap', weight = 'size') + 
+    geom_node_tile(aes(fill = depth), size = 0.25)
+```
+
+```{r}
+ggraph(graph, 'treemap', weight = 'size') + 
+    geom_edge_link() + 
+    geom_node_point(aes(colour = depth))
+```
+
+The most recognized tree plot is probably dendrograms though. Both `igraph` and
+`dendrogram` object can be plotted as dendrograms, though only `dendrogram` 
+objects comes with a build in height information for placing the branch points. 
+For igraph objects this is inferred by the longest ancestral length:
+
+```{r}
+ggraph(graph, 'dendrogram') + 
+    geom_edge_diagonal()
+```
+
+```{r}
+dendrogram <- as.dendrogram(hclust(dist(iris[, 1:4])))
+ggraph(dendrogram, 'dendrogram') + 
+    geom_edge_elbow()
+```
+
+Dendrograms are one of the layouts that are amenable for circular 
+transformations, which can be effective in giving more space at the leafs of the
+tree at the expense of the space given to the root:
+
+```{r}
+ggraph(dendrogram, 'dendrogram', circular = TRUE) + 
+    geom_edge_elbow() + 
+    coord_fixed()
+```
+
+## Want more
+Check out the other vignettes for more information on how to draw 
+[nodes](Nodes.html) and [edges](Edges.html)...

@@ -6,3 +6,4 @@ src/*.so
 src/*.dll
 *Rproj
 .Rbuildignore
+inst/doc
