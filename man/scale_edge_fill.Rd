@@ -11,6 +11,7 @@
 \alias{scale_edge_fill_grey}
 \alias{scale_edge_fill_identity}
 \alias{scale_edge_fill_manual}
+\alias{scale_edge_fill_viridis}
 \alias{scale_edge_fill_continuous}
 \alias{scale_edge_fill_discrete}
 \title{Edge fill scales}
@@ -39,6 +40,9 @@ scale_edge_fill_grey(..., start = 0.2, end = 0.8, na.value = "red")
 scale_edge_fill_identity(..., guide = "none")
 
 scale_edge_fill_manual(..., values)
+
+scale_edge_fill_viridis(..., alpha = 1, begin = 0, end = 1,
+  discrete = FALSE, option = "D", direction = 1)
 
 scale_edge_fill_continuous(..., low = "#132B43", high = "#56B1F7",
   space = "Lab", na.value = "grey50", guide = "edge_colourbar")
@@ -92,6 +96,16 @@ Defaults to 0.}
 \item{start}{gray value at low end of palette}
 
 \item{end}{gray value at high end of palette}
+
+\item{alpha}{pass through parameter to \code{viridis}}
+
+\item{begin}{The (corrected) hue in [0,1] at which the viridis colormap begins.}
+
+\item{discrete}{generate a discrete palette? (default: \code{FALSE} - generate continuous palette)}
+
+\item{option}{A character string indicating the colormap option to use. Four
+options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"),
+and "viridis" (or "D", the default option).}
 }
 \value{
 A ggproto object inheriting from \code{Scale}

@@ -114,7 +114,7 @@ scale_edge_fill_identity <- function(..., guide = "none") {
 scale_edge_fill_manual <- function(..., values) {
     manual_scale("edge_fill", values, ...)
 }
-#' @rdname scale_edge_colour
+#' @rdname scale_edge_fill
 #'
 #' @inheritParams viridis::scale_fill_viridis
 #'
