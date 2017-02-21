@@ -14,6 +14,7 @@ LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.2),
     dplyr,
+    plyr,
     ggforce,
     grid,
     igraph (>= 1.0.0),
@@ -30,50 +31,4 @@ RoxygenNote: 6.0.0.9000
 Depends:
     R (>= 2.10),
     ggplot2 (>= 2.0.0)
-Collate:
-    'RcppExports.R'
-    'aaa.R'
-    'cappedPath.R'
-    'geometry.R'
-    'connections.R'
-    'data_flare.R'
-    'data_highschool.R'
-    'data_whigs.R'
-    'edge_colourbar.R'
-    'edge_direction.R'
-    'edges.R'
-    'geom_axis_hive.R'
-    'geom_edge.R'
-    'geom_edge_arc.R'
-    'geom_conn_bundle.R'
-    'geom_edge_density.R'
-    'geom_edge_diagonal.R'
-    'geom_edge_elbow.R'
-    'geom_edge_fan.R'
-    'geom_edge_hive.R'
-    'geom_edge_link.R'
-    'geom_edge_loop.R'
-    'geom_node_arc_bar.R'
-    'geom_node_circle.R'
-    'geom_node_point.R'
-    'geom_node_text.R'
-    'geom_node_tile.R'
-    'ggproto-classes.R'
-    'ggraph-package.R'
-    'ggraph.R'
-    'layout.R'
-    'layout_dendrogram.R'
-    'layout_igraph.R'
-    'layout_sec.R'
-    'nodes.R'
-    'scale_edge_alpha.R'
-    'scale_edge_colour.R'
-    'scale_edge_fill.R'
-    'scale_edge_linetype.R'
-    'scale_edge_shape.R'
-    'scale_edge_size.R'
-    'scale_edge_width.R'
-    'scale_label_size.R'
-    'textAlong.R'
-    'tree_apply.R'
-    'utils.R'
+    

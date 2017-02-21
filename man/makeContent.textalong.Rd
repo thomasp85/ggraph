@@ -4,7 +4,7 @@
 \alias{makeContent.textalong}
 \title{Text angeled acording to line}
 \usage{
-makeContent.textalong(x)
+\method{makeContent}{textalong}(x)
 }
 \description{
 This function takes care of recalculating the angel of the text as the device

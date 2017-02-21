@@ -38,6 +38,7 @@ textAlongGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
 #' This function takes care of recalculating the angel of the text as the device
 #' size changes
 #'
+#' @importFrom grid makeContent
 #' @export
 #' @keywords internal
 makeContent.textalong <- function(x) {
