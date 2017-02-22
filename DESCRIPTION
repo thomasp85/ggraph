@@ -24,7 +24,8 @@ Imports:
     gtable,
     ggrepel,
     utils,
-    stats
+    stats,
+    viridis
 Suggests: network,
     knitr,
     rmarkdown
