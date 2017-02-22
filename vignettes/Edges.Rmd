@@ -2,10 +2,7 @@
 title: "Edges"
 author: "Thomas Lin Pedersen"
 date: "`r Sys.Date()`"
-output: 
-    rmarkdown::html_vignette:
-        fig_width: 7
-        fig_height: 5
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Edges}
   %\VignetteEngine{knitr::rmarkdown}
@@ -38,6 +35,7 @@ first:
 ```{r, message=FALSE}
 library(ggraph)
 library(igraph)
+set_graph_style(plot_margin = margin(1,1,1,1))
 hierarchy <- as.dendrogram(hclust(dist(iris[, 1:4])))
 
 # Classify nodes based on agreement between children
@@ -182,7 +180,7 @@ perpendicular to the axes of the hive layout:
 ```{r}
 ggraph(hairball, layout = 'hive', axis = 'pop_devel', sort.by = 'popularity') + 
     geom_edge_hive(aes(colour = year)) + 
-    geom_axis_hive() + 
+    geom_axis_hive(label = FALSE) + 
     coord_fixed()
 ```
 

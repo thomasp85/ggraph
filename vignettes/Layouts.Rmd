@@ -2,10 +2,7 @@
 title: "Layouts"
 author: "Thomas Lin Pedersen"
 date: "`r Sys.Date()`"
-output: 
-    rmarkdown::html_vignette:
-        fig_width: 7
-        fig_height: 5
+output: rmarkdown::html_vignette
 vignette: >
   %\VignetteIndexEntry{Layouts}
   %\VignetteEngine{knitr::rmarkdown}
@@ -33,6 +30,7 @@ using `ggraph()` --- a function equivalent in intent to `ggplot()`. As a minimum
 ```{r, message=FALSE}
 library(ggraph)
 library(igraph)
+set_graph_style(plot_margin = margin(1,1,1,1))
 graph <- graph_from_data_frame(highschool)
 
 # Not specifying the layout - defaults to "auto"
@@ -192,17 +190,14 @@ and remember to take the end result with a grain of salt, as it is just one of a
 range of possible "optimal node position" results. Below is a sample of some of
 the layouts available through `igraph` applied to the highschool graph.
 
-```{r, fig.show='hold', results='hide', out.height='46%', out.width='46%'}
+```{r, fig.show='hold', results='hide'}
 graph <- graph_from_data_frame(highschool)
 V(graph)$degree <- degree(graph)
 lapply(c('fr', 'kk', 'lgl', 'graphopt'), function(layout) {
     ggraph(graph, layout = layout) + 
-        geom_edge_fan(aes(alpha = ..index.., colour = factor(year))) +
-        geom_node_point(aes(size = degree)) + 
-        scale_edge_color_brewer(palette = 'Dark2') + 
-        ggtitle(paste0('Layout: ', layout)) + 
-        theme_void() + 
-        theme(legend.position = 'none')
+        geom_edge_link(aes(colour = factor(year)), show.legend = FALSE) +
+        geom_node_point() + 
+        labs(caption = paste0('Layout: ', layout))
 })
 ```
 
@@ -219,8 +214,8 @@ V(graph)$friends <- degree(graph, mode = 'in')
 V(graph)$friends <- ifelse(V(graph)$friends < 5, 'few', 
                            ifelse(V(graph)$friends >= 15, 'many', 'medium'))
 ggraph(graph, 'hive', axis = 'friends', sort.by = 'degree') + 
-    geom_edge_hive(aes(colour = factor(year), alpha = ..index..)) + 
-    geom_axis_hive(aes(colour = friends), size = 3, label = FALSE) + 
+    geom_edge_hive(aes(colour = factor(year))) + 
+    geom_axis_hive(aes(colour = friends), size = 2, label = FALSE) + 
     coord_fixed()
 ```
 
