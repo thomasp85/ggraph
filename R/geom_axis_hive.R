@@ -27,7 +27,7 @@ StatAxisHive <- ggproto('StatAxisHive', StatFilter,
 #' @importFrom dplyr %>% group_by_ summarise_
 #' @export
 GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
-    draw_panel = function(data, panel_scales, coord, label = TRUE, axis = TRUE, lab_colour = 'black', lab_size = 3.88, lab_family = '', lab_fontface = 1, lab_lineheight = 1.2) {
+    draw_panel = function(data, panel_scales, coord, label = TRUE, axis = TRUE, label_colour = 'black') {
         data$x <- data$x / 1.1
         data$y <- data$y / 1.1
         data$xend <- data$xend / 1.1
@@ -37,7 +37,12 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
             summarise_(x = ~max(max_r) * cos(mean(angle)),
                        y = ~max(max_r) * sin(mean(angle)),
                        label = ~axis[1],
-                       angle = ~mean(angle)/(2*pi) * 360 - 90
+                       angle = ~mean(angle)/(2*pi) * 360 - 90,
+                       colour = ~colour[1],
+                       label_size = ~label_size[1],
+                       family = ~family[1],
+                       fontface = ~fontface[1],
+                       lineheight = ~lineheight[1]
             )
         labelData <- as.data.frame(labelData)
         labDist <- sqrt(labelData$x^2 + labelData$y^2)
@@ -49,14 +54,19 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
         upsideLabel <- labelData$angle > 90 & labelData$angle < 270
         labelData$angle[upsideLabel] <- labelData$angle[upsideLabel] + 180
         labelData <- coord$transform(labelData, panel_scales)
+        labelData$label_colour <- if (is.na(label_colour)) {
+            labelData$colour
+        } else {
+            label_colour
+        }
         labelGrob <- if (label) {
             textGrob(labelData$label, labelData$x, labelData$y,
                      default.units = 'native', rot = labelData$angle,
-                     gp = gpar(col = lab_colour,
-                               fontsize = lab_size * .pt,
-                               fontfamily = lab_family,
-                               fontface = lab_fontface,
-                               lineheight = lab_lineheight))
+                     gp = gpar(col = labelData$label_colour,
+                               fontsize = labelData$label_size * .pt,
+                               fontfamily = labelData$family,
+                               fontface = labelData$fontface,
+                               lineheight = labelData$lineheight))
         } else {
             nullGrob()
         }
@@ -74,7 +84,9 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
         }
         gList(axisGrob, labelGrob)
     },
-    default_aes = aes(colour = 'black', size = 0.5, linetype = 1, alpha = NA)
+    default_aes = aes(colour = 'black', size = 0.5, linetype = 1, alpha = NA,
+                      label_size = 3.88, family = '', fontface = 1,
+                      lineheight = 1.2)
 )
 
 #' Draw rectangular bars and labels on hive axes
@@ -96,6 +108,10 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
 #'  \item{fill}
 #'  \item{size}
 #'  \item{linetype}
+#'  \item{label_size}
+#'  \item{family}
+#'  \item{fontface}
+#'  \item{lineheight}
 #' }
 #'
 #' @author Thomas Lin Pedersen
