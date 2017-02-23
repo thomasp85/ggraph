@@ -66,6 +66,7 @@ theme_graph <- function(base_family = 'Arial Narrow', base_size = 11,
                         plot_margin = margin(30, 30, 30, 30)) {
     style <- theme_bw(base_size = base_size, base_family = base_family)
     style <- style + theme(
+        text = element_text(colour = text_colour),
         plot.title = element_text(family = title_family,
                                   size = title_size,
                                   face = title_face,
