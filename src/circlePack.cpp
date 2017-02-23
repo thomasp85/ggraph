@@ -3,6 +3,9 @@
 
 using namespace Rcpp;
 
+inline int randWrapper(const int n) {
+    return std::floor(float(unif_rand()*n));
+}
 struct Circle {
     double x;
     double y;
@@ -273,7 +276,7 @@ public:
         } else if (fc.size() == 2) {
             enclosure = enclose2(fc[0], fc[1]);
         } else {
-            std::random_shuffle(fc.begin(), fc.end());
+            std::random_shuffle(fc.begin(), fc.end(), randWrapper);
             std::deque<Circle*> Q;
             enclosure = encloseN(fc.begin(), fc.end(), Q);
         }
