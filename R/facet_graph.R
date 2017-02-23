@@ -125,15 +125,7 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
                 }, map = split(edge_map, edge_map$PANEL), nodes = attr(layout, 'node_placement'))
                 do.call(rbind, edge_map)
             },
-            node_ggraph = {
-                node_map <- lapply(attr(layout, 'node_placement'), function(nodes) {
-                    data[data$ggraph.index %in% nodes, , drop = FALSE]
-                })
-                panel <- rep(seq_along(node_map), vapply(node_map, nrow, numeric(1)))
-                node_map <- do.call(rbind, node_map)
-                node_map$PANEL <- as.factor(panel)
-                node_map
-            },
+            node_ggraph = ,
             {
                 FacetGrid$map_data(data, layout, params)
             }
