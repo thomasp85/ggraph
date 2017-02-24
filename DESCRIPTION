@@ -1,15 +1,15 @@
 Package: ggraph
 Type: Package
 Title: An Implementation of Grammar of Graphics for Graphs and Networks
-Version: 0.1.1
-Date: 2016-02-02
+Version: 1.0.0
+Date: 2017-02-23
 Author: Thomas Lin Pedersen
 Maintainer: Thomas Lin Pedersen <thomasp85@gmail.com>
 Description: The grammar of graphics as implemented in ggplot2 is a poor fit for
     graph and network visualizations due to its reliance on tabular data input.
     ggraph is an extension of the ggplot2 API tailored to graph visualizations
     and provides the same flexible approach to building up plots layer by layer.
-License: GPL-3 + file LICENSE
+License: GPL-3
 LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.2),
@@ -30,7 +30,7 @@ Suggests: network,
     knitr,
     rmarkdown
 LinkingTo: Rcpp
-RoxygenNote: 6.0.0.9000
+RoxygenNote: 6.0.1
 Depends:
     R (>= 2.10),
     ggplot2 (>= 2.0.0)

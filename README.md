@@ -1,198 +1,72 @@
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
 ![ggraph logo](inst/ggraph.png)
 
-# ggraph
-*/dʒiː.dʒɪˈrɑːf/*  (or g-giraffe)
+ggraph
+======
 
-[![Travis-CI Build Status](https://travis-ci.org/thomasp85/ggraph.svg?branch=master)](https://travis-ci.org/thomasp85/ggraph)
-[![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/thomasp85/ggraph?branch=master&svg=true)](https://ci.appveyor.com/project/thomasp85/ggraph)
+*/dʒiː.dʒɪˈrɑːf/* (or g-giraffe)
 
-### What it is
-ggraph is an extension of ggplot2 tailored at plotting graph-like data 
-structures (graphs, networks, trees, hierarchies...). It is not a graph plotting
-framework that uses ggplot2 underneath, but rather an extension of the ggplot2 
-API to make sense for graph data.
+[![Travis-CI Build Status](https://travis-ci.org/thomasp85/ggraph.svg?branch=master)](https://travis-ci.org/thomasp85/ggraph) [![AppVeyor Build Status](https://ci.appveyor.com/api/projects/status/github/thomasp85/ggraph?branch=master&svg=true)](https://ci.appveyor.com/project/thomasp85/ggraph) [![CRAN\_Release\_Badge](http://www.r-pkg.org/badges/version-ago/ggraph)](https://CRAN.R-project.org/package=ggraph) [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/ggraph)](https://CRAN.R-project.org/package=ggraph)
 
-### Why not just use [*insert framework*]
-You're certainly free to do that. My reason for developing this is that I feel
-the rigor enforced by ggplot2 could benefit the graph visualization world, and
-in addition, a lot of people are familiar with the ggplot2 API. Lastly it seems
-a lot of frameworks are uniquely focused on creating node-edge diagrams; 
-certainly the lowest denominator when it comes to graph visualization. While 
-[D3.js](http://d3js.org) offers a lot of capabilities for different graph 
-related visualizations, its API will seem foreign to a lot of people working in
-R and, on top of that, its not straightforward to extract a static image based
-on D3.js (safe for a screenshot).
+A grammar of graphics for relational data
+-----------------------------------------
 
-### State
-ggraph is currently in beta stage development. There is still a lot of
-implementations that needs to be done, as well as some interface quirks that 
-needs to be decided on.
+ggraph is an extension of [`ggplot2`](http://ggplot2.tidyverse.org) aimed at supporting relational data structures such as networks, graphs, and trees. While it builds upon the foundation of `ggplot2` and its API it comes with its own self-contained set of geoms, facets, etc., as well as adding the concept of *layouts* to the grammar.
 
-### Installation
-ggraph relies on functionality in the development version of ggplot2, so until
-the next version of ggplot2 hits CRAN you'll need to install from GitHub. 
-Furthermore ggraph is developed in concert with 
-[ggforce](https://github.com/thomasp85/ggforce) so that general purpose 
-functionality will appear in ggforce and be adapted to graph visualization in
-ggraph (e.g geom_conn_bundle uses geom_bspline from ggforce underneath). ggforce
-is still not on CRAN as it is undergoing fast development alongside ggraph so it
-needs to be installed from GitHub too.
+### An example
 
-```r
-if(!require(devtools)) {
-  install.packages('devtools')
-}
-devtools::install_github('hadley/ggplot2')
-devtools::install_github('thomasp85/ggforce')
+``` r
+library(ggraph)
+#> Loading required package: ggplot2
+library(igraph)
+#> 
+#> Attaching package: 'igraph'
+#> The following objects are masked from 'package:stats':
+#> 
+#>     decompose, spectrum
+#> The following object is masked from 'package:base':
+#> 
+#>     union
+
+# Create graph of highschool friendships
+graph <- graph_from_data_frame(highschool)
+V(graph)$Popularity <- degree(graph, mode = 'in')
+
+# plot using ggraph
+ggraph(graph, layout = 'kk') + 
+    geom_edge_fan(aes(alpha = ..index..), show.legend = FALSE) + 
+    geom_node_point(aes(size = Popularity)) + 
+    facet_edges(~year) + 
+    theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
+```
+
+![](README-unnamed-chunk-2-1.png)
+
+### The core concepts
+
+`ggraph` builds upon three core concepts that are quite easy to understand:
+
+1.  [**The Layout**](http://www.data-imaginist.com/2017/ggraph-introduction-layouts/) defines how nodes are placed on the plot, that is, it is a conversion of the relational structure into an x and y value for each node in the graph. `ggraph` has access to all layout functions avaiable in `igraph` and furthermore provides a large selection of its own, such as hive plots, treemaps, and circle packing.
+2.  [**The Nodes**](http://www.data-imaginist.com/2017/ggraph-introduction-nodes/) are the connected enteties in the relational structure. These can be plotted using the `geom_node_*()` family of geoms. Some node geoms make more sense for certain layouts, e.g. `geom_node_tile()` for treemaps and icicle plots, while others are more general purpose, e.g. `geom_node_point()`.
+3.  [**The Edges**](http://www.data-imaginist.com/2017/ggraph-introduction-edges/) are the connections between the enteties in the relational structure. These can be visualized using the `geom_edge_*()` family of geoms that contain a lot of different edge types for different scenarios. Sometimes the edges are implied by the layout (e.g. with treemaps) and need not be plottet, but often some sort of line is warranted.
+
+All of the tree concepts has been discussed in detail in dedicated blog posts that are also available as vignettes in the package. Please refer to these for more information.
+
+### Supported data types
+
+There are many different ways to store and work with relational data in R. Out of the box `ggraph` comes with first-class support for `igraph` and `dendrogram` objects, while `network` and `hclust` objects are supported through automatic conversion to one of the above. Users can add support for other data structures by writing a set of methods for that class. If this is of interest it is discussed further in the [layouts](http://www.data-imaginist.com/2017/ggraph-introduction-layouts/).
+
+Installation
+------------
+
+`ggraph` is available through CRAN and can be installed with `install_packages('ggraph')`. The package is under active development though and the latest set of features can be obtained by installing from this repository using `devtools`
+
+``` r
 devtools::install_github('thomasp85/ggraph')
 ```
 
-### Examples
-Currently ggraph understands dendrogram and igraph objects. Others might be
-added in the future (please file an issue if there is a particular class you
-want supported), but until then see if your object is convertible into one
-of the two.
+Related work
+------------
 
-#### Dendrogram
-```r
-# Let's use iris as we all love the iris dataset
-## Perform hierarchical clustering on the iris data
-irisDen <- as.dendrogram(hclust(dist(iris[1:4], method='euclidean'), 
-                                method='ward.D2'))
-## Add the species information to the leafs
-irisDen <- dendrapply(irisDen, function(d) {
-  if(is.leaf(d)) 
-    attr(d, 'nodePar') <- list(species=iris[as.integer(attr(d, 'label')),5])
-  d
-})
-
-# Plotting this looks very much like ggplot2 except for the new geoms
-ggraph(graph = irisDen, layout = 'dendrogram', repel = TRUE, circular = TRUE, 
-       ratio = 0.5) + 
-    geom_edge_elbow() + 
-    geom_node_text(aes(x = x*1.05, y=y*1.05, filter=leaf, 
-                       angle = nAngle(x, y), label = label), 
-                   size=3, hjust='outward') + 
-    geom_node_point(aes(filter=leaf, color=species)) + 
-    coord_fixed() + 
-    ggforce::theme_no_axes()
-```
-
-![Dendrogram](https://dl.dropboxusercontent.com/u/2323585/ggraph/dendro1.png)
-
-#### igraph
-```r
-# We use a friendship network
-friendGraph <- graph_from_data_frame(highschool)
-V(friendGraph)$degree <- degree(friendGraph, mode = 'in')
-graph1957 <- subgraph.edges(friendGraph, which(E(friendGraph)$year ==1957), F)
-graph1958 <- subgraph.edges(friendGraph, which(E(friendGraph)$year ==1958), F)
-V(friendGraph)$pop.increase <- degree(graph1958, mode = 'in') > 
-  degree(graph1957, mode = 'in')
-
-ggraph(friendGraph, 'igraph', algorithm = 'kk') + 
-  geom_edge_fan(aes(alpha = ..index..)) + 
-  geom_node_point(aes(size = degree, colour = pop.increase)) + 
-  scale_edge_alpha('Friends with', guide = 'edge_direction') + 
-  scale_colour_manual('Improved', values = c('firebrick', 'forestgreen')) + 
-  scale_size('# Friends') + 
-  facet_wrap(~year) + 
-  ggforce::theme_no_axes()
-```
-
-![Dendrogram](https://dl.dropboxusercontent.com/u/2323585/ggraph/friends.png)
-
-#### Other examples
-##### Hierarchical Edge Bundles
-```r
-flareGraph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
-importFrom <- match(flare$imports$from, flare$vertices$name)
-importTo <- match(flare$imports$to, flare$vertices$name)
-flareGraph <- treeApply(flareGraph, function(node, parent, depth, tree) {
-  tree <- set_vertex_attr(tree, 'depth', node, depth)
-  if (depth == 1) {
-    tree <- set_vertex_attr(tree, 'class', node, V(tree)$shortName[node])
-  } else if (depth > 1) {
-    tree <- set_vertex_attr(tree, 'class', node, V(tree)$class[parent])
-  }
-  tree
-})
-V(flareGraph)$leaf <- degree(flareGraph, mode = 'out') == 0
-
-ggraph(flareGraph, 'dendrogram', circular = TRUE) + 
-  geom_conn_bundle(aes(colour = ..index..), data = gCon(importFrom, importTo), 
-                   edge_alpha = 0.25) +
-  geom_node_point(aes(filter = leaf, colour = class)) +
-  scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') + 
-  coord_fixed() +
-  ggforce::theme_no_axes()
-```
-
-![Bundles](https://dl.dropboxusercontent.com/u/2323585/ggraph/bundles.png)
-
-#### Treemaps
-```r
-# We continue with our flareGraph
-ggraph(flareGraph, 'treemap', weight = 'size') + 
-  geom_treemap(aes(filter = leaf, fill = class, alpha = depth), colour = NA) + 
-  geom_treemap(aes(filter = depth != 0, size = depth), fill = NA) + 
-  scale_alpha(range = c(1, 0.7), guide = 'none') + 
-  scale_size(range = c(2.5, 0.4), guide = 'none') + 
-  ggforce::theme_no_axes()
-```
-
-![Treemap](https://dl.dropboxusercontent.com/u/2323585/ggraph/treemap.png)
-
-#### Animations
-The code to produce the following is available as a 
-[gist](https://gist.github.com/thomasp85/eee48b065ff454e390e1)
-
-![Dynamic graph](https://dl.dropboxusercontent.com/u/2323585/ggraph/inter.gif)
-
-### Scope
-The plan is that ggraph should support all types of graph related visualization.
-For a start I'll draw inspiration from the vast library of graph visualizations 
-available in D3.js, but if someone has a specific visualization approach they 
-feel strongly for file an issue or a PR.
-
-#### Roadmap
-**Class support** *In order of importance*
-
-- phylo from ape
-- network from network
-- graph from package graph
-- data.tree from data.tree
-- hypergraph from hypergraph (way down in the bottom along with all hypergraph
-classes)
-
-**Layouts**
-
-- Unrooted tree layouts
-- Sunburst / icicle
-- Circle packing
-- Hive plots
-- Matrix plot
-- Sankey diagram (maybe - undecided if it fits in ggraph)
-- H-tree
-
-**Connecions**
-
-- geom_edge_trace
-- geom_edge_connect
-
-**geom_node_**
-
-- density
-- box
-
-**geom_edge_**
-
-- route (avoid node-edge collision)
-- text
-- tile (for matrix representations mainly)
-- point (for matrix representations mainly)
-
-**Other stuff**
-
-- layout based on subset of edges
-- Cut off edges before they reach node
+`ggraph` is not the only package to provide some sort of support for relational data in `ggplot2`, though I'm fairly certain that it is the most ambituous. [`ggdendro`](https://CRAN.R-project.org/package=ggdendro) provides support for `dendrogram` and `hclust` objects through conversion of the structures into line segments that can then be plotted with `geom_segment()`. [`ggtree`](http://bioconductor.org/packages/ggtree/) provides more extensive support for all things tree-related, though it lacks some of the layouts and edge types that `ggraph` offers (it has other features that `ggraph` lacks though). For more standard *hairball* network plots [`ggnetwork`](https://CRAN.R-project.org/package=ggnetwork), [`geomnet`](https://CRAN.R-project.org/package=geomnet), and [`GGally`](https://CRAN.R-project.org/package=GGally) all provide some functionality though none of them are as extensive in scope as `ggraph`.
