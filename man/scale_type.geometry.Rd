@@ -4,7 +4,7 @@
 \alias{scale_type.geometry}
 \title{Define default scale type for geometry}
 \usage{
-scale_type.geometry(x)
+\method{scale_type}{geometry}(x)
 }
 \description{
 This functions is quite useless as geometry is not meant to be scaled, but it

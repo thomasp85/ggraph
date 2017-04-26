@@ -8,7 +8,7 @@ guide_edge_direction(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
   arrow = TRUE, arrow.position = NULL, barwidth = NULL,
   barheight = NULL, nbin = 500, direction = NULL, default.unit = "line",
-  reverse = FALSE, order = 0, ...)
+  reverse = FALSE, order = 0, override.aes = list(), ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -59,6 +59,8 @@ the highest value is on the top and the lowest value is on the bottom}
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
+
+\item{override.aes}{A list specifying aesthetic parameters of legend key.}
 
 \item{...}{ignored.}
 }
