@@ -10,6 +10,8 @@
 #'
 #' @param arrow.position The position of the arrow relative to the example edge.
 #'
+#' @param override.aes A list specifying aesthetic parameters of legend key.
+#'
 #' @importFrom grid is.unit unit
 #' @importFrom digest digest
 #' @export
@@ -26,7 +28,8 @@ guide_edge_direction <- function(title = waiver(), title.position = NULL,
                                  arrow.position = NULL,
                                  barwidth = NULL, barheight = NULL, nbin = 500,
                                  direction = NULL, default.unit = "line",
-                                 reverse = FALSE, order = 0, ...) {
+                                 reverse = FALSE, order = 0,
+                                 override.aes = list(), ...) {
     if (!is.null(barwidth) && !is.unit(barwidth))
         barwidth <- unit(barwidth, default.unit)
     if (!is.null(barheight) && !is.unit(barheight))
@@ -38,7 +41,8 @@ guide_edge_direction <- function(title = waiver(), title.position = NULL,
              arrow.position = arrow.position, barwidth = barwidth,
              barheight = barheight, nbin = nbin, direction = direction,
              default.unit = default.unit, reverse = reverse, order = order,
-             available_aes = c("edge_colour", "edge_alpha", "edge_width"), ...,
+             available_aes = c("edge_colour", "edge_alpha", "edge_width"),
+             override.aes = expand_edge_aes(rename_aes(override.aes)), ...,
              name = "edge_direction"),
         class = c("guide", "edge_direction")
     )
@@ -89,6 +93,9 @@ guide_train.edge_direction <- function(guide, scale) {
 #' @export
 guide_merge.edge_direction <- function(guide, new_guide) {
     guide$bar <- merge(guide$bar, new_guide$bar, sort = FALSE)
+    guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
+    if (any(duplicated(names(guide$override.aes)))) warning("Duplicated override.aes is ignored.")
+    guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
     guide
 }
 #' @export
@@ -119,6 +126,7 @@ guide_geom.edge_direction <- function(guide, layers, default_mapping) {
                                                 layer$aes_params)[rep(1, nrow(guide$bar)), ]
             }
         }
+        data <- utils::modifyList(data, guide$override.aes)
         list(data = data, params = c(layer$geom_params, layer$stat_params))
     })
     guide$geoms <- guide$geoms[!vapply(guide$geoms, is.null, logical(1))]

@@ -40,7 +40,8 @@ If unnamed, values will be matched in order (usually alphabetical) with
 the limits of the scale. Any data values that don't match will be
 given \code{na.value}.}
 
-\item{guide}{Name of guide object, or object itself.}
+\item{guide}{A function used to create a guide or its name. See
+\code{\link{guides}} for more info.}
 }
 \value{
 A ggproto object inheriting from \code{Scale}

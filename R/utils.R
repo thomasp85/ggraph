@@ -106,6 +106,25 @@ element_render <- function(theme, element, ..., name = NULL) {
     }
     ggname(paste(element, name, sep = "."), element_grob(el, ...))
 }
+.all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color", "colour",
+                     "fg", "fill", "group", "hjust", "label", "linetype", "lower",
+                     "lty", "lwd", "max", "middle", "min", "pch", "radius", "sample",
+                     "shape", "size", "srt", "upper", "vjust", "weight", "width",
+                     "x", "xend", "xmax", "xmin", "xintercept", "y", "yend", "ymax",
+                     "ymin", "yintercept", "z")
+.base_to_ggplot <- structure(
+    c("colour", "colour", "shape", "size", "linetype", "size", "angle", "hjust",
+      "fill", "colour", "ymin", "ymax"),
+    .Names = c("col", "color", "pch", "cex", "lty", "lwd", "srt", "adj", "bg",
+               "fg", "min", "max"))
+#' @importFrom plyr rename
+rename_aes <- function(x) {
+    # Convert prefixes to full names
+    full <- match(names(x), .all_aesthetics)
+    names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
+
+    rename(x, .base_to_ggplot, warn_missing = FALSE)
+}
 
 #' @importFrom viridis scale_color_viridis
 #' @export
