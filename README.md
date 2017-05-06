@@ -51,7 +51,7 @@ ggraph(graph, layout = 'kk') +
 2.  [**The Nodes**](http://www.data-imaginist.com/2017/ggraph-introduction-nodes/) are the connected entities in the relational structure. These can be plotted using the `geom_node_*()` family of geoms. Some node geoms make more sense for certain layouts, e.g. `geom_node_tile()` for treemaps and icicle plots, while others are more general purpose, e.g. `geom_node_point()`.
 3.  [**The Edges**](http://www.data-imaginist.com/2017/ggraph-introduction-edges/) are the connections between the entities in the relational structure. These can be visualized using the `geom_edge_*()` family of geoms that contain a lot of different edge types for different scenarios. Sometimes the edges are implied by the layout (e.g. with treemaps) and need not be plotted, but often some sort of line is warranted.
 
-All of the tree concepts hava been discussed in detail in dedicated blog posts that are also available as vignettes in the package. Please refer to those for more information.
+All of the tree concepts have been discussed in detail in dedicated blog posts that are also available as vignettes in the package. Please refer to those for more information.
 
 ### Supported data types
 
