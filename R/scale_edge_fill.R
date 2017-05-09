@@ -130,10 +130,12 @@ scale_edge_fill_viridis <- function (..., alpha = 1, begin = 0, end = 1,
     }
     if (discrete) {
         discrete_scale("edge_fill", "viridis",
-                       viridis_pal(alpha, begin, end, option), ...)
+                       viridis_pal(alpha = alpha, begin = begin, end = end,
+                                   option = option), ...)
     } else {
-        scale_edge_fill_gradientn(colours = viridis(256, alpha, begin,
-                                                     end, option), ...)
+        scale_edge_fill_gradientn(colours = viridis(256, alpha = alpha,
+                                                    begin = begin, end = end,
+                                                    option = option), ...)
     }
 }
 #' @rdname scale_edge_fill
