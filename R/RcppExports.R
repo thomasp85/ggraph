@@ -37,26 +37,26 @@
 #'                colour = 'black')
 #'
 pack_circles <- function(areas) {
-    .Call('ggraph_pack', PACKAGE = 'ggraph', areas)
+    .Call('_ggraph_pack', PACKAGE = 'ggraph', areas)
 }
 
 circlePackLayout <- function(parent, weight) {
-    .Call('ggraph_circlePackLayout', PACKAGE = 'ggraph', parent, weight)
+    .Call('_ggraph_circlePackLayout', PACKAGE = 'ggraph', parent, weight)
 }
 
 partitionTree <- function(parent, order, weight, height) {
-    .Call('ggraph_partitionTree', PACKAGE = 'ggraph', parent, order, weight, height)
+    .Call('_ggraph_partitionTree', PACKAGE = 'ggraph', parent, order, weight, height)
 }
 
 cut_lines <- function(x, y, id, start_width, start_height, end_width, end_height, start_type, end_type) {
-    .Call('ggraph_cut_lines', PACKAGE = 'ggraph', x, y, id, start_width, start_height, end_width, end_height, start_type, end_type)
+    .Call('_ggraph_cut_lines', PACKAGE = 'ggraph', x, y, id, start_width, start_height, end_width, end_height, start_type, end_type)
 }
 
 pathAttr <- function(paths, ngroups) {
-    .Call('ggraph_pathAttr', PACKAGE = 'ggraph', paths, ngroups)
+    .Call('_ggraph_pathAttr', PACKAGE = 'ggraph', paths, ngroups)
 }
 
 splitTreemap <- function(parent, order, weight, width, height) {
-    .Call('ggraph_splitTreemap', PACKAGE = 'ggraph', parent, order, weight, width, height)
+    .Call('_ggraph_splitTreemap', PACKAGE = 'ggraph', parent, order, weight, width, height)
 }
 

@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // pack
 NumericMatrix pack(NumericVector areas);
-RcppExport SEXP ggraph_pack(SEXP areasSEXP) {
+RcppExport SEXP _ggraph_pack(SEXP areasSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -18,7 +18,7 @@ END_RCPP
 }
 // circlePackLayout
 NumericMatrix circlePackLayout(IntegerVector parent, NumericVector weight);
-RcppExport SEXP ggraph_circlePackLayout(SEXP parentSEXP, SEXP weightSEXP) {
+RcppExport SEXP _ggraph_circlePackLayout(SEXP parentSEXP, SEXP weightSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -30,7 +30,7 @@ END_RCPP
 }
 // partitionTree
 NumericMatrix partitionTree(IntegerVector parent, IntegerVector order, NumericVector weight, NumericVector height);
-RcppExport SEXP ggraph_partitionTree(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP heightSEXP) {
+RcppExport SEXP _ggraph_partitionTree(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP heightSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -44,7 +44,7 @@ END_RCPP
 }
 // cut_lines
 List cut_lines(NumericVector x, NumericVector y, IntegerVector id, NumericVector start_width, NumericVector start_height, NumericVector end_width, NumericVector end_height, CharacterVector start_type, CharacterVector end_type);
-RcppExport SEXP ggraph_cut_lines(SEXP xSEXP, SEXP ySEXP, SEXP idSEXP, SEXP start_widthSEXP, SEXP start_heightSEXP, SEXP end_widthSEXP, SEXP end_heightSEXP, SEXP start_typeSEXP, SEXP end_typeSEXP) {
+RcppExport SEXP _ggraph_cut_lines(SEXP xSEXP, SEXP ySEXP, SEXP idSEXP, SEXP start_widthSEXP, SEXP start_heightSEXP, SEXP end_widthSEXP, SEXP end_heightSEXP, SEXP start_typeSEXP, SEXP end_typeSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -63,7 +63,7 @@ END_RCPP
 }
 // pathAttr
 DataFrame pathAttr(DataFrame paths, int ngroups);
-RcppExport SEXP ggraph_pathAttr(SEXP pathsSEXP, SEXP ngroupsSEXP) {
+RcppExport SEXP _ggraph_pathAttr(SEXP pathsSEXP, SEXP ngroupsSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -75,7 +75,7 @@ END_RCPP
 }
 // splitTreemap
 NumericMatrix splitTreemap(IntegerVector parent, IntegerVector order, NumericVector weight, double width, double height);
-RcppExport SEXP ggraph_splitTreemap(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP widthSEXP, SEXP heightSEXP) {
+RcppExport SEXP _ggraph_splitTreemap(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP widthSEXP, SEXP heightSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -87,4 +87,19 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(splitTreemap(parent, order, weight, width, height));
     return rcpp_result_gen;
 END_RCPP
+}
+
+static const R_CallMethodDef CallEntries[] = {
+    {"_ggraph_pack", (DL_FUNC) &_ggraph_pack, 1},
+    {"_ggraph_circlePackLayout", (DL_FUNC) &_ggraph_circlePackLayout, 2},
+    {"_ggraph_partitionTree", (DL_FUNC) &_ggraph_partitionTree, 4},
+    {"_ggraph_cut_lines", (DL_FUNC) &_ggraph_cut_lines, 9},
+    {"_ggraph_pathAttr", (DL_FUNC) &_ggraph_pathAttr, 2},
+    {"_ggraph_splitTreemap", (DL_FUNC) &_ggraph_splitTreemap, 5},
+    {NULL, NULL, 0}
+};
+
+RcppExport void R_init_ggraph(DllInfo *dll) {
+    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
+    R_useDynamicSymbols(dll, FALSE);
 }

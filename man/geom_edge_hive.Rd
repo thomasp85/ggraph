@@ -2,7 +2,6 @@
 % Please edit documentation in R/geom_edge_hive.R
 \name{geom_edge_hive}
 \alias{geom_edge_hive}
-\alias{geom_edge_hive}
 \alias{geom_edge_hive2}
 \alias{geom_edge_hive0}
 \title{Draw edges in hive plots}
@@ -38,7 +37,7 @@ See \code{\link{get_edges}} for more details on edge extraction.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{arrow}{Arrow specification, as created by \code{\link[grid]{arrow}}}
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}}
 
 \item{curvature}{The curvature of the bezier. Defines the distance from the
 control points to the midpoint between the start and end node. 1 means the
@@ -81,9 +80,11 @@ to add to the label in case of \code{angle_calc} is either 'along' or 'across'}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -218,3 +219,4 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
 \author{
 Thomas Lin Pedersen
 }
+\concept{geom_edge_*}

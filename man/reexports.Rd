@@ -4,7 +4,6 @@
 \name{reexports}
 \alias{reexports}
 \alias{scale_color_viridis}
-\alias{reexports}
 \alias{scale_fill_viridis}
 \title{Objects exported from other packages}
 \keyword{internal}

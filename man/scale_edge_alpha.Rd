@@ -2,7 +2,6 @@
 % Please edit documentation in R/scale_edge_alpha.R
 \name{scale_edge_alpha}
 \alias{scale_edge_alpha}
-\alias{scale_edge_alpha}
 \alias{scale_edge_alpha_continuous}
 \alias{scale_edge_alpha_discrete}
 \alias{scale_edge_alpha_manual}
@@ -20,8 +19,8 @@ scale_edge_alpha_manual(..., values)
 scale_edge_alpha_identity(..., guide = "none")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link{continuous_scale}}
-or \code{\link{discrete_scale}} as appropriate, to control name, limits,
+\item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}
+or \code{\link[=discrete_scale]{discrete_scale()}} as appropriate, to control name, limits,
 breaks, labels and so forth.}
 
 \item{range}{Output range of alpha values. Must lie between 0 and 1.}
@@ -53,3 +52,4 @@ Other scale_edge_*: \code{\link{scale_edge_colour}},
   \code{\link{scale_edge_width}},
   \code{\link{scale_label_size}}
 }
+\concept{scale_edge_*}

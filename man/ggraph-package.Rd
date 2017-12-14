@@ -2,22 +2,24 @@
 % Please edit documentation in R/ggraph-package.R
 \docType{package}
 \name{ggraph-package}
-\alias{ggraph-package}
-\title{ggraph: Grammar of Graph Graphics}
+\title{ggraph: An Implementation of Grammar of Graphics for Graphs and Networks}
 \description{
-This package is an extension of the grammar of graphics defined in
-\code{\link{ggplot2}} for relational data such as networks and trees.
-\code{ggraph} adds a long list of new geoms and scales as well as a new plot
-constructor that helps you build up your network visualization layer by layer
-in the same manner as you know from \code{ggplot2}.
+\if{html}{\figure{logo.png}{options: align='right'}}
+
+The grammar of graphics as implemented in ggplot2 is a poor fit for
+graph and network visualizations due to its reliance on tabular data input.
+ggraph is an extension of the ggplot2 API tailored to graph visualizations
+and provides the same flexible approach to building up plots layer by layer.
 }
 \seealso{
 Useful links:
-\describe{
-  \item{Development version}{\url{https://github.com/thomasp85/ggraph}}
-  \item{Feature requests and bug reports}{\url{https://github.com/thomasp85/ggraph/issues}}
+\itemize{
+  \item \url{https://github.com/thomasp85/ggraph}
+  \item Report bugs at \url{https://github.com/thomasp85/ggraph/issues}
 }
+
 }
 \author{
-Thomas Lin Pedersen \email{thomasp85@gmail.com}
+\strong{Maintainer}: Thomas Lin Pedersen \email{thomasp85@gmail.com}
+
 }

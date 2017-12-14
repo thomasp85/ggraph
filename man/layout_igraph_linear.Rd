@@ -42,3 +42,4 @@ Other layout_igraph_*: \code{\link{layout_igraph_auto}},
   \code{\link{layout_igraph_partition}},
   \code{\link{layout_igraph_treemap}}
 }
+\concept{layout_igraph_*}

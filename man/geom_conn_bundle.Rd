@@ -2,7 +2,6 @@
 % Please edit documentation in R/geom_conn_bundle.R
 \name{geom_conn_bundle}
 \alias{geom_conn_bundle}
-\alias{geom_conn_bundle}
 \alias{geom_conn_bundle2}
 \alias{geom_conn_bundle0}
 \title{Create heirarchical edge bundles between node connections}
@@ -29,13 +28,15 @@ data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{arrow}{Arrow specification, as created by \code{\link[grid]{arrow}}}
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}}
 
 \item{lineend}{Line end style (round, butt, square)}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
-\code{FALSE} never includes, and \code{TRUE} always includes.}
+\code{FALSE} never includes, and \code{TRUE} always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.}
 
 \item{n}{The number of points to create along the path.}
 
@@ -43,7 +44,7 @@ a call to a position adjustment function.}
 bundles, while 0 will turn of bundling completely and give straight lines.
 Defaults to 0.8}
 
-\item{...}{other arguments passed on to \code{\link{layer}}. These are
+\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -125,3 +126,4 @@ http://doi.org/10.1109/TVCG.2006.147
 \author{
 Thomas Lin Pedersen
 }
+\concept{geom_conn_*}

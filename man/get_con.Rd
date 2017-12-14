@@ -35,3 +35,4 @@ connection.
 Other extractors: \code{\link{get_edges}},
   \code{\link{get_nodes}}
 }
+\concept{extractors}

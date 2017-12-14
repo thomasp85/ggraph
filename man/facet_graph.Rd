@@ -32,8 +32,8 @@ variables for which margins are to be created.}
 columns (\code{"free_y"}), or both rows and columns (\code{"free"})}
 
 \item{space}{If \code{"fixed"}, the default, all panels have the same size.
- If \code{"free_y"} their height will be proportional to the length of the
- y scale; if \code{"free_x"} their width will be proportional to the
+If \code{"free_y"} their height will be proportional to the length of the
+y scale; if \code{"free_x"} their width will be proportional to the
 length of the x scale; or if \code{"free"} both height and width will
 vary.  This setting has no effect unless the appropriate scales also vary.}
 
@@ -47,8 +47,8 @@ column corresponds to one factor. Thus there will be more than
 one with formulae of the type \code{~cyl + am}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with \code{\link{labeller}()}. See
-\code{\link{label_value}} for more details and pointers to other
+for compatibility with \code{\link[=labeller]{labeller()}}. See
+\code{\link[=label_value]{label_value()}} for more details and pointers to other
 options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
@@ -92,3 +92,4 @@ ggraph(gr) +
 Other ggraph-facets: \code{\link{facet_edges}},
   \code{\link{facet_nodes}}
 }
+\concept{ggraph-facets}

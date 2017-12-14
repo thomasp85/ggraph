@@ -82,3 +82,4 @@ ggraph.
 Other extractors: \code{\link{get_con}},
   \code{\link{get_nodes}}
 }
+\concept{extractors}

@@ -86,3 +86,4 @@ Other layout_igraph_*: \code{\link{layout_igraph_auto}},
   \code{\link{layout_igraph_manual}},
   \code{\link{layout_igraph_partition}}
 }
+\concept{layout_igraph_*}

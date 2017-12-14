@@ -28,3 +28,4 @@ node layers.
 Other extractors: \code{\link{get_con}},
   \code{\link{get_edges}}
 }
+\concept{extractors}

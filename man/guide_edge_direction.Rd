@@ -13,16 +13,16 @@ guide_edge_direction(title = waiver(), title.position = NULL,
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
 If \code{NULL}, the title is not shown. By default
-(\code{\link{waiver}}), the name of the scale object or the name
-specified in \code{\link{labs}} is used for the title.}
+(\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
+specified in \code{\link[=labs]{labs()}} is used for the title.}
 
 \item{title.position}{A character string indicating the position of a
- title. One of "top" (default for a vertical guide), "bottom", "left"
+title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."}
 
 \item{title.theme}{A theme object for rendering the title text. Usually the
-object of \code{\link{element_text}} is expected. By default, the theme is
-specified by \code{legend.title} in \code{\link{theme}} or theme.}
+object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
+specified by \code{legend.title} in \code{\link[=theme]{theme()}} or theme.}
 
 \item{title.hjust}{A number specifying horizontal justification of the
 title text.}
@@ -35,13 +35,13 @@ Defaults to \code{TRUE}}
 
 \item{arrow.position}{The position of the arrow relative to the example edge.}
 
-\item{barwidth}{A numeric or a \code{\link[grid]{unit}} object specifying
+\item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the width of the colorbar. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link{theme}} or theme.}
+\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
-\item{barheight}{A numeric or a \code{\link[grid]{unit}} object specifying
+\item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the height of the colorbar. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link{theme}} or theme.}
+\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
 \item{nbin}{A numeric specifying the number of bins for drawing colorbar. A
 smoother colorbar for a larger value.}
@@ -49,7 +49,7 @@ smoother colorbar for a larger value.}
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
 
-\item{default.unit}{A character string indicating \code{\link[grid]{unit}}
+\item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
 for \code{barwidth} and \code{barheight}.}
 
 \item{reverse}{logical. If \code{TRUE} the colorbar is reversed. By default,
