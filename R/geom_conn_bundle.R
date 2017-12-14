@@ -111,7 +111,7 @@ StatConnBundle <- ggproto('StatConnBundle', StatBspline,
     },
     required_aes = c('x', 'y'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'tension')
+    extra_params = c('na.rm', 'n', 'tension', 'type')
 )
 #' @rdname geom_conn_bundle
 #'
@@ -127,7 +127,7 @@ geom_conn_bundle <- function(mapping = NULL, data = get_con(),
           inherit.aes = FALSE,
           params = expand_edge_aes(
               list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = FALSE, tension = tension, ...)
+                   interpolate = FALSE, tension = tension, type = 'clamped', ...)
           )
     )
 }
@@ -145,7 +145,7 @@ StatConnBundle2 <- ggproto('StatConnBundle2', StatBspline2,
     },
     required_aes = c('x', 'y'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'tension')
+    extra_params = c('na.rm', 'n', 'tension', 'type')
 )
 #' @rdname geom_conn_bundle
 #'
@@ -161,7 +161,7 @@ geom_conn_bundle2 <- function(mapping = NULL, data = get_con(),
           inherit.aes = FALSE,
           params = expand_edge_aes(
               list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                        interpolate = TRUE, tension = tension, ...)
+                   interpolate = TRUE, tension = tension, type = 'clamped', ...)
           )
     )
 }
@@ -178,7 +178,7 @@ StatConnBundle0 <- ggproto('StatConnBundle0', StatIdentity,
     },
     required_aes = c('x', 'y'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'tension')
+    extra_params = c('na.rm', 'n', 'tension', 'type')
 )
 #' @rdname geom_conn_bundle
 #'
@@ -194,7 +194,7 @@ geom_conn_bundle0 <- function(mapping = NULL, data = get_con(),
           inherit.aes = FALSE,
           params = expand_edge_aes(
               list(arrow = arrow, lineend = lineend, na.rm = FALSE,
-                        tension = tension, ...)
+                   tension = tension, type = 'clamped', ...)
           )
     )
 }
