@@ -77,7 +77,7 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
             base_rows[] <- lapply(base_rows, rev_order)
         }
         base_cols <- combine_vars(col_data, params$plot_env, cols, drop = params$drop)
-        base <- df.grid(base_rows, base_cols)
+        base <- df.grid(as.data.frame(base_rows), as.data.frame(base_cols))
 
         # Add margins
         base <- reshape2::add_margins(base, list(names(rows), names(cols)), params$margins)
@@ -125,7 +125,15 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
                 }, map = split(edge_map, edge_map$PANEL), nodes = attr(layout, 'node_placement'))
                 do.call(rbind, edge_map)
             },
-            node_ggraph = ,
+            node_ggraph = {
+                node_map <- lapply(attr(layout, 'node_placement'), function(nodes) {
+                    data[data$ggraph.index %in% nodes, , drop = FALSE]
+                })
+                panel <- rep(seq_along(node_map), vapply(node_map, nrow, numeric(1)))
+                node_map <- do.call(rbind, node_map)
+                node_map$PANEL <- as.factor(panel)
+                node_map
+            },
             {
                 FacetGrid$map_data(data, layout, params)
             }
