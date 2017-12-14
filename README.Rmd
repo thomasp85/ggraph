@@ -8,13 +8,11 @@ output: github_document
 knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
-  fig.path = "README-"
+  fig.path = "man/figures/README-"
 )
 ```
 
-![ggraph logo](inst/ggraph.png)
-
-# ggraph
+# ggraph <img src="man/figures/logo.png" align="right" />
 */dʒiː.dʒɪˈrɑːf/*  (or g-giraffe)
 
 [![Travis-CI Build Status](https://travis-ci.org/thomasp85/ggraph.svg?branch=master)](https://travis-ci.org/thomasp85/ggraph)

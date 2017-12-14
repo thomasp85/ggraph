@@ -1,9 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
-![ggraph logo](inst/ggraph.png)
-
-ggraph
-======
+ggraph <img src="man/figures/logo.png" align="right" />
+=======================================================
 
 */dʒiː.dʒɪˈrɑːf/* (or g-giraffe)
 
@@ -41,7 +39,7 @@ ggraph(graph, layout = 'kk') +
     theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
 ```
 
-![](README-unnamed-chunk-2-1.png)
+![](man/figures/README-unnamed-chunk-2-1.png)
 
 ### The core concepts
 
