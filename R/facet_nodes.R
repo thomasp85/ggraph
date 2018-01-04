@@ -49,8 +49,8 @@ FacetNodes <- ggproto('FacetNodes', FacetWrap,
             list(`1` = plot_data$ggraph_index)
         } else {
             node_map <- FacetWrap$map_data(plot_data, panels, params)
-            node_map <- node_map[order(node_map$ggraph.index), , drop = FALSE]
-            split(node_map$ggraph.index, node_map$PANEL)
+            node_map <- node_map[order(node_map$.ggraph.index), , drop = FALSE]
+            split(node_map$.ggraph.index, node_map$PANEL)
         }
         structure(panels, node_placement = node_placement)
     },
