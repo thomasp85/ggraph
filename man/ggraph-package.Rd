@@ -2,6 +2,8 @@
 % Please edit documentation in R/ggraph-package.R
 \docType{package}
 \name{ggraph-package}
+\alias{ggraph-package}
+\alias{_PACKAGE}
 \title{ggraph: An Implementation of Grammar of Graphics for Graphs and Networks}
 \description{
 \if{html}{\figure{logo.png}{options: align='right'}}

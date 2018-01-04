@@ -14,6 +14,7 @@ Description: The grammar of graphics as implemented in ggplot2 is a poor fit for
     ggraph is an extension of the ggplot2 API tailored to graph visualizations
     and provides the same flexible approach to building up plots layer by layer.
 License: MIT + file LICENSE
+Encoding: UTF-8
 LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.2),
@@ -29,11 +30,14 @@ Imports:
     ggrepel,
     utils,
     stats,
-    viridis
+    viridis,
+    rlang
 Suggests: network,
     knitr,
     rmarkdown
-Remotes: tidyverse/ggplot2
+Remotes:
+    tidyverse/ggplot2
+    thomasp85/tidygraph
 LinkingTo: Rcpp
 RoxygenNote: 6.0.1.9000
 Depends:
