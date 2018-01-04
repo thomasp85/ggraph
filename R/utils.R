@@ -117,13 +117,12 @@ element_render <- function(theme, element, ..., name = NULL) {
       "fill", "colour", "ymin", "ymax"),
     .Names = c("col", "color", "pch", "cex", "lty", "lwd", "srt", "adj", "bg",
                "fg", "min", "max"))
-#' @importFrom plyr rename
 rename_aes <- function(x) {
     # Convert prefixes to full names
     full <- match(names(x), .all_aesthetics)
     names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
 
-    rename(x, .base_to_ggplot, warn_missing = FALSE)
+    plyr::rename(x, .base_to_ggplot, warn_missing = FALSE)
 }
 
 #' @importFrom viridis scale_color_viridis
