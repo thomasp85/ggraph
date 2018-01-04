@@ -444,7 +444,7 @@ NumericMatrix pack(NumericVector areas) {
     std::deque<Circle> circles;
     NumericMatrix res(areas.size(), 2);
     for (itr = areas.begin(); itr != areas.end(); itr++) {
-        Circle c = {0, 0, std::sqrt(float(*itr / M_PI)), circles.size() + 1};
+        Circle c = {0, 0, std::sqrt(float(*itr / M_PI)), static_cast<int>(circles.size()) + 1};
         circles.push_back(c);
     }
     if (circles.size() == 0) {
