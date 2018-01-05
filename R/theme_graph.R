@@ -43,8 +43,8 @@
 #' @export
 #'
 #' @examples
-#' library(igraph)
-#' graph <- graph_from_data_frame(highschool)
+#' library(tidygraph)
+#' graph <- as_tbl_graph(highschool)
 #'
 #' ggraph(graph) + geom_edge_link() + geom_node_point() + theme_graph()
 #'

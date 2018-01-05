@@ -35,7 +35,9 @@ Imports:
     tidygraph
 Suggests: network,
     knitr,
-    rmarkdown
+    rmarkdown,
+    purrr,
+    tibble
 Remotes: tidyverse/ggplot2,
     thomasp85/tidygraph
 LinkingTo: Rcpp

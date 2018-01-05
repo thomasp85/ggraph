@@ -194,21 +194,21 @@ aesthetics.
 }
 
 \examples{
-require(igraph)
-gr <- graph_from_data_frame(data.frame(
+require(tidygraph)
+gr <- as_tbl_graph(data.frame(
   from = c(1, 1, 1, 1, 1, 2, 2, 2),
   to = c(2, 2, 2, 2, 2, 1, 1, 1),
   class = sample(letters[1:3], 8, TRUE)
-))
-V(gr)$class <- c('a', 'b')
+)) \%>\%
+  mutate(class = c('a', 'b'))
 
-ggraph(gr, 'igraph', algorithm = 'nicely') +
+ggraph(gr, 'nicely') +
   geom_edge_fan(aes(alpha = ..index..))
 
-ggraph(gr, 'igraph', algorithm = 'nicely') +
+ggraph(gr, 'nicely') +
   geom_edge_fan2(aes(colour = node.class))
 
-ggraph(gr, 'igraph', algorithm = 'nicely') +
+ggraph(gr, 'nicely') +
   geom_edge_fan0(aes(colour = class))
 
 }

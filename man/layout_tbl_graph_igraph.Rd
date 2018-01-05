@@ -62,7 +62,7 @@ described below:
   \item{\code{star}}{Place one node in the center and the rest equidistantly
   around it. See \code{\link[igraph]{as_star}}}
   \item{\code{circle}}{Place nodes in a circle in the order of their index.
-  Consider using \code{\link{layout_igraph_linear}} with \code{circular=TRUE}
+  Consider using \code{\link{layout_tbl_graph_linear}} with \code{circular=TRUE}
   for more control. See \code{\link[igraph]{in_circle}}}
   \item{\code{nicely}}{Tries to pick an appropriate layout. See
   \code{\link[igraph]{nicely}} for a description of the simpe decision tree

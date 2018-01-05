@@ -181,10 +181,11 @@ aesthetics.
 }
 
 \examples{
-require(igraph)
-gr <- make_graph('bull')
-E(gr)$class <- sample(letters[1:3], gsize(gr), replace = TRUE)
-V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
+require(tidygraph)
+gr <- create_notable('bull') \%>\%
+  mutate(class = sample(letters[1:3], n(), replace = TRUE)) \%>\%
+  activate(edges) \%>\%
+  mutate(class = sample(letters[1:3], n(), replace = TRUE))
 
 ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_link(aes(alpha = ..index..))

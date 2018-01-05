@@ -40,13 +40,15 @@
 #' @family geom_node_*
 #'
 #' @examples
-#' require(igraph)
-#' gr <- make_graph('bull')
-#' V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
+#' require(tidygraph)
+#' gr <- create_notable('bull') %>%
+#'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 #'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point(aes(label = class))
+#' ggraph(gr, 'igraph', algorithm = 'nicely') +
+#'   geom_node_point(aes(label = class))
 #'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_label(aes(label = class))
+#' ggraph(gr, 'igraph', algorithm = 'nicely') +
+#'   geom_node_label(aes(label = class), repel = TRUE)
 #'
 #' @importFrom ggrepel GeomTextRepel
 #' @export

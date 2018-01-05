@@ -92,20 +92,16 @@ automatically set, but can be overridden.
 
 \examples{
 # Create a graph of the flare class system
-library(igraph)
-flareGraph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+library(tidygraph)
+flareGraph <- tbl_graph(flare$vertices, flare$edges) \%>\%
+  mutate(
+    class = map_bfs_chr(node_is_root(), .f = function(node, dist, path, ...) {
+      if (dist <= 1) return(shortName[node])
+      path$result[[nrow(path)]]
+    })
+  )
 importFrom <- match(flare$imports$from, flare$vertices$name)
 importTo <- match(flare$imports$to, flare$vertices$name)
-flareGraph <- tree_apply(flareGraph, function(node, parent, depth, tree) {
-    tree <- set_vertex_attr(tree, 'depth', node, depth)
-    if (depth == 1) {
-        tree <- set_vertex_attr(tree, 'class', node, V(tree)$shortName[node])
-    } else if (depth > 1) {
-        tree <- set_vertex_attr(tree, 'class', node, V(tree)$class[parent])
-    }
-    tree
-})
-V(flareGraph)$leaf <- degree(flareGraph, mode = 'out') == 0
 
 # Use class inheritance for layout but plot class imports as bundles
 ggraph(flareGraph, 'dendrogram', circular = TRUE) +

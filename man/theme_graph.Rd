@@ -73,8 +73,8 @@ default settings (that is, they are not necessarily reverted back to what
 they were prior to calling \code{set_graph_style}).
 }
 \examples{
-library(igraph)
-graph <- graph_from_data_frame(highschool)
+library(tidygraph)
+graph <- as_tbl_graph(highschool)
 
 ggraph(graph) + geom_edge_link() + geom_node_point() + theme_graph()
 

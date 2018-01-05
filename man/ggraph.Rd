@@ -56,79 +56,53 @@ a desciption of all available layouts.
 }
 \details{
 Following is a short description of the different layout types available in
-ggraph. Each layout is further described in its own help pages.
-
-\strong{Dendrogram objects}
-
-The \code{\link[stats]{dendrogram}} class is used to store binary tree from
-e.g. hierarchical clustering. The layouts provided for this class is
-constrained to tree-like representations. \code{\link[stats]{hclust}} objects
-are supported through automatic conversion to dendrogram objects and thus
-supports the same layouts.
-
-\describe{
-  \item{\code{auto}}{The default layout. Eqivalent to
-  \code{layout = 'dendrogram'}}
-  \item{\code{dendrogram}}{Creates a tree using the heights already defined in the
-  dendrogram object. See \code{\link{layout_dendrogram_dendrogram}} for further details}
-  \item{\code{even}}{Ignores the heights given by the dendrogram object and
-  instead spreads the branch points out with an even distance. See
-  \code{\link{layout_dendrogram_even}} for further details}
-}
-
-Further, if the layouts provided for igraph objects are needed for dendrogram
-objects \code{\link{den_to_igraph}} is provided to convert dendrograms to
-igraph.
-
-\strong{igraph objects}
-
-Any type of regular graph/network data can be represented as an igraph
-object. Because of this the different layouts that can be applied to igraph
+ggraph. Each layout is further described in its own help pages. Any type of
+regular graph/network data can be represented as a tbl_graph object. Because
+of this the different layouts that can be applied to tbl_graph
 objects are quite diverse, but not all layouts makes sense to all types of
 graphs. It is up to the user to understand their data and choose an
-appropriate layout. For standard node-edge diagrams igraph itself defines a
+appropriate layout. For standard node-edge diagrams igraph defines a
 long range of different layout functions that are all available through the
 \code{igraph} layout where the specific layout is specified using the
 \code{algorithm} argument. In order to minimize typing all igraph algorithms
 can also be passed directly into the \code{layout} argument.
-\code{\link[network]{network}} objects are supported by automatic conversion
-to igraph objects using \code{\link{network_to_igraph}} and thus supports the
-same layouts.
+
+Any object that has an appropriate \code{as_tbl_graph} method can be passed
+into \code{ggraph()} and will automatically be converted underneath.
 
 \describe{
-  \item{\code{auto}}{The default layout. Equivalent to
-  \code{layout = 'igraph', algorithm = 'nicely'}}
+  \item{\code{auto}}{The default layout. See \code{\link{layout_tbl_graph_auto}} for further
+  details}
   \item{\code{igraph}}{Use one of the internal igraph layout algorithms.
   The algorithm is specified using the \code{algorithm} argument. All strings
   accepted by the \code{algorithm} argument can also be supplied directly
-  into \code{layout}. See \code{\link{layout_igraph_igraph}} for further
+  into \code{layout}. See \code{\link{layout_tbl_graph_igraph}} for further
   details}
   \item{\code{dendrogram}}{Lays out the nodes in a tree-like graph as a
   dendrogram with leaves set at 0 and parents 1 unit above its tallest child.
-  See \code{\link{layout_igraph_dendrogram}} for further details}
+  See \code{\link{layout_tbl_graph_dendrogram}} for further details}
   \item{\code{manual}}{Lets the user manually specify the location of each
-  node by supplying a data.frame with an \code{x} and \code{y} column. See
-  \code{\link{layout_igraph_manual}} for further details}
+  node. See \code{\link{layout_tbl_graph_manual}} for further details}
   \item{\code{linear}}{Arranges the nodes linearly or circularly in order to
-  make an arc diagram. See \code{\link{layout_igraph_linear}} for further
+  make an arc diagram. See \code{\link{layout_tbl_graph_linear}} for further
   details}
   \item{\code{treemap}}{Creates a treemap from the graph, that is, a
   space-filing subdivision of rectangles showing a weighted hierarchy. See
-  \code{\link{layout_igraph_treemap}} for further details}
+  \code{\link{layout_tbl_graph_treemap}} for further details}
   \item{\code{circlepack}}{Creates a layout showing a hierarchy as circles
   within circles. Conceptually equal to treemaps. See
-  \code{\link{layout_igraph_circlepack}} for further details}
+  \code{\link{layout_tbl_graph_circlepack}} for further details}
   \item{\code{partition}}{Create icicle or sunburst charts, where each layer
   subdivides the division given by the preceeding layer. See
-  \code{\link{layout_igraph_partition}} for further details}
+  \code{\link{layout_tbl_graph_partition}} for further details}
   \item{\code{hive}}{Positions nodes on axes spreading out from the center
-  based on node attributes. See \code{\link{layout_igraph_hive}} for further
+  based on node attributes. See \code{\link{layout_tbl_graph_hive}} for further
   details}
 }
 }
 \examples{
-require(igraph)
-gr <- make_graph('bull')
+require(tidygraph)
+gr <- create_notable('bull')
 layout <- create_layout(gr, layout = 'igraph', algorithm = 'kk')
 
 }

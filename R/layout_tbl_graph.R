@@ -127,7 +127,7 @@ layout_tbl_graph_auto <- function(graph, circular, ...) {
 #'   \item{\code{star}}{Place one node in the center and the rest equidistantly
 #'   around it. See \code{\link[igraph]{as_star}}}
 #'   \item{\code{circle}}{Place nodes in a circle in the order of their index.
-#'   Consider using \code{\link{layout_igraph_linear}} with \code{circular=TRUE}
+#'   Consider using \code{\link{layout_tbl_graph_linear}} with \code{circular=TRUE}
 #'   for more control. See \code{\link[igraph]{in_circle}}}
 #'   \item{\code{nicely}}{Tries to pick an appropriate layout. See
 #'   \code{\link[igraph]{nicely}} for a description of the simpe decision tree
@@ -325,8 +325,7 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, 
 #'
 #' @param graph An igraph object
 #'
-#' @param node.positions A data.frame with the columns \code{x} and \code{y}
-#' (additional columns are ignored).
+#' @param x,y Expressions with the x and y positions of the nodes
 #'
 #' @param circular Ignored
 #'
@@ -571,7 +570,7 @@ layout_tbl_graph_circlepack <- function(graph, weight = NULL, circular = FALSE, 
 #' Calculate nodes as areas dividing their parent
 #'
 #' The partition layout is a way to show hierarchical data in the same way as
-#' \code{\link{layout_igraph_treemap}}. Instead of subdividing the parent area
+#' \code{\link{layout_tbl_graph_treemap}}. Instead of subdividing the parent area
 #' the partition layout shows the division of a nodes children next to the area
 #' of the node itself. As such the node positions will be very reminicent of
 #' a reingold-tilford tree layout but by plotting nodes as areas it better
@@ -951,7 +950,7 @@ graph_to_tree <- function(graph, mode) {
     if (!is.directed(graph)) {
         stop('Graph must be directed')
     }
-    graph <- simplify(graph)
+    graph <- simplify(graph, edge.attr.comb = 'first')
     parentDir <- if (mode == 'out') 'in' else 'out'
     comp <- components(graph, 'weak')
     graphs <- lapply(seq_len(comp$no), function(i) {

@@ -16,8 +16,8 @@
 #' @return A vector with the angle of each node/edge
 #'
 #' @examples
-#' require(igraph)
-#' flareGraph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+#' require(tidygraph)
+#' flareGraph <- tbl_graph(flare$vertices, flare$edges)
 #'
 #' ggraph(flareGraph, 'dendrogram', circular = TRUE) +
 #'   geom_edge_diagonal0() +

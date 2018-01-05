@@ -61,8 +61,7 @@ This function is equivalent to \code{\link[ggplot2]{facet_wrap}} but only
 facets edges. Nodes are repeated in every panel.
 }
 \examples{
-library(igraph)
-gr <- graph_from_data_frame(highschool)
+gr <- tidygraph::as_tbl_graph(highschool)
 
 ggraph(gr) +
     geom_edge_link() +

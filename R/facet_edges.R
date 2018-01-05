@@ -8,8 +8,7 @@
 #' @family ggraph-facets
 #'
 #' @examples
-#' library(igraph)
-#' gr <- graph_from_data_frame(highschool)
+#' gr <- tidygraph::as_tbl_graph(highschool)
 #'
 #' ggraph(gr) +
 #'     geom_edge_link() +

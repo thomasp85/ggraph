@@ -9,10 +9,9 @@ layout_tbl_graph_manual(graph, x, y, circular)
 \arguments{
 \item{graph}{An igraph object}
 
-\item{circular}{Ignored}
+\item{x, y}{Expressions with the x and y positions of the nodes}
 
-\item{node.positions}{A data.frame with the columns \code{x} and \code{y}
-(additional columns are ignored).}
+\item{circular}{Ignored}
 }
 \value{
 A data.frame with the columns \code{x}, \code{y}, \code{circular} as

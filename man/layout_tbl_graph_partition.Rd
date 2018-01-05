@@ -46,7 +46,7 @@ variables in the tbl_graph object.
 }
 \description{
 The partition layout is a way to show hierarchical data in the same way as
-\code{\link{layout_igraph_treemap}}. Instead of subdividing the parent area
+\code{\link{layout_tbl_graph_treemap}}. Instead of subdividing the parent area
 the partition layout shows the division of a nodes children next to the area
 of the node itself. As such the node positions will be very reminicent of
 a reingold-tilford tree layout but by plotting nodes as areas it better
