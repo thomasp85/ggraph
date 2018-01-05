@@ -21,6 +21,11 @@ create_layout.default <- function(graph, layout, ...) {
     })
     create_layout(graph, layout, ...)
 }
+#' @rdname ggraph
+#' @export
+create_layout.layout_ggraph <- function(graph, ...) {
+    graph
+}
 #' @export
 as.data.frame.layout_ggraph <- function(x, ...) {
     extraAttr <- names(attributes(x))
