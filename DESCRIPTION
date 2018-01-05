@@ -31,7 +31,8 @@ Imports:
     utils,
     stats,
     viridis,
-    rlang
+    rlang,
+    tidygraph
 Suggests: network,
     knitr,
     rmarkdown
