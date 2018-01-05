@@ -29,9 +29,10 @@ using `ggraph()` --- a function equivalent in intent to `ggplot()`. As a minimum
 
 ```{r, message=FALSE}
 library(ggraph)
-library(igraph)
+library(tidygraph)
+
 set_graph_style(plot_margin = margin(1,1,1,1))
-graph <- graph_from_data_frame(highschool)
+graph <- as_tbl_graph(highschool)
 
 # Not specifying the layout - defaults to "auto"
 ggraph(graph) + 
@@ -59,6 +60,9 @@ ggraph(graph, layout = 'kk', maxiter = 100) +
     geom_edge_link(aes(colour = factor(year))) + 
     geom_node_point()
 ```
+
+If any layout parameters refers to node or edge variables they must be supplied
+as unquoted expression (like inside `aes()` and `tidyverse` verbs)
 
 In addition to specifying the layout during plot creation it can also happen 
 separately using `create_layout()`. This function takes the same arguments as 
@@ -163,7 +167,7 @@ ggraph(graph, layout = 'linear', circular = TRUE) +
 ```
 
 ```{r}
-graph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+graph <- tbl_graph(flare$vertices, flare$edges)
 # An icicle plot
 ggraph(graph, 'partition') + 
     geom_node_tile(aes(fill = depth), size = 0.25)
@@ -191,8 +195,8 @@ range of possible "optimal node position" results. Below is a sample of some of
 the layouts available through `igraph` applied to the highschool graph.
 
 ```{r, fig.show='hold', results='hide'}
-graph <- graph_from_data_frame(highschool)
-V(graph)$degree <- degree(graph)
+graph <- as_tbl_graph(highschool) %>% 
+    mutate(degree = centrality_degree())
 lapply(c('fr', 'kk', 'lgl', 'graphopt'), function(layout) {
     ggraph(graph, layout = layout) + 
         geom_edge_link(aes(colour = factor(year)), show.legend = FALSE) +
@@ -210,10 +214,12 @@ graph structure. They are less common though, so use will often require some
 additional explanation.
 
 ```{r}
-V(graph)$friends <- degree(graph, mode = 'in')
-V(graph)$friends <- ifelse(V(graph)$friends < 5, 'few', 
-                           ifelse(V(graph)$friends >= 15, 'many', 'medium'))
-ggraph(graph, 'hive', axis = 'friends', sort.by = 'degree') + 
+graph <- graph %>% 
+    mutate(friends = ifelse(
+        centrality_degree(mode = 'in') < 5, 'few',
+        ifelse(centrality_degree(mode = 'in') >= 15, 'many', 'medium')
+    ))
+ggraph(graph, 'hive', axis = friends, sort.by = degree) + 
     geom_edge_hive(aes(colour = factor(year))) + 
     geom_axis_hive(aes(colour = friends), size = 2, label = FALSE) + 
     coord_fixed()
@@ -227,45 +233,48 @@ these uses enclosure and position rather than edges to communicate relations
 used for drawing edges if you wish to:
 
 ```{r}
-graph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+graph <- tbl_graph(flare$vertices, flare$edges)
 set.seed(1)
-ggraph(graph, 'circlepack', weight = 'size') + 
+ggraph(graph, 'circlepack', weight = size) + 
     geom_node_circle(aes(fill = depth), size = 0.25, n = 50) + 
     coord_fixed()
 ```
 
 ```{r}
 set.seed(1)
-ggraph(graph, 'circlepack', weight = 'size') + 
+ggraph(graph, 'circlepack', weight = size) + 
     geom_edge_link() + 
     geom_node_point(aes(colour = depth)) +
     coord_fixed()
 ```
 
 ```{r}
-ggraph(graph, 'treemap', weight = 'size') + 
+ggraph(graph, 'treemap', weight = size) + 
     geom_node_tile(aes(fill = depth), size = 0.25)
 ```
 
 ```{r}
-ggraph(graph, 'treemap', weight = 'size') + 
+ggraph(graph, 'treemap', weight = size) + 
     geom_edge_link() + 
     geom_node_point(aes(colour = depth))
 ```
 
-The most recognized tree plot is probably dendrograms though. Both `igraph` and
-`dendrogram` object can be plotted as dendrograms, though only `dendrogram` 
-objects comes with a build in height information for placing the branch points. 
-For igraph objects this is inferred by the longest ancestral length:
+The most recognized tree plot is probably dendrograms though. If nothing else is
+stated the height of each node is calculated based on the distance to its 
+farthest sibling (the tree layout, on the other hand, puts all nodes at a 
+certain depth at the same level):
 
 ```{r}
 ggraph(graph, 'dendrogram') + 
     geom_edge_diagonal()
 ```
 
+The height of each branch point can be set to a variable - e.g. the height 
+provided by hclust and dendrogram objects:
+
 ```{r}
-dendrogram <- as.dendrogram(hclust(dist(iris[, 1:4])))
-ggraph(dendrogram, 'dendrogram') + 
+dendrogram <- hclust(dist(iris[, 1:4]))
+ggraph(dendrogram, 'dendrogram', height = height) + 
     geom_edge_elbow()
 ```
 

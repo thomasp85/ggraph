@@ -34,38 +34,40 @@ first:
 
 ```{r, message=FALSE}
 library(ggraph)
-library(igraph)
+library(tidygraph)
+library(purrr)
+library(rlang)
+
 set_graph_style(plot_margin = margin(1,1,1,1))
-hierarchy <- as.dendrogram(hclust(dist(iris[, 1:4])))
-
-# Classify nodes based on agreement between children
-hierarchy <- tree_apply(hierarchy, function(node, children, ...) {
-    if (is.leaf(node)) {
-        attr(node, 'Class') <- as.character(iris[as.integer(attr(node, 'label')),5])
-    } else {
-        classes <- unique(sapply(children, attr, which = 'Class'))
-        if (length(classes) == 1 && !anyNA(classes)) {
-            attr(node, 'Class') <- classes
+hierarchy <- as_tbl_graph(hclust(dist(iris[, 1:4]))) %>% 
+    mutate(Class = map_bfs_back_chr(node_is_root(), .f = function(node, path, ...) {
+        if (leaf[node]) {
+            as.character(iris$Species[as.integer(label[node])])
         } else {
-            attr(node, 'Class') <- NA
+            species <- unique(unlist(path$result))
+            if (length(species) == 1) {
+                species
+            } else {
+                NA_character_
+            }
         }
-    }
-    attr(node, 'nodePar') <- list(class = attr(node, 'Class'))
-    node
-}, direction = 'up')
+    }))
 
-hairball <- graph_from_data_frame(highschool)
-
-# Classify nodes based on popularity gain
-pop1957 <- degree(delete_edges(hairball, which(E(hairball)$year == 1957)), 
-                  mode = 'in')
-pop1958 <- degree(delete_edges(hairball, which(E(hairball)$year == 1958)), 
-                  mode = 'in')
-V(hairball)$pop_devel <- ifelse(pop1957 < pop1958, 'increased',
-                                ifelse(pop1957 > pop1958, 'decreased', 
-                                       'unchanged'))
-V(hairball)$popularity <- pmax(pop1957, pop1958)
-E(hairball)$year <- as.character(E(hairball)$year)
+hairball <- as_tbl_graph(highschool) %>% 
+    mutate(
+        year_pop = map_local(mode = 'in', .f = function(neighborhood, ...) {
+            neighborhood %E>% pull(year) %>% table() %>% sort(decreasing = TRUE)
+        }),
+        pop_devel = map_chr(year_pop, function(pop) {
+            if (length(pop) == 0 || length(unique(pop)) == 1) return('unchanged')
+            switch(names(pop)[which.max(pop)],
+                   '1957' = 'decreased',
+                   '1958' = 'increased')
+        }),
+        popularity = map_dbl(year_pop, ~ .[1]) %|% 0
+    ) %>% 
+    activate(edges) %>% 
+    mutate(year = as.character(year))
 ```
 
 ### Link
@@ -101,7 +103,8 @@ Loops cannot be shown with regular edges as they have no length. A dedicated
 
 ```{r}
 # let's make some of the student love themselves
-loopy_hairball <- add_edges(hairball, rep(1:5, each=2), year = rep('1957', 5))
+loopy_hairball <- hairball %>% 
+    bind_edges(tibble::tibble(from = 1:5, to = 1:5, year = rep('1957', 5)))
 ggraph(loopy_hairball, layout = 'kk') + 
     geom_edge_link(aes(colour = year), alpha = 0.25) + 
     geom_edge_loop(aes(colour = year))
@@ -152,10 +155,10 @@ ggraph(hairball, layout = 'linear', circular = TRUE) +
 Aah... The classic dendrogram with its right angle bends. Of course such
 visualizations are also supported with the `geom_edge_elbow()`. It goes without
 saying that this type of edge requires a layout that flows in a defined 
-direction, such as a dendrogram:
+direction, such as a tree:
 
 ```{r}
-ggraph(hierarchy, layout = 'dendrogram') + 
+ggraph(hierarchy, layout = 'dendrogram', height = height) + 
     geom_edge_elbow()
 ```
 
@@ -166,7 +169,7 @@ points positioned at the same x-value as the terminal nodes and halfway
 in-between the nodes on the y-axis. The result is more organic than the elbows:
 
 ```{r}
-ggraph(hierarchy, layout = 'dendrogram') + 
+ggraph(hierarchy, layout = 'dendrogram', height = height) + 
     geom_edge_diagonal()
 ```
 
@@ -178,7 +181,7 @@ plots. It draws edges as quadratic beziers with control point positioned
 perpendicular to the axes of the hive layout:
 
 ```{r}
-ggraph(hairball, layout = 'hive', axis = 'pop_devel', sort.by = 'popularity') + 
+ggraph(hairball, layout = 'hive', axis = pop_devel, sort.by = popularity) + 
     geom_edge_hive(aes(colour = year)) + 
     geom_axis_hive(label = FALSE) + 
     coord_fixed()
@@ -219,8 +222,8 @@ attributes to the edge and the aesthetics are then interpolated along the edge.
 This is easier to show than to explain:
 
 ```{r}
-ggraph(hierarchy, layout = 'dendrogram') + 
-    geom_edge_elbow2(aes(colour = node.class))
+ggraph(hierarchy, layout = 'dendrogram', height = height) + 
+    geom_edge_elbow2(aes(colour = node.Class))
 ```
 
 There are considerably more computation going on than in the base variant so 
@@ -239,10 +242,11 @@ arrow and a label. This section will go into how these can be added. To clearly
 see the effect here we will use a slightly simpler graph
 
 ```{r}
-simple <- make_graph('bull')
 # Random names - I swear
-V(simple)$name <- c('Thomas', 'Bob', 'Hadley', 'Winston', 'Baptiste')
-E(simple)$type <- sample(c('friend', 'foe'), 5, TRUE)
+simple <- create_notable('bull') %>% 
+    mutate(name = c('Thomas', 'Bob', 'Hadley', 'Winston', 'Baptiste')) %>% 
+    activate(edges) %>% 
+    mutate(type = sample(c('friend', 'foe'), 5, TRUE))
 ```
 
 ### Arrows
@@ -347,7 +351,7 @@ the two nodes. Currently the only connection geom available is
 `geom_conn_bundle()` that implements the hierarchical edge bundling techinque:
 
 ```{r}
-flaregraph <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+flaregraph <- tbl_graph(flare$vertices, flare$edges)
 from <- match(flare$imports$from, flare$vertices$name)
 to <- match(flare$imports$to, flare$vertices$name)
 ggraph(flaregraph, layout = 'dendrogram', circular = TRUE) + 
