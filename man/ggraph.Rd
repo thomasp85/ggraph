@@ -6,6 +6,7 @@
 \alias{layout_ggraph}
 \alias{createLayout}
 \alias{create_layout.default}
+\alias{create_layout.layout_ggraph}
 \alias{create_layout.tbl_graph}
 \alias{layout_tbl_graph}
 \title{Create a ggraph plot}
@@ -15,6 +16,8 @@ ggraph(graph, layout = "auto", ...)
 create_layout(graph, layout, circular, ...)
 
 \method{create_layout}{default}(graph, layout, ...)
+
+\method{create_layout}{layout_ggraph}(graph, ...)
 
 \method{create_layout}{tbl_graph}(graph, layout, circular = FALSE, ...)
 }
