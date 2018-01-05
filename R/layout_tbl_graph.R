@@ -13,8 +13,8 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
         if (is.igraphlayout(layout)) {
             layout <- layout_tbl_graph_igraph(graph, layout, circular, ...)
         } else {
-            layoutName <- paste0('layout_tbl_graph_', layout)
-            layout <- do.call(layoutName, list(graph, circular = circular, ...))
+            layout_fun <- get(paste0('layout_tbl_graph_', layout))
+            layout <- layout_fun(graph, circular = circular, ...)
         }
     } else {
         stop('Unknown layout')
