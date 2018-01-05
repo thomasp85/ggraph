@@ -674,6 +674,7 @@ layout_tbl_graph_partition <- function(graph, weight = NULL, circular = FALSE, h
     layout$depth = node_depth(graph, mode = direction)
     extraData <- as_tibble(graph, active = 'nodes')
     layout <- cbind(layout, extraData)
+    attr(layout, 'graph') <- add_direction(graph, layout)
     layout
 }
 #' Place nodes in a Hive Plot layout
