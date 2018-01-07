@@ -30,11 +30,11 @@ own self-contained set of geoms, facets, etc., as well as adding the concept of
 ### An example
 ```{r}
 library(ggraph)
-library(igraph)
+library(tidygraph)
 
 # Create graph of highschool friendships
-graph <- graph_from_data_frame(highschool)
-V(graph)$Popularity <- degree(graph, mode = 'in')
+graph <- as_tbl_graph(highschool) %>% 
+    mutate(Popularity = centrality_degree(mode = 'in'))
 
 # plot using ggraph
 ggraph(graph, layout = 'kk') + 
@@ -69,13 +69,16 @@ All of the tree concepts has been discussed in detail in dedicated blog posts
 that are also available as vignettes in the package. Please refer to these for 
 more information.
 
+> **Note:** The linked blog posts are based on ggraph v1. After ggraph v1.1 the
+underlying implementation was moved to tidygraph and cleaned up, but this 
+resulted in some breaking changes in the process. Therefore the vignette 
+versions are generally recommended as they have been updated.
+
 ### Supported data types
-There are many different ways to store and work with relational data in R. Out
-of the box `ggraph` comes with first-class support for `igraph` and `dendrogram`
-objects, while `network` and `hclust` objects are supported through automatic
-conversion to one of the above. Users can add support for other data structures
-by writing a set of methods for that class. If this is of interest it is
-discussed further in the [layouts](http://www.data-imaginist.com/2017/ggraph-introduction-layouts/).
+There are many different ways to store and work with relational data in R. 
+`ggraph` is build upon `tidygraph` and the large swath of data structures it 
+supports are thus natively supported in `ggraph`. In order to get a data type 
+supported by `ggraph`, simply provide an `as_tbl_graph` method for it.
 
 ## Installation
 `ggraph` is available through CRAN and can be installed with 
