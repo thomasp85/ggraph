@@ -4,3 +4,4 @@
   data.frame
 * Added `override.aes` to `guide_edge_direction()`
 * Changed license to MIT
+* Add matrix layout and `geom_edge_point()` (#23)

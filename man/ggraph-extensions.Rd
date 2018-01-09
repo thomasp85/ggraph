@@ -18,6 +18,7 @@
 \alias{StatConnBundle0}
 \alias{GeomEdgePath}
 \alias{GeomEdgeSegment}
+\alias{GeomEdgePoint}
 \alias{GeomEdgeBezier}
 \alias{GeomEdgeBspline}
 \alias{StatEdgeArc}

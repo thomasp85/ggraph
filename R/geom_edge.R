@@ -201,6 +201,41 @@ GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
+#' @importFrom grid gpar pointsGrob
+#' @export
+GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
+    draw_panel = function(data, panel_scales, coord, na.rm = FALSE, mirror = FALSE) {
+        if (is.null(data) || nrow(data) == 0 || ncol(data) == 0)
+            return(zeroGrob())
+        if (mirror) {
+            data2 <- data
+            data2[, c('x', 'y')] <- data2[, c('y', 'x'), drop = FALSE]
+            data2$x <- abs(data2$x) * sign(data$x)
+            data2$y <- abs(data2$y) * sign(data$y)
+            data <- rbind(data, data2)
+        }
+        coords <- coord$transform(data, panel_scales)
+        coords <- coords[order(coords$edge_size, decreasing = TRUE), , drop = FALSE]
+        pointsGrob(coords$x, coords$y, pch = coords$edge_shape,
+                   gp = gpar(col = alpha(coords$edge_colour, coords$edge_alpha),
+                             fill = alpha(coords$edge_fill, coords$edge_alpha),
+                             fontsize = coords$edge_size * .pt + coords$stroke *
+                                 .stroke/2,
+                             lwd = coords$stroke * .stroke/2))
+    },
+    draw_key = function(data, params, size) {
+        pointsGrob(0.5, 0.5, pch = data$edge_shape,
+                   gp = gpar(col = alpha(data$edge_colour, data$edge_alpha),
+                             fill = alpha(data$edge_fill, data$edge_alpha),
+                             fontsize = data$edge_size * .pt + data$stroke * .stroke/2,
+                             lwd = data$stroke * .stroke/2))
+    },
+    default_aes = aes(edge_shape = 19, edge_colour = 'black', edge_size = 1.5,
+                      edge_fill = NA, edge_alpha = NA, stroke = 0.5)
+)
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggforce GeomBezier0
 #' @export
 GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,

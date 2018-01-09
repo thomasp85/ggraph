@@ -191,7 +191,8 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_elbow}},
   \code{\link{geom_edge_fan}},
   \code{\link{geom_edge_hive}},
-  \code{\link{geom_edge_link}}
+  \code{\link{geom_edge_link}},
+  \code{\link{geom_edge_point}}
 }
 \author{
 Thomas Lin Pedersen
