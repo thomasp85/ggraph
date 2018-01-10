@@ -16,7 +16,15 @@ createLayout <- function(...) {
 #' @rdname ggraph
 #' @export
 create_layout.default <- function(graph, layout, ...) {
-    stop('No layout function defined for objects of class ', class(graph))
+    graph <- tryCatch(as_tbl_graph(graph), error = function(e) {
+        stop('No layout function defined for objects of class ', class(graph), call. = FALSE)
+    })
+    create_layout(graph, layout, ...)
+}
+#' @rdname ggraph
+#' @export
+create_layout.layout_ggraph <- function(graph, ...) {
+    graph
 }
 #' @export
 as.data.frame.layout_ggraph <- function(x, ...) {

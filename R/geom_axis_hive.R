@@ -120,16 +120,23 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
 #'
 #' @examples
 #' # Plot the flare import graph as a hive plot
-#' library(igraph)
-#' flareGr <- graph_from_data_frame(flare$imports)
-#' # Add some metadata to divide nodes by
-#' V(flareGr)$type <- 'Both'
-#' V(flareGr)$type[degree(flareGr, mode = 'in') == 0] <- 'Source'
-#' V(flareGr)$type[degree(flareGr, mode = 'out') == 0] <- 'Sink'
-#' analyticsNodes <- grep('flare.analytics', V(flareGr)$name)
-#' E(flareGr)$type <- 'Other'
-#' E(flareGr)[inc(analyticsNodes)]$type <- 'Analytics'
-#' ggraph(flareGr, 'hive', axis = 'type') +
+#' library(tidygraph)
+#' flareGr <- as_tbl_graph(flare$imports) %>%
+#'   mutate(
+#'     type = dplyr::case_when(
+#'       centrality_degree(mode = 'in') == 0 ~ 'Source',
+#'       centrality_degree(mode = 'out') == 0 ~ 'Sink',
+#'       TRUE ~ 'Both'
+#'     )
+#'   ) %>%
+#'   activate(edges) %>%
+#'   mutate(
+#'     type = dplyr::case_when(
+#'       grepl('flare.analytics', paste(.N()$name[from], .N()$name[to])) ~ 'Analytics',
+#'       TRUE ~ 'Other'
+#'     )
+#'   )
+#' ggraph(flareGr, 'hive', axis = type) +
 #'     geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
 #'     geom_axis_hive(aes(colour = type)) +
 #'     coord_fixed()

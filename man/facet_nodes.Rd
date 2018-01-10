@@ -62,10 +62,11 @@ facets nodes. Edges are drawn if their terminal nodes are both present in a
 panel.
 }
 \examples{
-library(igraph)
-gr <- graph_from_data_frame(highschool)
-V(gr)$popularity <- as.character(cut(degree(gr, mode = 'in'), breaks = 3,
-                                     labels = c('low', 'medium', 'high')))
+library(tidygraph)
+gr <- as_tbl_graph(highschool) \%>\%
+  mutate(popularity = as.character(cut(centrality_degree(mode = 'in'),
+                                       breaks = 3,
+                                       labels = c('low', 'medium', 'high'))))
 ggraph(gr) +
     geom_edge_link() +
     geom_node_point() +

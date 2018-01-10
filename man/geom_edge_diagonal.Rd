@@ -191,18 +191,19 @@ aesthetics.
 }
 
 \examples{
-require(igraph)
-gr <- make_tree(20, 4, 'out')
-E(gr)$class <- sample(letters[1:3], gsize(gr), replace = TRUE)
-V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
+require(tidygraph)
+gr <- create_tree(20, 4) \%>\%
+  mutate(class = sample(letters[1:3], n(), replace = TRUE)) \%>\%
+  activate(edges) \%>\%
+  mutate(class = sample(letters[1:3], n(), replace = TRUE))
 
-ggraph(gr, 'igraph', algorithm = 'tree') +
+ggraph(gr, 'tree') +
   geom_edge_diagonal(aes(alpha = ..index..))
 
-ggraph(gr, 'igraph', algorithm = 'tree') +
+ggraph(gr, 'tree') +
   geom_edge_diagonal2(aes(colour = node.class))
 
-ggraph(gr, 'igraph', algorithm = 'tree') +
+ggraph(gr, 'tree') +
   geom_edge_diagonal0(aes(colour = class))
 
 }

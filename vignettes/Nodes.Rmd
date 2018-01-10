@@ -21,9 +21,10 @@ can be used directly for plotting nodes:
 
 ```{r, message=FALSE}
 library(ggraph)
-library(igraph)
+library(tidygraph)
+
 set_graph_style(plot_margin = margin(1,1,1,1))
-gr <- graph_from_data_frame(highschool)
+gr <- as_tbl_graph(highschool)
 
 ggraph(gr, layout = 'kk') + 
     geom_point(aes(x=x, y=y))
@@ -61,7 +62,7 @@ sometimes there is a need for addressing the x and y aesthetics, which is still
 possible, for instance if a partition layout should be inverted:
 
 ```{r}
-gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
+gr <- tbl_graph(flare$vertices, flare$edges)
 
 ggraph(gr, layout = 'partition') + 
     geom_node_tile(aes(y = -y, fill = depth))
@@ -106,7 +107,7 @@ dimensions of the geoms (e.g. radius, width, and height) are precalculated by
 their intended layouts and defaulted be the geoms:
 
 ```{r}
-ggraph(gr, layout = 'treemap', weight = 'size') + 
+ggraph(gr, layout = 'treemap', weight = size) + 
     geom_node_tile(aes(fill = depth))
 ```
 

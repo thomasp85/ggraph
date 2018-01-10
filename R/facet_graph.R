@@ -20,10 +20,11 @@
 #' @family ggraph-facets
 #'
 #' @examples
-#' library(igraph)
-#' gr <- graph_from_data_frame(highschool)
-#' V(gr)$popularity <- as.character(cut(degree(gr, mode = 'in'), breaks = 3,
-#'                                      labels = c('low', 'medium', 'high')))
+#' library(tidygraph)
+#' gr <- as_tbl_graph(highschool) %>%
+#'   mutate(popularity = as.character(cut(centrality_degree(mode = 'in'),
+#'                                        breaks = 3,
+#'                                        labels = c('low', 'medium', 'high'))))
 #' ggraph(gr) +
 #'     geom_edge_link() +
 #'     geom_node_point() +
@@ -106,8 +107,8 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
             if (params$col_type == 'edge') params$cols <- NULL
             node_map <- FacetGrid$map_data(plot_data, panels, params)
             node_map <- expand_facet_map(node_map, panels)
-            node_map <- node_map[order(node_map$ggraph.index), , drop = FALSE]
-            split(node_map$ggraph.index, node_map$PANEL)
+            node_map <- node_map[order(node_map$.ggraph.index), , drop = FALSE]
+            split(node_map$.ggraph.index, node_map$PANEL)
         }
 
         structure(panels, node_placement = node_placement)
@@ -127,7 +128,7 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
             },
             node_ggraph = {
                 node_map <- lapply(attr(layout, 'node_placement'), function(nodes) {
-                    data[data$ggraph.index %in% nodes, , drop = FALSE]
+                    data[data$.ggraph.index %in% nodes, , drop = FALSE]
                 })
                 panel <- rep(seq_along(node_map), vapply(node_map, nrow, numeric(1)))
                 node_map <- do.call(rbind, node_map)

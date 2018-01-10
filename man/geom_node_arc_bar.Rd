@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_node_arc_bar.R
 \name{geom_node_arc_bar}
 \alias{geom_node_arc_bar}
-\title{Show nodes as circles}
+\title{Show nodes as thick arcs}
 \usage{
 geom_node_arc_bar(mapping = NULL, data = NULL, position = "identity",
   show.legend = NA, ...)
@@ -41,11 +41,10 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 }
 \description{
-This geom is equivalent in functionality to \code{\link[ggforce]{geom_circle}}
-and allows for plotting of nodes as circles with a radius scaled by the
-coordinate system. Beceause of the geoms reliance on the coordinate system
-it will only produce true circles when combined with
-\code{\link[ggplot2]{coord_fixed}}
+This geom is equivalent in functionality to \code{\link[ggforce]{geom_arc_bar}}
+and allows for plotting of nodes as arcs with an inner and outer radius
+scaled by the coordinate system. Its main use is currently in sunburst plots
+as created with circular partition layouts
 }
 \section{Aesthetics}{
 
@@ -54,7 +53,10 @@ automatically set, but can be overridden.
 \itemize{
  \item{\strong{x0}}
  \item{\strong{y0}}
+ \item{\strong{r0}}
  \item{\strong{r}}
+ \item{\strong{start}}
+ \item{\strong{end}}
  \item{alpha}
  \item{colour}
  \item{fill}
@@ -66,9 +68,10 @@ automatically set, but can be overridden.
 }
 
 \examples{
-require(igraph)
-gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
-ggraph(gr, 'circlepack', weight = 'size') + geom_node_circle() + coord_fixed()
+require(tidygraph)
+gr <- tbl_graph(flare$vertices, flare$edges)
+ggraph(gr, 'partition', circular = TRUE, weight = size) +
+  geom_node_arc_bar()
 
 }
 \seealso{

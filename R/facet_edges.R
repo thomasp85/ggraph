@@ -8,8 +8,7 @@
 #' @family ggraph-facets
 #'
 #' @examples
-#' library(igraph)
-#' gr <- graph_from_data_frame(highschool)
+#' gr <- tidygraph::as_tbl_graph(highschool)
 #'
 #' ggraph(gr) +
 #'     geom_edge_link() +
@@ -43,7 +42,7 @@ FacetEdges <- ggproto('FacetEdges', FacetWrap,
         facet_data <- data$edge_ggraph
 
         panels <- FacetWrap$compute_layout(facet_data, params)
-        node_placement <- rep(list(plot_data$ggraph.index), nrow(panels))
+        node_placement <- rep(list(plot_data$.ggraph.index), nrow(panels))
         names(node_placement) <- as.character(seq_along(node_placement))
         structure(panels, node_placement = node_placement)
     },

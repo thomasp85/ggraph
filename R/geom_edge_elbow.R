@@ -4,8 +4,9 @@
 #' dendrogram plots of hierarchical clustering results. In case a circular
 #' transformation has been applied the first line segment will be drawn as an
 #' arc as expected. This geom is only applicable to layouts that return a
-#' direction for the edges (currently \code{\link{layout_dendrogram_dendrogram}}
-#' and \code{\link{layout_dendrogram_dendrogram}}).
+#' direction for the edges (currently \code{\link{layout_tbl_graph_dendrogram}},
+#' \code{\link{layout_tbl_graph_partition}} and
+#' \code{\link{layout_tbl_graph_igraph}} with the \code{"tree"} algorithm).
 #'
 #' @details
 #' Many geom_edge_* layers comes in 3 flavors depending on the level of control
@@ -108,24 +109,20 @@
 #' @family geom_edge_*
 #'
 #' @examples
-#' irisDen <- as.dendrogram(
-#'   hclust(dist(iris[1:4],
-#'               method='euclidean', ),
-#'          method='ward.D2')
-#' )
-#' irisDen <- dendrapply(irisDen, function(x) {
-#'   attr(x, 'nodePar') <- list(class = sample(letters[1:3], 1))
-#'   attr(x, 'edgePar') <- list(class = sample(letters[1:3], 1))
-#'   x
-#' })
+#' require(tidygraph)
+#' irisDen <- hclust(dist(iris[1:4], method='euclidean'), method='ward.D2') %>%
+#'   as_tbl_graph() %>%
+#'   mutate(class = sample(letters[1:3], n(), TRUE)) %>%
+#'   activate(edges) %>%
+#'   mutate(class = sample(letters[1:3], n(), TRUE))
 #'
-#' ggraph(irisDen, 'even', circular = TRUE) +
+#' ggraph(irisDen, 'dendrogram', circular = TRUE) +
 #'   geom_edge_elbow(aes(alpha = ..index..))
 #'
-#' ggraph(irisDen, 'even') +
+#' ggraph(irisDen, 'dendrogram') +
 #'   geom_edge_elbow2(aes(colour = node.class))
 #'
-#' ggraph(irisDen, 'dendrogram') +
+#' ggraph(irisDen, 'dendrogram', height = height) +
 #'   geom_edge_elbow0(aes(colour = class))
 #'
 #' @rdname geom_edge_elbow

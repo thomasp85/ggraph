@@ -69,7 +69,7 @@ This guide is intended to show the direction of edges based on the aesthetics
 mapped to its progression, such as changing width, colour and opacity.
 }
 \examples{
-gr <- igraph::graph_from_data_frame(highschool)
+gr <- tidygraph::as_tbl_graph(highschool)
 ggraph(gr, layout = 'kk') +
   geom_edge_fan(aes(alpha = ..index..)) +
   guides(edge_alpha = guide_edge_direction())

@@ -1,0 +1,210 @@
+#' @rdname ggraph
+#' @aliases layout_tbl_graph
+#'
+#' @export
+#'
+create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
+    graph <- mutate(activate(graph, 'nodes'), .ggraph.orig_index = seq_len(graph_order()))
+    graph <- prepare_graph(graph, layout, ...)
+    .register_graph_context(graph, free = TRUE)
+    if (inherits(layout, 'function')) {
+        layout <- layout(graph, circular = circular, ...)
+    } else if (inherits(layout, 'character')) {
+        if (is.igraphlayout(layout)) {
+            layout <- layout_tbl_graph_igraph(graph, layout, circular, ...)
+        } else {
+            layout_fun <- get(paste0('layout_tbl_graph_', layout))
+            layout <- layout_fun(graph, circular = circular, ...)
+        }
+    } else {
+        stop('Unknown layout')
+    }
+    layout$.ggraph.index <- seq_len(nrow(layout))
+    if (is.null(attr(layout, 'graph'))) {
+        attr(layout, 'graph') <- graph
+    }
+    attr(layout, 'circular') <- circular
+    class(layout) <- c(
+        'layout_tbl_graph',
+        'layout_ggraph',
+        'data.frame'
+    )
+    checkLayout(layout)
+}
+getEdges.layout_tbl_graph <- function(layout) {
+    gr <- attr(layout, 'graph')
+    edges <- as_tibble(gr, active = 'edges')
+    edges$circular <- attr(layout, 'circular')
+    as.data.frame(edges)
+}
+#' @importFrom igraph shortest_paths
+getConnections.layout_tbl_graph <- function(layout, from, to, weight = NULL, mode = 'all') {
+    from <- match(from, layout$.ggraph.orig_index)
+    to <- match(to, layout$.ggraph.orig_index)
+    if (is.null(weight)) {
+        weight <- NA
+    } else {
+        weight <- getEdges(layout)[[weight]]
+    }
+    graph <- attr(layout, 'graph')
+    to <- split(to, from)
+    connections <- lapply(seq_along(to), function(i) {
+        paths <- shortest_paths(graph, as.integer(names(to)[i]), to[[i]], mode = mode, weights = weight)$vpath
+        lapply(paths, as.numeric)
+    })
+    unlist(connections, recursive = FALSE)
+}
+
+# HELPERS -----------------------------------------------------------------
+
+is.igraphlayout <- function(type) {
+    if (type %in% igraphlayouts) {
+        TRUE
+    } else if (any(paste0(c('as_', 'in_', 'with_', 'on_'), type) %in% igraphlayouts)) {
+        TRUE
+    } else {
+        FALSE
+    }
+}
+as.igraphlayout <- function(type) {
+    if (type %in% igraphlayouts) {
+        layout <- type
+    } else {
+        newType <- paste0(c('as_', 'in_', 'with_', 'on_'), type)
+        typeInd <- which(newType %in% igraphlayouts)
+        if (length(typeInd) == 0) {
+            stop('Cannot find igraph layout')
+        }
+        layout <- newType[typeInd]
+    }
+    paste0('layout_', layout)
+}
+#' @importFrom igraph gorder permute
+prepare_graph <- function(graph, layout, direction = 'out', ...) {
+    is_hierarchy <- is.character(layout) && layout %in% c(
+        'dendrogram',
+        'treemap',
+        'circlepack',
+        'partition'
+    )
+    if (is_hierarchy || (layout == 'auto' && with_graph(graph, graph_is_tree() || graph_is_forest()))) {
+        graph <- graph_to_tree(graph, mode = direction)
+        graph <- permute(graph, match(seq_len(gorder(graph)), order(node_depth(graph, direction))))
+    }
+    as_tbl_graph(graph)
+}
+#' @importFrom igraph degree unfold_tree components induced_subgraph vertex_attr vertex_attr<- is.directed simplify
+graph_to_tree <- function(graph, mode) {
+    if (!is.directed(graph)) {
+        stop('Graph must be directed')
+    }
+    graph <- simplify(graph, edge.attr.comb = 'first')
+    parentDir <- if (mode == 'out') 'in' else 'out'
+    comp <- components(graph, 'weak')
+    graphs <- lapply(seq_len(comp$no), function(i) {
+        graph <- induced_subgraph(graph, which(comp$membership == i))
+        nParents <- degree(graph, mode = parentDir)
+        if (!any(nParents == 0)) {
+            stop('No root in graph. Provide graph with one parentless node')
+        }
+        if (any(nParents > 1)) {
+            message('Multiple parents. Unfolding graph')
+            root <- which(degree(graph, mode = parentDir) == 0)
+            if (length(root) > 1) {
+                message('Multiple roots in graph. Choosing the first')
+                root <- root[1]
+            }
+            tree <- unfold_tree(graph, mode = mode, roots = root)
+            vAttr <- lapply(vertex_attr(graph), `[`, i = tree$vertex_index)
+            vertex_attr(tree$tree) <- vAttr
+            graph <- tree$tree
+        }
+        as_tbl_graph(graph)
+    })
+    do.call(bind_graphs, graphs)
+}
+#' @importFrom igraph gorder as_edgelist delete_vertex_attr is.named
+tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
+    if (is.named(graph)) graph <- delete_vertex_attr(graph, 'name')
+    parentCol <- if (mode == 'out') 1 else 2
+    nodeCol <- if (mode == 'out') 2 else 1
+    edges <- as_edgelist(graph)
+    hierarchy <- data.frame(parent = rep(0, gorder(graph)))
+    hierarchy$parent[edges[, nodeCol]] <- edges[, parentCol]
+    if (is.null(sort.by)) {
+        hierarchy$order <- seq_len(nrow(hierarchy)) + 1
+    } else {
+        hierarchy$order <- order(sort.by) + 1
+    }
+    if (is.null(height)) {
+        hierarchy$height <- 1
+    } else {
+        hierarchy$height <- vertex_attr(graph, height)
+    }
+    leaf <- degree(graph, mode = mode) == 0
+    if (is.null(weight)) {
+        hierarchy$weight <- 0
+        hierarchy$weight[leaf] <- 1
+    } else {
+        if (!is.numeric(weight)) {
+            stop('Weight must be numeric')
+        }
+        hierarchy$weight <- weight
+        if (any(hierarchy$weight[!leaf] != 0)) {
+            message('Non-leaf weights ignored')
+        }
+        if (any(hierarchy$weight[leaf] == 0)) {
+            stop('Leafs must have a weight')
+        }
+        hierarchy$weight[!leaf] <- 0
+    }
+    hierarchy <- hierarchy[c(1, seq_len(nrow(hierarchy))), ]
+    hierarchy$parent[1] <- -1
+    hierarchy$order[1] <- 1
+    hierarchy
+}
+#' @importFrom igraph bfs degree gorder
+node_depth <- function(graph, mode) {
+    mode_rev <- switch(
+        mode,
+        `in` = 'out',
+        out = 'in',
+        stop('unknown mode')
+    )
+    root <- which(degree(graph, mode = mode_rev) == 0)
+    depth <- rep(NA_integer_, gorder(graph))
+    for (i in root) {
+        depth[!is.finite(depth)] <- unname(bfs(graph, root = i, unreachable = FALSE, dist = TRUE)$dist)[!is.finite(depth)]
+    }
+    depth
+}
+#' @importFrom rlang .data
+add_direction <- function(graph, pos, direction = 'out') {
+    graph <- activate(graph, 'edges')
+    graph <- mutate(graph, direction = ifelse(pos$x[.data$to] < pos$x[.data$from], 'right', 'left'))
+    if (direction == 'in') {
+        graph <- mutate(graph, ifelse(.data$direction == 'left', 'right', 'left'))
+    }
+    graph <- mutate(graph, direction = factor(.data$direction))
+    graph
+}
+
+igraphlayouts <- c(
+    'as_bipartite',
+    'as_star',
+    'as_tree',
+    'in_circle',
+    'nicely',
+    'with_dh',
+    'with_drl',
+    'with_gem',
+    'with_graphopt',
+    'on_grid',
+    'with_mds',
+    'with_sugiyama',
+    'on_sphere',
+    'randomly',
+    'with_fr',
+    'with_kk',
+    'with_lgl'
+)

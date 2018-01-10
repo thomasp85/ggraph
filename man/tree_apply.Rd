@@ -56,45 +56,4 @@ and \code{tree}, while if \code{direction = 'up'} the parameters are:
 relevant vertices in the graph. If \code{class(tree) == 'dendrogram'} they
 will be the actual dendrogram objects.
 }
-\examples{
-# We'll start with igraph
-require(igraph)
-gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
-
-# Set depth and a class based on the name of the 2nd level node name
-gr <- tree_apply(gr, function(node, parent, depth, tree) {
-  tree <- set_vertex_attr(tree, 'depth', node, depth)
-  if (depth == 1) {
-    tree <- set_vertex_attr(tree, 'Class', node, V(tree)$shortName[node])
-  } else if (depth > 1) {
-    tree <- set_vertex_attr(tree, 'Class', node, V(tree)$Class[parent])
-  }
-  tree
-})
-
-# For dendrograms it's slightly different
-irisDen <- as.dendrogram(hclust(dist(iris[1:4], method='euclidean'),
-                         method='ward.D2'))
-# Add the species information to the leafs
-irisDen <- dendrapply(irisDen, function(d) {
-  if(is.leaf(d))
-    attr(d, 'nodePar') <- list(species=iris[as.integer(attr(d, 'label')),5])
-  d
-})
-
-# Set class of node to the class of it's children they are of equal class
-irisDen <- tree_apply(irisDen, function(node, children, ...) {
-  if (is.leaf(node)) {
-    attr(node, 'Class') <- attr(node, 'nodePar')$species
-  } else {
-    classes <- unique(sapply(children, attr, which = 'Class'))
-    if (length(classes) == 1 && !anyNA(classes)) {
-      attr(node, 'Class') <- classes
-    } else {
-      attr(node, 'Class') <- NA
-    }
-  }
-  node
-}, direction = 'up')
-
-}
+\keyword{internal}

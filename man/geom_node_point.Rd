@@ -62,9 +62,9 @@ automatically set, but can be overridden.
 }
 
 \examples{
-require(igraph)
-gr <- make_graph('bull')
-V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
+require(tidygraph)
+gr <- create_notable('bull') \%>\%
+  mutate(class = sample(letters[1:3], n(), replace = TRUE))
 
 ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point()
 

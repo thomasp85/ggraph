@@ -170,8 +170,8 @@ aesthetics.
 }
 
 \examples{
-require(igraph)
-gr <- graph_from_data_frame(
+require(tidygraph)
+gr <- as_tbl_graph(
   data.frame(from=c(1,1,2,2,3,3,3), to=c(1,2,2,3,3,1,2))
 )
 

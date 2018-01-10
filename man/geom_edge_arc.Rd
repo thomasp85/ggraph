@@ -93,7 +93,7 @@ to the paired geom/stat.}
 }
 \description{
 This geom is mainly intended for arc linear and circular diagrams (i.e. used
-together with \code{\link{layout_igraph_linear}}), though it can be used
+together with \code{\link{layout_tbl_graph_linear}}), though it can be used
 elsewere. It draws edges as arcs with a hight proportional to the distance
 between the nodes. Arcs are calculated as beziers. For linear layout the
 placement of control points are related to the \code{curvature} argument and
@@ -197,13 +197,15 @@ aesthetics.
 }
 
 \examples{
-require(igraph)
+require(tidygraph)
 # Make a graph with different directions of edges
-gr <- graph_from_edgelist(
-  t(apply(as_edgelist(make_graph('Meredith')), 1, sample))
-)
-E(gr)$class <- sample(letters[1:3], gsize(gr), replace = TRUE)
-V(gr)$class <- sample(letters[1:3], gorder(gr), replace = TRUE)
+gr <- create_notable('Meredith') \%>\%
+  convert(to_directed) \%>\%
+  mutate(class = sample(letters[1:3], n(), replace = TRUE)) \%>\%
+  activate(edges) \%>\%
+  mutate(class = sample(letters[1:3], n(), replace = TRUE),
+         switch = sample(c(TRUE, FALSE), n(), replace = TRUE)) \%>\%
+  reroute(from = to, to = from, subset = switch)
 
 ggraph(gr, 'linear') +
   geom_edge_arc(aes(alpha = ..index..))

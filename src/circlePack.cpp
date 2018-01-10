@@ -406,7 +406,7 @@ int findTopNode(std::vector<NodePack*>& nodes) {
 //' Pack circles together
 //'
 //' This function is a direct interface to the circle packing algorithm used by
-//' \code{\link{layout_igraph_circlepack}}. It takes a vector of sizes and
+//' \code{\link{layout_tbl_graph_circlepack}}. It takes a vector of sizes and
 //' returns the x and y position of each circle as a two-column matrix.
 //'
 //' @param areas A vector of circle areas

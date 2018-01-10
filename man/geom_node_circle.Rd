@@ -66,9 +66,11 @@ automatically set, but can be overridden.
 }
 
 \examples{
-require(igraph)
-gr <- graph_from_data_frame(flare$edges, vertices = flare$vertices)
-ggraph(gr, 'circlepack', weight = 'size') + geom_node_circle() + coord_fixed()
+require(tidygraph)
+gr <- tbl_graph(flare$vertices, flare$edges)
+ggraph(gr, 'circlepack', weight = size) +
+  geom_node_circle() +
+  coord_fixed()
 
 }
 \seealso{
