@@ -224,7 +224,8 @@ Other geom_edge_*: \code{\link{geom_edge_density}},
   \code{\link{geom_edge_fan}},
   \code{\link{geom_edge_hive}},
   \code{\link{geom_edge_link}},
-  \code{\link{geom_edge_loop}}
+  \code{\link{geom_edge_loop}},
+  \code{\link{geom_edge_point}}
 }
 \author{
 Thomas Lin Pedersen

@@ -65,6 +65,7 @@ Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
   \code{\link{layout_tbl_graph_igraph}},
   \code{\link{layout_tbl_graph_linear}},
   \code{\link{layout_tbl_graph_manual}},
+  \code{\link{layout_tbl_graph_matrix}},
   \code{\link{layout_tbl_graph_partition}},
   \code{\link{layout_tbl_graph_treemap}}
 }
