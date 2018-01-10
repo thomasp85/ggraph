@@ -34,7 +34,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
 getEdges.layout_tbl_graph <- function(layout) {
     gr <- attr(layout, 'graph')
     edges <- as_tibble(gr, active = 'edges')
-    edges$circular <- attr(layout, 'circular')
+    edges$circular <- rep(attr(layout, 'circular'), nrow(edges))
     as.data.frame(edges)
 }
 #' @importFrom igraph shortest_paths
