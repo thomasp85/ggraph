@@ -1,13 +1,17 @@
 #' @rdname ggraph
 #' @aliases layout_tbl_graph
 #'
+#' @importFrom igraph gorder
 #' @export
 #'
 create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
     graph <- mutate(activate(graph, 'nodes'), .ggraph.orig_index = seq_len(graph_order()))
     graph <- prepare_graph(graph, layout, ...)
     .register_graph_context(graph, free = TRUE)
-    if (inherits(layout, 'function')) {
+    if (gorder(graph) == 0) {
+        layout <- data.frame(x = numeric(), y = numeric(), circular = logical())
+        layout <- cbind(layout, .N())
+    } else if (inherits(layout, 'function')) {
         layout <- layout(graph, circular = circular, ...)
     } else if (inherits(layout, 'character')) {
         if (is.igraphlayout(layout)) {
