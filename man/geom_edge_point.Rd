@@ -89,7 +89,6 @@ ggraph(gr, 'matrix', sort.by = node_rank_hclust()) +
   geom_edge_point(aes(colour = edge_group), mirror = TRUE, edge_size = 3) +
   scale_y_reverse() +
   coord_fixed() +
-  theme_graph() +
   labs(edge_colour = 'Infomap Cluster') +
   ggtitle("Zachary' Karate Club")
 
