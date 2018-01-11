@@ -38,7 +38,7 @@ A ggproto object inheriting from \code{Scale}
 }
 \description{
 This set of scales defines new alpha scales for edge geoms equivalent to the
-ones already defined by ggplot2. See \code{\link[ggplot2]{scale_alpha}} for
+ones already defined by ggplot2. See \code{\link[ggplot2:scale_alpha]{ggplot2::scale_alpha()}} for
 more information. The different geoms will know whether to use edge scales or
 the standard scales so it is not necessary to write \code{edge_alpha} in
 the call to the geom - just use \code{alpha}.

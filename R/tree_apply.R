@@ -7,33 +7,33 @@
 #' have already been through the function.
 #'
 #' @details The function is called with a set of predifined parameters along
-#' with user defined ones. If \code{direction = 'down'} The parameters supplied
-#' automatically to the function are: \code{node}, \code{parent}, \code{depth}
-#' and \code{tree}, while if \code{direction = 'up'} the parameters are:
-#' \code{node}, \code{children}, \code{depth} and \code{tree}. The nature of
-#' \code{node}, \code{parent} and \code{children} depends on the class of
-#' \code{tree}. If \code{class(tree) == 'igraph'} they will be indices of the
-#' relevant vertices in the graph. If \code{class(tree) == 'dendrogram'} they
+#' with user defined ones. If `direction = 'down'` The parameters supplied
+#' automatically to the function are: `node`, `parent`, `depth`
+#' and `tree`, while if `direction = 'up'` the parameters are:
+#' `node`, `children`, `depth` and `tree`. The nature of
+#' `node`, `parent` and `children` depends on the class of
+#' `tree`. If `class(tree) == 'igraph'` they will be indices of the
+#' relevant vertices in the graph. If `class(tree) == 'dendrogram'` they
 #' will be the actual dendrogram objects.
 #'
 #' @param tree A tree-like object. Currently support for igraph objects
 #'
 #' @param FUN The function to apply to each node. The function must return a
-#' modified version of the graph if \code{class(tree) == 'igraph'} or a modified
-#' version of the node if \code{class(tree) == 'dendrogram'}
+#' modified version of the graph if `class(tree) == 'igraph'` or a modified
+#' version of the node if `class(tree) == 'dendrogram'`
 #'
-#' @param direction The direction of the recursion. If \code{direction = 'down'}
+#' @param direction The direction of the recursion. If `direction = 'down'`
 #' The parent will get handled before the children, while the reverse is true if
-#' \code{direction = 'up'}
+#' `direction = 'up'`
 #'
-#' @param mode For \code{class(tree) == 'igraph'} the directionality of the
-#' edges in the graph. If \code{mode = 'out'} then parents points towards their
-#' children, while the reverse is true for \code{mode = 'in'}
+#' @param mode For `class(tree) == 'igraph'` the directionality of the
+#' edges in the graph. If `mode = 'out'` then parents points towards their
+#' children, while the reverse is true for `mode = 'in'`
 #'
-#' @param ... Additional parameters to \code{FUN}
+#' @param ... Additional parameters to `FUN`
 #'
-#' @return A modified version of \code{tree} (if anything is modified in
-#' \code{FUN})
+#' @return A modified version of `tree` (if anything is modified in
+#' `FUN`)
 #'
 #' @keywords internal
 #'

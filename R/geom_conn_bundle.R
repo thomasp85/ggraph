@@ -11,7 +11,7 @@
 #'
 #' @note In order to avoid excessive typing edge aesthetic names are
 #' automatically expanded. Because of this it is not necessary to write
-#' \code{edge_colour} within the \code{aes()} call as \code{colour} will
+#' `edge_colour` within the `aes()` call as `colour` will
 #' automatically be renamed appropriately.
 #'
 #' @section Aesthetics:
@@ -39,7 +39,7 @@
 #' @inheritParams geom_edge_link
 #' @inheritParams ggplot2::geom_path
 #'
-#' @param data The result of a call to \code{\link{get_con}}
+#' @param data The result of a call to [get_con()]
 #'
 #' @param tension How "loose" should the bundles be. 1 will give very tight
 #' bundles, while 0 will turn of bundling completely and give straight lines.
@@ -50,10 +50,10 @@
 #' @family geom_conn_*
 #'
 #' @references
-#' Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
-#' of adjacency relations in hierarchical data.} IEEE Transactions on
-#' Visualization and Computer Graphics, \strong{12}(5), 741-748.
-#' http://doi.org/10.1109/TVCG.2006.147
+#' Holten, D. (2006). *Hierarchical edge bundles: visualization
+#' of adjacency relations in hierarchical data.* IEEE Transactions on
+#' Visualization and Computer Graphics, **12**(5), 741-748.
+#' <http://doi.org/10.1109/TVCG.2006.147>
 #'
 #' @examples
 #' # Create a graph of the flare class system

@@ -2,10 +2,10 @@
 #'
 #' This function returns another function that can extract edges from a
 #' ggraph_layout object. The functionality of the returned function is decided
-#' by the arguments to \code{get_edges}. The need for \code{get_edges} is mainly to
-#' pass to the \code{data} argument of the different \code{geom_edge_*}
+#' by the arguments to `get_edges`. The need for `get_edges` is mainly to
+#' pass to the `data` argument of the different `geom_edge_*`
 #' functions in order to present them with the right kind of data. In general
-#' each \code{geom_edge_*} has the default set correctly so there is only need
+#' each `geom_edge_*` has the default set correctly so there is only need
 #' to modify the data argument if parallel edges should be collapsed.
 #'
 #' @details
@@ -14,18 +14,18 @@
 #'
 #' \describe{
 #'   \item{short}{In this format each edge is described in one line in the
-#'   format expected for \code{\link[ggplot2]{geom_segment}}, that is, the start
-#'   node position is encoded in the \code{x} and \code{y} column and the end
-#'   node position is encoded in the \code{xend} and \code{yend} column. If node
+#'   format expected for [ggplot2::geom_segment()], that is, the start
+#'   node position is encoded in the `x` and `y` column and the end
+#'   node position is encoded in the `xend` and `yend` column. If node
 #'   parameters are added to the edge the name of the parameters will be
-#'   prefixed with \code{node1.} for the start node and \code{node2.} for the
+#'   prefixed with `node1.` for the start node and `node2.` for the
 #'   end node.}
 #'   \item{long}{In this format each edge consists of two rows with matching
-#'   \code{edge.id} value. The start and end position are both encoded in the
-#'   \code{x} and \code{y} column. The relative position of the rows determines
+#'   `edge.id` value. The start and end position are both encoded in the
+#'   `x` and `y` column. The relative position of the rows determines
 #'   which is the start and end node, the first occuring being the start node.
 #'   If node parameters are added to the edge data the name of the parameters
-#'   will be prefixed with \code{node.}.}
+#'   will be prefixed with `node.`.}
 #' }
 #'
 #' Node parameters are automatically added so it is possible to format edge
@@ -41,11 +41,11 @@
 #' needed it is suggested that the graph be tidied up before plotting with
 #' ggraph.
 #'
-#' @param format Either \code{'short'} (the default) or \code{'long'}. See
+#' @param format Either `'short'` (the default) or `'long'`. See
 #' details for a descriptions of the differences
 #'
-#' @param collapse Either \code{'none'} (the default), \code{'all'} or
-#' \code{'direction'}. Specifies whether parallel edges should be merged. See
+#' @param collapse Either `'none'` (the default), `'all'` or
+#' `'direction'`. Specifies whether parallel edges should be merged. See
 #' details for more information
 #'
 #' @param ... Additional data that will be cbind'ed together with the returned
@@ -53,17 +53,17 @@
 #'
 #' @return A data.frame with columns dependent on format as well as the graph
 #' type. In addition to the columns discussed in the details section,
-#' the data.frame will always contain the columns \code{from}, \code{to} and
-#' \code{circular}, the two former giving the indexes of the start and end node
+#' the data.frame will always contain the columns `from`, `to` and
+#' `circular`, the two former giving the indexes of the start and end node
 #'  and the latter if the layout is circular (needed for correct formatting of
-#'  some \code{geom_edge_*}). The graph dependent information is:
+#'  some `geom_edge_*`). The graph dependent information is:
 #'
 #' \describe{
-#'   \item{dendrogram}{A \code{label} column will hold the value of the
-#'   \code{edgetext} attribute. In addition any value stored in the
-#'   \code{edgePar} attribute will be added. Lastly a \code{direction} column
+#'   \item{dendrogram}{A `label` column will hold the value of the
+#'   `edgetext` attribute. In addition any value stored in the
+#'   `edgePar` attribute will be added. Lastly a `direction` column
 #'   will hold the relative position between the start and end nodes (needed for
-#'   correct formatting of \code{\link{geom_edge_elbow}}).}
+#'   correct formatting of [geom_edge_elbow()]).}
 #'   \item{igraph}{All edge attributes of the original graph object is added as
 #'   columns to the data.frame}
 #' }

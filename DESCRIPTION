@@ -48,3 +48,4 @@ Depends:
 VignetteBuilder: knitr
 URL: https://github.com/thomasp85/ggraph
 BugReports: https://github.com/thomasp85/ggraph/issues
+Roxygen: list(markdown = TRUE)

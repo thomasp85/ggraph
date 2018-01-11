@@ -1,27 +1,24 @@
 #' Show edges as a density map
 #'
 #' This geom makes it possible to add a layer showing edge presence as a density
-#' map. Each edge is converted to \code{n} points along the line and a jitter is
+#' map. Each edge is converted to `n` points along the line and a jitter is
 #' applied. Based on this dataset a two-dimensional kernel density estimation is
 #' applied and plotted as a raster image. The density is mapped to the alpha
 #' level, making it possible to map a variable to the fill.
 #'
-#' @note In order to avoid excessive typing edge aesthetic names are
-#' automatically expanded. Because of this it is not necessary to write
-#' \code{edge_colour} within the \code{aes()} call as \code{colour} will
-#' automatically be renamed appropriately.
+#' @inheritSection geom_edge_link Edge aesthetic name expansion
 #'
 #' @section Aesthetics:
-#' geom_edge_density understand the following aesthetics. Bold aesthetics are
+#' `geom_edge_density` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden.
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{\strong{xend}}
-#'  \item{\strong{yend}}
-#'  \item{edge_fill}
-#'  \item{filter}
-#' }
+#'
+#' **x**
+#' **y**
+#' **xend**
+#' **yend**
+#' edge_fill
+#' filter
+#'
 #'
 #' @section Computed variables:
 #'

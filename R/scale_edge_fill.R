@@ -4,9 +4,9 @@
 #' ones already defined by ggplot2. The parameters are equivalent to the ones
 #' from ggplot2 so there is nothing new under the sun. The different geoms will
 #' know whether to use edge scales or the standard scales so it is not necessary
-#' to write \code{edge_fill} in the call to the geom - just use \code{fill}.
+#' to write `edge_fill` in the call to the geom - just use `fill`.
 #'
-#' @return A ggproto object inheriting from \code{Scale}
+#' @return A ggproto object inheriting from `Scale`
 #'
 #' @family scale_edge_*
 #'

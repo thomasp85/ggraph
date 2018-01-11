@@ -3,39 +3,35 @@
 #' This geom draws edges as glyphs with their x-position defined by the
 #' x-position of the start node, and the y-position defined by the y-position of
 #' the end node. As such it will result in a matrix layout when used in
-#' conjunction with \code{\link{layout_tbl_graph_matrix}}
+#' conjunction with [layout_tbl_graph_matrix()]
 #'
-#' @note In order to avoid excessive typing edge aesthetic names are
-#' automatically expanded. Because of this it is not necessary to write
-#' \code{edge_colour} within the \code{aes()} call as \code{colour} will
-#' automatically be renamed appropriately.
+#' @inheritSection geom_edge_link Edge aesthetic name expansion
 #'
 #' @section Aesthetics:
-#' geom_edge_point understands the following
+#' `geom_edge_point` understands the following
 #' aesthetics. Bold aesthetics are automatically set, but can be overridden.
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{edge_shape}
-#'  \item{edge_colour}
-#'  \item{edge_size}
-#'  \item{edge_alpha}
-#'  \item{filter}
-#' }
+#'
+#' - **x**
+#' - **y**
+#' - edge_shape
+#' - edge_colour
+#' - edge_size
+#' - edge_alpha
+#' - filter
 #'
 #' @inheritParams ggplot2::geom_point
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+#' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
+#' or [ggplot2::aes_()]. By default x, y, xend, yend, group and
 #' circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 #' data.
 #'
-#' @param data The return of a call to \code{get_edges()} or a data.frame
+#' @param data The return of a call to `get_edges()` or a data.frame
 #' giving edges in corrent format (see details for for guidance on the format).
-#' See \code{\link{get_edges}} for more details on edge extraction.
+#' See [get_edges()] for more details on edge extraction.
 #'
 #' @param mirror Logical. Should edge points be duplicated on both sides of the
-#' diagonal. Intended for undirected graphs. Default to \code{FALSE}
+#' diagonal. Intended for undirected graphs. Default to `FALSE`
 #'
 #' @author Thomas Lin Pedersen
 #'

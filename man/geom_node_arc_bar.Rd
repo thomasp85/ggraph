@@ -8,8 +8,8 @@ geom_node_arc_bar(mapping = NULL, data = NULL, position = "identity",
   show.legend = NA, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x and y are mapped to x0 and y0 in
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x and y are mapped to x0 and y0 in
 the node data.}
 
 \item{data}{The data to be displayed in this layer. There are three
@@ -41,29 +41,29 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 }
 \description{
-This geom is equivalent in functionality to \code{\link[ggforce]{geom_arc_bar}}
+This geom is equivalent in functionality to \code{\link[ggforce:geom_arc_bar]{ggforce::geom_arc_bar()}}
 and allows for plotting of nodes as arcs with an inner and outer radius
 scaled by the coordinate system. Its main use is currently in sunburst plots
 as created with circular partition layouts
 }
 \section{Aesthetics}{
 
-geom_node_point understand the following aesthetics. Bold aesthetics are
+\code{geom_node_point} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.
 \itemize{
- \item{\strong{x0}}
- \item{\strong{y0}}
- \item{\strong{r0}}
- \item{\strong{r}}
- \item{\strong{start}}
- \item{\strong{end}}
- \item{alpha}
- \item{colour}
- \item{fill}
- \item{shape}
- \item{size}
- \item{stroke}
- \item{filter}
+\item \strong{x0}
+\item \strong{y0}
+\item \strong{r0}
+\item \strong{r}
+\item \strong{start}
+\item \strong{end}
+\item alpha
+\item colour
+\item fill
+\item shape
+\item size
+\item stroke
+\item filter
 }
 }
 

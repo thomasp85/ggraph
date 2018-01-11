@@ -38,9 +38,9 @@ given.}
 \item{label}{The text to be enclosed}
 
 \item{padding}{extra size to be added around the text using the
-\code{\link[ggplot2]{margin}} function}
+\code{\link[ggplot2:margin]{ggplot2::margin()}} function}
 
-\item{...}{Passed on to \code{\link[grid]{gpar}}}
+\item{...}{Passed on to \code{\link[grid:gpar]{grid::gpar()}}}
 
 \item{x}{An object to test for geometry inheritance}
 }

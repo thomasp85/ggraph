@@ -1,36 +1,36 @@
 #' Apply a dendrogram layout to layout_tbl_graph
 #'
-#' This layout mimicks the \code{\link[igraph]{layout_as_tree}} algorithm
+#' This layout mimicks the [igraph::layout_as_tree()] algorithm
 #' supplied by igraph, but puts all leaves at 0 and builds it up from there,
 #' instead of starting from the root and building it from there. The height of
 #' branch points are related to the maximum distance to an edge from the branch
 #' node, or read from a node variable.
 #'
 #' @note This function is not intended to be used directly but by setting
-#' \code{layout = 'dendrogram'} in \code{\link{create_layout}}
+#' `layout = 'dendrogram'` in [create_layout()]
 #'
-#' @param graph A tbl_graph object
+#' @param graph A `tbl_graph` object
 #'
 #' @param circular Logical. Should the layout be transformed to a circular
-#' representation. Defaults to \code{FALSE}.
+#' representation. Defaults to `FALSE`.
 #'
-#' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
-#' \code{pi/2} which is equivalent to 12 o'clock.
+#' @param offset If `circular = TRUE`, where should it begin. Defaults to
+#' `pi/2` which is equivalent to 12 o'clock.
 #'
 #' @param height The node variable holding the height of each node in the
-#' dendrogram. If \code{NA} it will be calculated as the maximal distance to a
+#' dendrogram. If `NA` it will be calculated as the maximal distance to a
 #' leaf.
 #'
 #' @param repel Should leafs repel each other relative to the height of their
 #' common ancestor. Will emphasize clusters
 #'
-#' @param ratio The strength of repulsion. Higher values will give more defined
-#' clusters
+#' @param ratio The strength of repulsion if `repel = TRUE`. Higher values will
+#' give more defined clusters
 #'
 #' @param direction The direction to the leaves. Defaults to 'out'
 #'
-#' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} and
-#' \code{leaf} as well as any information stored as node variables on the
+#' @return A data.frame with the columns `x`, `y`, `circular`, `depth` and
+#' `leaf` as well as any information stored as node variables on the
 #' tbl_graph
 #'
 #' @family layout_tbl_graph_*

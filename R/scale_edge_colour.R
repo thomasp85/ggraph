@@ -4,9 +4,9 @@
 #' ones already defined by ggplot2. The parameters are equivalent to the ones
 #' from ggplot2 so there is nothing new under the sun. The different geoms will
 #' know whether to use edge scales or the standard scales so it is not necessary
-#' to write \code{edge_colour} in the call to the geom - just use \code{colour}.
+#' to write `edge_colour` in the call to the geom - just use `colour`.
 #'
-#' @return A ggproto object inheriting from \code{Scale}
+#' @return A ggproto object inheriting from `Scale`
 #'
 #' @family scale_edge_*
 #'

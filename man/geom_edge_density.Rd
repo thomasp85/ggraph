@@ -8,14 +8,14 @@ geom_edge_density(mapping = NULL, data = get_edges("short"),
   position = "identity", show.legend = NA, n = 100, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x, y, xend, yend, group and
 circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
 \item{data}{The return of a call to \code{get_edges()} or a data.frame
 giving edges in corrent format (see details for for guidance on the format).
-See \code{\link{get_edges}} for more details on edge extraction.}
+See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -41,33 +41,34 @@ applied. Based on this dataset a two-dimensional kernel density estimation is
 applied and plotted as a raster image. The density is mapped to the alpha
 level, making it possible to map a variable to the fill.
 }
-\note{
-In order to avoid excessive typing edge aesthetic names are
-automatically expanded. Because of this it is not necessary to write
-\code{edge_colour} within the \code{aes()} call as \code{colour} will
-automatically be renamed appropriately.
-}
 \section{Aesthetics}{
 
-geom_edge_density understand the following aesthetics. Bold aesthetics are
+\code{geom_edge_density} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.
-\itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{\strong{xend}}
- \item{\strong{yend}}
- \item{edge_fill}
- \item{filter}
-}
+
+\strong{x}
+\strong{y}
+\strong{xend}
+\strong{yend}
+edge_fill
+filter
 }
 
 \section{Computed variables}{
 
 
 \describe{
- \item{x, y}{The coordinates for each pixel in the raster}
- \item{density}{The density associated with the pixel}
+\item{x, y}{The coordinates for each pixel in the raster}
+\item{density}{The density associated with the pixel}
 }
+}
+
+\section{Edge aesthetic name expansion}{
+
+In order to avoid excessive typing edge aesthetic names are
+automatically expanded. Because of this it is not necessary to write
+\code{edge_colour} within the \code{aes()} call as \code{colour} will
+automatically be renamed appropriately.
 }
 
 \examples{

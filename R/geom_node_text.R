@@ -1,38 +1,37 @@
 #' Annotate nodes with text
 #'
-#' These geoms are equivalent in functionality to geom_text and geom_label and
-#' allows for simple annotation of nodes.
+#' These geoms are equivalent in functionality to [ggplot2::geom_text()] and
+#' [ggplot2::geom_label()] and allows for simple annotation of nodes.
 #'
 #' @section Aesthetics:
-#' geom_node_point understand the following aesthetics. Bold aesthetics are
+#' `geom_node_point` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden. Italic aesthetics are required but
 #' not set by default
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{\emph{label}}
-#'  \item{alpha}
-#'  \item{angle}
-#'  \item{colour}
-#'  \item{family}
-#'  \item{fontface}
-#'  \item{hjust}
-#'  \item{lineheight}
-#'  \item{size}
-#'  \item{vjust}
-#' }
+#'
+#' - **x**
+#' - **y**
+#' - *label*
+#' - alpha
+#' - angle
+#' - colour
+#' - family
+#' - fontface
+#' - hjust
+#' - lineheight
+#' - size
+#' - vjust
 #'
 #' @inheritParams ggplot2::geom_text
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. By default x and y are mapped to x and y in
+#' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
+#' or [ggplot2::aes_()]. By default x and y are mapped to x and y in
 #' the node data.
 #'
 #' @param nudge_x,nudge_y Horizontal and vertical adjustment to nudge labels by.
 #' Useful for offsetting text from points, particularly on discrete scales.
 #'
-#' @param repel If \code{TRUE}, text labels will be repelled from each other
-#' to avoid overlapping, using the \code{GeomTextRepel} geom from the
+#' @param repel If `TRUE`, text labels will be repelled from each other
+#' to avoid overlapping, using the `GeomTextRepel` geom from the
 #' ggrepel package.
 #'
 #' @author Thomas Lin Pedersen

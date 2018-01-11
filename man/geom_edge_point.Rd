@@ -8,14 +8,14 @@ geom_edge_point(mapping = NULL, data = get_edges(), position = "identity",
   mirror = FALSE, show.legend = NA, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x, y, xend, yend, group and
 circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
 \item{data}{The return of a call to \code{get_edges()} or a data.frame
 giving edges in corrent format (see details for for guidance on the format).
-See \code{\link{get_edges}} for more details on edge extraction.}
+See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -38,27 +38,29 @@ to the paired geom/stat.}
 This geom draws edges as glyphs with their x-position defined by the
 x-position of the start node, and the y-position defined by the y-position of
 the end node. As such it will result in a matrix layout when used in
-conjunction with \code{\link{layout_tbl_graph_matrix}}
+conjunction with \code{\link[=layout_tbl_graph_matrix]{layout_tbl_graph_matrix()}}
 }
-\note{
+\section{Aesthetics}{
+
+\code{geom_edge_point} understands the following
+aesthetics. Bold aesthetics are automatically set, but can be overridden.
+\itemize{
+\item \strong{x}
+\item \strong{y}
+\item edge_shape
+\item edge_colour
+\item edge_size
+\item edge_alpha
+\item filter
+}
+}
+
+\section{Edge aesthetic name expansion}{
+
 In order to avoid excessive typing edge aesthetic names are
 automatically expanded. Because of this it is not necessary to write
 \code{edge_colour} within the \code{aes()} call as \code{colour} will
 automatically be renamed appropriately.
-}
-\section{Aesthetics}{
-
-geom_edge_point understands the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
-\itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{edge_shape}
- \item{edge_colour}
- \item{edge_size}
- \item{edge_alpha}
- \item{filter}
-}
 }
 
 \examples{

@@ -18,12 +18,12 @@ geom_conn_bundle0(mapping = NULL, data = get_con(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, tension = 0.8, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x, y, xend, yend, group and
 circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
-\item{data}{The result of a call to \code{\link{get_con}}}
+\item{data}{The result of a call to \code{\link[=get_con]{get_con()}}}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -70,15 +70,15 @@ automatically be renamed appropriately.
 geom_conn_bundle* understands the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.
 \itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{\strong{group}}
- \item{\strong{circular}}
- \item{edge_colour}
- \item{edge_width}
- \item{edge_linetype}
- \item{edge_alpha}
- \item{filter}
+\item{\strong{x}}
+\item{\strong{y}}
+\item{\strong{group}}
+\item{\strong{circular}}
+\item{edge_colour}
+\item{edge_width}
+\item{edge_linetype}
+\item{edge_alpha}
+\item{filter}
 }
 }
 
@@ -86,7 +86,7 @@ automatically set, but can be overridden.
 
 
 \describe{
- \item{index}{The position along the path (not computed for the *0 version)}
+\item{index}{The position along the path (not computed for the *0 version)}
 }
 }
 
@@ -117,7 +117,7 @@ ggraph(flareGraph, 'dendrogram', circular = TRUE) +
 Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
 of adjacency relations in hierarchical data.} IEEE Transactions on
 Visualization and Computer Graphics, \strong{12}(5), 741-748.
-http://doi.org/10.1109/TVCG.2006.147
+\url{http://doi.org/10.1109/TVCG.2006.147}
 }
 \author{
 Thomas Lin Pedersen

@@ -1,42 +1,30 @@
-#' @rdname ggraph-extensions
-#' @format NULL
-#' @usage NULL
-#' @export
-#'
-GeomNodeTile <- ggproto('GeomNodeTile', GeomTile,
-    default_aes = aes(fill = NA, colour = 'black', size = 0.5, linetype = 1,
-                      alpha = NA, width = 1, height = 1),
-    required_aes = c('x', 'y')
-)
-
 #' Draw the rectangles in a treemap
 #'
 #' A treemap is a space filling layout that recursively divides a rectangle to
 #' the children of the node. Often only the leaf nodes are drawn as nodes higher
-#' up in the hierarchy would obscure what is below. \code{geom_treemap} is a
-#' shorthand for \code{geom_node_treemap} as node is implicit in the case of
+#' up in the hierarchy would obscure what is below. `geom_treemap` is a
+#' shorthand for `geom_node_treemap` as node is implicit in the case of
 #' treemap drawing
 #'
 #' @section Aesthetics:
-#' geom_treemap understand the following aesthetics. Bold aesthetics are
+#' `geom_treemap` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden.
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{\strong{width}}
-#'  \item{\strong{height}}
-#'  \item{alpha}
-#'  \item{colour}
-#'  \item{fill}
-#'  \item{size}
-#'  \item{stroke}
-#'  \item{filter}
-#' }
+#'
+#' - **x**
+#' - **y**
+#' - **width**
+#' - **height**
+#' - alpha
+#' - colour
+#' - fill
+#' - size
+#' - stroke
+#' - filter
 #'
 #' @inheritParams ggplot2::geom_tile
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. By default x, y, width and height are mapped to
+#' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
+#' or [ggplot2::aes_()]. By default x, y, width and height are mapped to
 #' x, y, width and height in the node data.
 #'
 #' @author Thomas Lin Pedersen
@@ -84,3 +72,14 @@ geom_node_treemap <- function(mapping = NULL, data = NULL, position = "identity"
 #' @usage NULL
 #' @export
 geom_treemap <- geom_node_treemap
+
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @export
+#'
+GeomNodeTile <- ggproto('GeomNodeTile', GeomTile,
+    default_aes = aes(fill = NA, colour = 'black', size = 0.5, linetype = 1,
+                      alpha = NA, width = 1, height = 1),
+    required_aes = c('x', 'y')
+)

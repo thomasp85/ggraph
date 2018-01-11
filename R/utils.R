@@ -10,8 +10,8 @@
 #'
 #' @param xend,yend The end position of the edge
 #'
-#' @param degrees Logical. Should the angle be returned in degree (\code{TRUE})
-#' or radians (\code{FALSE}). Defaults to \code{TRUE}.
+#' @param degrees Logical. Should the angle be returned in degree (`TRUE`)
+#' or radians (`FALSE`). Defaults to `TRUE`.
 #'
 #' @return A vector with the angle of each node/edge
 #'

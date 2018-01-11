@@ -19,7 +19,7 @@
 #'
 #' \strong{Algorithms}
 #'
-#' \emph{Split} (default)
+#' *Split* (default)
 #'
 #' The Split algorithm was developed by Bjorn Engdahl in order to address the
 #' downsides of both the original slice-and-dice algorithm (poor aspect ratio)
@@ -33,7 +33,8 @@
 #' Treemap is a layout intended for trees, that is, graphs where nodes
 #' only have one parent and zero or more children. If the provided graph does
 #' not fit this format an attempt to convert it to such a format will be made.
-#' @param graph An igraph object
+#'
+#' @param graph An `tbl_graph` object
 #'
 #' @param algorithm The name of the tiling algorithm to use. Defaults to 'split'
 #'
@@ -46,25 +47,25 @@
 #'
 #' @param sort.by The name of a node variables to sort the nodes by.
 #'
-#' @param direction The direction of the tree in the graph. \code{'out'} (default)
-#' means that parents point towards their children, while \code{'in'} means that
+#' @param direction The direction of the tree in the graph. `'out'` (default)
+#' means that parents point towards their children, while `'in'` means that
 #' children point towards their parent.
 #'
 #' @param height The height of the bounding rectangle
 #'
 #' @param width The width of the bounding rectangle
 #'
-#' @return A data.frame with the columns \code{x}, \code{y}, \code{width},
-#' \code{height}, \code{leaf}, \code{depth}, \code{circular} as well as any
+#' @return A data.frame with the columns `x`, `y`, `width`,
+#' `height`, `leaf`, `depth`, `circular` as well as any
 #' information stored as node variables in the tbl_graph object.
 #'
 #' @references
-#' Engdahl, B. (2005). \emph{Ordered and unordered treemap algorithms and their
-#' applications on handheld devices}. Master's Degree Project.
+#' Engdahl, B. (2005). *Ordered and unordered treemap algorithms and their
+#' applications on handheld devices*. Master's Degree Project.
 #'
-#' Johnson, B., & Ben Shneiderman. (1991). \emph{Tree maps: A Space-Filling
-#' Approach to the Visualization of Hierarchical Information Structures}. IEEE
-#' Visualization, 284-291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
+#' Johnson, B., & Ben Shneiderman. (1991). *Tree maps: A Space-Filling
+#' Approach to the Visualization of Hierarchical Information Structures*. IEEE
+#' Visualization, 284-291. <http://doi.org/10.1109/VISUAL.1991.175815>
 #'
 #' @family layout_tbl_graph_*
 #'

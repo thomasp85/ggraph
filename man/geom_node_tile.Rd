@@ -10,8 +10,8 @@ geom_node_tile(mapping = NULL, data = NULL, position = "identity",
   show.legend = NA, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x, y, width and height are mapped to
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x, y, width and height are mapped to
 x, y, width and height in the node data.}
 
 \item{data}{The data to be displayed in this layer. There are three
@@ -51,19 +51,19 @@ treemap drawing
 }
 \section{Aesthetics}{
 
-geom_treemap understand the following aesthetics. Bold aesthetics are
+\code{geom_treemap} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.
 \itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{\strong{width}}
- \item{\strong{height}}
- \item{alpha}
- \item{colour}
- \item{fill}
- \item{size}
- \item{stroke}
- \item{filter}
+\item \strong{x}
+\item \strong{y}
+\item \strong{width}
+\item \strong{height}
+\item alpha
+\item colour
+\item fill
+\item size
+\item stroke
+\item filter
 }
 }
 

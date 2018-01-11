@@ -1,95 +1,58 @@
 #' Draw edges as diagonals
 #'
 #' This geom draws edges as diagonal bezier curves as known from
-#' \href{https://github.com/mbostock/d3/wiki/SVG-Shapes#_diagonal}{d3.svg.diagonal}.
+#' [d3.svg.diagonal](https://github.com/mbostock/d3/wiki/SVG-Shapes#_diagonal).
 #' A diagonal in this context is a quadratic bezier with the control points
 #' positioned halfway between the start and end points but on the same axis.
 #' This produces a pleasing fan-in, fan-out line that is mostly relevant for
 #' heirarchical layouts as it implies an overall directionality in the plot.
 #'
-#' @details
-#' Many geom_edge_* layers comes in 3 flavors depending on the level of control
-#' needed over the drawing. The default (no numeric postfix) generate a number
-#' of points (\code{n}) along the edge and draws it as a path. Each point along
-#' the line has a numeric value associated with it giving the position along the
-#' path, and it is therefore possible to show the direction of the edge by
-#' mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
-#' "2" uses the "long" edge format (see \code{\link{get_edges}}) and makes it
-#' possible to interpolate node parameter between the start and end node along
-#' the edge. It is considerable less performant so should only be used if this
-#' is needed. The version postfixed with a "0" draws the edge in the most
-#' performant way, often directly using an appropriate grob from the grid
-#' package, but does not allow for gradients along the edge.
-#'
-#' Often it is beneficial to stop the drawing of the edge before it reaches the
-#' node, for instance in cases where an arrow should be drawn and the arrowhead
-#' shouldn't lay ontop or below the node point. geom_edge_* and geom_edge_*2
-#' supports this through the start_cap and end_cap aesthetics that takes a
-#' \code{\link{geometry}} specification and dynamically caps the termini of the
-#' edges based on the given specifications. This means that if
-#' \code{end_cap = circle(1, 'cm')} the edges will end at a distance of 1cm even
-#' during resizing of the plot window.
-#'
-#' All \code{geom_edge_*} and \code{geom_edge_*2} have the ability to draw a
-#' label along the edge. The reason this is not a separate geom is that in order
-#' for the label to know the location of the edge it needs to know the edge type
-#' etc. Labels are drawn by providing a label aesthetic. The label_pos can be
-#' used to specify where along the edge it should be drawn by supplying a number
-#' between 0 and 1. The label_size aesthetic can be used to control the size of
-#' the label. Often it is needed to have the label written along the direction
-#' of the edge, but since the actual angle is dependent on the plot dimensions
-#' this cannot be calculated beforehand. Using the angle_calc argument allows
-#' you to specify whether to use the supplied angle aesthetic or whether to draw
-#' the label along or across the edge.
-#'
-#' @note In order to avoid excessive typing edge aesthetic names are
-#' automatically expanded. Because of this it is not necessary to write
-#' \code{edge_colour} within the \code{aes()} call as \code{colour} will
-#' automatically be renamed appropriately.
+#' @inheritSection geom_edge_link Edge variants
+#' @inheritSection geom_edge_link Edge aesthetic name expansion
 #'
 #' @section Aesthetics:
-#' geom_edge_diagonal and geom_edge_diagonal0 understand the following
+#' `geom_edge_diagonal` and `geom_edge_diagonal0` understand the following
 #' aesthetics. Bold aesthetics are automatically set, but can be overridden.
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{\strong{xend}}
-#'  \item{\strong{yend}}
-#'  \item{\strong{circular}}
-#'  \item{edge_colour}
-#'  \item{edge_width}
-#'  \item{edge_linetype}
-#'  \item{edge_alpha}
-#'  \item{filter}
-#' }
-#' geom_edge_diagonal2 understand the following aesthetics. Bold aesthetics are
+#'
+#' - **x**
+#' - **y**
+#' - **xend**
+#' - **yend**
+#' - **circular**
+#' - edge_colour
+#' - edge_width
+#' - edge_linetype
+#' - edge_alpha
+#' - filter
+#'
+#' `geom_edge_diagonal2` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden.
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{\strong{group}}
-#'  \item{\strong{circular}}
-#'  \item{edge_colour}
-#'  \item{edge_width}
-#'  \item{edge_linetype}
-#'  \item{edge_alpha}
-#'  \item{filter}
-#' }
-#' geom_edge_diagonal and geom_edge_diagonal2 furthermore takes the following
+#'
+#' - **x**
+#' - **y**
+#' - **group**
+#' - **circular**
+#' - edge_colour
+#' - edge_width
+#' - edge_linetype
+#' - edge_alpha
+#' - filter
+#'
+#' `geom_edge_diagonal` and `geom_edge_diagonal2` furthermore takes the following
 #' aesthetics.
-#' \itemize{
-#'   \item{start_cap}
-#'   \item{end_cap}
-#'   \item{label}
-#'   \item{label_pos}
-#'   \item{label_size}
-#'   \item{angle}
-#'   \item{hjust}
-#'   \item{vjust}
-#'   \item{family}
-#'   \item{fontface}
-#'   \item{lineheight}
-#' }
+#'
+#' - start_cap
+#' - end_cap
+#' - label
+#' - label_pos
+#' - label_size
+#' - angle
+#' - hjust
+#' - vjust
+#' - family
+#' - fontface
+#' - lineheight
+#'
 #'
 #' @section Computed variables:
 #'

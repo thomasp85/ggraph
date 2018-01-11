@@ -6,7 +6,7 @@
 #' @inheritParams ggplot2::guide_colourbar
 #'
 #' @param arrow Logical. Should an arrow be drawn to illustrate the direction.
-#' Defaults to \code{TRUE}
+#' Defaults to `TRUE`
 #'
 #' @param arrow.position The position of the arrow relative to the example edge.
 #'

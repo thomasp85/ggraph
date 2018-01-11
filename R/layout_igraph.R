@@ -2,10 +2,10 @@
 #'
 #' This layout function makes it easy to apply one of the layout algorithms
 #' supplied in igraph when plotting with ggraph. Layout names are auto completed
-#' so there is no need to write \code{layout_with_graphopt} or
-#' \code{layout_as_tree}, just \code{graphopt} and \code{tree} (though the
+#' so there is no need to write `layout_with_graphopt` or
+#' `layout_as_tree`, just `graphopt` and `tree` (though the
 #' former will also work if you want to be super explicit). Circular layout is
-#' only supported for tree-like layout (\code{tree} and \code{sugiyama}) and
+#' only supported for tree-like layout (`tree` and `sugiyama`) and
 #' will throw an error when applied to other layouts.
 #'
 #' @details
@@ -15,75 +15,75 @@
 #' \strong{Hierarchical layouts}
 #'
 #' \describe{
-#'   \item{\code{tree}}{Uses the \emph{Reingold-Tilford} algorithm to place the
+#'   \item{`tree`}{Uses the *Reingold-Tilford* algorithm to place the
 #'   nodes below their parent with the parent centered above its children. See
-#'   \code{\link[igraph]{as_tree}}}
-#'   \item{\code{sugiyama}}{Designed for directed acyclic graphs (that is,
+#'   [igraph::as_tree()]}
+#'   \item{`sugiyama`}{Designed for directed acyclic graphs (that is,
 #'   hierarchies where multiple parents are allowed) it minimizes the number of
-#'   crossing edges. See \code{\link[igraph]{with_sugiyama}}}
+#'   crossing edges. See [igraph::with_sugiyama()]}
 #' }
 #'
 #' \strong{Standard layouts}
 #'
 #' \describe{
-#'   \item{\code{bipartite}}{Minimize edge-crossings in a simple two-row (or
-#'   column) layout for bipartite graphs. See \code{\link[igraph]{as_bipartite}}}
-#'   \item{\code{star}}{Place one node in the center and the rest equidistantly
-#'   around it. See \code{\link[igraph]{as_star}}}
-#'   \item{\code{circle}}{Place nodes in a circle in the order of their index.
-#'   Consider using \code{\link{layout_tbl_graph_linear}} with \code{circular=TRUE}
-#'   for more control. See \code{\link[igraph]{in_circle}}}
-#'   \item{\code{nicely}}{Tries to pick an appropriate layout. See
-#'   \code{\link[igraph]{nicely}} for a description of the simpe decision tree
+#'   \item{`bipartite`}{Minimize edge-crossings in a simple two-row (or
+#'   column) layout for bipartite graphs. See [igraph::as_bipartite()]}
+#'   \item{`star`}{Place one node in the center and the rest equidistantly
+#'   around it. See [igraph::as_star()]}
+#'   \item{`circle`}{Place nodes in a circle in the order of their index.
+#'   Consider using [layout_tbl_graph_linear()] with `circular=TRUE`
+#'   for more control. See [igraph::in_circle()]}
+#'   \item{`nicely`}{Tries to pick an appropriate layout. See
+#'   [igraph::nicely()] for a description of the simpe decision tree
 #'   it uses}
-#'   \item{\code{dh}}{Uses \emph{Davidson and Harels} simulated annealing
-#'   algorithm to place nodes. See \code{\link[igraph]{with_dh}}}
-#'   \item{\code{gem}}{Place nodes on the plane using the GEM force-directed
-#'   layout algorithm. See \code{\link[igraph]{with_gem}}}
-#'   \item{\code{graphopt}}{Uses the Graphopt algorithm based on alternating
+#'   \item{`dh`}{Uses *Davidson and Harels* simulated annealing
+#'   algorithm to place nodes. See [igraph::with_dh()]}
+#'   \item{`gem`}{Place nodes on the plane using the GEM force-directed
+#'   layout algorithm. See [igraph::with_gem()]}
+#'   \item{`graphopt`}{Uses the Graphopt algorithm based on alternating
 #'   attraction and repulsion to place nodes. See
-#'   \code{\link[igraph]{with_graphopt}}}
-#'   \item{\code{grid}}{Place nodes on a rectangular grid. See
-#'   \code{\link[igraph]{on_grid}}}
-#'   \item{\code{mds}}{Perform a multidimensional scaling of nodes using either
+#'   [igraph::with_graphopt()]}
+#'   \item{`grid`}{Place nodes on a rectangular grid. See
+#'   [igraph::on_grid()]}
+#'   \item{`mds`}{Perform a multidimensional scaling of nodes using either
 #'   the shortest path or a user supplied distance. See
-#'   \code{\link[igraph]{with_mds}}}
-#'   \item{\code{sphere}}{Place nodes uniformly on a sphere - less relevant for
-#'   2D visualizations of networks. See \code{\link[igraph]{on_sphere}}}
-#'   \item{\code{randomly}}{Places nodes uniformly random. See
-#'   \code{\link[igraph]{randomly}}}
-#'   \item{\code{fr}}{Places nodes according to the force-directed algorithm of
-#'   Fruchterman and Reingold. See \code{\link[igraph]{with_fr}}}
-#'   \item{\code{kk}}{Uses the spring-based algorithm by Kamada and Kawai to
-#'   place nodes. See \code{\link[igraph]{with_kk}}}
-#'   \item{\code{drl}}{Uses the force directed algorithm from the DrL toolbox to
-#'   place nodes. See \code{\link[igraph]{with_drl}}}
-#'   \item{\code{lgl}}{Uses the algorithm from Large Graph Layout to place
-#'   nodes. See \code{\link[igraph]{with_lgl}}}
+#'   [igraph::with_mds()]}
+#'   \item{`sphere`}{Place nodes uniformly on a sphere - less relevant for
+#'   2D visualizations of networks. See [igraph::on_sphere()]}
+#'   \item{`randomly`}{Places nodes uniformly random. See
+#'   [igraph::randomly()]}
+#'   \item{`fr`}{Places nodes according to the force-directed algorithm of
+#'   Fruchterman and Reingold. See [igraph::with_fr()]}
+#'   \item{`kk`}{Uses the spring-based algorithm by Kamada and Kawai to
+#'   place nodes. See [igraph::with_kk()]}
+#'   \item{`drl`}{Uses the force directed algorithm from the DrL toolbox to
+#'   place nodes. See [igraph::with_drl()]}
+#'   \item{`lgl`}{Uses the algorithm from Large Graph Layout to place
+#'   nodes. See [igraph::with_lgl()]}
 #' }
 #'
 #' @note This function is not intended to be used directly but by setting
-#' \code{layout = 'igraph'} in \code{\link{create_layout}}
+#' `layout = 'igraph'` in [create_layout()]
 #'
-#' @param graph A \code{tbl_graph} object.
+#' @param graph A `tbl_graph` object.
 #'
-#' @param algorithm The type of layout algorithm to apply. See
-#' \code{\link[igraph]{layout_}} for links to the layouts supplied by igraph.
+#' @param algorithm The type of layout algorithm to apply. See *Details* or
+#' [igraph::layout_()] for links to the layouts supplied by igraph.
 #'
 #' @param circular Logical. Should the layout be transformed to a circular
-#' representation. Defaults to \code{FALSE}. Only applicable to
-#' \code{algorithm = 'tree'} and \code{algorithm = 'sugiyama'}.
+#' representation. Defaults to `FALSE`. Only applicable to
+#' `algorithm = 'tree'` and `algorithm = 'sugiyama'`.
 #'
-#' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
-#' \code{pi/2} which is equivalent to 12 o'clock.
+#' @param offset If `circular = TRUE`, where should it begin. Defaults to
+#' `pi/2` which is equivalent to 12 o'clock.
 #'
-#' @param use.dummy Logical. In the case of \code{algorithm = 'sugiyama'} should the
+#' @param use.dummy Logical. In the case of `algorithm = 'sugiyama'` should the
 #' dummy-infused graph be used rather than the original. Defaults to
-#' \code{FALSE}.
+#' `FALSE`.
 #'
 #' @param ... Arguments passed on to the respective layout functions
 #'
-#' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} as
+#' @return A data.frame with the columns `x`, `y`, `circular` as
 #' well as any information stored as node variables in the tbl_graph object.
 #'
 #' @family layout_tbl_graph_*

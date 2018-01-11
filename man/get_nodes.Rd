@@ -20,7 +20,7 @@ ggraph_layout object. As a ggraph_layout object is essentially a data.frame
 of nodes it might seem useless to provide this function, but since the node
 data is not necessarily available until after the \code{ggraph()} call it
 can be beneficial to be able to add information to the node data on a
-per-layer basis. Unlike \code{\link{get_edges}} the use of \code{get_nodes} is not
+per-layer basis. Unlike \code{\link[=get_edges]{get_edges()}} the use of \code{get_nodes} is not
 mandatory and is only required if additional data should be added to selected
 node layers.
 }

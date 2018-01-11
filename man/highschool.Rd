@@ -6,9 +6,9 @@
 \title{Friendship among high school boys}
 \format{The graph is stored as an unnamed edgelist with a year attribute.
 \describe{
- \item{from}{The boy answering the question}
- \item{to}{The boy being the answer to the question}
- \item{year}{The year the friendship was reported}
+\item{from}{The boy answering the question}
+\item{to}{The boy being the answer to the question}
+\item{year}{The year the friendship was reported}
 }}
 \source{
 Coleman, J. S. \emph{Introduction to Mathermatical Sociology}. New York: Free

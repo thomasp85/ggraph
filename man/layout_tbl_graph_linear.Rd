@@ -8,7 +8,7 @@ layout_tbl_graph_linear(graph, circular, sort.by = NULL,
   use.numeric = FALSE, offset = pi/2)
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An \code{tbl_graph} object}
 
 \item{circular}{Logical. Should the layout be transformed to a circular
 representation. Defaults to \code{FALSE}.}

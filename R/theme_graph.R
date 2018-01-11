@@ -1,7 +1,7 @@
 #' A theme tuned for graph visualizations
 #'
 #' When plotting graphs, networks, and trees the coordinate values are often of
-#' no importance and axes are thus a distraction. \code{ggraph} comes with a
+#' no importance and axes are thus a distraction. `ggraph` comes with a
 #' build-in theme that removes redundant elements in order to put focus on the
 #' data. Furthermore the default behaviour is to use a narrow font so text takes
 #' up less space. Theme colour is defined by a background and foreground colour
@@ -9,28 +9,28 @@
 #' foreground defines the colour of the strip and border. By default strip and
 #' border is turned off as it is an unnecessary element unless facetting is
 #' used. To add a foreground colour to a plot that is already using
-#' \code{theme_graph} the \code{th_foreground} helper is provided. In order to
-#' use this appearance as default use the \code{set_graph_style} function. An
+#' `theme_graph` the `th_foreground` helper is provided. In order to
+#' use this appearance as default use the `set_graph_style` function. An
 #' added benefit of this is that it also changes the default text-related values
 #' in the different geoms for a completely coherent look.
-#' \code{unset_graph_style} can be used to revert the defaults back to their
+#' `unset_graph_style` can be used to revert the defaults back to their
 #' default settings (that is, they are not necessarily reverted back to what
-#' they were prior to calling \code{set_graph_style}).
+#' they were prior to calling `set_graph_style`).
 #'
 #' @param background The colour to use for the background. This theme sets all
-#' background elements except for plot.background to \code{element_blank} so
-#' this controls the background for all elements of the plot. Set to \code{NA}
+#' background elements except for plot.background to `element_blank` so
+#' this controls the background for all elements of the plot. Set to `NA`
 #' to remove the background (thus making the plot transparent)
 #'
 #' @param foreground The colour of foreground elements, specifically strip and
-#' border. Set to \code{NA} to remove.
+#' border. Set to `NA` to remove.
 #'
 #' @param border Logical. Should border be drawn if a foreground colour is
 #' provided?
 #'
 #' @param family,base_family,title_family,subtitle_family,strip_text_family,caption_family The font to use for the different elements
 #'
-#' @param base_size,size,text_size,title_size,subtitle_size,strip_text_size,caption_size The size to use for the various text elements. \code{text_size} will be used as geom defaults
+#' @param base_size,size,text_size,title_size,subtitle_size,strip_text_size,caption_size The size to use for the various text elements. `text_size` will be used as geom defaults
 #'
 #' @param face,title_face,subtitle_face,strip_text_face,caption_face The fontface to use for the various text elements
 #'
@@ -121,7 +121,7 @@ th_foreground <- function(foreground = 'grey80', fg_text_colour = NULL, border =
 }
 #' @rdname theme_graph
 #'
-#' @param ... Parameters passed on the \code{theme_graph}
+#' @param ... Parameters passed on the `theme_graph`
 #'
 #' @export
 set_graph_style <- function(family = 'Arial Narrow', face = 'plain', size = 11,

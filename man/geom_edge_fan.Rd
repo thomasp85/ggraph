@@ -24,21 +24,21 @@ geom_edge_fan0(mapping = NULL, data = get_edges(), position = "identity",
   arrow = NULL, spread = 1, lineend = "butt", show.legend = NA, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x, y, xend, yend, group and
 circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
 \item{data}{The return of a call to \code{get_edges()} or a data.frame
 giving edges in corrent format (see details for for guidance on the format).
-See \code{\link{get_edges}} for more details on edge extraction.}
+See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}}
 
-\item{spread}{Modify the width of the fans \code{spread > 1} will create
+\item{spread}{Modify the width of the fans \code{spread &gt; 1} will create
 wider fans while the reverse will make them more narrow.}
 
 \item{n}{The number of points to create along the path.}
@@ -56,7 +56,7 @@ the colour of the edge.}
 the opacity of the edge.}
 
 \item{label_parse}{If \code{TRUE}, the labels will be parsed into expressions
-and displayed as described in \code{\link[grDevices]{plotmath}}.}
+and displayed as described in \code{\link[grDevices:plotmath]{grDevices::plotmath()}}.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted.}
@@ -69,10 +69,10 @@ edge direction.}
 \item{force_flip}{Logical. If \code{angle_calc} is either 'along' or 'across'
 should the label be flipped if it is on it's head. Default to \code{TRUE}.}
 
-\item{label_dodge}{A \code{\link[grid]{unit}} giving a fixed vertical shift
+\item{label_dodge}{A \code{\link[grid:unit]{grid::unit()}} giving a fixed vertical shift
 to add to the label in case of \code{angle_calc} is either 'along' or 'across'}
 
-\item{label_push}{A \code{\link[grid]{unit}} giving a fixed horizontal shift
+\item{label_push}{A \code{\link[grid:unit]{grid::unit()}} giving a fixed horizontal shift
 to add to the label in case of \code{angle_calc} is either 'along' or 'across'}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
@@ -91,19 +91,78 @@ This geom draws edges as cubic beziers with the control point positioned
 half-way between the nodes and at an angle dependent on the presence of
 parallel edges. This results in parallel edges being drawn in a
 non-overlapping fashion resembling the standard approach used in
-\code{\link[igraph]{plot.igraph}}. Before calculating the curvature the edges
+\code{\link[igraph:plot.igraph]{igraph::plot.igraph()}}. Before calculating the curvature the edges
 are sorted by direction so that edges goind the same way will be adjacent.
 This geom is currently the only choice for non-simple graphs if edges should
 not be overplotted.
 }
-\details{
+\section{Aesthetics}{
+
+\code{geom_edge_fan} and \code{geom_edge_fan0} understand the following
+aesthetics. Bold aesthetics are automatically set, but can be overridden.
+\itemize{
+\item \strong{x}
+\item \strong{y}
+\item \strong{xend}
+\item \strong{yend}
+\item \strong{from}
+\item \strong{to}
+\item edge_colour
+\item edge_width
+\item edge_linetype
+\item edge_alpha
+\item filter
+}
+
+\code{geom_edge_fan2} understand the following aesthetics. Bold aesthetics are
+automatically set, but can be overridden.
+\itemize{
+\item \strong{x}
+\item \strong{y}
+\item \strong{group}
+\item \strong{from}
+\item \strong{to}
+\item edge_colour
+\item edge_width
+\item edge_linetype
+\item edge_alpha
+\item filter
+}
+
+\code{geom_edge_fan} and \code{geom_edge_fan2} furthermore takes the following
+aesthetics.
+\itemize{
+\item start_cap
+\item end_cap
+\item label
+\item label_pos
+\item label_size
+\item angle
+\item hjust
+\item vjust
+\item family
+\item fontface
+\item lineheight
+}
+}
+
+\section{Computed variables}{
+
+
+\describe{
+\item{index}{The position along the path (not computed for the *0 version)}
+}
+}
+
+\section{Edge variants}{
+
 Many geom_edge_* layers comes in 3 flavors depending on the level of control
 needed over the drawing. The default (no numeric postfix) generate a number
 of points (\code{n}) along the edge and draws it as a path. Each point along
 the line has a numeric value associated with it giving the position along the
 path, and it is therefore possible to show the direction of the edge by
 mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
-"2" uses the "long" edge format (see \code{\link{get_edges}}) and makes it
+"2" uses the "long" edge format (see \code{\link[=get_edges]{get_edges()}}) and makes it
 possible to interpolate node parameter between the start and end node along
 the edge. It is considerable less performant so should only be used if this
 is needed. The version postfixed with a "0" draws the edge in the most
@@ -114,7 +173,7 @@ Often it is beneficial to stop the drawing of the edge before it reaches the
 node, for instance in cases where an arrow should be drawn and the arrowhead
 shouldn't lay ontop or below the node point. geom_edge_* and geom_edge_*2
 supports this through the start_cap and end_cap aesthetics that takes a
-\code{\link{geometry}} specification and dynamically caps the termini of the
+\code{\link[=geometry]{geometry()}} specification and dynamically caps the termini of the
 edges based on the given specifications. This means that if
 \code{end_cap = circle(1, 'cm')} the edges will end at a distance of 1cm even
 during resizing of the plot window.
@@ -131,66 +190,13 @@ this cannot be calculated beforehand. Using the angle_calc argument allows
 you to specify whether to use the supplied angle aesthetic or whether to draw
 the label along or across the edge.
 }
-\note{
+
+\section{Edge aesthetic name expansion}{
+
 In order to avoid excessive typing edge aesthetic names are
 automatically expanded. Because of this it is not necessary to write
 \code{edge_colour} within the \code{aes()} call as \code{colour} will
 automatically be renamed appropriately.
-}
-\section{Aesthetics}{
-
-geom_edge_fan and geom_edge_fan0 understand the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
-\itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{\strong{xend}}
- \item{\strong{yend}}
- \item{\strong{from}}
- \item{\strong{to}}
- \item{edge_colour}
- \item{edge_width}
- \item{edge_linetype}
- \item{edge_alpha}
- \item{filter}
-}
-geom_edge_fan2 understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
-\itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{\strong{group}}
- \item{\strong{from}}
- \item{\strong{to}}
- \item{edge_colour}
- \item{edge_width}
- \item{edge_linetype}
- \item{edge_alpha}
- \item{filter}
-}
-geom_edge_fan and geom_edge_fan2 furthermore takes the following
-aesthetics.
-\itemize{
-  \item{start_cap}
-  \item{end_cap}
-  \item{label}
-  \item{label_pos}
-  \item{label_size}
-  \item{angle}
-  \item{hjust}
-  \item{vjust}
-  \item{family}
-  \item{fontface}
-  \item{lineheight}
-}
-}
-
-\section{Computed variables}{
-
-
-\describe{
- \item{index}{The position along the path (not computed for the *0 version)}
-}
 }
 
 \examples{

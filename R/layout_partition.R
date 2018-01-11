@@ -1,7 +1,7 @@
 #' Calculate nodes as areas dividing their parent
 #'
 #' The partition layout is a way to show hierarchical data in the same way as
-#' \code{\link{layout_tbl_graph_treemap}}. Instead of subdividing the parent area
+#' [layout_tbl_graph_treemap()]. Instead of subdividing the parent area
 #' the partition layout shows the division of a nodes children next to the area
 #' of the node itself. As such the node positions will be very reminicent of
 #' a reingold-tilford tree layout but by plotting nodes as areas it better
@@ -14,44 +14,44 @@
 #' only have one parent and zero or more children. If the provided graph does
 #' not fit this format an attempt to convert it to such a format will be made.
 #'
-#' @param graph An igraph object
+#' @param graph An `tbl_graph` object
 #'
 #' @param weight An optional node variable to use as weight. Will only affect
 #' the weight of leaf nodes as the weight of non-leaf nodes are derived from
 #' their children.
 #'
 #' @param circular Logical. Should the layout be transformed to a circular
-#' representation. If \code{TRUE} the resulting layout will be a sunburst
+#' representation. If `TRUE` the resulting layout will be a sunburst
 #' diagram.
 #'
-#' @param height An optional node variable to use as height. If \code{NULL}
+#' @param height An optional node variable to use as height. If `NULL`
 #' all nodes will be given a height of 1.
 #'
 #' @param sort.by The name of a node variable to sort the nodes by.
 #'
-#' @param direction The direction of the tree in the graph. \code{'out'} (default)
-#' means that parents point towards their children, while \code{'in'} means that
+#' @param direction The direction of the tree in the graph. `'out'` (default)
+#' means that parents point towards their children, while `'in'` means that
 #' children point towards their parent.
 #'
 #' @param const.area Logical. Should 'height' be scaled for area proportionality
-#' when using \code{circular = TRUE}. Defaults to \code{TRUE}.
+#' when using `circular = TRUE`. Defaults to `TRUE`.
 #'
-#' @param offset If \code{circular = TRUE}, where should it begin. Defaults to
-#' \code{pi/2} which is equivalent to 12 o'clock.
+#' @param offset If `circular = TRUE`, where should it begin. Defaults to
+#' `pi/2` which is equivalent to 12 o'clock.
 #'
-#' @return If \code{circular = FALSE} A data.frame with the columns \code{x},
-#' \code{y}, \code{width}, \code{height}, \code{leaf},
-#' \code{depth}, \code{circular} as well as any information stored as node
+#' @return If `circular = FALSE` A data.frame with the columns `x`,
+#' `y`, `width`, `height`, `leaf`,
+#' `depth`, `circular` as well as any information stored as node
 #' variables in the tbl_graph object.
-#' If \code{circular = TRUE} A data.frame with the columns \code{x}, \code{y},
-#' \code{r0}, \code{r}, \code{start}, \code{end}, \code{leaf},
-#' \code{depth}, \code{circular} as well as any information stored as node
+#' If `circular = TRUE` A data.frame with the columns `x`, `y`,
+#' `r0`, `r`, `start`, `end`, `leaf`,
+#' `depth`, `circular` as well as any information stored as node
 #' variables in the tbl_graph object.
 #'
 #' @references
-#' Kruskal, J. B., Landwehr, J. M. (1983). \emph{Icicle Plots: Better Displays
-#' for Hierarchical Clustering}. American Statistician Vol 37(2), 162-168.
-#' \url{http://doi.org/10.2307/2685881}
+#' Kruskal, J. B., Landwehr, J. M. (1983). *Icicle Plots: Better Displays
+#' for Hierarchical Clustering*. American Statistician Vol 37(2), 162-168.
+#' <http://doi.org/10.2307/2685881>
 #'
 #' @family layout_tbl_graph_*
 #'

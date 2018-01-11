@@ -3,14 +3,14 @@
 #' This geom draws edges in the simplest way - as straight lines between the
 #' start and end nodes. Not much more to say about that...
 #'
-#' @details
+#' @section Edge variants:
 #' Many geom_edge_* layers comes in 3 flavors depending on the level of control
 #' needed over the drawing. The default (no numeric postfix) generate a number
-#' of points (\code{n}) along the edge and draws it as a path. Each point along
+#' of points (`n`) along the edge and draws it as a path. Each point along
 #' the line has a numeric value associated with it giving the position along the
 #' path, and it is therefore possible to show the direction of the edge by
-#' mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
-#' "2" uses the "long" edge format (see \code{\link{get_edges}}) and makes it
+#' mapping to this e.g. `colour = ..index..`. The version postfixed with a
+#' "2" uses the "long" edge format (see [get_edges()]) and makes it
 #' possible to interpolate node parameter between the start and end node along
 #' the edge. It is considerable less performant so should only be used if this
 #' is needed. The version postfixed with a "0" draws the edge in the most
@@ -21,12 +21,12 @@
 #' node, for instance in cases where an arrow should be drawn and the arrowhead
 #' shouldn't lay ontop or below the node point. geom_edge_* and geom_edge_*2
 #' supports this through the start_cap and end_cap aesthetics that takes a
-#' \code{\link{geometry}} specification and dynamically caps the termini of the
+#' [geometry()] specification and dynamically caps the termini of the
 #' edges based on the given specifications. This means that if
-#' \code{end_cap = circle(1, 'cm')} the edges will end at a distance of 1cm even
+#' `end_cap = circle(1, 'cm')` the edges will end at a distance of 1cm even
 #' during resizing of the plot window.
 #'
-#' All \code{geom_edge_*} and \code{geom_edge_*2} have the ability to draw a
+#' All `geom_edge_*` and `geom_edge_*2` have the ability to draw a
 #' label along the edge. The reason this is not a separate geom is that in order
 #' for the label to know the location of the edge it needs to know the edge type
 #' etc. Labels are drawn by providing a label aesthetic. The label_pos can be
@@ -38,52 +38,52 @@
 #' you to specify whether to use the supplied angle aesthetic or whether to draw
 #' the label along or across the edge.
 #'
-#' @note In order to avoid excessive typing edge aesthetic names are
+#' @section Edge aesthetic name expansion:
+#' In order to avoid excessive typing edge aesthetic names are
 #' automatically expanded. Because of this it is not necessary to write
-#' \code{edge_colour} within the \code{aes()} call as \code{colour} will
+#' `edge_colour` within the `aes()` call as `colour` will
 #' automatically be renamed appropriately.
 #'
 #' @section Aesthetics:
-#' geom_edge_link and geom_edge_link0 understand the following
+#' `geom_edge_link` and `geom_edge_link0` understand the following
 #' aesthetics. Bold aesthetics are automatically set, but can be overridden.
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{\strong{xend}}
-#'  \item{\strong{yend}}
-#'  \item{edge_colour}
-#'  \item{edge_width}
-#'  \item{edge_linetype}
-#'  \item{edge_alpha}
-#'  \item{filter}
-#' }
-#' geom_edge_link2 understand the following aesthetics. Bold aesthetics are
+#'
+#' - **x**
+#' - **y**
+#' - **xend**
+#' - **yend**
+#' - edge_colour
+#' - edge_width
+#' - edge_linetype
+#' - edge_alpha
+#' - filter
+#'
+#' `geom_edge_link2` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden.
-#' \itemize{
-#'  \item{\strong{x}}
-#'  \item{\strong{y}}
-#'  \item{\strong{group}}
-#'  \item{edge_colour}
-#'  \item{edge_width}
-#'  \item{edge_linetype}
-#'  \item{edge_alpha}
-#'  \item{filter}
-#' }
-#' geom_edge_link and geom_edge_link2 furthermore takes the following
+#'
+#' - **x**
+#' - **y**
+#' - **group**
+#' - edge_colour
+#' - edge_width
+#' - edge_linetype
+#' - edge_alpha
+#' - filter
+#'
+#' `geom_edge_link` and `geom_edge_link2` furthermore takes the following
 #' aesthetics.
-#' \itemize{
-#'   \item{start_cap}
-#'   \item{end_cap}
-#'   \item{label}
-#'   \item{label_pos}
-#'   \item{label_size}
-#'   \item{angle}
-#'   \item{hjust}
-#'   \item{vjust}
-#'   \item{family}
-#'   \item{fontface}
-#'   \item{lineheight}
-#' }
+#'
+#' - start_cap
+#' - end_cap
+#' - label
+#' - label_pos
+#' - label_size
+#' - angle
+#' - hjust
+#' - vjust
+#' - family
+#' - fontface
+#' - lineheight
 #'
 #' @section Computed variables:
 #'
@@ -94,39 +94,39 @@
 #' @inheritParams ggplot2::geom_path
 #' @inheritParams ggplot2::geom_text
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+#' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
+#' or [ggplot2::aes_()]. By default x, y, xend, yend, group and
 #' circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 #' data.
 #'
-#' @param data The return of a call to \code{get_edges()} or a data.frame
+#' @param data The return of a call to `get_edges()` or a data.frame
 #' giving edges in corrent format (see details for for guidance on the format).
-#' See \code{\link{get_edges}} for more details on edge extraction.
+#' See [get_edges()] for more details on edge extraction.
 #'
 #' @param n The number of points to create along the path.
 #'
-#' @param label_colour The colour of the edge label. If \code{NA} it will use
+#' @param label_colour The colour of the edge label. If `NA` it will use
 #' the colour of the edge.
 #'
-#' @param label_alpha The opacity of the edge label. If \code{NA} it will use
+#' @param label_alpha The opacity of the edge label. If `NA` it will use
 #' the opacity of the edge.
 #'
-#' @param label_parse If \code{TRUE}, the labels will be parsed into expressions
-#' and displayed as described in \code{\link[grDevices]{plotmath}}.
+#' @param label_parse If `TRUE`, the labels will be parsed into expressions
+#' and displayed as described in [grDevices::plotmath()].
 #'
 #' @param angle_calc Either 'none', 'along', or 'across'. If 'none' the label will
 #' use the angle aesthetic of the geom. If 'along' The label will be written
 #' along the edge direction. If 'across' the label will be written across the
 #' edge direction.
 #'
-#' @param force_flip Logical. If \code{angle_calc} is either 'along' or 'across'
-#' should the label be flipped if it is on it's head. Default to \code{TRUE}.
+#' @param force_flip Logical. If `angle_calc` is either 'along' or 'across'
+#' should the label be flipped if it is on it's head. Default to `TRUE`.
 #'
-#' @param label_dodge A \code{\link[grid]{unit}} giving a fixed vertical shift
-#' to add to the label in case of \code{angle_calc} is either 'along' or 'across'
+#' @param label_dodge A [grid::unit()] giving a fixed vertical shift
+#' to add to the label in case of `angle_calc` is either 'along' or 'across'
 #'
-#' @param label_push A \code{\link[grid]{unit}} giving a fixed horizontal shift
-#' to add to the label in case of \code{angle_calc} is either 'along' or 'across'
+#' @param label_push A [grid::unit()] giving a fixed horizontal shift
+#' to add to the label in case of `angle_calc` is either 'along' or 'across'
 #'
 #' @author Thomas Lin Pedersen
 #'

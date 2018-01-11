@@ -96,9 +96,9 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
 #'
 #' @inheritParams ggplot2::geom_point
 #'
-#' @param label Should the axes be labelled. Defaults to \code{TRUE}
+#' @param label Should the axes be labelled. Defaults to `TRUE`
 #'
-#' @param axis Should a rectangle be drawn along the axis. Defaults to \code{TRUE}
+#' @param axis Should a rectangle be drawn along the axis. Defaults to `TRUE`
 #'
 #' @section Aesthetics:
 #' geom_axis_hive understand the following aesthetics.

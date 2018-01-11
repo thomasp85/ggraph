@@ -25,14 +25,14 @@ geom_edge_arc0(mapping = NULL, data = get_edges(), position = "identity",
   fold = fold, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x, y, xend, yend, group and
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x, y, xend, yend, group and
 circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
 \item{data}{The return of a call to \code{get_edges()} or a data.frame
 giving edges in corrent format (see details for for guidance on the format).
-See \code{\link{get_edges}} for more details on edge extraction.}
+See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -61,7 +61,7 @@ the colour of the edge.}
 the opacity of the edge.}
 
 \item{label_parse}{If \code{TRUE}, the labels will be parsed into expressions
-and displayed as described in \code{\link[grDevices]{plotmath}}.}
+and displayed as described in \code{\link[grDevices:plotmath]{grDevices::plotmath()}}.}
 
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted.}
@@ -74,10 +74,10 @@ edge direction.}
 \item{force_flip}{Logical. If \code{angle_calc} is either 'along' or 'across'
 should the label be flipped if it is on it's head. Default to \code{TRUE}.}
 
-\item{label_dodge}{A \code{\link[grid]{unit}} giving a fixed vertical shift
+\item{label_dodge}{A \code{\link[grid:unit]{grid::unit()}} giving a fixed vertical shift
 to add to the label in case of \code{angle_calc} is either 'along' or 'across'}
 
-\item{label_push}{A \code{\link[grid]{unit}} giving a fixed horizontal shift
+\item{label_push}{A \code{\link[grid:unit]{grid::unit()}} giving a fixed horizontal shift
 to add to the label in case of \code{angle_calc} is either 'along' or 'across'}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
@@ -93,7 +93,7 @@ to the paired geom/stat.}
 }
 \description{
 This geom is mainly intended for arc linear and circular diagrams (i.e. used
-together with \code{\link{layout_tbl_graph_linear}}), though it can be used
+together with \code{\link[=layout_tbl_graph_linear]{layout_tbl_graph_linear()}}), though it can be used
 elsewere. It draws edges as arcs with a hight proportional to the distance
 between the nodes. Arcs are calculated as beziers. For linear layout the
 placement of control points are related to the \code{curvature} argument and
@@ -101,14 +101,71 @@ the distance between the two nodes. For circular layout the control points
 are placed on the same angle as the start and end node at a distance related
 to the distance between the nodes.
 }
-\details{
+\section{Aesthetics}{
+
+\code{geom_edge_arc} and \code{geom_edge_arc0} understand the following
+aesthetics. Bold aesthetics are automatically set, but can be overridden.
+\itemize{
+\item \strong{x}
+\item \strong{y}
+\item \strong{xend}
+\item \strong{yend}
+\item \strong{circular}
+\item edge_colour
+\item edge_width
+\item edge_linetype
+\item edge_alpha
+\item filter
+}
+
+\code{geom_edge_arc2} understand the following aesthetics. Bold aesthetics are
+automatically set, but can be overridden.
+\itemize{
+\item \strong{x}
+\item \strong{y}
+\item \strong{group}
+\item \strong{circular}
+\item edge_colour
+\item edge_width
+\item edge_linetype
+\item edge_alpha
+\item filter
+}
+
+\code{geom_edge_arc} and \code{geom_edge_arc2} furthermore takes the following
+aesthetics.
+\itemize{
+\item start_cap
+\item end_cap
+\item label
+\item label_pos
+\item label_size
+\item angle
+\item hjust
+\item vjust
+\item family
+\item fontface
+\item lineheight
+}
+}
+
+\section{Computed variables}{
+
+
+\describe{
+\item{index}{The position along the path (not computed for the *0 version)}
+}
+}
+
+\section{Edge variants}{
+
 Many geom_edge_* layers comes in 3 flavors depending on the level of control
 needed over the drawing. The default (no numeric postfix) generate a number
 of points (\code{n}) along the edge and draws it as a path. Each point along
 the line has a numeric value associated with it giving the position along the
 path, and it is therefore possible to show the direction of the edge by
 mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
-"2" uses the "long" edge format (see \code{\link{get_edges}}) and makes it
+"2" uses the "long" edge format (see \code{\link[=get_edges]{get_edges()}}) and makes it
 possible to interpolate node parameter between the start and end node along
 the edge. It is considerable less performant so should only be used if this
 is needed. The version postfixed with a "0" draws the edge in the most
@@ -119,7 +176,7 @@ Often it is beneficial to stop the drawing of the edge before it reaches the
 node, for instance in cases where an arrow should be drawn and the arrowhead
 shouldn't lay ontop or below the node point. geom_edge_* and geom_edge_*2
 supports this through the start_cap and end_cap aesthetics that takes a
-\code{\link{geometry}} specification and dynamically caps the termini of the
+\code{\link[=geometry]{geometry()}} specification and dynamically caps the termini of the
 edges based on the given specifications. This means that if
 \code{end_cap = circle(1, 'cm')} the edges will end at a distance of 1cm even
 during resizing of the plot window.
@@ -136,64 +193,13 @@ this cannot be calculated beforehand. Using the angle_calc argument allows
 you to specify whether to use the supplied angle aesthetic or whether to draw
 the label along or across the edge.
 }
-\note{
+
+\section{Edge aesthetic name expansion}{
+
 In order to avoid excessive typing edge aesthetic names are
 automatically expanded. Because of this it is not necessary to write
 \code{edge_colour} within the \code{aes()} call as \code{colour} will
 automatically be renamed appropriately.
-}
-\section{Aesthetics}{
-
-geom_edge_arc and geom_edge_arc0 understand the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
-\itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{\strong{xend}}
- \item{\strong{yend}}
- \item{\strong{circular}}
- \item{edge_colour}
- \item{edge_width}
- \item{edge_linetype}
- \item{edge_alpha}
- \item{filter}
-}
-geom_edge_arc2 understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
-\itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{\strong{group}}
- \item{\strong{circular}}
- \item{edge_colour}
- \item{edge_width}
- \item{edge_linetype}
- \item{edge_alpha}
- \item{filter}
-}
-geom_edge_arc and geom_edge_arc2 furthermore takes the following
-aesthetics.
-\itemize{
-  \item{start_cap}
-  \item{end_cap}
-  \item{label}
-  \item{label_pos}
-  \item{label_size}
-  \item{angle}
-  \item{hjust}
-  \item{vjust}
-  \item{family}
-  \item{fontface}
-  \item{lineheight}
-}
-}
-
-\section{Computed variables}{
-
-
-\describe{
- \item{index}{The position along the path (not computed for the *0 version)}
-}
 }
 
 \examples{

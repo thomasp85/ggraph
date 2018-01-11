@@ -6,6 +6,7 @@
 * Changed license to MIT
 * Add matrix layout and `geom_edge_point()` (#23)
 * Fix bug with extracting edges from an empty graph (#76)
+* Update roxygen documentation to use markdown and reduce duplication (#95)
 * Use tidygraph as the central data format. The results of this are several:
 
   - All graph object supported by tidygraph are now supported on even footing in

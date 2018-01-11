@@ -103,6 +103,6 @@ If 0 (default), the order is determined by a secret algorithm.}
 A guide object
 }
 \description{
-This function is equivalent to \code{\link[ggplot2]{guide_colourbar}} but
+This function is equivalent to \code{\link[ggplot2:guide_colourbar]{ggplot2::guide_colourbar()}} but
 works for edge aesthetics.
 }

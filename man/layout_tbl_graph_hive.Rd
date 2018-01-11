@@ -11,7 +11,7 @@ layout_tbl_graph_hive(graph, axis, axis.pos = NULL, sort.by = NULL,
   circular = FALSE)
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An \code{tbl_graph} object}
 
 \item{axis}{The node attribute to use for assigning nodes to axes}
 
@@ -44,9 +44,9 @@ offset of the first axis.}
 \item{split.axes}{Should axes be split to show edges between nodes on the
 same axis? One of:
 \describe{
-  \item{\code{'none'}}{Do not split axes and show in-between edges}
-  \item{\code{'loops'}}{Only split axes that contain in-between edges}
-  \item{\code{'all'}}{Split all axes}
+\item{\code{'none'}}{Do not split axes and show in-between edges}
+\item{\code{'loops'}}{Only split axes that contain in-between edges}
+\item{\code{'all'}}{Split all axes}
 }}
 
 \item{split.angle}{The angular distance between the two axes resulting from a
