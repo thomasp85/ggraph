@@ -270,10 +270,10 @@ createArc <- function(from, to, params) {
         data3$x[!circ] <- data3$x[!circ] + cos(endAngle) * nodeDist[!circ]
         data3$y[!circ] <- data3$y[!circ] + sin(endAngle) * nodeDist[!circ]
         if (params$fold) {
-            data2$x[!circ] <- abs(data2$x[!circ])
-            data2$y[!circ] <- abs(data2$y[!circ])
-            data3$x[!circ] <- abs(data3$x[!circ])
-            data3$y[!circ] <- abs(data3$y[!circ])
+            #data2$x[!circ] <- abs(data2$x[!circ]) * sign(params$curvature)
+            data2$y[!circ] <- abs(data2$y[!circ]) * sign(params$curvature)
+            #data3$x[!circ] <- abs(data3$x[!circ]) * sign(params$curvature)
+            data3$y[!circ] <- abs(data3$y[!circ]) * sign(params$curvature)
         }
     }
     data <- rbind(from, data2, data3, to)
