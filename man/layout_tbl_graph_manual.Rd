@@ -7,7 +7,7 @@
 layout_tbl_graph_manual(graph, x, y, circular)
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An \code{tbl_graph} object}
 
 \item{x, y}{Expressions with the x and y positions of the nodes}
 

@@ -1,14 +1,14 @@
 #' Edge shape scales
 #'
 #' This set of scales defines new shape scales for edge geoms equivalent to the
-#' ones already defined by ggplot2. See \code{\link[ggplot2]{scale_shape}} for
+#' ones already defined by ggplot2. See [ggplot2::scale_shape()] for
 #' more information. The different geoms will know whether to use edge scales or
-#' the standard scales so it is not necessary to write \code{edge_shape} in
-#' the call to the geom - just use \code{shape}.
+#' the standard scales so it is not necessary to write `edge_shape` in
+#' the call to the geom - just use `shape`.
 #'
 #' @param guide Guide to use for this scale.
 #'
-#' @return A ggproto object inheriting from \code{Scale}
+#' @return A ggproto object inheriting from `Scale`
 #'
 #' @family scale_edge_*
 #'

@@ -12,7 +12,7 @@
 #' are added, one by one. This makes the algorithm very dependent on the order
 #' in which circles are added and it is possible that layouts could sometimes
 #' be optimized by choosing a different ordering. The algorithm for finding the
-#' enclosing circle is that randomized incremental algorithm proposed by Emo
+#' enclosing circle is the randomized incremental algorithm proposed by Emo
 #' Welzl. Both of the above algorithms are the same as used in the D3.js
 #' implementation of circle packing and their C++ implementation in ggraph is
 #' inspired by Mike Bostocks JavaScript implementation.
@@ -22,7 +22,7 @@
 #' only have one parent and zero or more children. If the provided graph does
 #' not fit this format an attempt to convert it to such a format will be made.
 #'
-#' @param graph An igraph object
+#' @param graph An `tbl_graph` object
 #'
 #' @param weight An optional node variable to use as weight. Will only affect
 #' the weight of leaf nodes as the weight of non-leaf nodes are derived from
@@ -33,19 +33,19 @@
 #'
 #' @param sort.by The name of a node variable to sort the nodes by.
 #'
-#' @param direction The direction of the tree in the graph. \code{'out'} (default)
-#' means that parents point towards their children, while \code{'in'} means that
+#' @param direction The direction of the tree in the graph. `'out'` (default)
+#' means that parents point towards their children, while `'in'` means that
 #' children point towards their parent.
 #'
-#' @return A data.frame with the columns \code{x}, \code{y}, \code{r}, \code{leaf},
-#' \code{depth}, \code{circular} as well as any information stored as node
+#' @return A data.frame with the columns `x`, `y`, `r`, `leaf`,
+#' `depth`, `circular` as well as any information stored as node
 #' variables in the tbl_graph object.
 #'
 #' @references
-#' Wang, W., Wang, H. H., Dai, G., & Wang, H. (2006). \emph{Visualization of
-#' large hierarchical data by circle packing}. Chi, 517-520.
+#' Wang, W., Wang, H. H., Dai, G., & Wang, H. (2006). *Visualization of
+#' large hierarchical data by circle packing*. Chi, 517-520.
 #'
-#' Welzl, E. (1991). \emph{Smallest enclosing disks (balls and ellipsoids)}. New
+#' Welzl, E. (1991). *Smallest enclosing disks (balls and ellipsoids)*. New
 #' Results and New Trends in Computer Science, 359-370.
 #'
 #' @family layout_tbl_graph_*

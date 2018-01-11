@@ -1,6 +1,6 @@
 #' Create small multiples based on node attributes
 #'
-#' This function is equivalent to \code{\link[ggplot2]{facet_wrap}} but only
+#' This function is equivalent to [ggplot2::facet_wrap()] but only
 #' facets nodes. Edges are drawn if their terminal nodes are both present in a
 #' panel.
 #'

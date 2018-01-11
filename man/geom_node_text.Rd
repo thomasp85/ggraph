@@ -15,8 +15,8 @@ geom_node_label(mapping = NULL, data = NULL, position = "identity",
   show.legend = NA, repel = FALSE, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x and y are mapped to x and y in
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x and y are mapped to x and y in
 the node data.}
 
 \item{data}{The data to be displayed in this layer. There are three
@@ -67,27 +67,27 @@ to the paired geom/stat.}
 \item{label.size}{Size of label border, in mm.}
 }
 \description{
-These geoms are equivalent in functionality to geom_text and geom_label and
-allows for simple annotation of nodes.
+These geoms are equivalent in functionality to \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} and
+\code{\link[ggplot2:geom_label]{ggplot2::geom_label()}} and allows for simple annotation of nodes.
 }
 \section{Aesthetics}{
 
-geom_node_point understand the following aesthetics. Bold aesthetics are
+\code{geom_node_point} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden. Italic aesthetics are required but
 not set by default
 \itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{\emph{label}}
- \item{alpha}
- \item{angle}
- \item{colour}
- \item{family}
- \item{fontface}
- \item{hjust}
- \item{lineheight}
- \item{size}
- \item{vjust}
+\item \strong{x}
+\item \strong{y}
+\item \emph{label}
+\item alpha
+\item angle
+\item colour
+\item family
+\item fontface
+\item hjust
+\item lineheight
+\item size
+\item vjust
 }
 }
 

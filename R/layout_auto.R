@@ -1,7 +1,7 @@
 #' Automatically pick a layout based on graph type
 #'
 #' This function infers the layout from the graph structure and is the default
-#' when calling \code{\link{ggraph}}. If the graph is either a tree or a forest
+#' when calling [ggraph()]. If the graph is either a tree or a forest
 #' the layout will be `dendrogram` if the nodes contains a height variable or
 #' `tree` if not. If the tree is a DAG the `sygiyama` layout will be used.
 #' Otherwise the `nicely` layout will be used.
@@ -9,12 +9,12 @@
 #' @param graph A tbl_graph object
 #'
 #' @param circular Logical. Should the layout be transformed to a circular
-#' representation. Defaults to \code{FALSE}. Only applicable to
-#' \code{algorithm = 'tree'} and \code{algorithm = 'sugiyama'}.
+#' representation. Defaults to `FALSE`. Only applicable if the graph is a tree
+#' structure
 #'
 #' @param ... Arguments passed on to the chosen layout
 #'
-#' @return A data.frame with the columns \code{x}, \code{y}, \code{circular} as
+#' @return A data.frame with the columns `x`, `y`, `circular` as
 #' well as any information stored as node variables in the tbl_graph object.
 #'
 #' @family layout_tbl_graph_*

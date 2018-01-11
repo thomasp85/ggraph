@@ -1,6 +1,6 @@
 #' Colourbar legend for edges
 #'
-#' This function is equivalent to \code{\link[ggplot2]{guide_colourbar}} but
+#' This function is equivalent to [ggplot2::guide_colourbar()] but
 #' works for edge aesthetics.
 #'
 #' @inheritParams ggplot2::guide_colourbar

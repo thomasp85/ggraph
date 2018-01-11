@@ -13,31 +13,31 @@
 #' In order to be able to draw all edges without edges crossing axes you should
 #' not assign nodes to axes based on a variable with more than three levels.
 #'
-#' @param graph An igraph object
+#' @param graph An `tbl_graph` object
 #'
 #' @param axis The node attribute to use for assigning nodes to axes
 #'
 #' @param axis.pos The relative distance to the prior axis. Default
-#' (\code{NULL}) places axes equidistant.
+#' (`NULL`) places axes equidistant.
 #'
 #' @param sort.by The node attribute to use for placing nodes along their axis.
-#' Defaults (\code{NULL}) places nodes sequentially.
+#' Defaults (`NULL`) places nodes sequentially.
 #'
 #' @param divide.by An optional node attribute to subdivide each axis by.
 #'
 #' @param divide.order The order the axis subdivisions should appear in
 #'
 #' @param normalize Logical. Should axis lengths be equal or reflect the number
-#' of nodes in each axis. Defaults to \code{TRUE}.
+#' of nodes in each axis. Defaults to `TRUE`.
 #'
 #' @param center.size The size of the blank center, that is, the start position
 #' of the axes.
 #'
 #' @param divide.size The distance between subdivided axis segments.
 #'
-#' @param use.numeric Logical, If the \code{sort.by} attribute is numeric,
+#' @param use.numeric Logical, If the `sort.by` attribute is numeric,
 #' should these values be used directly in positioning the nodes along the axes.
-#' Defaults to \code{FALSE} which sorts the numeric values and positions them
+#' Defaults to `FALSE` which sorts the numeric values and positions them
 #' equidistant from each other.
 #'
 #' @param offset Change the overall rotation of the hive plot by changing the
@@ -46,9 +46,9 @@
 #' @param split.axes Should axes be split to show edges between nodes on the
 #' same axis? One of:
 #' \describe{
-#'   \item{\code{'none'}}{Do not split axes and show in-between edges}
-#'   \item{\code{'loops'}}{Only split axes that contain in-between edges}
-#'   \item{\code{'all'}}{Split all axes}
+#'   \item{`'none'`}{Do not split axes and show in-between edges}
+#'   \item{`'loops'`}{Only split axes that contain in-between edges}
+#'   \item{`'all'`}{Split all axes}
 #' }
 #'
 #' @param split.angle The angular distance between the two axes resulting from a
@@ -56,17 +56,17 @@
 #'
 #' @param circular Ignored.
 #'
-#' @return A data.frame with the columns \code{x}, \code{y}, \code{r},
-#' \code{centerSize}, \code{split}, \code{axis}, \code{section}, \code{angle},
-#' \code{circular} as well as any information stored as node variables in the
+#' @return A data.frame with the columns `x`, `y`, `r`,
+#' `centerSize`, `split`, `axis`, `section`, `angle`,
+#' `circular` as well as any information stored as node variables in the
 #' tbl_graph object.
 #'
 #' @references
-#' Krzywinski, M., Birol, I., Jones, SJM., and Marra, MA. (2012). \emph{Hive
-#' plots-rational approach to visualizing networks}. Brief Bioinform 13 (5):
-#' 627-644. \url{http://doi.org/10.1093/bib/bbr069}
+#' Krzywinski, M., Birol, I., Jones, SJM., and Marra, MA. (2012). *Hive
+#' plots-rational approach to visualizing networks*. Brief Bioinform 13 (5):
+#' 627-644. <http://doi.org/10.1093/bib/bbr069>
 #'
-#' \url{http://www.hiveplot.net}
+#' <http://www.hiveplot.net>
 #'
 #' @family layout_tbl_graph_*
 #'

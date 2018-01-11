@@ -8,7 +8,7 @@ layout_tbl_graph_dendrogram(graph, circular = FALSE, offset = pi/2,
   height = NA, repel = FALSE, ratio = 1, direction = "out")
 }
 \arguments{
-\item{graph}{A tbl_graph object}
+\item{graph}{A \code{tbl_graph} object}
 
 \item{circular}{Logical. Should the layout be transformed to a circular
 representation. Defaults to \code{FALSE}.}
@@ -23,18 +23,18 @@ leaf.}
 \item{repel}{Should leafs repel each other relative to the height of their
 common ancestor. Will emphasize clusters}
 
-\item{ratio}{The strength of repulsion. Higher values will give more defined
-clusters}
+\item{ratio}{The strength of repulsion if \code{repel = TRUE}. Higher values will
+give more defined clusters}
 
 \item{direction}{The direction to the leaves. Defaults to 'out'}
 }
 \value{
-A data.frame with the columns \code{x}, \code{y}, \code{circular} and
+A data.frame with the columns \code{x}, \code{y}, \code{circular}, \code{depth} and
 \code{leaf} as well as any information stored as node variables on the
 tbl_graph
 }
 \description{
-This layout mimicks the \code{\link[igraph]{layout_as_tree}} algorithm
+This layout mimicks the \code{\link[igraph:layout_as_tree]{igraph::layout_as_tree()}} algorithm
 supplied by igraph, but puts all leaves at 0 and builds it up from there,
 instead of starting from the root and building it from there. The height of
 branch points are related to the maximum distance to an edge from the branch
@@ -42,7 +42,7 @@ node, or read from a node variable.
 }
 \note{
 This function is not intended to be used directly but by setting
-\code{layout = 'dendrogram'} in \code{\link{create_layout}}
+\code{layout = 'dendrogram'} in \code{\link[=create_layout]{create_layout()}}
 }
 \seealso{
 Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},

@@ -1,17 +1,17 @@
 #' Create a grid of small multiples by node and/or edge attributes
 #'
-#' This function is equivalent to \code{\link[ggplot2]{facet_grid}} in that it
+#' This function is equivalent to [ggplot2::facet_grid()] in that it
 #' allows for building a grid of small multiples where rows and columns
-#' correspond to a specific data value. While \code{\link[ggplot2]{facet_grid}}
+#' correspond to a specific data value. While [ggplot2::facet_grid()]
 #' could be used it would lead to unexpected results as it is not possible to
 #' specify whether you are refering to a node or an edge attribute. Furthermore
-#' \code{\link[ggplot2]{facet_grid}} will draw edges in panels even though the
-#' panel does not contain both terminal nodes. \code{facet_graph} takes care of
+#' [ggplot2::facet_grid()] will draw edges in panels even though the
+#' panel does not contain both terminal nodes. `facet_graph` takes care of
 #' all of these issues, allowing you to define which data type the rows and
 #' columns are referencing as well as filtering the edges based on the nodes in
 #' each panel (even when nodes are not drawn).
 #'
-#' @param row_type,col_type Either \code{'node'} or \code{'edge'}. Which data
+#' @param row_type,col_type Either `'node'` or `'edge'`. Which data
 #' type is being facetted in the rows and columns. Default is to facet on nodes
 #' column wise and on edges row wise.
 #'

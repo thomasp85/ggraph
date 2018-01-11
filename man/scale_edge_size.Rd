@@ -104,14 +104,14 @@ A ggproto object inheriting from \code{Scale}
 }
 \description{
 This set of scales defines new size scales for edge geoms equivalent to the
-ones already defined by ggplot2. See \code{\link[ggplot2]{scale_size}} for
+ones already defined by ggplot2. See \code{\link[ggplot2:scale_size]{ggplot2::scale_size()}} for
 more information. The different geoms will know whether to use edge scales or
 the standard scales so it is not necessary to write \code{edge_size} in
 the call to the geom - just use \code{size}.
 }
 \note{
 In ggplot2 size conflates both line width and point size into one
-scale. In ggraph there is also a width scale (\code{\link{scale_edge_width}})
+scale. In ggraph there is also a width scale (\code{\link[=scale_edge_width]{scale_edge_width()}})
 that is used for linewidth. As edges are often represented by lines the width
 scale is the most common.
 }

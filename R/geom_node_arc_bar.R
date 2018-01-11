@@ -1,33 +1,32 @@
 #' Show nodes as thick arcs
 #'
-#' This geom is equivalent in functionality to \code{\link[ggforce]{geom_arc_bar}}
+#' This geom is equivalent in functionality to [ggforce::geom_arc_bar()]
 #' and allows for plotting of nodes as arcs with an inner and outer radius
 #' scaled by the coordinate system. Its main use is currently in sunburst plots
 #' as created with circular partition layouts
 #'
 #' @section Aesthetics:
-#' geom_node_point understand the following aesthetics. Bold aesthetics are
+#' `geom_node_point` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden.
-#' \itemize{
-#'  \item{\strong{x0}}
-#'  \item{\strong{y0}}
-#'  \item{\strong{r0}}
-#'  \item{\strong{r}}
-#'  \item{\strong{start}}
-#'  \item{\strong{end}}
-#'  \item{alpha}
-#'  \item{colour}
-#'  \item{fill}
-#'  \item{shape}
-#'  \item{size}
-#'  \item{stroke}
-#'  \item{filter}
-#' }
+#'
+#' - **x0**
+#' - **y0**
+#' - **r0**
+#' - **r**
+#' - **start**
+#' - **end**
+#' - alpha
+#' - colour
+#' - fill
+#' - shape
+#' - size
+#' - stroke
+#' - filter
 #'
 #' @inheritParams ggforce::geom_circle
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. By default x and y are mapped to x0 and y0 in
+#' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
+#' or [ggplot2::aes_()]. By default x and y are mapped to x0 and y0 in
 #' the node data.
 #'
 #' @author Thomas Lin Pedersen

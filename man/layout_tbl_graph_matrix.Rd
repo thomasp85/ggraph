@@ -7,7 +7,7 @@
 layout_tbl_graph_matrix(graph, circular = FALSE, sort.by = NULL)
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An \code{tbl_graph} object}
 
 \item{circular}{Ignored}
 
@@ -19,12 +19,12 @@ well as any information stored as node variables in the tbl_graph object.
 }
 \description{
 This layout puts all nodes on a diagonal, thus preparing the layout for use
-with \code{\link{geom_edge_point}} resulting in a matrix layout. While matrix
+with \code{\link[=geom_edge_point]{geom_edge_point()}} resulting in a matrix layout. While matrix
 layouts excel in scalability, the interpretation of the visual is very
 dependent on the sorting of the nodes. Different sorting algorithms have been
 implemented in \code{tidygraph} and these can be used directly. Behrisch
 \emph{et al.} (2016) have provided a nice overview of some of the different
-sorting algorithms and what insight they might bring along with a rundown of
+sorting algorithms and what insight they might bring, along with a rundown of
 different patterns to look out for.
 }
 \references{

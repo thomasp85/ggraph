@@ -1,6 +1,6 @@
 #' Create small multiples based on edge attributes
 #'
-#' This function is equivalent to \code{\link[ggplot2]{facet_wrap}} but only
+#' This function is equivalent to [ggplot2::facet_wrap()] but only
 #' facets edges. Nodes are repeated in every panel.
 #'
 #' @inheritParams ggplot2::facet_wrap

@@ -7,14 +7,14 @@
 \format{A list of three data.frames describing the software structure of
 flare:
 \describe{
- \item{edges}{This data.frame maps the heirarchical structure of the class
- hierarchy as an edgelist, with the class in \code{from} being the superclass
- of the class in \code{to}.}
- \item{vertices}{This data.frame gives additional information on the classes.
- It contains the full name, size and short name of each class.}
- \item{imports}{This data.frame contains the class imports for each class
- implementation. The \code{from} column gives the importing class and the
- \code{to} column gives the import.}
+\item{edges}{This data.frame maps the heirarchical structure of the class
+hierarchy as an edgelist, with the class in \code{from} being the superclass
+of the class in \code{to}.}
+\item{vertices}{This data.frame gives additional information on the classes.
+It contains the full name, size and short name of each class.}
+\item{imports}{This data.frame contains the class imports for each class
+implementation. The \code{from} column gives the importing class and the
+\code{to} column gives the import.}
 }}
 \source{
 The data have been adapted from the JSON downloaded from

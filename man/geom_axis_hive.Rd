@@ -53,15 +53,15 @@ color coded bars.
 
 geom_axis_hive understand the following aesthetics.
 \itemize{
- \item{alpha}
- \item{colour}
- \item{fill}
- \item{size}
- \item{linetype}
- \item{label_size}
- \item{family}
- \item{fontface}
- \item{lineheight}
+\item{alpha}
+\item{colour}
+\item{fill}
+\item{size}
+\item{linetype}
+\item{label_size}
+\item{family}
+\item{fontface}
+\item{lineheight}
 }
 }
 

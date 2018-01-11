@@ -8,8 +8,8 @@ geom_node_point(mapping = NULL, data = NULL, position = "identity",
   show.legend = NA, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x and y are mapped to x and y in
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x and y are mapped to x and y in
 the node data.}
 
 \item{data}{The data to be displayed in this layer. There are three
@@ -41,23 +41,23 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 }
 \description{
-This geom is equivalent in functionality to \code{\link[ggplot2]{geom_point}}
+This geom is equivalent in functionality to \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}
 and allows for simple plotting of nodes in different shapes, colours and sizes.
 }
 \section{Aesthetics}{
 
-geom_node_point understand the following aesthetics. Bold aesthetics are
+\code{geom_node_point} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.
 \itemize{
- \item{\strong{x}}
- \item{\strong{y}}
- \item{alpha}
- \item{colour}
- \item{fill}
- \item{shape}
- \item{size}
- \item{stroke}
- \item{filter}
+\item \strong{x}
+\item \strong{y}
+\item alpha
+\item colour
+\item fill
+\item shape
+\item size
+\item stroke
+\item filter
 }
 }
 

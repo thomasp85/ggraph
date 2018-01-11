@@ -10,16 +10,16 @@
 #' point.
 #'
 #' @details
-#' \code{geometry} is the base constructor, while the rest are helpers to save
-#' typing. \code{circle} creates circles width a given radius, \code{square}
-#' creates squares at a given side length, \code{ellipsis} creates ellipses with
-#' given a and b values (width and height radii), and \code{rectangle} makes
+#' `geometry` is the base constructor, while the rest are helpers to save
+#' typing. `circle` creates circles width a given radius, `square`
+#' creates squares at a given side length, `ellipsis` creates ellipses with
+#' given a and b values (width and height radii), and `rectangle` makes
 #' rectangles of a given width and height. label_rect is a helper that, given
 #' a list of strings and potentially formatting options creates a rectangle that
 #' encloses the string.
 #'
-#' @param type The type of geometry to use. Currently \code{'circle'} and
-#' \code{'rect'} is supported.
+#' @param type The type of geometry to use. Currently `'circle'` and
+#' `'rect'` is supported.
 #'
 #' @param width,height,length,radius,a,b The dimensions of the shape.
 #'
@@ -85,9 +85,9 @@ rectangle <- function(width = 1, height = 1, width_unit = 'cm',
 #' @param label The text to be enclosed
 #'
 #' @param padding extra size to be added around the text using the
-#' \code{\link[ggplot2]{margin}} function
+#' [ggplot2::margin()] function
 #'
-#' @param ... Passed on to \code{\link[grid]{gpar}}
+#' @param ... Passed on to [grid::gpar()]
 #'
 #' @export
 #' @importFrom grid convertWidth convertHeight textGrob grobWidth grobHeight

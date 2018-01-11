@@ -1,31 +1,30 @@
 #' Show nodes as circles
 #'
-#' This geom is equivalent in functionality to \code{\link[ggforce]{geom_circle}}
+#' This geom is equivalent in functionality to [ggforce::geom_circle()]
 #' and allows for plotting of nodes as circles with a radius scaled by the
 #' coordinate system. Beceause of the geoms reliance on the coordinate system
 #' it will only produce true circles when combined with
-#' \code{\link[ggplot2]{coord_fixed}}
+#' [ggplot2::coord_fixed()]
 #'
 #' @section Aesthetics:
-#' geom_node_point understand the following aesthetics. Bold aesthetics are
+#' `geom_node_point` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden.
-#' \itemize{
-#'  \item{\strong{x0}}
-#'  \item{\strong{y0}}
-#'  \item{\strong{r}}
-#'  \item{alpha}
-#'  \item{colour}
-#'  \item{fill}
-#'  \item{shape}
-#'  \item{size}
-#'  \item{stroke}
-#'  \item{filter}
-#' }
+#'
+#' - **x0**
+#' - **y0**
+#' - **r**
+#' - alpha
+#' - colour
+#' - fill
+#' - shape
+#' - size
+#' - stroke
+#' - filter
 #'
 #' @inheritParams ggforce::geom_circle
 #'
-#' @param mapping Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-#' or \code{\link[ggplot2]{aes_}}. By default x and y are mapped to x0 and y0 in
+#' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
+#' or [ggplot2::aes_()]. By default x and y are mapped to x0 and y0 in
 #' the node data.
 #'
 #' @author Thomas Lin Pedersen

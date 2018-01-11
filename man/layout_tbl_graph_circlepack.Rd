@@ -8,7 +8,7 @@ layout_tbl_graph_circlepack(graph, weight = NULL, circular = FALSE,
   sort.by = NULL, direction = "out")
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An \code{tbl_graph} object}
 
 \item{weight}{An optional node variable to use as weight. Will only affect
 the weight of leaf nodes as the weight of non-leaf nodes are derived from
@@ -41,7 +41,7 @@ collaborators which tries to find the most dense packing of circles as they
 are added, one by one. This makes the algorithm very dependent on the order
 in which circles are added and it is possible that layouts could sometimes
 be optimized by choosing a different ordering. The algorithm for finding the
-enclosing circle is that randomized incremental algorithm proposed by Emo
+enclosing circle is the randomized incremental algorithm proposed by Emo
 Welzl. Both of the above algorithms are the same as used in the D3.js
 implementation of circle packing and their C++ implementation in ggraph is
 inspired by Mike Bostocks JavaScript implementation.

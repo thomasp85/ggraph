@@ -3,7 +3,7 @@
 #' This set of scales defines new size scales for edge labels in order to allow
 #' for separate sizing of edges and their labels.
 #'
-#' @return A ggproto object inheriting from \code{Scale}
+#' @return A ggproto object inheriting from `Scale`
 #'
 #' @family scale_edge_*
 #'

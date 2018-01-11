@@ -9,7 +9,7 @@ layout_tbl_graph_treemap(graph, algorithm = "split", weight = NULL,
   width = 1)
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An \code{tbl_graph} object}
 
 \item{algorithm}{The name of the tiling algorithm to use. Defaults to 'split'}
 

@@ -57,7 +57,7 @@ either of the four sides by setting \code{strip.position = c("top",
   "bottom", "left", "right")}}
 }
 \description{
-This function is equivalent to \code{\link[ggplot2]{facet_wrap}} but only
+This function is equivalent to \code{\link[ggplot2:facet_wrap]{ggplot2::facet_wrap()}} but only
 facets nodes. Edges are drawn if their terminal nodes are both present in a
 panel.
 }

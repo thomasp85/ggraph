@@ -8,8 +8,8 @@ geom_node_circle(mapping = NULL, data = NULL, position = "identity",
   show.legend = NA, ...)
 }
 \arguments{
-\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2]{aes}}
-or \code{\link[ggplot2]{aes_}}. By default x and y are mapped to x0 and y0 in
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x and y are mapped to x0 and y0 in
 the node data.}
 
 \item{data}{The data to be displayed in this layer. There are three
@@ -41,27 +41,27 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 }
 \description{
-This geom is equivalent in functionality to \code{\link[ggforce]{geom_circle}}
+This geom is equivalent in functionality to \code{\link[ggforce:geom_circle]{ggforce::geom_circle()}}
 and allows for plotting of nodes as circles with a radius scaled by the
 coordinate system. Beceause of the geoms reliance on the coordinate system
 it will only produce true circles when combined with
-\code{\link[ggplot2]{coord_fixed}}
+\code{\link[ggplot2:coord_fixed]{ggplot2::coord_fixed()}}
 }
 \section{Aesthetics}{
 
-geom_node_point understand the following aesthetics. Bold aesthetics are
+\code{geom_node_point} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.
 \itemize{
- \item{\strong{x0}}
- \item{\strong{y0}}
- \item{\strong{r}}
- \item{alpha}
- \item{colour}
- \item{fill}
- \item{shape}
- \item{size}
- \item{stroke}
- \item{filter}
+\item \strong{x0}
+\item \strong{y0}
+\item \strong{r}
+\item alpha
+\item colour
+\item fill
+\item shape
+\item size
+\item stroke
+\item filter
 }
 }
 

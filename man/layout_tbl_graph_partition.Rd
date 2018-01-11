@@ -9,7 +9,7 @@ layout_tbl_graph_partition(graph, weight = NULL, circular = FALSE,
   const.area = TRUE)
 }
 \arguments{
-\item{graph}{An igraph object}
+\item{graph}{An \code{tbl_graph} object}
 
 \item{weight}{An optional node variable to use as weight. Will only affect
 the weight of leaf nodes as the weight of non-leaf nodes are derived from
@@ -46,7 +46,7 @@ variables in the tbl_graph object.
 }
 \description{
 The partition layout is a way to show hierarchical data in the same way as
-\code{\link{layout_tbl_graph_treemap}}. Instead of subdividing the parent area
+\code{\link[=layout_tbl_graph_treemap]{layout_tbl_graph_treemap()}}. Instead of subdividing the parent area
 the partition layout shows the division of a nodes children next to the area
 of the node itself. As such the node positions will be very reminicent of
 a reingold-tilford tree layout but by plotting nodes as areas it better
