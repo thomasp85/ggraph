@@ -21,7 +21,8 @@ well as any information stored as node variables in the tbl_graph object.
 }
 \description{
 This function infers the layout from the graph structure and is the default
-when calling \code{\link[=ggraph]{ggraph()}}. If the graph is either a tree or a forest
+when calling \code{\link[=ggraph]{ggraph()}}. If an \code{x} and \code{y} argument is passed along, the
+manual layout is chosen. Otherwise if the graph is either a tree or a forest
 the layout will be \code{dendrogram} if the nodes contains a height variable or
 \code{tree} if not. If the tree is a DAG the \code{sygiyama} layout will be used.
 Otherwise the \code{nicely} layout will be used.
