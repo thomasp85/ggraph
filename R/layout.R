@@ -34,12 +34,22 @@ as.data.frame.layout_ggraph <- function(x, ...) {
     class(x) <- 'data.frame'
     x
 }
-checkLayout <- function(layout) {
-    if (!inherits(layout, 'data.frame')) {
-        stop('layout must subclass data.frame', call. = FALSE)
+check_layout <- function(layout) {
+    if (!is.data.frame(layout)) {
+        stop('layout must be a data.frame', call. = FALSE)
     }
-    if (!all(c('x', 'y', 'circular') %in% names(layout))) {
-        stop('layout must contain the columns x, y and circular', call. = FALSE)
+    if (!(is.numeric(layout$x) && is.numeric(layout$y))) {
+        stop('layout must contain numeric `x` and `y` columns', call. = FALSE)
+    }
+    graph <- attr(layout, 'graph')
+    if (!is.tbl_graph(graph)) {
+        stop('layout must have a tbl_graph as the `graph` attribute', call. = FALSE)
+    }
+    if (nrow(layout) != gorder(graph)) {
+        stop('layout must contain the same number of rows as nodes', call. = FALSE)
+    }
+    if (!'circular' %in% names(layout)) {
+        layout$circular <- FALSE
     }
     if (!is.logical(layout$circular)) {
         stop('circular column must be logical', call. = FALSE)

@@ -26,7 +26,8 @@ create_layout(graph, layout, circular, ...)
 of supported classes. Or a \code{layout_ggraph} object as returned from
 \code{create_layout} in which case all subsequent arguments is ignored.}
 
-\item{layout}{The type of layout to create.}
+\item{layout}{The type of layout to create. Either a valid string, a
+function, a matrix, or a data.frame (see Details)}
 
 \item{...}{Arguments passed on to the layout function.}
 
@@ -102,6 +103,20 @@ subdivides the division given by the preceeding layer. See
 based on node attributes. See \code{\link[=layout_tbl_graph_hive]{layout_tbl_graph_hive()}} for further
 details}
 }
+
+Alternatively a matrix or a data.frame can be provided to the \code{layout}
+argument. In the former case the first column will be used as x coordinates
+and the second column will by used as y coordinates, further columns are
+dropped. In the latter case the data.frame is used as the layout table and
+must thus contain a numeric x and y column.
+
+Lastly a function can be provided to the \code{layout} argument. It will be called
+with the graph object as its first argument and any additional argument
+passed into \code{ggraph()}/\code{create_layout()}. The function must return either a
+data.frame or an object coercible to one and have an \code{x} and \code{y} column, or
+an object coercible to a \code{tbl_graph}. In the latter case the node data is
+extracted and used as layout (and must thus contain an \code{x} and \code{y} column)
+and the graph will be added as the \code{graph} attribute.
 }
 \examples{
 require(tidygraph)
