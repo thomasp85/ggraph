@@ -24,7 +24,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
         'layout_ggraph',
         'data.frame'
     )
-    checkLayout(layout)
+    check_layout(layout)
 }
 getEdges.layout_tbl_graph <- function(layout) {
     gr <- attr(layout, 'graph')
@@ -76,7 +76,8 @@ as.igraphlayout <- function(type) {
 }
 #' @importFrom igraph gorder permute
 prepare_graph <- function(graph, layout, direction = 'out', ...) {
-    is_hierarchy <- is.character(layout) && layout %in% c(
+    if (!is.character(layout)) return(graph)
+    is_hierarchy <- layout %in% c(
         'dendrogram',
         'treemap',
         'circlepack',
@@ -221,21 +222,36 @@ layout_to_table.matrix <- function(layout, graph, ...) {
 }
 #' @export
 layout_to_table.data.frame <- function(layout, graph, ...) {
-    if (!(is.numeric(layout$x) && is.numeric(layout$y))) {
-        stop('`x` and `y` columns must be numeric', call. = FALSE)
-    }
-    if (nrow(layout) != gorder(graph)) {
-        stop('layout must contain the same number of rows as nodes', call. = FALSE)
-    }
     cbind(layout, as_tibble(graph, active = 'nodes'))
 }
 #' @export
 layout_to_table.function <- function(layout, graph, circular, ...) {
-    if ('circular' %in% names(formals(layout))) {
+    layout <- if ('circular' %in% names(formals(layout))) {
         layout(graph, circular = circular, ...)
     } else {
         layout(graph, ...)
     }
+    if (!is.tbl_graph(layout) && !is.data.frame(layout)) {
+        layout <- tryCatch(
+            as.data.frame(layout),
+            error = function(e) {
+                tryCatch(
+                    as_tbl_graph(layout),
+                    error = function(e) {
+                        stop('layout function must return an object coerceble to either a data.frame or tbl_graph', call. = FALSE)
+                    }
+                )
+            }
+        )
+    }
+    if (is.tbl_graph(layout)) {
+        graph <- layout
+        layout <- as_tibble(graph, active = 'nodes')
+        attr(layout, 'graph') <- graph
+    } else {
+        layout <- cbind(layout, as_tibble(graph, active = 'nodes'))
+    }
+    layout
 }
 
 igraphlayouts <- c(

@@ -56,11 +56,26 @@
 #'   details}
 #' }
 #'
+#' Alternatively a matrix or a data.frame can be provided to the `layout`
+#' argument. In the former case the first column will be used as x coordinates
+#' and the second column will by used as y coordinates, further columns are
+#' dropped. In the latter case the data.frame is used as the layout table and
+#' must thus contain a numeric x and y column.
+#'
+#' Lastly a function can be provided to the `layout` argument. It will be called
+#' with the graph object as its first argument and any additional argument
+#' passed into `ggraph()`/`create_layout()`. The function must return either a
+#' data.frame or an object coercible to one and have an `x` and `y` column, or
+#' an object coercible to a `tbl_graph`. In the latter case the node data is
+#' extracted and used as layout (and must thus contain an `x` and `y` column)
+#' and the graph will be added as the `graph` attribute.
+#'
 #' @param graph The object containing the graph. See *Details* for a list
 #' of supported classes. Or a `layout_ggraph` object as returned from
 #' `create_layout` in which case all subsequent arguments is ignored.
 #'
-#' @param layout The type of layout to create.
+#' @param layout The type of layout to create. Either a valid string, a
+#' function, a matrix, or a data.frame (see Details)
 #'
 #' @param circular Should the layout be transformed into a radial
 #' representation. Only possible for some layouts. Defaults to `FALSE`

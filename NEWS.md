@@ -10,6 +10,10 @@
 * Manual layouts are now easier to specify. You can pass a matrix or data.frame
   to the layout parameter that will then be used. Also, if an `x` and `y` 
   argument is present, the `auto` layout will choose the `manual` layout. (#91)
+* Custom layout functions are now much more flexible. And can either return a
+  `data.frame` or an object coercible to a `tbl_graph`. In the latter case the
+  node table will be used as layout and the graph will be attached. This allows
+  direct use of the particles package as a layout engine as a side effect. (#88)
 * Use tidygraph as the central data format. The results of this are several:
 
   - All graph object supported by tidygraph are now supported on even footing in
