@@ -11,17 +11,8 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
     if (gorder(graph) == 0) {
         layout <- data.frame(x = numeric(), y = numeric(), circular = logical())
         layout <- cbind(layout, .N())
-    } else if (inherits(layout, 'function')) {
-        layout <- layout(graph, circular = circular, ...)
-    } else if (inherits(layout, 'character')) {
-        if (is.igraphlayout(layout)) {
-            layout <- layout_tbl_graph_igraph(graph, layout, circular, ...)
-        } else {
-            layout_fun <- get(paste0('layout_tbl_graph_', layout))
-            layout <- layout_fun(graph, circular = circular, ...)
-        }
     } else {
-        stop('Unknown layout')
+        layout <- layout_to_table(layout, graph, circular = circular, ...)
     }
     layout$.ggraph.index <- seq_len(nrow(layout))
     if (is.null(attr(layout, 'graph'))) {
@@ -191,6 +182,60 @@ add_direction <- function(graph, pos, direction = 'out') {
     }
     graph <- mutate(graph, direction = factor(.data$direction))
     graph
+}
+
+#' Convert a layout to a table
+#'
+#' This generic takes care of dispatching various layout types (names,
+#' functions, tables) to their respective functions that will return a valid
+#' layout table.
+#'
+#' @param layout A supported object
+#' @param graph A `tbl_graph`
+#' @param ... passed on to implementations
+#'
+#' @return A valid data.frame
+#'
+#' @keywords internal
+#' @export
+layout_to_table <- function(layout, graph, ...) {
+    UseMethod('layout_to_table')
+}
+#' @export
+layout_to_table.default <- function(layout, graph, ...) {
+    stop('Unknown layout', call. = FALSE)
+}
+#' @export
+layout_to_table.character <- function(layout, graph, circular, ...) {
+    if (is.igraphlayout(layout)) {
+        layout_tbl_graph_igraph(graph, layout, circular, ...)
+    } else {
+        layout_fun <- get(paste0('layout_tbl_graph_', layout))
+        layout_fun(graph, circular = circular, ...)
+    }
+}
+#' @export
+layout_to_table.matrix <- function(layout, graph, ...) {
+    layout <- data.frame(x = layout[,1], y = layout[,2])
+    layout_to_table(layout, graph, ...)
+}
+#' @export
+layout_to_table.data.frame <- function(layout, graph, ...) {
+    if (!(is.numeric(layout$x) && is.numeric(layout$y))) {
+        stop('`x` and `y` columns must be numeric', call. = FALSE)
+    }
+    if (nrow(layout) != gorder(graph)) {
+        stop('layout must contain the same number of rows as nodes', call. = FALSE)
+    }
+    cbind(layout, as_tibble(graph, active = 'nodes'))
+}
+#' @export
+layout_to_table.function <- function(layout, graph, circular, ...) {
+    if ('circular' %in% names(formals(layout))) {
+        layout(graph, circular = circular, ...)
+    } else {
+        layout(graph, ...)
+    }
 }
 
 igraphlayouts <- c(

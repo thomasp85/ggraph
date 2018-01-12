@@ -7,6 +7,9 @@
 * Add matrix layout and `geom_edge_point()` (#23)
 * Fix bug with extracting edges from an empty graph (#76)
 * Update roxygen documentation to use markdown and reduce duplication (#95)
+* Manual layouts are now easier to specify. You can pass a matrix or data.frame
+  to the layout parameter that will then be used. Also, if an `x` and `y` 
+  argument is present, the `auto` layout will choose the `manual` layout. (#91)
 * Use tidygraph as the central data format. The results of this are several:
 
   - All graph object supported by tidygraph are now supported on even footing in
