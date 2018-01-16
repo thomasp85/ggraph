@@ -1,4 +1,4 @@
-#' @importFrom grid grob is.unit unit
+#' @importFrom grid grob is.unit unit gTree
 cappedPathGrob <- function(x, y, id=NULL, id.lengths=NULL, arrow = NULL,
                            start.cap = NULL, start.cap2 = NULL, start.captype = 'circle',
                            end.cap = NULL, end.cap2 = NULL, end.captype = 'circle',
@@ -65,7 +65,7 @@ cappedPathGrob <- function(x, y, id=NULL, id.lengths=NULL, arrow = NULL,
                  arrow = arrow, name = name, gp = gp, vp = vp, cl = "segments")
         }
     } else {
-        grob(x = x, y = y, id = id, arrow = arrow, constant = constant, start = start, end = end,
+        gTree(x = x, y = y, id = id, arrow = arrow, constant = constant, start = start, end = end,
              start.cap = start.cap, start.cap2 = start.cap2, start.captype = start.captype,
              end.cap = end.cap, end.cap2 = end.cap2, end.captype = end.captype,
              name = name, gp = gp, vp = vp, cl = "cappedpathgrob")
@@ -76,7 +76,7 @@ cappedPathGrob <- function(x, y, id=NULL, id.lengths=NULL, arrow = NULL,
 #' This function takes care of updating which parts of the paths gets removed
 #' when the device dimensions are updated.
 #'
-#' @importFrom grid convertX convertY convertWidth convertHeight unit grob makeContent
+#' @importFrom grid convertX convertY convertWidth convertHeight unit grob makeContent setChildren gList
 #' @export
 #' @keywords internal
 makeContent.cappedpathgrob <- function(x) {
@@ -87,13 +87,20 @@ makeContent.cappedpathgrob <- function(x) {
     start.cap2 <- convertHeight(x$start.cap2, 'mm', TRUE)
     end.cap2 <- convertHeight(x$end.cap2, 'mm', TRUE)
     truncated <- cut_lines(x_new, y_new, as.integer(x$id), start.cap, start.cap2, end.cap, end.cap2, x$start.captype, x$end.captype)
-    if (x$constant) {
+    lines <- if (x$constant) {
         keep <- !is.na(truncated$x)
         x_new = truncated$x[keep]
         y_new = truncated$y[keep]
         id <- x$id[keep]
+        all_id <- unique(id)
+        gp <- lapply(x$gp, function(par) {
+            if (length(par) == 1) par
+            else par[all_id]
+        })
+        class(gp) <- 'gpar'
+        id <- match(id, all_id)
         grob(x = unit(x_new, 'mm'), y = unit(y_new, 'mm'), id = id,
-             id.lengths = NULL, arrow = x$arrow, name = x$name, gp = x$gp,
+             id.lengths = NULL, arrow = x$arrow, name = x$name, gp = gp,
              vp = x$vp, cl = "polyline")
     } else {
         x0 <- truncated$x[!x$end]
@@ -104,6 +111,7 @@ makeContent.cappedpathgrob <- function(x) {
              y1 = unit(y1, 'mm'), arrow = x$arrow, name = x$name, gp = x$gp,
              vp = x$vp, cl = "segments")
     }
+    setChildren(x, gList(lines))
 }
 #' @importFrom grid is.unit unit
 validateCap <- function(cap, default.units, n) {
