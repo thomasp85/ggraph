@@ -30,4 +30,5 @@
     you can have `sort.by = node_rank_hclust()` in your specification of a 
     linear layout, or `aes(colour = group_infomap())` in node geoms
   
-  This big change fixes #21, #72, #79, and #81
+  This big change fixes #21, #72, #79, and #81. A vignette has been added to 
+  describe the integration in more detail
