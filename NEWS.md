@@ -14,6 +14,8 @@
   `data.frame` or an object coercible to a `tbl_graph`. In the latter case the
   node table will be used as layout and the graph will be attached. This allows
   direct use of the particles package as a layout engine as a side effect. (#88)
+* Fixed bug causing shifts in edge aesthetics when one or more edges were 
+  completely clipped (#62)
 * Use tidygraph as the central data format. The results of this are several:
 
   - All graph object supported by tidygraph are now supported on even footing in
