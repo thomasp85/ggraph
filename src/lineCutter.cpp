@@ -28,7 +28,7 @@ Point segment_intersect(Point p, Point p0, Point k, Point k0) {
     double pY = p0.y - p.y;
     double kX = k0.x - k.x;
     double kY = k0.y - k.y;
-    double delta = pX*pY - kX*kY;
+    double delta = pX*kY - kX*pY;
     if (delta == 0) return bad_point();
     double s = (-pY * (p.x - k.x) + pX * (p.y - k.y)) / (-kX * pY + pX * kY);
     double t = (kX * (p.y - k.y) - kY * (p.x - k.x)) / (-kX * pY + pX * kY);

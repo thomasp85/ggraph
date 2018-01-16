@@ -16,6 +16,8 @@
   direct use of the particles package as a layout engine as a side effect. (#88)
 * Fixed bug causing shifts in edge aesthetics when one or more edges were 
   completely clipped (#62)
+* Fixed bug when clipping completely orthogonal points that produced additional
+  lines going to (0,0) (#70, #84, #103)
 * Use tidygraph as the central data format. The results of this are several:
 
   - All graph object supported by tidygraph are now supported on even footing in
