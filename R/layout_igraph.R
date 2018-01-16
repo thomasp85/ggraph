@@ -89,10 +89,17 @@
 #' @family layout_tbl_graph_*
 #'
 #' @importFrom igraph graph_attr components layout_as_bipartite layout_as_star layout_as_tree layout_in_circle layout_nicely layout_with_dh layout_with_drl layout_with_gem layout_with_graphopt layout_on_grid layout_with_mds layout_with_sugiyama layout_on_sphere layout_randomly layout_with_fr layout_with_kk layout_with_lgl
+#' @importFrom rlang quos eval_tidy
+#' @importFrom stats setNames
 #'
 layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi/2, use.dummy = FALSE, ...) {
     algorithm <- as.igraphlayout(algorithm)
-    layout <- do.call(algorithm, list(graph, ...))
+    dots <- quos(...)
+    dots <- setNames(lapply(names(dots), function(nq) {
+        if (nq == 'weights') eval_tidy(dots[[nq]], as_tibble(graph, active = 'edges'))
+        else eval_tidy(dots[[nq]])
+    }), names(dots))
+    layout <- do.call(algorithm, c(list(graph), dots))
     if (algorithm == 'layout_with_sugiyama') {
         if (use.dummy) {
             graph <- as_tbl_graph(layout$extd_graph)
