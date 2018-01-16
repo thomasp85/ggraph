@@ -198,16 +198,16 @@ List cut_lines(NumericVector x, NumericVector y, IntegerVector id, NumericVector
         if (group != id[i]) {
             if (start_width[group_ind] != 0 && start_height[group_ind] != 0) {
                 if (start_type[group_ind] == "circle") {
-                    capEllipStart(x, y, j, i, start_width[group_ind], start_height[group_ind]);
+                    capEllipStart(new_x, new_y, j, i, start_width[group_ind], start_height[group_ind]);
                 } else if (start_type[group_ind] == "rect") {
-                    capRectStart(x, y, j, i, start_width[group_ind], start_height[group_ind]);
+                    capRectStart(new_x, new_y, j, i, start_width[group_ind], start_height[group_ind]);
                 }
             }
             if (end_width[group_ind] != 0 && end_height[group_ind] != 0) {
                 if (end_type[group_ind] == "circle") {
-                    capEllipEnd(x, y, j, i, end_width[group_ind], end_height[group_ind]);
+                    capEllipEnd(new_x, new_y, j, i, end_width[group_ind], end_height[group_ind]);
                 } else if (end_type[group_ind] == "rect") {
-                    capRectEnd(x, y, j, i, end_width[group_ind], end_height[group_ind]);
+                    capRectEnd(new_x, new_y, j, i, end_width[group_ind], end_height[group_ind]);
                 }
             }
             group = id[i];
@@ -217,18 +217,18 @@ List cut_lines(NumericVector x, NumericVector y, IntegerVector id, NumericVector
     }
     if (start_width[group_ind] != 0 && start_height[group_ind] != 0) {
         if (start_type[group_ind] == "circle") {
-            capEllipStart(x, y, j, i, start_width[group_ind], start_height[group_ind]);
+            capEllipStart(new_x, new_y, j, i, start_width[group_ind], start_height[group_ind]);
         } else if (start_type[group_ind] == "rect") {
-            capRectStart(x, y, j, i, start_width[group_ind], start_height[group_ind]);
+            capRectStart(new_x, new_y, j, i, start_width[group_ind], start_height[group_ind]);
         }
     }
     if (end_width[group_ind] != 0 && end_height[group_ind] != 0) {
         if (end_type[group_ind] == "circle") {
-            capEllipEnd(x, y, j, i, end_width[group_ind], end_height[group_ind]);
+            capEllipEnd(new_x, new_y, j, i, end_width[group_ind], end_height[group_ind]);
         } else if (end_type[group_ind] == "rect") {
-            capRectEnd(x, y, j, i, end_width[group_ind], end_height[group_ind]);
+            capRectEnd(new_x, new_y, j, i, end_width[group_ind], end_height[group_ind]);
         }
     }
 
-    return List::create(Named("x") = x, Named("y") = y);
+    return List::create(Named("x") = new_x, Named("y") = new_y);
 }
