@@ -209,7 +209,7 @@ lapply(c('fr', 'kk', 'lgl', 'graphopt'), function(layout) {
 A hive plot, while still technically a node-edge diagram, is a bit different
 from the rest as it uses information pertaining to the nodes, rather than the
 connection information in the graph. This means that hive plots, to a certain
-extend is more interpretable as well as less vulnerable to small changes in the
+extent are more interpretable as well as less vulnerable to small changes in the
 graph structure. They are less common though, so use will often require some 
 additional explanation.
 
@@ -228,7 +228,7 @@ ggraph(graph, 'hive', axis = friends, sort.by = degree) +
 ### Hierarchical layouts
 Trees and hierarchies are an important subset of graph structures, and `ggraph`
 provides a range of layouts optimized for their visual representation. Some of
-these uses enclosure and position rather than edges to communicate relations
+these use enclosure and position rather than edges to communicate relations
 (e.g. treemaps and circle packing). Still, these layouts can just as well be 
 used for drawing edges if you wish to:
 
@@ -269,7 +269,7 @@ ggraph(graph, 'dendrogram') +
     geom_edge_diagonal()
 ```
 
-The height of each branch point can be set to a variable - e.g. the height 
+The height of each branch point can be set to a variable --- e.g. the height 
 provided by hclust and dendrogram objects:
 
 ```{r}
@@ -288,6 +288,6 @@ ggraph(dendrogram, 'dendrogram', circular = TRUE) +
     coord_fixed()
 ```
 
-## Want more
+## Want more?
 Check out the other vignettes for more information on how to draw 
 [nodes](Nodes.html) and [edges](Edges.html)...
