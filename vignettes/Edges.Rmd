@@ -18,7 +18,7 @@ more to it than that.
 While nodes are the sensible, mature, and predictably geoms, edges are the edgy 
 (sorry), younger cousins that pushes the boundaries. To put it bluntly: 
 
-> On the ggraph savannah you definetly want to be an edge!
+> On the ggraph savannah you definitely want to be an edge!
 
 ## Meet the `geom_edge_*()` family
 While the introduction might feel a bit over-the-top it is entirely true. An 
@@ -173,7 +173,7 @@ ggraph(hierarchy, layout = 'dendrogram', height = height) +
     geom_edge_diagonal()
 ```
 
-It tend to look a bit weird with hugely unbalanced trees so use with care...
+It tends to look a bit weird with hugely unbalanced trees so use with care...
 
 ### Hive
 This is certainly a very specific type of edge, intended only for use with hive
@@ -273,7 +273,7 @@ ggraph(simple, layout = 'graphopt') +
     geom_node_point(size = 5)
 ```
 
-Using the `circle()`, `square()`, `ellipsis()`, and `rectangel()` helpers it is
+Using the `circle()`, `square()`, `ellipsis()`, and `rectangle()` helpers it is
 possible to get a lot of control over how edges are capped at either end. This 
 works for any edge, curved or not:
 
@@ -360,8 +360,8 @@ ggraph(flaregraph, layout = 'dendrogram', circular = TRUE) +
 ```
 
 The connection concept is underutilized at the moment but I expect to add more
-support for this in comming releases.
+support for this in coming releases.
 
-## Want more
+## Want more?
 Check out the other vignettes for more information on how to specify 
 [layouts](Layouts.html) and draw [nodes](Nodes.html)...
