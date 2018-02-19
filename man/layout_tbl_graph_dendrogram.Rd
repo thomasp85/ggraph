@@ -34,7 +34,7 @@ A data.frame with the columns \code{x}, \code{y}, \code{circular}, \code{depth} 
 tbl_graph
 }
 \description{
-This layout mimicks the \code{\link[igraph:layout_as_tree]{igraph::layout_as_tree()}} algorithm
+This layout mimics the \code{\link[igraph:layout_as_tree]{igraph::layout_as_tree()}} algorithm
 supplied by igraph, but puts all leaves at 0 and builds it up from there,
 instead of starting from the root and building it from there. The height of
 branch points are related to the maximum distance to an edge from the branch

@@ -36,7 +36,7 @@ representation. Only possible for some layouts. Defaults to \code{FALSE}}
 }
 \value{
 For \code{ggraph()} an object of class gg onto which layers, scales,
-etc. can be added. For \code{create_layout()} an object inherting from
+etc. can be added. For \code{create_layout()} an object inheriting from
 \code{layout_ggraph}. \code{layout_ggraph} itself inherits from
 \code{data.frame} and can be considered as such. The data.frame contains
 the node positions in the \code{x} and \code{y} column along with
@@ -53,7 +53,7 @@ It takes care of setting up the plot object along with creating the layout
 for the plot based on the graph and the specification passed in.
 Alternatively a layout can be prepared in advance using
 \code{create_layout} and passed as the data argument. See \emph{Details} for
-a desciption of all available layouts.
+a description of all available layouts.
 }
 \details{
 Following is a short description of the different layout types available in
@@ -97,7 +97,7 @@ space-filing subdivision of rectangles showing a weighted hierarchy. See
 within circles. Conceptually equal to treemaps. See
 \code{\link[=layout_tbl_graph_circlepack]{layout_tbl_graph_circlepack()}} for further details}
 \item{\code{partition}}{Create icicle or sunburst charts, where each layer
-subdivides the division given by the preceeding layer. See
+subdivides the division given by the preceding layer. See
 \code{\link[=layout_tbl_graph_partition]{layout_tbl_graph_partition()}} for further details}
 \item{\code{hive}}{Positions nodes on axes spreading out from the center
 based on node attributes. See \code{\link[=layout_tbl_graph_hive]{layout_tbl_graph_hive()}} for further

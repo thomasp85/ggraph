@@ -60,7 +60,7 @@ end node.}
 \item{long}{In this format each edge consists of two rows with matching
 \code{edge.id} value. The start and end position are both encoded in the
 \code{x} and \code{y} column. The relative position of the rows determines
-which is the start and end node, the first occuring being the start node.
+which is the start and end node, the first occurring being the start node.
 If node parameters are added to the edge data the name of the parameters
 will be prefixed with \code{node.}.}
 }
@@ -74,7 +74,7 @@ format (see above).
 If the graph is not simple (it contains at most one edge between each node
 pair) it can be collapsed so either all edges between two nodes or all edges
 of the same direction between two nodes are merged. The edge parameters are
-taken from the first occuring edge, so if some more sophisticated summary is
+taken from the first occurring edge, so if some more sophisticated summary is
 needed it is suggested that the graph be tidied up before plotting with
 ggraph.
 }

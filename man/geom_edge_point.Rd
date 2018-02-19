@@ -14,7 +14,7 @@ circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
 \item{data}{The return of a call to \code{get_edges()} or a data.frame
-giving edges in corrent format (see details for for guidance on the format).
+giving edges in correct format (see details for for guidance on the format).
 See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 
 \item{position}{Position adjustment, either as a string, or the result of

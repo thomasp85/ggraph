@@ -9,7 +9,7 @@
 #' mandatory and is only required if additional data should be added to selected
 #' node layers.
 #'
-#' @param ... Additional data that should be cbind'ed togeether with the node
+#' @param ... Additional data that should be cbind'ed together with the node
 #' data.
 #'
 #' @return A data.frame with the node data as well of any additional data

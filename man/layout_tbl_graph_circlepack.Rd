@@ -30,7 +30,7 @@ variables in the tbl_graph object.
 }
 \description{
 The circle packing algorithm is basically a treemap using circles instead of
-rectangles. Due to the nature of circles they cannot be packed as efficeintly
+rectangles. Due to the nature of circles they cannot be packed as efficiently
 leading to increased amount of "empty space" as compared to a treemap. This
 can be beneficial though, as the added empty space can aid in visually
 showing the hierarchy.

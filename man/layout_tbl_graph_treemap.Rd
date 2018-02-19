@@ -2,7 +2,7 @@
 % Please edit documentation in R/layout_treemap.R
 \name{layout_tbl_graph_treemap}
 \alias{layout_tbl_graph_treemap}
-\title{Calculate nodes as rectangels subdividing that of their parent}
+\title{Calculate nodes as rectangles subdividing that of their parent}
 \usage{
 layout_tbl_graph_treemap(graph, algorithm = "split", weight = NULL,
   circular = FALSE, sort.by = NULL, direction = "out", height = 1,

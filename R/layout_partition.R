@@ -3,7 +3,7 @@
 #' The partition layout is a way to show hierarchical data in the same way as
 #' [layout_tbl_graph_treemap()]. Instead of subdividing the parent area
 #' the partition layout shows the division of a nodes children next to the area
-#' of the node itself. As such the node positions will be very reminicent of
+#' of the node itself. As such the node positions will be very reminiscent of
 #' a reingold-tilford tree layout but by plotting nodes as areas it better
 #' communicate the total weight of a node by summing up all its children.
 #' Often partition layouts are called icicle plots or sunburst diagrams (in case

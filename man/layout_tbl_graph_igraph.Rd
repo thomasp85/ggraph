@@ -65,7 +65,7 @@ around it. See \code{\link[igraph:as_star]{igraph::as_star()}}}
 Consider using \code{\link[=layout_tbl_graph_linear]{layout_tbl_graph_linear()}} with \code{circular=TRUE}
 for more control. See \code{\link[igraph:in_circle]{igraph::in_circle()}}}
 \item{\code{nicely}}{Tries to pick an appropriate layout. See
-\code{\link[igraph:nicely]{igraph::nicely()}} for a description of the simpe decision tree
+\code{\link[igraph:nicely]{igraph::nicely()}} for a description of the simple decision tree
 it uses}
 \item{\code{dh}}{Uses \emph{Davidson and Harels} simulated annealing
 algorithm to place nodes. See \code{\link[igraph:with_dh]{igraph::with_dh()}}}

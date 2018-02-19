@@ -27,7 +27,7 @@
 #' data.
 #'
 #' @param data The return of a call to `get_edges()` or a data.frame
-#' giving edges in corrent format (see details for for guidance on the format).
+#' giving edges in correct format (see details for for guidance on the format).
 #' See [get_edges()] for more details on edge extraction.
 #'
 #' @param mirror Logical. Should edge points be duplicated on both sides of the

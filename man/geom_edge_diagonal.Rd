@@ -31,7 +31,7 @@ circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
 \item{data}{The return of a call to \code{get_edges()} or a data.frame
-giving edges in corrent format (see details for for guidance on the format).
+giving edges in correct format (see details for for guidance on the format).
 See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 
 \item{position}{Position adjustment, either as a string, or the result of
@@ -93,7 +93,7 @@ This geom draws edges as diagonal bezier curves as known from
 A diagonal in this context is a quadratic bezier with the control points
 positioned halfway between the start and end points but on the same axis.
 This produces a pleasing fan-in, fan-out line that is mostly relevant for
-heirarchical layouts as it implies an overall directionality in the plot.
+hierarchical layouts as it implies an overall directionality in the plot.
 }
 \section{Aesthetics}{
 
@@ -168,7 +168,7 @@ package, but does not allow for gradients along the edge.
 
 Often it is beneficial to stop the drawing of the edge before it reaches the
 node, for instance in cases where an arrow should be drawn and the arrowhead
-shouldn't lay ontop or below the node point. geom_edge_* and geom_edge_*2
+shouldn't lay on top or below the node point. geom_edge_* and geom_edge_*2
 supports this through the start_cap and end_cap aesthetics that takes a
 \code{\link[=geometry]{geometry()}} specification and dynamically caps the termini of the
 edges based on the given specifications. This means that if

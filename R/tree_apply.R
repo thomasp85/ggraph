@@ -6,7 +6,7 @@
 #' recursion there is access to the node(s) that was/were called before and thus
 #' have already been through the function.
 #'
-#' @details The function is called with a set of predifined parameters along
+#' @details The function is called with a set of predefined parameters along
 #' with user defined ones. If `direction = 'down'` The parameters supplied
 #' automatically to the function are: `node`, `parent`, `depth`
 #' and `tree`, while if `direction = 'up'` the parameters are:

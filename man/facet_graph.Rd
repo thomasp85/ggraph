@@ -70,7 +70,7 @@ This function is equivalent to \code{\link[ggplot2:facet_grid]{ggplot2::facet_gr
 allows for building a grid of small multiples where rows and columns
 correspond to a specific data value. While \code{\link[ggplot2:facet_grid]{ggplot2::facet_grid()}}
 could be used it would lead to unexpected results as it is not possible to
-specify whether you are refering to a node or an edge attribute. Furthermore
+specify whether you are referring to a node or an edge attribute. Furthermore
 \code{\link[ggplot2:facet_grid]{ggplot2::facet_grid()}} will draw edges in panels even though the
 panel does not contain both terminal nodes. \code{facet_graph} takes care of
 all of these issues, allowing you to define which data type the rows and

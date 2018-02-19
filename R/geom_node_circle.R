@@ -2,7 +2,7 @@
 #'
 #' This geom is equivalent in functionality to [ggforce::geom_circle()]
 #' and allows for plotting of nodes as circles with a radius scaled by the
-#' coordinate system. Beceause of the geoms reliance on the coordinate system
+#' coordinate system. Because of the geoms reliance on the coordinate system
 #' it will only produce true circles when combined with
 #' [ggplot2::coord_fixed()]
 #'

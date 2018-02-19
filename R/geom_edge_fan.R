@@ -5,7 +5,7 @@
 #' parallel edges. This results in parallel edges being drawn in a
 #' non-overlapping fashion resembling the standard approach used in
 #' [igraph::plot.igraph()]. Before calculating the curvature the edges
-#' are sorted by direction so that edges goind the same way will be adjacent.
+#' are sorted by direction so that edges going the same way will be adjacent.
 #' This geom is currently the only choice for non-simple graphs if edges should
 #' not be overplotted.
 #'
