@@ -37,7 +37,8 @@ Suggests: network,
     knitr,
     rmarkdown,
     purrr,
-    tibble
+    tibble,
+    seriation
 Remotes: tidyverse/ggplot2,
     thomasp85/tidygraph
 LinkingTo: Rcpp
