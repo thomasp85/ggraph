@@ -7,7 +7,7 @@
 \method{makeContent}{cappedpathgrob}(x)
 }
 \description{
-This function takes care of updating which parts of the paths gets removed
+This function takes care of updating which parts of the paths get removed
 when the device dimensions are updated.
 }
 \keyword{internal}
