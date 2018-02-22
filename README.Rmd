@@ -82,7 +82,7 @@ supported by `ggraph`, simply provide an `as_tbl_graph` method for it.
 
 ## Installation
 `ggraph` is available through CRAN and can be installed with 
-`install_packages('ggraph')`. The package is under active development though and
+`install.packages('ggraph')`. The package is under active development though and
 the latest set of features can be obtained by installing from this repository
 using `devtools`
 
