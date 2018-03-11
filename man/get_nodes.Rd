@@ -7,7 +7,7 @@
 get_nodes(...)
 }
 \arguments{
-\item{...}{Additional data that should be cbind'ed togeether with the node
+\item{...}{Additional data that should be cbind'ed together with the node
 data.}
 }
 \value{

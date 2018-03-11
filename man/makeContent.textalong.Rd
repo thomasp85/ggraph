@@ -2,12 +2,12 @@
 % Please edit documentation in R/textAlong.R
 \name{makeContent.textalong}
 \alias{makeContent.textalong}
-\title{Text angeled acording to line}
+\title{Text angled according to line}
 \usage{
 \method{makeContent}{textalong}(x)
 }
 \description{
-This function takes care of recalculating the angel of the text as the device
+This function takes care of recalculating the angle of the text as the device
 size changes
 }
 \keyword{internal}

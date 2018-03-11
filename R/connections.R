@@ -1,14 +1,14 @@
 #' Create a connection extractor function
 #'
 #' Connections within the ggraph terminology are links between nodes that are
-#' not part of the network structure itself. In that sense connections does not
+#' not part of the network structure itself. In that sense connections do not
 #' affect the layout calculation in any way and will not be drawn by the
 #' standard `geom_edge_*` functions. A connection does not need to only be
 #' defined by a start and end node, but can include intermediary nodes.
 #' `get_con` helps in creating connection data by letting you specify start
-#' and end node and automatically find the shortest path within the graph
+#' and end nodes and automatically finds the shortest path within the graph
 #' structure that connects the given points. If this is not what is needed it is
-#' also possible to supply a list of vectors giving node indexes that defines a
+#' also possible to supply a list of vectors giving node indices that define a
 #' connection.
 #'
 #' @param from,to The index of the start and end nodes for the connections

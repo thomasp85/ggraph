@@ -60,7 +60,7 @@ Many of the \code{geom_edge_*} geoms comes in different flavors dependent on
 the functionality required. There will always be a base geom and some will
 have a \code{geom_edge_*0} and \code{geom_edge_*2} version. The base geom
 will, in the case of multiple versions, draw the edge as a sequence of small
-segments. The different aesthetics will be repeated for each seqgment and a
+segments. The different aesthetics will be repeated for each segment and a
 counter will be added the enumerates the progression of segments, so that a
 gradient of colour or size can be added along the edge by assigning the
 respective aesthetic to \code{..index..}. \code{geom_edge_*2} will also draw

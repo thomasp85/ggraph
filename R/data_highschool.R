@@ -14,7 +14,7 @@
 #' }
 #'
 #' @source
-#' Coleman, J. S. *Introduction to Mathermatical Sociology*. New York: Free
+#' Coleman, J. S. *Introduction to Mathematical Sociology*. New York: Free
 #' Press, pp.450-451.
 #'
 'highschool'

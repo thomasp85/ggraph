@@ -1,4 +1,4 @@
-#' Create heirarchical edge bundles between node connections
+#' Create hierarchical edge bundles between node connections
 #'
 #' Hierarchical edge bundling is a technique to introduce some order into the
 #' hairball structure that can appear when there's a lot of overplotting and
@@ -7,7 +7,7 @@
 #' Connections between points (that is, not edges) are then drawn so that they
 #' loosely follows the underlying hierarchical structure. This results in a
 #' flow-like structure where lines that partly move in the same direction will
-#' be bundled togeether.
+#' be bundled together.
 #'
 #' @note In order to avoid excessive typing edge aesthetic names are
 #' automatically expanded. Because of this it is not necessary to write

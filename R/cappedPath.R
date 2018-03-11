@@ -73,7 +73,7 @@ cappedPathGrob <- function(x, y, id=NULL, id.lengths=NULL, arrow = NULL,
 }
 #' Dynamic capping of paths
 #'
-#' This function takes care of updating which parts of the paths gets removed
+#' This function takes care of updating which parts of the paths get removed
 #' when the device dimensions are updated.
 #'
 #' @importFrom grid convertX convertY convertWidth convertHeight unit grob makeContent setChildren gList

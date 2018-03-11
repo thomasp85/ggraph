@@ -1,4 +1,4 @@
-#' Calculate nodes as rectangels subdividing that of their parent
+#' Calculate nodes as rectangles subdividing that of their parent
 #'
 #' A treemap is a space filling hierarchical layout that maps nodes to
 #' rectangles. The rectangles of the children of a node is packed into the

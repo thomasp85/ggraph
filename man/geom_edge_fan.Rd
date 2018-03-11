@@ -30,7 +30,7 @@ circular are mapped to x, y, xend, yend, edge.id and circular in the edge
 data.}
 
 \item{data}{The return of a call to \code{get_edges()} or a data.frame
-giving edges in corrent format (see details for for guidance on the format).
+giving edges in correct format (see details for for guidance on the format).
 See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 
 \item{position}{Position adjustment, either as a string, or the result of
@@ -92,7 +92,7 @@ half-way between the nodes and at an angle dependent on the presence of
 parallel edges. This results in parallel edges being drawn in a
 non-overlapping fashion resembling the standard approach used in
 \code{\link[igraph:plot.igraph]{igraph::plot.igraph()}}. Before calculating the curvature the edges
-are sorted by direction so that edges goind the same way will be adjacent.
+are sorted by direction so that edges going the same way will be adjacent.
 This geom is currently the only choice for non-simple graphs if edges should
 not be overplotted.
 }
@@ -171,7 +171,7 @@ package, but does not allow for gradients along the edge.
 
 Often it is beneficial to stop the drawing of the edge before it reaches the
 node, for instance in cases where an arrow should be drawn and the arrowhead
-shouldn't lay ontop or below the node point. geom_edge_* and geom_edge_*2
+shouldn't lay on top or below the node point. geom_edge_* and geom_edge_*2
 supports this through the start_cap and end_cap aesthetics that takes a
 \code{\link[=geometry]{geometry()}} specification and dynamically caps the termini of the
 edges based on the given specifications. This means that if

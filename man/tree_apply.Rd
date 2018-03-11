@@ -46,7 +46,7 @@ recursion there is access to the node(s) that was/were called before and thus
 have already been through the function.
 }
 \details{
-The function is called with a set of predifined parameters along
+The function is called with a set of predefined parameters along
 with user defined ones. If \code{direction = 'down'} The parameters supplied
 automatically to the function are: \code{node}, \code{parent}, \code{depth}
 and \code{tree}, while if \code{direction = 'up'} the parameters are:
