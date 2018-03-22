@@ -4,7 +4,7 @@
 #' [ggplot2::geom_label()] and allows for simple annotation of nodes.
 #'
 #' @section Aesthetics:
-#' `geom_node_point` understand the following aesthetics. Bold aesthetics are
+#' `geom_node_text` understands the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden. Italic aesthetics are required but
 #' not set by default
 #'
