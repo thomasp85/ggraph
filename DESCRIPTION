@@ -1,8 +1,8 @@
 Package: ggraph
 Type: Package
 Title: An Implementation of Grammar of Graphics for Graphs and Networks
-Version: 1.0.0.9999
-Date: 2017-02-23
+Version: 1.0.1.9999
+Date: 2018-01-29
 Authors@R:
     person(given = "Thomas Lin",
            family = "Pedersen",
