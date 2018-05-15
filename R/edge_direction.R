@@ -53,7 +53,7 @@ guide_edge_direction <- function(title = waiver(), title.position = NULL,
 #' @export
 #' @rdname guide-helpers
 #' @keywords internal
-guide_train.edge_direction <- function(guide, scale) {
+guide_train.edge_direction <- function(guide, scale, aesthetic = NULL) {
     if (length(intersect(scale$aesthetics, c("edge_colour",
                                              "edge_alpha",
                                              "edge_width"))) == 0) {
@@ -68,7 +68,7 @@ guide_train.edge_direction <- function(guide, scale) {
     if (length(breaks) == 0 || all(is.na(breaks)))
         return()
     ticks <- as.data.frame(setNames(list(scale$map(breaks)),
-                                    scale$aesthetics[1]))
+                                    aesthetic %||% scale$aesthetics[1]))
     ticks$.value <- breaks
     ticks$.label <- scale$get_labels(breaks)
     guide$key <- ticks

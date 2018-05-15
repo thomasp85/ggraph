@@ -47,7 +47,7 @@ guide_edge_colorbar <- guide_edge_colourbar
 #' @importFrom stats setNames
 #' @rdname guide-helpers
 #' @export
-guide_train.edge_colourbar <- function(guide, scale) {
+guide_train.edge_colourbar <- function(guide, scale, aesthetic = NULL) {
     if (length(intersect(scale$aesthetics, c("edge_colour",
                                              "edge_fill"))) == 0) {
         warning("edge_colourbar guide needs edge_colour or edge_fill scales.")
@@ -61,7 +61,7 @@ guide_train.edge_colourbar <- function(guide, scale) {
     if (length(breaks) == 0 || all(is.na(breaks)))
         return()
     ticks <- as.data.frame(setNames(list(scale$map(breaks)),
-                                    scale$aesthetics[1]))
+                                    aesthetic %||% scale$aesthetics[1]))
     ticks$.value <- breaks
     ticks$.label <- scale$get_labels(breaks)
     guide$key <- ticks
