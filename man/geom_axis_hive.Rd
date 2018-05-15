@@ -40,7 +40,7 @@ a call to a position adjustment function.}
 It can also be a named logical vector to finely select the aesthetics to
 display.}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}

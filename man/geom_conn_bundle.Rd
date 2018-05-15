@@ -28,9 +28,9 @@ data.}
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
 
-\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}}
+\item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
-\item{lineend}{Line end style (round, butt, square)}
+\item{lineend}{Line end style (round, butt, square).}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -44,7 +44,7 @@ display.}
 bundles, while 0 will turn of bundling completely and give straight lines.
 Defaults to 0.8}
 
-\item{...}{other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{color = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}

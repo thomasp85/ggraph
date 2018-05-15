@@ -201,7 +201,7 @@ Defaults to 0.}
 
 \item{option}{A character string indicating the colormap option to use. Four
 options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"),
-and "viridis" (or "D", the default option).}
+"viridis" (or "D", the default option) and "cividis" (or "E").}
 }
 \value{
 A ggproto object inheriting from \code{Scale}

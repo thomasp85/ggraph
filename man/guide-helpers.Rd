@@ -8,15 +8,15 @@
 \alias{guide_gengrob.edge_direction}
 \title{Helper methods for guides}
 \usage{
-guide_train.edge_colourbar(guide, scale)
+\method{guide_train}{edge_colourbar}(guide, scale, aesthetic = NULL)
 
-guide_train.edge_direction(guide, scale)
+\method{guide_train}{edge_direction}(guide, scale, aesthetic = NULL)
 
-guide_merge.edge_direction(guide, new_guide)
+\method{guide_merge}{edge_direction}(guide, new_guide)
 
-guide_geom.edge_direction(guide, layers, default_mapping)
+\method{guide_geom}{edge_direction}(guide, layers, default_mapping)
 
-guide_gengrob.edge_direction(guide, theme)
+\method{guide_gengrob}{edge_direction}(guide, theme)
 }
 \description{
 Helper methods for guides

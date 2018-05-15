@@ -9,17 +9,14 @@ facet_graph(facets, row_type = "edge", col_type = "node", margins = FALSE,
   labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE)
 }
 \arguments{
-\item{facets}{a formula with the rows (of the tabular display) on the LHS
-and the columns (of the tabular display) on the RHS; the dot in the
-formula is used to indicate there should be no faceting on this dimension
-(either row or column). The formula can also be provided as a string
-instead of a classical formula object}
+\item{facets}{This argument is soft-deprecated, please us \code{rows}
+and \code{cols} instead.}
 
 \item{row_type, col_type}{Either \code{'node'} or \code{'edge'}. Which data
 type is being facetted in the rows and columns. Default is to facet on nodes
 column wise and on edges row wise.}
 
-\item{margins}{either a logical value or a character
+\item{margins}{Either a logical value or a character
 vector. Margins are additional facets which contain all the data
 for each of the possible values of the faceting variables. If
 \code{FALSE}, no additional facets are included (the
@@ -29,7 +26,7 @@ variables for which margins are to be created.}
 
 \item{scales}{Are scales shared across all facets (the default,
 \code{"fixed"}), or do they vary across rows (\code{"free_x"}),
-columns (\code{"free_y"}), or both rows and columns (\code{"free"})}
+columns (\code{"free_y"}), or both rows and columns (\code{"free"})?}
 
 \item{space}{If \code{"fixed"}, the default, all panels have the same size.
 If \code{"free_y"} their height will be proportional to the length of the
