@@ -50,15 +50,15 @@ facet_graph <- function(facets, row_type = 'edge', col_type = 'node',
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom plyr as.quoted id
+#' @importFrom plyr id
 #' @export
 FacetGraph <- ggproto('FacetGraph', FacetGrid,
     compute_layout = function(data, params) {
         plot_data <- data[[1]]
         data <- split(data, sapply(data, dataType))
 
-        rows <- as.quoted(params$rows)
-        cols <- as.quoted(params$cols)
+        rows <- params$rows
+        cols <- params$cols
         row_data <- switch(
             params$row_type,
             node = data$node_ggraph,
