@@ -27,7 +27,7 @@ layout_tbl_graph_manual <- function(graph, x, y, circular) {
         y = eval_tidy(y, .N())
     )
     extraData <- as_tibble(graph, active = 'nodes')
-    layout <- cbind(layout, extraData)
+    layout <- cbind(layout, extraData[, !names(extraData) %in% names(layout), drop = FALSE])
     layout$circular <- FALSE
     layout
 }

@@ -93,7 +93,7 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, 
         nodes$y <- coords$y
     }
     extraData <- as_tibble(graph, active = 'nodes')
-    nodes <- cbind(nodes, extraData)
+    nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
     nodes$circular <- circular
     attr(nodes, 'graph') <- graph
     nodes

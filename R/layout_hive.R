@@ -227,7 +227,7 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
     node.pos <- do.call(rbind, node.pos)
     node.pos <- node.pos[order(node.pos$node), names(node.pos) != 'node']
     extraData <- as_tibble(as_tbl_graph(graph), active = 'nodes')
-    node.pos <- cbind(node.pos, extraData)
+    node.pos <- cbind(node.pos, extraData[, !names(extraData) %in% names(node.pos), drop = FALSE])
     attr(node.pos, 'graph') <- as_tbl_graph(graph)
     node.pos
 }

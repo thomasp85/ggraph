@@ -112,7 +112,7 @@ layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi/2, u
         layout[, 1] <- layout[, 1] + components(graph)$membership - 1
     }
     extraData <- as_tibble(graph, active = 'nodes')
-    layout <- cbind(x=layout[,1], y=layout[,2], extraData)
+    layout <- cbind(x=layout[,1], y=layout[,2], extraData[, !names(extraData) %in% c('x', 'y'), drop = FALSE])
     graph <- add_direction(graph, layout)
     if (circular) {
         if (!algorithm %in% c('layout_as_tree', 'layout_with_sugiyama')) {

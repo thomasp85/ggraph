@@ -38,7 +38,7 @@ layout_tbl_graph_matrix <- function(graph, circular = FALSE, sort.by = NULL) {
     }
     nodes <- data.frame(x = pos, y = pos)
     extraData <- as_tibble(graph, active = 'nodes')
-    nodes <- cbind(nodes, extraData)
+    nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
     nodes$circular <- FALSE
     nodes
 }
