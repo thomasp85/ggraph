@@ -7,7 +7,7 @@
 \format{A list of three data.frames describing the software structure of
 flare:
 \describe{
-\item{edges}{This data.frame maps the heirarchical structure of the class
+\item{edges}{This data.frame maps the hierarchical structure of the class
 hierarchy as an edgelist, with the class in \code{from} being the superclass
 of the class in \code{to}.}
 \item{vertices}{This data.frame gives additional information on the classes.

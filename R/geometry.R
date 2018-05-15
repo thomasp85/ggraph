@@ -207,7 +207,7 @@ abs_width <- function(grobs) {
 }
 #' Define default scale type for geometry
 #'
-#' This functions is quite useless as geometry is not meant to be scaled, but it
+#' This function is quite useless as geometry is not meant to be scaled, but it
 #' is a requirement for ggplot2 to handle it correctly.
 #'
 #' @export

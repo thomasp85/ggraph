@@ -4,7 +4,7 @@
 \alias{geom_conn_bundle}
 \alias{geom_conn_bundle2}
 \alias{geom_conn_bundle0}
-\title{Create heirarchical edge bundles between node connections}
+\title{Create hierarchical edge bundles between node connections}
 \usage{
 geom_conn_bundle(mapping = NULL, data = get_con(), position = "identity",
   arrow = NULL, lineend = "butt", show.legend = NA, n = 100,
@@ -57,7 +57,7 @@ an intrinsic hierarchical structure that defines the layout but is not shown.
 Connections between points (that is, not edges) are then drawn so that they
 loosely follows the underlying hierarchical structure. This results in a
 flow-like structure where lines that partly move in the same direction will
-be bundled togeether.
+be bundled together.
 }
 \note{
 In order to avoid excessive typing edge aesthetic names are

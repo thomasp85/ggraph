@@ -5,7 +5,7 @@
 #' for the plot based on the graph and the specification passed in.
 #' Alternatively a layout can be prepared in advance using
 #' `create_layout` and passed as the data argument. See *Details* for
-#' a desciption of all available layouts.
+#' a description of all available layouts.
 #'
 #' @details
 #' Following is a short description of the different layout types available in
@@ -49,7 +49,7 @@
 #'   within circles. Conceptually equal to treemaps. See
 #'   [layout_tbl_graph_circlepack()] for further details}
 #'   \item{`partition`}{Create icicle or sunburst charts, where each layer
-#'   subdivides the division given by the preceeding layer. See
+#'   subdivides the division given by the preceding layer. See
 #'   [layout_tbl_graph_partition()] for further details}
 #'   \item{`hive`}{Positions nodes on axes spreading out from the center
 #'   based on node attributes. See [layout_tbl_graph_hive()] for further
@@ -83,7 +83,7 @@
 #' @param ... Arguments passed on to the layout function.
 #'
 #' @return For `ggraph()` an object of class gg onto which layers, scales,
-#'   etc. can be added. For `create_layout()` an object inherting from
+#'   etc. can be added. For `create_layout()` an object inheriting from
 #'   `layout_ggraph`. `layout_ggraph` itself inherits from
 #'   `data.frame` and can be considered as such. The data.frame contains
 #'   the node positions in the `x` and `y` column along with

@@ -7,7 +7,7 @@
 \method{scale_type}{geometry}(x)
 }
 \description{
-This functions is quite useless as geometry is not meant to be scaled, but it
+This function is quite useless as geometry is not meant to be scaled, but it
 is a requirement for ggplot2 to handle it correctly.
 }
 \keyword{internal}

@@ -5,7 +5,7 @@
 #' A diagonal in this context is a quadratic bezier with the control points
 #' positioned halfway between the start and end points but on the same axis.
 #' This produces a pleasing fan-in, fan-out line that is mostly relevant for
-#' heirarchical layouts as it implies an overall directionality in the plot.
+#' hierarchical layouts as it implies an overall directionality in the plot.
 #'
 #' @inheritSection geom_edge_link Edge variants
 #' @inheritSection geom_edge_link Edge aesthetic name expansion

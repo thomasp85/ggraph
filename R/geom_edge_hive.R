@@ -2,7 +2,7 @@
 #'
 #' This geom is only intended for use together with the hive layout. It draws
 #' edges between nodes as bezier curves, with the control points positioned at
-#' the same radi as the start or end point, and at a distance defined by the
+#' the same radii as the start or end point, and at a distance defined by the
 #' curvature argument.
 #'
 #' @inheritSection geom_edge_link Edge variants

@@ -1,6 +1,6 @@
 #' Apply a dendrogram layout to layout_tbl_graph
 #'
-#' This layout mimicks the [igraph::layout_as_tree()] algorithm
+#' This layout mimics the [igraph::layout_as_tree()] algorithm
 #' supplied by igraph, but puts all leaves at 0 and builds it up from there,
 #' instead of starting from the root and building it from there. The height of
 #' branch points are related to the maximum distance to an edge from the branch

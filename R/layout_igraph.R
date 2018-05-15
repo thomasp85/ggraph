@@ -34,7 +34,7 @@
 #'   Consider using [layout_tbl_graph_linear()] with `circular=TRUE`
 #'   for more control. See [igraph::in_circle()]}
 #'   \item{`nicely`}{Tries to pick an appropriate layout. See
-#'   [igraph::nicely()] for a description of the simpe decision tree
+#'   [igraph::nicely()] for a description of the simple decision tree
 #'   it uses}
 #'   \item{`dh`}{Uses *Davidson and Harels* simulated annealing
 #'   algorithm to place nodes. See [igraph::with_dh()]}

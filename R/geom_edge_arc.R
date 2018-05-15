@@ -2,7 +2,7 @@
 #'
 #' This geom is mainly intended for arc linear and circular diagrams (i.e. used
 #' together with [layout_tbl_graph_linear()]), though it can be used
-#' elsewere. It draws edges as arcs with a hight proportional to the distance
+#' elsewhere. It draws edges as arcs with a height proportional to the distance
 #' between the nodes. Arcs are calculated as beziers. For linear layout the
 #' placement of control points are related to the `curvature` argument and
 #' the distance between the two nodes. For circular layout the control points

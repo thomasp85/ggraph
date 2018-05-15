@@ -11,7 +11,7 @@
 \item{year}{The year the friendship was reported}
 }}
 \source{
-Coleman, J. S. \emph{Introduction to Mathermatical Sociology}. New York: Free
+Coleman, J. S. \emph{Introduction to Mathematical Sociology}. New York: Free
 Press, pp.450-451.
 }
 \usage{

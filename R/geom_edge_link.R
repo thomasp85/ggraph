@@ -19,7 +19,7 @@
 #'
 #' Often it is beneficial to stop the drawing of the edge before it reaches the
 #' node, for instance in cases where an arrow should be drawn and the arrowhead
-#' shouldn't lay ontop or below the node point. geom_edge_* and geom_edge_*2
+#' shouldn't lay on top or below the node point. geom_edge_* and geom_edge_*2
 #' supports this through the start_cap and end_cap aesthetics that takes a
 #' [geometry()] specification and dynamically caps the termini of the
 #' edges based on the given specifications. This means that if
@@ -100,7 +100,7 @@
 #' data.
 #'
 #' @param data The return of a call to `get_edges()` or a data.frame
-#' giving edges in corrent format (see details for for guidance on the format).
+#' giving edges in correct format (see details for for guidance on the format).
 #' See [get_edges()] for more details on edge extraction.
 #'
 #' @param n The number of points to create along the path.

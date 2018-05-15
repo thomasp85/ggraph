@@ -33,9 +33,9 @@ textAlongGrob <- function(label, x = unit(0.5, "npc"), y = unit(0.5, "npc"),
              cl = "textalong")
     }
 }
-#' Text angeled acording to line
+#' Text angled according to line
 #'
-#' This function takes care of recalculating the angel of the text as the device
+#' This function takes care of recalculating the angle of the text as the device
 #' size changes
 #'
 #' @importFrom grid makeContent
