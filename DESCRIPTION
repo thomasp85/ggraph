@@ -45,7 +45,7 @@ LinkingTo: Rcpp
 RoxygenNote: 6.0.1.9000
 Depends:
     R (>= 2.10),
-    ggplot2 (>= 2.0.0)
+    ggplot2 (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://github.com/thomasp85/ggraph
 BugReports: https://github.com/thomasp85/ggraph/issues
