@@ -8,18 +8,18 @@
 # Translations for custom Edge geoms
 # ---------------------------------------------------------------------------
 
-toPath <- function(data, prestats_data, layout, params, p, ...) {
-  data$alpha <- data$alpha %||% params$edge_alpha %||% 1
+toEdgePath <- function(data, prestats_data, layout, params, p, ...) {
+  names(data) <- sub("^edge_", "", names(data))
   prefix_class(data, "GeomPath")
 }
 
-#' @export
-to_basic.GeomEdgeBezier <- toPath
+#' @rawNamespace export(to_basic.GeomEdgeBezier)
+to_basic.GeomEdgeBezier <- toEdgePath
 
-#' @export
-to_basic.GeomEdgeBspline <- toPath
+#' @rawNamespace export(to_basic.GeomEdgeBspline)
+to_basic.GeomEdgeBspline <- toEdgePath
 
-#' @export
+#' @rawNamespace export(to_basic.GeomEdgeDensity)
 to_basic.GeomEdgeDensity <- function(data, prestats_data, layout, params, p, ...) {
   # avoid a weird precision issue
   data$density[data$density < 0.005] <- 0
@@ -30,13 +30,13 @@ to_basic.GeomEdgeDensity <- function(data, prestats_data, layout, params, p, ...
   prefix_class(data, "GeomTile")
 }
 
-#' @export
-to_basic.GeomEdgePath <- toPath
+#' @rawNamespace export(to_basic.GeomEdgePath)
+to_basic.GeomEdgePath <- toEdgePath
 
-#' @export
-to_basic.GeomEdgeSegment <- toPath
+#' @rawNamespace export(to_basic.GeomEdgeSegment)
+to_basic.GeomEdgeSegment <- toEdgePath
 
-#' @export
+#' @rawNamespace export(to_basic.GeomEdgePoint)
 to_basic.GeomEdgePoint <- function(data, prestats_data, layout, params, p, ...) {
   prefix_class(data, "GeomPoint")
 }
@@ -45,7 +45,7 @@ to_basic.GeomEdgePoint <- function(data, prestats_data, layout, params, p, ...) 
 # Translations for custom Node geoms
 # ---------------------------------------------------------------------------
 
-#' @export
+#' @rawNamespace export(to_basic.GeomNodeTile)
 to_basic.GeomNodeTile <- getFromNamespace("to_basic.GeomTile", asNamespace("plotly"))
 
 
