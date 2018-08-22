@@ -5,7 +5,7 @@
 # TODO: waiting for an example
 
 # ---------------------------------------------------------------------------
-# Translations for R/geom_edge.R
+# Translations for custom Edge geoms
 # ---------------------------------------------------------------------------
 
 toPath <- function(data, prestats_data, layout, params, p, ...) {
@@ -14,20 +14,10 @@ toPath <- function(data, prestats_data, layout, params, p, ...) {
 }
 
 #' @export
-to_basic.GeomEdgePath <- toPath
-
-#' @export
-to_basic.GeomEdgeSegment <- toPath
-
-#' @export
 to_basic.GeomEdgeBezier <- toPath
 
 #' @export
 to_basic.GeomEdgeBspline <- toPath
-
-# ---------------------------------------------------------------------------
-# Translations for R/geom_edge_density.R
-# ---------------------------------------------------------------------------
 
 #' @export
 to_basic.GeomEdgeDensity <- function(data, prestats_data, layout, params, p, ...) {
@@ -40,12 +30,23 @@ to_basic.GeomEdgeDensity <- function(data, prestats_data, layout, params, p, ...
   prefix_class(data, "GeomTile")
 }
 
+#' @export
+to_basic.GeomEdgePath <- toPath
+
+#' @export
+to_basic.GeomEdgeSegment <- toPath
+
+#' @export
+to_basic.GeomEdgePoint <- function(data, prestats_data, layout, params, p, ...) {
+  prefix_class(data, "GeomPoint")
+}
+
 # ---------------------------------------------------------------------------
-# Translations for R/geom_treemap.R
+# Translations for custom Node geoms
 # ---------------------------------------------------------------------------
 
 #' @export
-to_basic.GeomTreemap <- getFromNamespace("to_basic.GeomRect", asNamespace("plotly"))
+to_basic.GeomNodeTile <- getFromNamespace("to_basic.GeomTile", asNamespace("plotly"))
 
 
 # ---------------------------------------------------------------------------
