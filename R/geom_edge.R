@@ -285,3 +285,20 @@ GeomEdgeBspline <- ggproto('GeomEdgeBspline', GeomBspline0,
         data
     }
 )
+
+# Drop loop values from a list of edges, optionally with a warning.
+drop_loop <- function(data, warn=TRUE) {
+    mask_loop <- (data$x == data$xend) & (data$y == data$yend)
+    if (any(mask_loop) & warn) {
+        warning(sum(mask_loop), " loop edges were removed (use `geom_edge_loop()` to display loop edges).")
+    }
+    data[!mask_loop, , drop=FALSE]
+}
+
+drop_connections <- function(data, warn=TRUE) {
+    mask_connect <- (data$x != data$xend) | (data$y != data$yend)
+    if (any(mask_connect) & warn) {
+        warning(sum(mask_connect), " connection edges were removed (use `geom_edge_link()` or anther edge linking geom to display connection edges).")
+    }
+    data[!mask_connect, , drop=FALSE]
+}

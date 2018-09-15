@@ -127,6 +127,9 @@
 #'
 #' @param label_push A [grid::unit()] giving a fixed horizontal shift
 #' to add to the label in case of `angle_calc` is either 'along' or 'across'
+#' 
+#' @param warn_hidden_loop Loops are not shown with this geom.  Warn if a loop
+#' is removed?
 #'
 #' @author Thomas Lin Pedersen
 #'
@@ -166,9 +169,11 @@ StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         StatLink$setup_data(data, params)
     },
-    default_aes = aes(filter = TRUE)
+    default_aes = aes(filter = TRUE),
+    extra_params = c(StatLink$extra_params, "warn_hidden_loop")
 )
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -183,9 +188,11 @@ StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         StatLink2$setup_data(data, params)
     },
-    default_aes = aes(filter = TRUE)
+    default_aes = aes(filter = TRUE),
+    extra_params = c(StatLink2$extra_params, "warn_hidden_loop")
 )
 #' @rdname geom_edge_link
 #'
@@ -198,7 +205,7 @@ geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ...) {
+                           show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
     layer(data = data, mapping = mapping, stat = StatEdgeLink,
@@ -207,7 +214,7 @@ geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
           params = expand_edge_aes(
               list(arrow = arrow, lineend = lineend, linejoin = linejoin,
                    linemitre = linemitre, na.rm = FALSE, n = n,
-                   interpolate = FALSE,
+                   interpolate = FALSE, warn_hidden_loop = warn_hidden_loop,
                    label_colour = label_colour, label_alpha = label_alpha,
                    label_parse = label_parse, check_overlap = check_overlap,
                    angle_calc = angle_calc, force_flip = force_flip,
@@ -226,7 +233,7 @@ geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
                             label_parse = FALSE, check_overlap = FALSE,
                             angle_calc = 'rot', force_flip = TRUE,
                             label_dodge = NULL, label_push = NULL,
-                            show.legend = NA, ...) {
+                            show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id))
     layer(data = data, mapping = mapping, stat = StatEdgeLink2,
@@ -235,7 +242,7 @@ geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
           params = expand_edge_aes(
               list(arrow = arrow, lineend = lineend, linejoin = linejoin,
                    linemitre = linemitre, na.rm = FALSE, n = n,
-                   interpolate = TRUE,
+                   interpolate = TRUE, warn_hidden_loop = warn_hidden_loop,
                    label_colour = label_colour, label_alpha = label_alpha,
                    label_parse = label_parse, check_overlap = check_overlap,
                    angle_calc = angle_calc, force_flip = force_flip,

@@ -10,8 +10,8 @@
 \alias{is.geometry}
 \title{Define simple shapes for line capping}
 \usage{
-geometry(type = "circle", width = 1, height = width, width_unit = "cm",
-  height_unit = width_unit)
+geometry(type = "circle", width = 1, height = width,
+  width_unit = "cm", height_unit = width_unit)
 
 circle(radius = 1, unit = "cm")
 

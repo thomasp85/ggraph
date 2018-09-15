@@ -31,11 +31,12 @@
 scale_edge_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
   h.start = 0, direction = 1, na.value = "grey50")
 
-scale_edge_colour_brewer(..., type = "seq", palette = 1, direction = 1)
+scale_edge_colour_brewer(..., type = "seq", palette = 1,
+  direction = 1)
 
 scale_edge_colour_distiller(..., type = "seq", palette = 1,
-  direction = -1, values = NULL, space = "Lab", na.value = "grey50",
-  guide = "edge_colourbar")
+  direction = -1, values = NULL, space = "Lab",
+  na.value = "grey50", guide = "edge_colourbar")
 
 scale_edge_colour_gradient(..., low = "#132B43", high = "#56B1F7",
   space = "Lab", na.value = "grey50", guide = "edge_colourbar")
@@ -65,11 +66,12 @@ scale_edge_colour_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
 scale_edge_color_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
   h.start = 0, direction = 1, na.value = "grey50")
 
-scale_edge_color_brewer(..., type = "seq", palette = 1, direction = 1)
+scale_edge_color_brewer(..., type = "seq", palette = 1,
+  direction = 1)
 
-scale_edge_color_distiller(..., type = "seq", palette = 1, direction = -1,
-  values = NULL, space = "Lab", na.value = "grey50",
-  guide = "edge_colourbar")
+scale_edge_color_distiller(..., type = "seq", palette = 1,
+  direction = -1, values = NULL, space = "Lab",
+  na.value = "grey50", guide = "edge_colourbar")
 
 scale_edge_color_gradient(..., low = "#132B43", high = "#56B1F7",
   space = "Lab", na.value = "grey50", guide = "edge_colourbar")
@@ -119,7 +121,6 @@ from a discrete scale, specify \code{na.translate = FALSE}.}
   \item{na.value}{If \code{na.translate = TRUE}, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where \code{NA} is always placed at the far right.}
-  \item{aesthetics}{The names of the aesthetics that this scale works with}
   \item{scale_name}{The name of the scale}
   \item{palette}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
@@ -171,7 +172,7 @@ index into the list of palettes of appropriate \code{type}}
 
 \item{values}{if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-\code{colours} vector. See \code{\link{rescale}} for a convenience function
+\code{colours} vector. See \code{\link[=rescale]{rescale()}} for a convience function
 to map an arbitrary range to between 0 and 1.}
 
 \item{space}{colour space in which to calculate gradient. Must be "Lab" -

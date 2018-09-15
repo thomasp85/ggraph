@@ -4,9 +4,10 @@
 \alias{facet_graph}
 \title{Create a grid of small multiples by node and/or edge attributes}
 \usage{
-facet_graph(facets, row_type = "edge", col_type = "node", margins = FALSE,
-  scales = "fixed", space = "fixed", shrink = TRUE,
-  labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE)
+facet_graph(facets, row_type = "edge", col_type = "node",
+  margins = FALSE, scales = "fixed", space = "fixed",
+  shrink = TRUE, labeller = "label_value", as.table = TRUE,
+  switch = NULL, drop = TRUE)
 }
 \arguments{
 \item{facets}{This argument is soft-deprecated, please us \code{rows}

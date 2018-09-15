@@ -11,18 +11,20 @@ geom_edge_diagonal(mapping = NULL, data = get_edges(),
   lineend = "butt", linejoin = "round", linemitre = 1,
   label_colour = "black", label_alpha = 1, label_parse = FALSE,
   check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  label_dodge = NULL, label_push = NULL, show.legend = NA,
+  warn_hidden_loop = TRUE, ...)
 
 geom_edge_diagonal2(mapping = NULL, data = get_edges("long"),
   position = "identity", arrow = NULL, flipped = FALSE, n = 100,
   lineend = "butt", linejoin = "round", linemitre = 1,
   label_colour = "black", label_alpha = 1, label_parse = FALSE,
   check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  label_dodge = NULL, label_push = NULL, show.legend = NA,
+  warn_hidden_loop = TRUE, ...)
 
 geom_edge_diagonal0(mapping = NULL, data = get_edges(),
   position = "identity", arrow = NULL, flipped = FALSE,
-  lineend = "butt", show.legend = NA, ...)
+  lineend = "butt", show.legend = NA, warn_hidden_loop = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -81,6 +83,9 @@ to add to the label in case of \code{angle_calc} is either 'along' or 'across'}
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.}
+
+\item{warn_hidden_loop}{Loops are not shown with this geom.  Warn if a loop
+is removed?}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
