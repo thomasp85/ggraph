@@ -6,22 +6,25 @@
 \alias{geom_edge_fan0}
 \title{Draw edges as curves of different curvature}
 \usage{
-geom_edge_fan(mapping = NULL, data = get_edges(), position = "identity",
-  arrow = NULL, spread = 1, n = 100, lineend = "butt",
-  linejoin = "round", linemitre = 1, label_colour = "black",
-  label_alpha = 1, label_parse = FALSE, check_overlap = FALSE,
-  angle_calc = "rot", force_flip = TRUE, label_dodge = NULL,
-  label_push = NULL, show.legend = NA, ...)
+geom_edge_fan(mapping = NULL, data = get_edges(),
+  position = "identity", arrow = NULL, spread = 1, n = 100,
+  lineend = "butt", linejoin = "round", linemitre = 1,
+  label_colour = "black", label_alpha = 1, label_parse = FALSE,
+  check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
+  label_dodge = NULL, label_push = NULL, show.legend = NA,
+  warn_hidden_loop = TRUE, ...)
 
 geom_edge_fan2(mapping = NULL, data = get_edges("long"),
   position = "identity", arrow = NULL, spread = 1, n = 100,
   lineend = "butt", linejoin = "round", linemitre = 1,
   label_colour = "black", label_alpha = 1, label_parse = FALSE,
   check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  label_dodge = NULL, label_push = NULL, show.legend = NA,
+  warn_hidden_loop = TRUE, ...)
 
-geom_edge_fan0(mapping = NULL, data = get_edges(), position = "identity",
-  arrow = NULL, spread = 1, lineend = "butt", show.legend = NA, ...)
+geom_edge_fan0(mapping = NULL, data = get_edges(),
+  position = "identity", arrow = NULL, spread = 1,
+  lineend = "butt", show.legend = NA, warn_hidden_loop = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -38,7 +41,7 @@ a call to a position adjustment function.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
-\item{spread}{Modify the width of the fans \code{spread &gt; 1} will create
+\item{spread}{Modify the width of the fans \code{spread > 1} will create
 wider fans while the reverse will make them more narrow.}
 
 \item{n}{The number of points to create along the path.}
@@ -80,6 +83,9 @@ to add to the label in case of \code{angle_calc} is either 'along' or 'across'}
 \code{FALSE} never includes, and \code{TRUE} always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.}
+
+\item{warn_hidden_loop}{Loops are not shown with this geom.  Warn if a loop
+is removed?}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like

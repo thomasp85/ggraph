@@ -109,6 +109,7 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data$group <- seq_len(nrow(data))
         data2 <- data
         data2$x <- data2$xend
@@ -121,7 +122,7 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'spread')
+    extra_params = c(StatBezier$extra_params, 'spread', 'warn_hidden_loop')
 )
 #' @rdname geom_edge_fan
 #'
@@ -134,7 +135,7 @@ geom_edge_fan <- function(mapping = NULL, data = get_edges(),
                           label_parse = FALSE, check_overlap = FALSE,
                           angle_calc = 'rot', force_flip = TRUE,
                           label_dodge = NULL, label_push = NULL,
-                          show.legend = NA, ...) {
+                          show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           from=~from, to=~to))
@@ -165,6 +166,7 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data <- data[order(data$group),]
         data2 <- data[c(FALSE, TRUE), ]
         data <- data[c(TRUE, FALSE), ]
@@ -172,7 +174,7 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
     },
     required_aes = c('x', 'y', 'group', 'from', 'to'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'spread')
+    extra_params = c(StatBezier2$extra_params, 'spread', 'warn_hidden_loop')
 )
 #' @rdname geom_edge_fan
 #'
@@ -185,7 +187,7 @@ geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ...) {
+                           show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
                                           from=~from, to=~to))
@@ -210,18 +212,20 @@ geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
 #' @export
 StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
     setup_data = function(data, params) {
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         StatEdgeFan$setup_data(data, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'spread')
+    extra_params = c(StatBezier0$extra_params, 'spread', 'warn_hidden_loop')
 )
 #' @rdname geom_edge_fan
 #'
 #' @export
 geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
                                 position = "identity", arrow = NULL, spread = 1,
-                                lineend = "butt", show.legend = NA, ...) {
+                                lineend = "butt", show.legend = NA,
+                                warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           from=~from, to=~to))

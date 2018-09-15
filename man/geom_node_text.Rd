@@ -10,9 +10,9 @@ geom_node_text(mapping = NULL, data = NULL, position = "identity",
   show.legend = NA, repel = FALSE, ...)
 
 geom_node_label(mapping = NULL, data = NULL, position = "identity",
-  parse = FALSE, nudge_x = 0, nudge_y = 0, label.padding = unit(0.25,
-  "lines"), label.r = unit(0.15, "lines"), label.size = 0.25,
-  show.legend = NA, repel = FALSE, ...)
+  parse = FALSE, nudge_x = 0, nudge_y = 0,
+  label.padding = unit(0.25, "lines"), label.r = unit(0.15, "lines"),
+  label.size = 0.25, show.legend = NA, repel = FALSE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -72,7 +72,7 @@ These geoms are equivalent in functionality to \code{\link[ggplot2:geom_text]{gg
 }
 \section{Aesthetics}{
 
-\code{geom_node_point} understand the following aesthetics. Bold aesthetics are
+\code{geom_node_text} understands the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden. Italic aesthetics are required but
 not set by default
 \itemize{

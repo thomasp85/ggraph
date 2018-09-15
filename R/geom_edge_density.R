@@ -92,10 +92,12 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data
     },
     default_aes = aes(filter = TRUE),
-    required_aes = c('x', 'y', 'xend', 'yend')
+    required_aes = c('x', 'y', 'xend', 'yend'),
+    extra_params = c('na.rm', 'warn_hidden_loop')
 )
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -148,7 +150,7 @@ GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
 #' @export
 geom_edge_density <- function(mapping = NULL, data = get_edges('short'),
                               position = "identity", show.legend = NA,
-                              n=100, ...) {
+                              n=100, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
     layer(data = data, mapping = mapping, stat = StatEdgeDensity,

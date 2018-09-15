@@ -114,6 +114,7 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data$group <- seq_len(nrow(data))
         data2 <- data
         data2$x <- data2$xend
@@ -126,7 +127,7 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'curvature', 'fold')
+    extra_params = c('na.rm', 'n', 'curvature', 'fold', 'warn_hidden_loop')
 )
 #' @rdname geom_edge_arc
 #'
@@ -139,7 +140,7 @@ geom_edge_arc <- function(mapping = NULL, data = get_edges(),
                           label_parse = FALSE, check_overlap = FALSE,
                           angle_calc = 'rot', force_flip = TRUE,
                           label_dodge = NULL, label_push = NULL,
-                          show.legend = NA, ...) {
+                          show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular))
@@ -170,6 +171,7 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data <- data[order(data$group),]
         data2 <- data[c(FALSE, TRUE), ]
         data <- data[c(TRUE, FALSE), ]
@@ -177,7 +179,7 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
     },
     required_aes = c('x', 'y', 'group', 'circular'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'curvature', 'fold')
+    extra_params = StatEdgeArc$extra_params
 )
 #' @rdname geom_edge_arc
 #'
@@ -190,7 +192,7 @@ geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ...) {
+                           show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
                                           circular=~circular))
@@ -219,14 +221,15 @@ StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'curvature', 'fold')
+    extra_params = StatEdgeArc$extra_params
 )
 #' @rdname geom_edge_arc
 #'
 #' @export
 geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
                            position = "identity", arrow = NULL, curvature = 1,
-                           lineend = "butt", show.legend = NA, fold = fold, ...) {
+                           lineend = "butt", show.legend = NA, fold = fold,
+                           warn_hidden_loop=TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular))

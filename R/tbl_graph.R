@@ -68,6 +68,7 @@ as.igraphlayout <- function(type) {
         newType <- paste0(c('as_', 'in_', 'with_', 'on_'), type)
         typeInd <- which(newType %in% igraphlayouts)
         if (length(typeInd) == 0) {
+          browser()
             stop('Cannot find igraph layout')
         }
         layout <- newType[typeInd]
@@ -271,5 +272,6 @@ igraphlayouts <- c(
     'randomly',
     'with_fr',
     'with_kk',
-    'with_lgl'
+    'with_lgl',
+    "igraph_manual"
 )

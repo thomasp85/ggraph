@@ -7,8 +7,9 @@
 guide_edge_direction(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
   arrow = TRUE, arrow.position = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 500, direction = NULL, default.unit = "line",
-  reverse = FALSE, order = 0, override.aes = list(), ...)
+  barheight = NULL, nbin = 500, direction = NULL,
+  default.unit = "line", reverse = FALSE, order = 0,
+  override.aes = list(), ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.

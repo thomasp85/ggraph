@@ -184,10 +184,12 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data
     },
     default_aes = aes(filter = TRUE),
-    required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction')
+    required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction'),
+    extra_params = c(Stat$extra_params, 'warn_hidden_loop')
 )
 #' @rdname geom_edge_elbow
 #'
@@ -200,7 +202,7 @@ geom_edge_elbow <- function(mapping = NULL, data = get_edges(),
                             label_parse = FALSE, check_overlap = FALSE,
                             angle_calc = 'rot', force_flip = TRUE,
                             label_dodge = NULL, label_push = NULL,
-                            show.legend = NA, ...) {
+                            show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular,
@@ -251,10 +253,12 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data
     },
     default_aes = aes(filter = TRUE),
-    required_aes = c('x', 'y', 'group', 'circular', 'direction')
+    required_aes = c('x', 'y', 'group', 'circular', 'direction'),
+    extra_params = StatEdgeElbow$extra_params
 )
 #' @rdname geom_edge_elbow
 #'
@@ -267,7 +271,7 @@ geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
                              label_parse = FALSE, check_overlap = FALSE,
                              angle_calc = 'rot', force_flip = TRUE,
                              label_dodge = NULL, label_push = NULL,
-                             show.legend = NA, ...) {
+                             show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
                                           circular=~circular,
@@ -353,17 +357,19 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data
     },
     default_aes = aes(filter = TRUE),
-    required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction')
+    required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction'),
+    extra_params = StatEdgeElbow$extra_params
 )
 #' @rdname geom_edge_elbow
 #'
 #' @export
 geom_edge_elbow0 <- function(mapping = NULL, data = get_edges(),
                             position = "identity", arrow = NULL, flipped = FALSE,
-                            lineend = "butt", show.legend = NA, ...) {
+                            lineend = "butt", show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular,

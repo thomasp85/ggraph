@@ -109,6 +109,7 @@ StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data$group <- seq_len(nrow(data))
         data2 <- data
         data2$x <- data2$xend
@@ -122,7 +123,7 @@ StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
     },
     required_aes = c('x', 'y', 'xend', 'yend'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'curvature')
+    extra_params = c(StatBezier$extra_params, 'curvature', 'warn_hidden_loop')
 )
 #' @rdname geom_edge_hive
 #'
@@ -135,7 +136,7 @@ geom_edge_hive <- function(mapping = NULL, data = get_edges(),
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ...) {
+                           show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
     layer(data = data, mapping = mapping, stat = StatEdgeHive,
@@ -165,6 +166,7 @@ StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data <- data[order(data$group),]
         data2 <- data[c(FALSE, TRUE), ]
         data <- data[c(TRUE, FALSE), ]
@@ -173,7 +175,7 @@ StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
     },
     required_aes = c('x', 'y', 'group'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'curvature')
+    extra_params = c(StatBezier2$extra_params, 'curvature', 'warn_hidden_loop')
 )
 #' @rdname geom_edge_hive
 #'
@@ -186,7 +188,7 @@ geom_edge_hive2 <- function(mapping = NULL, data = get_edges('long'),
                             label_parse = FALSE, check_overlap = FALSE,
                             angle_calc = 'rot', force_flip = TRUE,
                             label_dodge = NULL, label_push = NULL,
-                            show.legend = NA, ...) {
+                            show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id))
     layer(data = data, mapping = mapping, stat = StatEdgeHive2,
@@ -210,18 +212,20 @@ geom_edge_hive2 <- function(mapping = NULL, data = get_edges('long'),
 #' @export
 StatEdgeHive0 <- ggproto('StatEdgeHive0', StatBezier0,
     setup_data = function(data, params) {
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         StatEdgeHive$setup_data(data, params)
     },
     required_aes = c('x', 'y', 'xend', 'yend'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'curvature')
+    extra_params = c(StatBezier$extra_params, 'curvature', 'warn_hidden_loop')
 )
 #' @rdname geom_edge_hive
 #'
 #' @export
 geom_edge_hive0 <- function(mapping = NULL, data = get_edges(),
                            position = "identity", arrow = NULL, curvature = 0.5,
-                           lineend = "butt", show.legend = NA, ...) {
+                           lineend = "butt", show.legend = NA,
+                           warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
     layer(data = data, mapping = mapping, stat = StatEdgeHive0,

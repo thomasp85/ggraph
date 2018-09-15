@@ -5,7 +5,8 @@
 \title{Show edges as a density map}
 \usage{
 geom_edge_density(mapping = NULL, data = get_edges("short"),
-  position = "identity", show.legend = NA, n = 100, ...)
+  position = "identity", show.legend = NA, n = 100,
+  warn_hidden_loop = TRUE, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -28,6 +29,9 @@ display.}
 
 \item{n}{The number of points to estimate in the x and y direction, i.e. the
 resolution of the raster.}
+
+\item{warn_hidden_loop}{Loops are not shown with this geom.  Warn if a loop
+is removed?}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like

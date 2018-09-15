@@ -12,8 +12,8 @@ tree_apply(tree, FUN, ...)
 
 \method{tree_apply}{default}(tree, FUN, ...)
 
-\method{tree_apply}{igraph}(tree, FUN, direction = "down", mode = "out",
-  ...)
+\method{tree_apply}{igraph}(tree, FUN, direction = "down",
+  mode = "out", ...)
 
 \method{tree_apply}{dendrogram}(tree, FUN, direction = "down", ...)
 }

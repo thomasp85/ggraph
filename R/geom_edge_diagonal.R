@@ -104,6 +104,7 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data$group <- seq_len(nrow(data))
         data2 <- data
         data2$x <- data2$xend
@@ -116,7 +117,7 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'flipped', 'n')
+    extra_params = c('na.rm', 'flipped', 'n', 'warn_hidden_loop')
 )
 #' @rdname geom_edge_diagonal
 #'
@@ -129,7 +130,7 @@ geom_edge_diagonal <- function(mapping = NULL, data = get_edges(),
                                label_parse = FALSE, check_overlap = FALSE,
                                angle_calc = 'rot', force_flip = TRUE,
                                label_dodge = NULL, label_push = NULL,
-                               show.legend = NA, ...) {
+                               show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular))
@@ -160,6 +161,7 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
             }
             data <- data[data$filter, names(data) != 'filter']
         }
+        data <- drop_loop(data, warn=params$warn_hidden_loop)
         data <- data[order(data$group),]
         data2 <- data[c(FALSE, TRUE), ]
         data <- data[c(TRUE, FALSE), ]
@@ -167,7 +169,7 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
     },
     required_aes = c('x', 'y', 'group', 'circular'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'flipped', 'n')
+    extra_params = StatEdgeDiagonal$extra_params
 )
 #' @rdname geom_edge_diagonal
 #'
@@ -180,7 +182,7 @@ geom_edge_diagonal2 <- function(mapping = NULL, data = get_edges('long'),
                                 label_parse = FALSE, check_overlap = FALSE,
                                 angle_calc = 'rot', force_flip = TRUE,
                                 label_dodge = NULL, label_push = NULL,
-                                show.legend = NA, ...) {
+                                show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
                                           circular=~circular))
@@ -209,7 +211,7 @@ StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
     },
     required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
     default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'flipped')
+    extra_params = StatEdgeDiagonal$extra_params
 )
 #' @rdname geom_edge_diagonal
 #'
@@ -217,7 +219,7 @@ StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
 geom_edge_diagonal0 <- function(mapping = NULL, data = get_edges(),
                                 position = "identity", arrow = NULL,
                                 flipped = FALSE, lineend = "butt",
-                                show.legend = NA, ...) {
+                                show.legend = NA, warn_hidden_loop = TRUE, ...) {
     mapping <- completeEdgeAes(mapping)
     mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                           circular=~circular))

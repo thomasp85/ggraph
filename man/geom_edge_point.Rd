@@ -4,8 +4,8 @@
 \alias{geom_edge_point}
 \title{Draw edges as glyphs}
 \usage{
-geom_edge_point(mapping = NULL, data = get_edges(), position = "identity",
-  mirror = FALSE, show.legend = NA, ...)
+geom_edge_point(mapping = NULL, data = get_edges(),
+  position = "identity", mirror = FALSE, show.legend = NA, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
