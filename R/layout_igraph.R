@@ -111,6 +111,9 @@ layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi/2, u
     if (algorithm == 'layout_as_tree') {
         layout[, 1] <- layout[, 1] + components(graph)$membership - 1
     }
+    if ('dim' %in% names(dots) && length(dots[['dim']]) > 0 && dots[['dim']] == 3) {
+        warning('You have entered the dim parameter with value 3. This will be ignored.\nIf you want a 3D layout please use the igraph package.')
+    }
     extraData <- as_tibble(graph, active = 'nodes')
     layout <- cbind(x=layout[,1], y=layout[,2], extraData[, !names(extraData) %in% c('x', 'y'), drop = FALSE])
     graph <- add_direction(graph, layout)
