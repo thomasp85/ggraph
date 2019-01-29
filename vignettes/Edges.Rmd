@@ -131,10 +131,10 @@ ggraph(hairball, layout = 'kk') +
 ### Arcs
 While some insists that curved edges should be used in standard *"hairball"* 
 graph visualisations it really is a poor choice, as it increases overplotting
-and interpretability for virtually no gain (unless complexiness is your thing).
-That doesn't mean arcs have no use in graph visualizations. Linear and circular
-layouts can benefit greatly from them and `geom_edge_arc()` is provided 
-precisely for this scenario:
+and decreases interpretability for virtually no gain (unless complexiness is 
+your thing). That doesn't mean arcs have no use in graph visualizations. Linear 
+and circular layouts can benefit greatly from them and `geom_edge_arc()` is 
+provided precisely for this scenario:
 
 ```{r}
 ggraph(hairball, layout = 'linear') + 
