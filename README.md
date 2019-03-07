@@ -57,7 +57,7 @@ There are many different ways to store and work with relational data in R. `ggra
 Installation
 ------------
 
-`ggraph` is available through CRAN and can be installed with `install_packages('ggraph')`. The package is under active development though and the latest set of features can be obtained by installing from this repository using `devtools`
+`ggraph` is available through CRAN and can be installed with `install.packages('ggraph')`. The package is under active development though and the latest set of features can be obtained by installing from this repository using `devtools`
 
 ``` r
 devtools::install_github('thomasp85/ggraph')
