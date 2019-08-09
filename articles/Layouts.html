@@ -12,7 +12,7 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png">
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
-<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/readable/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
+<!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/journal/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Layouts">
@@ -167,13 +167,13 @@
 <p><img src="Layouts_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Examining the return of <code><a href="../reference/ggraph.html">create_layout()</a></code> we see that it is really just a <code>data.frame</code> of node positions and (possible) attributes. Furthermore the original graph object along with other relevant information is passed along as attributes:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(layout)</a></code></pre></div>
-<pre><code>##            x         y name .ggraph.orig_index circular .ggraph.index
-## 1  0.5192177 -21.01956    1                  1    FALSE             1
-## 2  1.0553218 -21.20032    2                  2    FALSE             2
-## 3  1.0354389 -20.22290    3                  3    FALSE             3
-## 4 -0.6358880 -20.90292    4                  4    FALSE             4
-## 5 -1.8884878 -20.87226    5                  5    FALSE             5
-## 6 -0.3399490 -20.26496    6                  6    FALSE             6</code></pre>
+<pre><code>##           x        y name .ggraph.orig_index circular .ggraph.index
+## 1 -3.771766 10.42740    1                  1    FALSE             1
+## 2 -2.717827 10.55082    2                  2    FALSE             2
+## 3 -3.419673  9.75270    3                  3    FALSE             3
+## 4 -5.038237 10.52507    4                  4    FALSE             4
+## 5 -4.573334 10.38245    5                  5    FALSE             5
+## 6 -4.213908 10.10235    6                  6    FALSE             6</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attributes">attributes</a></span>(layout)</a></code></pre></div>
 <pre><code>## $names
 ## [1] "x"                  "y"                  "name"              
@@ -196,8 +196,8 @@
 ## 1     1    13  1957 right    
 ## 2     1    14  1957 left     
 ## 3     1    20  1957 left     
-## 4     1    52  1957 left     
-## 5     1    53  1957 left     
+## 4     1    52  1957 right    
+## 5     1    53  1957 right    
 ## 6     2    20  1957 right    
 ## # … with 500 more rows
 ## #
