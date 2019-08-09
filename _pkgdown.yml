@@ -7,7 +7,7 @@ authors:
 
 template:
   params:
-    bootswatch: readable
+    bootswatch: journal
 
 navbar:
   left:
