@@ -1,0 +1,145 @@
+destination: docs
+url: https://ggraph.data-imaginist.com
+
+authors:
+  Thomas Lin Pedersen:
+    href: https://data-imaginist.com
+
+template:
+  params:
+    bootswatch: readable
+
+navbar:
+  left:
+    - icon: fa-home fa-lg
+      href: index.html
+    - text: Reference
+      href: reference/index.html
+    - text: Getting Started
+      menu:
+      - text: Layouts
+        href: articles/Layouts.html
+      - text: Nodes
+        href: articles/Nodes.html
+      - text: Edges
+        href: articles/Edges.html
+    - text: Articles
+      menu:
+      - text: Tidygraph interface
+        href: articles/tidygraph.html
+    - text: News
+      menu:
+      - text: "Release notes"
+      - text: "Version 1.0.0"
+        href: https://www.data-imaginist.com/2017/announcing-ggraph/
+      - text: "------------------"
+      - text: "Change log"
+        href: news/index.html
+  right:
+    - icon: fa-github fa-lg
+      href: https://github.com/thomasp85/ggraph
+
+reference:
+  - title: "Plot Construction"
+    desc: >
+      While ggraph builds on top of ggplot2 it uses its own function to
+      initialise plots, allowing you to set global settings such as layouts etc.
+    contents:
+      - ggraph
+  - title: "Layouts"
+    desc: >
+      Layouts specify the spatial positioning of the nodes in the graph. In
+      addition to calculating x and y coordinates for the nodes some layouts
+      also calculate additional metrics used when plotting, e.g. width and
+      height for treemap layouts. Layouts are specified in the `ggraph()` call
+      or precalculated using `create_layout()`.
+    contents:
+      - layout_tbl_graph_auto
+      - layout_tbl_graph_manual
+      - layout_tbl_graph_igraph
+      - layout_tbl_graph_dendrogram
+      - layout_tbl_graph_linear
+      - layout_tbl_graph_circlepack
+      - layout_tbl_graph_treemap
+      - layout_tbl_graph_partition
+      - layout_tbl_graph_matrix
+      - layout_tbl_graph_hive
+  - title: "Nodes"
+    desc: >
+      While nodes are often thought of as points in a hairball graph, they are
+      much more than that, depending on the layout type.
+    content:
+      - geom_node_point
+      - geom_node_text
+      - geom_node_tile
+      - geom_node_circle
+      - geom_node_arc_bar
+  - title: "Edges"
+    desc: >
+      Edges are the enteties connecting nodes, often drawn with some sort of
+      line. Certain layouts calls for other types, e.g. a matrix plot where
+      edges are illustrated with points.
+    content:
+      - geom_edge_link
+      - geom_edge_arc
+      - geom_edge_fan
+      - geom_edge_loop
+      - geom_edge_diagonal
+      - geom_edge_elbow
+      - geom_edge_hive
+      - geom_edge_point
+      - geom_edge_density
+  - title: "Connections"
+    desc: >
+      Connections are meta-edges, connecting nodes that are not direct
+      neighbors, either through their shortest path or directly.
+    content:
+      - geom_conn_bundle
+  - title: "Facets"
+    desc: >
+      Faceting with networks is a bit different than for tabular data, as you'd
+      often want to facet only nodes, or edges etc.
+    contents:
+      - facet_graph
+      - facet_nodes
+      - facet_edges
+  - title: "Scales"
+    desc: >
+      While nodes uses the standard scales provided by ggplot2, edges have their
+      own, allowing you to have different scaling for nodes and edges.
+    content:
+      - scale_edge_colour
+      - scale_edge_fill
+      - scale_edge_alpha
+      - scale_edge_width
+      - scale_edge_size
+      - scale_edge_linetype
+      - scale_edge_shape
+      - scale_label_size
+  - title: "Guides"
+    desc: >
+      As for scales, the edge geoms comes with their own guides.
+    content:
+      - guide_edge_direction
+      - guide_edge_colourbar
+  - title: "Helpers"
+    desc: >
+      ggraph contains an assortment of helpers for various tasks related to
+      plotting.
+    contents:
+      - geom_axis_hive
+      - get_nodes
+      - get_edges
+      - get_con
+      - geometry
+      - node_angle
+      - pack_circles
+      - theme_graph
+  - title: "Data"
+    desc: >
+      To facilitate playing around ggraph includes a set of small network
+      datasets
+    contents:
+      - flare
+      - highschool
+      - whigs
