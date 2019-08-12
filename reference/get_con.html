@@ -81,7 +81,7 @@ connection." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2.9999</span>
       </span>
     </div>
 
@@ -184,7 +184,8 @@ connection.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>get_con</span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></span>(), <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></span>(), <span class='kw'>paths</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>get_con</span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></span>(), <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/integer'>integer</a></span>(), <span class='kw'>paths</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='no'>...</span>,
+  <span class='kw'>weight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>"all"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -201,6 +202,20 @@ connections</p></td>
     <tr>
       <th>...</th>
       <td><p>Additional information to be added to the final data output</p></td>
+    </tr>
+    <tr>
+      <th>weight</th>
+      <td><p>An expression to be evaluated on the edge data to provide
+weigths for the shortest path calculations</p></td>
+    </tr>
+    <tr>
+      <th>mode</th>
+      <td><p>Character constant, gives whether the shortest paths to or from
+the given vertices should be calculated for directed graphs. If <code>out</code>
+then the shortest paths <em>from</em> the vertex, if <code>in</code> then <em>to</em>
+it will be considered. If <code>all</code>, the default, then the corresponding
+undirected graph will be used, ie. not directed paths are searched. This
+argument is ignored for undirected graphs.</p></td>
     </tr>
     </table>
     

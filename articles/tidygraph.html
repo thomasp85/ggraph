@@ -37,7 +37,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.1.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2.9999</span>
       </span>
     </div>
 
@@ -146,11 +146,11 @@
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidygraph)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb1-3" data-line-number="3">graph &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph">as_tbl_graph</a></span>(</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">    <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">        <span class="dt">from =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">5</span>, <span class="dv">20</span>, <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">        <span class="dt">to =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">5</span>, <span class="dv">20</span>, <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">        <span class="dt">weight =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">20</span>)</a>
-<a class="sourceLine" id="cb1-8" data-line-number="8">    )</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="dt">from =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">5</span>, <span class="dv">20</span>, <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">to =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">5</span>, <span class="dv">20</span>, <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">weight =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb1-8" data-line-number="8">  )</a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">)</a>
 <a class="sourceLine" id="cb1-10" data-line-number="10">graph</a></code></pre></div>
 <pre><code>## # A tbl_graph: 5 nodes and 20 edges
@@ -160,32 +160,32 @@
 ## # Node Data: 5 x 1 (active)
 ##   name 
 ##   &lt;chr&gt;
-## 1 1    
-## 2 2    
-## 3 3    
-## 4 4    
-## 5 5    
+## 1 5    
+## 2 3    
+## 3 4    
+## 4 1    
+## 5 2    
 ## #
 ## # Edge Data: 20 x 3
 ##    from    to weight
 ##   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
-## 1     1     1  0.281
-## 2     2     1  0.446
-## 3     3     2  0.989
+## 1     1     4  0.177
+## 2     2     5  0.924
+## 3     3     1  0.893
 ## # … with 17 more rows</code></pre>
 <p>Then, instead of writing:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>, <span class="dt">weights =</span> <span class="st">"weight"</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb3-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</a></code></pre></div>
 <p>You would simply write:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>, <span class="dt">weights =</span> weight) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb4-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>This change means that it is much easier to experiment with modifications to node and edge parameters affecting layouts as it is not necessary to modify the underlying graph but only the plotting code, e.g.:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>, <span class="dt">weights =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log</a></span>(weight)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</a></code></pre></div>
+<a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="access-to-tidygraph-algorithms-in-ggraph-code" class="section level2">
@@ -195,23 +195,23 @@
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">graph &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs">create_notable</a></span>(<span class="st">'zachary'</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">    </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/centrality">centrality_pagerank</a></span>())) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">'bottom'</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/centrality">centrality_pagerank</a></span>())) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">'bottom'</span>)</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>here it is not necessary to first compute the pagerank centrality and store it as a node variable in order to plot it, and if you’re interested in looking at one of the myriad of other centrality measures you simply change the plotting code. This feature makes it much easier and painfree to investigate the effect of different graph measures on your plots and is a huge benefit when iterating on your visualisation.</p>
 <p>Access to <code>tidygraph</code> is available within <code><a href="../reference/ggraph.html">ggraph()</a></code> and <code>aes()</code> calls, and within <code>facet</code> formulas. It is thus possible to use algorithms when specifying layouts, adding aesthetics to geoms and splitting into subplots - all areas were ease of iteration is vital:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="st">'matrix'</span>, <span class="dt">sort.by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/node_rank">node_rank_leafsort</a></span>()) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/centrality">centrality_edge_betweenness</a></span>()), <span class="dt">mirror =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">    </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">'bottom'</span>)</a></code></pre></div>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/centrality">centrality_edge_betweenness</a></span>()), <span class="dt">mirror =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">'bottom'</span>)</a></code></pre></div>
 <pre><code>## Registered S3 method overwritten by 'seriation':
 ##   method         from 
 ##   reorder.hclust gclus</code></pre>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="st">'fr'</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">    </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">    </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">    </span><span class="kw"><a href="../reference/facet_nodes.html">facet_nodes</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/group_graph">group_infomap</a></span>())</a></code></pre></div>
+<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/facet_nodes.html">facet_nodes</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/group_graph">group_infomap</a></span>())</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
   </div>
