@@ -70,7 +70,7 @@ guide_train.edge_colourbar <- function(guide, scale, aesthetic = NULL) {
   ticks <- as.data.frame(setNames(
     list(scale$map(breaks)),
     aesthetic %||% scale$aesthetics[1]
-  ))
+  ), stringsAsFactors = FALSE)
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
   guide$key <- ticks

@@ -1,10 +1,10 @@
 # ggraph (development version)
 
-- Added `weight` and `mode` arguments to `get_con()` that are passed on to the
+* Character aesthetics are no longer cast to factors in edge geoms (#131)
+* Added `weight` and `mode` arguments to `get_con()` that are passed on to the
   shortest path calculations (#89).
-
-# ggraph 1.0.1
-
+* Fixed a bug resulting in the wrong mapping of additional values to connections
+  (#122, #134)
 * Fixed a bug when using `facet_graph()` with data from both tbl_df and 
   data.frame
 * Added `override.aes` to `guide_edge_direction()`

@@ -201,7 +201,7 @@ collapse_all_edges <- function(edges) {
       top_n(1) %>%
       ungroup()
   }
-  as.data.frame(edges)
+  as.data.frame(edges, stringsAsFactors = FALSE)
 }
 #' @importFrom dplyr %>% group_by top_n ungroup
 collapse_dir_edges <- function(edges) {
@@ -213,5 +213,5 @@ collapse_dir_edges <- function(edges) {
       top_n(1) %>%
       ungroup()
   }
-  as.data.frame(edges)
+  as.data.frame(edges, stringsAsFactors = FALSE)
 }

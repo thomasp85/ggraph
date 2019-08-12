@@ -30,7 +30,7 @@ collect_edges.layout_tbl_graph <- function(layout) {
   gr <- attr(layout, 'graph')
   edges <- as_tibble(gr, active = 'edges')
   edges$circular <- rep(attr(layout, 'circular'), nrow(edges))
-  as.data.frame(edges)
+  as.data.frame(edges, stringsAsFactors = FALSE)
 }
 #' @importFrom igraph shortest_paths
 #' @importFrom rlang enquo eval_tidy
@@ -235,7 +235,7 @@ layout_to_table.function <- function(layout, graph, circular, ...) {
   }
   if (!is.tbl_graph(layout) && !is.data.frame(layout)) {
     layout <- tryCatch(
-      as.data.frame(layout),
+      as.data.frame(layout, stringsAsFactors = FALSE),
       error = function(e) {
         tryCatch(
           as_tbl_graph(layout),

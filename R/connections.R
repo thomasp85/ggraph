@@ -45,10 +45,10 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
         }
       }, mode = mode
     )
-    nodes <- as.data.frame(layout)[unlist(connections), ]
+    nodes <- as.data.frame(layout, stringsAsFactors = FALSE)[unlist(connections), ]
     nodes$con.id <- rep(seq_along(connections), lengths(connections))
     if (!is.null(paths)) {
-      extra <- as.data.frame(layout)[unlist(paths), ]
+      extra <- as.data.frame(layout, stringsAsFactors = FALSE)[unlist(paths), ]
       extra$con.id <- rep(
         seq_along(paths) + length(connections),
         lengths(paths)
