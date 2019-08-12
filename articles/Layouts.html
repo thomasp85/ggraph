@@ -167,13 +167,13 @@
 <p><img src="Layouts_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Examining the return of <code><a href="../reference/ggraph.html">create_layout()</a></code> we see that it is really just a <code>data.frame</code> of node positions and (possible) attributes. Furthermore the original graph object along with other relevant information is passed along as attributes:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(layout)</a></code></pre></div>
-<pre><code>##          x        y name .ggraph.orig_index circular .ggraph.index
-## 1 13.00858 19.43297    1                  1    FALSE             1
-## 2 12.72712 18.22529    2                  2    FALSE             2
-## 3 13.84927 18.86478    3                  3    FALSE             3
-## 4 11.12428 18.69689    4                  4    FALSE             4
-## 5 10.94335 18.27591    5                  5    FALSE             5
-## 6 12.06269 18.47011    6                  6    FALSE             6</code></pre>
+<pre><code>##           x        y name .ggraph.orig_index circular .ggraph.index
+## 1 -12.60538 12.10354    1                  1    FALSE             1
+## 2 -12.74221 12.76290    2                  2    FALSE             2
+## 3 -12.46128 11.67121    3                  3    FALSE             3
+## 4 -13.18535 13.58257    4                  4    FALSE             4
+## 5 -12.70650 13.75037    5                  5    FALSE             5
+## 6 -11.53954 12.23371    6                  6    FALSE             6</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attributes">attributes</a></span>(layout)</a></code></pre></div>
 <pre><code>## $names
 ## [1] "x"                  "y"                  "name"              
