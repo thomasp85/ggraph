@@ -98,6 +98,7 @@ StatConnBundle <- ggproto('StatConnBundle', StatBspline,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     relax(data, params$tension)
   },
   setup_params = function(data, params) {
@@ -220,8 +221,8 @@ relax <- function(data, strength) {
   }
   idInds <- split(seq_len(nrow(data)), data$group)
   pathLengths <- lengths(idInds)
-  startInd <- sapply(idInds, head, n = 1)
-  endInd <- sapply(idInds, tail, n = 1)
+  startInd <- vapply(idInds, head, integer(1), n = 1)
+  endInd <- vapply(idInds, tail, integer(1), n = 1)
   data$x <- formula(data$x, startInd, endInd, pathLengths)
   data$y <- formula(data$y, startInd, endInd, pathLengths)
   data

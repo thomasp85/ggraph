@@ -174,9 +174,9 @@ guide_gengrob.edge_direction <- function(guide, theme) {
   arrowlength <- convertWidth(guide$arrowlength %||%
     (theme$legend.key.width * 5), 'mm')
   arrowwidth <- convertWidth(unit(sin(30 / 360 * 2 * pi) * 0.25 * 2, 'in'), 'mm')
-  edgewidth <- max(sapply(guide$geoms, function(g) {
+  edgewidth <- max(vapply(guide$geoms, function(g) {
     max(g$data$edge_width)
-  })) * .pt
+  }, numeric(1))) * .pt
   edgewidth <- convertWidth(unit(edgewidth, 'points'), 'mm')
   hgap <- c(convertWidth(unit(0.3, 'lines'), 'mm'))
   vgap <- hgap

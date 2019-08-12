@@ -108,6 +108,7 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     data$group <- seq_len(nrow(data))
     data2 <- data
     data2$x <- data2$xend
@@ -169,6 +170,7 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]

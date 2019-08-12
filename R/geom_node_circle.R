@@ -63,6 +63,7 @@ StatNodeCircle <- ggproto('StatNodeCircle', StatCircle,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     data
   },
   default_aes = aes(filter = TRUE)

@@ -198,6 +198,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     data
   },
   default_aes = aes(filter = TRUE),
@@ -271,6 +272,7 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     data
   },
   default_aes = aes(filter = TRUE),
@@ -382,6 +384,7 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     data
   },
   default_aes = aes(filter = TRUE),

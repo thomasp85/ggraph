@@ -1,19 +1,19 @@
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom dplyr %>% group_by_ mutate_ slice ungroup
+#' @importFrom dplyr %>% group_by mutate slice ungroup
 #' @export
 StatAxisHive <- ggproto('StatAxisHive', StatFilter,
   setup_data = function(data, params) {
     data <- data %>%
-      group_by(angle, section, PANEL) %>%
+      group_by(.data$angle, .data$section, .data$PANEL) %>%
       mutate(
-        x = min(r) * cos(angle[1]) * 1.1,
-        y = min(r) * sin(angle[1]) * 1.1,
-        xend = max(r) * cos(angle[1]) * 1.1,
-        yend = max(r) * sin(angle[1]) * 1.1,
-        max_r = max(r),
-        min_r = min(r)
+        x = min(.data$r) * cos(.data$angle[1]) * 1.1,
+        y = min(.data$r) * sin(.data$angle[1]) * 1.1,
+        xend = max(.data$r) * cos(.data$angle[1]) * 1.1,
+        yend = max(.data$r) * sin(.data$angle[1]) * 1.1,
+        max_r = max(.data$r),
+        min_r = min(.data$r)
       ) %>%
       slice(1) %>%
       ungroup()

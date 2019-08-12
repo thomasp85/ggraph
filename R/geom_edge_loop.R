@@ -87,6 +87,7 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     data <- data[data$from == data$to, ]
     data$group <- seq_len(nrow(data))
     if (nrow(data) != 0) {

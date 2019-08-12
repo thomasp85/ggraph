@@ -39,7 +39,7 @@ facet_edges <- function(facets, nrow = NULL, ncol = NULL, scales = 'fixed',
 FacetEdges <- ggproto('FacetEdges', FacetWrap,
   compute_layout = function(data, params) {
     plot_data <- data[[1]]
-    data <- split(data, sapply(data, data_type))
+    data <- split(data, vapply(data, data_type, character(1)))
     facet_data <- data$edge_ggraph
 
     panels <- FacetWrap$compute_layout(facet_data, params)

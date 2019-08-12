@@ -165,6 +165,7 @@ StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     StatLink$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
@@ -182,6 +183,7 @@ StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    if (nrow(data) == 0) return(NULL)
     StatLink2$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)

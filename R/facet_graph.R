@@ -59,7 +59,7 @@ facet_graph <- function(facets, row_type = 'edge', col_type = 'node',
 FacetGraph <- ggproto('FacetGraph', FacetGrid,
   compute_layout = function(data, params) {
     plot_data <- data[[1]]
-    data <- split(data, sapply(data, data_type))
+    data <- split(data, vapply(data, data_type, character(1)))
 
     rows <- params$rows
     cols <- params$cols

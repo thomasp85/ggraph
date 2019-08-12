@@ -44,7 +44,7 @@ facet_nodes <- function(facets, nrow = NULL, ncol = NULL, scales = 'fixed',
 FacetNodes <- ggproto('FacetNodes', FacetWrap,
   compute_layout = function(data, params) {
     plot_data <- data[[1]]
-    data <- split(data, sapply(data, data_type))
+    data <- split(data, vapply(data, data_type, character(1)))
     facet_data <- data$node_ggraph
 
     panels <- FacetWrap$compute_layout(facet_data, params)

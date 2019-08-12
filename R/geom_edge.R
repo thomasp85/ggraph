@@ -98,7 +98,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       edge_ind <- split(seq_len(nrow(data)), data$group)
       edge_length <- lengths(edge_ind)
       edge_start <- c(0, cumsum(edge_length)[-length(edge_length)]) + 1
-      label_pos <- data$label_pos[sapply(edge_ind, head, n = 1)]
+      label_pos <- data$label_pos[vapply(edge_ind, head, integer(1), n = 1)]
       label_pos <- 1 + floor((edge_length - 1) * label_pos)
       label_ind <- edge_start + label_pos
       label_data <- data[label_ind, ]

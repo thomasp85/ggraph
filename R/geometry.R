@@ -208,11 +208,11 @@ geo_height <- function(x) {
 }
 #' @importFrom grid convertHeight grobHeight
 abs_height <- function(grobs) {
-  sapply(grobs, function(g) convertHeight(grobHeight(g), 'cm', TRUE))
+  vapply(grobs, function(g) convertHeight(grobHeight(g), 'cm', TRUE), numeric(1))
 }
 #' @importFrom grid convertWidth grobWidth
 abs_width <- function(grobs) {
-  sapply(grobs, function(g) convertWidth(grobWidth(g), 'cm', TRUE))
+  vapply(grobs, function(g) convertWidth(grobWidth(g), 'cm', TRUE), numeric(1))
 }
 #' Define default scale type for geometry
 #'
