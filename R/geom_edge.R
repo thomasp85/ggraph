@@ -87,8 +87,9 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       lwd = data$edge_width * .pt, lty = data$edge_linetype,
       lineend = lineend, linejoin = linejoin, linemitre = linemitre
     )
+    id <- match(data$group, unique(data$group))
     edge_grob <- cappedPathGrob(
-      x = data$x, y = data$y, id = data$group, arrow = arrow,
+      x = data$x, y = data$y, id = id, arrow = arrow,
       start.cap = start_cap, start.cap2 = start_cap2, start.captype = start_captype,
       end.cap = end_cap, end.cap2 = end_cap2, end.captype = end_captype,
       default.units = 'native', gp = gp, constant = constant

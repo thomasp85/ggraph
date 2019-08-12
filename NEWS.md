@@ -1,5 +1,6 @@
 # ggraph (development version)
 
+* Fix bug affecting faceting of capped edges (#140)
 * Character aesthetics are no longer cast to factors in edge geoms (#131)
 * Added `weight` and `mode` arguments to `get_con()` that are passed on to the
   shortest path calculations (#89).
