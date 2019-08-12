@@ -33,13 +33,13 @@ getEdges.layout_tbl_graph <- function(layout) {
     as.data.frame(edges)
 }
 #' @importFrom igraph shortest_paths
+#' @importFrom rlang enquo eval_tidy
 getConnections.layout_tbl_graph <- function(layout, from, to, weight = NULL, mode = 'all') {
     from <- match(from, layout$.ggraph.orig_index)
     to <- match(to, layout$.ggraph.orig_index)
+    weight <- eval_tidy(enquo(weight), getEdges(layout))
     if (is.null(weight)) {
         weight <- NA
-    } else {
-        weight <- getEdges(layout)[[weight]]
     }
     graph <- attr(layout, 'graph')
     to <- split(to, from)

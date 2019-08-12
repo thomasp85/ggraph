@@ -4,7 +4,8 @@
 \alias{get_con}
 \title{Create a connection extractor function}
 \usage{
-get_con(from = integer(), to = integer(), paths = NULL, ...)
+get_con(from = integer(), to = integer(), paths = NULL, ...,
+  weight = NULL, mode = "all")
 }
 \arguments{
 \item{from, to}{The index of the start and end nodes for the connections}
@@ -13,6 +14,16 @@ get_con(from = integer(), to = integer(), paths = NULL, ...)
 connections}
 
 \item{...}{Additional information to be added to the final data output}
+
+\item{weight}{An expression to be evaluated on the edge data to provide
+weigths for the shortest path calculations}
+
+\item{mode}{Character constant, gives whether the shortest paths to or from
+the given vertices should be calculated for directed graphs. If \code{out}
+then the shortest paths \emph{from} the vertex, if \code{in} then \emph{to}
+it will be considered. If \code{all}, the default, then the corresponding
+undirected graph will be used, ie. not directed paths are searched. This
+argument is ignored for undirected graphs.}
 }
 \value{
 A function that takes a layout_ggraph object and returns the given

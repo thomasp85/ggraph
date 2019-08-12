@@ -1,5 +1,8 @@
 # ggraph (development version)
 
+- Added `weight` and `mode` arguments to `get_con()` that are passed on to the
+  shortest path calculations (#89).
+
 # ggraph 1.0.1
 
 * Fixed a bug when using `facet_graph()` with data from both tbl_df and 
