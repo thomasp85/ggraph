@@ -50,7 +50,7 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
 
 \item{label.theme}{A theme object for rendering the label text. Usually the
 object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.text} in \code{\link[=theme]{theme()}} or theme.}
+specified by \code{legend.text} in \code{\link[=theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
 label text.}
@@ -59,22 +59,22 @@ label text.}
 text.}
 
 \item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the width of the colorbar. Default value is \code{legend.key.width} or
+the width of the colourbar. Default value is \code{legend.key.width} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
 \item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the height of the colorbar. Default value is \code{legend.key.height} or
+the height of the colourbar. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
-\item{nbin}{A numeric specifying the number of bins for drawing colorbar. A
-smoother colorbar for a larger value.}
+\item{nbin}{A numeric specifying the number of bins for drawing the
+colourbar. A smoother colourbar results from a larger value.}
 
-\item{raster}{A logical. If \code{TRUE} then the colorbar is rendered as a
-raster object. If \code{FALSE} then the colorbar is rendered as a set of
+\item{raster}{A logical. If \code{TRUE} then the colourbar is rendered as a
+raster object. If \code{FALSE} then the colourbar is rendered as a set of
 rectangles. Note that not all graphics devices are capable of rendering
 raster image.}
 
-\item{ticks}{A logical specifying if tick marks on colorbar should be
+\item{ticks}{A logical specifying if tick marks on the colourbar should be
 visible.}
 
 \item{draw.ulim}{A logical specifying if the upper limit tick marks should
@@ -89,10 +89,10 @@ One of "horizontal" or "vertical."}
 \item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
 for \code{barwidth} and \code{barheight}.}
 
-\item{reverse}{logical. If \code{TRUE} the colorbar is reversed. By default,
+\item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}
 
-\item{order}{positive integer less that 99 that specifies the order of
+\item{order}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}

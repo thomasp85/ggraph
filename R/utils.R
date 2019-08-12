@@ -37,26 +37,12 @@ node_angle <- function(x, y, degrees = TRUE) {
     }
 }
 #' @rdname node_angle
-#' @usage NULL
-#' @export
-nAngle <- function(...) {
-    .Deprecated('node_angle')
-    node_angle(...)
-}
-#' @rdname node_angle
 #'
 #' @export
 edge_angle <- function(x, y, xend, yend, degrees = TRUE) {
     x <- xend - x
     y <- yend - y
     node_angle(x, y, degrees)
-}
-#' @rdname node_angle
-#' @usage NULL
-#' @export
-eAngle <- function(...) {
-    .Deprecated('edge_angle')
-    edge_angle(...)
 }
 
 

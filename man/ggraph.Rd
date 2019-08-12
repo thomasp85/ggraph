@@ -4,7 +4,6 @@
 \alias{ggraph}
 \alias{create_layout}
 \alias{layout_ggraph}
-\alias{createLayout}
 \alias{create_layout.default}
 \alias{create_layout.layout_ggraph}
 \alias{create_layout.tbl_graph}

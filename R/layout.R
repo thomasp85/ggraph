@@ -7,13 +7,6 @@ create_layout <- function(graph, layout, circular, ...) {
     UseMethod('create_layout', graph)
 }
 #' @rdname ggraph
-#' @usage NULL
-#' @export
-createLayout <- function(...) {
-    .Deprecated('create_layout')
-    create_layout(...)
-}
-#' @rdname ggraph
 #' @export
 create_layout.default <- function(graph, layout, ...) {
     graph <- tryCatch(as_tbl_graph(graph), error = function(e) {

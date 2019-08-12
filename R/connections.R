@@ -48,13 +48,6 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ...) {
         structure(nodes, type = 'connection_ggraph')
     }
 }
-#' @rdname get_con
-#' @usage NULL
-#' @export
-gCon <- function(...) {
-    .Deprecated('get_con')
-    get_con(...)
-}
 #' Internal data extractors
 #'
 #' These functions exists for supporting different data structures. There is no

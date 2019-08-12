@@ -7,8 +7,9 @@
 guide_edge_direction(title = waiver(), title.position = NULL,
   title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
   arrow = TRUE, arrow.position = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 500, direction = NULL, default.unit = "line",
-  reverse = FALSE, order = 0, override.aes = list(), ...)
+  barheight = NULL, nbin = 500, direction = NULL,
+  default.unit = "line", reverse = FALSE, order = 0,
+  override.aes = list(), ...)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
@@ -36,15 +37,15 @@ Defaults to \code{TRUE}}
 \item{arrow.position}{The position of the arrow relative to the example edge.}
 
 \item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the width of the colorbar. Default value is \code{legend.key.width} or
+the width of the colourbar. Default value is \code{legend.key.width} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
 \item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
-the height of the colorbar. Default value is \code{legend.key.height} or
+the height of the colourbar. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
 
-\item{nbin}{A numeric specifying the number of bins for drawing colorbar. A
-smoother colorbar for a larger value.}
+\item{nbin}{A numeric specifying the number of bins for drawing the
+colourbar. A smoother colourbar results from a larger value.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
@@ -52,10 +53,10 @@ One of "horizontal" or "vertical."}
 \item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
 for \code{barwidth} and \code{barheight}.}
 
-\item{reverse}{logical. If \code{TRUE} the colorbar is reversed. By default,
+\item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}
 
-\item{order}{positive integer less that 99 that specifies the order of
+\item{order}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}

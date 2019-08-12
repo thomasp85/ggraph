@@ -42,7 +42,7 @@ Suggests: network,
 Remotes: tidyverse/ggplot2,
     thomasp85/tidygraph
 LinkingTo: Rcpp
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
 Depends:
     R (>= 2.10),
     ggplot2 (>= 2.0.0)

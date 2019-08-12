@@ -2,8 +2,6 @@
 % Please edit documentation in R/geom_node_tile.R
 \name{geom_node_tile}
 \alias{geom_node_tile}
-\alias{geom_node_treemap}
-\alias{geom_treemap}
 \title{Draw the rectangles in a treemap}
 \usage{
 geom_node_tile(mapping = NULL, data = NULL, position = "identity",
@@ -25,8 +23,9 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
-will be used as the layer data.}
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -39,7 +38,7 @@ display.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 }
 \description{

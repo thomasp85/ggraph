@@ -99,13 +99,6 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
         structure(edges, type_ggraph = 'edge_ggraph')
     }
 }
-#' @rdname get_edges
-#' @usage NULL
-#' @export
-gEdges <- function(...) {
-    .Deprecated('get_edges')
-    get_edges(...)
-}
 #' @rdname internal_extractors
 #' @export
 getEdges <- function(layout) {

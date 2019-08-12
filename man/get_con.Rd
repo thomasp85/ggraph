@@ -2,7 +2,6 @@
 % Please edit documentation in R/connections.R
 \name{get_con}
 \alias{get_con}
-\alias{gCon}
 \title{Create a connection extractor function}
 \usage{
 get_con(from = integer(), to = integer(), paths = NULL, ...)

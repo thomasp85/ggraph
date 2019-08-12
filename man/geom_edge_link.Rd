@@ -20,8 +20,9 @@ geom_edge_link2(mapping = NULL, data = get_edges("long"),
   angle_calc = "rot", force_flip = TRUE, label_dodge = NULL,
   label_push = NULL, show.legend = NA, ...)
 
-geom_edge_link0(mapping = NULL, data = get_edges(), position = "identity",
-  arrow = NULL, lineend = "butt", show.legend = NA, ...)
+geom_edge_link0(mapping = NULL, data = get_edges(),
+  position = "identity", arrow = NULL, lineend = "butt",
+  show.legend = NA, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -80,7 +81,7 @@ display.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 }
 \description{

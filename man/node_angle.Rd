@@ -2,9 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{node_angle}
 \alias{node_angle}
-\alias{nAngle}
 \alias{edge_angle}
-\alias{eAngle}
 \title{Get the angle of nodes and edges}
 \usage{
 node_angle(x, y, degrees = TRUE)

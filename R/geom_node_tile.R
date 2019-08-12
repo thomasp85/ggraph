@@ -59,19 +59,6 @@ geom_node_tile <- function(mapping = NULL, data = NULL, position = "identity",
           params = list(na.rm = FALSE, ...)
     )
 }
-#' @rdname geom_node_tile
-#' @usage NULL
-#' @export
-geom_node_treemap <- function(mapping = NULL, data = NULL, position = "identity",
-                              show.legend = NA, ...) {
-    .Deprecated('geom_node_tile')
-    geom_node_tile(mapping = mapping, data = data, position = position,
-                   show.legend = show.legend, ...)
-}
-#' @rdname geom_node_tile
-#' @usage NULL
-#' @export
-geom_treemap <- geom_node_treemap
 
 #' @rdname ggraph-extensions
 #' @format NULL

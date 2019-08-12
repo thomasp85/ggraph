@@ -6,16 +6,17 @@
 \alias{geom_conn_bundle0}
 \title{Create hierarchical edge bundles between node connections}
 \usage{
-geom_conn_bundle(mapping = NULL, data = get_con(), position = "identity",
-  arrow = NULL, lineend = "butt", show.legend = NA, n = 100,
-  tension = 0.8, ...)
+geom_conn_bundle(mapping = NULL, data = get_con(),
+  position = "identity", arrow = NULL, lineend = "butt",
+  show.legend = NA, n = 100, tension = 0.8, ...)
 
-geom_conn_bundle2(mapping = NULL, data = get_con(), position = "identity",
-  arrow = NULL, lineend = "butt", show.legend = NA, n = 100,
-  tension = 0.8, ...)
+geom_conn_bundle2(mapping = NULL, data = get_con(),
+  position = "identity", arrow = NULL, lineend = "butt",
+  show.legend = NA, n = 100, tension = 0.8, ...)
 
-geom_conn_bundle0(mapping = NULL, data = get_con(), position = "identity",
-  arrow = NULL, lineend = "butt", show.legend = NA, tension = 0.8, ...)
+geom_conn_bundle0(mapping = NULL, data = get_con(),
+  position = "identity", arrow = NULL, lineend = "butt",
+  show.legend = NA, tension = 0.8, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -46,7 +47,7 @@ Defaults to 0.8}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 }
 \description{

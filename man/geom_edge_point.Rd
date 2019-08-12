@@ -4,8 +4,8 @@
 \alias{geom_edge_point}
 \title{Draw edges as glyphs}
 \usage{
-geom_edge_point(mapping = NULL, data = get_edges(), position = "identity",
-  mirror = FALSE, show.legend = NA, ...)
+geom_edge_point(mapping = NULL, data = get_edges(),
+  position = "identity", mirror = FALSE, show.legend = NA, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -31,7 +31,7 @@ display.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 }
 \description{
