@@ -188,30 +188,37 @@ the node data.</p></td>
     </tr>
     <tr>
       <th>data</th>
-      <td><p>A data frame. If specified, overrides the default data frame
-defined at the top level of the plot.</p></td>
+      <td><p>The data to be displayed in this layer. There are three
+options:</p>
+<p>If <code>NULL</code>, the default, the data is inherited from the plot
+data as specified in the call to <code>ggplot()</code>.</p>
+<p>A <code>data.frame</code>, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+<code>fortify()</code> for which variables will be created.</p>
+<p>A <code>function</code> will be called with a single argument,
+the plot data. The return value must be a <code>data.frame</code>, and
+will be used as the layer data. A <code>function</code> can be created
+from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     </tr>
     <tr>
       <th>position</th>
-      <td><p>Position adjustment, either as a string, or the result of a
-call to a position adjustment function.</p></td>
+      <td><p>Position adjustment, either as a string, or the result of
+a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>show.legend</th>
       <td><p>logical. Should this layer be included in the legends?
-<code>NA</code>, the default, includes if any aesthetics are mapped. <code>FALSE</code>
-never includes, and <code>TRUE</code> always includes.</p></td>
+<code>NA</code>, the default, includes if any aesthetics are mapped.
+<code>FALSE</code> never includes, and <code>TRUE</code> always includes.
+It can also be a named logical vector to finely select the aesthetics to
+display.</p></td>
     </tr>
     <tr>
       <th>...</th>
-      <td><p>other arguments passed on to <code><a href='https://ggplot2.tidyverse.org/reference/layer.html'>layer</a></code>. There
-are three types of arguments you can use here:</p><ul>
-<li><p>Aesthetics: to set an aesthetic to a fixed value, like
- <code>color = "red"</code> or <code>size = 3.</code></p></li>
-<li><p>Other arguments to the layer, for example you override the default
- <code>stat</code> associated with the layer.</p></li>
-<li><p>Other arguments passed on to the stat.</p></li>
-</ul></td>
+      <td><p>Other arguments passed on to <code>layer()</code>. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
+to the paired geom/stat.</p></td>
     </tr>
     </table>
     

@@ -172,12 +172,12 @@ curvature argument.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>geom_edge_hive</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>curvature</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>,
-  <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>geom_edge_hive</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>curvature</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
 <span class='fu'>geom_edge_hive2</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"long"</span>),
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>curvature</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
@@ -186,9 +186,9 @@ curvature argument.</p>
   <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
   <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
-<span class='fu'>geom_edge_hive0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(), <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>curvature</span> <span class='kw'>=</span> <span class='fl'>0.5</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
-  <span class='no'>...</span>)</pre>
+<span class='fu'>geom_edge_hive0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>curvature</span> <span class='kw'>=</span> <span class='fl'>0.5</span>,
+  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -292,7 +292,7 @@ display.</p></td>
       <th>...</th>
       <td><p>Other arguments passed on to <code>layer()</code>. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-<code>color = "red"</code> or <code>size = 3</code>. They may also be parameters
+<code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
     </table>

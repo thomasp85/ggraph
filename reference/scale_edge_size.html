@@ -194,7 +194,7 @@ the call to the geom - just use <code>size</code>.</p>
     <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code>continuous_scale</code></p><dl class='dl-horizontal'>
-  <dt>name</dt><dd><p>The name of the scale. Used as axis or legend title. If
+  <dt>name</dt><dd><p>The name of the scale. Used as the axis or legend title. If
 <code>waiver()</code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></dd>
@@ -224,17 +224,24 @@ transformation object</p></li>
 <li><p>A function that takes the breaks as input and returns labels
 as output</p></li>
 </ul></p></dd>
-  <dt>limits</dt><dd><p>A numeric vector of length two providing limits of the scale.
-Use <code>NA</code> to refer to the existing minimum or maximum.</p></dd>
+  <dt>limits</dt><dd><p>One of:
+<ul>
+<li><p><code>NULL</code> to use the default scale range</p></li>
+<li><p>A numeric vector of length two providing limits of the scale.
+Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
+<li><p>A function that accepts the existing (automatic) limits and returns
+new limits</p></li>
+</ul></p></dd>
   <dt>oob</dt><dd><p>Function that handles limits outside of the scale limits
-(out of bounds). The default replaces out of bounds values with NA.</p></dd>
+(out of bounds). The default replaces out of bounds values with <code>NA</code>.</p></dd>
   <dt>na.value</dt><dd><p>Missing values will be replaced with this value.</p></dd>
   <dt>trans</dt><dd><p>Either the name of a transformation object, or the
 object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "exp", "identity", "log", "log10", "log1p", "log2",
-"logit", "probability", "probit", "reciprocal", "reverse" and "sqrt".
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
 
-A transformation object bundles together a transform, it's inverse,
+A transformation object bundles together a transform, its inverse,
 and methods for generating breaks and labels. Transformation objects
 are defined in the scales package, and are called <code>name_trans</code>, e.g.
 <code><a href='https://www.rdocumentation.org/packages/scales/topics/boxcox_trans'>scales::boxcox_trans()</a></code>. You can create your own

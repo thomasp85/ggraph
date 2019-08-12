@@ -179,9 +179,9 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
 
 <span class='fu'>scale_edge_fill_brewer</span>(<span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"seq"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>)
 
-<span class='fu'>scale_edge_fill_distiller</span>(<span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"seq"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span> <span class='kw'>=</span> -<span class='fl'>1</span>,
-  <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>,
-  <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"edge_colourbar"</span>)
+<span class='fu'>scale_edge_fill_distiller</span>(<span class='no'>...</span>, <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"seq"</span>, <span class='kw'>palette</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> -<span class='fl'>1</span>, <span class='kw'>values</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>,
+  <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"edge_colourbar"</span>)
 
 <span class='fu'>scale_edge_fill_gradient</span>(<span class='no'>...</span>, <span class='kw'>low</span> <span class='kw'>=</span> <span class='st'>"#132B43"</span>, <span class='kw'>high</span> <span class='kw'>=</span> <span class='st'>"#56B1F7"</span>,
   <span class='kw'>space</span> <span class='kw'>=</span> <span class='st'>"Lab"</span>, <span class='kw'>na.value</span> <span class='kw'>=</span> <span class='st'>"grey50"</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>"edge_colourbar"</span>)
@@ -214,6 +214,9 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
     <tr>
       <th>...</th>
       <td><p>Arguments passed on to <code>discrete_scale</code></p><dl class='dl-horizontal'>
+  <dt>palette</dt><dd><p>A palette function that when called with a single integer
+argument (the number of levels in the scale) returns the values that
+they should take.</p></dd>
   <dt>breaks</dt><dd><p>One of:
 <ul>
 <li><p><code>NULL</code> for no breaks</p></li>
@@ -234,12 +237,8 @@ from a discrete scale, specify <code>na.translate = FALSE</code>.</p></dd>
   <dt>na.value</dt><dd><p>If <code>na.translate = TRUE</code>, what value aesthetic
 value should missing be displayed as? Does not apply to position scales
 where <code>NA</code> is always placed at the far right.</p></dd>
-  <dt>aesthetics</dt><dd><p>The names of the aesthetics that this scale works with</p></dd>
   <dt>scale_name</dt><dd><p>The name of the scale</p></dd>
-  <dt>palette</dt><dd><p>A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take</p></dd>
-  <dt>name</dt><dd><p>The name of the scale. Used as axis or legend title. If
+  <dt>name</dt><dd><p>The name of the scale. Used as the axis or legend title. If
 <code>waiver()</code>, the default, the name of the scale is taken from the first
 mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
 omitted.</p></dd>
@@ -304,7 +303,7 @@ index into the list of palettes of appropriate <code>type</code></p></td>
       <th>values</th>
       <td><p>if colours should not be evenly positioned along the gradient
 this vector gives the position (between 0 and 1) for each colour in the
-<code>colours</code> vector. See <code>rescale</code> for a convenience function
+<code>colours</code> vector. See <code>rescale()</code> for a convenience function
 to map an arbitrary range to between 0 and 1.</p></td>
     </tr>
     <tr>
@@ -336,11 +335,11 @@ Defaults to 0.</p></td>
     </tr>
     <tr>
       <th>start</th>
-      <td><p>gray value at low end of palette</p></td>
+      <td><p>grey value at low end of palette</p></td>
     </tr>
     <tr>
       <th>end</th>
-      <td><p>gray value at high end of palette</p></td>
+      <td><p>grey value at high end of palette</p></td>
     </tr>
     <tr>
       <th>alpha</th>

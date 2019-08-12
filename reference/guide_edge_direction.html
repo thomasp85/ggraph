@@ -171,8 +171,9 @@ mapped to its progression, such as changing width, colour and opacity.</p>
     <pre class="usage"><span class='fu'>guide_edge_direction</span>(<span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(), <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>title.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>title.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>arrow.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>barwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>barheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nbin</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
-  <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='no'>...</span>)</pre>
+  <span class='kw'>barheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>nbin</span> <span class='kw'>=</span> <span class='fl'>500</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>, <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>,
+  <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/list'>list</a></span>(), <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -218,19 +219,19 @@ Defaults to <code>TRUE</code></p></td>
     <tr>
       <th>barwidth</th>
       <td><p>A numeric or a <code><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code> object specifying
-the width of the colorbar. Default value is <code>legend.key.width</code> or
+the width of the colourbar. Default value is <code>legend.key.width</code> or
 <code>legend.key.size</code> in <code>theme()</code> or theme.</p></td>
     </tr>
     <tr>
       <th>barheight</th>
       <td><p>A numeric or a <code><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code> object specifying
-the height of the colorbar. Default value is <code>legend.key.height</code> or
+the height of the colourbar. Default value is <code>legend.key.height</code> or
 <code>legend.key.size</code> in <code>theme()</code> or theme.</p></td>
     </tr>
     <tr>
       <th>nbin</th>
-      <td><p>A numeric specifying the number of bins for drawing colorbar. A
-smoother colorbar for a larger value.</p></td>
+      <td><p>A numeric specifying the number of bins for drawing the
+colourbar. A smoother colourbar results from a larger value.</p></td>
     </tr>
     <tr>
       <th>direction</th>
@@ -244,12 +245,12 @@ for <code>barwidth</code> and <code>barheight</code>.</p></td>
     </tr>
     <tr>
       <th>reverse</th>
-      <td><p>logical. If <code>TRUE</code> the colorbar is reversed. By default,
+      <td><p>logical. If <code>TRUE</code> the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom</p></td>
     </tr>
     <tr>
       <th>order</th>
-      <td><p>positive integer less that 99 that specifies the order of
+      <td><p>positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.</p></td>
