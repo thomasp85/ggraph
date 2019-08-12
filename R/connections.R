@@ -59,7 +59,7 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
       cbind,
       c(
         list(nodes),
-        lapply(list(...), rep, length.out = nrow(nodes)),
+        lapply(list(...), function(x) rep_len(x, length(from))[nodes$con.id]),
         list(stringsAsFactors = FALSE)
       )
     )
