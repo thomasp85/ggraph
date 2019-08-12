@@ -153,9 +153,9 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
 #'   coord_fixed()
 geom_axis_hive <- function(mapping = NULL, data = NULL,
                            position = 'identity', label = TRUE, axis = TRUE, show.legend = NA, ...) {
-  mapping <- aes_intersect(mapping, aes(r = .data$r, angle = .data$angle,
-                                        center_size = .data$center_size,
-                                        axis = .data$axis, section = .data$section))
+  mapping <- aes_intersect(mapping, aes(r = r, angle = angle,
+                                        center_size = center_size,
+                                        axis = axis, section = section))
   layer(
     data = data, mapping = mapping, stat = StatAxisHive,
     geom = GeomAxisHive, position = position, show.legend = show.legend,

@@ -121,8 +121,8 @@ geom_conn_bundle <- function(mapping = NULL, data = get_con(),
                              lineend = 'butt', show.legend = NA,
                              n = 100, tension = 0.8, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
-                                        group = .data$con.id))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y,
+                                        group = con.id))
   layer(
     data = data, mapping = mapping, stat = StatConnBundle,
     geom = GeomEdgePath, position = position, show.legend = show.legend,
@@ -159,8 +159,8 @@ geom_conn_bundle2 <- function(mapping = NULL, data = get_con(),
                               lineend = 'butt', show.legend = NA,
                               n = 100, tension = 0.8, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
-                                        group = .data$con.id))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y,
+                                        group = con.id))
   layer(
     data = data, mapping = mapping, stat = StatConnBundle2,
     geom = GeomEdgePath, position = position, show.legend = show.legend,
@@ -196,8 +196,8 @@ geom_conn_bundle0 <- function(mapping = NULL, data = get_con(),
                               lineend = 'butt', show.legend = NA,
                               tension = 0.8, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
-                                        group = .data$con.id))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y,
+                                        group = con.id))
   layer(
     data = data, mapping = mapping, stat = StatConnBundle0,
     geom = GeomEdgeBspline, position = position, show.legend = show.legend,

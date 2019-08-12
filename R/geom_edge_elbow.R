@@ -218,8 +218,8 @@ geom_edge_elbow <- function(mapping = NULL, data = get_edges(),
                             show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
-    x = .data$x, y = .data$y, xend = .data$xend, yend = .data$yend,
-    circular = .data$circular, direction = .data$direction
+    x = x, y = y, xend = xend, yend = yend,
+    circular = circular, direction = direction
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeElbow,
@@ -292,8 +292,8 @@ geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
                              show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
-    x = .data$x, y = .data$y, group = .data$edge.id,
-    circular = .data$circular, direction = .data$direction
+    x = x, y = y, group = edge.id,
+    circular = circular, direction = direction
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeElbow2,
@@ -398,8 +398,8 @@ geom_edge_elbow0 <- function(mapping = NULL, data = get_edges(),
                              lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
-    x = .data$x, y = .data$y, xend = .data$xend, yend = .data$yend,
-    circular = .data$circular, direction = .data$direction
+    x = x, y = y, xend = xend, yend = yend,
+    circular = circular, direction = direction
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeElbow0,

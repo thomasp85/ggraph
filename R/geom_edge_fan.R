@@ -137,8 +137,8 @@ geom_edge_fan <- function(mapping = NULL, data = get_edges(),
                           show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
-    x = .data$x, y = .data$y, xend = .data$xend, yend = .data$yend,
-    from = .data$from, to = .data$to
+    x = x, y = y, xend = xend, yend = yend,
+    from = from, to = to
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeFan,
@@ -194,8 +194,8 @@ geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
-    x = .data$x, y = .data$y, group = .data$edge.id,
-    from = .data$from, to = .data$to
+    x = x, y = y, group = edge.id,
+    from = from, to = to
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeFan2,
@@ -235,8 +235,8 @@ geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
                            lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
-    x = .data$x, y = .data$y, xend = .data$xend, yend = .data$yend,
-    from = .data$from, to = .data$to
+    x = x, y = y, xend = xend, yend = yend,
+    from = from, to = to
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeFan0,

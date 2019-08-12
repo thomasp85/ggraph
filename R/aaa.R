@@ -1,3 +1,25 @@
+utils::globalVariables(c(
+  'angle',
+  'center_size',
+  'circular',
+  'con.id',
+  'direction',
+  'edge.id',
+  'end',
+  'from',
+  'height',
+  'r',
+  'r0',
+  'section',
+  'start',
+  'to',
+  'width',
+  'x',
+  'xend',
+  'y',
+  'yend'
+))
+
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL

@@ -173,8 +173,8 @@ geom_edge_density <- function(mapping = NULL, data = get_edges('short'),
                               position = 'identity', show.legend = NA,
                               n = 100, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
-                                        xend = .data$xend, yend = .data$yend))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y,
+                                        xend = xend, yend = yend))
   layer(
     data = data, mapping = mapping, stat = StatEdgeDensity,
     geom = GeomEdgeDensity, position = position,
