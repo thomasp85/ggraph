@@ -189,7 +189,7 @@ expand_edge_aes <- function(x) {
   names(x)[short_names] <- paste0('edge_', names(x)[short_names])
   x
 }
-#' @importFrom dplyr %>% group_by_ top_n ungroup
+#' @importFrom dplyr %>% group_by top_n ungroup
 collapse_all_edges <- function(edges) {
   from <- pmin(edges$from, edges$to)
   to <- pmax(edges$to, edges$from)
@@ -197,19 +197,19 @@ collapse_all_edges <- function(edges) {
   if (anyDuplicated(id)) {
     edges$.id <- id
     edges <- edges %>%
-      group_by_(~.id) %>%
+      group_by(.data$.id) %>%
       top_n(1) %>%
       ungroup()
   }
   as.data.frame(edges)
 }
-#' @importFrom dplyr %>% group_by_ top_n ungroup
+#' @importFrom dplyr %>% group_by top_n ungroup
 collapse_dir_edges <- function(edges) {
   id <- paste(edges$from, edges$to, sep = '-')
   if (anyDuplicated(id)) {
     edges$.id <- id
     edges <- edges %>%
-      group_by_(~.id) %>%
+      group_by(.data$.id) %>%
       top_n(1) %>%
       ungroup()
   }

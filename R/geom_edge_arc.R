@@ -142,9 +142,9 @@ geom_edge_arc <- function(mapping = NULL, data = get_edges(),
                           label_dodge = NULL, label_push = NULL,
                           show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(
-    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
-    circular = ~circular
+  mapping <- aes_intersect(mapping, aes(
+    x = .data$x, y = .data$y, xend = .data$xend, yend = .data$yend,
+    circular = .data$circular
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeArc,
@@ -198,9 +198,9 @@ geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(
-    x = ~x, y = ~y, group = ~edge.id,
-    circular = ~circular
+  mapping <- aes_intersect(mapping, aes(
+    x = .data$x, y = .data$y, group = .data$edge.id,
+    circular = .data$circular
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeArc2,
@@ -239,9 +239,9 @@ geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
                            position = 'identity', arrow = NULL, curvature = 1,
                            lineend = 'butt', show.legend = NA, fold = fold, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(
-    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
-    circular = ~circular
+  mapping <- aes_intersect(mapping, aes(
+    x = .data$x, y = .data$y, xend = .data$xend, yend = .data$yend,
+    circular = .data$circular
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeArc0,

@@ -135,9 +135,9 @@ geom_edge_fan <- function(mapping = NULL, data = get_edges(),
                           label_dodge = NULL, label_push = NULL,
                           show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(
-    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
-    from = ~from, to = ~to
+  mapping <- aes_intersect(mapping, aes(
+    x = .data$x, y = .data$y, xend = .data$xend, yend = .data$yend,
+    from = .data$from, to = .data$to
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeFan,
@@ -191,9 +191,9 @@ geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(
-    x = ~x, y = ~y, group = ~edge.id,
-    from = ~from, to = ~to
+  mapping <- aes_intersect(mapping, aes(
+    x = .data$x, y = .data$y, group = .data$edge.id,
+    from = .data$from, to = .data$to
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeFan2,
@@ -232,9 +232,9 @@ geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
                            position = 'identity', arrow = NULL, spread = 1,
                            lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(
-    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
-    from = ~from, to = ~to
+  mapping <- aes_intersect(mapping, aes(
+    x = .data$x, y = .data$y, xend = .data$xend, yend = .data$yend,
+    from = .data$from, to = .data$to
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeFan0,
@@ -248,18 +248,18 @@ geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
     )
   )
 }
-#' @importFrom dplyr %>% group_by_ arrange_ mutate_ n ungroup transmute_
+#' @importFrom dplyr %>% group_by arrange mutate n ungroup transmute
 create_fans <- function(from, to, params) {
   from$.id <- paste(pmin(from$from, to$to), pmax(from$from, to$to), sep = '-')
   from$.orig_ind <- seq_len(nrow(from))
   position <- from %>%
-    group_by_(~PANEL, ~.id) %>%
-    arrange_(~from) %>%
-    mutate_(position = ~ seq_len(n()) - 0.5 - n() / 2) %>%
-    mutate_(position = ~ position * ifelse(from < to, 1, -1)) %>%
+    group_by(.data$PANEL, .data$.id) %>%
+    arrange(.data$from) %>%
+    mutate(position = seq_len(n()) - 0.5 - n() / 2) %>%
+    mutate(position = .data$position * ifelse(.data$from < .data$to, 1, -1)) %>%
     ungroup() %>%
-    arrange_(~.orig_ind) %>%
-    transmute_(position = ~position)
+    arrange(.data$.orig_ind) %>%
+    transmute(position = .data$position)
   position <- position$position
   max_fans <- max(table(from$.id))
   from$.id <- NULL

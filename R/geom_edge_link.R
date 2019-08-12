@@ -199,7 +199,8 @@ geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, xend = ~xend, yend = ~yend))
+  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
+                                        xend = .data$xend, yend = .data$yend))
   layer(
     data = data, mapping = mapping, stat = StatEdgeLink,
     geom = GeomEdgePath, position = position, show.legend = show.legend,
@@ -230,7 +231,8 @@ geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
                             label_dodge = NULL, label_push = NULL,
                             show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, group = ~edge.id))
+  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
+                                        group = .data$edge.id))
   layer(
     data = data, mapping = mapping, stat = StatEdgeLink2,
     geom = GeomEdgePath, position = position, show.legend = show.legend,
@@ -256,7 +258,8 @@ geom_edge_link0 <- function(mapping = NULL, data = get_edges(),
                             position = 'identity', arrow = NULL,
                             lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, xend = ~xend, yend = ~yend))
+  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
+                                        xend = .data$xend, yend = .data$yend))
   layer(
     data = data, mapping = mapping, stat = StatFilter,
     geom = GeomEdgeSegment, position = position,

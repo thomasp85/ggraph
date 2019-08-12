@@ -111,8 +111,8 @@ geom_edge_loop <- function(mapping = NULL, data = get_edges(),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(
-    x = ~x, y = ~y, from = ~from, to = ~to,
+  mapping <- aes_intersect(mapping, aes(
+    x = .data$x, y = .data$y, from = .data$from, to = .data$to,
     span = 90, direction = 45, strength = 1
   ))
   layer(
@@ -152,8 +152,8 @@ geom_edge_loop0 <- function(mapping = NULL, data = get_edges(),
                             position = 'identity', arrow = NULL,
                             lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(
-    x = ~x, y = ~y, from = ~from, to = ~to,
+  mapping <- aes_intersect(mapping, aes(
+    x = .data$x, y = .data$y, from = .data$from, to = .data$to,
     span = 90, direction = 45, strength = 1
   ))
   layer(

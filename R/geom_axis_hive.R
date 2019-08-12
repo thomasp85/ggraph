@@ -6,14 +6,14 @@
 StatAxisHive <- ggproto('StatAxisHive', StatFilter,
   setup_data = function(data, params) {
     data <- data %>%
-      group_by_(~angle, ~section, ~PANEL) %>%
-      mutate_(
-        x = ~ min(r) * cos(angle[1]) * 1.1,
-        y = ~ min(r) * sin(angle[1]) * 1.1,
-        xend = ~ max(r) * cos(angle[1]) * 1.1,
-        yend = ~ max(r) * sin(angle[1]) * 1.1,
-        max_r = ~ max(r),
-        min_r = ~ min(r)
+      group_by(angle, section, PANEL) %>%
+      mutate(
+        x = min(r) * cos(angle[1]) * 1.1,
+        y = min(r) * sin(angle[1]) * 1.1,
+        xend = max(r) * cos(angle[1]) * 1.1,
+        yend = max(r) * sin(angle[1]) * 1.1,
+        max_r = max(r),
+        min_r = min(r)
       ) %>%
       slice(1) %>%
       ungroup()
@@ -26,7 +26,7 @@ StatAxisHive <- ggproto('StatAxisHive', StatFilter,
 #' @format NULL
 #' @usage NULL
 #' @importFrom grid textGrob nullGrob
-#' @importFrom dplyr %>% group_by_ summarise_
+#' @importFrom dplyr %>% group_by summarise
 #' @export
 GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
   draw_panel = function(data, panel_scales, coord, label = TRUE, axis = TRUE, label_colour = 'black') {
@@ -36,17 +36,17 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     data$yend <- data$yend / 1.1
     data <- coord$transform(data, panel_scales)
     label_data <- data %>%
-      group_by_(~axis) %>%
-      summarise_(
-        x = ~ max(max_r) * cos(mean(angle)),
-        y = ~ max(max_r) * sin(mean(angle)),
-        label = ~ axis[1],
-        angle = ~ mean(angle) / (2 * pi) * 360 - 90,
-        colour = ~ colour[1],
-        label_size = ~ label_size[1],
-        family = ~ family[1],
-        fontface = ~ fontface[1],
-        lineheight = ~ lineheight[1]
+      group_by(.data$axis) %>%
+      summarise(
+        x = max(.data$max_r) * cos(mean(.data$angle)),
+        y = max(.data$max_r) * sin(mean(.data$angle)),
+        label = .data$axis[1],
+        angle = mean(.data$angle) / (2 * pi) * 360 - 90,
+        colour = .data$colour[1],
+        label_size = .data$label_size[1],
+        family = .data$family[1],
+        fontface = .data$fontface[1],
+        lineheight = .data$lineheight[1]
       )
     label_data <- as.data.frame(label_data)
     lab_dist <- sqrt(label_data$x^2 + label_data$y^2)
@@ -153,7 +153,9 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
 #'   coord_fixed()
 geom_axis_hive <- function(mapping = NULL, data = NULL,
                            position = 'identity', label = TRUE, axis = TRUE, show.legend = NA, ...) {
-  mapping <- aes_intersect(mapping, aes_(r = ~r, angle = ~angle, center_size = ~center_size, axis = ~axis, section = ~section))
+  mapping <- aes_intersect(mapping, aes(r = .data$r, angle = .data$angle,
+                                        center_size = .data$center_size,
+                                        axis = .data$axis, section = .data$section))
   layer(
     data = data, mapping = mapping, stat = StatAxisHive,
     geom = GeomAxisHive, position = position, show.legend = show.legend,

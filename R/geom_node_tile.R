@@ -53,9 +53,8 @@
 #'
 geom_node_tile <- function(mapping = NULL, data = NULL, position = 'identity',
                            show.legend = NA, ...) {
-  mapping <- aes_intersect(mapping, aes_(
-    x = ~x, y = ~y, width = ~width,
-    height = ~height
+  mapping <- aes_intersect(mapping, aes(
+    x = .data$x, y = .data$y, width = .data$width, height = .data$height
   ))
   layer(
     data = data, mapping = mapping, stat = StatFilter, geom = GeomNodeTile,

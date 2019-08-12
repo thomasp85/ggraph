@@ -42,7 +42,7 @@
 #'
 geom_node_circle <- function(mapping = NULL, data = NULL, position = 'identity',
                              show.legend = NA, ...) {
-  mapping <- aes_intersect(mapping, aes_(x0 = ~x, y0 = ~y, r = ~r))
+  mapping <- aes_intersect(mapping, aes(x0 = .data$x, y0 = .data$y, r = .data$r))
   layer(
     data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
     position = position, show.legend = show.legend, inherit.aes = FALSE,

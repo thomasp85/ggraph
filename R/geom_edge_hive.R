@@ -136,7 +136,8 @@ geom_edge_hive <- function(mapping = NULL, data = get_edges(),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, xend = ~xend, yend = ~yend))
+  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
+                                        xend = .data$xend, yend = .data$yend))
   layer(
     data = data, mapping = mapping, stat = StatEdgeHive,
     geom = GeomEdgePath, position = position, show.legend = show.legend,
@@ -190,7 +191,8 @@ geom_edge_hive2 <- function(mapping = NULL, data = get_edges('long'),
                             label_dodge = NULL, label_push = NULL,
                             show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, group = ~edge.id))
+  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
+                                        group = .data$edge.id))
   layer(
     data = data, mapping = mapping, stat = StatEdgeHive2,
     geom = GeomEdgePath, position = position, show.legend = show.legend,
@@ -228,7 +230,8 @@ geom_edge_hive0 <- function(mapping = NULL, data = get_edges(),
                             position = 'identity', arrow = NULL, curvature = 0.5,
                             lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, xend = ~xend, yend = ~yend))
+  mapping <- aes_intersect(mapping, aes(x = .data$x, y = .data$y,
+                                        xend = .data$xend, yend = .data$yend))
   layer(
     data = data, mapping = mapping, stat = StatEdgeHive0,
     geom = GeomEdgeBezier, position = position, show.legend = show.legend,
