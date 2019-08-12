@@ -62,23 +62,23 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
   compute_group = function(data, scales, na.rm = FALSE, h = NULL,
                            n = 100, bins = NULL, binwidth = NULL) {
     group <- data$group[1]
-    xRange <- diff(range(c(data$x, data$xend)))
-    yRange <- diff(range(c(data$y, data$yend)))
-    xExtend <- xRange/10
-    yExtend <- yRange/10
+    x_range <- diff(range(c(data$x, data$xend)))
+    y_range <- diff(range(c(data$y, data$yend)))
+    x_extend <- x_range/10
+    y_extend <- y_range/10
     data <- StatLink$compute_panel(data, n = 50)
-    data <- PositionJitter$compute_layer(data, list(width = xExtend,
-                                                    height = yExtend))
+    data <- PositionJitter$compute_layer(data, list(width = x_extend,
+                                                    height = y_extend))
 
     if (is.null(h)) {
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
     }
     dens <- MASS::kde2d(data$x, data$y, h = h, n = n,
                         lims = c(scales$x$dimension(),
-                                 scales$y$dimension()) + c(-xExtend,
-                                                           xExtend,
-                                                           -yExtend,
-                                                           yExtend))
+                                 scales$y$dimension()) + c(-x_extend,
+                                                           x_extend,
+                                                           -y_extend,
+                                                           y_extend))
     df <- data.frame(expand.grid(x = dens$x, y = dens$y),
                      z = as.vector(dens$z))
     df$group <- group
@@ -104,10 +104,10 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
 GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
   draw_panel = function(self, data, panel_scales, coord, ...) {
     groups <- split(data, factor(data$group))
-    maxDensity <- max(rowSums(do.call(cbind,
+    max_density <- max(rowSums(do.call(cbind,
                                       lapply(groups, `[[`, i = 'density'))))
     grobs <- lapply(groups, function(group) {
-      self$draw_group(group, panel_scales, coord, max.alpha = maxDensity,
+      self$draw_group(group, panel_scales, coord, max.alpha = max_density,
                       ...)
     })
     grobs <- gTree(children = do.call("gList", grobs))
@@ -149,8 +149,8 @@ GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
 geom_edge_density <- function(mapping = NULL, data = get_edges('short'),
                               position = "identity", show.legend = NA,
                               n=100, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
   layer(data = data, mapping = mapping, stat = StatEdgeDensity,
         geom = GeomEdgeDensity, position = position,
         show.legend = show.legend, inherit.aes = FALSE,

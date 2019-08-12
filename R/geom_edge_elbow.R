@@ -107,42 +107,42 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
     }
     index <- seq(0, 1, length.out = n)
     if (any(data$circular)) {
-      circId <- which(data$circular)
-      dataCirc <- data[circId, ]
+      circ_id <- which(data$circular)
+      data_circ <- data[circ_id, ]
       radial <- radial_trans(c(0, 1), c(2*pi, 0), pad = 0, offset = 0)
-      start <- atan2(dataCirc$y, dataCirc$x)
-      radiiStart <- sqrt(dataCirc$x^2 + dataCirc$y^2)
-      radiiEnd <- sqrt(dataCirc$xend^2 + dataCirc$yend^2)
-      angelDiff <- (dataCirc$x*dataCirc$xend + dataCirc$y*dataCirc$yend) /
-        (radiiStart*radiiEnd)
-      angelDiff[is.nan(angelDiff)] <- 0
-      angelDiff <- suppressWarnings(acos(angelDiff))
-      angelDiff[is.nan(angelDiff)] <- 0
-      end <- start + ifelse(dataCirc$direction == 'left',
-                            -angelDiff, angelDiff)
+      start <- atan2(data_circ$y, data_circ$x)
+      radii_start <- sqrt(data_circ$x^2 + data_circ$y^2)
+      radii_end <- sqrt(data_circ$xend^2 + data_circ$yend^2)
+      angel_diff <- (data_circ$x*data_circ$xend + data_circ$y*data_circ$yend) /
+        (radii_start*radii_end)
+      angel_diff[is.nan(angel_diff)] <- 0
+      angel_diff <- suppressWarnings(acos(angel_diff))
+      angel_diff[is.nan(angel_diff)] <- 0
+      end <- start + ifelse(data_circ$direction == 'left',
+                            -angel_diff, angel_diff)
       angles <- unlist(Map(seq, from = start, to = end, length.out = n/2))
-      radii <- rep(sqrt(data$y[circId]^2 + data$x[circId]^2), each = n/2)
-      pathCirc <- radial$transform(r = radii, a = angles)
-      pathCirc$group <- rep(circId, each = n/2)
-      pathCirc$index <- rep(index[seq_len(n/2)], length(circId))
-      radiiRel <- radiiStart / radiiEnd
-      elbowX <- dataCirc$xend * radiiRel
-      elbowY <- dataCirc$yend * radiiRel
-      elbowX <- unlist(Map(seq, from = elbowX, to = dataCirc$xend,
+      radii <- rep(sqrt(data$y[circ_id]^2 + data$x[circ_id]^2), each = n/2)
+      path_circ <- radial$transform(r = radii, a = angles)
+      path_circ$group <- rep(circ_id, each = n/2)
+      path_circ$index <- rep(index[seq_len(n/2)], length(circ_id))
+      radii_rel <- radii_start / radii_end
+      elbow_x <- data_circ$xend * radii_rel
+      elbow_y <- data_circ$yend * radii_rel
+      elbow_x <- unlist(Map(seq, from = elbow_x, to = data_circ$xend,
                            length.out = n/2))
-      elbowY <- unlist(Map(seq, from = elbowY, to = dataCirc$yend,
+      elbow_y <- unlist(Map(seq, from = elbow_y, to = data_circ$yend,
                            length.out = n/2))
-      pathCirc <- rbind(pathCirc,
-                        data.frame(x = elbowX,
-                                   y = elbowY,
-                                   group = pathCirc$group,
+      path_circ <- rbind(path_circ,
+                        data.frame(x = elbow_x,
+                                   y = elbow_y,
+                                   group = path_circ$group,
                                    index = rep(index[seq_len(n/2) + n/2],
-                                               length(circId))))
-      pathCirc <- cbind(pathCirc, data[pathCirc$group, !names(data) %in%
+                                               length(circ_id))))
+      path_circ <- cbind(path_circ, data[path_circ$group, !names(data) %in%
                                          c('x', 'y', 'xend', 'yend')])
     }
     if (any(!data$circular)) {
-      pathLin <- lapply(which(!data$circular), function(i) {
+      path_lin <- lapply(which(!data$circular), function(i) {
         if (flipped) {
           path <- data.frame(
             x = approx(c(data$x[i], data$x[i], data$xend[i]),
@@ -165,15 +165,15 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
         cbind(path, data[rep(i, nrow(path)), !names(data) %in%
                            c('x', 'y', 'xend', 'yend')])
       })
-      pathLin <- do.call(rbind, pathLin)
+      path_lin <- do.call(rbind, path_lin)
 
       if (any(data$circular)) {
-        paths <- rbind(pathLin, pathCirc)
+        paths <- rbind(path_lin, path_circ)
       } else {
-        paths <- pathLin
+        paths <- path_lin
       }
     } else {
-      paths <- pathCirc
+      paths <- path_circ
     }
     paths[order(paths$group), ]
   },
@@ -201,8 +201,8 @@ geom_edge_elbow <- function(mapping = NULL, data = get_edges(),
                             angle_calc = 'rot', force_flip = TRUE,
                             label_dodge = NULL, label_push = NULL,
                             show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                         circular=~circular,
                                         direction=~direction))
   layer(data = data, mapping = mapping, stat = StatEdgeElbow,
@@ -225,24 +225,24 @@ geom_edge_elbow <- function(mapping = NULL, data = get_edges(),
 #' @export
 StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
   compute_panel = function(data, scales, flipped = FALSE, n = 100) {
-    posCols <- c('x', 'y', 'group', 'circular', 'direction', 'PANEL')
+    pos_cols <- c('x', 'y', 'group', 'circular', 'direction', 'PANEL')
     data <- data[order(data$group), ]
-    posData <- cbind(data[c(TRUE, FALSE), posCols], data[c(FALSE, TRUE),
+    pos_data <- cbind(data[c(TRUE, FALSE), pos_cols], data[c(FALSE, TRUE),
                                                          c('x', 'y')])
-    names(posData) <- c(posCols, 'xend', 'yend')
-    newData <- StatEdgeElbow$compute_panel(posData, scales, flipped, n)
-    extraCols <- !names(data) %in% posCols
-    index <- match(seq_len(nrow(posData)), newData$group)
+    names(pos_data) <- c(pos_cols, 'xend', 'yend')
+    new_data <- StatEdgeElbow$compute_panel(pos_data, scales, flipped, n)
+    extra_cols <- !names(data) %in% pos_cols
+    index <- match(seq_len(nrow(pos_data)), new_data$group)
     index <- as.vector(rbind(index, index + 1))
-    newData$.interp <- TRUE
-    newData$.interp[index] <- FALSE
-    if (sum(extraCols) != 0) {
-      for (i in names(data)[extraCols]) {
-        newData[[i]] <- NA
-        newData[[i]][index] <- data[[i]]
+    new_data$.interp <- TRUE
+    new_data$.interp[index] <- FALSE
+    if (sum(extra_cols) != 0) {
+      for (i in names(data)[extra_cols]) {
+        new_data[[i]] <- NA
+        new_data[[i]][index] <- data[[i]]
       }
     }
-    newData
+    new_data
   },
   setup_data = function(data, params) {
     if (any(names(data) == 'filter')) {
@@ -268,8 +268,8 @@ geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
                              angle_calc = 'rot', force_flip = TRUE,
                              label_dodge = NULL, label_push = NULL,
                              show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
                                         circular=~circular,
                                         direction=~direction))
   layer(data = data, mapping = mapping, stat = StatEdgeElbow2,
@@ -293,31 +293,31 @@ geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
 StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
   compute_panel = function(data, scales, flipped = FALSE) {
     if (any(data$circular)) {
-      circId <- which(data$circular)
-      dataCirc <- data[circId, ]
+      circ_id <- which(data$circular)
+      data_circ <- data[circ_id, ]
       radial <- radial_trans(c(0, 1), c(2*pi, 0), pad = 0, offset = 0)
-      start <- atan2(dataCirc$y, dataCirc$x)
-      angelDiff <- (dataCirc$x*dataCirc$xend + dataCirc$y*dataCirc$yend) /
-        (sqrt(dataCirc$x^2 + dataCirc$y^2) *
-           sqrt(dataCirc$xend^2 + dataCirc$yend^2))
-      angelDiff[is.nan(angelDiff)] <- 0
-      angelDiff <- suppressWarnings(acos(angelDiff))
-      angelDiff[is.nan(angelDiff)] <- 0
-      end <- start + ifelse(dataCirc$direction == 'left',
-                            -angelDiff, angelDiff)
+      start <- atan2(data_circ$y, data_circ$x)
+      angel_diff <- (data_circ$x*data_circ$xend + data_circ$y*data_circ$yend) /
+        (sqrt(data_circ$x^2 + data_circ$y^2) *
+           sqrt(data_circ$xend^2 + data_circ$yend^2))
+      angel_diff[is.nan(angel_diff)] <- 0
+      angel_diff <- suppressWarnings(acos(angel_diff))
+      angel_diff[is.nan(angel_diff)] <- 0
+      end <- start + ifelse(data_circ$direction == 'left',
+                            -angel_diff, angel_diff)
       angles <- unlist(Map(seq, from = start, to = end, length.out = 50))
       radii <- rep(sqrt(data$y[circId]^2 + data$x[circId]^2), each = 50)
-      pathCirc <- radial$transform(r = radii, a = angles)
-      pathCirc$group <- rep(circId, each = 50)
-      pathCirc <- rbind(pathCirc,
+      path_circ <- radial$transform(r = radii, a = angles)
+      path_circ$group <- rep(circId, each = 50)
+      path_circ <- rbind(path_circ,
                         data.frame(x = data$xend[circId],
                                    y = data$yend[circId],
                                    group = circId))
-      pathCirc <- cbind(pathCirc, data[pathCirc$group, !names(data) %in%
+      path_circ <- cbind(path_circ, data[path_circ$group, !names(data) %in%
                                          c('x', 'y', 'xend', 'yend')])
     }
     if (any(!data$circular)) {
-      pathLin <- lapply(which(!data$circular), function(i) {
+      path_lin <- lapply(which(!data$circular), function(i) {
         if (flipped) {
           path <- data.frame(
             x = c(data$x[i], data$x[i], data$xend[i]),
@@ -334,15 +334,15 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
         cbind(path, data[rep(i, nrow(path)), !names(data) %in%
                            c('x', 'y', 'xend', 'yend')])
       })
-      pathLin <- do.call(rbind, pathLin)
+      path_lin <- do.call(rbind, path_lin)
 
       if (any(data$circular)) {
-        paths <- rbind(pathLin, pathCirc)
+        paths <- rbind(path_lin, path_circ)
       } else {
-        paths <- pathLin
+        paths <- path_lin
       }
     } else {
-      paths <- pathCirc
+      paths <- path_circ
     }
     paths[order(paths$group), ]
   },
@@ -364,8 +364,8 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
 geom_edge_elbow0 <- function(mapping = NULL, data = get_edges(),
                              position = "identity", arrow = NULL, flipped = FALSE,
                              lineend = "butt", show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                         circular=~circular,
                                         direction=~direction))
   layer(data = data, mapping = mapping, stat = StatEdgeElbow0,

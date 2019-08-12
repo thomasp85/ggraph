@@ -42,7 +42,7 @@ facet_nodes <- function(facets, nrow = NULL, ncol = NULL, scales = 'fixed',
 FacetNodes <- ggproto('FacetNodes', FacetWrap,
   compute_layout = function(data, params) {
     plot_data <- data[[1]]
-    data <- split(data, sapply(data, dataType))
+    data <- split(data, sapply(data, data_type))
     facet_data <- data$node_ggraph
 
     panels <- FacetWrap$compute_layout(facet_data, params)
@@ -57,7 +57,7 @@ FacetNodes <- ggproto('FacetNodes', FacetWrap,
   },
   map_data = function(data, layout, params) {
     switch(
-      dataType(data),
+      data_type(data),
       edge_ggraph = {
         node_placement <- attr(layout, 'node_placement')
         edge_map <- Map(function(map, nodes) {

@@ -2,13 +2,13 @@
 % Please edit documentation in R/connections.R, R/edges.R
 \name{internal_extractors}
 \alias{internal_extractors}
-\alias{getConnections}
-\alias{getEdges}
+\alias{collect_connections}
+\alias{collect_edges}
 \title{Internal data extractors}
 \usage{
-getConnections(layout, from, to, ...)
+collect_connections(layout, from, to, ...)
 
-getEdges(layout)
+collect_edges(layout)
 }
 \arguments{
 \item{layout}{The layout data}

@@ -21,9 +21,9 @@ create_layout.layout_ggraph <- function(graph, ...) {
 }
 #' @export
 as.data.frame.layout_ggraph <- function(x, ...) {
-  extraAttr <- names(attributes(x))
-  extraAttr <- extraAttr[!extraAttr %in% c('names', 'row.names')]
-  attributes(x)[extraAttr] <- NULL
+  extra_attr <- names(attributes(x))
+  extra_attr <- extra_attr[!extra_attr %in% c('names', 'row.names')]
+  attributes(x)[extra_attr] <- NULL
   class(x) <- 'data.frame'
   x
 }

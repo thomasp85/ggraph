@@ -118,7 +118,7 @@ StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
     data2$xend <- NULL
     data2$yend <- NULL
     keep <- atan2(data$y, data$x) != atan2(data2$y, data2$x)
-    createHiveBezier(data[keep, ], data2[keep, ], params)
+    create_hive_bezier(data[keep, ], data2[keep, ], params)
   },
   required_aes = c('x', 'y', 'xend', 'yend'),
   default_aes = aes(filter = TRUE),
@@ -136,8 +136,8 @@ geom_edge_hive <- function(mapping = NULL, data = get_edges(),
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
   layer(data = data, mapping = mapping, stat = StatEdgeHive,
         geom = GeomEdgePath, position = position, show.legend = show.legend,
         inherit.aes = FALSE,
@@ -169,7 +169,7 @@ StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
     keep <- atan2(data$y, data$x) != atan2(data2$y, data2$x)
-    createHiveBezier(data[keep, ], data2[keep, ], params)
+    create_hive_bazier(data[keep, ], data2[keep, ], params)
   },
   required_aes = c('x', 'y', 'group'),
   default_aes = aes(filter = TRUE),
@@ -187,8 +187,8 @@ geom_edge_hive2 <- function(mapping = NULL, data = get_edges('long'),
                             angle_calc = 'rot', force_flip = TRUE,
                             label_dodge = NULL, label_push = NULL,
                             show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id))
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~edge.id))
   layer(data = data, mapping = mapping, stat = StatEdgeHive2,
         geom = GeomEdgePath, position = position, show.legend = show.legend,
         inherit.aes = FALSE,
@@ -222,8 +222,8 @@ StatEdgeHive0 <- ggproto('StatEdgeHive0', StatBezier0,
 geom_edge_hive0 <- function(mapping = NULL, data = get_edges(),
                             position = "identity", arrow = NULL, curvature = 0.5,
                             lineend = "butt", show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
   layer(data = data, mapping = mapping, stat = StatEdgeHive0,
         geom = GeomEdgeBezier, position = position, show.legend = show.legend,
         inherit.aes = FALSE,
@@ -233,33 +233,33 @@ geom_edge_hive0 <- function(mapping = NULL, data = get_edges(),
         )
   )
 }
-createHiveBezier <- function(from, to, params) {
-  bezierStart <- seq(1, by=4, length.out = nrow(from))
-  from$index <- bezierStart
-  to$index <- bezierStart + 3
+create_hive_bezier <- function(from, to, params) {
+  bezier_start <- seq(1, by=4, length.out = nrow(from))
+  from$index <- bezier_start
+  to$index <- bezier_start + 3
   data2 <- from
   data3 <- to
-  data2$index <- bezierStart + 1
-  data3$index <- bezierStart + 2
-  fromAxis <- atan2(from$y, from$x)
-  fromAxis[fromAxis < 0] <- fromAxis[fromAxis < 0] + 2 * pi
-  toAxis <- atan2(to$y, to$x)
-  toAxis[toAxis < 0] <- toAxis[toAxis < 0] + 2 * pi
-  fromFirst <- ifelse(fromAxis < toAxis,
-                      toAxis - fromAxis < pi,
-                      toAxis - fromAxis < -pi)
-  middleAxis1 <- ifelse(fromFirst, fromAxis, toAxis)
-  middleAxis2 <- ifelse(fromFirst, toAxis, fromAxis)
-  middleAxis2 <- ifelse(middleAxis2 < middleAxis1, middleAxis2 + 2*pi, middleAxis2)
-  meanAxis <- (middleAxis2 - middleAxis1)/2
-  middleAxis1 <- middleAxis1 + meanAxis * params$curvature
-  middleAxis2 <- middleAxis2 - meanAxis * params$curvature
-  nodeR2 <- sqrt(data2$x^2 + data2$y^2)
-  nodeR3 <- sqrt(data3$x^2 + data3$y^2)
-  data2$x <- nodeR2 * cos(ifelse(fromFirst, middleAxis1, middleAxis2))
-  data2$y <- nodeR2 * sin(ifelse(fromFirst, middleAxis1, middleAxis2))
-  data3$x <- nodeR3 * cos(ifelse(fromFirst, middleAxis2, middleAxis1))
-  data3$y <- nodeR3 * sin(ifelse(fromFirst, middleAxis2, middleAxis1))
+  data2$index <- bezier_start + 1
+  data3$index <- bezier_start + 2
+  from_axis <- atan2(from$y, from$x)
+  from_axis[from_axis < 0] <- from_axis[from_axis < 0] + 2 * pi
+  to_axis <- atan2(to$y, to$x)
+  to_axis[to_axis < 0] <- to_axis[to_axis < 0] + 2 * pi
+  from_first <- ifelse(from_axis < to_axis,
+                      to_axis - from_axis < pi,
+                      to_axis - from_axis < -pi)
+  middle_axis1 <- ifelse(from_first, from_axis, to_axis)
+  middle_axis2 <- ifelse(from_first, to_axis, from_axis)
+  middle_axis2 <- ifelse(middle_axis2 < middle_axis1, middle_axis2 + 2*pi, middle_axis2)
+  mean_axis <- (middle_axis2 - middle_axis1)/2
+  middle_axis1 <- middle_axis1 + mean_axis * params$curvature
+  middle_axis2 <- middle_axis2 - mean_axis * params$curvature
+  node_r2 <- sqrt(data2$x^2 + data2$y^2)
+  node_r3 <- sqrt(data3$x^2 + data3$y^2)
+  data2$x <- node_r2 * cos(ifelse(from_first, middle_axis1, middle_axis2))
+  data2$y <- node_r2 * sin(ifelse(from_first, middle_axis1, middle_axis2))
+  data3$x <- node_r3 * cos(ifelse(from_first, middle_axis2, middle_axis1))
+  data3$y <- node_r3 * sin(ifelse(from_first, middle_axis2, middle_axis1))
   data <- rbind(from, data2, data3, to)
   data[order(data$index), names(data) != 'index']
 }

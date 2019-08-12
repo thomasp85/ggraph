@@ -48,8 +48,8 @@ layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric
     nodes$x <- coords$x
     nodes$y <- coords$y
   }
-  extraData <- as_tibble(graph, active = 'nodes')
-  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  extra_data <- as_tibble(graph, active = 'nodes')
+  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
   nodes$circular <- circular
   nodes
 }

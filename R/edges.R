@@ -77,17 +77,17 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
     stop('Collapse must be either "none", "all" or "direction"')
   }
   function(layout) {
-    edges <- getEdges(layout)
+    edges <- collect_edges(layout)
     edges <- switch(
       collapse,
       none = edges,
-      all = collapseAllEdges(edges),
-      direction = collapseDirEdges(edges)
+      all = collapse_all_edges(edges),
+      direction = collapse_dir_edges(edges)
     )
     edges <- switch(
       format,
-      short = formatShortEdges(edges, layout),
-      long = formatLongEdges(edges, layout),
+      short = format_short_edges(edges, layout),
+      long = format_long_edges(edges, layout),
       stop('Unknown format. Use either "short" or "long"')
     )
     edges <- do.call(
@@ -101,13 +101,13 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
 }
 #' @rdname internal_extractors
 #' @export
-getEdges <- function(layout) {
-  UseMethod('getEdges', layout)
+collect_edges <- function(layout) {
+  UseMethod('collect_edges', layout)
 }
-getEdges.default <- function(layout) {
+collect_edges.default <- function(layout) {
   attr(layout, 'edges')
 }
-checkShortEdges <- function(edges) {
+check_short_edges <- function(edges) {
   if (!inherits(edges, 'data.frame')) {
     stop('edges must by of class data.frame', call. = FALSE)
   }
@@ -119,14 +119,14 @@ checkShortEdges <- function(edges) {
   }
   edges
 }
-checkLongEdges <- function(edges) {
+check_long_edges <- function(edges) {
   if (!inherits(edges, 'data.frame')) {
     stop('edges must by of class data.frame', call. = FALSE)
   }
   if (!all(c('edge.id', 'node', 'x', 'y', 'circular') %in% names(edges))) {
     stop('edges must contain the columns edge.id, node, x, y and circular', call. = FALSE)
   }
-  if (all(range(table(edges$edge.id)) == 2)) {
+  if (!all(range(table(edges$edge.id)) == 2)) {
     stop('Each edge must consist of two rows')
   }
   if (!is.logical(edges$circular)) {
@@ -134,24 +134,24 @@ checkLongEdges <- function(edges) {
   }
   edges
 }
-addEdgeCoordinates <- function(edges, layout) {
+add_edge_coordinates <- function(edges, layout) {
   edges$x <- layout$x[edges$from]
   edges$y <- layout$y[edges$from]
   edges$xend <- layout$x[edges$to]
   edges$yend <- layout$y[edges$to]
   edges
 }
-formatShortEdges <- function(edges, layout) {
-  edges <- addEdgeCoordinates(edges, layout)
+format_short_edges <- function(edges, layout) {
+  edges <- add_edge_coordinates(edges, layout)
   nodes1 <- layout[edges$from, , drop = FALSE]
   names(nodes1) <- paste0('node1.', names(nodes1))
   nodes2 <- layout[edges$to, , drop = FALSE]
   names(nodes2) <- paste0('node2.', names(nodes2))
   edges <- cbind(edges, nodes1, nodes2)
   rownames(edges) <- NULL
-  checkShortEdges(edges)
+  check_short_edges(edges)
 }
-formatLongEdges <- function(edges, layout) {
+format_long_edges <- function(edges, layout) {
   from <- cbind(edge.id = seq_len(nrow(edges)),
                 node = edges$from,
                 layout[edges$from, c('x', 'y')],
@@ -165,9 +165,9 @@ formatLongEdges <- function(edges, layout) {
   names(node) <- paste0('node.', names(node))
   edges <- cbind(edges, node)
   rownames(edges) <- NULL
-  edges[order(edges$edge.id), ]
+  check_long_edges(edges[order(edges$edge.id), ])
 }
-completeEdgeAes <- function(aesthetics) {
+complete_edge_aes <- function(aesthetics) {
   if (is.null(aesthetics)) return(aesthetics)
   if (any(names(aesthetics) == 'color')) {
     names(aesthetics)[names(aesthetics) == 'color'] <- 'colour'
@@ -175,14 +175,14 @@ completeEdgeAes <- function(aesthetics) {
   expand_edge_aes(aesthetics)
 }
 expand_edge_aes <- function(x) {
-  shortNames <- names(x) %in% c(
+  short_names <- names(x) %in% c(
     'colour', 'color', 'fill', 'linetype', 'shape', 'size', 'width', 'alpha'
   )
-  names(x)[shortNames] <- paste0('edge_', names(x)[shortNames])
+  names(x)[short_names] <- paste0('edge_', names(x)[short_names])
   x
 }
 #' @importFrom dplyr %>% group_by_ top_n ungroup
-collapseAllEdges <- function(edges) {
+collapse_all_edges <- function(edges) {
   from <- pmin(edges$from, edges$to)
   to <- pmax(edges$to, edges$from)
   id <- paste(from ,to, sep='-')
@@ -195,7 +195,7 @@ collapseAllEdges <- function(edges) {
   as.data.frame(edges)
 }
 #' @importFrom dplyr %>% group_by_ top_n ungroup
-collapseDirEdges <- function(edges) {
+collapse_dir_edges <- function(edges) {
   id <- paste(edges$from ,edges$to, sep='-')
   if (anyDuplicated(id)) {
     edges$.id <- id

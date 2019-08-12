@@ -55,7 +55,7 @@ facet_graph <- function(facets, row_type = 'edge', col_type = 'node',
 FacetGraph <- ggproto('FacetGraph', FacetGrid,
   compute_layout = function(data, params) {
     plot_data <- data[[1]]
-    data <- split(data, sapply(data, dataType))
+    data <- split(data, sapply(data, data_type))
 
     rows <- params$rows
     cols <- params$cols
@@ -115,7 +115,7 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
   },
   map_data = function(data, layout, params) {
     switch(
-      dataType(data),
+      data_type(data),
       edge_ggraph = {
         if (params$row_type == 'node') params$rows <- NULL
         if (params$col_type == 'node') params$cols <- NULL

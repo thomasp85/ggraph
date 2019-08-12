@@ -15,14 +15,14 @@ StatFilter <- ggproto('StatFilter', StatIdentity,
   default_aes = aes(filter = TRUE)
 )
 
-aesIntersect <- function(aes1, aes2) {
+aes_intersect <- function(aes1, aes2) {
   structure(
     c(as.list(aes1), aes2[!names(aes2) %in% names(aes1)]),
     class = 'uneval'
   )
 }
 
-dataType <- function(data) {
+data_type <- function(data) {
   type <- attr(data, 'type_ggraph')
   if (is.null(type)) {
     if (inherits(data, 'layout_ggraph')) return('node_ggraph')

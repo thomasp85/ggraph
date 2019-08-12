@@ -199,8 +199,8 @@ geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
   layer(data = data, mapping = mapping, stat = StatEdgeLink,
         geom = GeomEdgePath, position = position, show.legend = show.legend,
         inherit.aes = FALSE,
@@ -227,8 +227,8 @@ geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
                             angle_calc = 'rot', force_flip = TRUE,
                             label_dodge = NULL, label_push = NULL,
                             show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id))
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~edge.id))
   layer(data = data, mapping = mapping, stat = StatEdgeLink2,
         geom = GeomEdgePath, position = position, show.legend = show.legend,
         inherit.aes = FALSE,
@@ -250,8 +250,8 @@ geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
 geom_edge_link0 <- function(mapping = NULL, data = get_edges(),
                             position = "identity", arrow = NULL,
                             lineend = "butt", show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
   layer(data = data, mapping = mapping, stat = StatFilter,
         geom = GeomEdgeSegment, position = position,
         show.legend = show.legend, inherit.aes = FALSE,

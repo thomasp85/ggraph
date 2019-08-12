@@ -122,7 +122,7 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
     data$yend <- NULL
     data2$xend <- NULL
     data2$yend <- NULL
-    createArc(data, data2, params)
+    create_arc(data, data2, params)
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
   default_aes = aes(filter = TRUE),
@@ -140,8 +140,8 @@ geom_edge_arc <- function(mapping = NULL, data = get_edges(),
                           angle_calc = 'rot', force_flip = TRUE,
                           label_dodge = NULL, label_push = NULL,
                           show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                         circular=~circular))
   layer(data = data, mapping = mapping, stat = StatEdgeArc,
         geom = GeomEdgePath, position = position, show.legend = show.legend,
@@ -173,7 +173,7 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
     data <- data[order(data$group),]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
-    createArc(data, data2, params)
+    create_arc(data, data2, params)
   },
   required_aes = c('x', 'y', 'group', 'circular'),
   default_aes = aes(filter = TRUE),
@@ -191,8 +191,8 @@ geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
                                         circular=~circular))
   layer(data = data, mapping = mapping, stat = StatEdgeArc2,
         geom = GeomEdgePath, position = position, show.legend = show.legend,
@@ -227,8 +227,8 @@ StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
 geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
                            position = "identity", arrow = NULL, curvature = 1,
                            lineend = "butt", show.legend = NA, fold = fold, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
                                         circular=~circular))
   layer(data = data, mapping = mapping, stat = StatEdgeArc0,
         geom = GeomEdgeBezier, position = position, show.legend = show.legend,
@@ -240,35 +240,35 @@ geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
   )
 }
 
-createArc <- function(from, to, params) {
-  bezierStart <- seq(1, by=4, length.out = nrow(from))
-  from$index <- bezierStart
-  to$index <- bezierStart + 3
+create_arc <- function(from, to, params) {
+  bezier_start <- seq(1, by=4, length.out = nrow(from))
+  from$index <- bezier_start
+  to$index <- bezier_start + 3
   data2 <- from
   data3 <- to
-  data2$index <- bezierStart + 1
-  data3$index <- bezierStart + 2
-  nodeDist <- sqrt((to$x - from$x)^2 + (to$y - from$y)^2) / 2
+  data2$index <- bezier_start + 1
+  data3$index <- bezier_start + 2
+  node_dist <- sqrt((to$x - from$x)^2 + (to$y - from$y)^2) / 2
   circ <- from$circular
   if (any(circ)) {
     r0 <- sqrt(to$x[circ]^2 + to$y[circ]^2)
     r1 <- sqrt(to$x[circ]^2 + to$y[circ]^2)
 
-    data2$x[circ] <- from$x[circ] * (1 - (nodeDist[circ]/r0))
-    data2$y[circ] <- from$y[circ] * (1 - (nodeDist[circ]/r0))
-    data3$x[circ] <- to$x[circ] * (1 - (nodeDist[circ]/r1))
-    data3$y[circ] <- to$y[circ] * (1 - (nodeDist[circ]/r1))
+    data2$x[circ] <- from$x[circ] * (1 - (node_dist[circ]/r0))
+    data2$y[circ] <- from$y[circ] * (1 - (node_dist[circ]/r0))
+    data3$x[circ] <- to$x[circ] * (1 - (node_dist[circ]/r1))
+    data3$y[circ] <- to$y[circ] * (1 - (node_dist[circ]/r1))
   }
   if (any(!circ)) {
     curvature <- pi/2 * -params$curvature
-    edgeAngle <- atan2(to$y[!circ] - from$y[!circ],
+    edge_angle <- atan2(to$y[!circ] - from$y[!circ],
                        to$x[!circ] - from$x[!circ])
-    startAngle <- edgeAngle - curvature
-    endAngle <- edgeAngle - pi + curvature
-    data2$x[!circ] <- data2$x[!circ] + cos(startAngle) * nodeDist[!circ]
-    data2$y[!circ] <- data2$y[!circ] + sin(startAngle) * nodeDist[!circ]
-    data3$x[!circ] <- data3$x[!circ] + cos(endAngle) * nodeDist[!circ]
-    data3$y[!circ] <- data3$y[!circ] + sin(endAngle) * nodeDist[!circ]
+    start_angle <- edge_angle - curvature
+    end_angle <- edge_angle - pi + curvature
+    data2$x[!circ] <- data2$x[!circ] + cos(start_angle) * node_dist[!circ]
+    data2$y[!circ] <- data2$y[!circ] + sin(start_angle) * node_dist[!circ]
+    data3$x[!circ] <- data3$x[!circ] + cos(end_angle) * node_dist[!circ]
+    data3$y[!circ] <- data3$y[!circ] + sin(end_angle) * node_dist[!circ]
     if (params$fold) {
       #data2$x[!circ] <- abs(data2$x[!circ]) * sign(params$curvature)
       data2$y[!circ] <- abs(data2$y[!circ]) * sign(params$curvature)

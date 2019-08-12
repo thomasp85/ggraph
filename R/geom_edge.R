@@ -80,7 +80,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
                fill = alpha(data$edge_colour, data$edge_alpha),
                lwd = data$edge_width * .pt, lty = data$edge_linetype,
                lineend = lineend, linejoin = linejoin, linemitre = linemitre)
-    edgeGrob <- cappedPathGrob(
+    edge_grob <- cappedPathGrob(
       x = data$x, y = data$y, id=data$group, arrow = arrow,
       start.cap = start_cap, start.cap2 = start_cap2, start.captype = start_captype,
       end.cap = end_cap, end.cap2 = end_cap2, end.captype = end_captype,
@@ -115,7 +115,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       if (label_parse) {
         lab <- parse(text = as.character(lab))
       }
-      labelGrob <- textAlongGrob(
+      label_grob <- textAlongGrob(
         lab, label_data$x, label_data$y, default.units = "native",
         hjust = label_data$hjust, vjust = label_data$vjust,
         rot = label_data$angle,
@@ -130,9 +130,9 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         x0 = label_x0, y0 = label_y0, x1 = label_x1, y1 = label_y1,
         force.rot = force_flip, dodge = label_dodge, push = label_push
       )
-      gList(edgeGrob, labelGrob)
+      gList(edge_grob, label_grob)
     } else {
-      edgeGrob
+      edge_grob
     }
   },
   draw_key = function (data, params, size) {

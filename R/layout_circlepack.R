@@ -63,7 +63,7 @@ layout_tbl_graph_circlepack <- function(graph, weight = NULL, circular = FALSE, 
                        circular = FALSE,
                        leaf = degree(graph, mode = direction) == 0,
                        depth = node_depth(graph, mode = direction))
-  extraData <- as_tibble(graph, active = 'nodes')
-  layout <- cbind(layout, extraData[, !names(extraData) %in% names(layout), drop = FALSE])
+  extra_data <- as_tibble(graph, active = 'nodes')
+  layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
   layout
 }

@@ -71,7 +71,7 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = "identity",
     params$check_overlap <- check_overlap
   }
 
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y))
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y))
   layer(data = data, mapping = mapping, stat = StatFilter, geom = geom,
         position = position, show.legend = show.legend, inherit.aes = FALSE,
         params = params
@@ -105,7 +105,7 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = "identity",
     geom <- GeomLabel
   }
 
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y))
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y))
   layer(data = data, mapping = mapping, stat = StatFilter, geom = geom,
         position = position, show.legend = show.legend, inherit.aes = FALSE,
         params = params

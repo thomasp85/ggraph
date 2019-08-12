@@ -40,7 +40,7 @@
 #'
 layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, height = NA, repel = FALSE, ratio = 1, direction = 'out') {
   height <- enquo(height)
-  reverseDir <- if (direction == 'out') 'in' else 'out'
+  reverse_dir <- if (direction == 'out') 'in' else 'out'
   nodes <- data.frame(
     x = rep(NA_real_, gorder(graph)),
     y = eval_tidy(height, .N()),
@@ -57,7 +57,7 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, 
   } else {
     pad <- 0
   }
-  startnode <- which(degree(graph, mode = reverseDir) == 0)
+  startnode <- which(degree(graph, mode = reverse_dir) == 0)
   if (length(startnode)  < 1) stop('No root nodes in graph')
   recurse_layout <- function(gr, node, layout, direction, offset = 0) {
     children <- as.numeric(neighbors(gr, node, direction))
@@ -65,8 +65,8 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, 
       layout$x[node] <- offset
       layout
     } else {
-      childrenMissing <- children[is.na(layout$x[children])]
-      for (i in childrenMissing) {
+      children_missing <- children[is.na(layout$x[children])]
+      for (i in children_missing) {
         layout <- recurse_layout(gr, i, layout, direction, offset)
         offset <- if (repel) {
           max(layout$x[layout$leaf], na.rm = TRUE) + (layout$y[node] + pad) * ratio
@@ -92,8 +92,8 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, 
     nodes$x <- coords$x
     nodes$y <- coords$y
   }
-  extraData <- as_tibble(graph, active = 'nodes')
-  nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
+  extra_data <- as_tibble(graph, active = 'nodes')
+  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
   nodes$circular <- circular
   attr(nodes, 'graph') <- graph
   nodes

@@ -26,7 +26,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
   )
   check_layout(layout)
 }
-getEdges.layout_tbl_graph <- function(layout) {
+collect_edges.layout_tbl_graph <- function(layout) {
   gr <- attr(layout, 'graph')
   edges <- as_tibble(gr, active = 'edges')
   edges$circular <- rep(attr(layout, 'circular'), nrow(edges))
@@ -34,10 +34,10 @@ getEdges.layout_tbl_graph <- function(layout) {
 }
 #' @importFrom igraph shortest_paths
 #' @importFrom rlang enquo eval_tidy
-getConnections.layout_tbl_graph <- function(layout, from, to, weight = NULL, mode = 'all') {
+collect_connections.layout_tbl_graph <- function(layout, from, to, weight = NULL, mode = 'all') {
   from <- match(from, layout$.ggraph.orig_index)
   to <- match(to, layout$.ggraph.orig_index)
-  weight <- eval_tidy(enquo(weight), getEdges(layout))
+  weight <- eval_tidy(enquo(weight), collect_edges(layout))
   if (is.null(weight)) {
     weight <- NA
   }
@@ -65,12 +65,12 @@ as.igraphlayout <- function(type) {
   if (type %in% igraphlayouts) {
     layout <- type
   } else {
-    newType <- paste0(c('as_', 'in_', 'with_', 'on_'), type)
-    typeInd <- which(newType %in% igraphlayouts)
-    if (length(typeInd) == 0) {
+    new_type <- paste0(c('as_', 'in_', 'with_', 'on_'), type)
+    type_ind <- which(new_type %in% igraphlayouts)
+    if (length(type_ind) == 0) {
       stop('Cannot find igraph layout')
     }
-    layout <- newType[typeInd]
+    layout <- new_type[type_ind]
   }
   paste0('layout_', layout)
 }
@@ -95,24 +95,24 @@ graph_to_tree <- function(graph, mode) {
     stop('Graph must be directed')
   }
   graph <- simplify(graph, edge.attr.comb = 'first')
-  parentDir <- if (mode == 'out') 'in' else 'out'
+  parent_dir <- if (mode == 'out') 'in' else 'out'
   comp <- components(graph, 'weak')
   graphs <- lapply(seq_len(comp$no), function(i) {
     graph <- induced_subgraph(graph, which(comp$membership == i))
-    nParents <- degree(graph, mode = parentDir)
-    if (!any(nParents == 0)) {
+    n_parents <- degree(graph, mode = parent_dir)
+    if (!any(n_parents == 0)) {
       stop('No root in graph. Provide graph with one parentless node')
     }
-    if (any(nParents > 1)) {
+    if (any(n_parents > 1)) {
       message('Multiple parents. Unfolding graph')
-      root <- which(degree(graph, mode = parentDir) == 0)
+      root <- which(degree(graph, mode = parent_dir) == 0)
       if (length(root) > 1) {
         message('Multiple roots in graph. Choosing the first')
         root <- root[1]
       }
       tree <- unfold_tree(graph, mode = mode, roots = root)
-      vAttr <- lapply(vertex_attr(graph), `[`, i = tree$vertex_index)
-      vertex_attr(tree$tree) <- vAttr
+      vattr <- lapply(vertex_attr(graph), `[`, i = tree$vertex_index)
+      vertex_attr(tree$tree) <- vattr
       graph <- tree$tree
     }
     as_tbl_graph(graph)
@@ -122,11 +122,11 @@ graph_to_tree <- function(graph, mode) {
 #' @importFrom igraph gorder as_edgelist delete_vertex_attr is.named
 tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
   if (is.named(graph)) graph <- delete_vertex_attr(graph, 'name')
-  parentCol <- if (mode == 'out') 1 else 2
-  nodeCol <- if (mode == 'out') 2 else 1
+  parent_col <- if (mode == 'out') 1 else 2
+  node_col <- if (mode == 'out') 2 else 1
   edges <- as_edgelist(graph)
   hierarchy <- data.frame(parent = rep(0, gorder(graph)))
-  hierarchy$parent[edges[, nodeCol]] <- edges[, parentCol]
+  hierarchy$parent[edges[, node_col]] <- edges[, parent_col]
   if (is.null(sort.by)) {
     hierarchy$order <- seq_len(nrow(hierarchy)) + 1
   } else {

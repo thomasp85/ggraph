@@ -52,7 +52,7 @@
 #'
 geom_node_tile <- function(mapping = NULL, data = NULL, position = "identity",
                            show.legend = NA, ...) {
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, width=~width,
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, width=~width,
                                         height=~height))
   layer(data = data, mapping = mapping, stat = StatFilter, geom = GeomNodeTile,
         position = position, show.legend = show.legend, inherit.aes = FALSE,

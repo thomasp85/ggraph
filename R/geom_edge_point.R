@@ -80,8 +80,8 @@ NULL
 geom_edge_point <- function(mapping = NULL, data = get_edges(),
                             position = "identity", mirror = FALSE,
                             show.legend = NA, ...) {
-  mapping <- completeEdgeAes(mapping)
-  mapping <- aesIntersect(mapping, aes_(x=~x, y=~yend))
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes_(x=~x, y=~yend))
   layer(data = data, mapping = mapping, stat = StatFilter, geom = GeomEdgePoint,
         position = position, show.legend = show.legend, inherit.aes = FALSE,
         params = list(na.rm = FALSE, mirror = mirror, ...)

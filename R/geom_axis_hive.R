@@ -17,7 +17,7 @@ StatAxisHive <- ggproto('StatAxisHive', StatFilter,
       ungroup()
     as.data.frame(data)
   },
-  required_aes = c('r', 'angle', 'centerSize', 'axis', 'section'),
+  required_aes = c('r', 'angle', 'center_size', 'axis', 'section'),
   extra_params = c('na.rm', 'n', 'curvature')
 )
 #' @rdname ggraph-extensions
@@ -33,7 +33,7 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     data$xend <- data$xend / 1.1
     data$yend <- data$yend / 1.1
     data <- coord$transform(data, panel_scales)
-    labelData <- data %>% group_by_(~axis) %>%
+    label_data <- data %>% group_by_(~axis) %>%
       summarise_(x = ~max(max_r) * cos(mean(angle)),
                  y = ~max(max_r) * sin(mean(angle)),
                  label = ~axis[1],
@@ -44,33 +44,33 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
                  fontface = ~fontface[1],
                  lineheight = ~lineheight[1]
       )
-    labelData <- as.data.frame(labelData)
-    labDist <- sqrt(labelData$x^2 + labelData$y^2)
-    distDodge <- max(labDist) * 1.05 - max(labDist)
-    labelData$x <- labelData$x * (distDodge + labDist)/labDist
-    labelData$y <- labelData$y * (distDodge + labDist)/labDist
-    labelData$angle <- labelData$angle + ifelse(labelData$angle < 0, 360, 0)
-    labelData$angle <- labelData$angle - ifelse(labelData$angle > 360, 360, 0)
-    upsideLabel <- labelData$angle > 90 & labelData$angle < 270
-    labelData$angle[upsideLabel] <- labelData$angle[upsideLabel] + 180
-    labelData <- coord$transform(labelData, panel_scales)
-    labelData$label_colour <- if (is.na(label_colour)) {
-      labelData$colour
+    label_data <- as.data.frame(label_data)
+    lab_dist <- sqrt(label_data$x^2 + label_data$y^2)
+    dist_dodge <- max(lab_dist) * 1.05 - max(lab_dist)
+    label_data$x <- label_data$x * (dist_dodge + lab_dist)/lab_dist
+    label_data$y <- label_data$y * (dist_dodge + lab_dist)/lab_dist
+    label_data$angle <- label_data$angle + ifelse(label_data$angle < 0, 360, 0)
+    label_data$angle <- label_data$angle - ifelse(label_data$angle > 360, 360, 0)
+    upside_label <- label_data$angle > 90 & label_data$angle < 270
+    label_data$angle[upside_label] <- label_data$angle[upside_label] + 180
+    label_data <- coord$transform(label_data, panel_scales)
+    label_data$label_colour <- if (is.na(label_colour)) {
+      label_data$colour
     } else {
       label_colour
     }
-    labelGrob <- if (label) {
-      textGrob(labelData$label, labelData$x, labelData$y,
-               default.units = 'native', rot = labelData$angle,
-               gp = gpar(col = labelData$label_colour,
-                         fontsize = labelData$label_size * .pt,
-                         fontfamily = labelData$family,
-                         fontface = labelData$fontface,
-                         lineheight = labelData$lineheight))
+    label_grob <- if (label) {
+      textGrob(label_data$label, label_data$x, label_data$y,
+               default.units = 'native', rot = label_data$angle,
+               gp = gpar(col = label_data$label_colour,
+                         fontsize = label_data$label_size * .pt,
+                         fontfamily = label_data$family,
+                         fontface = label_data$fontface,
+                         lineheight = label_data$lineheight))
     } else {
       nullGrob()
     }
-    axisGrob <- if (axis) {
+    axis_grob <- if (axis) {
       segmentsGrob(data$x, data$y, data$xend, data$yend,
                    default.units = 'native',
                    gp = gpar(col = alpha(data$colour, data$alpha),
@@ -82,7 +82,7 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     } else {
       nullGrob()
     }
-    gList(axisGrob, labelGrob)
+    gList(axis_grob, label_grob)
   },
   default_aes = aes(colour = 'black', size = 0.5, linetype = 1, alpha = NA,
                     label_size = 3.88, family = '', fontface = 1,
@@ -143,7 +143,7 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
 #'
 geom_axis_hive <- function(mapping = NULL, data = NULL,
                            position = "identity", label = TRUE, axis = TRUE, show.legend = NA, ...) {
-  mapping <- aesIntersect(mapping, aes_(r=~r, angle=~angle, centerSize=~centerSize, axis=~axis, section=~section))
+  mapping <- aes_intersect(mapping, aes_(r=~r, angle=~angle, center_size=~center_size, axis=~axis, section=~section))
   layer(data = data, mapping = mapping, stat = StatAxisHive,
         geom = GeomAxisHive, position = position, show.legend = show.legend,
         inherit.aes = FALSE,

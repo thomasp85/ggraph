@@ -15,17 +15,17 @@ cappedPathGrob <- function(x, y, id=NULL, id.lengths=NULL, arrow = NULL,
     }
   }
   n <- length(unique(id))
-  start.cap <- validateCap(start.cap, default.units, n)
+  start.cap <- validate_cap(start.cap, default.units, n)
   if (is.null(start.cap2)) {
     start.cap2 <- start.cap
   } else {
-    start.cap2 <- validateCap(start.cap2, default.units, n)
+    start.cap2 <- validate_cap(start.cap2, default.units, n)
   }
-  end.cap <- validateCap(end.cap, default.units, n)
+  end.cap <- validate_cap(end.cap, default.units, n)
   if (is.null(end.cap2)) {
     end.cap2 <- end.cap
   } else {
-    end.cap2 <- validateCap(end.cap2, default.units, n)
+    end.cap2 <- validate_cap(end.cap2, default.units, n)
   }
   if (!all(c(start.captype, end.captype) %in% c('circle', 'rect')))
     stop('captype must be either `circle` or `rect`', call. = FALSE)
@@ -115,7 +115,7 @@ makeContent.cappedpathgrob <- function(x) {
   setChildren(x, gList(lines))
 }
 #' @importFrom grid is.unit unit
-validateCap <- function(cap, default.units, n) {
+validate_cap <- function(cap, default.units, n) {
   if (is.null(cap)) return()
   if (!is.unit(cap)) cap <- unit(cap, default.units)
   rep(cap, length.out = n)
