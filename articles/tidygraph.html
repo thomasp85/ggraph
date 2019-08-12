@@ -160,18 +160,18 @@
 ## # Node Data: 5 x 1 (active)
 ##   name 
 ##   &lt;chr&gt;
-## 1 2    
+## 1 5    
 ## 2 4    
-## 3 5    
+## 3 3    
 ## 4 1    
-## 5 3    
+## 5 2    
 ## #
 ## # Edge Data: 20 x 3
 ##    from    to weight
 ##   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
-## 1     1     1  0.301
-## 2     2     4  0.893
-## 3     3     2  0.753
+## 1     1     5 0.751 
+## 2     2     2 0.609 
+## 3     3     3 0.0428
 ## # … with 17 more rows</code></pre>
 <p>Then, instead of writing:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>, <span class="dt">weights =</span> <span class="st">"weight"</span>) <span class="op">+</span><span class="st"> </span></a>
