@@ -1,5 +1,6 @@
 # ggraph (development version)
 
+* Fix bug in edge capping that could lead to edges extending to (0,0) (#163)
 * Fix bug affecting faceting of capped edges (#140)
 * Character aesthetics are no longer cast to factors in edge geoms (#131)
 * Added `weight` and `mode` arguments to `get_con()` that are passed on to the

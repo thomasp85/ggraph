@@ -119,8 +119,10 @@ void capRectStart(NumericVector &x, NumericVector &y, int from, int to, double w
       y[i] = NA_REAL;
     } else {
       Point intersect = rect_intersection(p, p0, width, height);
-      x[i-1] = intersect.x;
-      y[i-1] = intersect.y;
+      if (intersect.REAL) {
+        x[i-1] = intersect.x;
+        y[i-1] = intersect.y;
+      }
       break;
     }
   }
@@ -139,8 +141,10 @@ void capRectEnd(NumericVector &x, NumericVector &y, int from, int to, double wid
       y[i] = NA_REAL;
     } else {
       Point intersect = rect_intersection(p, p0, width, height);
-      x[i+1] = intersect.x;
-      y[i+1] = intersect.y;
+      if (intersect.REAL) {
+        x[i+1] = intersect.x;
+        y[i+1] = intersect.y;
+      }
       break;
     }
   }
@@ -159,8 +163,10 @@ void capEllipStart(NumericVector &x, NumericVector &y, int from, int to, double 
       y[i] = NA_REAL;
     } else {
       Point intersect = ellipsis_intersection(p, p0, width, height);
-      x[i-1] = intersect.x;
-      y[i-1] = intersect.y;
+      if (intersect.REAL) {
+        x[i-1] = intersect.x;
+        y[i-1] = intersect.y;
+      }
       break;
     }
   }
@@ -179,8 +185,10 @@ void capEllipEnd(NumericVector &x, NumericVector &y, int from, int to, double wi
       y[i] = NA_REAL;
     } else {
       Point intersect = ellipsis_intersection(p, p0, width, height);
-      x[i+1] = intersect.x;
-      y[i+1] = intersect.y;
+      if (intersect.REAL) {
+        x[i+1] = intersect.x;
+        y[i+1] = intersect.y;
+      }
       break;
     }
   }
