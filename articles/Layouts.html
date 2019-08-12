@@ -167,13 +167,13 @@
 <p><img src="Layouts_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Examining the return of <code><a href="../reference/ggraph.html">create_layout()</a></code> we see that it is really just a <code>data.frame</code> of node positions and (possible) attributes. Furthermore the original graph object along with other relevant information is passed along as attributes:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(layout)</a></code></pre></div>
-<pre><code>##          x        y name .ggraph.orig_index circular .ggraph.index
-## 1 16.90640 5.079373    1                  1    FALSE             1
-## 2 16.47416 5.173662    2                  2    FALSE             2
-## 3 17.02186 5.959689    3                  3    FALSE             3
-## 4 16.01550 4.019717    4                  4    FALSE             4
-## 5 16.11191 3.503172    5                  5    FALSE             5
-## 6 15.72331 5.006869    6                  6    FALSE             6</code></pre>
+<pre><code>##          x         y name .ggraph.orig_index circular .ggraph.index
+## 1 13.99154 -5.001265    1                  1    FALSE             1
+## 2 14.50238 -4.176651    2                  2    FALSE             2
+## 3 13.70234 -4.307786    3                  3    FALSE             3
+## 4 15.52407 -3.651419    4                  4    FALSE             4
+## 5 15.20541 -3.348583    5                  5    FALSE             5
+## 6 13.62794 -3.878135    6                  6    FALSE             6</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attributes">attributes</a></span>(layout)</a></code></pre></div>
 <pre><code>## $names
 ## [1] "x"                  "y"                  "name"              
@@ -194,11 +194,11 @@
 ##    from    to  year direction
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;fct&gt;    
 ## 1     1    13  1957 right    
-## 2     1    14  1957 left     
+## 2     1    14  1957 right    
 ## 3     1    20  1957 left     
 ## 4     1    52  1957 left     
 ## 5     1    53  1957 left     
-## 6     2    20  1957 left     
+## 6     2    20  1957 right    
 ## # … with 500 more rows
 ## #
 ## # Node Data: 70 x 2
