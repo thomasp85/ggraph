@@ -168,12 +168,12 @@
 <p>Examining the return of <code><a href="../reference/ggraph.html">create_layout()</a></code> we see that it is really just a <code>data.frame</code> of node positions and (possible) attributes. Furthermore the original graph object along with other relevant information is passed along as attributes:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(layout)</a></code></pre></div>
 <pre><code>##           x         y name .ggraph.orig_index circular .ggraph.index
-## 1 -2.331345 -21.42845    1                  1    FALSE             1
-## 2 -2.142734 -20.80313    2                  2    FALSE             2
-## 3 -1.369374 -20.54541    3                  3    FALSE             3
-## 4 -3.536448 -21.33657    4                  4    FALSE             4
-## 5 -3.248649 -21.00044    5                  5    FALSE             5
-## 6 -2.924342 -20.39415    6                  6    FALSE             6</code></pre>
+## 1 -6.415976 -19.65400    1                  1    FALSE             1
+## 2 -6.749526 -19.31261    2                  2    FALSE             2
+## 3 -6.645240 -18.72824    3                  3    FALSE             3
+## 4 -5.148323 -18.27197    4                  4    FALSE             4
+## 5 -5.514611 -19.02522    5                  5    FALSE             5
+## 6 -6.212727 -18.54147    6                  6    FALSE             6</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attributes">attributes</a></span>(layout)</a></code></pre></div>
 <pre><code>## $names
 ## [1] "x"                  "y"                  "name"              
@@ -195,10 +195,10 @@
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;fct&gt;    
 ## 1     1    13  1957 right    
 ## 2     1    14  1957 left     
-## 3     1    20  1957 left     
+## 3     1    20  1957 right    
 ## 4     1    52  1957 left     
 ## 5     1    53  1957 left     
-## 6     2    20  1957 right    
+## 6     2    20  1957 left     
 ## # … with 500 more rows
 ## #
 ## # Node Data: 70 x 2
