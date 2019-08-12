@@ -410,7 +410,7 @@ automatically be renamed appropriately.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>tidygraph</span>)
-<span class='no'>irisDen</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>hclust</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/dist'>dist</a></span>(<span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>method</span><span class='kw'>=</span><span class='st'>'euclidean'</span>), <span class='kw'>method</span><span class='kw'>=</span><span class='st'>'ward.D2'</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>irisDen</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/hclust'>hclust</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/stats/topics/dist'>dist</a></span>(<span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>'euclidean'</span>), <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>'ward.D2'</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph'>as_tbl_graph</a></span>() <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>n</a></span>(), <span class='fl'>TRUE</span>)) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/activate'>activate</a></span>(<span class='no'>edges</span>) <span class='kw'>%&gt;%</span>
@@ -421,8 +421,7 @@ automatically be renamed appropriately.</p>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>irisDen</span>, <span class='st'>'dendrogram'</span>) +
   <span class='fu'>geom_edge_elbow2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>))</div><div class='img'><img src='geom_edge_elbow-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>irisDen</span>, <span class='st'>'dendrogram'</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='no'>height</span>) +
-  <span class='fu'>geom_edge_elbow0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_elbow-3.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+  <span class='fu'>geom_edge_elbow0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_elbow-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

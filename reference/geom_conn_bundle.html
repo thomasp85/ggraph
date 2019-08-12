@@ -290,7 +290,9 @@ Visualization and Computer Graphics, <strong>12</strong>(5), 741-748.
 <span class='no'>flareGraph</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph'>tbl_graph</a></span>(<span class='no'>flare</span>$<span class='no'>vertices</span>, <span class='no'>flare</span>$<span class='no'>edges</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(
     <span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/map_bfs'>map_bfs_chr</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/node_types'>node_is_root</a></span>(), <span class='kw'>.f</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>node</span>, <span class='no'>dist</span>, <span class='no'>path</span>, <span class='no'>...</span>) {
-      <span class='kw'>if</span> (<span class='no'>dist</span> <span class='kw'>&lt;=</span> <span class='fl'>1</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/function'>return</a></span>(<span class='no'>shortName</span>[<span class='no'>node</span>])
+      <span class='kw'>if</span> (<span class='no'>dist</span> <span class='kw'>&lt;=</span> <span class='fl'>1</span>) {
+        <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/function'>return</a></span>(<span class='no'>shortName</span>[<span class='no'>node</span>])
+      }
       <span class='no'>path</span>$<span class='no'>result</span><span class='kw'>[[</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>path</span>)]]
     })
   )
@@ -299,13 +301,14 @@ Visualization and Computer Graphics, <strong>12</strong>(5), 741-748.
 
 <span class='co'># Use class inheritance for layout but plot class imports as bundles</span>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>flareGraph</span>, <span class='st'>'dendrogram'</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
-    <span class='fu'>geom_conn_bundle</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>..index..</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_con.html'>get_con</a></span>(<span class='no'>importFrom</span>, <span class='no'>importTo</span>),
-                     <span class='kw'>edge_alpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>) +
-    <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span>(<span class='fu'>aes</span>(<span class='kw'>filter</span> <span class='kw'>=</span> <span class='no'>leaf</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>)) +
-    <span class='fu'><a href='scale_edge_colour.html'>scale_edge_colour_distiller</a></span>(<span class='st'>''</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>'edge_direction'</span>) +
-    <span class='fu'>coord_fixed</span>() +
-    <span class='kw pkg'>ggforce</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/theme_no_axes.html'>theme_no_axes</a></span>()</div><div class='img'><img src='geom_conn_bundle-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+  <span class='fu'>geom_conn_bundle</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>..index..</span>),
+    <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_con.html'>get_con</a></span>(<span class='no'>importFrom</span>, <span class='no'>importTo</span>),
+    <span class='kw'>edge_alpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>
+  ) +
+  <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span>(<span class='fu'>aes</span>(<span class='kw'>filter</span> <span class='kw'>=</span> <span class='no'>leaf</span>, <span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>)) +
+  <span class='fu'><a href='scale_edge_colour.html'>scale_edge_colour_distiller</a></span>(<span class='st'>''</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>'edge_direction'</span>) +
+  <span class='fu'>coord_fixed</span>() +
+  <span class='kw pkg'>ggforce</span><span class='kw ns'>::</span><span class='fu'><a href='https://ggforce.data-imaginist.com/reference/theme_no_axes.html'>theme_no_axes</a></span>()</div><div class='img'><img src='geom_conn_bundle-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

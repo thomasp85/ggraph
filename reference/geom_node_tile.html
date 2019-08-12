@@ -253,7 +253,9 @@ automatically set, but can be overridden.</p><ul>
 <span class='no'>flareGraph</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph'>tbl_graph</a></span>(<span class='no'>flare</span>$<span class='no'>vertices</span>, <span class='no'>flare</span>$<span class='no'>edges</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(
     <span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/map_bfs'>map_bfs_chr</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/node_types'>node_is_root</a></span>(), <span class='kw'>.f</span> <span class='kw'>=</span> <span class='kw'>function</span>(<span class='no'>node</span>, <span class='no'>dist</span>, <span class='no'>path</span>, <span class='no'>...</span>) {
-      <span class='kw'>if</span> (<span class='no'>dist</span> <span class='kw'>&lt;=</span> <span class='fl'>1</span>) <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/function'>return</a></span>(<span class='no'>shortName</span>[<span class='no'>node</span>])
+      <span class='kw'>if</span> (<span class='no'>dist</span> <span class='kw'>&lt;=</span> <span class='fl'>1</span>) {
+        <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/function'>return</a></span>(<span class='no'>shortName</span>[<span class='no'>node</span>])
+      }
       <span class='no'>path</span>$<span class='no'>result</span><span class='kw'>[[</span><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/nrow'>nrow</a></span>(<span class='no'>path</span>)]]
     })
   )
@@ -262,8 +264,7 @@ automatically set, but can be overridden.</p><ul>
   <span class='fu'>geom_node_tile</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>class</span>, <span class='kw'>filter</span> <span class='kw'>=</span> <span class='no'>leaf</span>, <span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>depth</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='fl'>NA</span>) +
   <span class='fu'>geom_node_tile</span>(<span class='fu'>aes</span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='no'>depth</span>), <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'white'</span>) +
   <span class='fu'>scale_alpha</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>0.5</span>), <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>'none'</span>) +
-  <span class='fu'>scale_size</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0.2</span>), <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>'none'</span>)</div><div class='img'><img src='geom_node_tile-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+  <span class='fu'>scale_size</span>(<span class='kw'>range</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>4</span>, <span class='fl'>0.2</span>), <span class='kw'>guide</span> <span class='kw'>=</span> <span class='st'>'none'</span>)</div><div class='img'><img src='geom_node_tile-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

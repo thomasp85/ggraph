@@ -254,18 +254,6 @@ automatically be renamed appropriately.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>tidygraph</span>)
-<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs'>create_notable</a></span>(<span class='st'>'bull'</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>n</a></span>(), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/activate'>activate</a></span>(<span class='no'>edges</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>n</a></span>(), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'igraph'</span>, <span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='st'>'nicely'</span>) +
-  <span class='fu'><a href='geom_edge_link.html'>geom_edge_link</a></span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>))</div><div class='img'><img src='geom_edge_point-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'igraph'</span>, <span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='st'>'nicely'</span>) +
-  <span class='fu'><a href='geom_edge_link.html'>geom_edge_link2</a></span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>))</div><div class='img'><img src='geom_edge_point-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'igraph'</span>, <span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='st'>'nicely'</span>) +
-  <span class='fu'><a href='geom_edge_link.html'>geom_edge_link0</a></span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_point-3.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>tidygraph</span>)
 <span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs'>create_notable</a></span>(<span class='st'>'zachary'</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/group_graph'>group_infomap</a></span>()) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/morph'>morph</a></span>(<span class='no'>to_split</span>, <span class='no'>group</span>) <span class='kw'>%&gt;%</span>
@@ -277,8 +265,7 @@ automatically be renamed appropriately.</p>
   <span class='fu'>scale_y_reverse</span>() +
   <span class='fu'>coord_fixed</span>() +
   <span class='fu'>labs</span>(<span class='kw'>edge_colour</span> <span class='kw'>=</span> <span class='st'>'Infomap Cluster'</span>) +
-  <span class='fu'>ggtitle</span>(<span class='st'>"Zachary' Karate Club"</span>)</div><div class='img'><img src='geom_edge_point-4.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+  <span class='fu'>ggtitle</span>(<span class='st'>"Zachary' Karate Club"</span>)</div><div class='img'><img src='geom_edge_point-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

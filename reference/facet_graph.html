@@ -279,13 +279,13 @@ will be shown, regardless of whether or not they appear in the data.</p></td>
 #&gt; <span class='message'></span>
 #&gt; <span class='message'>    filter</span></div><div class='input'><span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph'>as_tbl_graph</a></span>(<span class='no'>highschool</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>popularity</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>as.character</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/cut'>cut</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/centrality'>centrality_degree</a></span>(<span class='kw'>mode</span> <span class='kw'>=</span> <span class='st'>'in'</span>),
-                                       <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>3</span>,
-                                       <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'low'</span>, <span class='st'>'medium'</span>, <span class='st'>'high'</span>))))
+    <span class='kw'>breaks</span> <span class='kw'>=</span> <span class='fl'>3</span>,
+    <span class='kw'>labels</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'low'</span>, <span class='st'>'medium'</span>, <span class='st'>'high'</span>)
+  )))
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>) +
-    <span class='fu'><a href='geom_edge_link.html'>geom_edge_link</a></span>() +
-    <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span>() +
-    <span class='fu'>facet_graph</span>(<span class='no'>year</span>~<span class='no'>popularity</span>)</div><div class='output co'>#&gt; <span class='message'>Using `nicely` as default layout</span></div><div class='img'><img src='facet_graph-1.png' alt='' width='700' height='433' /></div><div class='input'>
-</div></pre>
+  <span class='fu'><a href='geom_edge_link.html'>geom_edge_link</a></span>() +
+  <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span>() +
+  <span class='fu'>facet_graph</span>(<span class='no'>year</span> ~ <span class='no'>popularity</span>)</div><div class='output co'>#&gt; <span class='message'>Using `nicely` as default layout</span></div><div class='img'><img src='facet_graph-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
