@@ -25,8 +25,11 @@ aes_intersect <- function(aes1, aes2) {
 data_type <- function(data) {
   type <- attr(data, 'type_ggraph')
   if (is.null(type)) {
-    if (inherits(data, 'layout_ggraph')) return('node_ggraph')
-    else return('other')
+    if (inherits(data, 'layout_ggraph')) {
+      return('node_ggraph')
+    } else {
+      return('other')
+    }
   }
   type
 }

@@ -97,7 +97,9 @@ library(tidygraph)
 flareGraph <- tbl_graph(flare$vertices, flare$edges) \%>\%
   mutate(
     class = map_bfs_chr(node_is_root(), .f = function(node, dist, path, ...) {
-      if (dist <= 1) return(shortName[node])
+      if (dist <= 1) {
+        return(shortName[node])
+      }
       path$result[[nrow(path)]]
     })
   )
@@ -106,13 +108,14 @@ importTo <- match(flare$imports$to, flare$vertices$name)
 
 # Use class inheritance for layout but plot class imports as bundles
 ggraph(flareGraph, 'dendrogram', circular = TRUE) +
-    geom_conn_bundle(aes(colour = ..index..), data = get_con(importFrom, importTo),
-                     edge_alpha = 0.25) +
-    geom_node_point(aes(filter = leaf, colour = class)) +
-    scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') +
-    coord_fixed() +
-    ggforce::theme_no_axes()
-
+  geom_conn_bundle(aes(colour = ..index..),
+    data = get_con(importFrom, importTo),
+    edge_alpha = 0.25
+  ) +
+  geom_node_point(aes(filter = leaf, colour = class)) +
+  scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') +
+  coord_fixed() +
+  ggforce::theme_no_axes()
 }
 \references{
 Holten, D. (2006). \emph{Hierarchical edge bundles: visualization

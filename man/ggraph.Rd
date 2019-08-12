@@ -121,7 +121,6 @@ and the graph will be added as the \code{graph} attribute.
 require(tidygraph)
 gr <- create_notable('bull')
 layout <- create_layout(gr, layout = 'igraph', algorithm = 'kk')
-
 }
 \seealso{
 \code{\link[=get_edges]{get_edges()}} for extracting edge information from the

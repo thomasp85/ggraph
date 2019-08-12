@@ -69,10 +69,9 @@ facets edges. Nodes are repeated in every panel.
 gr <- tidygraph::as_tbl_graph(highschool)
 
 ggraph(gr) +
-    geom_edge_link() +
-    geom_node_point() +
-    facet_edges(~year)
-
+  geom_edge_link() +
+  geom_node_point() +
+  facet_edges(~year)
 }
 \seealso{
 Other ggraph-facets: \code{\link{facet_graph}},

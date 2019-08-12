@@ -102,7 +102,6 @@ ggraph(gr, 'igraph', algorithm = 'nicely') +
 
 ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_node_label(aes(label = class), repel = TRUE)
-
 }
 \seealso{
 Other geom_node_*: \code{\link{geom_node_arc_bar}},

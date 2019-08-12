@@ -211,8 +211,10 @@ gr <- create_notable('Meredith') \%>\%
   convert(to_directed) \%>\%
   mutate(class = sample(letters[1:3], n(), replace = TRUE)) \%>\%
   activate(edges) \%>\%
-  mutate(class = sample(letters[1:3], n(), replace = TRUE),
-         switch = sample(c(TRUE, FALSE), n(), replace = TRUE)) \%>\%
+  mutate(
+    class = sample(letters[1:3], n(), replace = TRUE),
+    switch = sample(c(TRUE, FALSE), n(), replace = TRUE)
+  ) \%>\%
   reroute(from = to, to = from, subset = switch)
 
 ggraph(gr, 'linear') +
@@ -223,7 +225,6 @@ ggraph(gr, 'linear') +
 
 ggraph(gr, 'linear', circular = TRUE) +
   geom_edge_arc0(aes(colour = class))
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_density}},

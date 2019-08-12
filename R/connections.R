@@ -34,22 +34,34 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
     stop('from and to must be of equal length')
   }
   function(layout) {
-    if (length(from) == 0) return(NULL)
-    connections <- collect_connections(layout = layout, from = from, to = to,
-                                  weight = {{ weight }}, mode = mode)
+    if (length(from) == 0) {
+      return(NULL)
+    }
+    connections <- collect_connections(
+      layout = layout, from = from, to = to,
+      weight = {
+        {
+          weight
+        }
+      }, mode = mode
+    )
     nodes <- as.data.frame(layout)[unlist(connections), ]
     nodes$con.id <- rep(seq_along(connections), lengths(connections))
     if (!is.null(paths)) {
       extra <- as.data.frame(layout)[unlist(paths), ]
-      extra$con.id <- rep(seq_along(paths) + length(connections),
-                          lengths(paths))
+      extra$con.id <- rep(
+        seq_along(paths) + length(connections),
+        lengths(paths)
+      )
       nodes <- rbind(nodes, extra)
     }
     nodes <- do.call(
       cbind,
-      c(list(nodes),
+      c(
+        list(nodes),
         lapply(list(...), rep, length.out = nrow(nodes)),
-        list(stringsAsFactors = FALSE))
+        list(stringsAsFactors = FALSE)
+      )
     )
     structure(nodes, type = 'connection_ggraph')
   }

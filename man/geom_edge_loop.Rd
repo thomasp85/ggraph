@@ -177,7 +177,7 @@ automatically be renamed appropriately.
 \examples{
 require(tidygraph)
 gr <- as_tbl_graph(
-  data.frame(from=c(1,1,2,2,3,3,3), to=c(1,2,2,3,3,1,2))
+  data.frame(from = c(1, 1, 2, 2, 3, 3, 3), to = c(1, 2, 2, 3, 3, 1, 2))
 )
 
 ggraph(gr, 'igraph', algorithm = 'nicely') +
@@ -187,7 +187,6 @@ ggraph(gr, 'igraph', algorithm = 'nicely') +
 ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_loop0() +
   geom_edge_fan0()
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},

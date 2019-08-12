@@ -7,22 +7,26 @@
 #' @export
 GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 1,
-                        na.rm = FALSE, interpolate = TRUE,
-                        label_colour = 'black',  label_alpha = 1, label_parse = FALSE,
-                        check_overlap = FALSE, angle_calc = 'none', force_flip = TRUE,
-                        label_dodge = NULL, label_push = NULL) {
+                          lineend = 'butt', linejoin = 'round', linemitre = 1,
+                          na.rm = FALSE, interpolate = TRUE,
+                          label_colour = 'black', label_alpha = 1, label_parse = FALSE,
+                          check_overlap = FALSE, angle_calc = 'none', force_flip = TRUE,
+                          label_dodge = NULL, label_push = NULL) {
     if (!anyDuplicated(data$group)) {
-      message("geom_edge_path: Each group consists of only one observation. ",
-              "Do you need to adjust the group aesthetic?")
+      message(
+        'geom_edge_path: Each group consists of only one observation. ',
+        'Do you need to adjust the group aesthetic?'
+      )
     }
     data <- data[order(data$group), , drop = FALSE]
     if (interpolate) {
       data <- interpolateDataFrame(data)
     }
     data <- coord$transform(data, panel_scales)
-    zero <- coord$transform(data.frame(x=0, y=0), panel_scales)
-    if (nrow(data) < 2) return(zeroGrob())
+    zero <- coord$transform(data.frame(x = 0, y = 0), panel_scales)
+    if (nrow(data) < 2) {
+      return(zeroGrob())
+    }
     attr <- pathAttr(data, length(unique(data$group)))
 
     if (all(is.na(data$start_cap))) {
@@ -35,13 +39,13 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       start_cap <- geo_width(scap)
       start_cap2 <- geo_height(scap)
       if (any(attr(start_cap, 'unit') == 'native') ||
-          any(attr(start_cap2, 'unit') == 'native')) {
+        any(attr(start_cap2, 'unit') == 'native')) {
         recalc <- coord$transform(
-          data.frame(x=as.vector(start_cap), y=as.vector(start_cap2)),
+          data.frame(x = as.vector(start_cap), y = as.vector(start_cap2)),
           panel_scales
         )
-        start_cap[attr(start_cap, 'unit') == 'native'] <- unit(recalc$x-zero$x, 'npc')
-        start_cap2[attr(start_cap2, 'unit') == 'native'] <- unit(recalc$y-zero$y, 'npc')
+        start_cap[attr(start_cap, 'unit') == 'native'] <- unit(recalc$x - zero$x, 'npc')
+        start_cap2[attr(start_cap2, 'unit') == 'native'] <- unit(recalc$y - zero$y, 'npc')
       }
     }
     if (all(is.na(data$end_cap))) {
@@ -54,17 +58,17 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       end_cap <- geo_width(ecap)
       end_cap2 <- geo_height(ecap)
       if (any(attr(end_cap, 'unit') == 'native') ||
-          any(attr(end_cap2, 'unit') == 'native')) {
+        any(attr(end_cap2, 'unit') == 'native')) {
         recalc <- coord$transform(
-          data.frame(x=as.vector(end_cap), y=as.vector(end_cap2)),
+          data.frame(x = as.vector(end_cap), y = as.vector(end_cap2)),
           panel_scales
         )
-        end_cap[attr(end_cap, 'unit') == 'native'] <- unit(recalc$x-zero$x, 'native')
-        end_cap2[attr(end_cap2, 'unit') == 'native'] <- unit(recalc$y-zero$y, 'native')
+        end_cap[attr(end_cap, 'unit') == 'native'] <- unit(recalc$x - zero$x, 'native')
+        end_cap2[attr(end_cap2, 'unit') == 'native'] <- unit(recalc$y - zero$y, 'native')
       }
     }
     if ((is.null(start_cap) && !is.null(end_cap)) ||
-        (!is.null(start_cap) && is.null(end_cap))) {
+      (!is.null(start_cap) && is.null(end_cap))) {
       if (is.null(start_cap)) start_cap <- 0
       if (is.null(end_cap)) end_cap <- 0
     }
@@ -72,19 +76,22 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
     solid_lines <- all(attr$solid)
     constant <- all(attr$constant)
     if (!solid_lines && !constant) {
-      stop("geom_edge_path: If you are using dotted or dashed lines",
-           ", colour, size and linetype must be constant over the line",
-           call. = FALSE)
+      stop('geom_edge_path: If you are using dotted or dashed lines',
+        ', colour, size and linetype must be constant over the line',
+        call. = FALSE
+      )
     }
-    gp <- gpar(col = alpha(data$edge_colour, data$edge_alpha),
-               fill = alpha(data$edge_colour, data$edge_alpha),
-               lwd = data$edge_width * .pt, lty = data$edge_linetype,
-               lineend = lineend, linejoin = linejoin, linemitre = linemitre)
+    gp <- gpar(
+      col = alpha(data$edge_colour, data$edge_alpha),
+      fill = alpha(data$edge_colour, data$edge_alpha),
+      lwd = data$edge_width * .pt, lty = data$edge_linetype,
+      lineend = lineend, linejoin = linejoin, linemitre = linemitre
+    )
     edge_grob <- cappedPathGrob(
-      x = data$x, y = data$y, id=data$group, arrow = arrow,
+      x = data$x, y = data$y, id = data$group, arrow = arrow,
       start.cap = start_cap, start.cap2 = start_cap2, start.captype = start_captype,
       end.cap = end_cap, end.cap2 = end_cap2, end.captype = end_captype,
-      default.units="native", gp=gp, constant = constant
+      default.units = 'native', gp = gp, constant = constant
     )
     if (any(!is.na(data$label))) {
       if (angle_calc == 'none') angle_calc <- 'rot'
@@ -116,7 +123,8 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         lab <- parse(text = as.character(lab))
       }
       label_grob <- textAlongGrob(
-        lab, label_data$x, label_data$y, default.units = "native",
+        lab, label_data$x, label_data$y,
+        default.units = 'native',
         hjust = label_data$hjust, vjust = label_data$vjust,
         rot = label_data$angle,
         gp = gpar(
@@ -135,38 +143,49 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       edge_grob
     }
   },
-  draw_key = function (data, params, size) {
+  draw_key = function(data, params, size) {
     segmentsGrob(0.1, 0.5, 0.9, 0.5,
-                 gp = gpar(col = alpha(data$edge_colour, data$edge_alpha),
-                           lwd = data$edge_width * .pt,
-                           lty = data$edge_linetype, lineend = "butt"),
-                 arrow = params$arrow)
+      gp = gpar(
+        col = alpha(data$edge_colour, data$edge_alpha),
+        lwd = data$edge_width * .pt,
+        lty = data$edge_linetype, lineend = 'butt'
+      ),
+      arrow = params$arrow
+    )
   },
   handle_na = function(data, params) {
-    if (params$interpolate) return(data)
+    if (params$interpolate) {
+      return(data)
+    }
     keep <- function(x) {
       first <- match(FALSE, x, nomatch = 1) - 1
       last <- length(x) - match(FALSE, rev(x), nomatch = 1) + 1
-      c(rep(FALSE, first),
+      c(
+        rep(FALSE, first),
         rep(TRUE, last - first),
-        rep(FALSE, length(x) - last))
+        rep(FALSE, length(x) - last)
+      )
     }
     missing <- !stats::complete.cases(
-      data[c("x", "y", "edge_width", "edge_colour", "edge_linetype")]
+      data[c('x', 'y', 'edge_width', 'edge_colour', 'edge_linetype')]
     )
     kept <- stats::ave(missing, data$group, FUN = keep)
     data <- data[kept, ]
     if (!all(kept) && !params$na.rm) {
-      warning("Removed ", sum(!kept), " rows containing missing values",
-              " (geom_edge_path).", call. = FALSE)
+      warning('Removed ', sum(!kept), ' rows containing missing values',
+        ' (geom_edge_path).',
+        call. = FALSE
+      )
     }
     data
   },
-  default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 'solid',
-                    edge_alpha = NA, start_cap = NA, end_cap = NA, label = NA,
-                    label_pos = 0.5, label_size = 3.88, angle = 0,
-                    hjust = 0.5, vjust = 0.5, family = '', fontface = 1,
-                    lineheight = 1.2)
+  default_aes = aes(
+    edge_colour = 'black', edge_width = 0.5, edge_linetype = 'solid',
+    edge_alpha = NA, start_cap = NA, end_cap = NA, label = NA,
+    label_pos = 0.5, label_size = 3.88, angle = 0,
+    hjust = 0.5, vjust = 0.5, family = '', fontface = 1,
+    lineheight = 1.2
+  )
 )
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -174,29 +193,38 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
 #' @importFrom grid gpar segmentsGrob
 #' @export
 GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
-  draw_panel = function(data, panel_scales, coord, arrow = NULL, lineend = "butt",
-                        na.rm = FALSE) {
-    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0)
+  draw_panel = function(data, panel_scales, coord, arrow = NULL, lineend = 'butt',
+                          na.rm = FALSE) {
+    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
       return(zeroGrob())
+    }
     coord <- coord$transform(data, panel_scales)
     segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
-                 default.units = "native",
-                 gp = gpar(col = alpha(coord$edge_colour, coord$edge_alpha),
-                           fill = alpha(coord$edge_colour, coord$edge_alpha),
-                           lwd = coord$edge_width * .pt,
-                           lty = coord$edge_linetype,
-                           lineend = lineend),
-                 arrow = arrow)
+      default.units = 'native',
+      gp = gpar(
+        col = alpha(coord$edge_colour, coord$edge_alpha),
+        fill = alpha(coord$edge_colour, coord$edge_alpha),
+        lwd = coord$edge_width * .pt,
+        lty = coord$edge_linetype,
+        lineend = lineend
+      ),
+      arrow = arrow
+    )
   },
   draw_key = function(data, params, size) {
     segmentsGrob(0.1, 0.5, 0.9, 0.5,
-                 gp = gpar(col = alpha(data$edge_colour, data$edge_alpha),
-                           lwd = data$edge_width * .pt,
-                           lty = data$edge_linetype, lineend = "butt"),
-                 arrow = params$arrow)
+      gp = gpar(
+        col = alpha(data$edge_colour, data$edge_alpha),
+        lwd = data$edge_width * .pt,
+        lty = data$edge_linetype, lineend = 'butt'
+      ),
+      arrow = params$arrow
+    )
   },
-  default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
-                    edge_alpha = NA)
+  default_aes = aes(
+    edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
+    edge_alpha = NA
+  )
 )
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -205,8 +233,9 @@ GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
 #' @export
 GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
   draw_panel = function(data, panel_scales, coord, na.rm = FALSE, mirror = FALSE) {
-    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0)
+    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
       return(zeroGrob())
+    }
     if (mirror) {
       data2 <- data
       data2[, c('x', 'y')] <- data2[, c('y', 'x'), drop = FALSE]
@@ -216,22 +245,32 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
     }
     coords <- coord$transform(data, panel_scales)
     coords <- coords[order(coords$edge_size, decreasing = TRUE), , drop = FALSE]
-    pointsGrob(coords$x, coords$y, pch = coords$edge_shape,
-               gp = gpar(col = alpha(coords$edge_colour, coords$edge_alpha),
-                         fill = alpha(coords$edge_fill, coords$edge_alpha),
-                         fontsize = coords$edge_size * .pt + coords$stroke *
-                           .stroke/2,
-                         lwd = coords$stroke * .stroke/2))
+    pointsGrob(coords$x, coords$y,
+      pch = coords$edge_shape,
+      gp = gpar(
+        col = alpha(coords$edge_colour, coords$edge_alpha),
+        fill = alpha(coords$edge_fill, coords$edge_alpha),
+        fontsize = coords$edge_size * .pt + coords$stroke *
+          .stroke / 2,
+        lwd = coords$stroke * .stroke / 2
+      )
+    )
   },
   draw_key = function(data, params, size) {
-    pointsGrob(0.5, 0.5, pch = data$edge_shape,
-               gp = gpar(col = alpha(data$edge_colour, data$edge_alpha),
-                         fill = alpha(data$edge_fill, data$edge_alpha),
-                         fontsize = data$edge_size * .pt + data$stroke * .stroke/2,
-                         lwd = data$stroke * .stroke/2))
+    pointsGrob(0.5, 0.5,
+      pch = data$edge_shape,
+      gp = gpar(
+        col = alpha(data$edge_colour, data$edge_alpha),
+        fill = alpha(data$edge_fill, data$edge_alpha),
+        fontsize = data$edge_size * .pt + data$stroke * .stroke / 2,
+        lwd = data$stroke * .stroke / 2
+      )
+    )
   },
-  default_aes = aes(edge_shape = 19, edge_colour = 'black', edge_size = 1.5,
-                    edge_fill = NA, edge_alpha = NA, stroke = 0.5)
+  default_aes = aes(
+    edge_shape = 19, edge_colour = 'black', edge_size = 1.5,
+    edge_fill = NA, edge_alpha = NA, stroke = 0.5
+  )
 )
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -240,21 +279,26 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
 #' @export
 GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 1,
-                        na.rm = FALSE) {
+                          lineend = 'butt', linejoin = 'round', linemitre = 1,
+                          na.rm = FALSE) {
     names(data) <- sub('edge_', '', names(data))
     names(data)[names(data) == 'width'] <- 'size'
     GeomBezier0$draw_panel(data, panel_scales, coord, arrow, lineend, linejoin, linemitre, na.rm)
   },
   draw_key = function(data, params, size) {
     segmentsGrob(0.1, 0.5, 0.9, 0.5,
-                 gp = gpar(col = alpha(data$edge_colour, data$edge_alpha),
-                           lwd = data$edge_width * .pt,
-                           lty = data$edge_linetype, lineend = "butt"),
-                 arrow = params$arrow)
+      gp = gpar(
+        col = alpha(data$edge_colour, data$edge_alpha),
+        lwd = data$edge_width * .pt,
+        lty = data$edge_linetype, lineend = 'butt'
+      ),
+      arrow = params$arrow
+    )
   },
-  default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
-                    edge_alpha = NA),
+  default_aes = aes(
+    edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
+    edge_alpha = NA
+  ),
   handle_na = function(data, ...) {
     data
   }
@@ -266,21 +310,26 @@ GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
 #' @export
 GeomEdgeBspline <- ggproto('GeomEdgeBspline', GeomBspline0,
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                        lineend = "butt", linejoin = "round", linemitre = 1,
-                        na.rm = FALSE) {
+                          lineend = 'butt', linejoin = 'round', linemitre = 1,
+                          na.rm = FALSE) {
     names(data) <- sub('edge_', '', names(data))
     names(data)[names(data) == 'width'] <- 'size'
     GeomBspline0$draw_panel(data, panel_scales, coord, arrow, lineend, linejoin, linemitre, na.rm)
   },
   draw_key = function(data, params, size) {
     segmentsGrob(0.1, 0.5, 0.9, 0.5,
-                 gp = gpar(col = alpha(data$edge_colour, data$edge_alpha),
-                           lwd = data$edge_width * .pt,
-                           lty = data$edge_linetype, lineend = "butt"),
-                 arrow = params$arrow)
+      gp = gpar(
+        col = alpha(data$edge_colour, data$edge_alpha),
+        lwd = data$edge_width * .pt,
+        lty = data$edge_linetype, lineend = 'butt'
+      ),
+      arrow = params$arrow
+    )
   },
-  default_aes = aes(edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
-                    edge_alpha = NA),
+  default_aes = aes(
+    edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
+    edge_alpha = NA
+  ),
   handle_na = function(data, ...) {
     data
   }

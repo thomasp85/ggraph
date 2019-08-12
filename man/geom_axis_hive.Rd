@@ -85,10 +85,9 @@ flareGr <- as_tbl_graph(flare$imports) \%>\%
     )
   )
 ggraph(flareGr, 'hive', axis = type) +
-    geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
-    geom_axis_hive(aes(colour = type)) +
-    coord_fixed()
-
+  geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
+  geom_axis_hive(aes(colour = type)) +
+  coord_fixed()
 }
 \author{
 Thomas Lin Pedersen

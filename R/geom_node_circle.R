@@ -37,16 +37,16 @@
 #' ggraph(gr, 'circlepack', weight = size) +
 #'   geom_node_circle() +
 #'   coord_fixed()
-#'
 #' @export
 #' @importFrom ggforce GeomCircle
 #'
-geom_node_circle <- function(mapping = NULL, data = NULL, position = "identity",
+geom_node_circle <- function(mapping = NULL, data = NULL, position = 'identity',
                              show.legend = NA, ...) {
-  mapping <- aes_intersect(mapping, aes_(x0=~x, y0=~y, r=~r))
-  layer(data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
-        position = position, show.legend = show.legend, inherit.aes = FALSE,
-        params = list(na.rm = FALSE, ...)
+  mapping <- aes_intersect(mapping, aes_(x0 = ~x, y0 = ~y, r = ~r))
+  layer(
+    data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
+    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    params = list(na.rm = FALSE, ...)
   )
 }
 

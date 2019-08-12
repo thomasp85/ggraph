@@ -90,7 +90,6 @@
 #'
 #' ggraph(gr, 'nicely') +
 #'   geom_edge_fan0(aes(colour = class))
-#'
 #' @rdname geom_edge_fan
 #' @name geom_edge_fan
 #'
@@ -127,29 +126,34 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
 #'
 #' @export
 geom_edge_fan <- function(mapping = NULL, data = get_edges(),
-                          position = "identity", arrow = NULL,
-                          spread = 1, n = 100, lineend = "butt",
-                          linejoin = "round", linemitre = 1,
-                          label_colour = 'black',  label_alpha = 1,
+                          position = 'identity', arrow = NULL,
+                          spread = 1, n = 100, lineend = 'butt',
+                          linejoin = 'round', linemitre = 1,
+                          label_colour = 'black', label_alpha = 1,
                           label_parse = FALSE, check_overlap = FALSE,
                           angle_calc = 'rot', force_flip = TRUE,
                           label_dodge = NULL, label_push = NULL,
                           show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
-                                        from=~from, to=~to))
-  layer(data = data, mapping = mapping, stat = StatEdgeFan,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, n = n,
-               interpolate = FALSE, spread = spread,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
+    from = ~from, to = ~to
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeFan,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = FALSE, spread = spread,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -165,7 +169,7 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
-    data <- data[order(data$group),]
+    data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
     create_fans(data, data2, params)
@@ -178,29 +182,34 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
 #'
 #' @export
 geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
-                           position = "identity", arrow = NULL,
-                           spread = 1, n = 100, lineend = "butt",
-                           linejoin = "round", linemitre = 1,
-                           label_colour = 'black',  label_alpha = 1,
+                           position = 'identity', arrow = NULL,
+                           spread = 1, n = 100, lineend = 'butt',
+                           linejoin = 'round', linemitre = 1,
+                           label_colour = 'black', label_alpha = 1,
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
-                                        from=~from, to=~to))
-  layer(data = data, mapping = mapping, stat = StatEdgeFan2,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, n = n,
-               interpolate = TRUE, spread = spread,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, group = ~edge.id,
+    from = ~from, to = ~to
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeFan2,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = TRUE, spread = spread,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -220,28 +229,34 @@ StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
 #'
 #' @export
 geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
-                           position = "identity", arrow = NULL, spread = 1,
-                           lineend = "butt", show.legend = NA, ...) {
+                           position = 'identity', arrow = NULL, spread = 1,
+                           lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
-                                        from=~from, to=~to))
-  layer(data = data, mapping = mapping, stat = StatEdgeFan0,
-        geom = GeomEdgeBezier, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, na.rm = FALSE,
-               spread = spread, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
+    from = ~from, to = ~to
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeFan0,
+    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, na.rm = FALSE,
+        spread = spread, ...
+      )
+    )
   )
 }
 #' @importFrom dplyr %>% group_by_ arrange_ mutate_ n ungroup transmute_
 create_fans <- function(from, to, params) {
   from$.id <- paste(pmin(from$from, to$to), pmax(from$from, to$to), sep = '-')
   from$.orig_ind <- seq_len(nrow(from))
-  position <- from %>% group_by_(~PANEL, ~.id) %>%
+  position <- from %>%
+    group_by_(~PANEL, ~.id) %>%
     arrange_(~from) %>%
-    mutate_(position = ~seq_len(n()) - 0.5 - n()/2) %>%
-    mutate_(position = ~position * ifelse(from < to, 1, -1)) %>%
+    mutate_(position = ~ seq_len(n()) - 0.5 - n() / 2) %>%
+    mutate_(position = ~ position * ifelse(from < to, 1, -1)) %>%
     ungroup() %>%
     arrange_(~.orig_ind) %>%
     transmute_(position = ~position)
@@ -251,11 +266,11 @@ create_fans <- function(from, to, params) {
   from$.orig_ind <- NULL
   mean_x <- rowMeans(cbind(from$x, to$x))
   mean_y <- rowMeans(cbind(from$y, to$y))
-  step_x <- -(params$spread * (to$y - from$y) / (2*max_fans))
-  step_y <- params$spread * (to$x - from$x) / (2*max_fans)
+  step_x <- -(params$spread * (to$y - from$y) / (2 * max_fans))
+  step_y <- params$spread * (to$x - from$x) / (2 * max_fans)
   data <- from
-  data$x <- mean_x + step_x*position
-  data$y <- mean_y + step_y*position
+  data$x <- mean_x + step_x * position
+  data$y <- mean_y + step_y * position
   bezier_start <- seq(1, by = 3, length.out = nrow(from))
   from$index <- bezier_start
   to$index <- bezier_start + 2

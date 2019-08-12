@@ -202,7 +202,6 @@ ggraph(gr, 'igraph', algorithm = 'nicely') +
 
 ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_link0(aes(colour = class))
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},

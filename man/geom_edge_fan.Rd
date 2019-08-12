@@ -217,7 +217,6 @@ ggraph(gr, 'nicely') +
 
 ggraph(gr, 'nicely') +
   geom_edge_fan0(aes(colour = class))
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},

@@ -23,27 +23,31 @@
 #' library(tidygraph)
 #' gr <- as_tbl_graph(highschool) %>%
 #'   mutate(popularity = as.character(cut(centrality_degree(mode = 'in'),
-#'                                        breaks = 3,
-#'                                        labels = c('low', 'medium', 'high'))))
+#'     breaks = 3,
+#'     labels = c('low', 'medium', 'high')
+#'   )))
 #' ggraph(gr) +
-#'     geom_edge_link() +
-#'     geom_node_point() +
-#'     facet_graph(year~popularity)
-#'
+#'   geom_edge_link() +
+#'   geom_node_point() +
+#'   facet_graph(year ~ popularity)
 #' @export
 #'
 facet_graph <- function(facets, row_type = 'edge', col_type = 'node',
-                        margins = FALSE, scales = "fixed", space = "fixed",
-                        shrink = TRUE, labeller = "label_value", as.table = TRUE,
+                        margins = FALSE, scales = 'fixed', space = 'fixed',
+                        shrink = TRUE, labeller = 'label_value', as.table = TRUE,
                         switch = NULL, drop = TRUE) {
-  facet <- facet_grid(facets, margins = margins, scales = scales,
-                      space = space, shrink = shrink, labeller = labeller,
-                      as.table = as.table, switch = switch, drop = drop)
+  facet <- facet_grid(facets,
+    margins = margins, scales = scales,
+    space = space, shrink = shrink, labeller = labeller,
+    as.table = as.table, switch = switch, drop = drop
+  )
 
   ggproto(NULL, FacetGraph,
     shrink = shrink,
-    params = c(facet$params, list(row_type = row_type,
-                                  col_type = col_type))
+    params = c(facet$params, list(
+      row_type = row_type,
+      col_type = col_type
+    ))
   )
 }
 
@@ -87,13 +91,15 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
 
     # Create panel info dataset
     panel <- id(base, drop = TRUE)
-    panel <- factor(panel, levels = seq_len(attr(panel, "n")))
+    panel <- factor(panel, levels = seq_len(attr(panel, 'n')))
 
     rows <- if (is.null(names(rows))) 1L else id(base[names(rows)], drop = TRUE)
     cols <- if (is.null(names(cols))) 1L else id(base[names(cols)], drop = TRUE)
 
-    panels <- data.frame(PANEL = panel, ROW = rows, COL = cols, base,
-                         check.names = FALSE, stringsAsFactors = FALSE)
+    panels <- data.frame(
+      PANEL = panel, ROW = rows, COL = cols, base,
+      check.names = FALSE, stringsAsFactors = FALSE
+    )
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 
@@ -134,8 +140,7 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
         node_map <- do.call(rbind, node_map)
         node_map$PANEL <- as.factor(panel)
         node_map
-      },
-      {
+      }, {
         FacetGrid$map_data(data, layout, params)
       }
     )
@@ -178,10 +183,12 @@ expand_facet_map <- function(map, layout) {
 }
 #' @importFrom plyr unrowname
 df.grid <- function(a, b) {
-  if (is.null(a) || nrow(a) == 0)
+  if (is.null(a) || nrow(a) == 0) {
     return(b)
-  if (is.null(b) || nrow(b) == 0)
+  }
+  if (is.null(b) || nrow(b) == 0) {
     return(a)
+  }
   indexes <- expand.grid(i_a = seq_len(nrow(a)), i_b = seq_len(nrow(b)))
   unrowname(cbind(a[indexes$i_a, , drop = FALSE], b[indexes$i_b, , drop = FALSE]))
 }

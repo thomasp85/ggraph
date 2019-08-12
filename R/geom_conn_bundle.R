@@ -61,7 +61,9 @@
 #' flareGraph <- tbl_graph(flare$vertices, flare$edges) %>%
 #'   mutate(
 #'     class = map_bfs_chr(node_is_root(), .f = function(node, dist, path, ...) {
-#'       if (dist <= 1) return(shortName[node])
+#'       if (dist <= 1) {
+#'         return(shortName[node])
+#'       }
 #'       path$result[[nrow(path)]]
 #'     })
 #'   )
@@ -70,13 +72,14 @@
 #'
 #' # Use class inheritance for layout but plot class imports as bundles
 #' ggraph(flareGraph, 'dendrogram', circular = TRUE) +
-#'     geom_conn_bundle(aes(colour = ..index..), data = get_con(importFrom, importTo),
-#'                      edge_alpha = 0.25) +
-#'     geom_node_point(aes(filter = leaf, colour = class)) +
-#'     scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') +
-#'     coord_fixed() +
-#'     ggforce::theme_no_axes()
-#'
+#'   geom_conn_bundle(aes(colour = ..index..),
+#'     data = get_con(importFrom, importTo),
+#'     edge_alpha = 0.25
+#'   ) +
+#'   geom_node_point(aes(filter = leaf, colour = class)) +
+#'   scale_edge_colour_distiller('', direction = 1, guide = 'edge_direction') +
+#'   coord_fixed() +
+#'   ggforce::theme_no_axes()
 #' @rdname geom_conn_bundle
 #' @name geom_conn_bundle
 #'
@@ -113,18 +116,21 @@ StatConnBundle <- ggproto('StatConnBundle', StatBspline,
 #'
 #' @export
 geom_conn_bundle <- function(mapping = NULL, data = get_con(),
-                             position = "identity", arrow = NULL,
-                             lineend = "butt", show.legend = NA,
+                             position = 'identity', arrow = NULL,
+                             lineend = 'butt', show.legend = NA,
                              n = 100, tension = 0.8, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~con.id))
-  layer(data = data, mapping = mapping, stat = StatConnBundle,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-               interpolate = FALSE, tension = tension, type = 'clamped', ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, group = ~con.id))
+  layer(
+    data = data, mapping = mapping, stat = StatConnBundle,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+        interpolate = FALSE, tension = tension, type = 'clamped', ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -147,18 +153,21 @@ StatConnBundle2 <- ggproto('StatConnBundle2', StatBspline2,
 #'
 #' @export
 geom_conn_bundle2 <- function(mapping = NULL, data = get_con(),
-                              position = "identity", arrow = NULL,
-                              lineend = "butt", show.legend = NA,
+                              position = 'identity', arrow = NULL,
+                              lineend = 'butt', show.legend = NA,
                               n = 100, tension = 0.8, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~con.id))
-  layer(data = data, mapping = mapping, stat = StatConnBundle2,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-               interpolate = TRUE, tension = tension, type = 'clamped', ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, group = ~con.id))
+  layer(
+    data = data, mapping = mapping, stat = StatConnBundle2,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+        interpolate = TRUE, tension = tension, type = 'clamped', ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -180,18 +189,21 @@ StatConnBundle0 <- ggproto('StatConnBundle0', StatIdentity,
 #'
 #' @export
 geom_conn_bundle0 <- function(mapping = NULL, data = get_con(),
-                              position = "identity", arrow = NULL,
-                              lineend = "butt", show.legend = NA,
+                              position = 'identity', arrow = NULL,
+                              lineend = 'butt', show.legend = NA,
                               tension = 0.8, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~con.id))
-  layer(data = data, mapping = mapping, stat = StatConnBundle0,
-        geom = GeomEdgeBspline, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, na.rm = FALSE,
-               tension = tension, type = 'clamped', ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, group = ~con.id))
+  layer(
+    data = data, mapping = mapping, stat = StatConnBundle0,
+    geom = GeomEdgeBspline, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, na.rm = FALSE,
+        tension = tension, type = 'clamped', ...
+      )
+    )
   )
 }
 #' @importFrom utils head tail
@@ -201,7 +213,7 @@ relax <- function(data, strength) {
     range <- rep(p[endInd] - p[startInd], pathLengths)
     ind <- unlist(lapply(pathLengths, seq_len)) - 1
     length <- rep(pathLengths, pathLengths)
-    strength*p + (1 - strength)*(start + (ind/(length - 1))*range)
+    strength * p + (1 - strength) * (start + (ind / (length - 1)) * range)
   }
   idInds <- split(seq_len(nrow(data)), data$group)
   pathLengths <- lengths(idInds)

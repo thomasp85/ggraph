@@ -72,7 +72,6 @@ gr <- tbl_graph(flare$vertices, flare$edges)
 ggraph(gr, 'circlepack', weight = size) +
   geom_node_circle() +
   coord_fixed()
-
 }
 \seealso{
 Other geom_node_*: \code{\link{geom_node_arc_bar}},

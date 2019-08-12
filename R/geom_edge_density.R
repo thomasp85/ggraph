@@ -46,7 +46,6 @@
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
 #'   geom_edge_density(aes(fill = class)) +
 #'   geom_edge_link() + geom_node_point()
-#'
 #' @rdname geom_edge_density
 #' @name geom_edge_density
 #'
@@ -60,29 +59,38 @@ NULL
 #' @export
 StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
   compute_group = function(data, scales, na.rm = FALSE, h = NULL,
-                           n = 100, bins = NULL, binwidth = NULL) {
+                             n = 100, bins = NULL, binwidth = NULL) {
     group <- data$group[1]
     x_range <- diff(range(c(data$x, data$xend)))
     y_range <- diff(range(c(data$y, data$yend)))
-    x_extend <- x_range/10
-    y_extend <- y_range/10
+    x_extend <- x_range / 10
+    y_extend <- y_range / 10
     data <- StatLink$compute_panel(data, n = 50)
-    data <- PositionJitter$compute_layer(data, list(width = x_extend,
-                                                    height = y_extend))
+    data <- PositionJitter$compute_layer(data, list(
+      width = x_extend,
+      height = y_extend
+    ))
 
     if (is.null(h)) {
       h <- c(MASS::bandwidth.nrd(data$x), MASS::bandwidth.nrd(data$y))
     }
-    dens <- MASS::kde2d(data$x, data$y, h = h, n = n,
-                        lims = c(scales$x$dimension(),
-                                 scales$y$dimension()) + c(-x_extend,
-                                                           x_extend,
-                                                           -y_extend,
-                                                           y_extend))
+    dens <- MASS::kde2d(data$x, data$y,
+      h = h, n = n,
+      lims = c(
+        scales$x$dimension(),
+        scales$y$dimension()
+      ) + c(
+        -x_extend,
+        x_extend,
+        -y_extend,
+        y_extend
+      )
+    )
     df <- data.frame(expand.grid(x = dens$x, y = dens$y),
-                     z = as.vector(dens$z))
+      z = as.vector(dens$z)
+    )
     df$group <- group
-    names(df) <- c("x", "y", "density", "group")
+    names(df) <- c('x', 'y', 'density', 'group')
     df
   },
   setup_data = function(data, params) {
@@ -104,40 +112,55 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
 GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
   draw_panel = function(self, data, panel_scales, coord, ...) {
     groups <- split(data, factor(data$group))
-    max_density <- max(rowSums(do.call(cbind,
-                                      lapply(groups, `[[`, i = 'density'))))
+    max_density <- max(rowSums(do.call(
+      cbind,
+      lapply(groups, `[[`, i = 'density')
+    )))
     grobs <- lapply(groups, function(group) {
-      self$draw_group(group, panel_scales, coord, max.alpha = max_density,
-                      ...)
+      self$draw_group(group, panel_scales, coord,
+        max.alpha = max_density,
+        ...
+      )
     })
-    grobs <- gTree(children = do.call("gList", grobs))
+    grobs <- gTree(children = do.call('gList', grobs))
     grobs$name <- grobName(grobs, 'geom_edge_density')
     grobs
   },
   draw_group = function(data, panel_scales, coord, max.alpha) {
-    if (!inherits(coord, "CoordCartesian")) {
-      stop("geom_raster only works with Cartesian coordinates",
-           call. = FALSE)
+    if (!inherits(coord, 'CoordCartesian')) {
+      stop('geom_raster only works with Cartesian coordinates',
+        call. = FALSE
+      )
     }
     data <- coord$transform(data, panel_scales)
-    x_pos <- as.integer((data$x - min(data$x))/resolution(data$x,
-                                                          FALSE))
-    y_pos <- as.integer((data$y - min(data$y))/resolution(data$y,
-                                                          FALSE))
+    x_pos <- as.integer((data$x - min(data$x)) / resolution(
+      data$x,
+      FALSE
+    ))
+    y_pos <- as.integer((data$y - min(data$y)) / resolution(
+      data$y,
+      FALSE
+    ))
     nrow <- max(y_pos) + 1
     ncol <- max(x_pos) + 1
     raster <- matrix(NA_character_, nrow = nrow, ncol = ncol)
-    raster[cbind(nrow - y_pos, x_pos + 1)] <- alpha(data$edge_fill,
-                                                    data$density/max.alpha)
+    raster[cbind(nrow - y_pos, x_pos + 1)] <- alpha(
+      data$edge_fill,
+      data$density / max.alpha
+    )
     x_rng <- c(min(data$xmin, na.rm = TRUE), max(data$xmax, na.rm = TRUE))
     y_rng <- c(min(data$ymin, na.rm = TRUE), max(data$ymax, na.rm = TRUE))
-    rasterGrob(raster, x = mean(x_rng), y = mean(y_rng),
-               width = diff(x_rng), height = diff(y_rng),
-               default.units = "native", interpolate = TRUE)
+    rasterGrob(raster,
+      x = mean(x_rng), y = mean(y_rng),
+      width = diff(x_rng), height = diff(y_rng),
+      default.units = 'native', interpolate = TRUE
+    )
   },
   draw_key = function(data, params, size) {
-    rectGrob(gp = gpar(col = NA, fill = alpha(data),
-                       lty = 0))
+    rectGrob(gp = gpar(
+      col = NA, fill = alpha(data),
+      lty = 0
+    ))
   },
   required_aes = c('x', 'y'),
   default_aes = aes(edge_fill = 'darkgrey')
@@ -147,15 +170,16 @@ GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
 #' @importFrom ggforce StatLink
 #' @export
 geom_edge_density <- function(mapping = NULL, data = get_edges('short'),
-                              position = "identity", show.legend = NA,
-                              n=100, ...) {
+                              position = 'identity', show.legend = NA,
+                              n = 100, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
-  layer(data = data, mapping = mapping, stat = StatEdgeDensity,
-        geom = GeomEdgeDensity, position = position,
-        show.legend = show.legend, inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(na.rm = FALSE, n = n, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, xend = ~xend, yend = ~yend))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeDensity,
+    geom = GeomEdgeDensity, position = position,
+    show.legend = show.legend, inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(na.rm = FALSE, n = n, ...)
+    )
   )
 }

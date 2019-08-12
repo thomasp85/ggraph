@@ -37,22 +37,6 @@
 #'
 #' @family geom_edge_*
 #'
-#' @examples
-#' require(tidygraph)
-#' gr <- create_notable('bull') %>%
-#'   mutate(class = sample(letters[1:3], n(), replace = TRUE)) %>%
-#'   activate(edges) %>%
-#'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
-#'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') +
-#'   geom_edge_link(aes(alpha = ..index..))
-#'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') +
-#'   geom_edge_link2(aes(colour = node.class))
-#'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') +
-#'   geom_edge_link0(aes(colour = class))
-#'
 #' @rdname geom_edge_point
 #' @name geom_edge_point
 #'
@@ -71,19 +55,19 @@
 #'   coord_fixed() +
 #'   labs(edge_colour = 'Infomap Cluster') +
 #'   ggtitle("Zachary' Karate Club")
-#'
 NULL
 
 #' @rdname geom_edge_point
 #'
 #' @export
 geom_edge_point <- function(mapping = NULL, data = get_edges(),
-                            position = "identity", mirror = FALSE,
+                            position = 'identity', mirror = FALSE,
                             show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~yend))
-  layer(data = data, mapping = mapping, stat = StatFilter, geom = GeomEdgePoint,
-        position = position, show.legend = show.legend, inherit.aes = FALSE,
-        params = list(na.rm = FALSE, mirror = mirror, ...)
+  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~yend))
+  layer(
+    data = data, mapping = mapping, stat = StatFilter, geom = GeomEdgePoint,
+    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    params = list(na.rm = FALSE, mirror = mirror, ...)
   )
 }

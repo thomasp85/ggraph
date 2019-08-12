@@ -72,7 +72,7 @@
 #'
 #' @importFrom igraph gorder vertex_attr gsize induced_subgraph add_vertices E ends add_edges delete_edges %--% edge_attr
 #' @importFrom utils tail
-layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, divide.by = NULL, divide.order = NULL, normalize = TRUE, center.size = 0.1, divide.size = 0.05, use.numeric = FALSE, offset = pi/2, split.axes = 'none', split.angle = pi/6, circular = FALSE) {
+layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, divide.by = NULL, divide.order = NULL, normalize = TRUE, center.size = 0.1, divide.size = 0.05, use.numeric = FALSE, offset = pi / 2, split.axes = 'none', split.angle = pi / 6, circular = FALSE) {
   axis <- enquo(axis)
   axis <- eval_tidy(axis, .N())
   sort.by <- enquo(sort.by)
@@ -85,7 +85,7 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
     axis.pos <- rep(1, length(axes))
   } else {
     if (length(axis.pos) != length(axes)) {
-      warning("Number of axes not matching axis.pos argument. Recycling as needed")
+      warning('Number of axes not matching axis.pos argument. Recycling as needed')
       axis.pos <- rep(axis.pos, length.out = length(axes))
     }
   }
@@ -126,7 +126,9 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
       }
     }
     node_pos <- lapply(node_split, function(nodes) {
-      if (length(nodes) == 0) return(numeric())
+      if (length(nodes) == 0) {
+        return(numeric())
+      }
       if (is.null(sort.by)) {
         pos <- match(seq_along(nodes), order(nodes)) - 1
         pos <- pos * node_div
@@ -140,10 +142,10 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
             if (diff(range(pos)) == 0) {
               pos <- rep(0.5, length.out = length(pos))
             } else {
-              pos <- (pos - min(pos))/diff(range(pos))
+              pos <- (pos - min(pos)) / diff(range(pos))
             }
           } else {
-            pos <- (pos - numeric.range[1])/diff(numeric.range)
+            pos <- (pos - numeric.range[1]) / diff(numeric.range)
           }
         } else {
           pos <- match(seq_along(pos), order(pos)) - 1
@@ -175,16 +177,16 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
       extra_nodes <- node.pos[[i]]
       extra_nodes$node <- seq(new_node_start, length.out = n_new_nodes)
       vattr <- lapply(vertex_attr(graph), `[`, i = node.pos[[i]]$node)
-      graph  <- add_vertices(graph, n_new_nodes, attr = vattr)
+      graph <- add_vertices(graph, n_new_nodes, attr = vattr)
 
       loop_edges <- E(graph)[node.pos[[i]]$node %--% node.pos[[i]]$node]
       if (length(loop_edges) != 0) {
         loop_edges_ends <- ends(graph, loop_edges, names = FALSE)
-        correct_order_ends <- node.pos[[i]]$r[match(loop_edges_ends[,1], node.pos[[i]]$node)] <
-          node.pos[[i]]$r[match(loop_edges_ends[,2], node.pos[[i]]$node)]
+        correct_order_ends <- node.pos[[i]]$r[match(loop_edges_ends[, 1], node.pos[[i]]$node)] <
+          node.pos[[i]]$r[match(loop_edges_ends[, 2], node.pos[[i]]$node)]
         loop_edges_ends <- data.frame(
-          from = ifelse(correct_order_ends, loop_edges_ends[,1], loop_edges_ends[,2]),
-          to = ifelse(correct_order_ends, loop_edges_ends[,2], loop_edges_ends[,1])
+          from = ifelse(correct_order_ends, loop_edges_ends[, 1], loop_edges_ends[, 2]),
+          to = ifelse(correct_order_ends, loop_edges_ends[, 2], loop_edges_ends[, 1])
         )
         loop_edges_ends$to <- extra_nodes$node[match(loop_edges_ends$to, node.pos[[i]]$node)]
         loop_edges_ends <- matrix(c(
@@ -214,8 +216,8 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
         graph <- delete_edges(graph, as.numeric(correct_edges))
       }
 
-      node.pos[[i]]$angle <- node.pos[[i]]$angle - split.angle/2
-      extra_nodes$angle <- extra_nodes$angle + split.angle/2
+      node.pos[[i]]$angle <- node.pos[[i]]$angle - split.angle / 2
+      extra_nodes$angle <- extra_nodes$angle + split.angle / 2
       node.pos <- append(node.pos, list(extra_nodes))
     }
   }

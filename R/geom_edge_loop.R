@@ -59,7 +59,7 @@
 #' @examples
 #' require(tidygraph)
 #' gr <- as_tbl_graph(
-#'   data.frame(from=c(1,1,2,2,3,3,3), to=c(1,2,2,3,3,1,2))
+#'   data.frame(from = c(1, 1, 2, 2, 3, 3, 3), to = c(1, 2, 2, 3, 3, 1, 2))
 #' )
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
@@ -69,7 +69,6 @@
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
 #'   geom_edge_loop0() +
 #'   geom_edge_fan0()
-#'
 #' @rdname geom_edge_loop
 #' @name geom_edge_loop
 #'
@@ -104,28 +103,33 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
 #'
 #' @export
 geom_edge_loop <- function(mapping = NULL, data = get_edges(),
-                           position = "identity", arrow = NULL, n = 100,
-                           lineend = "butt", linejoin = "round", linemitre = 1,
-                           label_colour = 'black',  label_alpha = 1,
+                           position = 'identity', arrow = NULL, n = 100,
+                           lineend = 'butt', linejoin = 'round', linemitre = 1,
+                           label_colour = 'black', label_alpha = 1,
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, from=~from, to=~to,
-                                        span=90, direction=45, strength=1))
-  layer(data = data, mapping = mapping, stat = StatEdgeLoop,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, n = n,
-               interpolate = FALSE,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, from = ~from, to = ~to,
+    span = 90, direction = 45, strength = 1
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeLoop,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = FALSE,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -145,23 +149,26 @@ StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
 #'
 #' @export
 geom_edge_loop0 <- function(mapping = NULL, data = get_edges(),
-                            position = "identity", arrow = NULL,
-                            lineend = "butt", show.legend = NA, ...) {
+                            position = 'identity', arrow = NULL,
+                            lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, from=~from, to=~to,
-                                        span=90, direction=45, strength=1))
-  layer(data = data, mapping = mapping, stat = StatEdgeLoop0,
-        geom = GeomEdgeBezier, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, from = ~from, to = ~to,
+    span = 90, direction = 45, strength = 1
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeLoop0,
+    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+    )
   )
 }
 
 create_loops <- function(loops, params) {
-  control_angle1 <- loops$direction - loops$span/2
-  control_angle2 <- loops$direction + loops$span/2
+  control_angle1 <- loops$direction - loops$span / 2
+  control_angle2 <- loops$direction + loops$span / 2
   controls1 <- find_loop_controls(loops, control_angle1)
   controls2 <- find_loop_controls(loops, control_angle2)
   end <- loops
@@ -174,7 +181,7 @@ create_loops <- function(loops, params) {
   loops[order(loops$index), names(loops) != 'index']
 }
 find_loop_controls <- function(loops, angle) {
-  angle <- angle/360 * 2*pi
+  angle <- angle / 360 * 2 * pi
   loops$x <- loops$x + cos(angle) * loops$strength
   loops$y <- loops$y + sin(angle) * loops$strength
   loops

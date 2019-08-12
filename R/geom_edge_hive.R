@@ -90,7 +90,6 @@
 #' ggraph(flareGr, 'hive', axis = type) +
 #'   geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
 #'   coord_fixed()
-#'
 #' @rdname geom_edge_hive
 #' @name geom_edge_hive
 #'
@@ -128,28 +127,31 @@ StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
 #'
 #' @export
 geom_edge_hive <- function(mapping = NULL, data = get_edges(),
-                           position = "identity", arrow = NULL,
-                           curvature = 0.5, n = 100, lineend = "butt",
-                           linejoin = "round", linemitre = 1,
-                           label_colour = 'black',  label_alpha = 1,
+                           position = 'identity', arrow = NULL,
+                           curvature = 0.5, n = 100, lineend = 'butt',
+                           linejoin = 'round', linemitre = 1,
+                           label_colour = 'black', label_alpha = 1,
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
-  layer(data = data, mapping = mapping, stat = StatEdgeHive,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, n = n,
-               interpolate = FALSE, curvature = curvature,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, xend = ~xend, yend = ~yend))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeHive,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = FALSE, curvature = curvature,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -165,7 +167,7 @@ StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
-    data <- data[order(data$group),]
+    data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
     keep <- atan2(data$y, data$x) != atan2(data2$y, data2$x)
@@ -179,28 +181,31 @@ StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
 #'
 #' @export
 geom_edge_hive2 <- function(mapping = NULL, data = get_edges('long'),
-                            position = "identity", arrow = NULL,
-                            curvature = 0.5, n = 100, lineend = "butt",
-                            linejoin = "round", linemitre = 1,
-                            label_colour = 'black',  label_alpha = 1,
+                            position = 'identity', arrow = NULL,
+                            curvature = 0.5, n = 100, lineend = 'butt',
+                            linejoin = 'round', linemitre = 1,
+                            label_colour = 'black', label_alpha = 1,
                             label_parse = FALSE, check_overlap = FALSE,
                             angle_calc = 'rot', force_flip = TRUE,
                             label_dodge = NULL, label_push = NULL,
                             show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~edge.id))
-  layer(data = data, mapping = mapping, stat = StatEdgeHive2,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, n = n,
-               interpolate = TRUE, curvature = curvature,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, group = ~edge.id))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeHive2,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = TRUE, curvature = curvature,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -220,21 +225,24 @@ StatEdgeHive0 <- ggproto('StatEdgeHive0', StatBezier0,
 #'
 #' @export
 geom_edge_hive0 <- function(mapping = NULL, data = get_edges(),
-                            position = "identity", arrow = NULL, curvature = 0.5,
-                            lineend = "butt", show.legend = NA, ...) {
+                            position = 'identity', arrow = NULL, curvature = 0.5,
+                            lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend))
-  layer(data = data, mapping = mapping, stat = StatEdgeHive0,
-        geom = GeomEdgeBezier, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, na.rm = FALSE,
-               curvature = curvature, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(x = ~x, y = ~y, xend = ~xend, yend = ~yend))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeHive0,
+    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, na.rm = FALSE,
+        curvature = curvature, ...
+      )
+    )
   )
 }
 create_hive_bezier <- function(from, to, params) {
-  bezier_start <- seq(1, by=4, length.out = nrow(from))
+  bezier_start <- seq(1, by = 4, length.out = nrow(from))
   from$index <- bezier_start
   to$index <- bezier_start + 3
   data2 <- from
@@ -246,12 +254,13 @@ create_hive_bezier <- function(from, to, params) {
   to_axis <- atan2(to$y, to$x)
   to_axis[to_axis < 0] <- to_axis[to_axis < 0] + 2 * pi
   from_first <- ifelse(from_axis < to_axis,
-                      to_axis - from_axis < pi,
-                      to_axis - from_axis < -pi)
+    to_axis - from_axis < pi,
+    to_axis - from_axis < -pi
+  )
   middle_axis1 <- ifelse(from_first, from_axis, to_axis)
   middle_axis2 <- ifelse(from_first, to_axis, from_axis)
-  middle_axis2 <- ifelse(middle_axis2 < middle_axis1, middle_axis2 + 2*pi, middle_axis2)
-  mean_axis <- (middle_axis2 - middle_axis1)/2
+  middle_axis2 <- ifelse(middle_axis2 < middle_axis1, middle_axis2 + 2 * pi, middle_axis2)
+  mean_axis <- (middle_axis2 - middle_axis1) / 2
   middle_axis1 <- middle_axis1 + mean_axis * params$curvature
   middle_axis2 <- middle_axis2 - mean_axis * params$curvature
   node_r2 <- sqrt(data2$x^2 + data2$y^2)

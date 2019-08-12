@@ -211,7 +211,6 @@ ggraph(gr, 'tree') +
 
 ggraph(gr, 'tree') +
   geom_edge_diagonal0(aes(colour = class))
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},

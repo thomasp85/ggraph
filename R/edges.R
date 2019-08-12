@@ -92,9 +92,11 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
     )
     edges <- do.call(
       cbind,
-      c(list(edges),
+      c(
+        list(edges),
         lapply(list(...), rep, length.out = nrow(edges)),
-        list(stringsAsFactors = FALSE))
+        list(stringsAsFactors = FALSE)
+      )
     )
     structure(edges, type_ggraph = 'edge_ggraph')
   }
@@ -152,14 +154,18 @@ format_short_edges <- function(edges, layout) {
   check_short_edges(edges)
 }
 format_long_edges <- function(edges, layout) {
-  from <- cbind(edge.id = seq_len(nrow(edges)),
-                node = edges$from,
-                layout[edges$from, c('x', 'y')],
-                edges)
-  to <- cbind(edge.id = seq_len(nrow(edges)),
-              node = edges$to,
-              layout[edges$to, c('x', 'y')],
-              edges)
+  from <- cbind(
+    edge.id = seq_len(nrow(edges)),
+    node = edges$from,
+    layout[edges$from, c('x', 'y')],
+    edges
+  )
+  to <- cbind(
+    edge.id = seq_len(nrow(edges)),
+    node = edges$to,
+    layout[edges$to, c('x', 'y')],
+    edges
+  )
   edges <- rbind(from, to)
   node <- layout[edges$node, , drop = FALSE]
   names(node) <- paste0('node.', names(node))
@@ -168,7 +174,9 @@ format_long_edges <- function(edges, layout) {
   check_long_edges(edges[order(edges$edge.id), ])
 }
 complete_edge_aes <- function(aesthetics) {
-  if (is.null(aesthetics)) return(aesthetics)
+  if (is.null(aesthetics)) {
+    return(aesthetics)
+  }
   if (any(names(aesthetics) == 'color')) {
     names(aesthetics)[names(aesthetics) == 'color'] <- 'colour'
   }
@@ -185,10 +193,11 @@ expand_edge_aes <- function(x) {
 collapse_all_edges <- function(edges) {
   from <- pmin(edges$from, edges$to)
   to <- pmax(edges$to, edges$from)
-  id <- paste(from ,to, sep='-')
+  id <- paste(from, to, sep = '-')
   if (anyDuplicated(id)) {
     edges$.id <- id
-    edges <- edges %>% group_by_(~.id) %>%
+    edges <- edges %>%
+      group_by_(~.id) %>%
       top_n(1) %>%
       ungroup()
   }
@@ -196,10 +205,11 @@ collapse_all_edges <- function(edges) {
 }
 #' @importFrom dplyr %>% group_by_ top_n ungroup
 collapse_dir_edges <- function(edges) {
-  id <- paste(edges$from ,edges$to, sep='-')
+  id <- paste(edges$from, edges$to, sep = '-')
   if (anyDuplicated(id)) {
     edges$.id <- id
-    edges <- edges %>% group_by_(~.id) %>%
+    edges <- edges %>%
+      group_by_(~.id) %>%
       top_n(1) %>%
       ungroup()
   }

@@ -70,13 +70,13 @@ panel.
 library(tidygraph)
 gr <- as_tbl_graph(highschool) \%>\%
   mutate(popularity = as.character(cut(centrality_degree(mode = 'in'),
-                                       breaks = 3,
-                                       labels = c('low', 'medium', 'high'))))
+    breaks = 3,
+    labels = c('low', 'medium', 'high')
+  )))
 ggraph(gr) +
-    geom_edge_link() +
-    geom_node_point() +
-    facet_nodes(~popularity)
-
+  geom_edge_link() +
+  geom_node_point() +
+  facet_nodes(~popularity)
 }
 \seealso{
 Other ggraph-facets: \code{\link{facet_edges}},

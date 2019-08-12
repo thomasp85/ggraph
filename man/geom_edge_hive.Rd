@@ -216,7 +216,6 @@ flareGr <- as_tbl_graph(flare$imports) \%>\%
 ggraph(flareGr, 'hive', axis = type) +
   geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
   coord_fixed()
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},

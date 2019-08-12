@@ -72,5 +72,4 @@ geometry(c('circle', 'rect', 'rect'), 1:3, 3:1)
 circle(1:4, 'mm')
 
 label_rect(c('some', 'different', 'words'), fontsize = 18)
-
 }

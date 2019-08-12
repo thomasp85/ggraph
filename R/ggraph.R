@@ -103,7 +103,6 @@
 #' require(tidygraph)
 #' gr <- create_notable('bull')
 #' layout <- create_layout(gr, layout = 'igraph', algorithm = 'kk')
-#'
 #' @export
 #'
 ggraph <- function(graph, layout = 'auto', ...) {

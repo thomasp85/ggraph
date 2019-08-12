@@ -38,7 +38,7 @@
 #' @importFrom igraph gorder degree neighbors
 #' @importFrom rlang enquo eval_tidy
 #'
-layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, height = NA, repel = FALSE, ratio = 1, direction = 'out') {
+layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2, height = NA, repel = FALSE, ratio = 1, direction = 'out') {
   height <- enquo(height)
   reverse_dir <- if (direction == 'out') 'in' else 'out'
   nodes <- data.frame(
@@ -53,12 +53,12 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, 
     }, numeric(1))
   }
   if (repel) {
-    pad <- min(nodes$y[nodes$y != 0])/2
+    pad <- min(nodes$y[nodes$y != 0]) / 2
   } else {
     pad <- 0
   }
   startnode <- which(degree(graph, mode = reverse_dir) == 0)
-  if (length(startnode)  < 1) stop('No root nodes in graph')
+  if (length(startnode) < 1) stop('No root nodes in graph')
   recurse_layout <- function(gr, node, layout, direction, offset = 0) {
     children <- as.numeric(neighbors(gr, node, direction))
     if (length(children) == 0) {
@@ -85,9 +85,11 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, 
   }
   graph <- add_direction(graph, nodes)
   if (circular) {
-    radial <- radial_trans(r.range = rev(range(nodes$y)),
-                           a.range = range(nodes$x),
-                           offset = offset)
+    radial <- radial_trans(
+      r.range = rev(range(nodes$y)),
+      a.range = range(nodes$x),
+      offset = offset
+    )
     coords <- radial$transform(nodes$y, nodes$x)
     nodes$x <- coords$x
     nodes$y <- coords$y

@@ -76,7 +76,9 @@ as.igraphlayout <- function(type) {
 }
 #' @importFrom igraph gorder permute
 prepare_graph <- function(graph, layout, direction = 'out', ...) {
-  if (!is.character(layout)) return(graph)
+  if (!is.character(layout)) {
+    return(graph)
+  }
   is_hierarchy <- layout %in% c(
     'dendrogram',
     'treemap',
@@ -217,7 +219,7 @@ layout_to_table.character <- function(layout, graph, circular, ...) {
 }
 #' @export
 layout_to_table.matrix <- function(layout, graph, ...) {
-  layout <- data.frame(x = layout[,1], y = layout[,2])
+  layout <- data.frame(x = layout[, 1], y = layout[, 2])
   layout_to_table(layout, graph, ...)
 }
 #' @export

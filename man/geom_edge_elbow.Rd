@@ -201,7 +201,7 @@ automatically be renamed appropriately.
 
 \examples{
 require(tidygraph)
-irisDen <- hclust(dist(iris[1:4], method='euclidean'), method='ward.D2') \%>\%
+irisDen <- hclust(dist(iris[1:4], method = 'euclidean'), method = 'ward.D2') \%>\%
   as_tbl_graph() \%>\%
   mutate(class = sample(letters[1:3], n(), TRUE)) \%>\%
   activate(edges) \%>\%
@@ -215,7 +215,6 @@ ggraph(irisDen, 'dendrogram') +
 
 ggraph(irisDen, 'dendrogram', height = height) +
   geom_edge_elbow0(aes(colour = class))
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},

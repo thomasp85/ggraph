@@ -27,7 +27,7 @@
 #'
 #' @importFrom igraph gorder
 #'
-layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric = FALSE, offset = pi/2) {
+layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric = FALSE, offset = pi / 2) {
   sort.by <- enquo(sort.by)
   sort.by <- eval_tidy(sort.by, .N())
   if (!is.null(sort.by)) {
@@ -41,9 +41,11 @@ layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric
   }
   nodes <- data.frame(x = x, y = 0)
   if (circular) {
-    radial <- radial_trans(r.range = rev(range(nodes$y)),
-                           a.range = range(nodes$x),
-                           offset = offset)
+    radial <- radial_trans(
+      r.range = rev(range(nodes$y)),
+      a.range = range(nodes$x),
+      offset = offset
+    )
     coords <- radial$transform(nodes$y, nodes$x)
     nodes$x <- coords$x
     nodes$y <- coords$y

@@ -12,23 +12,25 @@
 #' library(tidygraph)
 #' gr <- as_tbl_graph(highschool) %>%
 #'   mutate(popularity = as.character(cut(centrality_degree(mode = 'in'),
-#'                                        breaks = 3,
-#'                                        labels = c('low', 'medium', 'high'))))
+#'     breaks = 3,
+#'     labels = c('low', 'medium', 'high')
+#'   )))
 #' ggraph(gr) +
-#'     geom_edge_link() +
-#'     geom_node_point() +
-#'     facet_nodes(~popularity)
-#'
+#'   geom_edge_link() +
+#'   geom_node_point() +
+#'   facet_nodes(~popularity)
 #' @export
 #'
 facet_nodes <- function(facets, nrow = NULL, ncol = NULL, scales = 'fixed',
                         shrink = TRUE, labeller = 'label_value', as.table = TRUE,
                         switch = NULL, drop = TRUE, dir = 'h',
                         strip.position = 'top') {
-  facet <- facet_wrap(facets = facets, nrow = nrow, ncol = ncol,
-                      scales = scales, shrink = shrink, labeller = labeller,
-                      as.table = as.table, switch = switch, drop = drop,
-                      dir = dir, strip.position = strip.position)
+  facet <- facet_wrap(
+    facets = facets, nrow = nrow, ncol = ncol,
+    scales = scales, shrink = shrink, labeller = labeller,
+    as.table = as.table, switch = switch, drop = drop,
+    dir = dir, strip.position = strip.position
+  )
   ggproto(NULL, FacetNodes,
     shrink = shrink,
     params = facet$params
@@ -68,8 +70,7 @@ FacetNodes <- ggproto('FacetNodes', FacetWrap,
         edge_map$PANEL <- as.factor(panel)
         edge_map
       },
-      node_ggraph = ,
-      {
+      node_ggraph = , {
         FacetWrap$map_data(data, layout, params)
       }
     )

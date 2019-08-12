@@ -65,21 +65,6 @@ automatically be renamed appropriately.
 
 \examples{
 require(tidygraph)
-gr <- create_notable('bull') \%>\%
-  mutate(class = sample(letters[1:3], n(), replace = TRUE)) \%>\%
-  activate(edges) \%>\%
-  mutate(class = sample(letters[1:3], n(), replace = TRUE))
-
-ggraph(gr, 'igraph', algorithm = 'nicely') +
-  geom_edge_link(aes(alpha = ..index..))
-
-ggraph(gr, 'igraph', algorithm = 'nicely') +
-  geom_edge_link2(aes(colour = node.class))
-
-ggraph(gr, 'igraph', algorithm = 'nicely') +
-  geom_edge_link0(aes(colour = class))
-
-require(tidygraph)
 gr <- create_notable('zachary') \%>\%
   mutate(group = group_infomap()) \%>\%
   morph(to_split, group) \%>\%
@@ -93,7 +78,6 @@ ggraph(gr, 'matrix', sort.by = node_rank_hclust()) +
   coord_fixed() +
   labs(edge_colour = 'Infomap Cluster') +
   ggtitle("Zachary' Karate Club")
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},

@@ -74,5 +74,4 @@ gr <- tidygraph::as_tbl_graph(highschool)
 ggraph(gr, layout = 'kk') +
   geom_edge_fan(aes(alpha = ..index..)) +
   guides(edge_alpha = guide_edge_direction())
-
 }

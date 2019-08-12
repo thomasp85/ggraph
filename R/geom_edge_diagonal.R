@@ -85,7 +85,6 @@
 #'
 #' ggraph(gr, 'tree') +
 #'   geom_edge_diagonal0(aes(colour = class))
-#'
 #' @rdname geom_edge_diagonal
 #' @name geom_edge_diagonal
 #'
@@ -122,29 +121,34 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
 #'
 #' @export
 geom_edge_diagonal <- function(mapping = NULL, data = get_edges(),
-                               position = "identity", arrow = NULL,
-                               flipped = FALSE, n = 100, lineend = "butt",
-                               linejoin = "round", linemitre = 1,
-                               label_colour = 'black',  label_alpha = 1,
+                               position = 'identity', arrow = NULL,
+                               flipped = FALSE, n = 100, lineend = 'butt',
+                               linejoin = 'round', linemitre = 1,
+                               label_colour = 'black', label_alpha = 1,
                                label_parse = FALSE, check_overlap = FALSE,
                                angle_calc = 'rot', force_flip = TRUE,
                                label_dodge = NULL, label_push = NULL,
                                show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
-                                        circular=~circular))
-  layer(data = data, mapping = mapping, stat = StatEdgeDiagonal,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, n = n,
-               interpolate = FALSE, flipped = flipped,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
+    circular = ~circular
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeDiagonal,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = FALSE, flipped = flipped,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -160,7 +164,7 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
-    data <- data[order(data$group),]
+    data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
     create_diagonal(data, data2, params)
@@ -173,29 +177,34 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
 #'
 #' @export
 geom_edge_diagonal2 <- function(mapping = NULL, data = get_edges('long'),
-                                position = "identity", arrow = NULL,
-                                flipped = FALSE, n = 100, lineend = "butt",
-                                linejoin = "round", linemitre = 1,
-                                label_colour = 'black',  label_alpha = 1,
+                                position = 'identity', arrow = NULL,
+                                flipped = FALSE, n = 100, lineend = 'butt',
+                                linejoin = 'round', linemitre = 1,
+                                label_colour = 'black', label_alpha = 1,
                                 label_parse = FALSE, check_overlap = FALSE,
                                 angle_calc = 'rot', force_flip = TRUE,
                                 label_dodge = NULL, label_push = NULL,
                                 show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
-                                        circular=~circular))
-  layer(data = data, mapping = mapping, stat = StatEdgeDiagonal2,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, n = n,
-               interpolate = TRUE, flipped = flipped,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, group = ~edge.id,
+    circular = ~circular
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeDiagonal2,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = TRUE, flipped = flipped,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -215,24 +224,29 @@ StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
 #'
 #' @export
 geom_edge_diagonal0 <- function(mapping = NULL, data = get_edges(),
-                                position = "identity", arrow = NULL,
-                                flipped = FALSE, lineend = "butt",
+                                position = 'identity', arrow = NULL,
+                                flipped = FALSE, lineend = 'butt',
                                 show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
-                                        circular=~circular))
-  layer(data = data, mapping = mapping, stat = StatEdgeDiagonal0,
-        geom = GeomEdgeBezier, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, na.rm = FALSE,
-               flipped = flipped, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
+    circular = ~circular
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeDiagonal0,
+    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, na.rm = FALSE,
+        flipped = flipped, ...
+      )
+    )
   )
 }
 
 create_diagonal <- function(from, to, params) {
-  bezier_start <- seq(1, by=4, length.out = nrow(from))
+  bezier_start <- seq(1, by = 4, length.out = nrow(from))
   from$index <- bezier_start
   to$index <- bezier_start + 3
   data2 <- from
@@ -243,12 +257,12 @@ create_diagonal <- function(from, to, params) {
     r0 <- sqrt(from$x[from$circular]^2 + from$y[from$circular]^2)
     r1 <- sqrt(to$x[to$circular]^2 + to$y[to$circular]^2)
     root <- r0 == 0 | r1 == 0
-    r_mid <- r0 + (r1 - r0)/2
+    r_mid <- r0 + (r1 - r0) / 2
 
-    data2$x[from$circular] <- from$x[from$circular] / (r0/r_mid)
-    data2$y[from$circular] <- from$y[from$circular] / (r0/r_mid)
-    data3$x[from$circular] <- to$x[from$circular] / (r1/r_mid)
-    data3$y[from$circular] <- to$y[from$circular] / (r1/r_mid)
+    data2$x[from$circular] <- from$x[from$circular] / (r0 / r_mid)
+    data2$y[from$circular] <- from$y[from$circular] / (r0 / r_mid)
+    data3$x[from$circular] <- to$x[from$circular] / (r1 / r_mid)
+    data3$y[from$circular] <- to$y[from$circular] / (r1 / r_mid)
 
     data2$x[root] <- from$x[root]
     data2$y[root] <- from$y[root]
@@ -258,12 +272,12 @@ create_diagonal <- function(from, to, params) {
   if (any(!from$circular)) {
     if (params$flipped) {
       h_diff <- from$x[!from$circular] - to$x[!from$circular]
-      data2$x[!from$circular] <- from$x[!from$circular]  - h_diff/2
-      data3$x[!from$circular] <- to$x[!from$circular] + h_diff/2
+      data2$x[!from$circular] <- from$x[!from$circular] - h_diff / 2
+      data3$x[!from$circular] <- to$x[!from$circular] + h_diff / 2
     } else {
       h_diff <- from$y[!from$circular] - to$y[!from$circular]
-      data2$y[!from$circular] <- from$y[!from$circular]  - h_diff/2
-      data3$y[!from$circular] <- to$y[!from$circular] + h_diff/2
+      data2$y[!from$circular] <- from$y[!from$circular] - h_diff / 2
+      data3$y[!from$circular] <- to$y[!from$circular] + h_diff / 2
     }
   }
   data <- rbind(from, data2, data3, to)

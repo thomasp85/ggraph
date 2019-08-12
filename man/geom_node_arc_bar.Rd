@@ -73,7 +73,6 @@ require(tidygraph)
 gr <- tbl_graph(flare$vertices, flare$edges)
 ggraph(gr, 'partition', circular = TRUE, weight = size) +
   geom_node_arc_bar()
-
 }
 \seealso{
 Other geom_node_*: \code{\link{geom_node_circle}},

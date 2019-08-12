@@ -37,7 +37,9 @@
 #' flareGraph <- tbl_graph(flare$vertices, flare$edges) %>%
 #'   mutate(
 #'     class = map_bfs_chr(node_is_root(), .f = function(node, dist, path, ...) {
-#'       if (dist <= 1) return(shortName[node])
+#'       if (dist <= 1) {
+#'         return(shortName[node])
+#'       }
 #'       path$result[[nrow(path)]]
 #'     })
 #'   )
@@ -47,16 +49,18 @@
 #'   geom_node_tile(aes(size = depth), colour = 'white') +
 #'   scale_alpha(range = c(1, 0.5), guide = 'none') +
 #'   scale_size(range = c(4, 0.2), guide = 'none')
-#'
 #' @export
 #'
-geom_node_tile <- function(mapping = NULL, data = NULL, position = "identity",
+geom_node_tile <- function(mapping = NULL, data = NULL, position = 'identity',
                            show.legend = NA, ...) {
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, width=~width,
-                                        height=~height))
-  layer(data = data, mapping = mapping, stat = StatFilter, geom = GeomNodeTile,
-        position = position, show.legend = show.legend, inherit.aes = FALSE,
-        params = list(na.rm = FALSE, ...)
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, width = ~width,
+    height = ~height
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatFilter, geom = GeomNodeTile,
+    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    params = list(na.rm = FALSE, ...)
   )
 }
 
@@ -66,7 +70,9 @@ geom_node_tile <- function(mapping = NULL, data = NULL, position = "identity",
 #' @export
 #'
 GeomNodeTile <- ggproto('GeomNodeTile', GeomTile,
-  default_aes = aes(fill = NA, colour = 'black', size = 0.5, linetype = 1,
-                    alpha = NA, width = 1, height = 1),
+  default_aes = aes(
+    fill = NA, colour = 'black', size = 0.5, linetype = 1,
+    alpha = NA, width = 1, height = 1
+  ),
   required_aes = c('x', 'y')
 )

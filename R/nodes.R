@@ -23,9 +23,11 @@ get_nodes <- function(...) {
   function(layout) {
     nodes <- do.call(
       cbind,
-      c(list(layout),
+      c(
+        list(layout),
         lapply(list(...), rep, length.out = nrow(layout)),
-        list(stringsAsFactors = FALSE))
+        list(stringsAsFactors = FALSE)
+      )
     )
     structure(nodes, type_ggraph = 'node_ggraph')
   }

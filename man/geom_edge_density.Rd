@@ -80,7 +80,6 @@ gr <- create_notable('bull') \%>\%
 ggraph(gr, 'igraph', algorithm = 'nicely') +
   geom_edge_density(aes(fill = class)) +
   geom_edge_link() + geom_node_point()
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},

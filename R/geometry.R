@@ -34,7 +34,6 @@
 #' circle(1:4, 'mm')
 #'
 #' label_rect(c('some', 'different', 'words'), fontsize = 18)
-#'
 #' @export
 #'
 geometry <- function(type = 'circle', width = 1, height = width,
@@ -49,15 +48,17 @@ geometry <- function(type = 'circle', width = 1, height = width,
   uwidth <- rep(width_unit, length.out = l)
   uheight <- rep(height_unit, length.out = l)
   g[g_na] <- 'circle'
-  attributes(g) <- list(width = width, uwidth = uwidth, height = height,
-                        uheight = uheight, class = 'geometry')
+  attributes(g) <- list(
+    width = width, uwidth = uwidth, height = height,
+    uheight = uheight, class = 'geometry'
+  )
   g
 }
 #' @rdname geometry
 #'
 #' @export
 circle <- function(radius = 1, unit = 'cm') {
-  geometry('circle', width = radius*2, width_unit = unit)
+  geometry('circle', width = radius * 2, width_unit = unit)
 }
 #' @rdname geometry
 #'
@@ -69,16 +70,20 @@ square <- function(length = 1, unit = 'cm') {
 #'
 #' @export
 ellipsis <- function(a = 1, b = 1, a_unit = 'cm', b_unit = a_unit) {
-  geometry('circle', width = a*2, height = b*2, width_unit = a_unit,
-           height_unit = b_unit)
+  geometry('circle',
+    width = a * 2, height = b * 2, width_unit = a_unit,
+    height_unit = b_unit
+  )
 }
 #' @rdname geometry
 #'
 #' @export
 rectangle <- function(width = 1, height = 1, width_unit = 'cm',
                       height_unit = width_unit) {
-  geometry('rect', width = width, height = height, width_unit = width_unit,
-           height_unit = height_unit)
+  geometry('rect',
+    width = width, height = height, width_unit = width_unit,
+    height_unit = height_unit
+  )
 }
 #' @rdname geometry
 #'
@@ -91,7 +96,7 @@ rectangle <- function(width = 1, height = 1, width_unit = 'cm',
 #'
 #' @export
 #' @importFrom grid convertWidth convertHeight textGrob grobWidth grobHeight
-label_rect <- function(label, padding = margin(1,1,1.5,1,'mm'), ...) {
+label_rect <- function(label, padding = margin(1, 1, 1.5, 1, 'mm'), ...) {
   grobs <- lapply(label, textGrob, gp = gpar(...))
   width <- abs_width(grobs)
   height <- abs_height(grobs)
@@ -142,8 +147,10 @@ length.geometry <- function(x) length(unclass(x))
 }
 #' @export
 format.geometry <- function(x, ...) {
-  paste0(unclass(x), '(', attr(x, 'width'), attr(x, 'uwidth'),
-         ', ', attr(x, 'height'), attr(x, 'uheight'), ')')
+  paste0(
+    unclass(x), '(', attr(x, 'width'), attr(x, 'uwidth'),
+    ', ', attr(x, 'height'), attr(x, 'uheight'), ')'
+  )
 }
 #' @export
 print.geometry <- function(x, ...) {
@@ -158,9 +165,11 @@ rep.geometry <- function(x, ...) {
 as.data.frame.geometry <- function(x, row.names = NULL, optional = FALSE, ...) {
   nrows <- length(x)
   if (!(is.null(row.names) || (is.character(row.names) && length(row.names) ==
-                               nrows))) {
-    stop(gettextf("'row.names' is not a character vector of length %d -- omitting it. Will be an error!",
-                  nrows), call. = FALSE)
+    nrows))) {
+    stop(gettextf(
+      '\'row.names\' is not a character vector of length %d -- omitting it. Will be an error!',
+      nrows
+    ), call. = FALSE)
     row.names <- NULL
   }
   if (is.null(row.names)) {

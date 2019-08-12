@@ -83,8 +83,10 @@
 #'   convert(to_directed) %>%
 #'   mutate(class = sample(letters[1:3], n(), replace = TRUE)) %>%
 #'   activate(edges) %>%
-#'   mutate(class = sample(letters[1:3], n(), replace = TRUE),
-#'          switch = sample(c(TRUE, FALSE), n(), replace = TRUE)) %>%
+#'   mutate(
+#'     class = sample(letters[1:3], n(), replace = TRUE),
+#'     switch = sample(c(TRUE, FALSE), n(), replace = TRUE)
+#'   ) %>%
 #'   reroute(from = to, to = from, subset = switch)
 #'
 #' ggraph(gr, 'linear') +
@@ -95,7 +97,6 @@
 #'
 #' ggraph(gr, 'linear', circular = TRUE) +
 #'   geom_edge_arc0(aes(colour = class))
-#'
 #' @rdname geom_edge_arc
 #' @name geom_edge_arc
 #'
@@ -132,29 +133,34 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
 #'
 #' @export
 geom_edge_arc <- function(mapping = NULL, data = get_edges(),
-                          position = "identity", arrow = NULL, curvature = 1,
-                          n = 100, fold = FALSE, lineend = "butt",
-                          linejoin = "round", linemitre = 1,
-                          label_colour = 'black',  label_alpha = 1,
+                          position = 'identity', arrow = NULL, curvature = 1,
+                          n = 100, fold = FALSE, lineend = 'butt',
+                          linejoin = 'round', linemitre = 1,
+                          label_colour = 'black', label_alpha = 1,
                           label_parse = FALSE, check_overlap = FALSE,
                           angle_calc = 'rot', force_flip = TRUE,
                           label_dodge = NULL, label_push = NULL,
                           show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
-                                        circular=~circular))
-  layer(data = data, mapping = mapping, stat = StatEdgeArc,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, n = n,
-               interpolate = FALSE, curvature = curvature, fold = fold,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
+    circular = ~circular
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeArc,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = FALSE, curvature = curvature, fold = fold,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -170,7 +176,7 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
-    data <- data[order(data$group),]
+    data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
     create_arc(data, data2, params)
@@ -183,29 +189,34 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
 #'
 #' @export
 geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
-                           position = "identity", arrow = NULL, curvature = 1,
-                           n = 100, fold = FALSE, lineend = "butt",
-                           linejoin = "round", linemitre = 1,
-                           label_colour = 'black',  label_alpha = 1,
+                           position = 'identity', arrow = NULL, curvature = 1,
+                           n = 100, fold = FALSE, lineend = 'butt',
+                           linejoin = 'round', linemitre = 1,
+                           label_colour = 'black', label_alpha = 1,
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, group=~edge.id,
-                                        circular=~circular))
-  layer(data = data, mapping = mapping, stat = StatEdgeArc2,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, n = n,
-               interpolate = TRUE, curvature = curvature, fold = fold,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, group = ~edge.id,
+    circular = ~circular
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeArc2,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = TRUE, curvature = curvature, fold = fold,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -225,23 +236,28 @@ StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
 #'
 #' @export
 geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
-                           position = "identity", arrow = NULL, curvature = 1,
-                           lineend = "butt", show.legend = NA, fold = fold, ...) {
+                           position = 'identity', arrow = NULL, curvature = 1,
+                           lineend = 'butt', show.legend = NA, fold = fold, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
-                                        circular=~circular))
-  layer(data = data, mapping = mapping, stat = StatEdgeArc0,
-        geom = GeomEdgeBezier, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, na.rm = FALSE,
-               curvature = curvature, fold = FALSE, ...)
-        )
+  mapping <- aes_intersect(mapping, aes_(
+    x = ~x, y = ~y, xend = ~xend, yend = ~yend,
+    circular = ~circular
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeArc0,
+    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, na.rm = FALSE,
+        curvature = curvature, fold = FALSE, ...
+      )
+    )
   )
 }
 
 create_arc <- function(from, to, params) {
-  bezier_start <- seq(1, by=4, length.out = nrow(from))
+  bezier_start <- seq(1, by = 4, length.out = nrow(from))
   from$index <- bezier_start
   to$index <- bezier_start + 3
   data2 <- from
@@ -254,15 +270,17 @@ create_arc <- function(from, to, params) {
     r0 <- sqrt(to$x[circ]^2 + to$y[circ]^2)
     r1 <- sqrt(to$x[circ]^2 + to$y[circ]^2)
 
-    data2$x[circ] <- from$x[circ] * (1 - (node_dist[circ]/r0))
-    data2$y[circ] <- from$y[circ] * (1 - (node_dist[circ]/r0))
-    data3$x[circ] <- to$x[circ] * (1 - (node_dist[circ]/r1))
-    data3$y[circ] <- to$y[circ] * (1 - (node_dist[circ]/r1))
+    data2$x[circ] <- from$x[circ] * (1 - (node_dist[circ] / r0))
+    data2$y[circ] <- from$y[circ] * (1 - (node_dist[circ] / r0))
+    data3$x[circ] <- to$x[circ] * (1 - (node_dist[circ] / r1))
+    data3$y[circ] <- to$y[circ] * (1 - (node_dist[circ] / r1))
   }
   if (any(!circ)) {
-    curvature <- pi/2 * -params$curvature
-    edge_angle <- atan2(to$y[!circ] - from$y[!circ],
-                       to$x[!circ] - from$x[!circ])
+    curvature <- pi / 2 * -params$curvature
+    edge_angle <- atan2(
+      to$y[!circ] - from$y[!circ],
+      to$x[!circ] - from$x[!circ]
+    )
     start_angle <- edge_angle - curvature
     end_angle <- edge_angle - pi + curvature
     data2$x[!circ] <- data2$x[!circ] + cos(start_angle) * node_dist[!circ]
@@ -270,9 +288,9 @@ create_arc <- function(from, to, params) {
     data3$x[!circ] <- data3$x[!circ] + cos(end_angle) * node_dist[!circ]
     data3$y[!circ] <- data3$y[!circ] + sin(end_angle) * node_dist[!circ]
     if (params$fold) {
-      #data2$x[!circ] <- abs(data2$x[!circ]) * sign(params$curvature)
+      # data2$x[!circ] <- abs(data2$x[!circ]) * sign(params$curvature)
       data2$y[!circ] <- abs(data2$y[!circ]) * sign(params$curvature)
-      #data3$x[!circ] <- abs(data3$x[!circ]) * sign(params$curvature)
+      # data3$x[!circ] <- abs(data3$x[!circ]) * sign(params$curvature)
       data3$y[!circ] <- abs(data3$y[!circ]) * sign(params$curvature)
     }
   }

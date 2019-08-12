@@ -5,13 +5,15 @@
 #' @export
 StatAxisHive <- ggproto('StatAxisHive', StatFilter,
   setup_data = function(data, params) {
-    data <- data %>% group_by_(~angle, ~section, ~PANEL) %>%
-      mutate_(x = ~min(r)*cos(angle[1]) * 1.1,
-              y = ~min(r)*sin(angle[1]) * 1.1,
-              xend = ~max(r)*cos(angle[1]) * 1.1,
-              yend = ~max(r)*sin(angle[1]) * 1.1,
-              max_r = ~max(r),
-              min_r = ~min(r)
+    data <- data %>%
+      group_by_(~angle, ~section, ~PANEL) %>%
+      mutate_(
+        x = ~ min(r) * cos(angle[1]) * 1.1,
+        y = ~ min(r) * sin(angle[1]) * 1.1,
+        xend = ~ max(r) * cos(angle[1]) * 1.1,
+        yend = ~ max(r) * sin(angle[1]) * 1.1,
+        max_r = ~ max(r),
+        min_r = ~ min(r)
       ) %>%
       slice(1) %>%
       ungroup()
@@ -33,22 +35,24 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     data$xend <- data$xend / 1.1
     data$yend <- data$yend / 1.1
     data <- coord$transform(data, panel_scales)
-    label_data <- data %>% group_by_(~axis) %>%
-      summarise_(x = ~max(max_r) * cos(mean(angle)),
-                 y = ~max(max_r) * sin(mean(angle)),
-                 label = ~axis[1],
-                 angle = ~mean(angle)/(2*pi) * 360 - 90,
-                 colour = ~colour[1],
-                 label_size = ~label_size[1],
-                 family = ~family[1],
-                 fontface = ~fontface[1],
-                 lineheight = ~lineheight[1]
+    label_data <- data %>%
+      group_by_(~axis) %>%
+      summarise_(
+        x = ~ max(max_r) * cos(mean(angle)),
+        y = ~ max(max_r) * sin(mean(angle)),
+        label = ~ axis[1],
+        angle = ~ mean(angle) / (2 * pi) * 360 - 90,
+        colour = ~ colour[1],
+        label_size = ~ label_size[1],
+        family = ~ family[1],
+        fontface = ~ fontface[1],
+        lineheight = ~ lineheight[1]
       )
     label_data <- as.data.frame(label_data)
     lab_dist <- sqrt(label_data$x^2 + label_data$y^2)
     dist_dodge <- max(lab_dist) * 1.05 - max(lab_dist)
-    label_data$x <- label_data$x * (dist_dodge + lab_dist)/lab_dist
-    label_data$y <- label_data$y * (dist_dodge + lab_dist)/lab_dist
+    label_data$x <- label_data$x * (dist_dodge + lab_dist) / lab_dist
+    label_data$y <- label_data$y * (dist_dodge + lab_dist) / lab_dist
     label_data$angle <- label_data$angle + ifelse(label_data$angle < 0, 360, 0)
     label_data$angle <- label_data$angle - ifelse(label_data$angle > 360, 360, 0)
     upside_label <- label_data$angle > 90 & label_data$angle < 270
@@ -61,32 +65,39 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     }
     label_grob <- if (label) {
       textGrob(label_data$label, label_data$x, label_data$y,
-               default.units = 'native', rot = label_data$angle,
-               gp = gpar(col = label_data$label_colour,
-                         fontsize = label_data$label_size * .pt,
-                         fontfamily = label_data$family,
-                         fontface = label_data$fontface,
-                         lineheight = label_data$lineheight))
+        default.units = 'native', rot = label_data$angle,
+        gp = gpar(
+          col = label_data$label_colour,
+          fontsize = label_data$label_size * .pt,
+          fontfamily = label_data$family,
+          fontface = label_data$fontface,
+          lineheight = label_data$lineheight
+        )
+      )
     } else {
       nullGrob()
     }
     axis_grob <- if (axis) {
       segmentsGrob(data$x, data$y, data$xend, data$yend,
-                   default.units = 'native',
-                   gp = gpar(col = alpha(data$colour, data$alpha),
-                             fill = alpha(data$colour, data$alpha),
-                             lwd = data$size * .pt,
-                             lty = data$linetype,
-                             lineend = 'square')
+        default.units = 'native',
+        gp = gpar(
+          col = alpha(data$colour, data$alpha),
+          fill = alpha(data$colour, data$alpha),
+          lwd = data$size * .pt,
+          lty = data$linetype,
+          lineend = 'square'
+        )
       )
     } else {
       nullGrob()
     }
     gList(axis_grob, label_grob)
   },
-  default_aes = aes(colour = 'black', size = 0.5, linetype = 1, alpha = NA,
-                    label_size = 3.88, family = '', fontface = 1,
-                    lineheight = 1.2)
+  default_aes = aes(
+    colour = 'black', size = 0.5, linetype = 1, alpha = NA,
+    label_size = 3.88, family = '', fontface = 1,
+    lineheight = 1.2
+  )
 )
 
 #' Draw rectangular bars and labels on hive axes
@@ -137,16 +148,16 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
 #'     )
 #'   )
 #' ggraph(flareGr, 'hive', axis = type) +
-#'     geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
-#'     geom_axis_hive(aes(colour = type)) +
-#'     coord_fixed()
-#'
+#'   geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
+#'   geom_axis_hive(aes(colour = type)) +
+#'   coord_fixed()
 geom_axis_hive <- function(mapping = NULL, data = NULL,
-                           position = "identity", label = TRUE, axis = TRUE, show.legend = NA, ...) {
-  mapping <- aes_intersect(mapping, aes_(r=~r, angle=~angle, center_size=~center_size, axis=~axis, section=~section))
-  layer(data = data, mapping = mapping, stat = StatAxisHive,
-        geom = GeomAxisHive, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = list(na.rm = FALSE, label = label, axis = axis, ...)
+                           position = 'identity', label = TRUE, axis = TRUE, show.legend = NA, ...) {
+  mapping <- aes_intersect(mapping, aes_(r = ~r, angle = ~angle, center_size = ~center_size, axis = ~axis, section = ~section))
+  layer(
+    data = data, mapping = mapping, stat = StatAxisHive,
+    geom = GeomAxisHive, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = list(na.rm = FALSE, label = label, axis = axis, ...)
   )
 }
