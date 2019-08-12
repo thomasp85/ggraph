@@ -43,11 +43,11 @@
 #'
 geom_node_circle <- function(mapping = NULL, data = NULL, position = "identity",
                              show.legend = NA, ...) {
-    mapping <- aesIntersect(mapping, aes_(x0=~x, y0=~y, r=~r))
-    layer(data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
-          position = position, show.legend = show.legend, inherit.aes = FALSE,
-          params = list(na.rm = FALSE, ...)
-    )
+  mapping <- aesIntersect(mapping, aes_(x0=~x, y0=~y, r=~r))
+  layer(data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
+        position = position, show.legend = show.legend, inherit.aes = FALSE,
+        params = list(na.rm = FALSE, ...)
+  )
 }
 
 #' @rdname ggraph-extensions
@@ -56,14 +56,14 @@ geom_node_circle <- function(mapping = NULL, data = NULL, position = "identity",
 #' @importFrom ggforce StatCircle
 #' @export
 StatNodeCircle <- ggproto('StatNodeCircle', StatCircle,
-    setup_data = function(data, params) {
-        if (any(names(data) == 'filter')) {
-            if (!is.logical(data$filter)) {
-                stop('filter must be logical')
-            }
-            data <- data[data$filter, names(data) != 'filter']
-        }
-        data
-    },
-    default_aes = aes(filter = TRUE)
+  setup_data = function(data, params) {
+    if (any(names(data) == 'filter')) {
+      if (!is.logical(data$filter)) {
+        stop('filter must be logical')
+      }
+      data <- data[data$filter, names(data) != 'filter']
+    }
+    data
+  },
+  default_aes = aes(filter = TRUE)
 )

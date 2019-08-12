@@ -23,21 +23,21 @@
 #' @importFrom rlang .data quos
 #'
 layout_tbl_graph_auto <- function(graph, circular, ...) {
-    if (all(c('x', 'y') %in% names(quos(...)))) {
-        layout_tbl_graph_manual(graph, circular = circular, ...)
-    } else if (with_graph(graph, graph_is_tree() || graph_is_forest())) {
-        if (is.null(with_graph(graph, .N()[['height']]))) {
-            message('Using `tree` as default layout')
-            layout_tbl_graph_igraph(graph, algorithm = 'tree', circular = circular, ...)
-        } else {
-            message('Using `dendrogram` as default layout')
-            layout_tbl_graph_dendrogram(graph, circular = circular, height = .data$height, ...)
-        }
-    } else if (with_graph(graph, graph_is_dag())) {
-        message('Using `sugiyama` as default layout')
-        layout_tbl_graph_igraph(graph, algorithm = 'sugiyama', circular = circular, ...)
+  if (all(c('x', 'y') %in% names(quos(...)))) {
+    layout_tbl_graph_manual(graph, circular = circular, ...)
+  } else if (with_graph(graph, graph_is_tree() || graph_is_forest())) {
+    if (is.null(with_graph(graph, .N()[['height']]))) {
+      message('Using `tree` as default layout')
+      layout_tbl_graph_igraph(graph, algorithm = 'tree', circular = circular, ...)
     } else {
-        message('Using `nicely` as default layout')
-        layout_tbl_graph_igraph(graph, algorithm = 'nicely', circular = circular, ...)
+      message('Using `dendrogram` as default layout')
+      layout_tbl_graph_dendrogram(graph, circular = circular, height = .data$height, ...)
     }
+  } else if (with_graph(graph, graph_is_dag())) {
+    message('Using `sugiyama` as default layout')
+    layout_tbl_graph_igraph(graph, algorithm = 'sugiyama', circular = circular, ...)
+  } else {
+    message('Using `nicely` as default layout')
+    layout_tbl_graph_igraph(graph, algorithm = 'nicely', circular = circular, ...)
+  }
 }

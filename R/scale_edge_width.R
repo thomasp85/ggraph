@@ -25,7 +25,7 @@ NULL
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_width_continuous <- function(..., range = c(1, 6)) {
-    continuous_scale("edge_width", "width_c", rescale_pal(range), ...)
+  continuous_scale("edge_width", "width_c", rescale_pal(range), ...)
 }
 #' @rdname scale_edge_width
 #'
@@ -38,10 +38,10 @@ scale_edge_width <- scale_edge_width_continuous
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_width_discrete <- function(..., range = c(2, 6)) {
-    discrete_scale("edge_width", "width_d", function(n) {
-        area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
-        sqrt(area)
-    }, ...)
+  discrete_scale("edge_width", "width_d", function(n) {
+    area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
+    sqrt(area)
+  }, ...)
 }
 #' @rdname scale_edge_width
 #'
@@ -49,7 +49,7 @@ scale_edge_width_discrete <- function(..., range = c(2, 6)) {
 #'
 #' @export
 scale_edge_width_manual <- function(..., values) {
-    manual_scale("edge_width", values, ...)
+  manual_scale("edge_width", values, ...)
 }
 #' @rdname scale_edge_width
 #'
@@ -58,7 +58,7 @@ scale_edge_width_manual <- function(..., values) {
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_width_identity <- function(..., guide = "none") {
-    sc <- discrete_scale("edge_width", "identity", identity_pal(), ...,
-                         guide = guide, super = ScaleDiscreteIdentity)
-    sc
+  sc <- discrete_scale("edge_width", "identity", identity_pal(), ...,
+                       guide = guide, super = ScaleDiscreteIdentity)
+  sc
 }

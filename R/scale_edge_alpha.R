@@ -22,7 +22,7 @@ NULL
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_alpha <- function(..., range = c(0.1, 1)) {
-    continuous_scale("edge_alpha", "alpha_c", rescale_pal(range), ...)
+  continuous_scale("edge_alpha", "alpha_c", rescale_pal(range), ...)
 }
 
 #' @rdname scale_edge_alpha
@@ -37,8 +37,8 @@ scale_edge_alpha_continuous <- scale_edge_alpha
 #'
 #' @export
 scale_edge_alpha_discrete <- function(..., range = c(0.1, 1)) {
-    discrete_scale("edge_alpha", "alpha_d",
-                   function(n) seq(range[1], range[2], length.out = n), ...)
+  discrete_scale("edge_alpha", "alpha_d",
+                 function(n) seq(range[1], range[2], length.out = n), ...)
 }
 #' @rdname scale_edge_alpha
 #'
@@ -46,7 +46,7 @@ scale_edge_alpha_discrete <- function(..., range = c(0.1, 1)) {
 #'
 #' @export
 scale_edge_alpha_manual <- function(..., values) {
-    manual_scale("edge_alpha", values, ...)
+  manual_scale("edge_alpha", values, ...)
 }
 
 #' @rdname scale_edge_alpha
@@ -56,7 +56,7 @@ scale_edge_alpha_manual <- function(..., values) {
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_alpha_identity <- function(..., guide = "none") {
-    sc <- continuous_scale("edge_alpha", "identity", identity_pal(), ...,
-                           guide = guide, super = ScaleContinuousIdentity)
-    sc
+  sc <- continuous_scale("edge_alpha", "identity", identity_pal(), ...,
+                         guide = guide, super = ScaleContinuousIdentity)
+  sc
 }

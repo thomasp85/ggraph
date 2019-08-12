@@ -22,8 +22,8 @@ NULL
 #' @importFrom scales hue_pal
 #' @export
 scale_edge_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0, direction = 1, na.value = "grey50") {
-    discrete_scale("edge_fill", "hue", hue_pal(h, c, l, h.start, direction),
-                   na.value = na.value, ...)
+  discrete_scale("edge_fill", "hue", hue_pal(h, c, l, h.start, direction),
+                 na.value = na.value, ...)
 }
 #' @rdname scale_edge_fill
 #'
@@ -32,7 +32,7 @@ scale_edge_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.star
 #' @importFrom scales brewer_pal
 #' @export
 scale_edge_fill_brewer <- function(..., type = "seq", palette = 1, direction = 1) {
-    discrete_scale("edge_fill", "brewer", brewer_pal(type, palette, direction), ...)
+  discrete_scale("edge_fill", "brewer", brewer_pal(type, palette, direction), ...)
 }
 #' @rdname scale_edge_fill
 #'
@@ -41,14 +41,14 @@ scale_edge_fill_brewer <- function(..., type = "seq", palette = 1, direction = 1
 #' @importFrom scales gradient_n_pal brewer_pal
 #' @export
 scale_edge_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1, values = NULL, space = "Lab", na.value = "grey50", guide = "edge_colourbar") {
-    # warn about using a qualitative brewer palette to generate the gradient
-    type <- match.arg(type, c("seq", "div", "qual"))
-    if (type == "qual") {
-        warning("Using a discrete fill palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
-    }
-    continuous_scale("edge_fill", "distiller",
-                     gradient_n_pal(brewer_pal(type, palette, direction)(6), values, space), na.value = na.value, guide = guide, ...)
-    # NB: 6 colours per palette gives nice gradients; more results in more saturated colours which do not look as good
+  # warn about using a qualitative brewer palette to generate the gradient
+  type <- match.arg(type, c("seq", "div", "qual"))
+  if (type == "qual") {
+    warning("Using a discrete fill palette in a continuous scale.\n  Consider using type = \"seq\" or type = \"div\" instead", call. = FALSE)
+  }
+  continuous_scale("edge_fill", "distiller",
+                   gradient_n_pal(brewer_pal(type, palette, direction)(6), values, space), na.value = na.value, guide = guide, ...)
+  # NB: 6 colours per palette gives nice gradients; more results in more saturated colours which do not look as good
 }
 #' @rdname scale_edge_fill
 #'
@@ -58,8 +58,8 @@ scale_edge_fill_distiller <- function(..., type = "seq", palette = 1, direction 
 #' @importFrom scales seq_gradient_pal
 #' @export
 scale_edge_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab", na.value = "grey50", guide = "edge_colourbar") {
-    continuous_scale("edge_fill", "gradient", seq_gradient_pal(low, high, space),
-                     na.value = na.value, guide = guide, ...)
+  continuous_scale("edge_fill", "gradient", seq_gradient_pal(low, high, space),
+                   na.value = na.value, guide = guide, ...)
 }
 #' @rdname scale_edge_fill
 #'
@@ -68,9 +68,9 @@ scale_edge_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", spa
 #' @importFrom scales div_gradient_pal muted
 #' @export
 scale_edge_fill_gradient2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"), midpoint = 0, space = "Lab", na.value = "grey50", guide = "edge_colourbar") {
-    continuous_scale("edge_fill", "gradient2",
-                     div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
-                     rescaler = mid_rescaler(mid = midpoint))
+  continuous_scale("edge_fill", "gradient2",
+                   div_gradient_pal(low, mid, high, space), na.value = na.value, guide = guide, ...,
+                   rescaler = mid_rescaler(mid = midpoint))
 }
 #' @rdname scale_edge_fill
 #'
@@ -80,10 +80,10 @@ scale_edge_fill_gradient2 <- function(..., low = muted("red"), mid = "white", hi
 #' @importFrom scales gradient_n_pal
 #' @export
 scale_edge_fill_gradientn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50", guide = "edge_colourbar", colors) {
-    colours <- if (missing(colours)) colors else colours
+  colours <- if (missing(colours)) colors else colours
 
-    continuous_scale("edge_fill", "gradientn",
-                     gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
+  continuous_scale("edge_fill", "gradientn",
+                   gradient_n_pal(colours, values, space), na.value = na.value, guide = guide, ...)
 }
 #' @rdname scale_edge_fill
 #'
@@ -92,8 +92,8 @@ scale_edge_fill_gradientn <- function(..., colours, values = NULL, space = "Lab"
 #' @importFrom scales grey_pal
 #' @export
 scale_edge_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "red") {
-    discrete_scale("edge_fill", "grey", grey_pal(start, end),
-                   na.value = na.value, ...)
+  discrete_scale("edge_fill", "grey", grey_pal(start, end),
+                 na.value = na.value, ...)
 }
 #' @rdname scale_edge_fill
 #'
@@ -102,9 +102,9 @@ scale_edge_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "red") 
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_fill_identity <- function(..., guide = "none") {
-    sc <- discrete_scale("edge_fill", "identity", identity_pal(), ...,
-                         guide = guide, super = ScaleDiscreteIdentity)
-    sc
+  sc <- discrete_scale("edge_fill", "identity", identity_pal(), ...,
+                       guide = guide, super = ScaleDiscreteIdentity)
+  sc
 }
 #' @rdname scale_edge_fill
 #'
@@ -112,7 +112,7 @@ scale_edge_fill_identity <- function(..., guide = "none") {
 #'
 #' @export
 scale_edge_fill_manual <- function(..., values) {
-    manual_scale("edge_fill", values, ...)
+  manual_scale("edge_fill", values, ...)
 }
 #' @rdname scale_edge_fill
 #'
@@ -123,20 +123,20 @@ scale_edge_fill_manual <- function(..., values) {
 scale_edge_fill_viridis <- function (..., alpha = 1, begin = 0, end = 1,
                                      discrete = FALSE, option = "D",
                                      direction = 1) {
-    if (direction == -1) {
-        tmp <- begin
-        begin <- end
-        end <- tmp
-    }
-    if (discrete) {
-        discrete_scale("edge_fill", "viridis",
-                       viridis_pal(alpha = alpha, begin = begin, end = end,
-                                   option = option), ...)
-    } else {
-        scale_edge_fill_gradientn(colours = viridis(256, alpha = alpha,
-                                                    begin = begin, end = end,
-                                                    option = option), ...)
-    }
+  if (direction == -1) {
+    tmp <- begin
+    begin <- end
+    end <- tmp
+  }
+  if (discrete) {
+    discrete_scale("edge_fill", "viridis",
+                   viridis_pal(alpha = alpha, begin = begin, end = end,
+                               option = option), ...)
+  } else {
+    scale_edge_fill_gradientn(colours = viridis(256, alpha = alpha,
+                                                begin = begin, end = end,
+                                                option = option), ...)
+  }
 }
 #' @rdname scale_edge_fill
 #'

@@ -28,69 +28,69 @@
 #' @export
 #'
 node_angle <- function(x, y, degrees = TRUE) {
-    angles <- atan2(y, x)
-    angles[angles < 0] <- angles[angles < 0] + 2*pi
-    if (degrees) {
-        angles*360/(2*pi)
-    } else {
-        angles
-    }
+  angles <- atan2(y, x)
+  angles[angles < 0] <- angles[angles < 0] + 2*pi
+  if (degrees) {
+    angles*360/(2*pi)
+  } else {
+    angles
+  }
 }
 #' @rdname node_angle
 #'
 #' @export
 edge_angle <- function(x, y, xend, yend, degrees = TRUE) {
-    x <- xend - x
-    y <- yend - y
-    node_angle(x, y, degrees)
+  x <- xend - x
+  y <- yend - y
+  node_angle(x, y, degrees)
 }
 
 
 ### COPY FROM GGPLOT2 NON-EXPORTS
 #' @importFrom scales rescale_mid
 mid_rescaler <- function(mid) {
-    function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
-        rescale_mid(x, to, from, mid)
-    }
+  function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
+    rescale_mid(x, to, from, mid)
+  }
 }
 manual_scale <- function(aesthetic, values, ...) {
-    pal <- function(n) {
-        if (n > length(values)) {
-            stop("Insufficient values in manual scale. ", n,
-                 " needed but only ", length(values), " provided.",
-                 call. = FALSE)
-        }
-        values
+  pal <- function(n) {
+    if (n > length(values)) {
+      stop("Insufficient values in manual scale. ", n,
+           " needed but only ", length(values), " provided.",
+           call. = FALSE)
     }
-    discrete_scale(aesthetic, "manual", pal, ...)
+    values
+  }
+  discrete_scale(aesthetic, "manual", pal, ...)
 }
 #' @importFrom scales zero_range
 resolution <- function(x, zero = TRUE) {
-    if (is.integer(x) || zero_range(range(x, na.rm = TRUE)))
-        return(1)
-    x <- unique(as.numeric(x))
-    if (zero) {
-        x <- unique(c(0, x))
-    }
-    min(diff(sort(x)))
+  if (is.integer(x) || zero_range(range(x, na.rm = TRUE)))
+    return(1)
+  x <- unique(as.numeric(x))
+  if (zero) {
+    x <- unique(c(0, x))
+  }
+  min(diff(sort(x)))
 }
 "%||%" <- function(a, b) {
-    if (!is.null(a))
-        a
-    else b
+  if (!is.null(a))
+    a
+  else b
 }
 #' @importFrom grid grobName
 ggname <- function(prefix, grob) {
-    grob$name <- grobName(grob, prefix)
-    grob
+  grob$name <- grobName(grob, prefix)
+  grob
 }
 element_render <- function(theme, element, ..., name = NULL) {
-    el <- calc_element(element, theme)
-    if (is.null(el)) {
-        message("Theme element ", element, " missing")
-        return(zeroGrob())
-    }
-    ggname(paste(element, name, sep = "."), element_grob(el, ...))
+  el <- calc_element(element, theme)
+  if (is.null(el)) {
+    message("Theme element ", element, " missing")
+    return(zeroGrob())
+  }
+  ggname(paste(element, name, sep = "."), element_grob(el, ...))
 }
 .all_aesthetics <- c("adj", "alpha", "angle", "bg", "cex", "col", "color", "colour",
                      "fg", "fill", "group", "hjust", "label", "linetype", "lower",
@@ -99,16 +99,16 @@ element_render <- function(theme, element, ..., name = NULL) {
                      "x", "xend", "xmax", "xmin", "xintercept", "y", "yend", "ymax",
                      "ymin", "yintercept", "z")
 .base_to_ggplot <- structure(
-    c("colour", "colour", "shape", "size", "linetype", "size", "angle", "hjust",
-      "fill", "colour", "ymin", "ymax"),
-    .Names = c("col", "color", "pch", "cex", "lty", "lwd", "srt", "adj", "bg",
-               "fg", "min", "max"))
+  c("colour", "colour", "shape", "size", "linetype", "size", "angle", "hjust",
+    "fill", "colour", "ymin", "ymax"),
+  .Names = c("col", "color", "pch", "cex", "lty", "lwd", "srt", "adj", "bg",
+             "fg", "min", "max"))
 rename_aes <- function(x) {
-    # Convert prefixes to full names
-    full <- match(names(x), .all_aesthetics)
-    names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
+  # Convert prefixes to full names
+  full <- match(names(x), .all_aesthetics)
+  names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
 
-    plyr::rename(x, .base_to_ggplot, warn_missing = FALSE)
+  plyr::rename(x, .base_to_ggplot, warn_missing = FALSE)
 }
 
 #' @importFrom viridis scale_color_viridis

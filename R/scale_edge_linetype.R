@@ -23,14 +23,14 @@ NULL
 #' @importFrom scales linetype_pal
 #' @export
 scale_edge_linetype <- function(..., na.value = "blank") {
-    discrete_scale("edge_linetype", "linetype_d", linetype_pal(),
-                   na.value = na.value, ...)
+  discrete_scale("edge_linetype", "linetype_d", linetype_pal(),
+                 na.value = na.value, ...)
 }
 #' @rdname scale_edge_linetype
 #'
 #' @export
 scale_edge_linetype_continuous <- function(...) {
-    stop("A continuous variable can not be mapped to linetype", call. = FALSE)
+  stop("A continuous variable can not be mapped to linetype", call. = FALSE)
 }
 #' @rdname scale_edge_linetype
 #'
@@ -42,7 +42,7 @@ scale_edge_linetype_discrete <- scale_edge_linetype
 #'
 #' @export
 scale_edge_linetype_manual <- function(..., values) {
-    manual_scale("edge_linetype", values, ...)
+  manual_scale("edge_linetype", values, ...)
 }
 #' @rdname scale_edge_linetype
 #'
@@ -51,7 +51,7 @@ scale_edge_linetype_manual <- function(..., values) {
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_linetype_identity <- function(..., guide = "none") {
-    sc <- discrete_scale("edge_linetype", "identity", identity_pal(), ...,
-                         guide = guide, super = ScaleDiscreteIdentity)
-    sc
+  sc <- discrete_scale("edge_linetype", "identity", identity_pal(), ...,
+                       guide = guide, super = ScaleDiscreteIdentity)
+  sc
 }

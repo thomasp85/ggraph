@@ -30,29 +30,29 @@
 #'
 #' @export
 get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight = NULL, mode = 'all') {
-    if (length(from) != length(to)) {
-        stop('from and to must be of equal length')
+  if (length(from) != length(to)) {
+    stop('from and to must be of equal length')
+  }
+  function(layout) {
+    if (length(from) == 0) return(NULL)
+    connections <- getConnections(layout = layout, from = from, to = to,
+                                  weight = {{ weight }}, mode = mode)
+    nodes <- as.data.frame(layout)[unlist(connections), ]
+    nodes$con.id <- rep(seq_along(connections), lengths(connections))
+    if (!is.null(paths)) {
+      extra <- as.data.frame(layout)[unlist(paths), ]
+      extra$con.id <- rep(seq_along(paths) + length(connections),
+                          lengths(paths))
+      nodes <- rbind(nodes, extra)
     }
-    function(layout) {
-        if (length(from) == 0) return(NULL)
-        connections <- getConnections(layout = layout, from = from, to = to,
-                                      weight = {{ weight }}, mode = mode)
-        nodes <- as.data.frame(layout)[unlist(connections), ]
-        nodes$con.id <- rep(seq_along(connections), lengths(connections))
-        if (!is.null(paths)) {
-            extra <- as.data.frame(layout)[unlist(paths), ]
-            extra$con.id <- rep(seq_along(paths) + length(connections),
-                                lengths(paths))
-            nodes <- rbind(nodes, extra)
-        }
-        nodes <- do.call(
-            cbind,
-            c(list(nodes),
-              lapply(list(...), rep, length.out = nrow(nodes)),
-              list(stringsAsFactors = FALSE))
-        )
-        structure(nodes, type = 'connection_ggraph')
-    }
+    nodes <- do.call(
+      cbind,
+      c(list(nodes),
+        lapply(list(...), rep, length.out = nrow(nodes)),
+        list(stringsAsFactors = FALSE))
+    )
+    structure(nodes, type = 'connection_ggraph')
+  }
 }
 #' Internal data extractors
 #'
@@ -70,8 +70,8 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
 #' @rdname internal_extractors
 #' @name internal_extractors
 getConnections <- function(layout, from, to, ...) {
-    UseMethod('getConnections', layout)
+  UseMethod('getConnections', layout)
 }
 getConnections.default <- function(layout, ...) {
-    stop('Don\'t know how to get connections from an object of class ', class(layout))
+  stop('Don\'t know how to get connections from an object of class ', class(layout))
 }

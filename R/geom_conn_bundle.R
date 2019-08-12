@@ -88,26 +88,26 @@ NULL
 #' @importFrom ggforce StatBspline
 #' @export
 StatConnBundle <- ggproto('StatConnBundle', StatBspline,
-    setup_data = function(data, params) {
-        if (any(names(data) == 'filter')) {
-            if (!is.logical(data$filter)) {
-                stop('filter must be logical')
-            }
-            data <- data[data$filter, names(data) != 'filter']
-        }
-        relax(data, params$tension)
-    },
-    setup_params = function(data, params) {
-        if (is.null(params$tension)) {
-            params$tension <- 0.8
-        }
-        if (params$tension < 0) params$tension <- 0
-        if (params$tension > 1) params$tension <- 1
-        params
-    },
-    required_aes = c('x', 'y'),
-    default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'tension', 'type')
+  setup_data = function(data, params) {
+    if (any(names(data) == 'filter')) {
+      if (!is.logical(data$filter)) {
+        stop('filter must be logical')
+      }
+      data <- data[data$filter, names(data) != 'filter']
+    }
+    relax(data, params$tension)
+  },
+  setup_params = function(data, params) {
+    if (is.null(params$tension)) {
+      params$tension <- 0.8
+    }
+    if (params$tension < 0) params$tension <- 0
+    if (params$tension > 1) params$tension <- 1
+    params
+  },
+  required_aes = c('x', 'y'),
+  default_aes = aes(filter = TRUE),
+  extra_params = c('na.rm', 'n', 'tension', 'type')
 )
 #' @rdname geom_conn_bundle
 #'
@@ -116,16 +116,16 @@ geom_conn_bundle <- function(mapping = NULL, data = get_con(),
                              position = "identity", arrow = NULL,
                              lineend = "butt", show.legend = NA,
                              n = 100, tension = 0.8, ...) {
-    mapping <- completeEdgeAes(mapping)
-    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~con.id))
-    layer(data = data, mapping = mapping, stat = StatConnBundle,
-          geom = GeomEdgePath, position = position, show.legend = show.legend,
-          inherit.aes = FALSE,
-          params = expand_edge_aes(
-              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                   interpolate = FALSE, tension = tension, type = 'clamped', ...)
-          )
-    )
+  mapping <- completeEdgeAes(mapping)
+  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~con.id))
+  layer(data = data, mapping = mapping, stat = StatConnBundle,
+        geom = GeomEdgePath, position = position, show.legend = show.legend,
+        inherit.aes = FALSE,
+        params = expand_edge_aes(
+          list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+               interpolate = FALSE, tension = tension, type = 'clamped', ...)
+        )
+  )
 }
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -133,15 +133,15 @@ geom_conn_bundle <- function(mapping = NULL, data = get_con(),
 #' @importFrom ggforce StatBspline2
 #' @export
 StatConnBundle2 <- ggproto('StatConnBundle2', StatBspline2,
-    setup_data = function(data, params) {
-        StatConnBundle$setup_data(data, params)
-    },
-    setup_params = function(data, params) {
-        StatConnBundle$setup_params(data, params)
-    },
-    required_aes = c('x', 'y'),
-    default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'tension', 'type')
+  setup_data = function(data, params) {
+    StatConnBundle$setup_data(data, params)
+  },
+  setup_params = function(data, params) {
+    StatConnBundle$setup_params(data, params)
+  },
+  required_aes = c('x', 'y'),
+  default_aes = aes(filter = TRUE),
+  extra_params = c('na.rm', 'n', 'tension', 'type')
 )
 #' @rdname geom_conn_bundle
 #'
@@ -150,31 +150,31 @@ geom_conn_bundle2 <- function(mapping = NULL, data = get_con(),
                               position = "identity", arrow = NULL,
                               lineend = "butt", show.legend = NA,
                               n = 100, tension = 0.8, ...) {
-    mapping <- completeEdgeAes(mapping)
-    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~con.id))
-    layer(data = data, mapping = mapping, stat = StatConnBundle2,
-          geom = GeomEdgePath, position = position, show.legend = show.legend,
-          inherit.aes = FALSE,
-          params = expand_edge_aes(
-              list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-                   interpolate = TRUE, tension = tension, type = 'clamped', ...)
-          )
-    )
+  mapping <- completeEdgeAes(mapping)
+  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~con.id))
+  layer(data = data, mapping = mapping, stat = StatConnBundle2,
+        geom = GeomEdgePath, position = position, show.legend = show.legend,
+        inherit.aes = FALSE,
+        params = expand_edge_aes(
+          list(arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
+               interpolate = TRUE, tension = tension, type = 'clamped', ...)
+        )
+  )
 }
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
 #' @export
 StatConnBundle0 <- ggproto('StatConnBundle0', StatIdentity,
-    setup_data = function(data, params) {
-        StatConnBundle$setup_data(data, params)
-    },
-    setup_params = function(data, params) {
-        StatConnBundle$setup_params(data, params)
-    },
-    required_aes = c('x', 'y'),
-    default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n', 'tension', 'type')
+  setup_data = function(data, params) {
+    StatConnBundle$setup_data(data, params)
+  },
+  setup_params = function(data, params) {
+    StatConnBundle$setup_params(data, params)
+  },
+  required_aes = c('x', 'y'),
+  default_aes = aes(filter = TRUE),
+  extra_params = c('na.rm', 'n', 'tension', 'type')
 )
 #' @rdname geom_conn_bundle
 #'
@@ -183,31 +183,31 @@ geom_conn_bundle0 <- function(mapping = NULL, data = get_con(),
                               position = "identity", arrow = NULL,
                               lineend = "butt", show.legend = NA,
                               tension = 0.8, ...) {
-    mapping <- completeEdgeAes(mapping)
-    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~con.id))
-    layer(data = data, mapping = mapping, stat = StatConnBundle0,
-          geom = GeomEdgeBspline, position = position, show.legend = show.legend,
-          inherit.aes = FALSE,
-          params = expand_edge_aes(
-              list(arrow = arrow, lineend = lineend, na.rm = FALSE,
-                   tension = tension, type = 'clamped', ...)
-          )
-    )
+  mapping <- completeEdgeAes(mapping)
+  mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, group=~con.id))
+  layer(data = data, mapping = mapping, stat = StatConnBundle0,
+        geom = GeomEdgeBspline, position = position, show.legend = show.legend,
+        inherit.aes = FALSE,
+        params = expand_edge_aes(
+          list(arrow = arrow, lineend = lineend, na.rm = FALSE,
+               tension = tension, type = 'clamped', ...)
+        )
+  )
 }
 #' @importFrom utils head tail
 relax <- function(data, strength) {
-    formula <- function(p, startInd, endInd, pathLengths) {
-        start <- rep(p[startInd], pathLengths)
-        range <- rep(p[endInd] - p[startInd], pathLengths)
-        ind <- unlist(lapply(pathLengths, seq_len)) - 1
-        length <- rep(pathLengths, pathLengths)
-        strength*p + (1 - strength)*(start + (ind/(length - 1))*range)
-    }
-    idInds <- split(seq_len(nrow(data)), data$group)
-    pathLengths <- lengths(idInds)
-    startInd <- sapply(idInds, head, n = 1)
-    endInd <- sapply(idInds, tail, n = 1)
-    data$x <- formula(data$x, startInd, endInd, pathLengths)
-    data$y <- formula(data$y, startInd, endInd, pathLengths)
-    data
+  formula <- function(p, startInd, endInd, pathLengths) {
+    start <- rep(p[startInd], pathLengths)
+    range <- rep(p[endInd] - p[startInd], pathLengths)
+    ind <- unlist(lapply(pathLengths, seq_len)) - 1
+    length <- rep(pathLengths, pathLengths)
+    strength*p + (1 - strength)*(start + (ind/(length - 1))*range)
+  }
+  idInds <- split(seq_len(nrow(data)), data$group)
+  pathLengths <- lengths(idInds)
+  startInd <- sapply(idInds, head, n = 1)
+  endInd <- sapply(idInds, tail, n = 1)
+  data$x <- formula(data$x, startInd, endInd, pathLengths)
+  data$y <- formula(data$y, startInd, endInd, pathLengths)
+  data
 }

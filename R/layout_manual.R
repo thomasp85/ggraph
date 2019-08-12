@@ -17,17 +17,17 @@
 #' @importFrom rlang enquo eval_tidy
 #'
 layout_tbl_graph_manual <- function(graph, x, y, circular) {
-    if (circular) {
-        warning('circular argument ignored for manual layout')
-    }
-    x <- enquo(x)
-    y <- enquo(y)
-    layout <- data.frame(
-        x = eval_tidy(x, .N()),
-        y = eval_tidy(y, .N())
-    )
-    extraData <- as_tibble(graph, active = 'nodes')
-    layout <- cbind(layout, extraData[, !names(extraData) %in% names(layout), drop = FALSE])
-    layout$circular <- FALSE
-    layout
+  if (circular) {
+    warning('circular argument ignored for manual layout')
+  }
+  x <- enquo(x)
+  y <- enquo(y)
+  layout <- data.frame(
+    x = eval_tidy(x, .N()),
+    y = eval_tidy(y, .N())
+  )
+  extraData <- as_tibble(graph, active = 'nodes')
+  layout <- cbind(layout, extraData[, !names(extraData) %in% names(layout), drop = FALSE])
+  layout$circular <- FALSE
+  layout
 }

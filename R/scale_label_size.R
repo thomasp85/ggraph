@@ -19,7 +19,7 @@ NULL
 #' @importFrom scales area_pal
 #' @export
 scale_label_size_continuous <- function(..., range = c(1, 6)) {
-    continuous_scale("label_size", "area", area_pal(range), ...)
+  continuous_scale("label_size", "area", area_pal(range), ...)
 }
 #' @rdname scale_label_size
 #'
@@ -32,10 +32,10 @@ scale_label_size <- scale_label_size_continuous
 #' @importFrom scales rescale_pal
 #' @export
 scale_label_size_discrete <- function(..., range = c(2, 6)) {
-    discrete_scale("label_size", "size_d", function(n) {
-        area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
-        sqrt(area)
-    }, ...)
+  discrete_scale("label_size", "size_d", function(n) {
+    area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
+    sqrt(area)
+  }, ...)
 }
 #' @rdname scale_label_size
 #'
@@ -43,7 +43,7 @@ scale_label_size_discrete <- function(..., range = c(2, 6)) {
 #'
 #' @export
 scale_label_size_manual <- function(..., values) {
-    manual_scale("label_size", values, ...)
+  manual_scale("label_size", values, ...)
 }
 #' @rdname scale_label_size
 #'
@@ -52,7 +52,7 @@ scale_label_size_manual <- function(..., values) {
 #' @importFrom scales identity_pal
 #' @export
 scale_label_size_identity <- function(..., guide = "none") {
-    sc <- discrete_scale("label_size", "identity", identity_pal(), ...,
-                         guide = guide, super = ScaleDiscreteIdentity)
-    sc
+  sc <- discrete_scale("label_size", "identity", identity_pal(), ...,
+                       guide = guide, super = ScaleDiscreteIdentity)
+  sc
 }

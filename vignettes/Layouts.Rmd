@@ -36,8 +36,8 @@ graph <- as_tbl_graph(highschool)
 
 # Not specifying the layout - defaults to "auto"
 ggraph(graph) + 
-    geom_edge_link(aes(colour = factor(year))) + 
-    geom_node_point()
+  geom_edge_link(aes(colour = factor(year))) + 
+  geom_node_point()
 ```
 
 Not specifying a layout will make `ggraph` pick one for you. This is only 
@@ -48,8 +48,8 @@ specification of the layout:
 
 ```{r}
 ggraph(graph, layout = 'kk') + 
-    geom_edge_link(aes(colour = factor(year))) + 
-    geom_node_point()
+  geom_edge_link(aes(colour = factor(year))) + 
+  geom_node_point()
 ```
 
 If the layout algorithm accepts additional parameters (most do), they can be
@@ -57,8 +57,8 @@ supplied in the call to `ggraph()` as well:
 
 ```{r}
 ggraph(graph, layout = 'kk', maxiter = 100) + 
-    geom_edge_link(aes(colour = factor(year))) + 
-    geom_node_point()
+  geom_edge_link(aes(colour = factor(year))) + 
+  geom_node_point()
 ```
 
 If any layout parameters refers to node or edge variables they must be supplied
@@ -72,8 +72,8 @@ of a graph structure in ggraph call:
 ```{r}
 layout <- create_layout(graph, layout = 'drl')
 ggraph(layout) + 
-    geom_edge_link(aes(colour = factor(year))) + 
-    geom_node_point()
+  geom_edge_link(aes(colour = factor(year))) + 
+  geom_node_point()
 ```
 
 Examining the return of `create_layout()` we see that it is really just a 
@@ -156,28 +156,28 @@ names. In `ggraph` they'll have the same name and only differ in whether or not
 ```{r}
 # An arc diagram
 ggraph(graph, layout = 'linear') + 
-    geom_edge_arc(aes(colour = factor(year)))
+  geom_edge_arc(aes(colour = factor(year)))
 ```
 
 ```{r}
 # A coord diagram
 ggraph(graph, layout = 'linear', circular = TRUE) + 
-    geom_edge_arc(aes(colour = factor(year))) + 
-    coord_fixed()
+  geom_edge_arc(aes(colour = factor(year))) + 
+  coord_fixed()
 ```
 
 ```{r}
 graph <- tbl_graph(flare$vertices, flare$edges)
 # An icicle plot
 ggraph(graph, 'partition') + 
-    geom_node_tile(aes(fill = depth), size = 0.25)
+  geom_node_tile(aes(fill = depth), size = 0.25)
 ```
 
 ```{r}
 # A sunburst plot
 ggraph(graph, 'partition', circular = TRUE) + 
-    geom_node_arc_bar(aes(fill = depth), size = 0.25) + 
-    coord_fixed()
+  geom_node_arc_bar(aes(fill = depth), size = 0.25) + 
+  coord_fixed()
 ```
 
 Not every layout has a meaningful circular representation in which cases the 
@@ -196,12 +196,12 @@ the layouts available through `igraph` applied to the highschool graph.
 
 ```{r, fig.show='hold', results='hide'}
 graph <- as_tbl_graph(highschool) %>% 
-    mutate(degree = centrality_degree())
+  mutate(degree = centrality_degree())
 lapply(c('fr', 'kk', 'lgl', 'graphopt'), function(layout) {
-    ggraph(graph, layout = layout) + 
-        geom_edge_link(aes(colour = factor(year)), show.legend = FALSE) +
-        geom_node_point() + 
-        labs(caption = paste0('Layout: ', layout))
+  ggraph(graph, layout = layout) + 
+    geom_edge_link(aes(colour = factor(year)), show.legend = FALSE) +
+    geom_node_point() + 
+    labs(caption = paste0('Layout: ', layout))
 })
 ```
 
@@ -215,14 +215,14 @@ additional explanation.
 
 ```{r}
 graph <- graph %>% 
-    mutate(friends = ifelse(
-        centrality_degree(mode = 'in') < 5, 'few',
-        ifelse(centrality_degree(mode = 'in') >= 15, 'many', 'medium')
-    ))
+  mutate(friends = ifelse(
+    centrality_degree(mode = 'in') < 5, 'few',
+    ifelse(centrality_degree(mode = 'in') >= 15, 'many', 'medium')
+  ))
 ggraph(graph, 'hive', axis = friends, sort.by = degree) + 
-    geom_edge_hive(aes(colour = factor(year))) + 
-    geom_axis_hive(aes(colour = friends), size = 2, label = FALSE) + 
-    coord_fixed()
+  geom_edge_hive(aes(colour = factor(year))) + 
+  geom_axis_hive(aes(colour = friends), size = 2, label = FALSE) + 
+  coord_fixed()
 ```
 
 ### Hierarchical layouts
@@ -236,27 +236,27 @@ used for drawing edges if you wish to:
 graph <- tbl_graph(flare$vertices, flare$edges)
 set.seed(1)
 ggraph(graph, 'circlepack', weight = size) + 
-    geom_node_circle(aes(fill = depth), size = 0.25, n = 50) + 
-    coord_fixed()
+  geom_node_circle(aes(fill = depth), size = 0.25, n = 50) + 
+  coord_fixed()
 ```
 
 ```{r}
 set.seed(1)
 ggraph(graph, 'circlepack', weight = size) + 
-    geom_edge_link() + 
-    geom_node_point(aes(colour = depth)) +
-    coord_fixed()
+  geom_edge_link() + 
+  geom_node_point(aes(colour = depth)) +
+  coord_fixed()
 ```
 
 ```{r}
 ggraph(graph, 'treemap', weight = size) + 
-    geom_node_tile(aes(fill = depth), size = 0.25)
+  geom_node_tile(aes(fill = depth), size = 0.25)
 ```
 
 ```{r}
 ggraph(graph, 'treemap', weight = size) + 
-    geom_edge_link() + 
-    geom_node_point(aes(colour = depth))
+  geom_edge_link() + 
+  geom_node_point(aes(colour = depth))
 ```
 
 The most recognized tree plot is probably dendrograms though. If nothing else is
@@ -266,7 +266,7 @@ certain depth at the same level):
 
 ```{r}
 ggraph(graph, 'dendrogram') + 
-    geom_edge_diagonal()
+  geom_edge_diagonal()
 ```
 
 The height of each branch point can be set to a variable --- e.g. the height 
@@ -275,7 +275,7 @@ provided by hclust and dendrogram objects:
 ```{r}
 dendrogram <- hclust(dist(iris[, 1:4]))
 ggraph(dendrogram, 'dendrogram', height = height) + 
-    geom_edge_elbow()
+  geom_edge_elbow()
 ```
 
 Dendrograms are one of the layouts that are amenable for circular 
@@ -284,8 +284,8 @@ tree at the expense of the space given to the root:
 
 ```{r}
 ggraph(dendrogram, 'dendrogram', circular = TRUE) + 
-    geom_edge_elbow() + 
-    coord_fixed()
+  geom_edge_elbow() + 
+  coord_fixed()
 ```
 
 ## Want more?

@@ -27,7 +27,7 @@ set_graph_style(plot_margin = margin(1,1,1,1))
 gr <- as_tbl_graph(highschool)
 
 ggraph(gr, layout = 'kk') + 
-    geom_point(aes(x=x, y=y))
+  geom_point(aes(x=x, y=y))
 ```
 
 The reason this works is that, as discussed in the previous post, layouts return
@@ -55,7 +55,7 @@ there's no need to type them:
 
 ```{r}
 ggraph(gr, layout = 'kk') + 
-    geom_node_point()
+  geom_node_point()
 ```
 
 sometimes there is a need for addressing the x and y aesthetics, which is still
@@ -65,7 +65,7 @@ possible, for instance if a partition layout should be inverted:
 gr <- tbl_graph(flare$vertices, flare$edges)
 
 ggraph(gr, layout = 'partition') + 
-    geom_node_tile(aes(y = -y, fill = depth))
+  geom_node_tile(aes(y = -y, fill = depth))
 ```
 
 of course this could also be accomplished by reversing the y-axis using 
@@ -78,9 +78,9 @@ this can be illustrated when plotting a tree:
 
 ```{r}
 ggraph(gr, layout = 'dendrogram', circular = TRUE) + 
-    geom_edge_diagonal() + 
-    geom_node_point(aes(filter = leaf)) + 
-    coord_fixed()
+  geom_edge_diagonal() + 
+  geom_node_point(aes(filter = leaf)) + 
+  coord_fixed()
 ```
 
 In the above plot only the terminal nodes are drawn by filtering on the logical
@@ -108,7 +108,7 @@ their intended layouts and defaulted by the geoms:
 
 ```{r}
 ggraph(gr, layout = 'treemap', weight = size) + 
-    geom_node_tile(aes(fill = depth))
+  geom_node_tile(aes(fill = depth))
 ```
 
 All spatial node geoms will be center-based, meaning that the x and y value of
@@ -119,13 +119,13 @@ spatial layouts in a non-spatial way:
 ```{r}
 l <- ggraph(gr, layout = 'partition', circular = TRUE)
 l + geom_node_arc_bar(aes(fill = depth)) + 
-    coord_fixed()
+  coord_fixed()
 ```
 
 ```{r}
 l + geom_edge_diagonal() + 
-    geom_node_point(aes(colour = depth)) + 
-    coord_fixed()
+  geom_node_point(aes(colour = depth)) + 
+  coord_fixed()
 ```
 
 More node geoms are sure to appear in `ggraph` with time but they will generally

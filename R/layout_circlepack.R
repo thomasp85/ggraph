@@ -51,19 +51,19 @@
 #' @family layout_tbl_graph_*
 #'
 layout_tbl_graph_circlepack <- function(graph, weight = NULL, circular = FALSE, sort.by = NULL, direction = 'out') {
-    weight <- enquo(weight)
-    weight <- eval_tidy(weight, .N())
-    sort.by <- enquo(sort.by)
-    sort.by <- eval_tidy(sort.by, .N())
-    hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
-    layout <- circlePackLayout(hierarchy$parent, hierarchy$weight)[-1,]
-    layout <- data.frame(x = layout[, 1],
-                         y = layout[, 2],
-                         r = layout[, 3],
-                         circular = FALSE,
-                         leaf = degree(graph, mode = direction) == 0,
-                         depth = node_depth(graph, mode = direction))
-    extraData <- as_tibble(graph, active = 'nodes')
-    layout <- cbind(layout, extraData[, !names(extraData) %in% names(layout), drop = FALSE])
-    layout
+  weight <- enquo(weight)
+  weight <- eval_tidy(weight, .N())
+  sort.by <- enquo(sort.by)
+  sort.by <- eval_tidy(sort.by, .N())
+  hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
+  layout <- circlePackLayout(hierarchy$parent, hierarchy$weight)[-1,]
+  layout <- data.frame(x = layout[, 1],
+                       y = layout[, 2],
+                       r = layout[, 3],
+                       circular = FALSE,
+                       leaf = degree(graph, mode = direction) == 0,
+                       depth = node_depth(graph, mode = direction))
+  extraData <- as_tibble(graph, active = 'nodes')
+  layout <- cbind(layout, extraData[, !names(extraData) %in% names(layout), drop = FALSE])
+  layout
 }

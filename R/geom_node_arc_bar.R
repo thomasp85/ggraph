@@ -43,12 +43,12 @@
 #' @importFrom ggforce GeomArcBar
 #'
 geom_node_arc_bar <- function(mapping = NULL, data = NULL, position = "identity",
-                             show.legend = NA, ...) {
-    mapping <- aesIntersect(mapping, aes_(x0=~0, y0=~0, r0=~r0, r=~r, start=~start, end=~end))
-    layer(data = data, mapping = mapping, stat = StatNodeArcBar, geom = GeomArcBar,
-          position = position, show.legend = show.legend, inherit.aes = FALSE,
-          params = list(na.rm = FALSE, ...)
-    )
+                              show.legend = NA, ...) {
+  mapping <- aesIntersect(mapping, aes_(x0=~0, y0=~0, r0=~r0, r=~r, start=~start, end=~end))
+  layer(data = data, mapping = mapping, stat = StatNodeArcBar, geom = GeomArcBar,
+        position = position, show.legend = show.legend, inherit.aes = FALSE,
+        params = list(na.rm = FALSE, ...)
+  )
 }
 
 #' @rdname ggraph-extensions
@@ -57,14 +57,14 @@ geom_node_arc_bar <- function(mapping = NULL, data = NULL, position = "identity"
 #' @importFrom ggforce StatArcBar
 #' @export
 StatNodeArcBar <- ggproto('StatNodeArcBar', StatArcBar,
-    setup_data = function(data, params) {
-        if (any(names(data) == 'filter')) {
-            if (!is.logical(data$filter)) {
-                stop('filter must be logical')
-            }
-            data <- data[data$filter, names(data) != 'filter']
-        }
-        data
-    },
-    default_aes = aes(filter = TRUE)
+  setup_data = function(data, params) {
+    if (any(names(data) == 'filter')) {
+      if (!is.logical(data$filter)) {
+        stop('filter must be logical')
+      }
+      data <- data[data$filter, names(data) != 'filter']
+    }
+    data
+  },
+  default_aes = aes(filter = TRUE)
 )
