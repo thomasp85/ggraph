@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Show edges as a density map — geom_edge_density • ggraph</title>
+<title>Draw edges as glyphs — geom_edge_tile • ggraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,13 +37,12 @@
 
 
 
-<meta property="og:title" content="Show edges as a density map — geom_edge_density" />
+<meta property="og:title" content="Draw edges as glyphs — geom_edge_tile" />
 
-<meta property="og:description" content="This geom makes it possible to add a layer showing edge presence as a density
-map. Each edge is converted to n points along the line and a jitter is
-applied. Based on this dataset a two-dimensional kernel density estimation is
-applied and plotted as a raster image. The density is mapped to the alpha
-level, making it possible to map a variable to the fill." />
+<meta property="og:description" content="This geom draws edges as tiles with their x-position defined by the
+x-position of the start node, and the y-position defined by the y-position of
+the end node. As such it will result in a matrix layout when used in
+conjunction with layout_tbl_graph_matrix()" />
 
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -159,23 +158,22 @@ level, making it possible to map a variable to the fill." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Show edges as a density map</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/geom_edge_density.R'><code>R/geom_edge_density.R</code></a></small>
-    <div class="hidden name"><code>geom_edge_density.Rd</code></div>
+    <h1>Draw edges as glyphs</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/geom_edge_tile.R'><code>R/geom_edge_tile.R</code></a></small>
+    <div class="hidden name"><code>geom_edge_tile.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This geom makes it possible to add a layer showing edge presence as a density
-map. Each edge is converted to <code>n</code> points along the line and a jitter is
-applied. Based on this dataset a two-dimensional kernel density estimation is
-applied and plotted as a raster image. The density is mapped to the alpha
-level, making it possible to map a variable to the fill.</p>
+    <p>This geom draws edges as tiles with their x-position defined by the
+x-position of the start node, and the y-position defined by the y-position of
+the end node. As such it will result in a matrix layout when used in
+conjunction with <code><a href='layout_tbl_graph_matrix.html'>layout_tbl_graph_matrix()</a></code></p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>geom_edge_density</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"short"</span>),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>geom_edge_tile</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>mirror</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -199,17 +197,17 @@ See <code><a href='get_edges.html'>get_edges()</a></code> for more details on ed
 a call to a position adjustment function.</p></td>
     </tr>
     <tr>
+      <th>mirror</th>
+      <td><p>Logical. Should edge points be duplicated on both sides of the
+diagonal. Intended for undirected graphs. Default to <code>FALSE</code></p></td>
+    </tr>
+    <tr>
       <th>show.legend</th>
       <td><p>logical. Should this layer be included in the legends?
 <code>NA</code>, the default, includes if any aesthetics are mapped.
 <code>FALSE</code> never includes, and <code>TRUE</code> always includes.
 It can also be a named logical vector to finely select the aesthetics to
 display.</p></td>
-    </tr>
-    <tr>
-      <th>n</th>
-      <td><p>The number of points to estimate in the x and y direction, i.e. the
-resolution of the raster.</p></td>
     </tr>
     <tr>
       <th>...</th>
@@ -223,22 +221,16 @@ to the paired geom/stat.</p></td>
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
-    <p><code>geom_edge_density</code> understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.</p>
-<p><strong>x</strong>
-<strong>y</strong>
-<strong>xend</strong>
-<strong>yend</strong>
-edge_fill
-filter</p>
-    
-    <h2 class="hasAnchor" id="computed-variables"><a class="anchor" href="#computed-variables"></a>Computed variables</h2>
-
-    
-    <dl class='dl-horizontal'>
-<dt>x, y</dt><dd><p>The coordinates for each pixel in the raster</p></dd>
-<dt>density</dt><dd><p>The density associated with the pixel</p></dd>
-</dl>
+    <p><code>geom_edge_tile</code> understands the following
+aesthetics. Bold aesthetics are automatically set, but can be overridden.</p><ul>
+<li><p><strong>x</strong></p></li>
+<li><p><strong>y</strong></p></li>
+<li><p>edge_fill</p></li>
+<li><p>edge_colour</p></li>
+<li><p>edge_size</p></li>
+<li><p>edge_alpha</p></li>
+<li><p>filter</p></li>
+</ul>
     
     <h2 class="hasAnchor" id="edge-aesthetic-name-expansion"><a class="anchor" href="#edge-aesthetic-name-expansion"></a>Edge aesthetic name expansion</h2>
 
@@ -251,25 +243,30 @@ automatically be renamed appropriately.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other geom_edge_*: <code><a href='geom_edge_arc.html'>geom_edge_arc</a></code>,
+  <code><a href='geom_edge_density.html'>geom_edge_density</a></code>,
   <code><a href='geom_edge_diagonal.html'>geom_edge_diagonal</a></code>,
   <code><a href='geom_edge_elbow.html'>geom_edge_elbow</a></code>,
   <code><a href='geom_edge_fan.html'>geom_edge_fan</a></code>,
   <code><a href='geom_edge_hive.html'>geom_edge_hive</a></code>,
   <code><a href='geom_edge_link.html'>geom_edge_link</a></code>,
   <code><a href='geom_edge_loop.html'>geom_edge_loop</a></code>,
-  <code><a href='geom_edge_point.html'>geom_edge_point</a></code>,
-  <code><a href='geom_edge_tile.html'>geom_edge_tile</a></code></p></div>
+  <code><a href='geom_edge_point.html'>geom_edge_point</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>tidygraph</span>)
-<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs'>create_notable</a></span>(<span class='st'>'bull'</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs'>create_notable</a></span>(<span class='st'>'zachary'</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/group_graph'>group_infomap</a></span>()) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/morph'>morph</a></span>(<span class='no'>to_split</span>, <span class='no'>group</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/activate'>activate</a></span>(<span class='no'>edges</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>n</a></span>(), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
-
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'igraph'</span>, <span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='st'>'nicely'</span>) +
-  <span class='fu'>geom_edge_density</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>class</span>)) +
-  <span class='fu'><a href='geom_edge_link.html'>geom_edge_link</a></span>() + <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span>()</div><div class='output co'>#&gt; <span class='warning'>Warning: Raster pixels are placed at uneven horizontal intervals and will be shifted. Consider using geom_tile() instead.</span></div><div class='output co'>#&gt; <span class='warning'>Warning: Raster pixels are placed at uneven vertical intervals and will be shifted. Consider using geom_tile() instead.</span></div><div class='img'><img src='geom_edge_density-1.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>edge_group</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/character'>as.character</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/context_accessors'>.N</a></span>()$<span class='no'>group</span>[<span class='fl'>1</span>])) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/morph'>unmorph</a></span>()</div><div class='output co'>#&gt; <span class='message'>Subsetting by nodes</span></div><div class='input'>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'matrix'</span>, <span class='kw'>sort.by</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/node_rank'>node_rank_hclust</a></span>()) +
+  <span class='fu'>geom_edge_tile</span>(<span class='fu'>aes</span>(<span class='kw'>fill</span> <span class='kw'>=</span> <span class='no'>edge_group</span>), <span class='kw'>mirror</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
+  <span class='fu'>scale_y_reverse</span>() +
+  <span class='fu'>coord_fixed</span>() +
+  <span class='fu'>labs</span>(<span class='kw'>edge_colour</span> <span class='kw'>=</span> <span class='st'>'Infomap Cluster'</span>) +
+  <span class='fu'>ggtitle</span>(<span class='st'>"Zachary' Karate Club"</span>)</div><div class='img'><img src='geom_edge_tile-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -277,8 +274,6 @@ automatically be renamed appropriately.</p>
       <li><a href="#arguments">Arguments</a></li>
       
       <li><a href="#aesthetics">Aesthetics</a></li>
-
-      <li><a href="#computed-variables">Computed variables</a></li>
 
       <li><a href="#edge-aesthetic-name-expansion">Edge aesthetic name expansion</a></li>
 
