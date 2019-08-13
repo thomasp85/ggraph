@@ -198,6 +198,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
     data
   },
@@ -272,6 +273,7 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    data <- remove_loop2(data)
     if (nrow(data) == 0) return(NULL)
     data
   },

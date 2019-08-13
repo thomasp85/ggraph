@@ -165,6 +165,7 @@ StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
     StatLink$setup_data(data, params)
   },
@@ -183,6 +184,7 @@ StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    data <- remove_loop2(data)
     if (nrow(data) == 0) return(NULL)
     StatLink2$setup_data(data, params)
   },

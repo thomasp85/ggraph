@@ -335,3 +335,17 @@ GeomEdgeBspline <- ggproto('GeomEdgeBspline', GeomBspline0,
     data
   }
 )
+
+remove_loop <- function(data) {
+  if (nrow(data) == 0) return(data)
+
+  data[!(data$x == data$xend & data$y == data$yend), , drop = FALSE]
+}
+remove_loop2 <- function(data) {
+  if (nrow(data) == 0) return(data)
+
+  data <- data[order(data$group), ]
+  loop <- data$x[c(TRUE, FALSE)] == data$x[c(FALSE, TRUE)] &
+    data$y[c(TRUE, FALSE)] == data$y[c(FALSE, TRUE)]
+  data[rep(!loop, each = 2), , drop = FALSE]
+}

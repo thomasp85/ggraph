@@ -103,6 +103,7 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
     data$group <- seq_len(nrow(data))
     data2 <- data
@@ -165,6 +166,7 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    data <- remove_loop2(data)
     if (nrow(data) == 0) return(NULL)
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]

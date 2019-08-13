@@ -115,6 +115,7 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
     data$group <- seq_len(nrow(data))
     data2 <- data
@@ -177,6 +178,7 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
       }
       data <- data[data$filter, names(data) != 'filter']
     }
+    data <- remove_loop2(data)
     if (nrow(data) == 0) return(NULL)
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
