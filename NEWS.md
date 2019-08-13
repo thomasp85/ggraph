@@ -1,5 +1,7 @@
 # ggraph (development version)
 
+* Fixed a bug that prevented edge capping from being used with *2 variants of
+  edge geoms (#167)
 * Fix bug in edge capping that could lead to edges extending to (0,0) (#163)
 * Fix bug affecting faceting of capped edges (#140)
 * Character aesthetics are no longer cast to factors in edge geoms (#131)

@@ -20,7 +20,9 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
     }
     data <- data[order(data$group), , drop = FALSE]
     if (interpolate) {
-      data <- interpolateDataFrame(data)
+      geometries <- vapply(data, is.geometry, logical(1))
+      geom_cols <- data[geometries]
+      data <- cbind(interpolateDataFrame(data[!geometries]), geom_cols)
     }
     data <- coord$transform(data, panel_scales)
     zero <- coord$transform(data.frame(x = 0, y = 0), panel_scales)
