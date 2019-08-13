@@ -181,22 +181,24 @@ not be overplotted.</p>
     </div>
 
     <pre class="usage"><span class='fu'>geom_edge_fan</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spread</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
+  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>,
+  <span class='no'>spread</span>)
 
 <span class='fu'>geom_edge_fan2</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"long"</span>),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spread</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
+  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>,
+  <span class='no'>spread</span>)
 
 <span class='fu'>geom_edge_fan0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>spread</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>, <span class='no'>spread</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -224,8 +226,8 @@ a call to a position adjustment function.</p></td>
       <td><p>Arrow specification, as created by <code><a href='https://www.rdocumentation.org/packages/grid/topics/arrow'>grid::arrow()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>spread</th>
-      <td><p>Modify the width of the fans <code>spread &gt; 1</code> will create
+      <th>strength</th>
+      <td><p>Modify the width of the fans <code>strength &gt; 1</code> will create
 wider fans while the reverse will make them more narrow.</p></td>
     </tr>
     <tr>
@@ -300,6 +302,10 @@ display.</p></td>
 often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
+    </tr>
+    <tr>
+      <th>spread</th>
+      <td><p>Deprecated. Use <code>strength</code> instead.</p></td>
     </tr>
     </table>
     

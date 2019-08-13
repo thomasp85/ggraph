@@ -179,18 +179,20 @@ direction for the edges (currently <code><a href='layout_tbl_graph_dendrogram.ht
     </div>
 
     <pre class="usage"><span class='fu'>geom_edge_elbow</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>flipped</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>flipped</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>,
+  <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>,
+  <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
 <span class='fu'>geom_edge_elbow2</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"long"</span>),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>flipped</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>flipped</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>,
+  <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>,
+  <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
 <span class='fu'>geom_edge_elbow0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>flipped</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
@@ -220,6 +222,11 @@ a call to a position adjustment function.</p></td>
     <tr>
       <th>arrow</th>
       <td><p>Arrow specification, as created by <code><a href='https://www.rdocumentation.org/packages/grid/topics/arrow'>grid::arrow()</a></code>.</p></td>
+    </tr>
+    <tr>
+      <th>strength</th>
+      <td><p>How bend the elbow should be. 1 will give a right angle,
+while <code>0</code> will give a straight line. Ignored for circular layouts</p></td>
     </tr>
     <tr>
       <th>flipped</th>
