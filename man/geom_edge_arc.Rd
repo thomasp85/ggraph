@@ -7,24 +7,24 @@
 \title{Draw edges as Arcs}
 \usage{
 geom_edge_arc(mapping = NULL, data = get_edges(),
-  position = "identity", arrow = NULL, curvature = 1, n = 100,
+  position = "identity", arrow = NULL, strength = 1, n = 100,
   fold = FALSE, lineend = "butt", linejoin = "round",
   linemitre = 1, label_colour = "black", label_alpha = 1,
   label_parse = FALSE, check_overlap = FALSE, angle_calc = "rot",
   force_flip = TRUE, label_dodge = NULL, label_push = NULL,
-  show.legend = NA, ...)
+  show.legend = NA, ..., curvature)
 
 geom_edge_arc2(mapping = NULL, data = get_edges("long"),
-  position = "identity", arrow = NULL, curvature = 1, n = 100,
+  position = "identity", arrow = NULL, strength = 1, n = 100,
   fold = FALSE, lineend = "butt", linejoin = "round",
   linemitre = 1, label_colour = "black", label_alpha = 1,
   label_parse = FALSE, check_overlap = FALSE, angle_calc = "rot",
   force_flip = TRUE, label_dodge = NULL, label_push = NULL,
-  show.legend = NA, ...)
+  show.legend = NA, ..., curvature)
 
 geom_edge_arc0(mapping = NULL, data = get_edges(),
-  position = "identity", arrow = NULL, curvature = 1,
-  lineend = "butt", show.legend = NA, fold = fold, ...)
+  position = "identity", arrow = NULL, strength = 1,
+  lineend = "butt", show.legend = NA, fold = fold, ..., curvature)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -41,7 +41,7 @@ a call to a position adjustment function.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
-\item{curvature}{The bend of the curve. 1 approximates a halfcircle while 0
+\item{strength}{The bend of the curve. 1 approximates a halfcircle while 0
 will give a straight line. Negative number will change the direction of the
 curve. Only used if \code{circular = FALSE}.}
 
@@ -92,6 +92,8 @@ display.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{curvature}{Deprecated. Use \code{strength} instead.}
 }
 \description{
 This geom is mainly intended for arc linear and circular diagrams (i.e. used

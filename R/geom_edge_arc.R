@@ -65,12 +65,14 @@
 #' @inheritParams geom_edge_link
 #' @inheritParams ggplot2::geom_path
 #'
-#' @param curvature The bend of the curve. 1 approximates a halfcircle while 0
+#' @param strength The bend of the curve. 1 approximates a halfcircle while 0
 #' will give a straight line. Negative number will change the direction of the
 #' curve. Only used if `circular = FALSE`.
 #'
 #' @param fold Logical. Should arcs appear on the same side of the nodes despite
 #' different directions. Default to `FALSE`.
+#'
+#' @param curvature Deprecated. Use `strength` instead.
 #'
 #' @author Thomas Lin Pedersen
 #'
@@ -129,20 +131,24 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
   default_aes = aes(filter = TRUE),
-  extra_params = c('na.rm', 'n', 'curvature', 'fold')
+  extra_params = c('na.rm', 'n', 'strength', 'fold')
 )
 #' @rdname geom_edge_arc
 #'
 #' @export
 geom_edge_arc <- function(mapping = NULL, data = get_edges(),
-                          position = 'identity', arrow = NULL, curvature = 1,
+                          position = 'identity', arrow = NULL, strength = 1,
                           n = 100, fold = FALSE, lineend = 'butt',
                           linejoin = 'round', linemitre = 1,
                           label_colour = 'black', label_alpha = 1,
                           label_parse = FALSE, check_overlap = FALSE,
                           angle_calc = 'rot', force_flip = TRUE,
                           label_dodge = NULL, label_push = NULL,
-                          show.legend = NA, ...) {
+                          show.legend = NA, ..., curvature) {
+  if (!missing(curvature)) {
+    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    strength <- curvature
+  }
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
     x = x, y = y, xend = xend, yend = yend,
@@ -156,7 +162,7 @@ geom_edge_arc <- function(mapping = NULL, data = get_edges(),
       list(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
         linemitre = linemitre, na.rm = FALSE, n = n,
-        interpolate = FALSE, curvature = curvature, fold = fold,
+        interpolate = FALSE, strength = strength, fold = fold,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
         angle_calc = angle_calc, force_flip = force_flip,
@@ -187,20 +193,24 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
   },
   required_aes = c('x', 'y', 'group', 'circular'),
   default_aes = aes(filter = TRUE),
-  extra_params = c('na.rm', 'n', 'curvature', 'fold')
+  extra_params = c('na.rm', 'n', 'strength', 'fold')
 )
 #' @rdname geom_edge_arc
 #'
 #' @export
 geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
-                           position = 'identity', arrow = NULL, curvature = 1,
+                           position = 'identity', arrow = NULL, strength = 1,
                            n = 100, fold = FALSE, lineend = 'butt',
                            linejoin = 'round', linemitre = 1,
                            label_colour = 'black', label_alpha = 1,
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ...) {
+                           show.legend = NA, ..., curvature) {
+  if (!missing(curvature)) {
+    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    strength <- curvature
+  }
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
     x = x, y = y, group = edge.id,
@@ -214,7 +224,7 @@ geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
       list(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
         linemitre = linemitre, na.rm = FALSE, n = n,
-        interpolate = TRUE, curvature = curvature, fold = fold,
+        interpolate = TRUE, strength = strength, fold = fold,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
         angle_calc = angle_calc, force_flip = force_flip,
@@ -234,14 +244,18 @@ StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
   default_aes = aes(filter = TRUE),
-  extra_params = c('na.rm', 'curvature', 'fold')
+  extra_params = c('na.rm', 'strength', 'fold')
 )
 #' @rdname geom_edge_arc
 #'
 #' @export
 geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
-                           position = 'identity', arrow = NULL, curvature = 1,
-                           lineend = 'butt', show.legend = NA, fold = fold, ...) {
+                           position = 'identity', arrow = NULL, strength = 1,
+                           lineend = 'butt', show.legend = NA, fold = fold, ..., curvature) {
+  if (!missing(curvature)) {
+    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    strength <- curvature
+  }
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
     x = x, y = y, xend = xend, yend = yend,
@@ -254,7 +268,7 @@ geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
     params = expand_edge_aes(
       list(
         arrow = arrow, lineend = lineend, na.rm = FALSE,
-        curvature = curvature, fold = FALSE, ...
+        strength = strength, fold = FALSE, ...
       )
     )
   )
@@ -280,22 +294,22 @@ create_arc <- function(from, to, params) {
     data3$y[circ] <- to$y[circ] * (1 - (node_dist[circ] / r1))
   }
   if (any(!circ)) {
-    curvature <- pi / 2 * -params$curvature
+    strength <- pi / 2 * -params$strength
     edge_angle <- atan2(
       to$y[!circ] - from$y[!circ],
       to$x[!circ] - from$x[!circ]
     )
-    start_angle <- edge_angle - curvature
-    end_angle <- edge_angle - pi + curvature
+    start_angle <- edge_angle - strength
+    end_angle <- edge_angle - pi + strength
     data2$x[!circ] <- data2$x[!circ] + cos(start_angle) * node_dist[!circ]
     data2$y[!circ] <- data2$y[!circ] + sin(start_angle) * node_dist[!circ]
     data3$x[!circ] <- data3$x[!circ] + cos(end_angle) * node_dist[!circ]
     data3$y[!circ] <- data3$y[!circ] + sin(end_angle) * node_dist[!circ]
     if (params$fold) {
-      # data2$x[!circ] <- abs(data2$x[!circ]) * sign(params$curvature)
-      data2$y[!circ] <- abs(data2$y[!circ]) * sign(params$curvature)
-      # data3$x[!circ] <- abs(data3$x[!circ]) * sign(params$curvature)
-      data3$y[!circ] <- abs(data3$y[!circ]) * sign(params$curvature)
+      # data2$x[!circ] <- abs(data2$x[!circ]) * sign(params$strength)
+      data2$y[!circ] <- abs(data2$y[!circ]) * sign(params$strength)
+      # data3$x[!circ] <- abs(data3$x[!circ]) * sign(params$strength)
+      data3$y[!circ] <- abs(data3$y[!circ]) * sign(params$strength)
     }
   }
   data <- rbind(from, data2, data3, to)

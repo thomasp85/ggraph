@@ -64,6 +64,8 @@
 #'
 #' @inheritParams geom_edge_link
 #' @inheritParams ggplot2::geom_path
+#' @param strength How bend the elbow should be. 1 will give a right angle,
+#' while `0` will give a straight line. Ignored for circular layouts
 #' @inheritParams geom_edge_diagonal
 #'
 #' @author Thomas Lin Pedersen
@@ -97,7 +99,7 @@ NULL
 #' @importFrom ggforce radial_trans
 #' @export
 StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
-  compute_panel = function(data, scales, flipped = FALSE, n = 100) {
+  compute_panel = function(data, scales, flipped = FALSE, n = 100, strength = 1) {
     if (data$circular[1] && n %% 2 == 1) {
       n <- n + 1
     }
@@ -106,6 +108,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
     }
     index <- seq(0, 1, length.out = n)
     if (any(data$circular)) {
+      if (strength != 1) warning('strength is ignored for circular elbow edges', call. = FALSE)
       circ_id <- which(data$circular)
       data_circ <- data[circ_id, ]
       radial <- radial_trans(c(0, 1), c(2 * pi, 0), pad = 0, offset = 0)
@@ -155,7 +158,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
       path_lin <- lapply(which(!data$circular), function(i) {
         if (flipped) {
           path <- data.frame(
-            x = approx(c(data$x[i], data$x[i], data$xend[i]),
+            x = approx(c(data$x[i], data$xend[i] + (data$x[i] - data$xend[i]) * strength, data$xend[i]),
               n = n
             )$y,
             y = approx(c(data$y[i], data$yend[i], data$yend[i]),
@@ -169,7 +172,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             x = approx(c(data$x[i], data$xend[i], data$xend[i]),
               n = n
             )$y,
-            y = approx(c(data$y[i], data$y[i], data$yend[i]),
+            y = approx(c(data$y[i], data$yend[i] + (data$y[i] - data$yend[i]) * strength, data$yend[i]),
               n = n
             )$y,
             group = i,
@@ -209,7 +212,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
 #'
 #' @export
 geom_edge_elbow <- function(mapping = NULL, data = get_edges(),
-                            position = 'identity', arrow = NULL,
+                            position = 'identity', arrow = NULL, strength = 1,
                             flipped = FALSE, n = 100, lineend = 'butt',
                             linejoin = 'round', linemitre = 1,
                             label_colour = 'black', label_alpha = 1,
@@ -230,7 +233,7 @@ geom_edge_elbow <- function(mapping = NULL, data = get_edges(),
       list(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
         linemitre = linemitre, na.rm = FALSE, n = n,
-        interpolate = FALSE, flipped = flipped,
+        interpolate = FALSE, flipped = flipped, strength = strength,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
         angle_calc = angle_calc, force_flip = force_flip,
@@ -244,7 +247,7 @@ geom_edge_elbow <- function(mapping = NULL, data = get_edges(),
 #' @usage NULL
 #' @export
 StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
-  compute_panel = function(data, scales, flipped = FALSE, n = 100) {
+  compute_panel = function(data, scales, flipped = FALSE, n = 100, strength = 1) {
     pos_cols <- c('x', 'y', 'group', 'circular', 'direction', 'PANEL')
     data <- data[order(data$group), ]
     pos_data <- cbind(data[c(TRUE, FALSE), pos_cols], data[
@@ -252,7 +255,7 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
       c('x', 'y')
     ])
     names(pos_data) <- c(pos_cols, 'xend', 'yend')
-    new_data <- StatEdgeElbow$compute_panel(pos_data, scales, flipped, n)
+    new_data <- StatEdgeElbow$compute_panel(pos_data, scales, flipped, n, strength)
     extra_cols <- !names(data) %in% pos_cols
     index <- match(seq_len(nrow(pos_data)), new_data$group)
     index <- as.vector(rbind(index, index + 1))
@@ -284,7 +287,7 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
 #'
 #' @export
 geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
-                             position = 'identity', arrow = NULL,
+                             position = 'identity', arrow = NULL, strength = 1,
                              flipped = FALSE, n = 100, lineend = 'butt',
                              linejoin = 'round', linemitre = 1,
                              label_colour = 'black', label_alpha = 1,
@@ -305,7 +308,7 @@ geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
       list(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
         linemitre = linemitre, na.rm = FALSE, n = n,
-        interpolate = TRUE, flipped = flipped,
+        interpolate = TRUE, flipped = flipped, strength = strength,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
         angle_calc = angle_calc, force_flip = force_flip,
@@ -319,8 +322,9 @@ geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
 #' @usage NULL
 #' @export
 StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
-  compute_panel = function(data, scales, flipped = FALSE) {
+  compute_panel = function(data, scales, flipped = FALSE, strength = 1) {
     if (any(data$circular)) {
+      if (strength != 1) warning('strength is ignored for circular elbow edges', call. = FALSE)
       circ_id <- which(data$circular)
       data_circ <- data[circ_id, ]
       radial <- radial_trans(c(0, 1), c(2 * pi, 0), pad = 0, offset = 0)
@@ -353,14 +357,14 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
       path_lin <- lapply(which(!data$circular), function(i) {
         if (flipped) {
           path <- data.frame(
-            x = c(data$x[i], data$x[i], data$xend[i]),
+            x = c(data$x[i], data$xend[i] + (data$x[i] - data$xend[i]) * strength, data$xend[i]),
             y = c(data$y[i], data$yend[i], data$yend[i]),
             group = i
           )
         } else {
           path <- data.frame(
             x = c(data$x[i], data$xend[i], data$xend[i]),
-            y = c(data$y[i], data$y[i], data$yend[i]),
+            y = c(data$y[i], data$yend[i] + (data$y[i] - data$yend[i]) * strength, data$yend[i]),
             group = i
           )
         }

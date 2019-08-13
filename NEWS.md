@@ -1,5 +1,11 @@
 # ggraph (development version)
 
+* All non-straight line-based edge geoms now has a `strength` parameter that
+  controls their deviation from a straight line. `0` will always give a straight
+  line while `1` will be their natural look. Numbers outside this range may look
+  weird. This also deprecates the `curvature` argument from `geom_edge_arc()` 
+  and `geom_edge_hive()` as well as the `spread` argument from `geom_edge_fan()`
+  (#97)
 * Added `nplot()` for quickly creating a standard network plot for explorative
   purpose (#94)
 * Edge geoms no longer throws an error when all edges are completely capped 

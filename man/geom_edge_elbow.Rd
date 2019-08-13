@@ -7,18 +7,20 @@
 \title{Draw edges as elbows}
 \usage{
 geom_edge_elbow(mapping = NULL, data = get_edges(),
-  position = "identity", arrow = NULL, flipped = FALSE, n = 100,
-  lineend = "butt", linejoin = "round", linemitre = 1,
-  label_colour = "black", label_alpha = 1, label_parse = FALSE,
-  check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  position = "identity", arrow = NULL, strength = 1,
+  flipped = FALSE, n = 100, lineend = "butt", linejoin = "round",
+  linemitre = 1, label_colour = "black", label_alpha = 1,
+  label_parse = FALSE, check_overlap = FALSE, angle_calc = "rot",
+  force_flip = TRUE, label_dodge = NULL, label_push = NULL,
+  show.legend = NA, ...)
 
 geom_edge_elbow2(mapping = NULL, data = get_edges("long"),
-  position = "identity", arrow = NULL, flipped = FALSE, n = 100,
-  lineend = "butt", linejoin = "round", linemitre = 1,
-  label_colour = "black", label_alpha = 1, label_parse = FALSE,
-  check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  position = "identity", arrow = NULL, strength = 1,
+  flipped = FALSE, n = 100, lineend = "butt", linejoin = "round",
+  linemitre = 1, label_colour = "black", label_alpha = 1,
+  label_parse = FALSE, check_overlap = FALSE, angle_calc = "rot",
+  force_flip = TRUE, label_dodge = NULL, label_push = NULL,
+  show.legend = NA, ...)
 
 geom_edge_elbow0(mapping = NULL, data = get_edges(),
   position = "identity", arrow = NULL, flipped = FALSE,
@@ -38,6 +40,9 @@ See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 a call to a position adjustment function.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
+
+\item{strength}{How bend the elbow should be. 1 will give a right angle,
+while \code{0} will give a straight line. Ignored for circular layouts}
 
 \item{flipped}{Logical, Has the layout been flipped by reassigning the
 mapping of x, y etc?}

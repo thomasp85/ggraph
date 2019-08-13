@@ -66,8 +66,10 @@
 #' @inheritParams geom_edge_link
 #' @inheritParams ggplot2::geom_path
 #'
-#' @param spread Modify the width of the fans `spread > 1` will create
+#' @param strength Modify the width of the fans `strength > 1` will create
 #' wider fans while the reverse will make them more narrow.
+#'
+#' @param spread Deprecated. Use `strength` instead.
 #'
 #' @author Thomas Lin Pedersen
 #'
@@ -122,20 +124,24 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),
   default_aes = aes(filter = TRUE),
-  extra_params = c('na.rm', 'n', 'spread')
+  extra_params = c('na.rm', 'n', 'strength')
 )
 #' @rdname geom_edge_fan
 #'
 #' @export
 geom_edge_fan <- function(mapping = NULL, data = get_edges(),
                           position = 'identity', arrow = NULL,
-                          spread = 1, n = 100, lineend = 'butt',
+                          strength = 1, n = 100, lineend = 'butt',
                           linejoin = 'round', linemitre = 1,
                           label_colour = 'black', label_alpha = 1,
                           label_parse = FALSE, check_overlap = FALSE,
                           angle_calc = 'rot', force_flip = TRUE,
                           label_dodge = NULL, label_push = NULL,
-                          show.legend = NA, ...) {
+                          show.legend = NA, ..., spread) {
+  if (!missing(spread)) {
+    .Deprecated(msg = 'The spread argument has been deprecated in favour of strength')
+    strength <- spread
+  }
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
     x = x, y = y, xend = xend, yend = yend,
@@ -149,7 +155,7 @@ geom_edge_fan <- function(mapping = NULL, data = get_edges(),
       list(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
         linemitre = linemitre, na.rm = FALSE, n = n,
-        interpolate = FALSE, spread = spread,
+        interpolate = FALSE, strength = strength,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
         angle_calc = angle_calc, force_flip = force_flip,
@@ -180,20 +186,24 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
   },
   required_aes = c('x', 'y', 'group', 'from', 'to'),
   default_aes = aes(filter = TRUE),
-  extra_params = c('na.rm', 'n', 'spread')
+  extra_params = c('na.rm', 'n', 'strength')
 )
 #' @rdname geom_edge_fan
 #'
 #' @export
 geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
                            position = 'identity', arrow = NULL,
-                           spread = 1, n = 100, lineend = 'butt',
+                           strength = 1, n = 100, lineend = 'butt',
                            linejoin = 'round', linemitre = 1,
                            label_colour = 'black', label_alpha = 1,
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ...) {
+                           show.legend = NA, ..., spread) {
+  if (!missing(spread)) {
+    .Deprecated(msg = 'The spread argument has been deprecated in favour of strength')
+    strength <- spread
+  }
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
     x = x, y = y, group = edge.id,
@@ -207,7 +217,7 @@ geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
       list(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
         linemitre = linemitre, na.rm = FALSE, n = n,
-        interpolate = TRUE, spread = spread,
+        interpolate = TRUE, strength = strength,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
         angle_calc = angle_calc, force_flip = force_flip,
@@ -227,14 +237,18 @@ StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),
   default_aes = aes(filter = TRUE),
-  extra_params = c('na.rm', 'spread')
+  extra_params = c('na.rm', 'strength')
 )
 #' @rdname geom_edge_fan
 #'
 #' @export
 geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
-                           position = 'identity', arrow = NULL, spread = 1,
-                           lineend = 'butt', show.legend = NA, ...) {
+                           position = 'identity', arrow = NULL, strength = 1,
+                           lineend = 'butt', show.legend = NA, ..., spread) {
+  if (!missing(spread)) {
+    .Deprecated(msg = 'The spread argument has been deprecated in favour of strength')
+    strength <- spread
+  }
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
     x = x, y = y, xend = xend, yend = yend,
@@ -247,7 +261,7 @@ geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
     params = expand_edge_aes(
       list(
         arrow = arrow, lineend = lineend, na.rm = FALSE,
-        spread = spread, ...
+        strength = strength, ...
       )
     )
   )
@@ -270,8 +284,8 @@ create_fans <- function(from, to, params) {
   from$.orig_ind <- NULL
   mean_x <- rowMeans(cbind(from$x, to$x))
   mean_y <- rowMeans(cbind(from$y, to$y))
-  step_x <- -(params$spread * (to$y - from$y) / (2 * max_fans))
-  step_y <- params$spread * (to$x - from$x) / (2 * max_fans)
+  step_x <- -(params$strength * (to$y - from$y) / (2 * max_fans))
+  step_y <- params$strength * (to$x - from$x) / (2 * max_fans)
   data <- from
   data$x <- mean_x + step_x * position
   data$y <- mean_y + step_y * position

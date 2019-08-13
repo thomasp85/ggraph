@@ -7,22 +7,24 @@
 \title{Draw edges in hive plots}
 \usage{
 geom_edge_hive(mapping = NULL, data = get_edges(),
-  position = "identity", arrow = NULL, curvature = 0.5, n = 100,
+  position = "identity", arrow = NULL, strength = 1, n = 100,
   lineend = "butt", linejoin = "round", linemitre = 1,
   label_colour = "black", label_alpha = 1, label_parse = FALSE,
   check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  label_dodge = NULL, label_push = NULL, show.legend = NA, ...,
+  curvature)
 
 geom_edge_hive2(mapping = NULL, data = get_edges("long"),
-  position = "identity", arrow = NULL, curvature = 0.5, n = 100,
+  position = "identity", arrow = NULL, strength = 1, n = 100,
   lineend = "butt", linejoin = "round", linemitre = 1,
   label_colour = "black", label_alpha = 1, label_parse = FALSE,
   check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  label_dodge = NULL, label_push = NULL, show.legend = NA, ...,
+  curvature)
 
 geom_edge_hive0(mapping = NULL, data = get_edges(),
-  position = "identity", arrow = NULL, curvature = 0.5,
-  lineend = "butt", show.legend = NA, ...)
+  position = "identity", arrow = NULL, strength = 1,
+  lineend = "butt", show.legend = NA, ..., curvature)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -39,10 +41,11 @@ a call to a position adjustment function.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
-\item{curvature}{The curvature of the bezier. Defines the distance from the
+\item{strength}{The curvature of the bezier. Defines the distance from the
 control points to the midpoint between the start and end node. 1 means the
-control points are positioned midway between the nodes, while 0 means it
-coincide with the nodes (resulting in straight lines)}
+control points are positioned halfway between the nodes and the middle of the
+two axes, while 0 means it coincide with the nodes (resulting in straight
+lines)}
 
 \item{n}{The number of points to create along the path.}
 
@@ -88,6 +91,8 @@ display.}
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{curvature}{Deprecated. Use \code{strength} instead.}
 }
 \description{
 This geom is only intended for use together with the hive layout. It draws

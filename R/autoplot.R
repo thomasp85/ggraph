@@ -62,7 +62,7 @@ nplot <- function(graph, node_colour = NULL, edge_colour = NULL, node_size = NUL
         coord_cartesian(clip = 'off')
     }
   } else {
-    p <- suppressMessages(ggraph(graph))
+    p <- suppressMessages(ggraph(graph) + coord_fixed())
 
     if (!quo_is_null(node_label)) {
       label_col <- quo_text(node_label)

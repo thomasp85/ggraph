@@ -7,22 +7,24 @@
 \title{Draw edges as diagonals}
 \usage{
 geom_edge_diagonal(mapping = NULL, data = get_edges(),
-  position = "identity", arrow = NULL, flipped = FALSE, n = 100,
-  lineend = "butt", linejoin = "round", linemitre = 1,
-  label_colour = "black", label_alpha = 1, label_parse = FALSE,
-  check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  position = "identity", arrow = NULL, strength = 1,
+  flipped = FALSE, n = 100, lineend = "butt", linejoin = "round",
+  linemitre = 1, label_colour = "black", label_alpha = 1,
+  label_parse = FALSE, check_overlap = FALSE, angle_calc = "rot",
+  force_flip = TRUE, label_dodge = NULL, label_push = NULL,
+  show.legend = NA, ...)
 
 geom_edge_diagonal2(mapping = NULL, data = get_edges("long"),
-  position = "identity", arrow = NULL, flipped = FALSE, n = 100,
-  lineend = "butt", linejoin = "round", linemitre = 1,
-  label_colour = "black", label_alpha = 1, label_parse = FALSE,
-  check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  position = "identity", arrow = NULL, strength = 1,
+  flipped = FALSE, n = 100, lineend = "butt", linejoin = "round",
+  linemitre = 1, label_colour = "black", label_alpha = 1,
+  label_parse = FALSE, check_overlap = FALSE, angle_calc = "rot",
+  force_flip = TRUE, label_dodge = NULL, label_push = NULL,
+  show.legend = NA, ...)
 
 geom_edge_diagonal0(mapping = NULL, data = get_edges(),
-  position = "identity", arrow = NULL, flipped = FALSE,
-  lineend = "butt", show.legend = NA, ...)
+  position = "identity", arrow = NULL, strength = 1,
+  flipped = FALSE, lineend = "butt", show.legend = NA, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -38,6 +40,9 @@ See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 a call to a position adjustment function.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
+
+\item{strength}{The strength of the curvature of the diagonal. \code{0} will
+result in a straight line while \code{1} will give the familiar S-shape.}
 
 \item{flipped}{Logical, Has the layout been flipped by reassigning the
 mapping of x, y etc?}
