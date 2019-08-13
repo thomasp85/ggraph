@@ -32,12 +32,14 @@ Imports:
     viridis,
     rlang,
     tidygraph
-Suggests: network,
+Suggests: 
+    network,
     knitr,
     rmarkdown,
     purrr,
     tibble,
-    seriation
+    seriation,
+    deldir
 Remotes: tidyverse/ggplot2,
     thomasp85/tidygraph
 LinkingTo: Rcpp
