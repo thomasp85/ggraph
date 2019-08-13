@@ -167,13 +167,13 @@
 <p><img src="Layouts_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Examining the return of <code><a href="../reference/ggraph.html">create_layout()</a></code> we see that it is really just a <code>data.frame</code> of node positions and (possible) attributes. Furthermore the original graph object along with other relevant information is passed along as attributes:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(layout)</a></code></pre></div>
-<pre><code>##           x        y name .ggraph.orig_index circular .ggraph.index
-## 1 -13.64588 5.537736    1                  1    FALSE             1
-## 2 -13.10635 5.917803    2                  2    FALSE             2
-## 3 -13.15726 5.095772    3                  3    FALSE             3
-## 4 -13.58550 7.173738    4                  4    FALSE             4
-## 5 -12.98875 6.862587    5                  5    FALSE             5
-## 6 -13.26006 6.226741    6                  6    FALSE             6</code></pre>
+<pre><code>##           x         y name .ggraph.orig_index circular .ggraph.index
+## 1 -12.55311  9.520072    1                  1    FALSE             1
+## 2 -11.35349  9.821297    2                  2    FALSE             2
+## 3 -11.25047 10.518586    3                  3    FALSE             3
+## 4 -11.26000 11.768391    4                  4    FALSE             4
+## 5 -10.99785 11.333561    5                  5    FALSE             5
+## 6 -11.37380  9.389147    6                  6    FALSE             6</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attributes">attributes</a></span>(layout)</a></code></pre></div>
 <pre><code>## $names
 ## [1] "x"                  "y"                  "name"              
@@ -193,12 +193,12 @@
 ## # Edge Data: 506 x 4 (active)
 ##    from    to  year direction
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;fct&gt;    
-## 1     1    13  1957 right    
+## 1     1    13  1957 left     
 ## 2     1    14  1957 left     
 ## 3     1    20  1957 left     
 ## 4     1    52  1957 right    
 ## 5     1    53  1957 right    
-## 6     2    20  1957 left     
+## 6     2    20  1957 right    
 ## # … with 500 more rows
 ## #
 ## # Node Data: 70 x 2
