@@ -127,6 +127,7 @@ reference:
       ggraph contains an assortment of helpers for various tasks related to
       plotting.
     contents:
+      - nplot
       - geom_axis_hive
       - get_nodes
       - get_edges
