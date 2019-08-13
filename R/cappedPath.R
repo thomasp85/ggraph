@@ -89,6 +89,7 @@ cappedPathGrob <- function(x, y, id = NULL, id.lengths = NULL, arrow = NULL,
 #' @export
 #' @keywords internal
 makeContent.cappedpathgrob <- function(x) {
+  #browser()
   x_new <- convertX(x$x, 'mm', TRUE)
   y_new <- convertY(x$y, 'mm', TRUE)
   start.cap <- convertWidth(x$start.cap, 'mm', TRUE)

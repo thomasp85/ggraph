@@ -111,7 +111,7 @@ void capRectStart(NumericVector &x, NumericVector &y, int from, int to, double w
   Point p0 = point(x[from], y[from]);
   width /= 2;
   height /= 2;
-  for (i = from; i < to; ++i) {
+  for (i = from; i < to - 1; ++i) {
     p.x = x[i];
     p.y = y[i];
     if (std::abs(p.x - p0.x) <= width && std::abs(p.y - p0.y) <= height) {
@@ -155,7 +155,7 @@ void capEllipStart(NumericVector &x, NumericVector &y, int from, int to, double 
   Point p0 = point(x[from], y[from]);
   width /= 2;
   height /= 2;
-  for (i = from; i < to; ++i) {
+  for (i = from; i < to - 1; ++i) {
     p.x = x[i];
     p.y = y[i];
     if (inside_ellipsis(p, p0, width, height)) {
@@ -201,6 +201,7 @@ List cut_lines(NumericVector x, NumericVector y, IntegerVector id, NumericVector
   int i, j, group, group_ind;
   group_ind = j = 0;
   group = id[group_ind];
+  bool remaining;
 
   for (i = 0; i < id.size(); ++i) {
     if (group != id[i]) {
