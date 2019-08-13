@@ -29,6 +29,7 @@
 * Added `override.aes` to `guide_edge_direction()`
 * Changed license to MIT
 * Add matrix layout and `geom_edge_point()` (#23)
+* Added `geom_edge_tile()` for use with matrix layouts (#141)
 * Fix bug with extracting edges from an empty graph (#76)
 * Update roxygen documentation to use markdown and reduce duplication (#95)
 * Manual layouts are now easier to specify. You can pass a matrix or data.frame

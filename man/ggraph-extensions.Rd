@@ -20,6 +20,7 @@
 \alias{GeomEdgePath}
 \alias{GeomEdgeSegment}
 \alias{GeomEdgePoint}
+\alias{GeomEdgeTile}
 \alias{GeomEdgeBezier}
 \alias{GeomEdgeBspline}
 \alias{StatEdgeArc}

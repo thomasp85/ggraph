@@ -278,6 +278,72 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
+#' @importFrom grid gpar rectGrob
+#' @export
+GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE, mirror = FALSE) {
+    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
+      return(zeroGrob())
+    }
+    if (mirror) {
+      data2 <- data
+      data2[, c('x', 'y')] <- data2[, c('y', 'x'), drop = FALSE]
+      data2$x <- abs(data2$x) * sign(data$x)
+      data2$y <- abs(data2$y) * sign(data$y)
+      data <- rbind(data, data2)
+    }
+    data$xmin <- data$x - 0.5
+    data$xmax <- data$x + 0.5
+    data$ymin <- data$y - 0.5
+    data$ymax <- data$y + 0.5
+    coords <- coord$transform(data, panel_params)
+    rectGrob(
+      coords$xmin, coords$ymax,
+      width = coords$xmax - coords$xmin,
+      height = coords$ymax - coords$ymin,
+      default.units = "native",
+      just = 'centre',
+      gp = gpar(
+        col = coords$edge_colour,
+        fill = alpha(coords$edge_fill, coords$edge_alpha),
+        lwd = coords$edge_size * .pt,
+        lty = coords$edge_linetype,
+        linejoin = 'mitre',
+        # `lineend` is a workaround for Windows and intentionally kept unexposed
+        # as an argument. (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-457504667)
+        lineend = "square"
+      )
+    )
+  },
+  draw_key = function(data, params, size) {
+    if (is.null(data$edge_size)) {
+      data$edge_size <- 0.5
+    }
+
+    lwd <- min(data$edge_size, min(size) / 4)
+
+    rectGrob(
+      width = unit(1, "npc") - unit(lwd, "mm"),
+      height = unit(1, "npc") - unit(lwd, "mm"),
+      gp = gpar(
+        col = data$edge_colour %||% NA,
+        fill = alpha(data$edge_fill %||% "grey20", data$edge_alpha),
+        lty = data$edge_linetype %||% 1,
+        lwd = lwd * .pt,
+        linejoin = "mitre",
+        # `lineend` is a workaround for Windows and intentionally kept unexposed
+        # as an argument. (c.f. https://github.com/tidyverse/ggplot2/issues/3037#issuecomment-457504667)
+        lineend = "square"
+      ))
+  },
+  default_aes = aes(
+    edge_fill = 'grey20', edge_colour = NA, edge_size = 0.1,
+    edge_linetype = 1, edge_alpha = NA
+  )
+)
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom ggforce GeomBezier0
 #' @export
 GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
