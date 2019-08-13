@@ -1,5 +1,7 @@
 # ggraph (development version)
 
+* Edge geoms no longer throws an error when all edges are completely capped 
+  (#176)
 * Fixed a bug that prevented edge capping from being used with *2 variants of
   edge geoms (#167)
 * Fix bug in edge capping that could lead to edges extending to (0,0) (#163)

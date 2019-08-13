@@ -99,8 +99,10 @@ makeContent.cappedpathgrob <- function(x) {
     x_new, y_new, as.integer(x$id), start.cap, start.cap2,
     end.cap, end.cap2, x$start.captype, x$end.captype
   )
-  lines <- if (x$constant) {
-    keep <- !is.na(truncated$x)
+  keep <- !is.na(truncated$x)
+  if (!any(keep)) {
+    lines <- zeroGrob()
+  } else if (x$constant) {
     x_new <- truncated$x[keep]
     y_new <- truncated$y[keep]
     id <- x$id[keep]
@@ -114,7 +116,7 @@ makeContent.cappedpathgrob <- function(x) {
     })
     class(gp) <- 'gpar'
     id <- match(id, all_id)
-    grob(
+    lines <- grob(
       x = unit(x_new, 'mm'), y = unit(y_new, 'mm'), id = id,
       id.lengths = NULL, arrow = x$arrow, name = x$name, gp = gp,
       vp = x$vp, cl = 'polyline'
@@ -124,7 +126,7 @@ makeContent.cappedpathgrob <- function(x) {
     y0 <- truncated$y[!x$end]
     x1 <- truncated$x[!x$start]
     y1 <- truncated$y[!x$start]
-    grob(
+    lines <- grob(
       x0 = unit(x0, 'mm'), y0 = unit(y0, 'mm'), x1 = unit(x1, 'mm'),
       y1 = unit(y1, 'mm'), arrow = x$arrow, name = x$name, gp = x$gp,
       vp = x$vp, cl = 'segments'
