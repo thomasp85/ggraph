@@ -3,6 +3,8 @@
 * Fix bug in edge capping that could lead to edges extending to (0,0) (#163)
 * Fix bug affecting faceting of capped edges (#140)
 * Character aesthetics are no longer cast to factors in edge geoms (#131)
+* Fix a bug where start capping was ignored if the previous edge had been
+  completely removed by capping (#150)
 * Fix offsetting bug in edge label drawing when some labels are empty strings 
   and `label_parse = TRUE` (#159)
 * Added `weight` and `mode` arguments to `get_con()` that are passed on to the
