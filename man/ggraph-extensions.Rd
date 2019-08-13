@@ -4,7 +4,8 @@
 %   R/geom_edge_arc.R, R/geom_edge_density.R, R/geom_edge_diagonal.R,
 %   R/geom_edge_elbow.R, R/geom_edge_fan.R, R/geom_edge_hive.R,
 %   R/geom_edge_link.R, R/geom_edge_loop.R, R/geom_node_arc_bar.R,
-%   R/geom_node_circle.R, R/geom_node_tile.R, R/ggproto-classes.R
+%   R/geom_node_circle.R, R/geom_node_tile.R, R/geom_node_voronoi.R,
+%   R/ggproto-classes.R
 \docType{data}
 \name{StatFilter}
 \alias{StatFilter}
@@ -45,6 +46,7 @@
 \alias{StatNodeArcBar}
 \alias{StatNodeCircle}
 \alias{GeomNodeTile}
+\alias{StatNodeVoronoi}
 \alias{ggraph-extensions}
 \title{ggraph extensions to ggplot2}
 \description{

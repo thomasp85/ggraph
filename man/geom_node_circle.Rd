@@ -50,7 +50,7 @@ it will only produce true circles when combined with
 }
 \section{Aesthetics}{
 
-\code{geom_node_point} understand the following aesthetics. Bold aesthetics are
+\code{geom_node_circle} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.
 \itemize{
 \item \strong{x0}
@@ -77,7 +77,8 @@ ggraph(gr, 'circlepack', weight = size) +
 Other geom_node_*: \code{\link{geom_node_arc_bar}},
   \code{\link{geom_node_point}},
   \code{\link{geom_node_text}},
-  \code{\link{geom_node_tile}}
+  \code{\link{geom_node_tile}},
+  \code{\link{geom_node_voronoi}}
 }
 \author{
 Thomas Lin Pedersen

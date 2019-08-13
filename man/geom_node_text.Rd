@@ -107,7 +107,8 @@ ggraph(gr, 'igraph', algorithm = 'nicely') +
 Other geom_node_*: \code{\link{geom_node_arc_bar}},
   \code{\link{geom_node_circle}},
   \code{\link{geom_node_point}},
-  \code{\link{geom_node_tile}}
+  \code{\link{geom_node_tile}},
+  \code{\link{geom_node_voronoi}}
 }
 \author{
 Thomas Lin Pedersen

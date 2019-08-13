@@ -1,5 +1,6 @@
 # ggraph (development version)
 
+* Added `geom_node_voronoi()` for displaying nodes as voronoi tiles (#100)
 * All non-straight line-based edge geoms now has a `strength` parameter that
   controls their deviation from a straight line. `0` will always give a straight
   line while `1` will be their natural look. Numbers outside this range may look

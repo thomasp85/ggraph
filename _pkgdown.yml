@@ -72,6 +72,7 @@ reference:
       - geom_node_point
       - geom_node_text
       - geom_node_tile
+      - geom_node_voronoi
       - geom_node_circle
       - geom_node_arc_bar
   - title: "Edges"

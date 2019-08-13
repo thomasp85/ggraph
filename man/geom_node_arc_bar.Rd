@@ -78,7 +78,8 @@ ggraph(gr, 'partition', circular = TRUE, weight = size) +
 Other geom_node_*: \code{\link{geom_node_circle}},
   \code{\link{geom_node_point}},
   \code{\link{geom_node_text}},
-  \code{\link{geom_node_tile}}
+  \code{\link{geom_node_tile}},
+  \code{\link{geom_node_voronoi}}
 }
 \author{
 Thomas Lin Pedersen
