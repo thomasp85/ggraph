@@ -1,5 +1,7 @@
 # ggraph (development version)
 
+* Added `nplot()` for quickly creating a standard network plot for explorative
+  purpose (#94)
 * Edge geoms no longer throws an error when all edges are completely capped 
   (#176)
 * Fixed a bug that prevented edge capping from being used with *2 variants of
