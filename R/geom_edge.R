@@ -119,9 +119,9 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       label_y0 <- data$y[angle_start + edge_start]
       label_x1 <- data$x[angle_end + edge_start]
       label_y1 <- data$y[angle_end + edge_start]
-      lab <- label_data$label
+      lab <- as.character(label_data$label)
       if (label_parse) {
-        lab <- parse(text = as.character(lab))
+        lab[lab != ''] <- parse(text = lab)
       }
       label_grob <- textAlongGrob(
         lab, label_data$x, label_data$y,
