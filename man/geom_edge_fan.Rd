@@ -224,6 +224,7 @@ ggraph(gr, 'nicely') +
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
+  \code{\link{geom_edge_bend}},
   \code{\link{geom_edge_density}},
   \code{\link{geom_edge_diagonal}},
   \code{\link{geom_edge_elbow}},
