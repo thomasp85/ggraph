@@ -68,10 +68,11 @@ reference:
     desc: >
       While nodes are often thought of as points in a hairball graph, they are
       much more than that, depending on the layout type.
-    content:
+    contents:
       - geom_node_point
       - geom_node_text
       - geom_node_tile
+      - geom_node_voronoi
       - geom_node_circle
       - geom_node_arc_bar
   - title: "Edges"
@@ -79,7 +80,7 @@ reference:
       Edges are the enteties connecting nodes, often drawn with some sort of
       line. Certain layouts calls for other types, e.g. a matrix plot where
       edges are illustrated with points.
-    content:
+    contents:
       - geom_edge_link
       - geom_edge_arc
       - geom_edge_fan
@@ -88,12 +89,13 @@ reference:
       - geom_edge_elbow
       - geom_edge_hive
       - geom_edge_point
+      - geom_edge_tile
       - geom_edge_density
   - title: "Connections"
     desc: >
       Connections are meta-edges, connecting nodes that are not direct
       neighbors, either through their shortest path or directly.
-    content:
+    contents:
       - geom_conn_bundle
   - title: "Facets"
     desc: >
@@ -107,7 +109,7 @@ reference:
     desc: >
       While nodes uses the standard scales provided by ggplot2, edges have their
       own, allowing you to have different scaling for nodes and edges.
-    content:
+    contents:
       - scale_edge_colour
       - scale_edge_fill
       - scale_edge_alpha
@@ -119,7 +121,7 @@ reference:
   - title: "Guides"
     desc: >
       As for scales, the edge geoms comes with their own guides.
-    content:
+    contents:
       - guide_edge_direction
       - guide_edge_colourbar
   - title: "Helpers"
@@ -127,6 +129,7 @@ reference:
       ggraph contains an assortment of helpers for various tasks related to
       plotting.
     contents:
+      - nplot
       - geom_axis_hive
       - get_nodes
       - get_edges

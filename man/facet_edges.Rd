@@ -14,10 +14,8 @@ and defining faceting groups on the rows or columns dimension.
 The variables can be named (the names are passed to \code{labeller}).
 
 For compatibility with the classic interface, can also be a
-formula or character vector. Use either a one sided formula, `~a
-\itemize{
-\item b\code{, or a character vector,}c("a", "b")`.
-}}
+formula or character vector. Use either a one sided formula, \code{~a + b},
+or a character vector, \code{c("a", "b")}.}
 
 \item{nrow}{Number of rows and columns.}
 
@@ -71,10 +69,9 @@ facets edges. Nodes are repeated in every panel.
 gr <- tidygraph::as_tbl_graph(highschool)
 
 ggraph(gr) +
-    geom_edge_link() +
-    geom_node_point() +
-    facet_edges(~year)
-
+  geom_edge_link() +
+  geom_node_point() +
+  facet_edges(~year)
 }
 \seealso{
 Other ggraph-facets: \code{\link{facet_graph}},

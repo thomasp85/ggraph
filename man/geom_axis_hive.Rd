@@ -24,8 +24,9 @@ data. All objects will be fortified to produce a data frame. See
 \code{\link[=fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
-the plot data. The return value must be a \code{data.frame.}, and
-will be used as the layer data.}
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -42,7 +43,7 @@ display.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 }
 \description{
@@ -84,10 +85,9 @@ flareGr <- as_tbl_graph(flare$imports) \%>\%
     )
   )
 ggraph(flareGr, 'hive', axis = type) +
-    geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
-    geom_axis_hive(aes(colour = type)) +
-    coord_fixed()
-
+  geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
+  geom_axis_hive(aes(colour = type)) +
+  coord_fixed()
 }
 \author{
 Thomas Lin Pedersen

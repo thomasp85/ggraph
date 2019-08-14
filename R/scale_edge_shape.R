@@ -24,7 +24,7 @@ NULL
 #' @importFrom scales shape_pal
 #' @export
 scale_edge_shape <- function(..., solid = TRUE) {
-    discrete_scale("edge_shape", "shape_d", shape_pal(solid), ...)
+  discrete_scale('edge_shape', 'shape_d', shape_pal(solid), ...)
 }
 #' @rdname scale_edge_shape
 #'
@@ -34,7 +34,7 @@ scale_edge_shape_discrete <- scale_edge_shape
 #'
 #' @export
 scale_edge_shape_continuous <- function(...) {
-    stop("A continuous variable can not be mapped to shape", call. = FALSE)
+  stop('A continuous variable can not be mapped to shape', call. = FALSE)
 }
 #' @rdname scale_edge_shape
 #'
@@ -42,7 +42,7 @@ scale_edge_shape_continuous <- function(...) {
 #'
 #' @export
 scale_edge_shape_manual <- function(..., values) {
-    manual_scale("edge_shape", values, ...)
+  manual_scale('edge_shape', values, ...)
 }
 #' @rdname scale_edge_shape
 #'
@@ -50,8 +50,9 @@ scale_edge_shape_manual <- function(..., values) {
 #'
 #' @importFrom scales identity_pal
 #' @export
-scale_edge_shape_identity <- function(..., guide = "none") {
-    sc <- discrete_scale("edge_shape", "identity", identity_pal(), ...,
-                         guide = guide, ScaleDiscreteIdentity)
-    sc
+scale_edge_shape_identity <- function(..., guide = 'none') {
+  sc <- discrete_scale('edge_shape', 'identity', identity_pal(), ...,
+    guide = guide, ScaleDiscreteIdentity
+  )
+  sc
 }

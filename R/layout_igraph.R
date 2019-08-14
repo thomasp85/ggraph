@@ -92,40 +92,45 @@
 #' @importFrom rlang quos eval_tidy
 #' @importFrom stats setNames
 #'
-layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi/2, use.dummy = FALSE, ...) {
-    algorithm <- as.igraphlayout(algorithm)
-    dots <- quos(...)
-    dots <- setNames(lapply(names(dots), function(nq) {
-        if (nq == 'weights') eval_tidy(dots[[nq]], as_tibble(graph, active = 'edges'))
-        else eval_tidy(dots[[nq]])
-    }), names(dots))
-    layout <- do.call(algorithm, c(list(graph), dots))
-    if (algorithm == 'layout_with_sugiyama') {
-        if (use.dummy) {
-            graph <- as_tbl_graph(layout$extd_graph)
-            layout <- graph_attr(layout$extd_graph, 'layout')
-        } else {
-            layout <- layout$layout
-        }
+layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi / 2, use.dummy = FALSE, ...) {
+  algorithm <- as.igraphlayout(algorithm)
+  dots <- quos(...)
+  dots <- setNames(lapply(names(dots), function(nq) {
+    if (nq == 'weights') {
+      eval_tidy(dots[[nq]], as_tibble(graph, active = 'edges'))
+    } else {
+      eval_tidy(dots[[nq]])
     }
-    if (algorithm == 'layout_as_tree') {
-        layout[, 1] <- layout[, 1] + components(graph)$membership - 1
+  }), names(dots))
+  layout <- do.call(algorithm, c(list(graph), dots))
+  if (algorithm == 'layout_with_sugiyama') {
+    if (use.dummy) {
+      graph <- as_tbl_graph(layout$extd_graph)
+      layout <- graph_attr(layout$extd_graph, 'layout')
+    } else {
+      layout <- layout$layout
     }
-    extraData <- as_tibble(graph, active = 'nodes')
-    layout <- cbind(x=layout[,1], y=layout[,2], extraData[, !names(extraData) %in% c('x', 'y'), drop = FALSE])
-    graph <- add_direction(graph, layout)
-    if (circular) {
-        if (!algorithm %in% c('layout_as_tree', 'layout_with_sugiyama')) {
-            stop('Circular layout only applicable to tree and DAG layout')
-        }
-        radial <- radial_trans(r.range = rev(range(layout$y)),
-                               a.range = range(layout$x),
-                               offset = offset)
-        coords <- radial$transform(layout$y, layout$x)
-        layout$x <- coords$x
-        layout$y <- coords$y
+  }
+  if (algorithm == 'layout_as_tree') {
+    layout[, 1] <- layout[, 1] + components(graph)$membership - 1
+  }
+  extra_data <- as_tibble(graph, active = 'nodes')
+  layout <- cbind(x = layout[, 1], y = layout[, 2], extra_data[, !names(extra_data) %in% c('x', 'y'), drop = FALSE])
+  graph <- add_direction(graph, layout)
+  if (circular) {
+    if (!algorithm %in% c('layout_as_tree', 'layout_with_sugiyama')) {
+      stop('Circular layout only applicable to tree and DAG layout')
     }
-    layout$circular <- circular
-    attr(layout, 'graph') <- graph
-    layout
+    radial <- radial_trans(
+      r.range = rev(range(layout$y)),
+      a.range = range(layout$x),
+      offset = offset
+    )
+    coords <- radial$transform(layout$y, layout$x)
+    layout$x <- coords$x
+    layout$y <- coords$y
+  }
+  layout$circular <- circular
+  attr(layout, 'graph') <- graph
+  layout
 }

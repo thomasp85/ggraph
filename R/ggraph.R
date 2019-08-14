@@ -103,17 +103,16 @@
 #' require(tidygraph)
 #' gr <- create_notable('bull')
 #' layout <- create_layout(gr, layout = 'igraph', algorithm = 'kk')
-#'
 #' @export
 #'
 ggraph <- function(graph, layout = 'auto', ...) {
-    envir <- parent.frame()
-    p <- ggplot(data = create_layout(graph, layout, ...), environment = envir)
-    class(p) <- c('ggraph', class(p))
-    p
+  envir <- parent.frame()
+  p <- ggplot(data = create_layout(graph, layout, ...), environment = envir)
+  class(p) <- c('ggraph', class(p))
+  p
 }
 #' @export
 ggplot_build.ggraph <- function(plot) {
-    .register_graph_context(attr(plot$data, 'graph'), free = TRUE)
-    NextMethod()
+  .register_graph_context(attr(plot$data, 'graph'), free = TRUE)
+  NextMethod()
 }

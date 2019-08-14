@@ -70,24 +70,26 @@
 #' @family layout_tbl_graph_*
 #'
 layout_tbl_graph_treemap <- function(graph, algorithm = 'split', weight = NULL, circular = FALSE, sort.by = NULL, direction = 'out', height = 1, width = 1) {
-    weight <- enquo(weight)
-    weight <- eval_tidy(weight, .N())
-    sort.by <- enquo(sort.by)
-    sort.by <- eval_tidy(sort.by)
-    hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
-    layout <- switch(
-        algorithm,
-        split = splitTreemap(hierarchy$parent, hierarchy$order, hierarchy$weight, width, height),
-        stop('Unknown algorithm')
-    )[-1,]
-    layout <- data.frame(x = layout[, 1] + layout[, 3]/2,
-                         y = layout[, 2] + layout[, 4]/2,
-                         width = layout[, 3],
-                         height = layout[, 4],
-                         circular = FALSE,
-                         leaf = degree(graph, mode = direction) == 0,
-                         depth = node_depth(graph, mode = direction))
-    extraData <- as_tibble(graph, active = 'nodes')
-    layout <- cbind(layout, extraData[, !names(extraData) %in% names(layout), drop = FALSE])
-    layout
+  weight <- enquo(weight)
+  weight <- eval_tidy(weight, .N())
+  sort.by <- enquo(sort.by)
+  sort.by <- eval_tidy(sort.by)
+  hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
+  layout <- switch(
+    algorithm,
+    split = splitTreemap(hierarchy$parent, hierarchy$order, hierarchy$weight, width, height),
+    stop('Unknown algorithm')
+  )[-1, ]
+  layout <- data.frame(
+    x = layout[, 1] + layout[, 3] / 2,
+    y = layout[, 2] + layout[, 4] / 2,
+    width = layout[, 3],
+    height = layout[, 4],
+    circular = FALSE,
+    leaf = degree(graph, mode = direction) == 0,
+    depth = node_depth(graph, mode = direction)
+  )
+  extra_data <- as_tibble(graph, active = 'nodes')
+  layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
+  layout
 }

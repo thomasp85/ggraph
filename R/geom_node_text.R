@@ -48,34 +48,35 @@
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
 #'   geom_node_label(aes(label = class), repel = TRUE)
-#'
 #' @importFrom ggrepel GeomTextRepel
 #' @export
 #'
-geom_node_text <- function(mapping = NULL, data = NULL, position = "identity",
+geom_node_text <- function(mapping = NULL, data = NULL, position = 'identity',
                            parse = FALSE, nudge_x = 0, nudge_y = 0,
                            check_overlap = FALSE, show.legend = NA,
                            repel = FALSE, ...) {
-    if (!missing(nudge_x) || !missing(nudge_y)) {
-        if (!missing(position)) {
-            stop("Specify either `position` or `nudge_x`/`nudge_y`",
-                 call. = FALSE)
-        }
-        position <- position_nudge(nudge_x, nudge_y)
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop('Specify either `position` or `nudge_x`/`nudge_y`',
+        call. = FALSE
+      )
     }
-    params <- list(parse = parse, na.rm = FALSE, ...)
-    if (repel) {
-      geom <- GeomTextRepel
-    } else {
-      geom <- GeomText
-      params$check_overlap <- check_overlap
-    }
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+  params <- list(parse = parse, na.rm = FALSE, ...)
+  if (repel) {
+    geom <- GeomTextRepel
+  } else {
+    geom <- GeomText
+    params$check_overlap <- check_overlap
+  }
 
-    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y))
-    layer(data = data, mapping = mapping, stat = StatFilter, geom = geom,
-          position = position, show.legend = show.legend, inherit.aes = FALSE,
-          params = params
-    )
+  mapping <- aes_intersect(mapping, aes(x = x, y = y))
+  layer(
+    data = data, mapping = mapping, stat = StatFilter, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    params = params
+  )
 }
 #' @rdname geom_node_text
 #'
@@ -84,30 +85,34 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = "identity",
 #' @importFrom ggrepel GeomLabelRepel
 #' @export
 #'
-geom_node_label <- function(mapping = NULL, data = NULL, position = "identity",
-                           parse = FALSE, nudge_x = 0, nudge_y = 0,
-                           label.padding = unit(0.25, "lines"),
-                           label.r = unit(0.15, "lines"),
-                           label.size = 0.25, show.legend = NA,
-                           repel = FALSE, ...) {
-    if (!missing(nudge_x) || !missing(nudge_y)) {
-        if (!missing(position)) {
-            stop("Specify either `position` or `nudge_x`/`nudge_y`",
-                 call. = FALSE)
-        }
-        position <- position_nudge(nudge_x, nudge_y)
+geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
+                            parse = FALSE, nudge_x = 0, nudge_y = 0,
+                            label.padding = unit(0.25, 'lines'),
+                            label.r = unit(0.15, 'lines'),
+                            label.size = 0.25, show.legend = NA,
+                            repel = FALSE, ...) {
+  if (!missing(nudge_x) || !missing(nudge_y)) {
+    if (!missing(position)) {
+      stop('Specify either `position` or `nudge_x`/`nudge_y`',
+        call. = FALSE
+      )
     }
-    params <- list(parse = parse, label.padding = label.padding,
-                   label.r = label.r, label.size = label.size, na.rm = FALSE, ...)
-    if (repel) {
-        geom <- GeomLabelRepel
-    } else {
-        geom <- GeomLabel
-    }
+    position <- position_nudge(nudge_x, nudge_y)
+  }
+  params <- list(
+    parse = parse, label.padding = label.padding,
+    label.r = label.r, label.size = label.size, na.rm = FALSE, ...
+  )
+  if (repel) {
+    geom <- GeomLabelRepel
+  } else {
+    geom <- GeomLabel
+  }
 
-    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y))
-    layer(data = data, mapping = mapping, stat = StatFilter, geom = geom,
-          position = position, show.legend = show.legend, inherit.aes = FALSE,
-          params = params
-    )
+  mapping <- aes_intersect(mapping, aes(x = x, y = y))
+  layer(
+    data = data, mapping = mapping, stat = StatFilter, geom = geom,
+    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    params = params
+  )
 }

@@ -4,12 +4,13 @@
 \alias{facet_graph}
 \title{Create a grid of small multiples by node and/or edge attributes}
 \usage{
-facet_graph(facets, row_type = "edge", col_type = "node", margins = FALSE,
-  scales = "fixed", space = "fixed", shrink = TRUE,
-  labeller = "label_value", as.table = TRUE, switch = NULL, drop = TRUE)
+facet_graph(facets, row_type = "edge", col_type = "node",
+  margins = FALSE, scales = "fixed", space = "fixed",
+  shrink = TRUE, labeller = "label_value", as.table = TRUE,
+  switch = NULL, drop = TRUE)
 }
 \arguments{
-\item{facets}{This argument is soft-deprecated, please us \code{rows}
+\item{facets}{This argument is soft-deprecated, please use \code{rows}
 and \code{cols} instead.}
 
 \item{row_type, col_type}{Either \code{'node'} or \code{'edge'}. Which data
@@ -78,13 +79,13 @@ each panel (even when nodes are not drawn).
 library(tidygraph)
 gr <- as_tbl_graph(highschool) \%>\%
   mutate(popularity = as.character(cut(centrality_degree(mode = 'in'),
-                                       breaks = 3,
-                                       labels = c('low', 'medium', 'high'))))
+    breaks = 3,
+    labels = c('low', 'medium', 'high')
+  )))
 ggraph(gr) +
-    geom_edge_link() +
-    geom_node_point() +
-    facet_graph(year~popularity)
-
+  geom_edge_link() +
+  geom_node_point() +
+  facet_graph(year ~ popularity)
 }
 \seealso{
 Other ggraph-facets: \code{\link{facet_edges}},

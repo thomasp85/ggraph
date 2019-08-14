@@ -56,7 +56,7 @@ split.}
 }
 \value{
 A data.frame with the columns \code{x}, \code{y}, \code{r},
-\code{centerSize}, \code{split}, \code{axis}, \code{section}, \code{angle},
+\code{center_size}, \code{split}, \code{axis}, \code{section}, \code{angle},
 \code{circular} as well as any information stored as node variables in the
 tbl_graph object.
 }

@@ -1,10 +1,35 @@
-# ggraph 1.0.0.9999
+# ggraph (development version)
 
+* Added `geom_node_voronoi()` for displaying nodes as voronoi tiles (#100)
+* All non-straight line-based edge geoms now has a `strength` parameter that
+  controls their deviation from a straight line. `0` will always give a straight
+  line while `1` will be their natural look. Numbers outside this range may look
+  weird. This also deprecates the `curvature` argument from `geom_edge_arc()` 
+  and `geom_edge_hive()` as well as the `spread` argument from `geom_edge_fan()`
+  (#97)
+* Added `nplot()` for quickly creating a standard network plot for explorative
+  purpose (#94)
+* Edge geoms no longer throws an error when all edges are completely capped 
+  (#176)
+* Fixed a bug that prevented edge capping from being used with *2 variants of
+  edge geoms (#167)
+* Fix bug in edge capping that could lead to edges extending to (0,0) (#163)
+* Fix bug affecting faceting of capped edges (#140)
+* Character aesthetics are no longer cast to factors in edge geoms (#131)
+* Fix a bug where start capping was ignored if the previous edge had been
+  completely removed by capping (#150)
+* Fix offsetting bug in edge label drawing when some labels are empty strings 
+  and `label_parse = TRUE` (#159)
+* Added `weight` and `mode` arguments to `get_con()` that are passed on to the
+  shortest path calculations (#89).
+* Fixed a bug resulting in the wrong mapping of additional values to connections
+  (#122, #134)
 * Fixed a bug when using `facet_graph()` with data from both tbl_df and 
   data.frame
 * Added `override.aes` to `guide_edge_direction()`
 * Changed license to MIT
 * Add matrix layout and `geom_edge_point()` (#23)
+* Added `geom_edge_tile()` for use with matrix layouts (#141)
 * Fix bug with extracting edges from an empty graph (#76)
 * Update roxygen documentation to use markdown and reduce duplication (#95)
 * Manual layouts are now easier to specify. You can pass a matrix or data.frame
@@ -15,7 +40,7 @@
   node table will be used as layout and the graph will be attached. This allows
   direct use of the particles package as a layout engine as a side effect. (#88)
 * Fixed bug causing shifts in edge aesthetics when one or more edges were 
-  completely clipped (#62)
+  completely clipped (#62, #115)
 * Fixed bug when clipping completely orthogonal points that produced additional
   lines going to (0,0) (#70, #84, #103)
 * Use tidygraph as the central data format. The results of this are several:

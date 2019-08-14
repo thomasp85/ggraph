@@ -6,22 +6,25 @@
 \alias{geom_edge_fan0}
 \title{Draw edges as curves of different curvature}
 \usage{
-geom_edge_fan(mapping = NULL, data = get_edges(), position = "identity",
-  arrow = NULL, spread = 1, n = 100, lineend = "butt",
-  linejoin = "round", linemitre = 1, label_colour = "black",
-  label_alpha = 1, label_parse = FALSE, check_overlap = FALSE,
-  angle_calc = "rot", force_flip = TRUE, label_dodge = NULL,
-  label_push = NULL, show.legend = NA, ...)
-
-geom_edge_fan2(mapping = NULL, data = get_edges("long"),
-  position = "identity", arrow = NULL, spread = 1, n = 100,
+geom_edge_fan(mapping = NULL, data = get_edges(),
+  position = "identity", arrow = NULL, strength = 1, n = 100,
   lineend = "butt", linejoin = "round", linemitre = 1,
   label_colour = "black", label_alpha = 1, label_parse = FALSE,
   check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  label_dodge = NULL, label_push = NULL, show.legend = NA, ...,
+  spread)
 
-geom_edge_fan0(mapping = NULL, data = get_edges(), position = "identity",
-  arrow = NULL, spread = 1, lineend = "butt", show.legend = NA, ...)
+geom_edge_fan2(mapping = NULL, data = get_edges("long"),
+  position = "identity", arrow = NULL, strength = 1, n = 100,
+  lineend = "butt", linejoin = "round", linemitre = 1,
+  label_colour = "black", label_alpha = 1, label_parse = FALSE,
+  check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
+  label_dodge = NULL, label_push = NULL, show.legend = NA, ...,
+  spread)
+
+geom_edge_fan0(mapping = NULL, data = get_edges(),
+  position = "identity", arrow = NULL, strength = 1,
+  lineend = "butt", show.legend = NA, ..., spread)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -38,7 +41,7 @@ a call to a position adjustment function.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
-\item{spread}{Modify the width of the fans \code{spread &gt; 1} will create
+\item{strength}{Modify the width of the fans \code{strength > 1} will create
 wider fans while the reverse will make them more narrow.}
 
 \item{n}{The number of points to create along the path.}
@@ -83,8 +86,10 @@ display.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
+
+\item{spread}{Deprecated. Use \code{strength} instead.}
 }
 \description{
 This geom draws edges as cubic beziers with the control point positioned
@@ -216,7 +221,6 @@ ggraph(gr, 'nicely') +
 
 ggraph(gr, 'nicely') +
   geom_edge_fan0(aes(colour = class))
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
@@ -226,7 +230,8 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_hive}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}},
-  \code{\link{geom_edge_point}}
+  \code{\link{geom_edge_point}},
+  \code{\link{geom_edge_tile}}
 }
 \author{
 Thomas Lin Pedersen

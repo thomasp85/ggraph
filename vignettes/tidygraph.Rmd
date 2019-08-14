@@ -66,11 +66,11 @@ edges respectively. The bottomline is that given a network such as this:
 library(tidygraph)
 
 graph <- as_tbl_graph(
-    data.frame(
-        from = sample(5, 20, TRUE),
-        to = sample(5, 20, TRUE),
-        weight = runif(20)
-    )
+  data.frame(
+    from = sample(5, 20, TRUE),
+    to = sample(5, 20, TRUE),
+    weight = runif(20)
+  )
 )
 graph
 ```
@@ -79,16 +79,16 @@ Then, instead of writing:
 
 ```{r, eval=FALSE}
 ggraph(graph, layout = 'fr', weights = "weight") + 
-    geom_edge_link() + 
-    geom_node_point()
+  geom_edge_link() + 
+  geom_node_point()
 ```
 
 You would simply write:
 
 ```{r}
 ggraph(graph, layout = 'fr', weights = weight) + 
-    geom_edge_link() + 
-    geom_node_point()
+  geom_edge_link() + 
+  geom_node_point()
 ```
 
 This change means that it is much easier to experiment with modifications to
@@ -97,8 +97,8 @@ underlying graph but only the plotting code, e.g.:
 
 ```{r}
 ggraph(graph, layout = 'fr', weights = log(weight)) + 
-    geom_edge_link() + 
-    geom_node_point()
+  geom_edge_link() + 
+  geom_node_point()
 ```
 
 ## Access to tidygraph algorithms in ggraph code
@@ -111,9 +111,9 @@ node and edge variables on the graph in order to use them in a plot:
 graph <- create_notable('zachary')
 
 ggraph(graph, layout = 'fr') + 
-    geom_edge_link() + 
-    geom_node_point(aes(size = centrality_pagerank())) + 
-    theme(legend.position = 'bottom')
+  geom_edge_link() + 
+  geom_node_point(aes(size = centrality_pagerank())) + 
+  theme(legend.position = 'bottom')
 ```
 
 here it is not necessary to first compute the pagerank centrality and store it
@@ -130,14 +130,14 @@ ease of iteration is vital:
 
 ```{r}
 ggraph(graph, 'matrix', sort.by = node_rank_leafsort()) + 
-    geom_edge_point(aes(colour = centrality_edge_betweenness()), mirror = TRUE) + 
-    theme(legend.position = 'bottom')
+  geom_edge_point(aes(colour = centrality_edge_betweenness()), mirror = TRUE) + 
+  theme(legend.position = 'bottom')
 ```
 
 ```{r}
 ggraph(graph, 'fr') + 
-    geom_edge_link() + 
-    geom_node_point() + 
-    facet_nodes(~ group_infomap())
+  geom_edge_link() + 
+  geom_node_point() + 
+  facet_nodes(~ group_infomap())
 ```
 

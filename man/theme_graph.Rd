@@ -18,7 +18,8 @@ theme_graph(base_family = "Arial Narrow", base_size = 11,
   strip_text_size = 10, strip_text_face = "bold",
   strip_text_colour = fg_text_colour, caption_family = base_family,
   caption_size = 9, caption_face = "italic", caption_margin = 10,
-  caption_colour = bg_text_colour, plot_margin = margin(30, 30, 30, 30))
+  caption_colour = bg_text_colour, plot_margin = margin(30, 30, 30,
+  30))
 
 th_foreground(foreground = "grey80", fg_text_colour = NULL,
   border = FALSE)
@@ -77,5 +78,4 @@ library(tidygraph)
 graph <- as_tbl_graph(highschool)
 
 ggraph(graph) + geom_edge_link() + geom_node_point() + theme_graph()
-
 }

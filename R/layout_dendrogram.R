@@ -38,63 +38,65 @@
 #' @importFrom igraph gorder degree neighbors
 #' @importFrom rlang enquo eval_tidy
 #'
-layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi/2, height = NA, repel = FALSE, ratio = 1, direction = 'out') {
-    height <- enquo(height)
-    reverseDir <- if (direction == 'out') 'in' else 'out'
-    nodes <- data.frame(
-        x = rep(NA_real_, gorder(graph)),
-        y = eval_tidy(height, .N()),
-        leaf = degree(graph, mode = direction) == 0,
-        stringsAsFactors = FALSE
-    )
-    if (all(is.na(nodes$y))) {
-        nodes$y <- vapply(seq_len(gorder(graph)), function(i) {
-            max(bfs(graph, i, direction, unreachable = FALSE, order = FALSE, dist = TRUE)$dist, na.rm = TRUE)
-        }, numeric(1))
-    }
-    if (repel) {
-        pad <- min(nodes$y[nodes$y != 0])/2
+layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2, height = NA, repel = FALSE, ratio = 1, direction = 'out') {
+  height <- enquo(height)
+  reverse_dir <- if (direction == 'out') 'in' else 'out'
+  nodes <- data.frame(
+    x = rep(NA_real_, gorder(graph)),
+    y = eval_tidy(height, .N()),
+    leaf = degree(graph, mode = direction) == 0,
+    stringsAsFactors = FALSE
+  )
+  if (all(is.na(nodes$y))) {
+    nodes$y <- vapply(seq_len(gorder(graph)), function(i) {
+      max(bfs(graph, i, direction, unreachable = FALSE, order = FALSE, dist = TRUE)$dist, na.rm = TRUE)
+    }, numeric(1))
+  }
+  if (repel) {
+    pad <- min(nodes$y[nodes$y != 0]) / 2
+  } else {
+    pad <- 0
+  }
+  startnode <- which(degree(graph, mode = reverse_dir) == 0)
+  if (length(startnode) < 1) stop('No root nodes in graph')
+  recurse_layout <- function(gr, node, layout, direction, offset = 0) {
+    children <- as.numeric(neighbors(gr, node, direction))
+    if (length(children) == 0) {
+      layout$x[node] <- offset
+      layout
     } else {
-        pad <- 0
-    }
-    startnode <- which(degree(graph, mode = reverseDir) == 0)
-    if (length(startnode)  < 1) stop('No root nodes in graph')
-    recurse_layout <- function(gr, node, layout, direction, offset = 0) {
-        children <- as.numeric(neighbors(gr, node, direction))
-        if (length(children) == 0) {
-            layout$x[node] <- offset
-            layout
+      children_missing <- children[is.na(layout$x[children])]
+      for (i in children_missing) {
+        layout <- recurse_layout(gr, i, layout, direction, offset)
+        offset <- if (repel) {
+          max(layout$x[layout$leaf], na.rm = TRUE) + (layout$y[node] + pad) * ratio
         } else {
-            childrenMissing <- children[is.na(layout$x[children])]
-            for (i in childrenMissing) {
-                layout <- recurse_layout(gr, i, layout, direction, offset)
-                offset <- if (repel) {
-                    max(layout$x[layout$leaf], na.rm = TRUE) + (layout$y[node] + pad) * ratio
-                } else {
-                    max(layout$x[layout$leaf], na.rm = TRUE) + 1 + pad
-                }
-            }
-            layout$x[node] <- mean(range(layout$x[children]))
-            layout
+          max(layout$x[layout$leaf], na.rm = TRUE) + 1 + pad
         }
+      }
+      layout$x[node] <- mean(range(layout$x[children]))
+      layout
     }
-    offset <- 0
-    for (i in startnode) {
-        nodes <- recurse_layout(graph, i, nodes, direction = direction, offset)
-        offset <- max(nodes$x[nodes$leaf], na.rm = TRUE) + 1
-    }
-    graph <- add_direction(graph, nodes)
-    if (circular) {
-        radial <- radial_trans(r.range = rev(range(nodes$y)),
-                               a.range = range(nodes$x),
-                               offset = offset)
-        coords <- radial$transform(nodes$y, nodes$x)
-        nodes$x <- coords$x
-        nodes$y <- coords$y
-    }
-    extraData <- as_tibble(graph, active = 'nodes')
-    nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
-    nodes$circular <- circular
-    attr(nodes, 'graph') <- graph
-    nodes
+  }
+  offset <- 0
+  for (i in startnode) {
+    nodes <- recurse_layout(graph, i, nodes, direction = direction, offset)
+    offset <- max(nodes$x[nodes$leaf], na.rm = TRUE) + 1
+  }
+  graph <- add_direction(graph, nodes)
+  if (circular) {
+    radial <- radial_trans(
+      r.range = rev(range(nodes$y)),
+      a.range = range(nodes$x),
+      offset = offset
+    )
+    coords <- radial$transform(nodes$y, nodes$x)
+    nodes$x <- coords$x
+    nodes$y <- coords$y
+  }
+  extra_data <- as_tibble(graph, active = 'nodes')
+  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
+  nodes$circular <- circular
+  attr(nodes, 'graph') <- graph
+  nodes
 }

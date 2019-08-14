@@ -4,7 +4,6 @@
 \alias{ggraph}
 \alias{create_layout}
 \alias{layout_ggraph}
-\alias{createLayout}
 \alias{create_layout.default}
 \alias{create_layout.layout_ggraph}
 \alias{create_layout.tbl_graph}
@@ -122,7 +121,6 @@ and the graph will be added as the \code{graph} attribute.
 require(tidygraph)
 gr <- create_notable('bull')
 layout <- create_layout(gr, layout = 'igraph', algorithm = 'kk')
-
 }
 \seealso{
 \code{\link[=get_edges]{get_edges()}} for extracting edge information from the

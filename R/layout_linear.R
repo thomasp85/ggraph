@@ -27,29 +27,31 @@
 #'
 #' @importFrom igraph gorder
 #'
-layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric = FALSE, offset = pi/2) {
-    sort.by <- enquo(sort.by)
-    sort.by <- eval_tidy(sort.by, .N())
-    if (!is.null(sort.by)) {
-        if (is.numeric(sort.by) && use.numeric) {
-            x <- sort.by
-        } else {
-            x <- order(order(sort.by))
-        }
+layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric = FALSE, offset = pi / 2) {
+  sort.by <- enquo(sort.by)
+  sort.by <- eval_tidy(sort.by, .N())
+  if (!is.null(sort.by)) {
+    if (is.numeric(sort.by) && use.numeric) {
+      x <- sort.by
     } else {
-        x <- seq_len(gorder(graph))
+      x <- order(order(sort.by))
     }
-    nodes <- data.frame(x = x, y = 0)
-    if (circular) {
-        radial <- radial_trans(r.range = rev(range(nodes$y)),
-                               a.range = range(nodes$x),
-                               offset = offset)
-        coords <- radial$transform(nodes$y, nodes$x)
-        nodes$x <- coords$x
-        nodes$y <- coords$y
-    }
-    extraData <- as_tibble(graph, active = 'nodes')
-    nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
-    nodes$circular <- circular
-    nodes
+  } else {
+    x <- seq_len(gorder(graph))
+  }
+  nodes <- data.frame(x = x, y = 0)
+  if (circular) {
+    radial <- radial_trans(
+      r.range = rev(range(nodes$y)),
+      a.range = range(nodes$x),
+      offset = offset
+    )
+    coords <- radial$transform(nodes$y, nodes$x)
+    nodes$x <- coords$x
+    nodes$y <- coords$y
+  }
+  extra_data <- as_tibble(graph, active = 'nodes')
+  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
+  nodes$circular <- circular
+  nodes
 }

@@ -2,9 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{node_angle}
 \alias{node_angle}
-\alias{nAngle}
 \alias{edge_angle}
-\alias{eAngle}
 \title{Get the angle of nodes and edges}
 \usage{
 node_angle(x, y, degrees = TRUE)
@@ -36,7 +34,7 @@ flareGraph <- tbl_graph(flare$vertices, flare$edges)
 ggraph(flareGraph, 'dendrogram', circular = TRUE) +
   geom_edge_diagonal0() +
   geom_node_text(aes(filter = leaf, angle = node_angle(x, y), label = shortName),
-                 hjust = 'outward', size = 2) +
+    hjust = 'outward', size = 2
+  ) +
   expand_limits(x = c(-1.3, 1.3), y = c(-1.3, 1.3))
-
 }

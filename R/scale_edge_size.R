@@ -27,7 +27,7 @@ NULL
 #' @importFrom scales area_pal
 #' @export
 scale_edge_size_continuous <- function(..., range = c(1, 6)) {
-    continuous_scale("edge_size", "area", area_pal(range), ...)
+  continuous_scale('edge_size', 'area', area_pal(range), ...)
 }
 #' @rdname scale_edge_size
 #'
@@ -36,7 +36,7 @@ scale_edge_size_continuous <- function(..., range = c(1, 6)) {
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_radius <- function(..., range = c(1, 6)) {
-    continuous_scale("edge_size", "radius", rescale_pal(range), ...)
+  continuous_scale('edge_size', 'radius', rescale_pal(range), ...)
 }
 #' @rdname scale_edge_size
 #'
@@ -49,10 +49,10 @@ scale_edge_size <- scale_edge_size_continuous
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_size_discrete <- function(..., range = c(2, 6)) {
-    discrete_scale("edge_size", "size_d", function(n) {
-        area <- seq(range[1] ^ 2, range[2] ^ 2, length.out = n)
-        sqrt(area)
-    }, ...)
+  discrete_scale('edge_size', 'size_d', function(n) {
+    area <- seq(range[1]^2, range[2]^2, length.out = n)
+    sqrt(area)
+  }, ...)
 }
 #' @rdname scale_edge_size
 #'
@@ -62,9 +62,10 @@ scale_edge_size_discrete <- function(..., range = c(2, 6)) {
 #' @importFrom scales abs_area rescale_max
 #' @export
 scale_edge_size_area <- function(..., max_size = 6) {
-    continuous_scale("edge_size", "area",
-                     palette = abs_area(max_size),
-                     rescaler = rescale_max, ...)
+  continuous_scale('edge_size', 'area',
+    palette = abs_area(max_size),
+    rescaler = rescale_max, ...
+  )
 }
 #' @rdname scale_edge_size
 #'
@@ -72,7 +73,7 @@ scale_edge_size_area <- function(..., max_size = 6) {
 #'
 #' @export
 scale_edge_size_manual <- function(..., values) {
-    manual_scale("edge_size", values, ...)
+  manual_scale('edge_size', values, ...)
 }
 #' @rdname scale_edge_size
 #'
@@ -80,8 +81,9 @@ scale_edge_size_manual <- function(..., values) {
 #'
 #' @importFrom scales identity_pal
 #' @export
-scale_edge_size_identity <- function(..., guide = "none") {
-    sc <- discrete_scale("edge_size", "identity", identity_pal(), ...,
-                         guide = guide, super = ScaleDiscreteIdentity)
-    sc
+scale_edge_size_identity <- function(..., guide = 'none') {
+  sc <- discrete_scale('edge_size', 'identity', identity_pal(), ...,
+    guide = guide, super = ScaleDiscreteIdentity
+  )
+  sc
 }

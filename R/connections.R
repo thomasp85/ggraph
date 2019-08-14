@@ -18,42 +18,53 @@
 #'
 #' @param ... Additional information to be added to the final data output
 #'
+#' @param weight An expression to be evaluated on the edge data to provide
+#' weigths for the shortest path calculations
+#'
+#' @inheritParams igraph::shortest_paths
+#'
 #' @return A function that takes a layout_ggraph object and returns the given
 #' connections
 #'
 #' @family extractors
 #'
 #' @export
-get_con <- function(from = integer(), to = integer(), paths = NULL, ...) {
-    if (length(from) != length(to)) {
-        stop('from and to must be of equal length')
+get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight = NULL, mode = 'all') {
+  if (length(from) != length(to)) {
+    stop('from and to must be of equal length')
+  }
+  function(layout) {
+    if (length(from) == 0) {
+      return(NULL)
     }
-    function(layout) {
-        if (length(from) == 0) return(NULL)
-        connections <- getConnections(layout, from, to)
-        nodes <- as.data.frame(layout)[unlist(connections), ]
-        nodes$con.id <- rep(seq_along(connections), lengths(connections))
-        if (!is.null(paths)) {
-            extra <- as.data.frame(layout)[unlist(paths), ]
-            extra$con.id <- rep(seq_along(paths) + length(connections),
-                                lengths(paths))
-            nodes <- rbind(nodes, extra)
+    connections <- collect_connections(
+      layout = layout, from = from, to = to,
+      weight = {
+        {
+          weight
         }
-        nodes <- do.call(
-            cbind,
-            c(list(nodes),
-              lapply(list(...), rep, length.out = nrow(nodes)),
-              list(stringsAsFactors = FALSE))
-        )
-        structure(nodes, type = 'connection_ggraph')
+      }, mode = mode
+    )
+    nodes <- as.data.frame(layout, stringsAsFactors = FALSE)[unlist(connections), ]
+    nodes$con.id <- rep(seq_along(connections), lengths(connections))
+    if (!is.null(paths)) {
+      extra <- as.data.frame(layout, stringsAsFactors = FALSE)[unlist(paths), ]
+      extra$con.id <- rep(
+        seq_along(paths) + length(connections),
+        lengths(paths)
+      )
+      nodes <- rbind(nodes, extra)
     }
-}
-#' @rdname get_con
-#' @usage NULL
-#' @export
-gCon <- function(...) {
-    .Deprecated('get_con')
-    get_con(...)
+    nodes <- do.call(
+      cbind,
+      c(
+        list(nodes),
+        lapply(list(...), function(x) rep_len(x, length(from))[nodes$con.id]),
+        list(stringsAsFactors = FALSE)
+      )
+    )
+    structure(nodes, type = 'connection_ggraph')
+  }
 }
 #' Internal data extractors
 #'
@@ -70,9 +81,9 @@ gCon <- function(...) {
 #' @export
 #' @rdname internal_extractors
 #' @name internal_extractors
-getConnections <- function(layout, from, to, ...) {
-    UseMethod('getConnections', layout)
+collect_connections <- function(layout, from, to, ...) {
+  UseMethod('collect_connections', layout)
 }
-getConnections.default <- function(layout, ...) {
-    stop('Don\'t know how to get connections from an object of class ', class(layout))
+collect_connections.default <- function(layout, ...) {
+  stop('Don\'t know how to get connections from an object of class ', class(layout))
 }

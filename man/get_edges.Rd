@@ -2,7 +2,6 @@
 % Please edit documentation in R/edges.R
 \name{get_edges}
 \alias{get_edges}
-\alias{gEdges}
 \title{Create edge extractor function}
 \usage{
 get_edges(format = "short", collapse = "none", ...)

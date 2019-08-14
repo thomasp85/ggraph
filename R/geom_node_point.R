@@ -33,14 +33,14 @@
 #'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point()
-#'
 #' @export
 #'
-geom_node_point <- function(mapping = NULL, data = NULL, position = "identity",
+geom_node_point <- function(mapping = NULL, data = NULL, position = 'identity',
                             show.legend = NA, ...) {
-    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y))
-    layer(data = data, mapping = mapping, stat = StatFilter, geom = GeomPoint,
-          position = position, show.legend = show.legend, inherit.aes = FALSE,
-          params = list(na.rm = FALSE, ...)
-    )
+  mapping <- aes_intersect(mapping, aes(x = x, y = y))
+  layer(
+    data = data, mapping = mapping, stat = StatFilter, geom = GeomPoint,
+    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    params = list(na.rm = FALSE, ...)
+  )
 }

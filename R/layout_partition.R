@@ -57,53 +57,57 @@
 #'
 #' @importFrom ggforce radial_trans
 #'
-layout_tbl_graph_partition <- function(graph, weight = NULL, circular = FALSE, height = NULL, sort.by = NULL, direction = 'out', offset = pi/2, const.area = TRUE) {
-    weight <- enquo(weight)
-    weight <- eval_tidy(weight, .N())
-    height <- enquo(height)
-    height <- eval_tidy(height, .N())
-    sort.by <- enquo(sort.by)
-    sort.by <- eval_tidy(sort.by, .N())
-    hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight, height)
-    layout <- partitionTree(hierarchy$parent, hierarchy$order, hierarchy$weight, hierarchy$height)[-1,]
-    if (circular) {
-        if (const.area) {
-            y0 <- sqrt(layout[, 2])
-            y1 <- sqrt(layout[, 2] + layout[, 4])
-            layout[, 2] <- y0
-            layout[, 4] <- y1 - y0
-        }
-        width_range <- c(0, max(rowSums(layout[, c(1, 3)])))
-        radial <- radial_trans(r.range = c(0, 1),
-                               a.range = width_range,
-                               offset = offset,
-                               pad = 0)
-        coords <- radial$transform(layout[, 2] + layout[, 4]/2,
-                                   layout[, 1] + layout[, 3]/2)
-        layout <- data.frame(
-            x = coords$x,
-            y = coords$y,
-            r0 = layout[, 2],
-            r = layout[, 2] + layout[, 4],
-            start = 2*pi*layout[, 1]/width_range[2],
-            end = 2*pi*(layout[, 1] + layout[, 3])/width_range[2],
-            circular = TRUE
-        )
-        layout$x[1] <- 0
-        layout$y[1] <- 0
-    } else {
-        layout <- data.frame(
-            x = layout[, 1] + layout[, 3]/2,
-            y = layout[, 2] + layout[, 4]/2,
-            width = layout[, 3],
-            height = layout[, 4],
-            circular = FALSE
-        )
+layout_tbl_graph_partition <- function(graph, weight = NULL, circular = FALSE, height = NULL, sort.by = NULL, direction = 'out', offset = pi / 2, const.area = TRUE) {
+  weight <- enquo(weight)
+  weight <- eval_tidy(weight, .N())
+  height <- enquo(height)
+  height <- eval_tidy(height, .N())
+  sort.by <- enquo(sort.by)
+  sort.by <- eval_tidy(sort.by, .N())
+  hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight, height)
+  layout <- partitionTree(hierarchy$parent, hierarchy$order, hierarchy$weight, hierarchy$height)[-1, ]
+  if (circular) {
+    if (const.area) {
+      y0 <- sqrt(layout[, 2])
+      y1 <- sqrt(layout[, 2] + layout[, 4])
+      layout[, 2] <- y0
+      layout[, 4] <- y1 - y0
     }
-    layout$leaf = degree(graph, mode = direction) == 0
-    layout$depth = node_depth(graph, mode = direction)
-    extraData <- as_tibble(graph, active = 'nodes')
-    layout <- cbind(layout, extraData[, !names(extraData) %in% names(layout), drop = FALSE])
-    attr(layout, 'graph') <- add_direction(graph, layout)
-    layout
+    width_range <- c(0, max(rowSums(layout[, c(1, 3)])))
+    radial <- radial_trans(
+      r.range = c(0, 1),
+      a.range = width_range,
+      offset = offset,
+      pad = 0
+    )
+    coords <- radial$transform(
+      layout[, 2] + layout[, 4] / 2,
+      layout[, 1] + layout[, 3] / 2
+    )
+    layout <- data.frame(
+      x = coords$x,
+      y = coords$y,
+      r0 = layout[, 2],
+      r = layout[, 2] + layout[, 4],
+      start = 2 * pi * layout[, 1] / width_range[2],
+      end = 2 * pi * (layout[, 1] + layout[, 3]) / width_range[2],
+      circular = TRUE
+    )
+    layout$x[1] <- 0
+    layout$y[1] <- 0
+  } else {
+    layout <- data.frame(
+      x = layout[, 1] + layout[, 3] / 2,
+      y = layout[, 2] + layout[, 4] / 2,
+      width = layout[, 3],
+      height = layout[, 4],
+      circular = FALSE
+    )
+  }
+  layout$leaf <- degree(graph, mode = direction) == 0
+  layout$depth <- node_depth(graph, mode = direction)
+  extra_data <- as_tibble(graph, active = 'nodes')
+  layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
+  attr(layout, 'graph') <- add_direction(graph, layout)
+  layout
 }

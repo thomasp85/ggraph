@@ -6,19 +6,21 @@
 \alias{geom_edge_elbow0}
 \title{Draw edges as elbows}
 \usage{
-geom_edge_elbow(mapping = NULL, data = get_edges(), position = "identity",
-  arrow = NULL, flipped = FALSE, n = 100, lineend = "butt",
-  linejoin = "round", linemitre = 1, label_colour = "black",
-  label_alpha = 1, label_parse = FALSE, check_overlap = FALSE,
-  angle_calc = "rot", force_flip = TRUE, label_dodge = NULL,
-  label_push = NULL, show.legend = NA, ...)
+geom_edge_elbow(mapping = NULL, data = get_edges(),
+  position = "identity", arrow = NULL, strength = 1,
+  flipped = FALSE, n = 100, lineend = "butt", linejoin = "round",
+  linemitre = 1, label_colour = "black", label_alpha = 1,
+  label_parse = FALSE, check_overlap = FALSE, angle_calc = "rot",
+  force_flip = TRUE, label_dodge = NULL, label_push = NULL,
+  show.legend = NA, ...)
 
 geom_edge_elbow2(mapping = NULL, data = get_edges("long"),
-  position = "identity", arrow = NULL, flipped = FALSE, n = 100,
-  lineend = "butt", linejoin = "round", linemitre = 1,
-  label_colour = "black", label_alpha = 1, label_parse = FALSE,
-  check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...)
+  position = "identity", arrow = NULL, strength = 1,
+  flipped = FALSE, n = 100, lineend = "butt", linejoin = "round",
+  linemitre = 1, label_colour = "black", label_alpha = 1,
+  label_parse = FALSE, check_overlap = FALSE, angle_calc = "rot",
+  force_flip = TRUE, label_dodge = NULL, label_push = NULL,
+  show.legend = NA, ...)
 
 geom_edge_elbow0(mapping = NULL, data = get_edges(),
   position = "identity", arrow = NULL, flipped = FALSE,
@@ -38,6 +40,9 @@ See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 a call to a position adjustment function.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
+
+\item{strength}{How bend the elbow should be. 1 will give a right angle,
+while \code{0} will give a straight line. Ignored for circular layouts}
 
 \item{flipped}{Logical, Has the layout been flipped by reassigning the
 mapping of x, y etc?}
@@ -84,7 +89,7 @@ display.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 }
 \description{
@@ -201,7 +206,7 @@ automatically be renamed appropriately.
 
 \examples{
 require(tidygraph)
-irisDen <- hclust(dist(iris[1:4], method='euclidean'), method='ward.D2') \%>\%
+irisDen <- hclust(dist(iris[1:4], method = 'euclidean'), method = 'ward.D2') \%>\%
   as_tbl_graph() \%>\%
   mutate(class = sample(letters[1:3], n(), TRUE)) \%>\%
   activate(edges) \%>\%
@@ -215,7 +220,6 @@ ggraph(irisDen, 'dendrogram') +
 
 ggraph(irisDen, 'dendrogram', height = height) +
   geom_edge_elbow0(aes(colour = class))
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
@@ -225,7 +229,8 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_hive}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}},
-  \code{\link{geom_edge_point}}
+  \code{\link{geom_edge_point}},
+  \code{\link{geom_edge_tile}}
 }
 \author{
 Thomas Lin Pedersen

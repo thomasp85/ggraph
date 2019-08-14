@@ -29,16 +29,16 @@
 #' Computer Graphics Forum, 35: 693–716. <http://doi.org/10.1111/cgf.12935>
 #'
 layout_tbl_graph_matrix <- function(graph, circular = FALSE, sort.by = NULL) {
-    sort.by <- enquo(sort.by)
-    sort.by <- eval_tidy(sort.by, .N())
-    if (!is.null(sort.by)) {
-        pos <- order(order(sort.by))
-    } else {
-        pos <- seq_len(gorder(graph))
-    }
-    nodes <- data.frame(x = pos, y = pos)
-    extraData <- as_tibble(graph, active = 'nodes')
-    nodes <- cbind(nodes, extraData[, !names(extraData) %in% names(nodes), drop = FALSE])
-    nodes$circular <- FALSE
-    nodes
+  sort.by <- enquo(sort.by)
+  sort.by <- eval_tidy(sort.by, .N())
+  if (!is.null(sort.by)) {
+    pos <- order(order(sort.by))
+  } else {
+    pos <- seq_len(gorder(graph))
+  }
+  nodes <- data.frame(x = pos, y = pos)
+  extra_data <- as_tibble(graph, active = 'nodes')
+  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
+  nodes$circular <- FALSE
+  nodes
 }

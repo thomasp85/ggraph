@@ -1,6 +1,6 @@
 #' Draw edges as glyphs
 #'
-#' This geom draws edges as glyphs with their x-position defined by the
+#' This geom draws edges as tiles with their x-position defined by the
 #' x-position of the start node, and the y-position defined by the y-position of
 #' the end node. As such it will result in a matrix layout when used in
 #' conjunction with [layout_tbl_graph_matrix()]
@@ -8,18 +8,18 @@
 #' @inheritSection geom_edge_link Edge aesthetic name expansion
 #'
 #' @section Aesthetics:
-#' `geom_edge_point` understands the following
+#' `geom_edge_tile` understands the following
 #' aesthetics. Bold aesthetics are automatically set, but can be overridden.
 #'
 #' - **x**
 #' - **y**
-#' - edge_shape
+#' - edge_fill
 #' - edge_colour
 #' - edge_size
 #' - edge_alpha
 #' - filter
 #'
-#' @inheritParams ggplot2::geom_point
+#' @inheritParams ggplot2::geom_tile
 #'
 #' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
 #' or [ggplot2::aes_()]. By default x, y, xend, yend, group and
@@ -37,8 +37,8 @@
 #'
 #' @family geom_edge_*
 #'
-#' @rdname geom_edge_point
-#' @name geom_edge_point
+#' @rdname geom_edge_tile
+#' @name geom_edge_tile
 #'
 #' @examples
 #' require(tidygraph)
@@ -50,23 +50,23 @@
 #'   unmorph()
 #'
 #' ggraph(gr, 'matrix', sort.by = node_rank_hclust()) +
-#'   geom_edge_point(aes(colour = edge_group), mirror = TRUE, edge_size = 3) +
+#'   geom_edge_tile(aes(fill = edge_group), mirror = TRUE) +
 #'   scale_y_reverse() +
 #'   coord_fixed() +
 #'   labs(edge_colour = 'Infomap Cluster') +
 #'   ggtitle("Zachary' Karate Club")
 NULL
 
-#' @rdname geom_edge_point
+#' @rdname geom_edge_tile
 #'
 #' @export
-geom_edge_point <- function(mapping = NULL, data = get_edges(),
+geom_edge_tile <- function(mapping = NULL, data = get_edges(),
                             position = 'identity', mirror = FALSE,
                             show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(x = x, y = yend))
   layer(
-    data = data, mapping = mapping, stat = StatFilter, geom = GeomEdgePoint,
+    data = data, mapping = mapping, stat = StatFilter, geom = GeomEdgeTile,
     position = position, show.legend = show.legend, inherit.aes = FALSE,
     params = list(na.rm = FALSE, mirror = mirror, ...)
   )

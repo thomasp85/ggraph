@@ -1,8 +1,7 @@
 Package: ggraph
 Type: Package
 Title: An Implementation of Grammar of Graphics for Graphs and Networks
-Version: 1.0.1.9999
-Date: 2017-02-23
+Version: 1.0.2.9999
 Authors@R:
     person(given = "Thomas Lin",
            family = "Pedersen",
@@ -33,19 +32,21 @@ Imports:
     viridis,
     rlang,
     tidygraph
-Suggests: network,
+Suggests: 
+    network,
     knitr,
     rmarkdown,
     purrr,
     tibble,
-    seriation
+    seriation,
+    deldir
 Remotes: tidyverse/ggplot2,
     thomasp85/tidygraph
 LinkingTo: Rcpp
-RoxygenNote: 6.0.1.9000
+RoxygenNote: 6.1.1
 Depends:
     R (>= 2.10),
-    ggplot2 (>= 2.0.0)
+    ggplot2 (>= 3.0.0)
 VignetteBuilder: knitr
 URL: https://github.com/thomasp85/ggraph
 BugReports: https://github.com/thomasp85/ggraph/issues

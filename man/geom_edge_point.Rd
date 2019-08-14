@@ -4,8 +4,8 @@
 \alias{geom_edge_point}
 \title{Draw edges as glyphs}
 \usage{
-geom_edge_point(mapping = NULL, data = get_edges(), position = "identity",
-  mirror = FALSE, show.legend = NA, ...)
+geom_edge_point(mapping = NULL, data = get_edges(),
+  position = "identity", mirror = FALSE, show.legend = NA, ...)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -31,7 +31,7 @@ display.}
 
 \item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
-\code{color = "red"} or \code{size = 3}. They may also be parameters
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 }
 \description{
@@ -65,21 +65,6 @@ automatically be renamed appropriately.
 
 \examples{
 require(tidygraph)
-gr <- create_notable('bull') \%>\%
-  mutate(class = sample(letters[1:3], n(), replace = TRUE)) \%>\%
-  activate(edges) \%>\%
-  mutate(class = sample(letters[1:3], n(), replace = TRUE))
-
-ggraph(gr, 'igraph', algorithm = 'nicely') +
-  geom_edge_link(aes(alpha = ..index..))
-
-ggraph(gr, 'igraph', algorithm = 'nicely') +
-  geom_edge_link2(aes(colour = node.class))
-
-ggraph(gr, 'igraph', algorithm = 'nicely') +
-  geom_edge_link0(aes(colour = class))
-
-require(tidygraph)
 gr <- create_notable('zachary') \%>\%
   mutate(group = group_infomap()) \%>\%
   morph(to_split, group) \%>\%
@@ -93,7 +78,6 @@ ggraph(gr, 'matrix', sort.by = node_rank_hclust()) +
   coord_fixed() +
   labs(edge_colour = 'Infomap Cluster') +
   ggtitle("Zachary' Karate Club")
-
 }
 \seealso{
 Other geom_edge_*: \code{\link{geom_edge_arc}},
@@ -103,7 +87,8 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_fan}},
   \code{\link{geom_edge_hive}},
   \code{\link{geom_edge_link}},
-  \code{\link{geom_edge_loop}}
+  \code{\link{geom_edge_loop}},
+  \code{\link{geom_edge_tile}}
 }
 \author{
 Thomas Lin Pedersen

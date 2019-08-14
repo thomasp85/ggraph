@@ -59,7 +59,7 @@
 #' @examples
 #' require(tidygraph)
 #' gr <- as_tbl_graph(
-#'   data.frame(from=c(1,1,2,2,3,3,3), to=c(1,2,2,3,3,1,2))
+#'   data.frame(from = c(1, 1, 2, 2, 3, 3, 3), to = c(1, 2, 2, 3, 3, 1, 2))
 #' )
 #'
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
@@ -69,7 +69,6 @@
 #' ggraph(gr, 'igraph', algorithm = 'nicely') +
 #'   geom_edge_loop0() +
 #'   geom_edge_fan0()
-#'
 #' @rdname geom_edge_loop
 #' @name geom_edge_loop
 #'
@@ -81,52 +80,58 @@ NULL
 #' @importFrom ggforce StatBezier
 #' @export
 StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
-    setup_data = function(data, params) {
-        if (any(names(data) == 'filter')) {
-            if (!is.logical(data$filter)) {
-                stop('filter must be logical')
-            }
-            data <- data[data$filter, names(data) != 'filter']
-        }
-        data <- data[data$from == data$to, ]
-        data$group <- seq_len(nrow(data))
-        if (nrow(data) != 0) {
-            createLoops(data, params)
-        } else {
-            NULL
-        }
-    },
-    required_aes = c('x', 'y', 'from', 'to', 'span', 'direction', 'strength'),
-    default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm', 'n')
+  setup_data = function(data, params) {
+    if (any(names(data) == 'filter')) {
+      if (!is.logical(data$filter)) {
+        stop('filter must be logical')
+      }
+      data <- data[data$filter, names(data) != 'filter']
+    }
+    if (nrow(data) == 0) return(NULL)
+    data <- data[data$from == data$to, ]
+    data$group <- seq_len(nrow(data))
+    if (nrow(data) != 0) {
+      create_loops(data, params)
+    } else {
+      NULL
+    }
+  },
+  required_aes = c('x', 'y', 'from', 'to', 'span', 'direction', 'strength'),
+  default_aes = aes(filter = TRUE),
+  extra_params = c('na.rm', 'n')
 )
 #' @rdname geom_edge_loop
 #'
 #' @export
 geom_edge_loop <- function(mapping = NULL, data = get_edges(),
-                           position = "identity", arrow = NULL, n = 100,
-                           lineend = "butt", linejoin = "round", linemitre = 1,
-                           label_colour = 'black',  label_alpha = 1,
+                           position = 'identity', arrow = NULL, n = 100,
+                           lineend = 'butt', linejoin = 'round', linemitre = 1,
+                           label_colour = 'black', label_alpha = 1,
                            label_parse = FALSE, check_overlap = FALSE,
                            angle_calc = 'rot', force_flip = TRUE,
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
-    mapping <- completeEdgeAes(mapping)
-    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, from=~from, to=~to,
-                                          span=90, direction=45, strength=1))
-    layer(data = data, mapping = mapping, stat = StatEdgeLoop,
-          geom = GeomEdgePath, position = position, show.legend = show.legend,
-          inherit.aes = FALSE,
-          params = expand_edge_aes(
-              list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-                   linemitre = linemitre, na.rm = FALSE, n = n,
-                   interpolate = FALSE,
-                   label_colour = label_colour, label_alpha = label_alpha,
-                   label_parse = label_parse, check_overlap = check_overlap,
-                   angle_calc = angle_calc, force_flip = force_flip,
-                   label_dodge = label_dodge, label_push = label_push, ...)
-          )
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes(
+    x = x, y = y, from = from, to = to,
+    span = 90, direction = 45, strength = 1
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeLoop,
+    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, na.rm = FALSE, n = n,
+        interpolate = FALSE,
+        label_colour = label_colour, label_alpha = label_alpha,
+        label_parse = label_parse, check_overlap = check_overlap,
+        angle_calc = angle_calc, force_flip = force_flip,
+        label_dodge = label_dodge, label_push = label_push, ...
+      )
     )
+  )
 }
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -134,48 +139,51 @@ geom_edge_loop <- function(mapping = NULL, data = get_edges(),
 #' @importFrom ggforce StatBezier0
 #' @export
 StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
-    setup_data = function(data, params) {
-        StatEdgeLoop$setup_data(data, params)
-    },
-    required_aes = c('x', 'y', 'from', 'to', 'span', 'direction', 'strength'),
-    default_aes = aes(filter = TRUE),
-    extra_params = c('na.rm')
+  setup_data = function(data, params) {
+    StatEdgeLoop$setup_data(data, params)
+  },
+  required_aes = c('x', 'y', 'from', 'to', 'span', 'direction', 'strength'),
+  default_aes = aes(filter = TRUE),
+  extra_params = c('na.rm')
 )
 #' @rdname geom_edge_loop
 #'
 #' @export
 geom_edge_loop0 <- function(mapping = NULL, data = get_edges(),
-                            position = "identity", arrow = NULL,
-                            lineend = "butt", show.legend = NA, ...) {
-    mapping <- completeEdgeAes(mapping)
-    mapping <- aesIntersect(mapping, aes_(x=~x, y=~y, from=~from, to=~to,
-                                          span=90, direction=45, strength=1))
-    layer(data = data, mapping = mapping, stat = StatEdgeLoop0,
-          geom = GeomEdgeBezier, position = position, show.legend = show.legend,
-          inherit.aes = FALSE,
-          params = expand_edge_aes(
-              list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
-          )
+                            position = 'identity', arrow = NULL,
+                            lineend = 'butt', show.legend = NA, ...) {
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes(
+    x = x, y = y, from = from, to = to,
+    span = 90, direction = 45, strength = 1
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeLoop0,
+    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
     )
+  )
 }
 
-createLoops <- function(loops, params) {
-    controlAngle1 <- loops$direction - loops$span/2
-    controlAngle2 <- loops$direction + loops$span/2
-    controls1 <- findLoopControls(loops, controlAngle1)
-    controls2 <- findLoopControls(loops, controlAngle2)
-    end <- loops
-    bezierStart <- seq(1, by = 4, length.out = nrow(loops))
-    loops$index <- bezierStart
-    controls1$index <- bezierStart + 1
-    controls2$index <- bezierStart + 2
-    end$index <- bezierStart + 3
-    loops <- rbind(loops, controls1, controls2, end)
-    loops[order(loops$index), names(loops) != 'index']
+create_loops <- function(loops, params) {
+  control_angle1 <- loops$direction - loops$span / 2
+  control_angle2 <- loops$direction + loops$span / 2
+  controls1 <- find_loop_controls(loops, control_angle1)
+  controls2 <- find_loop_controls(loops, control_angle2)
+  end <- loops
+  bezier_start <- seq(1, by = 4, length.out = nrow(loops))
+  loops$index <- bezier_start
+  controls1$index <- bezier_start + 1
+  controls2$index <- bezier_start + 2
+  end$index <- bezier_start + 3
+  loops <- rbind(loops, controls1, controls2, end)
+  loops[order(loops$index), names(loops) != 'index']
 }
-findLoopControls <- function(loops, angle) {
-    angle <- angle/360 * 2*pi
-    loops$x <- loops$x + cos(angle) * loops$strength
-    loops$y <- loops$y + sin(angle) * loops$strength
-    loops
+find_loop_controls <- function(loops, angle) {
+  angle <- angle / 360 * 2 * pi
+  loops$x <- loops$x + cos(angle) * loops$strength
+  loops$y <- loops$y + sin(angle) * loops$strength
+  loops
 }

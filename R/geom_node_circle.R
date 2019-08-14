@@ -7,7 +7,7 @@
 #' [ggplot2::coord_fixed()]
 #'
 #' @section Aesthetics:
-#' `geom_node_point` understand the following aesthetics. Bold aesthetics are
+#' `geom_node_circle` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden.
 #'
 #' - **x0**
@@ -37,17 +37,17 @@
 #' ggraph(gr, 'circlepack', weight = size) +
 #'   geom_node_circle() +
 #'   coord_fixed()
-#'
 #' @export
 #' @importFrom ggforce GeomCircle
 #'
-geom_node_circle <- function(mapping = NULL, data = NULL, position = "identity",
+geom_node_circle <- function(mapping = NULL, data = NULL, position = 'identity',
                              show.legend = NA, ...) {
-    mapping <- aesIntersect(mapping, aes_(x0=~x, y0=~y, r=~r))
-    layer(data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
-          position = position, show.legend = show.legend, inherit.aes = FALSE,
-          params = list(na.rm = FALSE, ...)
-    )
+  mapping <- aes_intersect(mapping, aes(x0 = x, y0 = y, r = r))
+  layer(
+    data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
+    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    params = list(na.rm = FALSE, ...)
+  )
 }
 
 #' @rdname ggraph-extensions
@@ -56,14 +56,15 @@ geom_node_circle <- function(mapping = NULL, data = NULL, position = "identity",
 #' @importFrom ggforce StatCircle
 #' @export
 StatNodeCircle <- ggproto('StatNodeCircle', StatCircle,
-    setup_data = function(data, params) {
-        if (any(names(data) == 'filter')) {
-            if (!is.logical(data$filter)) {
-                stop('filter must be logical')
-            }
-            data <- data[data$filter, names(data) != 'filter']
-        }
-        data
-    },
-    default_aes = aes(filter = TRUE)
+  setup_data = function(data, params) {
+    if (any(names(data) == 'filter')) {
+      if (!is.logical(data$filter)) {
+        stop('filter must be logical')
+      }
+      data <- data[data$filter, names(data) != 'filter']
+    }
+    if (nrow(data) == 0) return(NULL)
+    data
+  },
+  default_aes = aes(filter = TRUE)
 )
