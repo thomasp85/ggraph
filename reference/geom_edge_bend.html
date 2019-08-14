@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Draw edges as diagonals — geom_edge_diagonal • ggraph</title>
+<title>Draw edges as diagonals — geom_edge_bend • ggraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,14 +37,11 @@
 
 
 
-<meta property="og:title" content="Draw edges as diagonals — geom_edge_diagonal" />
+<meta property="og:title" content="Draw edges as diagonals — geom_edge_bend" />
 
-<meta property="og:description" content="This geom draws edges as diagonal bezier curves as known from
-d3.svg.diagonal.
-A diagonal in this context is a quadratic bezier with the control points
-positioned halfway between the start and end points but on the same axis.
-This produces a pleasing fan-in, fan-out line that is mostly relevant for
-hierarchical layouts as it implies an overall directionality in the plot." />
+<meta property="og:description" content="This geom draws edges as cubic bezier curves with the control points
+positioned along the elbow edge. It has the appearance of a softened elbow
+edge with the hard angle substituted by a tapered bend." />
 
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -161,22 +158,19 @@ hierarchical layouts as it implies an overall directionality in the plot." />
   <div class="col-md-9 contents">
     <div class="page-header">
     <h1>Draw edges as diagonals</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/geom_edge_diagonal.R'><code>R/geom_edge_diagonal.R</code></a></small>
-    <div class="hidden name"><code>geom_edge_diagonal.Rd</code></div>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/geom_edge_bend.R'><code>R/geom_edge_bend.R</code></a></small>
+    <div class="hidden name"><code>geom_edge_bend.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This geom draws edges as diagonal bezier curves as known from
-<a href='https://github.com/mbostock/d3/wiki/SVG-Shapes#_diagonal'>d3.svg.diagonal</a>.
-A diagonal in this context is a quadratic bezier with the control points
-positioned halfway between the start and end points but on the same axis.
-This produces a pleasing fan-in, fan-out line that is mostly relevant for
-hierarchical layouts as it implies an overall directionality in the plot.</p>
+    <p>This geom draws edges as cubic bezier curves with the control points
+positioned along the elbow edge. It has the appearance of a softened elbow
+edge with the hard angle substituted by a tapered bend.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>geom_edge_diagonal</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
+    <pre class="usage"><span class='fu'>geom_edge_bend</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>flipped</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>,
   <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -184,7 +178,7 @@ hierarchical layouts as it implies an overall directionality in the plot.</p>
   <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
-<span class='fu'>geom_edge_diagonal2</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"long"</span>),
+<span class='fu'>geom_edge_bend2</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"long"</span>),
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>flipped</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>,
   <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
@@ -192,7 +186,7 @@ hierarchical layouts as it implies an overall directionality in the plot.</p>
   <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
-<span class='fu'>geom_edge_diagonal0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
+<span class='fu'>geom_edge_bend0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
   <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>flipped</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
     
@@ -223,8 +217,8 @@ a call to a position adjustment function.</p></td>
     </tr>
     <tr>
       <th>strength</th>
-      <td><p>The strength of the curvature of the diagonal. <code>0</code> will
-result in a straight line while <code>1</code> will give the familiar S-shape.</p></td>
+      <td><p>The strength of the curvature of the bend. <code>0</code> will
+result in a straight line while <code>1</code> will give a strong arc.</p></td>
     </tr>
     <tr>
       <th>flipped</th>
@@ -309,7 +303,7 @@ to the paired geom/stat.</p></td>
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
-    <p><code>geom_edge_diagonal</code> and <code>geom_edge_diagonal0</code> understand the following
+    <p><code>geom_edge_bend</code> and <code>geom_edge_bend0</code> understand the following
 aesthetics. Bold aesthetics are automatically set, but can be overridden.</p><ul>
 <li><p><strong>x</strong></p></li>
 <li><p><strong>y</strong></p></li>
@@ -322,7 +316,7 @@ aesthetics. Bold aesthetics are automatically set, but can be overridden.</p><ul
 <li><p>edge_alpha</p></li>
 <li><p>filter</p></li>
 </ul>
-    <p><code>geom_edge_diagonal2</code> understand the following aesthetics. Bold aesthetics are
+    <p><code>geom_edge_bend2</code> understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.</p><ul>
 <li><p><strong>x</strong></p></li>
 <li><p><strong>y</strong></p></li>
@@ -334,7 +328,7 @@ automatically set, but can be overridden.</p><ul>
 <li><p>edge_alpha</p></li>
 <li><p>filter</p></li>
 </ul>
-    <p><code>geom_edge_diagonal</code> and <code>geom_edge_diagonal2</code> furthermore takes the following
+    <p><code>geom_edge_bend</code> and <code>geom_edge_bend2</code> furthermore takes the following
 aesthetics.</p><ul>
 <li><p>start_cap</p></li>
 <li><p>end_cap</p></li>
@@ -402,8 +396,8 @@ automatically be renamed appropriately.</p>
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other geom_edge_*: <code><a href='geom_edge_arc.html'>geom_edge_arc</a></code>,
-  <code><a href='geom_edge_bend.html'>geom_edge_bend</a></code>,
   <code><a href='geom_edge_density.html'>geom_edge_density</a></code>,
+  <code><a href='geom_edge_diagonal.html'>geom_edge_diagonal</a></code>,
   <code><a href='geom_edge_elbow.html'>geom_edge_elbow</a></code>,
   <code><a href='geom_edge_fan.html'>geom_edge_fan</a></code>,
   <code><a href='geom_edge_hive.html'>geom_edge_hive</a></code>,
@@ -421,11 +415,11 @@ automatically be renamed appropriately.</p>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>n</a></span>(), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>))
 
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'tree'</span>) +
-  <span class='fu'>geom_edge_diagonal</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>))</div><div class='img'><img src='geom_edge_diagonal-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_edge_bend</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>))</div><div class='img'><img src='geom_edge_bend-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'tree'</span>) +
-  <span class='fu'>geom_edge_diagonal2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>))</div><div class='img'><img src='geom_edge_diagonal-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_edge_bend2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>))</div><div class='img'><img src='geom_edge_bend-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'tree'</span>) +
-  <span class='fu'>geom_edge_diagonal0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_diagonal-3.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'>geom_edge_bend0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_bend-3.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
