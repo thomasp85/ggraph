@@ -229,7 +229,8 @@ ggraph(gr, 'linear', circular = TRUE) +
   geom_edge_arc0(aes(colour = class))
 }
 \seealso{
-Other geom_edge_*: \code{\link{geom_edge_density}},
+Other geom_edge_*: \code{\link{geom_edge_bend}},
+  \code{\link{geom_edge_density}},
   \code{\link{geom_edge_diagonal}},
   \code{\link{geom_edge_elbow}},
   \code{\link{geom_edge_fan}},
