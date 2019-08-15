@@ -67,7 +67,7 @@ cappedPathGrob <- function(x, y, id = NULL, id.lengths = NULL, arrow = NULL,
       )
     } else {
       grob(
-        x0 = x[!end], y0 = y[!end], x1 = x[!start], y1 = y[!start],
+        x0 = x[!end], y0 = y[!end], x1 = x[!start], y1 = y[!start], id = id[!end],
         arrow = arrow, name = name, gp = gp, vp = vp, cl = 'segments'
       )
     }
@@ -127,7 +127,7 @@ makeContent.cappedpathgrob <- function(x) {
     x1 <- truncated$x[!x$start]
     y1 <- truncated$y[!x$start]
     lines <- grob(
-      x0 = unit(x0, 'mm'), y0 = unit(y0, 'mm'), x1 = unit(x1, 'mm'),
+      x0 = unit(x0, 'mm'), y0 = unit(y0, 'mm'), x1 = unit(x1, 'mm'), id = x$id[!x$end],
       y1 = unit(y1, 'mm'), arrow = x$arrow, name = x$name, gp = x$gp,
       vp = x$vp, cl = 'segments'
     )

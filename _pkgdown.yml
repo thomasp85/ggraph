@@ -85,6 +85,7 @@ reference:
     contents:
       - geom_edge_link
       - geom_edge_arc
+      - geom_edge_parallel
       - geom_edge_fan
       - geom_edge_loop
       - geom_edge_diagonal

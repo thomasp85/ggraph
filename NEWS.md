@@ -1,5 +1,6 @@
 # ggraph (development version)
 
+* Added `geom_edge_parallel()` for drawing multiedges as parallel lines (#191)
 * Added fabric layout to create biofabric plots. Also added `geom_node_range()`
   and `geom_edge_span()` for visualising such layouts (#47)
 * Added `geom_edge_bend()` for drawing soft elbows (#45)
