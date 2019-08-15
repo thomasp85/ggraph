@@ -232,6 +232,74 @@ GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
+#' @importFrom grid pointsGrob unit gpar grobTree
+#' @export
+GeomEdgeSpanPath <- ggproto('GeomEdgeSpanPath', GeomEdgePath,
+  draw_panel = function(data, panel_scales, coord, arrow = NULL, end_shape = NA,
+                        lineend = 'butt', linejoin = 'round', linemitre = 1,
+                        na.rm = FALSE, interpolate = TRUE,
+                        label_colour = 'black', label_alpha = 1, label_parse = FALSE,
+                        check_overlap = FALSE, angle_calc = 'none', force_flip = TRUE,
+                        label_dodge = NULL, label_push = NULL) {
+    panel <- GeomEdgePath$draw_panel(data, panel_scales, coord, arrow = arrow,
+                                     lineend = lineend, linejoin = linejoin, linemitre = linemitre,
+                                     na.rm = na.rm, interpolate = interpolate,
+                                     label_colour = label_colour, label_alpha = label_alpha, label_parse = label_parse,
+                                     check_overlap = FALSE, angle_calc = 'none', force_flip = TRUE,
+                                     label_dodge = label_dodge, label_push = label_push)
+    if (is.na(end_shape)) return(panel)
+
+    data <- data[data$index == 0 | data$index == 1, ]
+    end_shape <- translate_pch(end_shape)
+    coords <- coord$transform(data, panel_scales)
+    ends <- pointsGrob(coords$x, coords$y,
+      pch = end_shape,
+      size = unit(1 / (panel_scales$x.range[2] - (panel_scales$x.range[1])), 'npc'),
+      gp = gpar(
+        col = alpha(coords$edge_colour, coords$edge_alpha),
+        fill = alpha(coords$edge_colour, coords$edge_alpha),
+        lwd = 0
+      )
+    )
+    grobTree(panel, ends)
+  }
+)
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @importFrom grid pointsGrob unit gpar grobTree
+#' @export
+GeomEdgeSpanSegment <- ggproto('GeomEdgeSpanSegment', GeomEdgeSegment,
+  draw_panel = function(data, panel_scales, coord, arrow = NULL, lineend = 'butt',
+                        na.rm = FALSE, end_shape = NA) {
+    panel <- GeomEdgeSegment$draw_panel(data, panel_scales, coord, arrow = arrow, lineend = lineend,
+                                        na.rm = na.rm)
+    if (is.na(end_shape)) return(panel)
+
+    data2 <- data
+    data2$x <- data2$xend
+    data2$y <- data2$yend
+    data <- rbind(data, data2)
+    data$xend <- NULL
+    data$yend <- NULL
+
+    end_shape <- translate_pch(end_shape)
+    coords <- coord$transform(data, panel_scales)
+    ends <- pointsGrob(coords$x, coords$y,
+      pch = end_shape,
+      size = unit(1 / (panel_scales$x.range[2] - (panel_scales$x.range[1])), 'npc'),
+      gp = gpar(
+        col = alpha(coords$edge_colour, coords$edge_alpha),
+        fill = alpha(coords$edge_colour, coords$edge_alpha),
+        lwd = 0
+      )
+    )
+    grobTree(panel, ends)
+  }
+)
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
 #' @importFrom grid gpar pointsGrob
 #' @export
 GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
@@ -239,6 +307,7 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
     if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
       return(zeroGrob())
     }
+    data$edge_shape <- translate_pch(data$edge_shape)
     if (mirror) {
       data2 <- data
       data2[, c('x', 'y')] <- data2[, c('y', 'x'), drop = FALSE]

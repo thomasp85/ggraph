@@ -19,6 +19,8 @@
 \alias{StatConnBundle0}
 \alias{GeomEdgePath}
 \alias{GeomEdgeSegment}
+\alias{GeomEdgeSpanPath}
+\alias{GeomEdgeSpanSegment}
 \alias{GeomEdgePoint}
 \alias{GeomEdgeTile}
 \alias{GeomEdgeBezier}

@@ -101,6 +101,7 @@ This function is not intended to be used directly but by setting
 Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
   \code{\link{layout_tbl_graph_circlepack}},
   \code{\link{layout_tbl_graph_dendrogram}},
+  \code{\link{layout_tbl_graph_fabric}},
   \code{\link{layout_tbl_graph_hive}},
   \code{\link{layout_tbl_graph_linear}},
   \code{\link{layout_tbl_graph_manual}},

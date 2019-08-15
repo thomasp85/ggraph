@@ -68,6 +68,7 @@ for Hierarchical Clustering}. American Statistician Vol 37(2), 162-168.
 Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
   \code{\link{layout_tbl_graph_circlepack}},
   \code{\link{layout_tbl_graph_dendrogram}},
+  \code{\link{layout_tbl_graph_fabric}},
   \code{\link{layout_tbl_graph_hive}},
   \code{\link{layout_tbl_graph_igraph}},
   \code{\link{layout_tbl_graph_linear}},
