@@ -13,7 +13,8 @@
 #'
 #' @param circular Ignored
 #'
-#' @param sort.by The name of a node variable to sort the nodes by.
+#' @param sort.by An expression providing the sorting of the nodes. If `NULL`
+#' the nodes will be ordered by their index in the graph.
 #'
 #' @return A data.frame with the columns `x`, `y`, `circular` as
 #' well as any information stored as node variables in the tbl_graph object.

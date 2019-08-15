@@ -119,6 +119,7 @@ ggraph(gr) +
 Other geom_node_*: \code{\link{geom_node_arc_bar}},
   \code{\link{geom_node_circle}},
   \code{\link{geom_node_point}},
+  \code{\link{geom_node_range}},
   \code{\link{geom_node_text}},
   \code{\link{geom_node_tile}}
 }

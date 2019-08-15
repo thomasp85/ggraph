@@ -81,6 +81,7 @@ Visualization, 284-291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
 Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
   \code{\link{layout_tbl_graph_circlepack}},
   \code{\link{layout_tbl_graph_dendrogram}},
+  \code{\link{layout_tbl_graph_fabric}},
   \code{\link{layout_tbl_graph_hive}},
   \code{\link{layout_tbl_graph_igraph}},
   \code{\link{layout_tbl_graph_linear}},

@@ -3,8 +3,6 @@
 
 # ggraph <img src="man/figures/logo.png" align="right" />
 
-*/dʒiː.dʒɪˈrɑːf/* (or g-giraffe)
-
 <!-- badges: start -->
 
 [![Travis-CI Build
@@ -14,6 +12,8 @@ Status](https://ci.appveyor.com/api/projects/status/github/thomasp85/ggraph?bran
 [![CRAN\_Release\_Badge](http://www.r-pkg.org/badges/version-ago/ggraph)](https://CRAN.R-project.org/package=ggraph)
 [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/ggraph)](https://CRAN.R-project.org/package=ggraph)
 <!-- badges: end -->
+
+*/dʒiː.dʒɪˈrɑːf/* (or g-giraffe)
 
 ## A grammar of graphics for relational data
 

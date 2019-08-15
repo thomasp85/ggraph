@@ -5,6 +5,7 @@ utils::globalVariables(c(
   'con.id',
   'direction',
   'edge.id',
+  'edge_x',
   'end',
   'from',
   'height',
@@ -16,6 +17,8 @@ utils::globalVariables(c(
   'width',
   'x',
   'xend',
+  'xmin',
+  'xmax',
   'y',
   'yend'
 ))

@@ -13,7 +13,6 @@ knitr::opts_chunk$set(
 ```
 
 # ggraph <img src="man/figures/logo.png" align="right" />
-*/dʒiː.dʒɪˈrɑːf/*  (or g-giraffe)
 
 <!-- badges: start -->
 [![Travis-CI Build Status](https://travis-ci.org/thomasp85/ggraph.svg?branch=master)](https://travis-ci.org/thomasp85/ggraph)
@@ -21,6 +20,8 @@ knitr::opts_chunk$set(
 [![CRAN_Release_Badge](http://www.r-pkg.org/badges/version-ago/ggraph)](https://CRAN.R-project.org/package=ggraph)
 [![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/ggraph)](https://CRAN.R-project.org/package=ggraph)
 <!-- badges: end -->
+
+*/dʒiː.dʒɪˈrɑːf/*  (or g-giraffe)
 
 ## A grammar of graphics for relational data
 ggraph is an extension of [`ggplot2`](http://ggplot2.tidyverse.org) aimed at

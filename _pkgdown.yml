@@ -64,6 +64,7 @@ reference:
       - layout_tbl_graph_partition
       - layout_tbl_graph_matrix
       - layout_tbl_graph_hive
+      - layout_tbl_graph_fabric
   - title: "Nodes"
     desc: >
       While nodes are often thought of as points in a hairball graph, they are
@@ -75,6 +76,7 @@ reference:
       - geom_node_voronoi
       - geom_node_circle
       - geom_node_arc_bar
+      - geom_node_range
   - title: "Edges"
     desc: >
       Edges are the enteties connecting nodes, often drawn with some sort of
@@ -90,6 +92,7 @@ reference:
       - geom_edge_elbow
       - geom_edge_bend
       - geom_edge_hive
+      - geom_edge_span
       - geom_edge_point
       - geom_edge_tile
       - geom_edge_density

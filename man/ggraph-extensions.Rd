@@ -21,6 +21,8 @@
 \alias{GeomEdgeParallelPath}
 \alias{GeomEdgeSegment}
 \alias{GeomEdgeParallelSegment}
+\alias{GeomEdgeSpanPath}
+\alias{GeomEdgeSpanSegment}
 \alias{GeomEdgePoint}
 \alias{GeomEdgeTile}
 \alias{GeomEdgeBezier}

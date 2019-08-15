@@ -11,7 +11,8 @@ layout_tbl_graph_matrix(graph, circular = FALSE, sort.by = NULL)
 
 \item{circular}{Ignored}
 
-\item{sort.by}{The name of a node variable to sort the nodes by.}
+\item{sort.by}{An expression providing the sorting of the nodes. If \code{NULL}
+the nodes will be ordered by their index in the graph.}
 }
 \value{
 A data.frame with the columns \code{x}, \code{y}, \code{circular} as
@@ -36,6 +37,7 @@ Computer Graphics Forum, 35: 693–716. \url{http://doi.org/10.1111/cgf.12935}
 Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
   \code{\link{layout_tbl_graph_circlepack}},
   \code{\link{layout_tbl_graph_dendrogram}},
+  \code{\link{layout_tbl_graph_fabric}},
   \code{\link{layout_tbl_graph_hive}},
   \code{\link{layout_tbl_graph_igraph}},
   \code{\link{layout_tbl_graph_linear}},

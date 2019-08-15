@@ -122,6 +122,48 @@ rename_aes <- function(x) {
   plyr::rename(x, .base_to_ggplot, warn_missing = FALSE)
 }
 
+pch_lookup <- c(
+  "square open" = 0,
+  "circle open" = 1,
+  "triangle open" = 2,
+  "plus" = 3,
+  "cross" = 4,
+  "diamond open" = 5,
+  "triangle down open" = 6,
+  "square cross" = 7,
+  "asterisk" = 8,
+  "diamond plus" = 9,
+  "circle plus" = 10,
+  "star" = 11,
+  "square plus" = 12,
+  "circle cross" = 13,
+  "square triangle" = 14,
+  "triangle square" = 14,
+  "square" = 15,
+  "circle small" = 16,
+  "triangle" = 17,
+  "diamond" = 18,
+  "circle" = 19,
+  "bullet" = 20,
+  "circle filled" = 21,
+  "square filled" = 22,
+  "diamond filled" = 23,
+  "triangle filled" = 24,
+  "triangle down filled" = 25
+)
+translate_pch <- function(pch) {
+  if (is.numeric(pch)) return(pch)
+  if (!is.character(pch)) stop('Unknown shape format', call. = FALSE)
+  if (nchar(pch[1]) <= 1) return(pch)
+
+  pch <- charmatch(pch, names(pch_lookup))
+
+  if (any(is.na(pch))) stop('Unknown shape name', call. = FALSE)
+  if (any(pch == 0)) stop('Ambiguous shape name', call. = FALSE)
+
+  pch_lookup[pch]
+}
+
 #' @importFrom viridis scale_color_viridis
 #' @export
 viridis::scale_color_viridis
