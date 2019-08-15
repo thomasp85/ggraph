@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Draw edges as Arcs — geom_edge_arc • ggraph</title>
+<title>Draw multi edges as parallel lines — geom_edge_parallel • ggraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,16 +37,10 @@
 
 
 
-<meta property="og:title" content="Draw edges as Arcs — geom_edge_arc" />
+<meta property="og:title" content="Draw multi edges as parallel lines — geom_edge_parallel" />
 
-<meta property="og:description" content="This geom is mainly intended for arc linear and circular diagrams (i.e. used
-together with layout_tbl_graph_linear()), though it can be used
-elsewhere. It draws edges as arcs with a height proportional to the distance
-between the nodes. Arcs are calculated as beziers. For linear layout the
-placement of control points are related to the curvature argument and
-the distance between the two nodes. For circular layout the control points
-are placed on the same angle as the start and end node at a distance related
-to the distance between the nodes." />
+<meta property="og:description" content="This geom draws multi edges as parallel lines. The edges are first sorted by
+direction and then shifted a fixed amount so that all edges are visible." />
 
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -162,43 +156,35 @@ to the distance between the nodes." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Draw edges as Arcs</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/geom_edge_arc.R'><code>R/geom_edge_arc.R</code></a></small>
-    <div class="hidden name"><code>geom_edge_arc.Rd</code></div>
+    <h1>Draw multi edges as parallel lines</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/geom_edge_parallel.R'><code>R/geom_edge_parallel.R</code></a></small>
+    <div class="hidden name"><code>geom_edge_parallel.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This geom is mainly intended for arc linear and circular diagrams (i.e. used
-together with <code><a href='layout_tbl_graph_linear.html'>layout_tbl_graph_linear()</a></code>), though it can be used
-elsewhere. It draws edges as arcs with a height proportional to the distance
-between the nodes. Arcs are calculated as beziers. For linear layout the
-placement of control points are related to the <code>curvature</code> argument and
-the distance between the two nodes. For circular layout the control points
-are placed on the same angle as the start and end node at a distance related
-to the distance between the nodes.</p>
+    <p>This geom draws multi edges as parallel lines. The edges are first sorted by
+direction and then shifted a fixed amount so that all edges are visible.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>geom_edge_arc</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>fold</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>,
-  <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>,
-  <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>, <span class='no'>curvature</span>)
+    <pre class="usage"><span class='fu'>geom_edge_parallel</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>2</span>, <span class='st'>"mm"</span>),
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
-<span class='fu'>geom_edge_arc2</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"long"</span>),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
-  <span class='kw'>fold</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>,
-  <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>,
-  <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>, <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>, <span class='no'>curvature</span>)
+<span class='fu'>geom_edge_parallel2</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"long"</span>),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>2</span>, <span class='st'>"mm"</span>),
+  <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>, <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
+  <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
+  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
-<span class='fu'>geom_edge_arc0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>fold</span> <span class='kw'>=</span> <span class='no'>fold</span>, <span class='no'>...</span>, <span class='no'>curvature</span>)</pre>
+<span class='fu'>geom_edge_parallel0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>sep</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>2</span>, <span class='st'>"mm"</span>),
+  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -226,19 +212,12 @@ a call to a position adjustment function.</p></td>
       <td><p>Arrow specification, as created by <code><a href='https://www.rdocumentation.org/packages/grid/topics/arrow'>grid::arrow()</a></code>.</p></td>
     </tr>
     <tr>
-      <th>strength</th>
-      <td><p>The bend of the curve. 1 approximates a halfcircle while 0
-will give a straight line. Negative number will change the direction of the
-curve. Only used if <code>circular = FALSE</code>.</p></td>
+      <th>sep</th>
+      <td><p>The separation between parallel edges, given as a <code><a href='https://www.rdocumentation.org/packages/grid/topics/unit'>grid::unit()</a></code></p></td>
     </tr>
     <tr>
       <th>n</th>
       <td><p>The number of points to create along the path.</p></td>
-    </tr>
-    <tr>
-      <th>fold</th>
-      <td><p>Logical. Should arcs appear on the same side of the nodes despite
-different directions. Default to <code>FALSE</code>.</p></td>
     </tr>
     <tr>
       <th>lineend</th>
@@ -309,41 +288,39 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
-    <tr>
-      <th>curvature</th>
-      <td><p>Deprecated. Use <code>strength</code> instead.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
-    <p><code>geom_edge_arc</code> and <code>geom_edge_arc0</code> understand the following
+    <p><code>geom_edge_parallel</code> and <code>geom_edge_parallel0</code> understand the following
 aesthetics. Bold aesthetics are automatically set, but can be overridden.</p><ul>
 <li><p><strong>x</strong></p></li>
 <li><p><strong>y</strong></p></li>
 <li><p><strong>xend</strong></p></li>
 <li><p><strong>yend</strong></p></li>
-<li><p><strong>circular</strong></p></li>
+<li><p><strong>from</strong></p></li>
+<li><p><strong>to</strong></p></li>
 <li><p>edge_colour</p></li>
 <li><p>edge_width</p></li>
 <li><p>edge_linetype</p></li>
 <li><p>edge_alpha</p></li>
 <li><p>filter</p></li>
 </ul>
-    <p><code>geom_edge_arc2</code> understand the following aesthetics. Bold aesthetics are
+    <p><code>geom_edge_parallel2</code> understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.</p><ul>
 <li><p><strong>x</strong></p></li>
 <li><p><strong>y</strong></p></li>
 <li><p><strong>group</strong></p></li>
-<li><p><strong>circular</strong></p></li>
+<li><p><strong>from</strong></p></li>
+<li><p><strong>to</strong></p></li>
 <li><p>edge_colour</p></li>
 <li><p>edge_width</p></li>
 <li><p>edge_linetype</p></li>
 <li><p>edge_alpha</p></li>
 <li><p>filter</p></li>
 </ul>
-    <p><code>geom_edge_arc</code> and <code>geom_edge_arc2</code> furthermore takes the following
+    <p><code>geom_edge_parallel</code> and <code>geom_edge_parallel2</code> furthermore takes the following
 aesthetics.</p><ul>
 <li><p>start_cap</p></li>
 <li><p>end_cap</p></li>
@@ -410,7 +387,8 @@ automatically be renamed appropriately.</p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
-    <div class='dont-index'><p>Other geom_edge_*: <code><a href='geom_edge_bend.html'>geom_edge_bend</a></code>,
+    <div class='dont-index'><p>Other geom_edge_*: <code><a href='geom_edge_arc.html'>geom_edge_arc</a></code>,
+  <code><a href='geom_edge_bend.html'>geom_edge_bend</a></code>,
   <code><a href='geom_edge_density.html'>geom_edge_density</a></code>,
   <code><a href='geom_edge_diagonal.html'>geom_edge_diagonal</a></code>,
   <code><a href='geom_edge_elbow.html'>geom_edge_elbow</a></code>,
@@ -418,7 +396,6 @@ automatically be renamed appropriately.</p>
   <code><a href='geom_edge_hive.html'>geom_edge_hive</a></code>,
   <code><a href='geom_edge_link.html'>geom_edge_link</a></code>,
   <code><a href='geom_edge_loop.html'>geom_edge_loop</a></code>,
-  <code><a href='geom_edge_parallel.html'>geom_edge_parallel</a></code>,
   <code><a href='geom_edge_point.html'>geom_edge_point</a></code>,
   <code><a href='geom_edge_span.html'>geom_edge_span</a></code>,
   <code><a href='geom_edge_tile.html'>geom_edge_tile</a></code></p></div>
@@ -426,24 +403,24 @@ automatically be renamed appropriately.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>tidygraph</span>)
-<span class='co'># Make a graph with different directions of edges</span>
-<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs'>create_notable</a></span>(<span class='st'>'Meredith'</span>) <span class='kw'>%&gt;%</span>
+<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs'>create_notable</a></span>(<span class='st'>'bull'</span>) <span class='kw'>%&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/morph'>convert</a></span>(<span class='no'>to_directed</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>n</a></span>(), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/activate'>activate</a></span>(<span class='no'>edges</span>) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(
-    <span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>n</a></span>(), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>),
-    <span class='kw'>switch</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>TRUE</span>, <span class='fl'>FALSE</span>), <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>n</a></span>(), <span class='kw'>replace</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
-  ) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reroute'>reroute</a></span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='no'>to</span>, <span class='kw'>to</span> <span class='kw'>=</span> <span class='no'>from</span>, <span class='kw'>subset</span> <span class='kw'>=</span> <span class='no'>switch</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: `as_quosure()` requires an explicit environment as of rlang 0.3.0.</span>
-#&gt; <span class='warning'>Please supply `env`.</span>
-#&gt; <span class='warning'>This warning is displayed once per session.</span></div><div class='input'>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'linear'</span>) +
-  <span class='fu'>geom_edge_arc</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>))</div><div class='img'><img src='geom_edge_arc-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'linear'</span>) +
-  <span class='fu'>geom_edge_arc2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>), <span class='kw'>curvature</span> <span class='kw'>=</span> <span class='fl'>0.6</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The curvature argument has been deprecated in favour of strength</span></div><div class='img'><img src='geom_edge_arc-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'linear'</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
-  <span class='fu'>geom_edge_arc0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_arc-3.png' alt='' width='700' height='433' /></div></pre>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/bind_graphs'>bind_edges</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>3</span>), <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>3</span>, <span class='fl'>2</span>))) <span class='kw'>%E&gt;%</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fl'>9</span>, <span class='fl'>TRUE</span>)) <span class='kw'>%N&gt;%</span>
+  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'x'</span>, <span class='st'>'y'</span>), <span class='fl'>5</span>, <span class='fl'>TRUE</span>))
+
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
+  <span class='fu'>geom_edge_parallel</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>))</div><div class='img'><img src='geom_edge_parallel-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
+  <span class='fu'>geom_edge_parallel2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>))</div><div class='img'><img src='geom_edge_parallel-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
+  <span class='fu'>geom_edge_parallel0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_parallel-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Use capping and sep to fine tune the look</span>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
+  <span class='fu'>geom_edge_parallel</span>(<span class='kw'>start_cap</span> <span class='kw'>=</span> <span class='fu'><a href='geometry.html'>circle</a></span>(<span class='fl'>1</span>), <span class='kw'>end_cap</span> <span class='kw'>=</span> <span class='fu'><a href='geometry.html'>circle</a></span>(<span class='fl'>1</span>),
+                     <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fu'>arrow</span>(<span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>2</span>, <span class='st'>'mm'</span>)), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>4</span>, <span class='st'>'mm'</span>)) +
+  <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>12</span>)</div><div class='img'><img src='geom_edge_parallel-4.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
@@ -464,7 +441,7 @@ automatically be renamed appropriately.</p>
     </ul>
 
     <h2>Author</h2>
-    <p>Thomas Lin Pedersen</p>
+    <p>David Schoch and Thomas Lin Pedersen</p>
   </div>
 </div>
 
