@@ -278,6 +278,8 @@ GeomEdgeParallelSegment <- ggproto('GeomEdgeParallelSegment', GeomEdgeSegment,
     panel$sep <- data$.position * sep
     class(panel) <- c('parallelPath', class(panel))
     panel
+  }
+)
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
