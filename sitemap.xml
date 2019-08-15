@@ -52,6 +52,9 @@
     <loc>https://ggraph.data-imaginist.com/reference/geom_edge_point.html</loc>
   </url>
   <url>
+    <loc>https://ggraph.data-imaginist.com/reference/geom_edge_span.html</loc>
+  </url>
+  <url>
     <loc>https://ggraph.data-imaginist.com/reference/geom_edge_tile.html</loc>
   </url>
   <url>
@@ -62,6 +65,9 @@
   </url>
   <url>
     <loc>https://ggraph.data-imaginist.com/reference/geom_node_point.html</loc>
+  </url>
+  <url>
+    <loc>https://ggraph.data-imaginist.com/reference/geom_node_range.html</loc>
   </url>
   <url>
     <loc>https://ggraph.data-imaginist.com/reference/geom_node_text.html</loc>
@@ -116,6 +122,9 @@
   </url>
   <url>
     <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_dendrogram.html</loc>
+  </url>
+  <url>
+    <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_fabric.html</loc>
   </url>
   <url>
     <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_hive.html</loc>

@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Draw edges as curves of different curvature — geom_edge_fan • ggraph</title>
+<title>Draw edges as vertical spans — geom_edge_span • ggraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,16 +37,15 @@
 
 
 
-<meta property="og:title" content="Draw edges as curves of different curvature — geom_edge_fan" />
+<meta property="og:title" content="Draw edges as vertical spans — geom_edge_span" />
 
-<meta property="og:description" content="This geom draws edges as cubic beziers with the control point positioned
-half-way between the nodes and at an angle dependent on the presence of
-parallel edges. This results in parallel edges being drawn in a
-non-overlapping fashion resembling the standard approach used in
-igraph::plot.igraph(). Before calculating the curvature the edges
-are sorted by direction so that edges going the same way will be adjacent.
-This geom is currently the only choice for non-simple graphs if edges should
-not be overplotted." />
+<meta property="og:description" content="This edge geom is mainly intended for use with fabric
+layouts. It draws edges as vertical segments with an optional end shape
+adornment. Due to the special nature of fabric layouts where nodes are not
+a single point in space but a line, this geom doesn't derive the x position
+from the location of the terminal nodes, but defaults to using the edge_x
+variable calculated by the fabric layout. If this geom is used with other
+layouts xand xend must be given explicetly." />
 
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -162,43 +161,40 @@ not be overplotted." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Draw edges as curves of different curvature</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/geom_edge_fan.R'><code>R/geom_edge_fan.R</code></a></small>
-    <div class="hidden name"><code>geom_edge_fan.Rd</code></div>
+    <h1>Draw edges as vertical spans</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/geom_edge_span.R'><code>R/geom_edge_span.R</code></a></small>
+    <div class="hidden name"><code>geom_edge_span.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This geom draws edges as cubic beziers with the control point positioned
-half-way between the nodes and at an angle dependent on the presence of
-parallel edges. This results in parallel edges being drawn in a
-non-overlapping fashion resembling the standard approach used in
-<code><a href='https://www.rdocumentation.org/packages/igraph/topics/plot.igraph'>igraph::plot.igraph()</a></code>. Before calculating the curvature the edges
-are sorted by direction so that edges going the same way will be adjacent.
-This geom is currently the only choice for non-simple graphs if edges should
-not be overplotted.</p>
+    <p>This edge geom is mainly intended for use with <a href='layout_tbl_graph_fabric.html'>fabric</a>
+layouts. It draws edges as vertical segments with an optional end shape
+adornment. Due to the special nature of fabric layouts where nodes are not
+a single point in space but a line, this geom doesn't derive the x position
+from the location of the terminal nodes, but defaults to using the <code>edge_x</code>
+variable calculated by the fabric layout. If this geom is used with other
+layouts <code>x</code>and <code>xend</code> must be given explicetly.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>geom_edge_fan</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+    <pre class="usage"><span class='fu'>geom_edge_span</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"short"</span>),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>end_shape</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>,
-  <span class='no'>spread</span>)
+  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
-<span class='fu'>geom_edge_fan2</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"long"</span>),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
+<span class='fu'>geom_edge_span2</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(<span class='st'>"long"</span>),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>end_shape</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>n</span> <span class='kw'>=</span> <span class='fl'>100</span>,
   <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>linejoin</span> <span class='kw'>=</span> <span class='st'>"round"</span>, <span class='kw'>linemitre</span> <span class='kw'>=</span> <span class='fl'>1</span>,
   <span class='kw'>label_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='kw'>label_alpha</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>label_parse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
   <span class='kw'>check_overlap</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>angle_calc</span> <span class='kw'>=</span> <span class='st'>"rot"</span>, <span class='kw'>force_flip</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>,
-  <span class='no'>spread</span>)
+  <span class='kw'>label_dodge</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>label_push</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)
 
-<span class='fu'>geom_edge_fan0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
-  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>, <span class='no'>spread</span>)</pre>
+<span class='fu'>geom_edge_span0</span>(<span class='kw'>mapping</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_edges.html'>get_edges</a></span>(),
+  <span class='kw'>position</span> <span class='kw'>=</span> <span class='st'>"identity"</span>, <span class='kw'>end_shape</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>lineend</span> <span class='kw'>=</span> <span class='st'>"butt"</span>, <span class='kw'>show.legend</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='no'>...</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -222,13 +218,13 @@ See <code><a href='get_edges.html'>get_edges()</a></code> for more details on ed
 a call to a position adjustment function.</p></td>
     </tr>
     <tr>
-      <th>arrow</th>
-      <td><p>Arrow specification, as created by <code><a href='https://www.rdocumentation.org/packages/grid/topics/arrow'>grid::arrow()</a></code>.</p></td>
+      <th>end_shape</th>
+      <td><p>The adornment to put at the ends of the span. The naming
+follows the conventions of the shape aesthetic in <code><a href='https://ggplot2.tidyverse.org/reference/geom_point.html'>ggplot2::geom_point()</a></code></p></td>
     </tr>
     <tr>
-      <th>strength</th>
-      <td><p>Modify the width of the fans <code>strength &gt; 1</code> will create
-wider fans while the reverse will make them more narrow.</p></td>
+      <th>arrow</th>
+      <td><p>Arrow specification, as created by <code><a href='https://www.rdocumentation.org/packages/grid/topics/arrow'>grid::arrow()</a></code>.</p></td>
     </tr>
     <tr>
       <th>n</th>
@@ -303,43 +299,35 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 <code>colour = "red"</code> or <code>size = 3</code>. They may also be parameters
 to the paired geom/stat.</p></td>
     </tr>
-    <tr>
-      <th>spread</th>
-      <td><p>Deprecated. Use <code>strength</code> instead.</p></td>
-    </tr>
     </table>
     
     <h2 class="hasAnchor" id="aesthetics"><a class="anchor" href="#aesthetics"></a>Aesthetics</h2>
 
     
-    <p><code>geom_edge_fan</code> and <code>geom_edge_fan0</code> understand the following
+    <p><code>geom_edge_span</code> and <code>geom_edge_span0</code> understand the following
 aesthetics. Bold aesthetics are automatically set, but can be overridden.</p><ul>
 <li><p><strong>x</strong></p></li>
 <li><p><strong>y</strong></p></li>
 <li><p><strong>xend</strong></p></li>
 <li><p><strong>yend</strong></p></li>
-<li><p><strong>from</strong></p></li>
-<li><p><strong>to</strong></p></li>
 <li><p>edge_colour</p></li>
 <li><p>edge_width</p></li>
 <li><p>edge_linetype</p></li>
 <li><p>edge_alpha</p></li>
 <li><p>filter</p></li>
 </ul>
-    <p><code>geom_edge_fan2</code> understand the following aesthetics. Bold aesthetics are
+    <p><code>geom_edge_span2</code> understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overridden.</p><ul>
 <li><p><strong>x</strong></p></li>
 <li><p><strong>y</strong></p></li>
 <li><p><strong>group</strong></p></li>
-<li><p><strong>from</strong></p></li>
-<li><p><strong>to</strong></p></li>
 <li><p>edge_colour</p></li>
 <li><p>edge_width</p></li>
 <li><p>edge_linetype</p></li>
 <li><p>edge_alpha</p></li>
 <li><p>filter</p></li>
 </ul>
-    <p><code>geom_edge_fan</code> and <code>geom_edge_fan2</code> furthermore takes the following
+    <p><code>geom_edge_span</code> and <code>geom_edge_span2</code> furthermore takes the following
 aesthetics.</p><ul>
 <li><p>start_cap</p></li>
 <li><p>end_cap</p></li>
@@ -411,29 +399,32 @@ automatically be renamed appropriately.</p>
   <code><a href='geom_edge_density.html'>geom_edge_density</a></code>,
   <code><a href='geom_edge_diagonal.html'>geom_edge_diagonal</a></code>,
   <code><a href='geom_edge_elbow.html'>geom_edge_elbow</a></code>,
+  <code><a href='geom_edge_fan.html'>geom_edge_fan</a></code>,
   <code><a href='geom_edge_hive.html'>geom_edge_hive</a></code>,
   <code><a href='geom_edge_link.html'>geom_edge_link</a></code>,
   <code><a href='geom_edge_loop.html'>geom_edge_loop</a></code>,
   <code><a href='geom_edge_point.html'>geom_edge_point</a></code>,
-  <code><a href='geom_edge_span.html'>geom_edge_span</a></code>,
   <code><a href='geom_edge_tile.html'>geom_edge_tile</a></code></p></div>
     
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
     <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>require</a></span>(<span class='no'>tidygraph</span>)
-<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph'>as_tbl_graph</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(
-  <span class='kw'>from</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>),
-  <span class='kw'>to</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>2</span>, <span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1</span>),
-  <span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fl'>8</span>, <span class='fl'>TRUE</span>)
-)) <span class='kw'>%&gt;%</span>
-  <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'a'</span>, <span class='st'>'b'</span>))
+<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/component_games'>play_smallworld</a></span>(<span class='kw'>n_dim</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>dim_size</span> <span class='kw'>=</span> <span class='fl'>3</span>, <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>p_rewire</span> <span class='kw'>=</span> <span class='fl'>0.6</span>)
 
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
-  <span class='fu'>geom_edge_fan</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>))</div><div class='img'><img src='geom_edge_fan-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
-  <span class='fu'>geom_edge_fan2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>))</div><div class='img'><img src='geom_edge_fan-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
-  <span class='fu'>geom_edge_fan0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_fan-3.png' alt='' width='700' height='433' /></div></pre>
+<span class='co'># Standard use</span>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'fabric'</span>, <span class='kw'>sort.by</span> <span class='kw'>=</span> <span class='fu'><a href='layout_tbl_graph_fabric.html'>node_rank_fabric</a></span>()) +
+  <span class='fu'><a href='geom_node_range.html'>geom_node_range</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'grey80'</span>) +
+  <span class='fu'>geom_edge_span</span>()</div><div class='img'><img src='geom_edge_span-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Add end shapes</span>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'fabric'</span>, <span class='kw'>sort.by</span> <span class='kw'>=</span> <span class='fu'><a href='layout_tbl_graph_fabric.html'>node_rank_fabric</a></span>()) +
+  <span class='fu'><a href='geom_node_range.html'>geom_node_range</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'grey80'</span>) +
+  <span class='fu'>geom_edge_span</span>(<span class='kw'>end_shape</span> <span class='kw'>=</span> <span class='st'>'circle'</span>)</div><div class='img'><img src='geom_edge_span-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># If the layout include shadow edges these can be styled differently</span>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'fabric'</span>, <span class='kw'>sort.by</span> <span class='kw'>=</span> <span class='fu'><a href='layout_tbl_graph_fabric.html'>node_rank_fabric</a></span>(), <span class='kw'>shadow.edges</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
+  <span class='fu'><a href='geom_node_range.html'>geom_node_range</a></span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'grey80'</span>) +
+  <span class='fu'>geom_edge_span</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>shadow_edge</span>), <span class='kw'>end_shape</span> <span class='kw'>=</span> <span class='st'>'square'</span>) +
+  <span class='fu'><a href='scale_edge_colour.html'>scale_edge_colour_manual</a></span>(<span class='kw'>values</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'FALSE'</span> <span class='kw'>=</span> <span class='st'>'black'</span>, <span class='st'>'TRUE'</span> <span class='kw'>=</span> <span class='st'>'grey'</span>))</div><div class='img'><img src='geom_edge_span-3.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>

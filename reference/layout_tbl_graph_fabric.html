@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Apply a dendrogram layout to layout_tbl_graph — layout_tbl_graph_dendrogram • ggraph</title>
+<title>Create a fabric layout — layout_tbl_graph_fabric • ggraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -37,13 +37,19 @@
 
 
 
-<meta property="og:title" content="Apply a dendrogram layout to layout_tbl_graph — layout_tbl_graph_dendrogram" />
+<meta property="og:title" content="Create a fabric layout — layout_tbl_graph_fabric" />
 
-<meta property="og:description" content="This layout mimics the igraph::layout_as_tree() algorithm
-supplied by igraph, but puts all leaves at 0 and builds it up from there,
-instead of starting from the root and building it from there. The height of
-branch points are related to the maximum distance to an edge from the branch
-node, or read from a node variable." />
+<meta property="og:description" content="This layout is a bit unusual in that it shows nodes as horizontal line ranges
+end edges as evenly spaced vertical spans connecting the nodes. As with the
+matrix layout the strength comes from better scalability but its use require
+some experience recognising the patterns that different connectivity features
+gives rise to. As with matrix layouts the ordering of nodes have huge power
+over the look of the plot. The node_rank_fabric() mimics the default
+ordering from the original BioFabric implementation, but other ranking
+algorithms from tidygraph can be used with the sort.by argument as well.
+Fabric layouts tend to become quite wide as the graph grows which is
+something that should be handled with care - e.g. by only zooming in on a
+specific region." />
 
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -159,79 +165,74 @@ node, or read from a node variable." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Apply a dendrogram layout to layout_tbl_graph</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/layout_dendrogram.R'><code>R/layout_dendrogram.R</code></a></small>
-    <div class="hidden name"><code>layout_tbl_graph_dendrogram.Rd</code></div>
+    <h1>Create a fabric layout</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/layout_fabric.R'><code>R/layout_fabric.R</code></a></small>
+    <div class="hidden name"><code>layout_tbl_graph_fabric.Rd</code></div>
     </div>
 
     <div class="ref-description">
     
-    <p>This layout mimics the <code><a href='https://www.rdocumentation.org/packages/igraph/topics/layout_as_tree'>igraph::layout_as_tree()</a></code> algorithm
-supplied by igraph, but puts all leaves at 0 and builds it up from there,
-instead of starting from the root and building it from there. The height of
-branch points are related to the maximum distance to an edge from the branch
-node, or read from a node variable.</p>
+    <p>This layout is a bit unusual in that it shows nodes as horizontal line ranges
+end edges as evenly spaced vertical spans connecting the nodes. As with the
+matrix layout the strength comes from better scalability but its use require
+some experience recognising the patterns that different connectivity features
+gives rise to. As with matrix layouts the ordering of nodes have huge power
+over the look of the plot. The <code>node_rank_fabric()</code> mimics the default
+ordering from the original BioFabric implementation, but other ranking
+algorithms from tidygraph can be used with the <code>sort.by</code> argument as well.
+Fabric layouts tend to become quite wide as the graph grows which is
+something that should be handled with care - e.g. by only zooming in on a
+specific region.</p>
     
     </div>
 
-    <pre class="usage"><span class='fu'>layout_tbl_graph_dendrogram</span>(<span class='no'>graph</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='no'>pi</span>/<span class='fl'>2</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>repel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"out"</span>)</pre>
+    <pre class="usage"><span class='fu'>layout_tbl_graph_fabric</span>(<span class='no'>graph</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>sort.by</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>shadow.edges</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>node_rank_fabric</span>()</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>graph</th>
-      <td><p>A <code>tbl_graph</code> object</p></td>
+      <td><p>An <code>tbl_graph</code> object</p></td>
     </tr>
     <tr>
       <th>circular</th>
-      <td><p>Logical. Should the layout be transformed to a circular
-representation. Defaults to <code>FALSE</code>.</p></td>
+      <td><p>Ignored</p></td>
     </tr>
     <tr>
-      <th>offset</th>
-      <td><p>If <code>circular = TRUE</code>, where should it begin. Defaults to
-<code>pi/2</code> which is equivalent to 12 o'clock.</p></td>
+      <th>sort.by</th>
+      <td><p>An expression providing the sorting of the nodes. If <code>NULL</code>
+the nodes will be ordered by their index in the graph.</p></td>
     </tr>
     <tr>
-      <th>height</th>
-      <td><p>The node variable holding the height of each node in the
-dendrogram. If <code>NA</code> it will be calculated as the maximal distance to a
-leaf.</p></td>
-    </tr>
-    <tr>
-      <th>repel</th>
-      <td><p>Should leafs repel each other relative to the height of their
-common ancestor. Will emphasize clusters</p></td>
-    </tr>
-    <tr>
-      <th>ratio</th>
-      <td><p>The strength of repulsion if <code>repel = TRUE</code>. Higher values will
-give more defined clusters</p></td>
-    </tr>
-    <tr>
-      <th>direction</th>
-      <td><p>The direction to the leaves. Defaults to 'out'</p></td>
+      <th>shadow.edges</th>
+      <td><p>Should shadow edges be shown.</p></td>
     </tr>
     </table>
     
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.frame with the columns <code>x</code>, <code>y</code>, <code>circular</code>, <code>depth</code> and
-<code>leaf</code> as well as any information stored as node variables on the
-tbl_graph</p>
+    <p>A data.frame with the columns <code>x</code>, <code>xmin</code>, <code>xmax</code>, <code>y</code>, <code>circular</code> as
+well as any information stored as node variables in the tbl_graph object.
+Further, the edges of the graph will gain a <code>edge_x</code> variable giving the
+horizontal position of the edge as well as a <code>shadow_edge</code> variable denoting
+whether the edge is a shadow edge added by the layout.</p>
     
-    <h2 class="hasAnchor" id="note"><a class="anchor" href="#note"></a>Note</h2>
+    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
-    <p>This function is not intended to be used directly but by setting
-<code>layout = 'dendrogram'</code> in <code><a href='ggraph.html'>create_layout()</a></code></p>
+    <p>BioFabric website: <a href='http://www.biofabric.org'>http://www.biofabric.org</a></p>
+<p>Longabaugh, William J.R. (2012).
+<em>Combing the hairball with BioFabric: a new approach for visualization of large networks</em>.
+BMC Bioinformatics, 13: 275. <a href='https://doi.org/10.1186/1471-2105-13-275'>https://doi.org/10.1186/1471-2105-13-275</a></p>
     
     <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
 
     <div class='dont-index'><p>Other layout_tbl_graph_*: <code><a href='layout_tbl_graph_auto.html'>layout_tbl_graph_auto</a></code>,
   <code><a href='layout_tbl_graph_circlepack.html'>layout_tbl_graph_circlepack</a></code>,
-  <code><a href='layout_tbl_graph_fabric.html'>layout_tbl_graph_fabric</a></code>,
+  <code><a href='layout_tbl_graph_dendrogram.html'>layout_tbl_graph_dendrogram</a></code>,
   <code><a href='layout_tbl_graph_hive.html'>layout_tbl_graph_hive</a></code>,
   <code><a href='layout_tbl_graph_igraph.html'>layout_tbl_graph_igraph</a></code>,
   <code><a href='layout_tbl_graph_linear.html'>layout_tbl_graph_linear</a></code>,
@@ -249,7 +250,7 @@ tbl_graph</p>
       
       <li><a href="#value">Value</a></li>
 
-      <li><a href="#note">Note</a></li>
+      <li><a href="#references">References</a></li>
 
       <li><a href="#see-also">See also</a></li>
           </ul>
