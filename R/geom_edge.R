@@ -7,11 +7,11 @@
 #' @export
 GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
   draw_panel = function(data, panel_scales, coord, arrow = NULL,
-                          lineend = 'butt', linejoin = 'round', linemitre = 1,
-                          na.rm = FALSE, interpolate = TRUE,
-                          label_colour = 'black', label_alpha = 1, label_parse = FALSE,
-                          check_overlap = FALSE, angle_calc = 'none', force_flip = TRUE,
-                          label_dodge = NULL, label_push = NULL) {
+                        lineend = 'butt', linejoin = 'round', linemitre = 1,
+                        na.rm = FALSE, interpolate = TRUE,
+                        label_colour = 'black', label_alpha = 1, label_parse = FALSE,
+                        check_overlap = FALSE, angle_calc = 'none', force_flip = TRUE,
+                        label_dodge = NULL, label_push = NULL) {
     if (!anyDuplicated(data$group)) {
       message(
         'geom_edge_path: Each group consists of only one observation. ',
@@ -195,6 +195,41 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
 #' @usage NULL
 #' @importFrom grid gpar segmentsGrob
 #' @export
+GeomEdgeParallelPath <- ggproto('GeomEdgeParallelPath', GeomEdgePath,
+  draw_panel = function(data, panel_scales, coord, arrow = NULL, sep = unit(2, 'mm'),
+                        lineend = 'butt', linejoin = 'round', linemitre = 1,
+                        na.rm = FALSE, interpolate = TRUE,
+                        label_colour = 'black', label_alpha = 1, label_parse = FALSE,
+                        check_overlap = FALSE, angle_calc = 'none', force_flip = TRUE,
+                        label_dodge = NULL, label_push = NULL) {
+    data <- data[order(data$group), , drop = FALSE]
+    panel <- GeomEdgePath$draw_panel(data, panel_scales, coord, arrow = arrow,
+                                     lineend = lineend, linejoin = linejoin,
+                                     linemitre = linemitre, na.rm = na.rm,
+                                     interpolate = interpolate,
+                                     label_colour = label_colour,
+                                     label_alpha = label_alpha,
+                                     label_parse = label_parse,
+                                     check_overlap = check_overlap,
+                                     angle_calc = angle_calc,
+                                     force_flip = force_flip,
+                                     label_dodge = label_dodge,
+                                     label_push = label_push)
+    if (inherits(panel, 'gList')) {
+      panel[[1]]$sep <- (data$.position * sep)[panel[[1]]$id]
+      class(panel[[1]]) <- c('parallelPath', class(panel[[1]]))
+    } else {
+      panel$sep <- (data$.position[!duplicated(data$group)] * sep)[panel$id]
+      class(panel) <- c('parallelPath', class(panel))
+    }
+    panel
+  }
+)
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @importFrom grid gpar segmentsGrob
+#' @export
 GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
   draw_panel = function(data, panel_scales, coord, arrow = NULL, lineend = 'butt',
                           na.rm = FALSE) {
@@ -228,6 +263,23 @@ GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
     edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
     edge_alpha = NA
   )
+)
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @importFrom grid gpar segmentsGrob
+#' @export
+GeomEdgeParallelSegment <- ggproto('GeomEdgeParallelSegment', GeomEdgeSegment,
+  draw_panel = function(data, panel_scales, coord, arrow = NULL, lineend = 'butt',
+                        na.rm = FALSE, sep = unit(2, 'mm')) {
+    data <- data[order(data$group), , drop = FALSE]
+    panel <- GeomEdgeSegment$draw_panel(data, panel_scales, coord,
+                                        arrow = arrow, lineend = lineend,
+                                        na.rm = na.rm)
+    panel$sep <- data$.position * sep
+    class(panel) <- c('parallelPath', class(panel))
+    panel
+  }
 )
 #' @rdname ggraph-extensions
 #' @format NULL

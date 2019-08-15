@@ -1,6 +1,7 @@
 #' Draw multi edges as parallel lines
 #'
-#' This geom draws edges as parallel lines in non-simple graphs. 
+#' This geom draws multi edges as parallel lines. The edges are first sorted by
+#' direction and then shifted a fixed amount so that all edges are visible.
 #'
 #' @inheritSection geom_edge_link Edge variants
 #' @inheritSection geom_edge_link Edge aesthetic name expansion
@@ -59,20 +60,19 @@
 #' @inheritParams geom_edge_link
 #' @inheritParams ggplot2::geom_path
 #'
-#' @param spread Modify the distance between parallel lines 
+#' @param sep The separation between parallel edges, given as a [grid::unit()]
 #'
-#' @author David Schoch
+#' @author David Schoch and Thomas Lin Pedersen
 #'
 #' @family geom_edge_*
 #'
 #' @examples
 #' require(tidygraph)
-#' gr <- as_tbl_graph(data.frame(
-#'   from = c(1, 1, 1, 1, 1, 2, 2, 2),
-#'   to = c(2, 2, 2, 2, 2, 1, 1, 1),
-#'   class = sample(letters[1:3], 8, TRUE)
-#' )) %>%
-#'   mutate(class = c('a', 'b'))
+#' gr <- create_notable('bull') %>%
+#'   convert(to_directed) %>%
+#'   bind_edges(data.frame(from = c(1, 2, 2, 3), to = c(2, 1, 3, 2))) %E>%
+#'   mutate(class = sample(letters[1:3], 9, TRUE)) %N>%
+#'   mutate(class = sample(c('x', 'y'), 5, TRUE))
 #'
 #' ggraph(gr, 'nicely') +
 #'   geom_edge_parallel(aes(alpha = ..index..))
@@ -82,6 +82,13 @@
 #'
 #' ggraph(gr, 'nicely') +
 #'   geom_edge_parallel0(aes(colour = class))
+#'
+#' # Use capping and sep to fine tune the look
+#' ggraph(gr, 'nicely') +
+#'   geom_edge_parallel(start_cap = circle(1), end_cap = circle(1),
+#'                      arrow = arrow(length = unit(2, 'mm')), sep = unit(4, 'mm')) +
+#'   geom_node_point(size = 12)
+#'
 #' @rdname geom_edge_parallel
 #' @name geom_edge_parallel
 #'
@@ -92,7 +99,6 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatLink
 #' @export
-
 StatEdgeParallel <- ggproto('StatEdgeParallel', StatLink,
   setup_data = function(data, params) {
     if (any(names(data) == 'filter')) {
@@ -103,11 +109,15 @@ StatEdgeParallel <- ggproto('StatEdgeParallel', StatLink,
     }
     data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
-    data <- create_parallels(data,params)
+    data2 <- data
+    data2$x <- data2$xend
+    data2$y <- data2$yend
+    data$.position <- edge_positions(data, data2, params)
     StatLink$setup_data(data, params)
   },
+  required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),
   default_aes = aes(filter = TRUE),
-  extra_params = c("na.rm","n",'spread')
+  extra_params = c("na.rm", "n")
 )
 
 #' @rdname geom_edge_parallel
@@ -115,23 +125,23 @@ StatEdgeParallel <- ggproto('StatEdgeParallel', StatLink,
 #' @importFrom ggforce StatLink
 #' @export
 geom_edge_parallel <- function(mapping = NULL, data = get_edges(),
-                               position = "identity", arrow = NULL, spread = 0.02,
-                               n = 100,
-                               lineend = "butt", linejoin = "round", linemitre = 1,
+                               position = "identity", arrow = NULL,
+                               sep = unit(2, 'mm'), n = 100, lineend = "butt",
+                               linejoin = "round", linemitre = 1,
                                label_colour = 'black',  label_alpha = 1,
                                label_parse = FALSE, check_overlap = FALSE,
                                angle_calc = 'rot', force_flip = TRUE,
                                label_dodge = NULL, label_push = NULL,
                                show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes_(x=~x, y=~y, xend=~xend, yend=~yend,
-                                         from=~from, to=~to))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y, xend = xend, yend = yend,
+                                        from = from, to = to))
   layer(data = data, mapping = mapping, stat = StatEdgeParallel,
-        geom = GeomEdgePath, position = position, show.legend = show.legend,
+        geom = GeomEdgeParallelPath, position = position, show.legend = show.legend,
         inherit.aes = FALSE,
         params = expand_edge_aes(
           list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, spread = spread, n = n,
+               linemitre = linemitre, na.rm = FALSE, sep = sep, n = n,
                interpolate = FALSE,
                label_colour = label_colour, label_alpha = label_alpha,
                label_parse = label_parse, check_overlap = check_overlap,
@@ -140,45 +150,109 @@ geom_edge_parallel <- function(mapping = NULL, data = get_edges(),
         )
   )
 }
-
-#' @importFrom dplyr %>% group_by_ arrange_ summarise_ n ungroup transmute_
-create_parallels <- function(data,params) {
-  data$origID <- 1:nrow(data)
-  data$.id <- paste(pmin(data$from, data$to), pmax(data$from, data$to), sep = '-')
-  data <- data %>% arrange(.id)
-  medge <- data %>% 
-    group_by_(~PANEL, ~.id) %>% 
-    summarise_(medge = ~n()) %>%
-    ungroup() %>% 
-    transmute_(medge = ~medge)
-  
-  medge <- medge$medge  
-  medge_shift <- unlist(sapply(medge,dseq,spread=params$spread))
-  data$shift <- medge_shift*ifelse(data$from<data$to,1,-1)
-  shifted <- t(apply(data[,c("x","y","xend","yend","shift")],1,
-                     function(x) edge_shift(x[1],x[2],x[3],x[4],x[5])))
-  
-  data[,c("x","y","xend","yend")] <- shifted 
-  data <- data %>% arrange(origID)
-  data[["shift"]] <- NULL
-  data[["origID"]] <- NULL
-  data[[".id"]] <- NULL
-  data[["from"]] <- NULL
-  data[["to"]] <- NULL
-  data
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @importFrom ggforce StatBezier2
+#' @export
+StatEdgeParallel2 <- ggproto('StatEdgeParallel2', StatLink2,
+  setup_data = function(data, params) {
+    if (any(names(data) == 'filter')) {
+      if (!is.logical(data$filter)) {
+        stop('filter must be logical')
+      }
+      data <- data[data$filter, names(data) != 'filter']
+    }
+    data <- remove_loop2(data)
+    if (nrow(data) == 0) return(NULL)
+    data <- data[order(data$group), ]
+    data2 <- data[c(FALSE, TRUE), ]
+    data1 <- data[c(TRUE, FALSE), ]
+    data$.position <- rep(edge_positions(data1, data2), each = 2)
+    StatLink2$setup_data(data, params)
+  },
+  required_aes = c('x', 'y', 'group', 'from', 'to'),
+  default_aes = aes(filter = TRUE),
+  extra_params = c('na.rm', 'n')
+)
+#' @rdname geom_edge_parallel
+#'
+#' @export
+geom_edge_parallel2 <- function(mapping = NULL, data = get_edges('long'),
+                                position = 'identity', arrow = NULL,
+                                sep = unit(2, 'mm'), n = 100, lineend = 'butt',
+                                linejoin = 'round', linemitre = 1,
+                                label_colour = 'black', label_alpha = 1,
+                                label_parse = FALSE, check_overlap = FALSE,
+                                angle_calc = 'rot', force_flip = TRUE,
+                                label_dodge = NULL, label_push = NULL,
+                                show.legend = NA, ...) {
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes(
+    x = x, y = y, group = edge.id,
+    from = from, to = to
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeParallel2,
+    geom = GeomEdgeParallelPath, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(arrow = arrow, lineend = lineend, linejoin = linejoin,
+           linemitre = linemitre, na.rm = FALSE, sep = sep, n = n,
+           interpolate = TRUE,
+           label_colour = label_colour, label_alpha = label_alpha,
+           label_parse = label_parse, check_overlap = check_overlap,
+           angle_calc = angle_calc, force_flip = force_flip,
+           label_dodge = label_dodge, label_push = label_push, ...)
+    )
+  )
 }
-
-dseq <- function(n,spread){
-  seq(-(n-1)*spread/2,(n-1)*spread/2,by=spread)
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @importFrom ggforce StatBezier0
+#' @export
+StatEdgeParallel0 <- ggproto('StatEdgeFan0', StatIdentity,
+                        setup_data = function(data, params) {
+                          StatEdgeParallel$setup_data(data, params)
+                        },
+                        required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),
+                        default_aes = aes(filter = TRUE),
+                        extra_params = c('na.rm')
+)
+#' @rdname geom_edge_parallel
+#'
+#' @export
+geom_edge_parallel0 <- function(mapping = NULL, data = get_edges(),
+                           position = 'identity', arrow = NULL, sep = unit(2, 'mm'),
+                           lineend = 'butt', show.legend = NA, ...) {
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes(
+    x = x, y = y, xend = xend, yend = yend,
+    from = from, to = to
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeParallel0,
+    geom = GeomEdgeParallelSegment, position = position, show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list(
+        arrow = arrow, lineend = lineend, na.rm = FALSE,
+        sep = sep, ...
+      )
+    )
+  )
 }
-edge_shift <- function(x1,y1,x2,y2,shift){
-  
-  v <- c(x2 - x1,y2 - y1)
-  v <- v/sqrt((v[1]^2 + v[2]^2))
-  v_perp <- c( -v[2], v[1] )
-  
-  return(c(x1 + shift*v_perp[1],y1 + shift*v_perp[2],
-           x2 + shift*v_perp[1],y2 + shift*v_perp[2]))
-  
+#' @importFrom dplyr %>% group_by arrange summarise n ungroup pull
+edge_positions <- function(from, to, params) {
+  from$.id <- paste(pmin(from$from, to$to), pmax(from$from, to$to), sep = '-')
+  from$.orig_ind <- seq_len(nrow(from))
+  from %>%
+    group_by(.data$PANEL, .data$.id) %>%
+    arrange(.data$from) %>%
+    mutate(position = seq_len(n()) - 0.5 - n() / 2) %>%
+    mutate(position = .data$position * ifelse(.data$from < .data$to, 1, -1)) %>%
+    ungroup() %>%
+    arrange(.data$.orig_ind) %>%
+    pull(.data$position)
 }
-

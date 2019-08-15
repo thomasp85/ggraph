@@ -89,6 +89,7 @@ Other geom_edge_*: \code{\link{geom_edge_arc}},
   \code{\link{geom_edge_hive}},
   \code{\link{geom_edge_link}},
   \code{\link{geom_edge_loop}},
+  \code{\link{geom_edge_parallel}},
   \code{\link{geom_edge_tile}}
 }
 \author{
