@@ -175,7 +175,8 @@ node, or read from a node variable.</p>
     </div>
 
     <pre class="usage"><span class='fu'>layout_tbl_graph_dendrogram</span>(<span class='no'>graph</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>offset</span> <span class='kw'>=</span> <span class='no'>pi</span>/<span class='fl'>2</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>NA</span>, <span class='kw'>repel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"out"</span>)</pre>
+  <span class='kw'>height</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>length</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>repel</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>ratio</span> <span class='kw'>=</span> <span class='fl'>1</span>,
+  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='st'>"out"</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -197,8 +198,14 @@ representation. Defaults to <code>FALSE</code>.</p></td>
     <tr>
       <th>height</th>
       <td><p>The node variable holding the height of each node in the
-dendrogram. If <code>NA</code> it will be calculated as the maximal distance to a
+dendrogram. If <code>NULL</code> it will be calculated as the maximal distance to a
 leaf.</p></td>
+    </tr>
+    <tr>
+      <th>length</th>
+      <td><p>An edge parameter giving the length of each edge. The node
+height will be calculated from the maximal length to the root node (ignored
+if <code>height</code> does not evaluate to <code>NULL</code>)</p></td>
     </tr>
     <tr>
       <th>repel</th>
