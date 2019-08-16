@@ -1,5 +1,7 @@
 # ggraph (development version)
 
+* Added length argument to the dendrogram layout to allow the layout to be based
+  on edge length rather than node heights (#124).
 * Added `geom_edge_parallel()` for drawing multiedges as parallel lines (#191)
 * Added fabric layout to create biofabric plots. Also added `geom_node_range()`
   and `geom_edge_span()` for visualising such layouts (#47)

@@ -5,7 +5,8 @@
 \title{Apply a dendrogram layout to layout_tbl_graph}
 \usage{
 layout_tbl_graph_dendrogram(graph, circular = FALSE, offset = pi/2,
-  height = NA, repel = FALSE, ratio = 1, direction = "out")
+  height = NULL, length = NULL, repel = FALSE, ratio = 1,
+  direction = "out")
 }
 \arguments{
 \item{graph}{A \code{tbl_graph} object}
@@ -17,8 +18,12 @@ representation. Defaults to \code{FALSE}.}
 \code{pi/2} which is equivalent to 12 o'clock.}
 
 \item{height}{The node variable holding the height of each node in the
-dendrogram. If \code{NA} it will be calculated as the maximal distance to a
+dendrogram. If \code{NULL} it will be calculated as the maximal distance to a
 leaf.}
+
+\item{length}{An edge parameter giving the length of each edge. The node
+height will be calculated from the maximal length to the root node (ignored
+if \code{height} does not evaluate to \code{NULL})}
 
 \item{repel}{Should leafs repel each other relative to the height of their
 common ancestor. Will emphasize clusters}

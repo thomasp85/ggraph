@@ -18,8 +18,12 @@
 #' `pi/2` which is equivalent to 12 o'clock.
 #'
 #' @param height The node variable holding the height of each node in the
-#' dendrogram. If `NA` it will be calculated as the maximal distance to a
+#' dendrogram. If `NULL` it will be calculated as the maximal distance to a
 #' leaf.
+#'
+#' @param length An edge parameter giving the length of each edge. The node
+#' height will be calculated from the maximal length to the root node (ignored
+#' if `height` does not evaluate to `NULL`)
 #'
 #' @param repel Should leafs repel each other relative to the height of their
 #' common ancestor. Will emphasize clusters
@@ -35,15 +39,30 @@
 #'
 #' @family layout_tbl_graph_*
 #'
-#' @importFrom igraph gorder degree neighbors
+#' @importFrom igraph gorder degree neighbors distances
+#' @importFrom tidygraph node_is_root
 #' @importFrom rlang enquo eval_tidy
 #'
-layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2, height = NA, repel = FALSE, ratio = 1, direction = 'out') {
+layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2, height = NULL, length = NULL, repel = FALSE, ratio = 1, direction = 'out') {
   height <- enquo(height)
+  length <- enquo(length)
+  if (quo_is_null(height)) {
+    if (quo_is_null(length)) {
+      height <- NA
+    } else {
+      length <- eval_tidy(length, .E())
+      full_lengths <- distances(graph, to = node_is_root(), weights = length)
+      full_lengths[is.infinite(full_lengths)] <- 0
+      height <- unname(apply(full_lengths, 1, max))
+      height <- abs(height - max(height))
+    }
+  } else {
+    height <- eval_tidy(height, .N())
+  }
   reverse_dir <- if (direction == 'out') 'in' else 'out'
   nodes <- data.frame(
     x = rep(NA_real_, gorder(graph)),
-    y = eval_tidy(height, .N()),
+    y = height,
     leaf = degree(graph, mode = direction) == 0,
     stringsAsFactors = FALSE
   )
