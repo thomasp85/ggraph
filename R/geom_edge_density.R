@@ -86,9 +86,8 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
         y_extend
       )
     )
-    df <- data.frame(expand.grid(x = dens$x, y = dens$y),
-      z = as.vector(dens$z)
-    )
+    df <- expand.grid(x = dens$x, y = dens$y)
+    df$z <- as.vector(dens$z)
     df$group <- group
     names(df) <- c('x', 'y', 'density', 'group')
     df

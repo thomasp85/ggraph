@@ -39,7 +39,7 @@ layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric
   } else {
     x <- seq_len(gorder(graph))
   }
-  nodes <- data.frame(x = x, y = 0)
+  nodes <- new_data_frame(list(x = x, y = 0))
   if (circular) {
     radial <- radial_trans(
       r.range = rev(range(nodes$y)),

@@ -139,9 +139,9 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
         from = elbow_y, to = data_circ$yend,
         length.out = n / 2
       ))
-      path_circ <- rbind(
+      path_circ <- rbind_dfs(list(
         path_circ,
-        data.frame(
+        new_data_frame(list(
           x = elbow_x,
           y = elbow_y,
           group = path_circ$group,
@@ -149,15 +149,15 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             index[seq_len(n / 2) + n / 2],
             length(circ_id)
           )
-        )
-      )
+        ))
+      ))
       path_circ <- cbind(path_circ, data[path_circ$group, !names(data) %in%
         c('x', 'y', 'xend', 'yend')])
     }
     if (any(!data$circular)) {
       path_lin <- lapply(which(!data$circular), function(i) {
         if (flipped) {
-          path <- data.frame(
+          path <- new_data_frame(list(
             x = approx(c(data$x[i], data$xend[i] + (data$x[i] - data$xend[i]) * strength, data$xend[i]),
               n = n
             )$y,
@@ -166,9 +166,9 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             )$y,
             group = i,
             index = index
-          )
+          ))
         } else {
-          path <- data.frame(
+          path <- new_data_frame(list(
             x = approx(c(data$x[i], data$xend[i], data$xend[i]),
               n = n
             )$y,
@@ -177,15 +177,15 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             )$y,
             group = i,
             index = index
-          )
+          ))
         }
         cbind(path, data[rep(i, nrow(path)), !names(data) %in%
           c('x', 'y', 'xend', 'yend')])
       })
-      path_lin <- do.call(rbind, path_lin)
+      path_lin <- rbind_dfs(path_lin)
 
       if (any(data$circular)) {
-        paths <- rbind(path_lin, path_circ)
+        paths <- rbind_dfs(list(path_lin, path_circ))
       } else {
         paths <- path_lin
       }
@@ -258,7 +258,7 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
     new_data <- StatEdgeElbow$compute_panel(pos_data, scales, flipped, n, strength)
     extra_cols <- !names(data) %in% pos_cols
     index <- match(seq_len(nrow(pos_data)), new_data$group)
-    index <- as.vector(rbind(index, index + 1))
+    index <- as.vector(matrix(c(index, index + 1), nrow = 2, byrow = T))
     new_data$.interp <- TRUE
     new_data$.interp[index] <- FALSE
     if (sum(extra_cols) != 0) {
@@ -342,39 +342,39 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
       radii <- rep(sqrt(data$y[circId]^2 + data$x[circId]^2), each = 50)
       path_circ <- radial$transform(r = radii, a = angles)
       path_circ$group <- rep(circId, each = 50)
-      path_circ <- rbind(
+      path_circ <- rbind_dfs(list(
         path_circ,
-        data.frame(
+        new_data_frame(list(
           x = data$xend[circId],
           y = data$yend[circId],
           group = circId
-        )
-      )
+        ))
+      ))
       path_circ <- cbind(path_circ, data[path_circ$group, !names(data) %in%
         c('x', 'y', 'xend', 'yend')])
     }
     if (any(!data$circular)) {
       path_lin <- lapply(which(!data$circular), function(i) {
         if (flipped) {
-          path <- data.frame(
+          path <- new_data_frame(list(
             x = c(data$x[i], data$xend[i] + (data$x[i] - data$xend[i]) * strength, data$xend[i]),
             y = c(data$y[i], data$yend[i], data$yend[i]),
             group = i
-          )
+          ))
         } else {
-          path <- data.frame(
+          path <- new_data_frame(list(
             x = c(data$x[i], data$xend[i], data$xend[i]),
             y = c(data$y[i], data$yend[i] + (data$y[i] - data$yend[i]) * strength, data$yend[i]),
             group = i
-          )
+          ))
         }
         cbind(path, data[rep(i, nrow(path)), !names(data) %in%
           c('x', 'y', 'xend', 'yend')])
       })
-      path_lin <- do.call(rbind, path_lin)
+      path_lin <- rbind_dfs(path_lin)
 
       if (any(data$circular)) {
-        paths <- rbind(path_lin, path_circ)
+        paths <- rbind_dfs(list(path_lin, path_circ))
       } else {
         paths <- path_lin
       }

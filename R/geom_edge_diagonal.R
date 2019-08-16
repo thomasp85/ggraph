@@ -287,6 +287,6 @@ create_diagonal <- function(from, to, params) {
       data3$y[!from$circular] <- to$y[!from$circular] + h_diff / 2 * params$strength
     }
   }
-  data <- rbind(from, data2, data3, to)
+  data <- rbind_dfs(list(from, data2, data3, to))
   data[order(data$index), names(data) != 'index']
 }

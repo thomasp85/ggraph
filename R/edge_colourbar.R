@@ -26,22 +26,21 @@ guide_edge_colourbar <- function(title = waiver(), title.position = NULL,
   if (!is.null(barheight) && !is.unit(barheight)) {
     barheight <- unit(barheight, default.unit)
   }
-  structure(
-    list(
-      title = title, title.position = title.position,
-      title.theme = title.theme, title.hjust = title.hjust,
-      title.vjust = title.vjust, label = label,
-      label.position = label.position, label.theme = label.theme,
-      label.hjust = label.hjust, label.vjust = label.vjust,
-      barwidth = barwidth, barheight = barheight, nbin = nbin,
-      raster = raster, ticks = ticks, draw.ulim = draw.ulim,
-      draw.llim = draw.llim, direction = direction,
-      default.unit = default.unit, reverse = reverse, order = order,
-      available_aes = c('edge_colour', 'edge_fill'), ...,
-      name = 'edge_colourbar'
-    ),
-    class = c('guide', 'edge_colourbar', 'colorbar')
+  guide <- list(
+    title = title, title.position = title.position,
+    title.theme = title.theme, title.hjust = title.hjust,
+    title.vjust = title.vjust, label = label,
+    label.position = label.position, label.theme = label.theme,
+    label.hjust = label.hjust, label.vjust = label.vjust,
+    barwidth = barwidth, barheight = barheight, nbin = nbin,
+    raster = raster, ticks = ticks, draw.ulim = draw.ulim,
+    draw.llim = draw.llim, direction = direction,
+    default.unit = default.unit, reverse = reverse, order = order,
+    available_aes = c('edge_colour', 'edge_fill'), ...,
+    name = 'edge_colourbar'
   )
+  class(guide) <- c('guide', 'edge_colourbar', 'colorbar')
+  guide
 }
 #' @rdname guide_edge_colourbar
 #' @export
@@ -79,10 +78,10 @@ guide_train.edge_colourbar <- function(guide, scale, aesthetic = NULL) {
   if (length(.bar) == 0) {
     .bar <- unique(.limits)
   }
-  guide$bar <- data.frame(
+  guide$bar <- new_data_frame(list(
     colour = scale$map(.bar), value = .bar,
     stringsAsFactors = FALSE
-  )
+  ))
   if (guide$reverse) {
     guide$key <- guide$key[nrow(guide$key):1, ]
     guide$bar <- guide$bar[nrow(guide$bar):1, ]

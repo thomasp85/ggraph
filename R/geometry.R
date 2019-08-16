@@ -114,18 +114,19 @@ is.geometry <- function(x) inherits(x, 'geometry')
 length.geometry <- function(x) length(unclass(x))
 #' @export
 `[.geometry` <- function(x, i, ...) {
-  structure(
-    unclass(x)[i],
+  g <- unclass(x)[i]
+  attributes(g) <- list(
     width = attr(x, 'width')[i],
     height = attr(x, 'height')[i],
     uwidth = attr(x, 'uwidth')[i],
     uheight = attr(x, 'uheight')[i],
     class = 'geometry'
   )
+  g
 }
 #' @export
 `[<-.geometry` <- function(x, ..., value) {
-  stopifnot(is.geometry(value))
+  if (!is.geometry(value)) stop('Only possible to insert geometries', call. = FALSE)
   type <- unclass(x)
   type[...] <- unclass(value)
   width <- attr(x, 'width')
@@ -136,14 +137,14 @@ length.geometry <- function(x) length(unclass(x))
   uwidth[...] <- attr(value, 'uwidth')
   uheight <- attr(x, 'uheight')
   uheight[...] <- attr(value, 'uheight')
-  structure(
-    type,
+  attributes(type) <- list(
     width = width,
     height = height,
     uwidth = uwidth,
     uheight = uheight,
     class = 'geometry'
   )
+  type
 }
 #' @export
 format.geometry <- function(x, ...) {
@@ -163,23 +164,7 @@ rep.geometry <- function(x, ...) {
 }
 #' @export
 as.data.frame.geometry <- function(x, row.names = NULL, optional = FALSE, ...) {
-  nrows <- length(x)
-  if (!(is.null(row.names) || (is.character(row.names) && length(row.names) ==
-    nrows))) {
-    stop(gettextf(
-      '\'row.names\' is not a character vector of length %d -- omitting it. Will be an error!',
-      nrows
-    ), call. = FALSE)
-    row.names <- NULL
-  }
-  if (is.null(row.names)) {
-    if (nrows == 0L) {
-      row.names <- character()
-    } else {
-      row.names <- .set_row_names(nrows)
-    }
-  }
-  structure(list(x), row.names = row.names, class = 'data.frame')
+  new_data_frame(list(x))
 }
 #' @export
 c.geometry <- function(...) {
@@ -195,15 +180,15 @@ is.na.geometry <- function(x) {
   is.na(unclass(x))
 }
 geo_type <- function(x) {
-  stopifnot(is.geometry(x))
+  if (!is.geometry(x)) stop('x must be a geometry object', call. = FALSE)
   unclass(x)
 }
 geo_width <- function(x) {
-  stopifnot(is.geometry(x))
+  if (!is.geometry(x)) stop('x must be a geometry object', call. = FALSE)
   unit(attr(x, 'width'), attr(x, 'uwidth'))
 }
 geo_height <- function(x) {
-  stopifnot(is.geometry(x))
+  if (!is.geometry(x)) stop('x must be a geometry object', call. = FALSE)
   unit(attr(x, 'height'), attr(x, 'uheight'))
 }
 #' @importFrom grid convertHeight grobHeight

@@ -35,20 +35,20 @@ guide_edge_direction <- function(title = waiver(), title.position = NULL,
   if (!is.null(barheight) && !is.unit(barheight)) {
     barheight <- unit(barheight, default.unit)
   }
-  structure(
-    list(
-      title = title, title.position = title.position,
-      title.theme = title.theme, title.hjust = title.hjust,
-      title.vjust = title.vjust, arrow = arrow,
-      arrow.position = arrow.position, barwidth = barwidth,
-      barheight = barheight, nbin = nbin, direction = direction,
-      default.unit = default.unit, reverse = reverse, order = order,
-      available_aes = c('edge_colour', 'edge_alpha', 'edge_width'),
-      override.aes = expand_edge_aes(rename_aes(override.aes)), ...,
-      name = 'edge_direction'
-    ),
-    class = c('guide', 'edge_direction')
+  guide <- list(
+    title = title, title.position = title.position,
+    title.theme = title.theme, title.hjust = title.hjust,
+    title.vjust = title.vjust, arrow = arrow,
+    arrow.position = arrow.position, barwidth = barwidth,
+    barheight = barheight, nbin = nbin, direction = direction,
+    default.unit = default.unit, reverse = reverse, order = order,
+    available_aes = c('edge_colour', 'edge_alpha', 'edge_width'),
+    override.aes = expand_edge_aes(rename_aes(override.aes)), ...,
+    name = 'edge_direction'
   )
+  class(guide) <- c('guide', 'edge_direction')
+  guide
+
 }
 #' Helper methods for guides
 #'
@@ -76,7 +76,7 @@ guide_train.edge_direction <- function(guide, scale, aesthetic = NULL) {
   ticks <- as.data.frame(setNames(
     list(scale$map(breaks)),
     aesthetic %||% scale$aesthetics[1]
-  ))
+  ), stringsAsFactors = FALSE)
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
   guide$key <- ticks
@@ -88,7 +88,7 @@ guide_train.edge_direction <- function(guide, scale, aesthetic = NULL) {
   guide$bar <- as.data.frame(setNames(
     list(scale$map(.bar)),
     scale$aesthetics[1]
-  ))
+  ), stringsAsFactors = FALSE)
   guide$bar$.value <- .bar
   guide$bar <- guide$bar[order(.bar), ]
   if (guide$reverse) {

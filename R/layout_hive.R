@@ -158,7 +158,7 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
       append(l, list(r + node_div + divide.size + max(l[[length(l)]])))
     }, x = node_pos[-1], init = node_pos[1])
     node_pos <- unlist(node_pos) + center.size
-    data.frame(
+    new_data_frame(list(
       node = nodes,
       r = node_pos[match(nodes, unlist(node_split))],
       center_size = center.size,
@@ -166,9 +166,8 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
       axis = axis,
       section = rep(names(node_split), lengths(node_split))[match(nodes, unlist(node_split))],
       angle = angle,
-      circular = FALSE,
-      stringsAsFactors = FALSE
-    )
+      circular = FALSE
+    ))
   }, nodes = axes, axis_length = normalize_to, axis = names(axes), angle = axis.pos)
   for (i in seq_along(node.pos)) {
     if (node.pos[[i]]$split[1]) {
@@ -184,10 +183,10 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
         loop_edges_ends <- ends(graph, loop_edges, names = FALSE)
         correct_order_ends <- node.pos[[i]]$r[match(loop_edges_ends[, 1], node.pos[[i]]$node)] <
           node.pos[[i]]$r[match(loop_edges_ends[, 2], node.pos[[i]]$node)]
-        loop_edges_ends <- data.frame(
+        loop_edges_ends <- new_data_frame(list(
           from = ifelse(correct_order_ends, loop_edges_ends[, 1], loop_edges_ends[, 2]),
           to = ifelse(correct_order_ends, loop_edges_ends[, 2], loop_edges_ends[, 1])
-        )
+        ))
         loop_edges_ends$to <- extra_nodes$node[match(loop_edges_ends$to, node.pos[[i]]$node)]
         loop_edges_ends <- matrix(c(
           ifelse(correct_order_ends, loop_edges_ends$from, loop_edges_ends$to),
@@ -226,7 +225,7 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
     nodes$y <- nodes$r * sin(nodes$angle)
     nodes
   })
-  node.pos <- do.call(rbind, node.pos)
+  node.pos <- rbind_dfs(node.pos)
   node.pos <- node.pos[order(node.pos$node), names(node.pos) != 'node']
   extra_data <- as_tibble(as_tbl_graph(graph), active = 'nodes')
   node.pos <- cbind(node.pos, extra_data[, !names(extra_data) %in% names(node.pos), drop = FALSE])

@@ -18,7 +18,6 @@ LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.2),
     dplyr,
-    plyr,
     ggforce,
     grid,
     igraph (>= 1.0.0),
@@ -40,8 +39,6 @@ Suggests:
     tibble,
     seriation,
     deldir
-Remotes: tidyverse/ggplot2,
-    thomasp85/tidygraph
 LinkingTo: Rcpp
 RoxygenNote: 6.1.1
 Depends:

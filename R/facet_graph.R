@@ -54,7 +54,6 @@ facet_graph <- function(facets, row_type = 'edge', col_type = 'node',
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom plyr id
 #' @export
 FacetGraph <- ggproto('FacetGraph', FacetGrid,
   compute_layout = function(data, params) {
@@ -82,7 +81,10 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
       base_rows[] <- lapply(base_rows, rev_order)
     }
     base_cols <- combine_vars(col_data, params$plot_env, cols, drop = params$drop)
-    base <- df.grid(as.data.frame(base_rows), as.data.frame(base_cols))
+    base <- df.grid(
+      as.data.frame(base_rows, stringsAsFactors = FALSE),
+      as.data.frame(base_cols, stringsAsFactors = FALSE)
+    )
 
     # Add margins
     base <- reshape2::add_margins(base, list(names(rows), names(cols)), params$margins)
@@ -96,10 +98,9 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
     rows <- if (is.null(names(rows))) 1L else id(base[names(rows)], drop = TRUE)
     cols <- if (is.null(names(cols))) 1L else id(base[names(cols)], drop = TRUE)
 
-    panels <- data.frame(
-      PANEL = panel, ROW = rows, COL = cols, base,
-      check.names = FALSE, stringsAsFactors = FALSE
-    )
+    panels <- new_data_frame(c(list(
+      PANEL = panel, ROW = rows, COL = cols), base
+    ))
     panels <- panels[order(panels$PANEL), , drop = FALSE]
     rownames(panels) <- NULL
 
@@ -117,7 +118,8 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
       split(node_map$.ggraph.index, node_map$PANEL)
     }
 
-    structure(panels, node_placement = node_placement)
+    attr(panels, 'node_placement') <- node_placement
+    panels
   },
   map_data = function(data, layout, params) {
     switch(
@@ -130,14 +132,14 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
         edge_map <- Map(function(map, nodes) {
           map[map$from %in% nodes & map$to %in% nodes, , drop = FALSE]
         }, map = split(edge_map, edge_map$PANEL), nodes = attr(layout, 'node_placement'))
-        do.call(rbind, edge_map)
+        rbind_dfs(edge_map)
       },
       node_ggraph = {
         node_map <- lapply(attr(layout, 'node_placement'), function(nodes) {
           data[data$.ggraph.index %in% nodes, , drop = FALSE]
         })
         panel <- rep(seq_along(node_map), vapply(node_map, nrow, numeric(1)))
-        node_map <- do.call(rbind, node_map)
+        node_map <- rbind_dfs(node_map)
         node_map$PANEL <- as.factor(panel)
         node_map
       }, {
@@ -163,7 +165,7 @@ expand_facet_map <- function(map, layout) {
         data_expand$PANEL <- rep(panels, each = nrow(data))
         data_expand
       })
-      map <- do.call(rbind, map)
+      map <- rbind_dfs(map)
     }
   }
   if (nrows != 1) {
@@ -176,12 +178,11 @@ expand_facet_map <- function(map, layout) {
         data_expand$PANEL <- rep(panels, each = nrow(data))
         data_expand
       })
-      map <- do.call(rbind, map)
+      map <- rbind_dfs(map)
     }
   }
   map
 }
-#' @importFrom plyr unrowname
 df.grid <- function(a, b) {
   if (is.null(a) || nrow(a) == 0) {
     return(b)
@@ -190,7 +191,9 @@ df.grid <- function(a, b) {
     return(a)
   }
   indexes <- expand.grid(i_a = seq_len(nrow(a)), i_b = seq_len(nrow(b)))
-  unrowname(cbind(a[indexes$i_a, , drop = FALSE], b[indexes$i_b, , drop = FALSE]))
+  grid <- cbind(a[indexes$i_a, , drop = FALSE], b[indexes$i_b, , drop = FALSE])
+  attr(grid, 'row.names') <- .set_row_names(nrow(grid))
+  grid
 }
 ulevels <- function(x) {
   if (is.factor(x)) {

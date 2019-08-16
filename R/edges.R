@@ -98,7 +98,8 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
         list(stringsAsFactors = FALSE)
       )
     )
-    structure(edges, type_ggraph = 'edge_ggraph')
+    attr(edges, 'type_ggraph') <- 'edge_ggraph'
+    edges
   }
 }
 #' @rdname internal_extractors
@@ -166,7 +167,7 @@ format_long_edges <- function(edges, layout) {
     layout[edges$to, c('x', 'y')],
     edges
   )
-  edges <- rbind(from, to)
+  edges <- rbind_dfs(list(from, to))
   node <- layout[edges$node, , drop = FALSE]
   names(node) <- paste0('node.', names(node))
   edges <- cbind(edges, node)

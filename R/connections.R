@@ -53,7 +53,7 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
         seq_along(paths) + length(connections),
         lengths(paths)
       )
-      nodes <- rbind(nodes, extra)
+      nodes <- rbind_dfs(list(nodes, extra))
     }
     nodes <- do.call(
       cbind,
@@ -63,7 +63,8 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
         list(stringsAsFactors = FALSE)
       )
     )
-    structure(nodes, type = 'connection_ggraph')
+    attr(nodes, 'type') <- 'connection_ggraph'
+    nodes
   }
 }
 #' Internal data extractors

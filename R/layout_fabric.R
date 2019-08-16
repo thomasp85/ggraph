@@ -71,8 +71,8 @@ layout_tbl_graph_fabric <- function(graph, circular = FALSE, sort.by = NULL, sha
     range(edge_rank[as.integer(e)])
   }, numeric(2))
 
-  nodes <- data.frame(x = colMeans(node_span), xmin = node_span[1,],
-                      xmax = node_span[2,], y = abs(pos - max(pos)))
+  nodes <- new_data_frame(list(x = colMeans(node_span), xmin = node_span[1,],
+                      xmax = node_span[2,], y = abs(pos - max(pos))))
   extra_data <- as_tibble(graph, active = 'nodes')
   nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
   nodes$circular <- FALSE

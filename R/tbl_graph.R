@@ -9,7 +9,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
   graph <- prepare_graph(graph, layout, ...)
   .register_graph_context(graph, free = TRUE)
   if (gorder(graph) == 0) {
-    layout <- data.frame(x = numeric(), y = numeric(), circular = logical())
+    layout <- new_data_frame(list(x = numeric(), y = numeric(), circular = logical()))
     layout <- cbind(layout, .N())
   } else {
     layout <- layout_to_table(layout, graph, circular = circular, ...)
@@ -127,7 +127,7 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
   parent_col <- if (mode == 'out') 1 else 2
   node_col <- if (mode == 'out') 2 else 1
   edges <- as_edgelist(graph)
-  hierarchy <- data.frame(parent = rep(0, gorder(graph)))
+  hierarchy <- new_data_frame(list(parent = rep(0, gorder(graph))))
   hierarchy$parent[edges[, node_col]] <- edges[, parent_col]
   if (is.null(sort.by)) {
     hierarchy$order <- seq_len(nrow(hierarchy)) + 1
@@ -219,7 +219,7 @@ layout_to_table.character <- function(layout, graph, circular, ...) {
 }
 #' @export
 layout_to_table.matrix <- function(layout, graph, ...) {
-  layout <- data.frame(x = layout[, 1], y = layout[, 2])
+  layout <- new_data_frame(list(x = layout[, 1], y = layout[, 2]))
   layout_to_table(layout, graph, ...)
 }
 #' @export

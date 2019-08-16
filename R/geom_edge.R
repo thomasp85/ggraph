@@ -25,7 +25,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       data <- cbind(interpolateDataFrame(data[!geometries]), geom_cols)
     }
     data <- coord$transform(data, panel_scales)
-    zero <- coord$transform(data.frame(x = 0, y = 0), panel_scales)
+    zero <- coord$transform(new_data_frame(list(x = 0, y = 0)), panel_scales)
     if (nrow(data) < 2) {
       return(zeroGrob())
     }
@@ -43,7 +43,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       if (any(attr(start_cap, 'unit') == 'native') ||
         any(attr(start_cap2, 'unit') == 'native')) {
         recalc <- coord$transform(
-          data.frame(x = as.vector(start_cap), y = as.vector(start_cap2)),
+          new_data_Frame(list(x = as.vector(start_cap), y = as.vector(start_cap2))),
           panel_scales
         )
         start_cap[attr(start_cap, 'unit') == 'native'] <- unit(recalc$x - zero$x, 'npc')
@@ -62,7 +62,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       if (any(attr(end_cap, 'unit') == 'native') ||
         any(attr(end_cap2, 'unit') == 'native')) {
         recalc <- coord$transform(
-          data.frame(x = as.vector(end_cap), y = as.vector(end_cap2)),
+          new_data_frame(list(x = as.vector(end_cap), y = as.vector(end_cap2))),
           panel_scales
         )
         end_cap[attr(end_cap, 'unit') == 'native'] <- unit(recalc$x - zero$x, 'native')
@@ -330,7 +330,7 @@ GeomEdgeSpanSegment <- ggproto('GeomEdgeSpanSegment', GeomEdgeSegment,
     data2 <- data
     data2$x <- data2$xend
     data2$y <- data2$yend
-    data <- rbind(data, data2)
+    data <- rbind_dfs(list(data, data2))
     data$xend <- NULL
     data$yend <- NULL
 
@@ -364,7 +364,7 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
       data2[, c('x', 'y')] <- data2[, c('y', 'x'), drop = FALSE]
       data2$x <- abs(data2$x) * sign(data$x)
       data2$y <- abs(data2$y) * sign(data$y)
-      data <- rbind(data, data2)
+      data <- rbind_dfs(list(data, data2))
     }
     coords <- coord$transform(data, panel_scales)
     coords <- coords[order(coords$edge_size, decreasing = TRUE), , drop = FALSE]
@@ -410,7 +410,7 @@ GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
       data2[, c('x', 'y')] <- data2[, c('y', 'x'), drop = FALSE]
       data2$x <- abs(data2$x) * sign(data$x)
       data2$y <- abs(data2$y) * sign(data$y)
-      data <- rbind(data, data2)
+      data <- rbind_dfs(list(data, data2))
     }
     data$xmin <- data$x - 0.5
     data$xmax <- data$x + 0.5

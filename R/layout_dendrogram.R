@@ -60,12 +60,11 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
     height <- eval_tidy(height, .N())
   }
   reverse_dir <- if (direction == 'out') 'in' else 'out'
-  nodes <- data.frame(
+  nodes <- new_data_frame(list(
     x = rep(NA_real_, gorder(graph)),
     y = height,
-    leaf = degree(graph, mode = direction) == 0,
-    stringsAsFactors = FALSE
-  )
+    leaf = degree(graph, mode = direction) == 0
+  ))
   if (all(is.na(nodes$y))) {
     nodes$y <- vapply(seq_len(gorder(graph)), function(i) {
       max(bfs(graph, i, direction, unreachable = FALSE, order = FALSE, dist = TRUE)$dist, na.rm = TRUE)

@@ -41,10 +41,9 @@ StatFilter <- ggproto('StatFilter', StatIdentity,
 )
 
 aes_intersect <- function(aes1, aes2) {
-  structure(
-    c(as.list(aes1), aes2[!names(aes2) %in% names(aes1)]),
-    class = 'uneval'
-  )
+  aes <- c(as.list(aes1), aes2[!names(aes2) %in% names(aes1)])
+  class(aes) <- 'uneval'
+  aes
 }
 
 data_type <- function(data) {

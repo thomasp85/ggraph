@@ -22,10 +22,10 @@ layout_tbl_graph_manual <- function(graph, x, y, circular) {
   }
   x <- enquo(x)
   y <- enquo(y)
-  layout <- data.frame(
+  layout <- new_data_frame(list(
     x = eval_tidy(x, .N()),
     y = eval_tidy(y, .N())
-  )
+  ))
   extra_data <- as_tibble(graph, active = 'nodes')
   layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
   layout$circular <- FALSE

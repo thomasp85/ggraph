@@ -29,6 +29,7 @@ get_nodes <- function(...) {
         list(stringsAsFactors = FALSE)
       )
     )
-    structure(nodes, type_ggraph = 'node_ggraph')
+    attr(nodes, 'type_ggraph') <- 'node_ggraph'
+    nodes
   }
 }

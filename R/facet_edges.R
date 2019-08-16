@@ -45,7 +45,8 @@ FacetEdges <- ggproto('FacetEdges', FacetWrap,
     panels <- FacetWrap$compute_layout(facet_data, params)
     node_placement <- rep(list(plot_data$.ggraph.index), nrow(panels))
     names(node_placement) <- as.character(seq_along(node_placement))
-    structure(panels, node_placement = node_placement)
+    attr(panels, 'node_placement') <- node_placement
+    panels
   },
   map_data = function(data, layout, params) {
     switch(
@@ -53,7 +54,7 @@ FacetEdges <- ggproto('FacetEdges', FacetWrap,
       node_ggraph = {
         node_map <- rep(list(data), length(attr(layout, 'node_placement')))
         panel <- rep(seq_along(node_map), vapply(node_map, nrow, numeric(1)))
-        node_map <- do.call(rbind, node_map)
+        node_map <- rbind_dfs(node_map)
         node_map$PANEL <- as.factor(panel)
         node_map
       },
