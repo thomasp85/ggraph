@@ -4,14 +4,17 @@
 \alias{layout_tbl_graph_focus}
 \title{Place nodes in circles based on distance to a specific node}
 \usage{
-layout_tbl_graph_focus(graph, focus, niter = 500, tolerance = 1e-04,
-  circular = TRUE)
+layout_tbl_graph_focus(graph, focus, weights = NULL, niter = 500,
+  tolerance = 1e-04, circular = TRUE)
 }
 \arguments{
 \item{graph}{a tbl_graph object}
 
 \item{focus}{An expression evaluating to a selected node. Can either be a
 single integer or a logical vector with a single \code{TRUE} element.}
+
+\item{weights}{An expression evaluated on the edge data to provide edge
+weights for the layout. Currently ignored for the sparse version}
 
 \item{niter}{number of iterations during stress optimization}
 

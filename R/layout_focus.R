@@ -21,17 +21,22 @@
 #' by David Schoch
 #'
 #' @importFrom graphlayouts layout_with_focus
-#' @importFrom igraph distances
 #' @importFrom rlang eval_tidy enquo
-layout_tbl_graph_focus <- function(graph, focus, niter = 500, tolerance = 1e-4,
+layout_tbl_graph_focus <- function(graph, focus, weights = NULL, niter = 500, tolerance = 1e-4,
                                    circular = TRUE) {
   focus <- eval_tidy(enquo(focus), .N())
   if (is.logical(focus)) focus <- which(focus)[1]
 
-  xy <- layout_with_focus(graph, v = focus, iter = niter, tol = tolerance)
+  weights <- eval_tidy(enquo(weights), .E())
+  if (is.null(weights)) {
+    weights <- NA
+  }
 
-  dist <- as.vector(distances(graph, focus))
-  nodes <- new_data_frame(list(x = xy[,1],y = xy[,2], distance = dist))
+  layout <- layout_with_focus(graph, v = focus, weights = weights, iter = niter,
+                              tol = tolerance)
+  xy <- layout$xy
+
+  nodes <- new_data_frame(list(x = xy[,1],y = xy[,2], distance = layout$distance))
   nodes$circular <- FALSE
   extra_data <- as_tibble(graph, active = 'nodes')
   nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
