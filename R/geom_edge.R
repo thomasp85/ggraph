@@ -123,7 +123,12 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       label_y1 <- data$y[angle_end + edge_start]
       lab <- as.character(label_data$label)
       if (label_parse) {
-        lab[lab != ''] <- parse(text = lab)
+        lab_expressions <- sapply(X=lab, FUN=str2expression)
+        lab_len <- sapply(X=lab_expressions, FUN=length)
+        if (any(lab_len == 0)) {
+          lab[lab_len == 0] <- "` `"
+          lab <- sapply(X=lab, FUN=str2expression)
+        }
       }
       label_grob <- textAlongGrob(
         lab, label_data$x, label_data$y,
