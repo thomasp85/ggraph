@@ -34,16 +34,16 @@ gr <- create_notable('herschel') \%>\%
   mutate(weight = runif(n()))
 
 # Standard graph
-nplot(gr)
+qgraph(gr)
 
 # Adding node labels will cap edges
-nplot(gr, node_label = class)
+qgraph(gr, node_label = class)
 
 # Use tidygraph calls for mapping
-nplot(gr, node_size = centrality_pagerank())
+qgraph(gr, node_size = centrality_pagerank())
 
 # Trees are plotted as dendrograms
 iris_tree <- hclust(dist(iris[1:4], method = 'euclidean'), method = 'ward.D2')
-nplot(iris_tree)
+qgraph(iris_tree)
 
 }

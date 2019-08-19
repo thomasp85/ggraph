@@ -15,6 +15,8 @@ layout_tbl_graph_eigen(graph, type = "laplacian",
 
 \item{eigenvector}{The eigenvector to use for coordinates. Either \code{'smallest'}
 or \code{'largest'}}
+
+\item{circular}{ignored}
 }
 \value{
 A data.frame with the columns \code{x}, \code{y}, \code{circular} as

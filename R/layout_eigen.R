@@ -9,6 +9,7 @@
 #' `'laplacian'` or `'adjacency'`
 #' @param eigenvector The eigenvector to use for coordinates. Either `'smallest'`
 #' or `'largest'`
+#' @param circular ignored
 #'
 #' @return A data.frame with the columns `x`, `y`, `circular` as
 #' well as any information stored as node variables in the tbl_graph object.
