@@ -42,7 +42,7 @@ public:
   };
   std::vector<Node*> getChildren() {
     std::vector<Node*> childVec;
-    for (int i = 0; i < children.size(); ++i) {
+    for (unsigned int i = 0; i < children.size(); ++i) {
       childVec.push_back(children[i]);
     }
     return childVec;

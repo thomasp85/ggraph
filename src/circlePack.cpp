@@ -304,7 +304,7 @@ FrontChain pack_circles(std::deque<Circle> &circles) {
   fc.center(circles.begin(), circles.end());
 
   return fc;
-};
+}
 class NodePack {
   std::vector<NodePack*> children;
   NodePack* parent;
@@ -377,7 +377,7 @@ public:
 };
 std::vector<NodePack*> createHierarchy(std::vector<int> parent, std::vector<double> weight) {
   std::vector<NodePack*> nodes;
-  int i;
+  unsigned int i;
   for (i = 0; i < parent.size(); ++i) {
     NodePack* node = new NodePack(i + 1, weight[i]);
     nodes.push_back(node);
@@ -463,12 +463,12 @@ NumericMatrix pack(NumericVector areas) {
   }
 
   return res;
-};
+}
 
 //[[Rcpp::export]]
 NumericMatrix circlePackLayout(IntegerVector parent, NumericVector weight) {
   NumericMatrix res(parent.size(), 3);
-  int i;
+  unsigned int i;
   std::vector<NodePack*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<double> >(weight));
 
   int startNode = findTopNode(nodes);

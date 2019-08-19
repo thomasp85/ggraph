@@ -4,7 +4,7 @@ using namespace Rcpp;
 
 std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight, std::vector<double> height) {
   std::vector<Node*> nodes;
-  int i;
+  unsigned int i;
   for (i = 0; i < parent.size(); ++i) {
     Node* node = new Node(i, order[i], weight[i], height[i]);
     nodes.push_back(node);
@@ -23,7 +23,7 @@ void icicleLayout(Node* node, double x, double y) {
   std::vector<Node*> children = node->getChildren();
   if (children.size() != 0) {
     y += node->height();
-    for (int i = 0; i < children.size(); i++) {
+    for (unsigned int i = 0; i < children.size(); i++) {
       icicleLayout(children[i], x, y);
       x += children[i]->weight();
     }
@@ -33,7 +33,7 @@ void icicleLayout(Node* node, double x, double y) {
 //[[Rcpp::export]]
 NumericMatrix partitionTree(IntegerVector parent, IntegerVector order, NumericVector weight, NumericVector height) {
   NumericMatrix rect(parent.size(), 4);
-  int i;
+  unsigned int i;
 
   std::vector<Node*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<int> >(order), as< std::vector<double> >(weight), as< std::vector<double> >(height));
 
