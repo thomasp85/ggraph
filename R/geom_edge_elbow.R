@@ -100,6 +100,7 @@ NULL
 #' @export
 StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
   compute_panel = function(data, scales, flipped = FALSE, n = 100, strength = 1) {
+    data$group <- make.unique(as.character(data$group))
     if (data$circular[1] && n %% 2 == 1) {
       n <- n + 1
     }
@@ -126,7 +127,8 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
       angles <- unlist(Map(seq, from = start, to = end, length.out = n / 2))
       radii <- rep(sqrt(data$y[circ_id]^2 + data$x[circ_id]^2), each = n / 2)
       path_circ <- radial$transform(r = radii, a = angles)
-      path_circ$group <- rep(circ_id, each = n / 2)
+      path_circ$.orig_index <- rep(circ_id, each = n / 2)
+      path_circ$group <- rep(data_circ$group, each = n / 2)
       path_circ$index <- rep(index[seq_len(n / 2)], length(circ_id))
       radii_rel <- radii_start / radii_end
       elbow_x <- data_circ$xend * radii_rel
@@ -144,6 +146,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
         new_data_frame(list(
           x = elbow_x,
           y = elbow_y,
+          .orig_index = path_circ$.orig_index,
           group = path_circ$group,
           index = rep(
             index[seq_len(n / 2) + n / 2],
@@ -151,8 +154,9 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
           )
         ))
       ))
-      path_circ <- cbind(path_circ, data[path_circ$group, !names(data) %in%
+      path_circ <- cbind(path_circ, data[data$.orig_index, !names(data) %in%
         c('x', 'y', 'xend', 'yend')])
+      path_circ$.orig_index <- NULL
     }
     if (any(!data$circular)) {
       path_lin <- lapply(which(!data$circular), function(i) {
@@ -164,7 +168,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             y = approx(c(data$y[i], data$yend[i], data$yend[i]),
               n = n
             )$y,
-            group = i,
+            group = data$group[i],
             index = index
           ))
         } else {
@@ -175,7 +179,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             y = approx(c(data$y[i], data$yend[i] + (data$y[i] - data$yend[i]) * strength, data$yend[i]),
               n = n
             )$y,
-            group = i,
+            group = data$group[i],
             index = index
           ))
         }
@@ -257,7 +261,7 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
     names(pos_data) <- c(pos_cols, 'xend', 'yend')
     new_data <- StatEdgeElbow$compute_panel(pos_data, scales, flipped, n, strength)
     extra_cols <- !names(data) %in% pos_cols
-    index <- match(seq_len(nrow(pos_data)), new_data$group)
+    index <- match(paste0(pos_data$group, '_', seq_len(nrow(pos_data))), new_data$group)
     index <- as.vector(matrix(c(index, index + 1), nrow = 2, byrow = T))
     new_data$.interp <- TRUE
     new_data$.interp[index] <- FALSE
@@ -323,6 +327,7 @@ geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
 #' @export
 StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
   compute_panel = function(data, scales, flipped = FALSE, strength = 1) {
+    data$group <- make.unique(as.character(data$group))
     if (any(data$circular)) {
       if (strength != 1) warning('strength is ignored for circular elbow edges', call. = FALSE)
       circ_id <- which(data$circular)
@@ -339,19 +344,22 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
         -angel_diff, angel_diff
       )
       angles <- unlist(Map(seq, from = start, to = end, length.out = 50))
-      radii <- rep(sqrt(data$y[circId]^2 + data$x[circId]^2), each = 50)
+      radii <- rep(sqrt(data$y[circ_id]^2 + data$x[circ_id]^2), each = 50)
       path_circ <- radial$transform(r = radii, a = angles)
-      path_circ$group <- rep(circId, each = 50)
+      path_circ$.orig_index <- rep(circ_id, each = 50)
+      path_circ$group <- rep(data_circ$group, each = 50)
       path_circ <- rbind_dfs(list(
         path_circ,
         new_data_frame(list(
-          x = data$xend[circId],
-          y = data$yend[circId],
-          group = circId
+          x = data$xend[circ_id],
+          y = data$yend[circ_id],
+          .orig_index = circ_id,
+          group = data_circ$group
         ))
       ))
-      path_circ <- cbind(path_circ, data[path_circ$group, !names(data) %in%
+      path_circ <- cbind(path_circ, data[path_circ$.orig_index, !names(data) %in%
         c('x', 'y', 'xend', 'yend')])
+      path_circ$.orig_index <- NULL
     }
     if (any(!data$circular)) {
       path_lin <- lapply(which(!data$circular), function(i) {
@@ -359,13 +367,13 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
           path <- new_data_frame(list(
             x = c(data$x[i], data$xend[i] + (data$x[i] - data$xend[i]) * strength, data$xend[i]),
             y = c(data$y[i], data$yend[i], data$yend[i]),
-            group = i
+            group = data$group
           ))
         } else {
           path <- new_data_frame(list(
             x = c(data$x[i], data$xend[i], data$xend[i]),
             y = c(data$y[i], data$yend[i] + (data$y[i] - data$yend[i]) * strength, data$yend[i]),
-            group = i
+            group = data$group[i]
           ))
         }
         cbind(path, data[rep(i, nrow(path)), !names(data) %in%

@@ -62,11 +62,11 @@
 #'   data.frame(from = c(1, 1, 2, 2, 3, 3, 3), to = c(1, 2, 2, 3, 3, 1, 2))
 #' )
 #'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') +
+#' ggraph(gr, 'stress') +
 #'   geom_edge_loop(aes(alpha = ..index..)) +
 #'   geom_edge_fan(aes(alpha = ..index..))
 #'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') +
+#' ggraph(gr, 'stress') +
 #'   geom_edge_loop0() +
 #'   geom_edge_fan0()
 #' @rdname geom_edge_loop
@@ -89,7 +89,7 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
     }
     if (nrow(data) == 0) return(NULL)
     data <- data[data$from == data$to, ]
-    data$group <- seq_len(nrow(data))
+    data$group <- make.unique(as.character(data$group))
     if (nrow(data) != 0) {
       create_loops(data, params)
     } else {

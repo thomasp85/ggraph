@@ -212,13 +212,13 @@ gr <- create_notable('bull') \%>\%
   mutate(class = sample(letters[1:3], 9, TRUE)) \%N>\%
   mutate(class = sample(c('x', 'y'), 5, TRUE))
 
-ggraph(gr, 'nicely') +
+ggraph(gr, 'stress') +
   geom_edge_fan(aes(alpha = ..index..))
 
-ggraph(gr, 'nicely') +
+ggraph(gr, 'stress') +
   geom_edge_fan2(aes(colour = node.class))
 
-ggraph(gr, 'nicely') +
+ggraph(gr, 'stress') +
   geom_edge_fan0(aes(colour = class))
 }
 \seealso{

@@ -83,13 +83,13 @@
 #'   mutate(class = sample(letters[1:3], 9, TRUE)) %N>%
 #'   mutate(class = sample(c('x', 'y'), 5, TRUE))
 #'
-#' ggraph(gr, 'nicely') +
+#' ggraph(gr, 'stress') +
 #'   geom_edge_fan(aes(alpha = ..index..))
 #'
-#' ggraph(gr, 'nicely') +
+#' ggraph(gr, 'stress') +
 #'   geom_edge_fan2(aes(colour = node.class))
 #'
-#' ggraph(gr, 'nicely') +
+#' ggraph(gr, 'stress') +
 #'   geom_edge_fan0(aes(colour = class))
 #' @rdname geom_edge_fan
 #' @name geom_edge_fan
@@ -111,14 +111,10 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
     }
     data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
-    data$group <- seq_len(nrow(data))
+    data$group <- make.unique(as.character(data$group))
     data2 <- data
     data2$x <- data2$xend
     data2$y <- data2$yend
-    data$xend <- NULL
-    data$yend <- NULL
-    data2$xend <- NULL
-    data2$yend <- NULL
     create_fans(data, data2, params)
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),

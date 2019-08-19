@@ -77,7 +77,7 @@ gr <- create_notable('bull') \%>\%
   activate(edges) \%>\%
   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 
-ggraph(gr, 'igraph', algorithm = 'nicely') +
+ggraph(gr, 'stress') +
   geom_edge_density(aes(fill = class)) +
   geom_edge_link() + geom_node_point()
 }

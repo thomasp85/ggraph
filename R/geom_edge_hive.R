@@ -113,14 +113,10 @@ StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
     }
     data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
-    data$group <- seq_len(nrow(data))
+    data$group <- make.unique(as.character(data$group))
     data2 <- data
     data2$x <- data2$xend
     data2$y <- data2$yend
-    data$xend <- NULL
-    data$yend <- NULL
-    data2$xend <- NULL
-    data2$yend <- NULL
     keep <- atan2(data$y, data$x) != atan2(data2$y, data2$x)
     create_hive_bezier(data[keep, ], data2[keep, ], params)
   },

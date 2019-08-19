@@ -1,5 +1,7 @@
 # ggraph (development version)
 
+* Fixed numerious bugs and issues pertaining to the group aesthetic handling in
+  many edge geoms (#190, #193).
 * Added length argument to the dendrogram layout to allow the layout to be based
   on edge length rather than node heights (#124).
 * Added `geom_edge_parallel()` for drawing multiedges as parallel lines (#191)

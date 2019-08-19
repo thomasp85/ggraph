@@ -201,17 +201,17 @@ gr <- create_notable('bull') \%>\%
   mutate(class = sample(letters[1:3], 9, TRUE)) \%N>\%
   mutate(class = sample(c('x', 'y'), 5, TRUE))
 
-ggraph(gr, 'nicely') +
+ggraph(gr, 'stress') +
   geom_edge_parallel(aes(alpha = ..index..))
 
-ggraph(gr, 'nicely') +
+ggraph(gr, 'stress') +
   geom_edge_parallel2(aes(colour = node.class))
 
-ggraph(gr, 'nicely') +
+ggraph(gr, 'stress') +
   geom_edge_parallel0(aes(colour = class))
 
 # Use capping and sep to fine tune the look
-ggraph(gr, 'nicely') +
+ggraph(gr, 'stress') +
   geom_edge_parallel(start_cap = circle(1), end_cap = circle(1),
                      arrow = arrow(length = unit(2, 'mm')), sep = unit(4, 'mm')) +
   geom_node_point(size = 12)

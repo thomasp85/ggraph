@@ -108,14 +108,10 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
     }
     data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
-    data$group <- seq_len(nrow(data))
+    data$group <- make.unique(as.character(data$group))
     data2 <- data
     data2$x <- data2$xend
     data2$y <- data2$yend
-    data$xend <- NULL
-    data$yend <- NULL
-    data2$xend <- NULL
-    data2$yend <- NULL
     create_diagonal(data, data2, params)
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'circular'),

@@ -139,13 +139,13 @@
 #'   activate(edges) %>%
 #'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 #'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') +
+#' ggraph(gr, 'stress') +
 #'   geom_edge_link(aes(alpha = ..index..))
 #'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') +
+#' ggraph(gr, 'stress') +
 #'   geom_edge_link2(aes(colour = node.class))
 #'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') +
+#' ggraph(gr, 'stress') +
 #'   geom_edge_link0(aes(colour = class))
 #' @rdname geom_edge_link
 #' @name geom_edge_link

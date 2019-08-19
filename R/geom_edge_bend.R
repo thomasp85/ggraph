@@ -101,14 +101,10 @@ StatEdgeBend <- ggproto('StatEdgeBend', StatBezier,
     }
     data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
-    data$group <- seq_len(nrow(data))
+    data$group <- make.unique(as.character(data$group))
     data2 <- data
     data2$x <- data2$xend
     data2$y <- data2$yend
-    data$xend <- NULL
-    data$yend <- NULL
-    data2$xend <- NULL
-    data2$yend <- NULL
     create_bend(data, data2, params)
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
@@ -213,12 +209,12 @@ geom_edge_bend2 <- function(mapping = NULL, data = get_edges('long'),
 #' @importFrom ggforce StatBezier0
 #' @export
 StatEdgeBend0 <- ggproto('StatEdgeBend0', StatBezier0,
-                         setup_data = function(data, params) {
-                           StatEdgeDiagonal$setup_data(data, params)
-                         },
-                         required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
-                         default_aes = aes(filter = TRUE),
-                         extra_params = c('na.rm', 'flipped', 'strength')
+  setup_data = function(data, params) {
+    StatEdgeBend$setup_data(data, params)
+  },
+  required_aes = c('x', 'y', 'xend', 'yend', 'circular'),
+  default_aes = aes(filter = TRUE),
+  extra_params = c('na.rm', 'flipped', 'strength')
 )
 #' @rdname geom_edge_bend
 #'
