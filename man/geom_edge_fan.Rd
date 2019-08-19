@@ -166,7 +166,7 @@ needed over the drawing. The default (no numeric postfix) generate a number
 of points (\code{n}) along the edge and draws it as a path. Each point along
 the line has a numeric value associated with it giving the position along the
 path, and it is therefore possible to show the direction of the edge by
-mapping to this e.g. \code{colour = ..index..}. The version postfixed with a
+mapping to this e.g. \code{colour = stat(index)}. The version postfixed with a
 "2" uses the "long" edge format (see \code{\link[=get_edges]{get_edges()}}) and makes it
 possible to interpolate node parameter between the start and end node along
 the edge. It is considerable less performant so should only be used if this
@@ -213,7 +213,7 @@ gr <- create_notable('bull') \%>\%
   mutate(class = sample(c('x', 'y'), 5, TRUE))
 
 ggraph(gr, 'stress') +
-  geom_edge_fan(aes(alpha = ..index..))
+  geom_edge_fan(aes(alpha = stat(index)))
 
 ggraph(gr, 'stress') +
   geom_edge_fan2(aes(colour = node.class))

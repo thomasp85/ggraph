@@ -63,8 +63,8 @@
 #' )
 #'
 #' ggraph(gr, 'stress') +
-#'   geom_edge_loop(aes(alpha = ..index..)) +
-#'   geom_edge_fan(aes(alpha = ..index..))
+#'   geom_edge_loop(aes(alpha = stat(index))) +
+#'   geom_edge_fan(aes(alpha = stat(index)))
 #'
 #' ggraph(gr, 'stress') +
 #'   geom_edge_loop0() +

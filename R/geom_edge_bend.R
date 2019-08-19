@@ -74,7 +74,7 @@
 #'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 #'
 #' ggraph(gr, 'tree') +
-#'   geom_edge_bend(aes(alpha = ..index..))
+#'   geom_edge_bend(aes(alpha = stat(index)))
 #'
 #' ggraph(gr, 'tree') +
 #'   geom_edge_bend2(aes(colour = node.class))

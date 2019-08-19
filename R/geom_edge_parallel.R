@@ -75,7 +75,7 @@
 #'   mutate(class = sample(c('x', 'y'), 5, TRUE))
 #'
 #' ggraph(gr, 'stress') +
-#'   geom_edge_parallel(aes(alpha = ..index..))
+#'   geom_edge_parallel(aes(alpha = stat(index)))
 #'
 #' ggraph(gr, 'stress') +
 #'   geom_edge_parallel2(aes(colour = node.class))
