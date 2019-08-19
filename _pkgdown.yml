@@ -46,6 +46,7 @@ reference:
       initialise plots, allowing you to set global settings such as layouts etc.
     contents:
       - ggraph
+      - qgraph
   - title: "Layouts"
     desc: >
       Layouts specify the spatial positioning of the nodes in the graph. In
@@ -134,7 +135,6 @@ reference:
       ggraph contains an assortment of helpers for various tasks related to
       plotting.
     contents:
-      - nplot
       - geom_axis_hive
       - get_nodes
       - get_edges

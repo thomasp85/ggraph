@@ -37,7 +37,8 @@
 #' iris_tree <- hclust(dist(iris[1:4], method = 'euclidean'), method = 'ward.D2')
 #' nplot(iris_tree)
 #'
-nplot <- function(graph, node_colour = NULL, edge_colour = NULL, node_size = NULL, edge_width = NULL, node_label = NULL, edge_label = NULL) {
+qgraph <- function(graph, node_colour = NULL, edge_colour = NULL, node_size = NULL,
+                   edge_width = NULL, node_label = NULL, edge_label = NULL) {
   node_colour <- enquo(node_colour)
   edge_colour <- enquo(edge_colour)
   node_size <- enquo(node_size)

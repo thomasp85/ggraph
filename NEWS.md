@@ -15,7 +15,7 @@
   weird. This also deprecates the `curvature` argument from `geom_edge_arc()` 
   and `geom_edge_hive()` as well as the `spread` argument from `geom_edge_fan()`
   (#97)
-* Added `nplot()` for quickly creating a standard network plot for explorative
+* Added `qgraph()` for quickly creating a standard network plot for explorative
   purpose (#94)
 * Edge geoms no longer throws an error when all edges are completely capped 
   (#176)
