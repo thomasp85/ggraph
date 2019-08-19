@@ -36,8 +36,11 @@ layout_tbl_graph_auto <- function(graph, circular, ...) {
   } else if (with_graph(graph, graph_is_dag())) {
     message('Using `sugiyama` as default layout')
     layout_tbl_graph_igraph(graph, algorithm = 'sugiyama', circular = circular, ...)
+  } else if (with_graph(graph, graph_order()) < 2000) {
+    message('Using `stress` as default layout')
+    layout_tbl_graph_stress(graph, circular = circular, ...)
   } else {
-    message('Using `nicely` as default layout')
-    layout_tbl_graph_igraph(graph, algorithm = 'nicely', circular = circular, ...)
+    message('Using `sparse_stress` with 250 pivots as default layout')
+    layout_tbl_graph_sparse_stress(graph, pivots = 250, circular = circular, ...)
   }
 }

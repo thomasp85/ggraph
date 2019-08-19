@@ -30,7 +30,8 @@ Imports:
     stats,
     viridis,
     rlang,
-    tidygraph
+    tidygraph,
+    graphlayouts
 Suggests: 
     network,
     knitr,
@@ -44,6 +45,7 @@ RoxygenNote: 6.1.1
 Depends:
     R (>= 2.10),
     ggplot2 (>= 3.0.0)
+Remotes: schochastics/graphlayouts
 VignetteBuilder: knitr
 URL: https://github.com/thomasp85/ggraph
 BugReports: https://github.com/thomasp85/ggraph/issues

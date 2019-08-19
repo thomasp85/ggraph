@@ -1,5 +1,8 @@
 # ggraph (development version)
 
+* Interface with the graphlayouts package and make all its layouts available. 
+  The auto layout now uses the stress layout for standard graphs (sparse stress)
+  for larger graphs.
 * Fixed numerious bugs and issues pertaining to the group aesthetic handling in
   many edge geoms (#190, #193).
 * Added length argument to the dendrogram layout to allow the layout to be based

@@ -57,7 +57,13 @@ reference:
     contents:
       - layout_tbl_graph_auto
       - layout_tbl_graph_manual
+      - layout_tbl_graph_stress
       - layout_tbl_graph_igraph
+      - layout_tbl_graph_backbone
+      - layout_tbl_graph_pmds
+      - layout_tbl_graph_eigen
+      - layout_tbl_graph_centrality
+      - layout_tbl_graph_focus
       - layout_tbl_graph_dendrogram
       - layout_tbl_graph_linear
       - layout_tbl_graph_circlepack
