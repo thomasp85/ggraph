@@ -140,7 +140,7 @@ geom_edge_fan <- function(mapping = NULL, data = get_edges(),
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
     x = x, y = y, xend = xend, yend = yend,
-    from = from, to = to
+    from = from, to = to, group = edge.id
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeFan,

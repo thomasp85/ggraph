@@ -106,8 +106,8 @@ geom_edge_span <- function(mapping = NULL, data = get_edges('short'),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = edge_x, y = y,
-                                        xend = edge_x, yend = yend))
+  mapping <- aes_intersect(mapping, aes(x = edge_x, y = y, xend = edge_x,
+                                        yend = yend, group = edge.id))
   layer(
     data = data, mapping = mapping, stat = StatEdgeLink,
     geom = GeomEdgeSpanPath, position = position, show.legend = show.legend,

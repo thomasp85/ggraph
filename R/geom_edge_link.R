@@ -203,8 +203,9 @@ geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = x, y = y,
-                                        xend = xend, yend = yend))
+  mapping <- aes_intersect(mapping, aes(
+    x = x, y = y, xend = xend, yend = yend, group = edge.id
+  ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeLink,
     geom = GeomEdgePath, position = position, show.legend = show.legend,

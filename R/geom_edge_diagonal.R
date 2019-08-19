@@ -133,7 +133,7 @@ geom_edge_diagonal <- function(mapping = NULL, data = get_edges(),
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
     x = x, y = y, xend = xend, yend = yend,
-    circular = circular
+    circular = circular, group = edge.id
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeDiagonal,

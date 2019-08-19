@@ -113,7 +113,7 @@ geom_edge_loop <- function(mapping = NULL, data = get_edges(),
                            show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, from = from, to = to,
+    x = x, y = y, from = from, to = to, group = edge.id,
     span = 90, direction = 45, strength = 1
   ))
   layer(

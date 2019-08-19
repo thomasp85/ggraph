@@ -135,7 +135,7 @@ geom_edge_parallel <- function(mapping = NULL, data = get_edges(),
                                show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(x = x, y = y, xend = xend, yend = yend,
-                                        from = from, to = to))
+                                        from = from, to = to, group = edge.id))
   layer(data = data, mapping = mapping, stat = StatEdgeParallel,
         geom = GeomEdgeParallelPath, position = position, show.legend = show.legend,
         inherit.aes = FALSE,

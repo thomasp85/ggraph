@@ -114,8 +114,8 @@ check_short_edges <- function(edges) {
   if (!inherits(edges, 'data.frame')) {
     stop('edges must by of class data.frame', call. = FALSE)
   }
-  if (!all(c('from', 'to', 'x', 'y', 'xend', 'yend', 'circular') %in% names(edges))) {
-    stop('edges must contain the columns from, to, x, y, xend, yend and circular', call. = FALSE)
+  if (!all(c('from', 'to', 'x', 'y', 'xend', 'yend', 'circular', 'edge.id') %in% names(edges))) {
+    stop('edges must contain the columns from, to, x, y, xend, yend, circular, and edge.id', call. = FALSE)
   }
   if (!is.logical(edges$circular)) {
     stop('circular column must be logical', call. = FALSE)
@@ -152,6 +152,7 @@ format_short_edges <- function(edges, layout) {
   names(nodes2) <- paste0('node2.', names(nodes2))
   edges <- cbind(edges, nodes1, nodes2)
   rownames(edges) <- NULL
+  edges$edge.id <- seq_len(nrow(edges))
   check_short_edges(edges)
 }
 format_long_edges <- function(edges, layout) {

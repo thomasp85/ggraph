@@ -227,7 +227,7 @@ geom_edge_elbow <- function(mapping = NULL, data = get_edges(),
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
     x = x, y = y, xend = xend, yend = yend,
-    circular = circular, direction = direction
+    circular = circular, direction = direction, group = edge.id
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeElbow,
