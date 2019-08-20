@@ -201,7 +201,6 @@ List cut_lines(NumericVector x, NumericVector y, IntegerVector id, NumericVector
   int i, j, group, group_ind;
   group_ind = j = 0;
   group = id[group_ind];
-  bool remaining;
 
   for (i = 0; i < id.size(); ++i) {
     if (group != id[i]) {

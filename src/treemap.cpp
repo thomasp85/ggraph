@@ -4,7 +4,7 @@ using namespace Rcpp;
 
 double w(std::vector<Node*>& nodes) {
   double w = 0;
-  for (int i = 0; i < nodes.size(); ++i) {
+  for (unsigned int i = 0; i < nodes.size(); ++i) {
     w += nodes[i]->weight();
   }
   return w;
@@ -28,7 +28,7 @@ void splitLayout(std::vector<Node*> items, Rectangle r) {
       double tmp = 0;
       bool completed = false;
       // Pick out half the weight into l1, half into l2
-      for (int i = 0; i < items.size(); ++i) {
+      for (unsigned int i = 0; i < items.size(); ++i) {
         if (completed) {
           s2.push_back(items[i]);
         } else {
@@ -71,7 +71,7 @@ void splitLayout(std::vector<Node*> items, Rectangle r) {
 }
 std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight) {
   std::vector<Node*> nodes;
-  int i;
+  unsigned int i;
   for (i = 0; i < parent.size(); ++i) {
     Node* node = new Node(i, order[i], weight[i]);
     nodes.push_back(node);
@@ -87,7 +87,7 @@ std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> ord
 //[[Rcpp::export]]
 NumericMatrix splitTreemap(IntegerVector parent, IntegerVector order, NumericVector weight, double width, double height) {
   NumericMatrix rect(parent.size(), 4);
-  int i;
+  unsigned int i;
 
   std::vector<Node*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<int> >(order), as< std::vector<double> >(weight));
 
