@@ -41,10 +41,12 @@
 
 <meta property="og:description" content="This function infers the layout from the graph structure and is the default
 when calling ggraph(). If an x and y argument is passed along, the
-manual layout is chosen. Otherwise if the graph is either a tree or a forest
-the layout will be dendrogram if the nodes contains a height variable or
-tree if not. If the tree is a DAG the sygiyama layout will be used.
-Otherwise the nicely layout will be used." />
+manual layout is chosen. Otherwise if the graph is either a rooted tree or a
+rooted forest the layout will be dendrogram if the nodes contains a height
+variable or tree if not. If the tree is unrooted the unrooted layout will
+be used. If the tree is a DAG the sygiyama layout will be used. Otherwise
+the stress layout will be used (or sparse_tree if the graph contains more
+than 2000 nodes)." />
 
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -169,10 +171,12 @@ Otherwise the nicely layout will be used." />
     
     <p>This function infers the layout from the graph structure and is the default
 when calling <code><a href='ggraph.html'>ggraph()</a></code>. If an <code>x</code> and <code>y</code> argument is passed along, the
-manual layout is chosen. Otherwise if the graph is either a tree or a forest
-the layout will be <code>dendrogram</code> if the nodes contains a height variable or
-<code>tree</code> if not. If the tree is a DAG the <code>sygiyama</code> layout will be used.
-Otherwise the <code>nicely</code> layout will be used.</p>
+manual layout is chosen. Otherwise if the graph is either a rooted tree or a
+rooted forest the layout will be <code>dendrogram</code> if the nodes contains a height
+variable or <code>tree</code> if not. If the tree is unrooted the <code>unrooted</code> layout will
+be used. If the tree is a DAG the <code>sygiyama</code> layout will be used. Otherwise
+the <code>stress</code> layout will be used (or <code>sparse_tree</code> if the graph contains more
+than 2000 nodes).</p>
     
     </div>
 
