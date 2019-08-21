@@ -64,6 +64,7 @@ StatNodeCircle <- ggproto('StatNodeCircle', StatCircle,
       data <- data[data$filter, names(data) != 'filter']
     }
     if (nrow(data) == 0) return(NULL)
+    data$group <- make_unique(data$group)
     data
   },
   default_aes = aes(filter = TRUE)
