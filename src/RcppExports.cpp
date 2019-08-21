@@ -88,6 +88,23 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// unrooted
+NumericMatrix unrooted(IntegerVector parent, IntegerVector order, NumericVector length, bool daylight, double tol, double rotation_mod, int maxiter);
+RcppExport SEXP _ggraph_unrooted(SEXP parentSEXP, SEXP orderSEXP, SEXP lengthSEXP, SEXP daylightSEXP, SEXP tolSEXP, SEXP rotation_modSEXP, SEXP maxiterSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type order(orderSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type length(lengthSEXP);
+    Rcpp::traits::input_parameter< bool >::type daylight(daylightSEXP);
+    Rcpp::traits::input_parameter< double >::type tol(tolSEXP);
+    Rcpp::traits::input_parameter< double >::type rotation_mod(rotation_modSEXP);
+    Rcpp::traits::input_parameter< int >::type maxiter(maxiterSEXP);
+    rcpp_result_gen = Rcpp::wrap(unrooted(parent, order, length, daylight, tol, rotation_mod, maxiter));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_ggraph_pack", (DL_FUNC) &_ggraph_pack, 1},
@@ -96,6 +113,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ggraph_cut_lines", (DL_FUNC) &_ggraph_cut_lines, 9},
     {"_ggraph_pathAttr", (DL_FUNC) &_ggraph_pathAttr, 2},
     {"_ggraph_splitTreemap", (DL_FUNC) &_ggraph_splitTreemap, 5},
+    {"_ggraph_unrooted", (DL_FUNC) &_ggraph_unrooted, 7},
     {NULL, NULL, 0}
 };
 

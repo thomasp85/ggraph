@@ -60,3 +60,7 @@ splitTreemap <- function(parent, order, weight, width, height) {
     .Call('_ggraph_splitTreemap', PACKAGE = 'ggraph', parent, order, weight, width, height)
 }
 
+unrooted <- function(parent, order, length, daylight, tol, rotation_mod, maxiter) {
+    .Call('_ggraph_unrooted', PACKAGE = 'ggraph', parent, order, length, daylight, tol, rotation_mod, maxiter)
+}
+

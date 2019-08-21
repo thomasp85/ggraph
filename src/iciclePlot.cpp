@@ -2,21 +2,6 @@
 #include "nodes.h"
 using namespace Rcpp;
 
-std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight, std::vector<double> height) {
-  std::vector<Node*> nodes;
-  unsigned int i;
-  for (i = 0; i < parent.size(); ++i) {
-    Node* node = new Node(i, order[i], weight[i], height[i]);
-    nodes.push_back(node);
-  }
-  for (i = 0; i < parent.size(); ++i) {
-    if (parent[i] >= 0) {
-      nodes[parent[i]]->addNode(nodes[i]);
-    }
-  }
-  return nodes;
-}
-
 void icicleLayout(Node* node, double x, double y) {
   Rectangle r = {x, y, node->weight(), node->height()};
   node->bounds = r;

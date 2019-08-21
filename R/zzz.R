@@ -1,7 +1,5 @@
 .onLoad <- function(...) {
-  if (getRversion() < '3.6.0') {
-    register_s3_method("gganimate", "layer_type", "GeomEdgePath")
-  }
+  register_s3_method("gganimate", "layer_type", "GeomEdgePath")
 
   invisible()
 }

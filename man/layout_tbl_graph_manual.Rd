@@ -37,6 +37,7 @@ Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
   \code{\link{layout_tbl_graph_partition}},
   \code{\link{layout_tbl_graph_pmds}},
   \code{\link{layout_tbl_graph_stress}},
-  \code{\link{layout_tbl_graph_treemap}}
+  \code{\link{layout_tbl_graph_treemap}},
+  \code{\link{layout_tbl_graph_unrooted}}
 }
 \concept{layout_tbl_graph_*}

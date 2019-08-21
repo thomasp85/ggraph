@@ -119,7 +119,7 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),
   default_aes = aes(filter = TRUE),
-  extra_params = c('na.rm', 'n', 'strength')
+  extra_params = c('na.rm', 'n', 'strength', 'spread')
 )
 #' @rdname geom_edge_fan
 #'
@@ -181,7 +181,7 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
   },
   required_aes = c('x', 'y', 'group', 'from', 'to'),
   default_aes = aes(filter = TRUE),
-  extra_params = c('na.rm', 'n', 'strength')
+  extra_params = c('na.rm', 'n', 'strength', 'spread')
 )
 #' @rdname geom_edge_fan
 #'
@@ -232,7 +232,7 @@ StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'from', 'to'),
   default_aes = aes(filter = TRUE),
-  extra_params = c('na.rm', 'strength')
+  extra_params = c('na.rm', 'strength', 'spread')
 )
 #' @rdname geom_edge_fan
 #'

@@ -34,7 +34,7 @@
 #' only have one parent and zero or more children. If the provided graph does
 #' not fit this format an attempt to convert it to such a format will be made.
 #'
-#' @param graph An `tbl_graph` object
+#' @param graph A `tbl_graph` object
 #'
 #' @param algorithm The name of the tiling algorithm to use. Defaults to 'split'
 #'

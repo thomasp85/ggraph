@@ -69,20 +69,6 @@ void splitLayout(std::vector<Node*> items, Rectangle r) {
     splitLayout(s2, r2);
   }
 }
-std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight) {
-  std::vector<Node*> nodes;
-  unsigned int i;
-  for (i = 0; i < parent.size(); ++i) {
-    Node* node = new Node(i, order[i], weight[i]);
-    nodes.push_back(node);
-  }
-  for (i = 0; i < parent.size(); ++i) {
-    if (parent[i] >= 0) {
-      nodes[parent[i]]->addNode(nodes[i]);
-    }
-  }
-  return nodes;
-}
 
 //[[Rcpp::export]]
 NumericMatrix splitTreemap(IntegerVector parent, IntegerVector order, NumericVector weight, double width, double height) {
