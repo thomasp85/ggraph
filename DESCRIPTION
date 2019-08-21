@@ -19,7 +19,7 @@ LazyData: TRUE
 Imports:
     Rcpp (>= 0.12.2),
     dplyr,
-    ggforce (>= 0.3.0),
+    ggforce (>= 0.3.1),
     grid,
     igraph (>= 1.0.0),
     scales,
@@ -47,7 +47,6 @@ RoxygenNote: 6.1.1
 Depends:
     R (>= 2.10),
     ggplot2 (>= 3.0.0)
-Remotes: schochastics/graphlayouts
 VignetteBuilder: knitr
 URL: https://github.com/thomasp85/ggraph
 BugReports: https://github.com/thomasp85/ggraph/issues
