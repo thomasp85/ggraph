@@ -390,7 +390,7 @@ std::vector<NodePack*> createHierarchy(std::vector<int> parent, std::vector<doub
   return nodes;
 }
 int findTopNode(std::vector<NodePack*>& nodes) {
-  int i;
+  unsigned int i;
   bool found = false;
   for (i = 0; i < nodes.size(); ++i) {
     if (nodes[i]->orphan()) {
@@ -401,7 +401,7 @@ int findTopNode(std::vector<NodePack*>& nodes) {
   if (!found) {
     stop("No top node. Is this a tree structure?");
   }
-  return i;
+  return (int) i;
 }
 //' Pack circles together
 //'

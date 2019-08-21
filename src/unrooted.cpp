@@ -42,7 +42,8 @@ double equalDaylight(Node* node, double rotation_mod) {
       x1 = node->getParent()->bounds.x - x0;
       y1 = node->getParent()->bounds.y - y0;
     }
-    int lower, upper;
+    int lower = 0;
+    int upper = 0;
     double lower_angle = PI2;
     double upper_angle = -PI2;
     for (unsigned int j = 0; j < leafs[i].size(); ++j) {

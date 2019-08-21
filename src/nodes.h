@@ -117,19 +117,19 @@ public:
     }
     return leafs;
   }
-  int nChildren() {
+  unsigned int nChildren() {
     return children.size();
   };
-  int nOffspring() {
-    int ret = nChildren();
+  unsigned int nOffspring() {
+    unsigned int ret = nChildren();
     for (unsigned int i = 0; i < ret; ++i) {
       ret += children[i]->nOffspring();
     }
     return ret;
   };
-  int nLeafs() {
+  unsigned int nLeafs() {
     if (leaf()) return 1;
-    int ret = 0;
+    unsigned int ret = 0;
     for (unsigned int i = 0; i < nChildren(); ++i) {
       if (children[i]->leaf()) {
         ret++;
