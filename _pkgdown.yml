@@ -65,6 +65,7 @@ reference:
       - layout_tbl_graph_centrality
       - layout_tbl_graph_focus
       - layout_tbl_graph_dendrogram
+      - layout_tbl_graph_unrooted
       - layout_tbl_graph_linear
       - layout_tbl_graph_circlepack
       - layout_tbl_graph_treemap

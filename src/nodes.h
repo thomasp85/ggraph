@@ -9,6 +9,7 @@ struct Rectangle {
 };
 class Node {
   std::vector<Node*> children;
+  std::vector< std::vector<Node*> > allLeafs;
   Node* parent;
   bool hasParent;
   double Weight;
@@ -40,6 +41,22 @@ public:
     Weight = weight;
     Height = height;
   };
+  void rotate(double angle, double x, double y) {
+    double s = sin(angle);
+    double c = cos(angle);
+
+    // translate point back to origin:
+    double new_x = bounds.x - x;
+    double new_y = bounds.y - y;
+
+    // rotate point
+    bounds.x = new_x * c - new_y * s + x;
+    bounds.y = new_x * s + new_y * c + y;
+
+    for (unsigned int i = 0; i < children.size(); ++i) {
+      children[i]->rotate(angle, x, y);
+    }
+  };
   std::vector<Node*> getChildren() {
     std::vector<Node*> childVec;
     for (unsigned int i = 0; i < children.size(); ++i) {
@@ -47,9 +64,81 @@ public:
     }
     return childVec;
   };
+  Node* getParent() {
+    return parent;
+  };
+  std::vector<Node*> getLeafs() {
+    std::vector<Node*> leafVec;
+    collectLeafs(leafVec);
+    return leafVec;
+  };
+  void collectLeafs(std::vector<Node*> &leafVec) {
+    if (leaf()) {
+      leafVec.push_back(this);
+    } else {
+      for (unsigned int i = 0; i < children.size(); ++i) {
+        children[i]->collectLeafs(leafVec);
+      }
+    }
+  };
+  std::vector<Node*> getParentLeafs() {
+    std::vector<Node*> leafVec;
+    collectParentLeafs(leafVec);
+    return leafVec;
+  };
+  void collectParentLeafs(std::vector<Node*> &leafVec) {
+    if (orphan()) return;
+    std::vector<Node*> siblings = parent->children;
+    for (unsigned int i = 0; i < siblings.size(); ++i) {
+      if (siblings[i] == this) continue;
+      siblings[i]->collectLeafs(leafVec);
+    }
+    parent->collectParentLeafs(leafVec);
+  };
+  void collectAllLeafs() {
+    if (orphan()) return;
+    for (unsigned int i = 0; i < children.size(); ++i) {
+      allLeafs.push_back(children[i]->getLeafs());
+    }
+    allLeafs.push_back(getParentLeafs());
+  };
+  std::vector< std::vector<Node*> > getAllLeafs() {
+    if (allLeafs.empty()) {
+      collectAllLeafs();
+    }
+    std::vector< std::vector<Node*> > leafs;
+
+    for (unsigned int i = 0; i < allLeafs.size(); ++i) {
+      std::vector<Node*> leafVec;
+      for (unsigned int j = 0; j < allLeafs[i].size(); ++j) {
+        leafVec.push_back(allLeafs[i][j]);
+      }
+      leafs.push_back(leafVec);
+    }
+    return leafs;
+  }
   int nChildren() {
     return children.size();
   };
+  int nOffspring() {
+    int ret = nChildren();
+    for (unsigned int i = 0; i < ret; ++i) {
+      ret += children[i]->nOffspring();
+    }
+    return ret;
+  };
+  int nLeafs() {
+    if (leaf()) return 1;
+    int ret = 0;
+    for (unsigned int i = 0; i < nChildren(); ++i) {
+      if (children[i]->leaf()) {
+        ret++;
+      } else {
+        ret += children[i]->nLeafs();
+      }
+    }
+    return ret;
+  }
   double weight() {
     return Weight;
   };
@@ -78,6 +167,9 @@ public:
   bool orphan() {
     return !hasParent;
   };
+  bool leaf() {
+    return nChildren() == 0;
+  }
   int order() {
     return Order;
   };
@@ -94,3 +186,7 @@ public:
 
   Rectangle bounds;
 };
+
+std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight);
+std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight, std::vector<double> height);
+std::vector<Node*> createUnrooted(std::vector<int> parent, std::vector<int> order, std::vector<double> length);

@@ -1,5 +1,6 @@
 # ggraph (development version)
 
+* Add equal-angle and equal-daylight unrooted tree layouts (#59)
 * Interface with the graphlayouts package and make all its layouts available. 
   The auto layout now uses the stress layout for standard graphs (sparse stress)
   for larger graphs.

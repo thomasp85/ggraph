@@ -83,7 +83,8 @@ prepare_graph <- function(graph, layout, direction = 'out', ...) {
     'dendrogram',
     'treemap',
     'circlepack',
-    'partition'
+    'partition',
+    'unrooted'
   )
   if (is_hierarchy || (layout == 'auto' && with_graph(graph, graph_is_tree() || graph_is_forest()))) {
     graph <- graph_to_tree(graph, mode = direction)
@@ -137,7 +138,7 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
   if (is.null(height)) {
     hierarchy$height <- 1
   } else {
-    hierarchy$height <- vertex_attr(graph, height)
+    hierarchy$height <- c(0, height)
   }
   leaf <- degree(graph, mode = mode) == 0
   if (is.null(weight)) {

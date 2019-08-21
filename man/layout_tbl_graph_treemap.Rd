@@ -9,7 +9,7 @@ layout_tbl_graph_treemap(graph, algorithm = "split", weight = NULL,
   width = 1)
 }
 \arguments{
-\item{graph}{An \code{tbl_graph} object}
+\item{graph}{A \code{tbl_graph} object}
 
 \item{algorithm}{The name of the tiling algorithm to use. Defaults to 'split'}
 
@@ -93,6 +93,7 @@ Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
   \code{\link{layout_tbl_graph_matrix}},
   \code{\link{layout_tbl_graph_partition}},
   \code{\link{layout_tbl_graph_pmds}},
-  \code{\link{layout_tbl_graph_stress}}
+  \code{\link{layout_tbl_graph_stress}},
+  \code{\link{layout_tbl_graph_unrooted}}
 }
 \concept{layout_tbl_graph_*}
