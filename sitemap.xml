@@ -121,13 +121,25 @@
     <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_auto.html</loc>
   </url>
   <url>
+    <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_backbone.html</loc>
+  </url>
+  <url>
+    <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_centrality.html</loc>
+  </url>
+  <url>
     <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_circlepack.html</loc>
   </url>
   <url>
     <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_dendrogram.html</loc>
   </url>
   <url>
+    <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_eigen.html</loc>
+  </url>
+  <url>
     <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_fabric.html</loc>
+  </url>
+  <url>
+    <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_focus.html</loc>
   </url>
   <url>
     <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_hive.html</loc>
@@ -148,7 +160,16 @@
     <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_partition.html</loc>
   </url>
   <url>
+    <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_pmds.html</loc>
+  </url>
+  <url>
+    <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_stress.html</loc>
+  </url>
+  <url>
     <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_treemap.html</loc>
+  </url>
+  <url>
+    <loc>https://ggraph.data-imaginist.com/reference/layout_tbl_graph_unrooted.html</loc>
   </url>
   <url>
     <loc>https://ggraph.data-imaginist.com/reference/layout_to_table.html</loc>
@@ -163,10 +184,10 @@
     <loc>https://ggraph.data-imaginist.com/reference/node_angle.html</loc>
   </url>
   <url>
-    <loc>https://ggraph.data-imaginist.com/reference/nplot.html</loc>
+    <loc>https://ggraph.data-imaginist.com/reference/pack_circles.html</loc>
   </url>
   <url>
-    <loc>https://ggraph.data-imaginist.com/reference/pack_circles.html</loc>
+    <loc>https://ggraph.data-imaginist.com/reference/qgraph.html</loc>
   </url>
   <url>
     <loc>https://ggraph.data-imaginist.com/reference/reexports.html</loc>

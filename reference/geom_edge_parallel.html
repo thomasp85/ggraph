@@ -350,7 +350,7 @@ needed over the drawing. The default (no numeric postfix) generate a number
 of points (<code>n</code>) along the edge and draws it as a path. Each point along
 the line has a numeric value associated with it giving the position along the
 path, and it is therefore possible to show the direction of the edge by
-mapping to this e.g. <code>colour = ..index..</code>. The version postfixed with a
+mapping to this e.g. <code>colour = stat(index)</code>. The version postfixed with a
 "2" uses the "long" edge format (see <code><a href='get_edges.html'>get_edges()</a></code>) and makes it
 possible to interpolate node parameter between the start and end node along
 the edge. It is considerable less performant so should only be used if this
@@ -409,14 +409,14 @@ automatically be renamed appropriately.</p>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fl'>9</span>, <span class='fl'>TRUE</span>)) <span class='kw'>%N&gt;%</span>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>'x'</span>, <span class='st'>'y'</span>), <span class='fl'>5</span>, <span class='fl'>TRUE</span>))
 
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
-  <span class='fu'>geom_edge_parallel</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>))</div><div class='img'><img src='geom_edge_parallel-1.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'stress'</span>) +
+  <span class='fu'>geom_edge_parallel</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>stat</span>(<span class='no'>index</span>)))</div><div class='img'><img src='geom_edge_parallel-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'stress'</span>) +
   <span class='fu'>geom_edge_parallel2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>))</div><div class='img'><img src='geom_edge_parallel-2.png' alt='' width='700' height='433' /></div><div class='input'>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'stress'</span>) +
   <span class='fu'>geom_edge_parallel0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_parallel-3.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='co'># Use capping and sep to fine tune the look</span>
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'nicely'</span>) +
+<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'stress'</span>) +
   <span class='fu'>geom_edge_parallel</span>(<span class='kw'>start_cap</span> <span class='kw'>=</span> <span class='fu'><a href='geometry.html'>circle</a></span>(<span class='fl'>1</span>), <span class='kw'>end_cap</span> <span class='kw'>=</span> <span class='fu'><a href='geometry.html'>circle</a></span>(<span class='fl'>1</span>),
                      <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fu'>arrow</span>(<span class='kw'>length</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>2</span>, <span class='st'>'mm'</span>)), <span class='kw'>sep</span> <span class='kw'>=</span> <span class='fu'>unit</span>(<span class='fl'>4</span>, <span class='st'>'mm'</span>)) +
   <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span>(<span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>12</span>)</div><div class='img'><img src='geom_edge_parallel-4.png' alt='' width='700' height='433' /></div><div class='input'>

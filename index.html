@@ -156,7 +156,7 @@
 <a class="sourceLine" id="cb1-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co"># plot using ggraph</span></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="kw"><a href="reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'kk'</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="st">    </span><span class="kw"><a href="reference/geom_edge_fan.html">geom_edge_fan</a></span>(<span class="kw">aes</span>(<span class="dt">alpha =</span> ..index..), <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-16" data-line-number="16"><span class="st">    </span><span class="kw"><a href="reference/geom_edge_fan.html">geom_edge_fan</a></span>(<span class="kw">aes</span>(<span class="dt">alpha =</span> <span class="kw">stat</span>(index)), <span class="dt">show.legend =</span> <span class="ot">FALSE</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="st">    </span><span class="kw"><a href="reference/geom_node_point.html">geom_node_point</a></span>(<span class="kw">aes</span>(<span class="dt">size =</span> Popularity)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-18" data-line-number="18"><span class="st">    </span><span class="kw"><a href="reference/facet_edges.html">facet_edges</a></span>(<span class="op">~</span>year) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-19" data-line-number="19"><span class="st">    </span><span class="kw"><a href="reference/theme_graph.html">theme_graph</a></span>(<span class="dt">foreground =</span> <span class="st">'steelblue'</span>, <span class="dt">fg_text_colour =</span> <span class="st">'white'</span>)</a></code></pre></div>
@@ -223,7 +223,7 @@
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://data-imaginist.com">Thomas Lin Pedersen</a> <br><small class="roles"> Maintainer, author </small>  </li>
+<a href="https://data-imaginist.com">Thomas Lin Pedersen</a> <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-5147-4711" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
 </ul>
 </div>
 

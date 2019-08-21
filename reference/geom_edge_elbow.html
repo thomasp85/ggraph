@@ -368,7 +368,7 @@ needed over the drawing. The default (no numeric postfix) generate a number
 of points (<code>n</code>) along the edge and draws it as a path. Each point along
 the line has a numeric value associated with it giving the position along the
 path, and it is therefore possible to show the direction of the edge by
-mapping to this e.g. <code>colour = ..index..</code>. The version postfixed with a
+mapping to this e.g. <code>colour = stat(index)</code>. The version postfixed with a
 "2" uses the "long" edge format (see <code><a href='get_edges.html'>get_edges()</a></code>) and makes it
 possible to interpolate node parameter between the start and end node along
 the edge. It is considerable less performant so should only be used if this
@@ -428,9 +428,11 @@ automatically be renamed appropriately.</p>
   <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fu'><a href='https://www.rdocumentation.org/packages/tidygraph/topics/reexports'>n</a></span>(), <span class='fl'>TRUE</span>))
 
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>irisDen</span>, <span class='st'>'dendrogram'</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
-  <span class='fu'>geom_edge_elbow</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>))</div><div class='img'><img src='geom_edge_elbow-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_edge_elbow</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>stat</span>(<span class='no'>index</span>)))</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_edge_elbow()`:</span>
+#&gt; <span class='warning'>arguments imply differing number of rows: 29800, 0</span></div><div class='img'><img src='geom_edge_elbow-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>irisDen</span>, <span class='st'>'dendrogram'</span>) +
-  <span class='fu'>geom_edge_elbow2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>))</div><div class='img'><img src='geom_edge_elbow-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_edge_elbow2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>))</div><div class='output co'>#&gt; <span class='warning'>Warning: Computation failed in `stat_edge_elbow2()`:</span>
+#&gt; <span class='warning'>NAs are not allowed in subscripted assignments</span></div><div class='img'><img src='geom_edge_elbow-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>irisDen</span>, <span class='st'>'dendrogram'</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='no'>height</span>) +
   <span class='fu'>geom_edge_elbow0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_elbow-3.png' alt='' width='700' height='433' /></div></pre>
   </div>

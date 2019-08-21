@@ -373,7 +373,7 @@ needed over the drawing. The default (no numeric postfix) generate a number
 of points (<code>n</code>) along the edge and draws it as a path. Each point along
 the line has a numeric value associated with it giving the position along the
 path, and it is therefore possible to show the direction of the edge by
-mapping to this e.g. <code>colour = ..index..</code>. The version postfixed with a
+mapping to this e.g. <code>colour = stat(index)</code>. The version postfixed with a
 "2" uses the "long" edge format (see <code><a href='get_edges.html'>get_edges()</a></code>) and makes it
 possible to interpolate node parameter between the start and end node along
 the edge. It is considerable less performant so should only be used if this
@@ -439,9 +439,9 @@ automatically be renamed appropriately.</p>
 #&gt; <span class='warning'>Please supply `env`.</span>
 #&gt; <span class='warning'>This warning is displayed once per session.</span></div><div class='input'>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'linear'</span>) +
-  <span class='fu'>geom_edge_arc</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='no'>..index..</span>))</div><div class='img'><img src='geom_edge_arc-1.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_edge_arc</span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>stat</span>(<span class='no'>index</span>)))</div><div class='img'><img src='geom_edge_arc-1.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'linear'</span>) +
-  <span class='fu'>geom_edge_arc2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>), <span class='kw'>curvature</span> <span class='kw'>=</span> <span class='fl'>0.6</span>)</div><div class='output co'>#&gt; <span class='warning'>Warning: The curvature argument has been deprecated in favour of strength</span></div><div class='img'><img src='geom_edge_arc-2.png' alt='' width='700' height='433' /></div><div class='input'>
+  <span class='fu'>geom_edge_arc2</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>node.class</span>), <span class='kw'>strength</span> <span class='kw'>=</span> <span class='fl'>0.6</span>)</div><div class='img'><img src='geom_edge_arc-2.png' alt='' width='700' height='433' /></div><div class='input'>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='st'>'linear'</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
   <span class='fu'>geom_edge_arc0</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>class</span>))</div><div class='img'><img src='geom_edge_arc-3.png' alt='' width='700' height='433' /></div></pre>
   </div>

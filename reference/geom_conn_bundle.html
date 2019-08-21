@@ -301,7 +301,7 @@ Visualization and Computer Graphics, <strong>12</strong>(5), 741-748.
 
 <span class='co'># Use class inheritance for layout but plot class imports as bundles</span>
 <span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>flareGraph</span>, <span class='st'>'dendrogram'</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
-  <span class='fu'>geom_conn_bundle</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='no'>..index..</span>),
+  <span class='fu'>geom_conn_bundle</span>(<span class='fu'>aes</span>(<span class='kw'>colour</span> <span class='kw'>=</span> <span class='fu'>stat</span>(<span class='no'>index</span>)),
     <span class='kw'>data</span> <span class='kw'>=</span> <span class='fu'><a href='get_con.html'>get_con</a></span>(<span class='no'>importFrom</span>, <span class='no'>importTo</span>),
     <span class='kw'>edge_alpha</span> <span class='kw'>=</span> <span class='fl'>0.25</span>
   ) +

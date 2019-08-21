@@ -122,7 +122,7 @@
       <h1>Layouts</h1>
                         <h4 class="author">Thomas Lin Pedersen</h4>
             
-            <h4 class="date">2019-08-16</h4>
+            <h4 class="date">2019-08-21</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/master/vignettes/Layouts.Rmd"><code>vignettes/Layouts.Rmd</code></a></small>
       <div class="hidden name"><code>Layouts.Rmd</code></div>
@@ -167,13 +167,13 @@
 <p><img src="Layouts_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Examining the return of <code><a href="../reference/ggraph.html">create_layout()</a></code> we see that it is really just a <code>data.frame</code> of node positions and (possible) attributes. Furthermore the original graph object along with other relevant information is passed along as attributes:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(layout)</a></code></pre></div>
-<pre><code>##           x        y name .ggraph.orig_index circular .ggraph.index
-## 1 -12.54917 17.07182    1                  1    FALSE             1
-## 2 -11.64582 16.65752    2                  2    FALSE             2
-## 3 -12.94370 16.78018    3                  3    FALSE             3
-## 4 -11.61065 18.81407    4                  4    FALSE             4
-## 5 -11.59011 18.52528    5                  5    FALSE             5
-## 6 -11.68575 17.58782    6                  6    FALSE             6</code></pre>
+<pre><code>##           x          y name .ggraph.orig_index circular .ggraph.index
+## 1 -11.87314 -1.5304962    1                  1    FALSE             1
+## 2 -12.14645 -2.1726305    2                  2    FALSE             2
+## 3 -11.28131 -1.4929851    3                  3    FALSE             3
+## 4 -12.86307 -0.1686889    4                  4    FALSE             4
+## 5 -11.96213  0.1468616    5                  5    FALSE             5
+## 6 -11.54570 -0.9423406    6                  6    FALSE             6</code></pre>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/attributes">attributes</a></span>(layout)</a></code></pre></div>
 <pre><code>## $names
 ## [1] "x"                  "y"                  "name"              
@@ -193,9 +193,9 @@
 ## # Edge Data: 506 x 4 (active)
 ##    from    to  year direction
 ##   &lt;int&gt; &lt;int&gt; &lt;dbl&gt; &lt;fct&gt;    
-## 1     1    13  1957 left     
+## 1     1    13  1957 right    
 ## 2     1    14  1957 left     
-## 3     1    20  1957 left     
+## 3     1    20  1957 right    
 ## 4     1    52  1957 right    
 ## 5     1    53  1957 right    
 ## 6     2    20  1957 right    
@@ -339,6 +339,8 @@
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(dendrogram, <span class="st">'dendrogram'</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb21-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
+<pre><code>## Warning: Computation failed in `stat_edge_elbow()`:
+## arguments imply differing number of rows: 29800, 0</code></pre>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 </div>
 </div>
