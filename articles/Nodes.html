@@ -139,7 +139,7 @@
 <a class="sourceLine" id="cb1-5" data-line-number="5">gr &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph">as_tbl_graph</a></span>(highschool)</a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"></a>
 <a class="sourceLine" id="cb1-7" data-line-number="7"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(gr, <span class="dt">layout =</span> <span class="st">'kk'</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x=</span>x, <span class="dt">y=</span>y))</a></code></pre></div>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> y))</a></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
 <p>The reason this works is that, as discussed in the Layout vignette, layouts return a <code>data.frame</code> of node positions and metadata and this is used as the default plot data:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/utils/topics/head">head</a></span>(<span class="kw"><a href="../reference/ggraph.html">create_layout</a></span>(gr, <span class="dt">layout =</span> <span class="st">'kk'</span>))</a></code></pre></div>

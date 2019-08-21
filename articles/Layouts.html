@@ -134,7 +134,7 @@
 <p>In very short terms, a layout is the vertical and horizontal placement of nodes when plotting a particular graph structure. Conversely, a layout algorithm is an algorithm that takes in a graph structure (and potentially some additional parameters) and return the vertical and horizontal position of the nodes. Often, when people think of network visualizations, they think of node-edge diagrams where strongly connected nodes are attempted to be plotted in close proximity. Layouts can be a lot of other things too though — e.g. hive plots and treemaps. One of the driving factors behind <code>ggraph</code> has been to develop an API where any type of visual representation of graph structures is supported. In order to achieve this we first need a flexible way of defining the layout…</p>
 <div id="the-ggraph-and-create_layout-functions" class="section level2">
 <h2 class="hasAnchor">
-<a href="#the-ggraph-and-create_layout-functions" class="anchor"></a>The <code><a href="../reference/ggraph.html">ggraph()</a></code> and <code><a href="../reference/ggraph.html">create_layout()</a></code> functions</h2>
+<a href="#the-ggraph-and-create_layout-functions" class="anchor"></a>The ggraph() and create_layout() functions</h2>
 <p>As the layout is a global specification of the spatial position of the nodes it spans all layers in the plot and should thus be defined outside of calls to geoms or stats. In <code>ggraph</code> it is often done as part of the plot initialization using <code><a href="../reference/ggraph.html">ggraph()</a></code> — a function equivalent in intent to <code>ggplot()</code>. As a minimum <code><a href="../reference/ggraph.html">ggraph()</a></code> must be passed a graph object supported by <code>ggraph</code>:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggraph)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidygraph)</a>
@@ -381,7 +381,7 @@
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
-<li><a href="#the-ggraph-and-create_layout-functions">The <code><a href="--/reference/ggraph-html">ggraph()</a></code> and <code><a href="--/reference/ggraph-html">create_layout()</a></code> functions</a></li>
+<li><a href="#the-ggraph-and-create_layout-functions">The ggraph() and create_layout() functions</a></li>
       <li><a href="#adding-support-for-new-data-sources">Adding support for new data sources</a></li>
       <li><a href="#layouts-abound">Layouts abound</a></li>
       <li><a href="#want-more">Want more?</a></li>

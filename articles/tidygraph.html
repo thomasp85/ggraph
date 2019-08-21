@@ -160,18 +160,18 @@
 ## # Node Data: 5 x 1 (active)
 ##   name 
 ##   &lt;chr&gt;
-## 1 4    
-## 2 2    
-## 3 5    
-## 4 3    
+## 1 2    
+## 2 3    
+## 3 4    
+## 4 5    
 ## 5 1    
 ## #
 ## # Edge Data: 20 x 3
 ##    from    to weight
 ##   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
-## 1     1     4  0.373
-## 2     2     5  0.321
-## 3     3     2  0.326
+## 1     1     3  0.821
+## 2     2     3  0.484
+## 3     2     3  0.365
 ## # … with 17 more rows</code></pre>
 <p>Then, instead of writing:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>, <span class="dt">weights =</span> <span class="st">"weight"</span>) <span class="op">+</span><span class="st"> </span></a>
@@ -204,14 +204,11 @@
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="st">'matrix'</span>, <span class="dt">sort.by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/node_rank">node_rank_leafsort</a></span>()) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/centrality">centrality_edge_betweenness</a></span>()), <span class="dt">mirror =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">'bottom'</span>)</a></code></pre></div>
-<pre><code>## Registered S3 method overwritten by 'seriation':
-##   method         from 
-##   reorder.hclust gclus</code></pre>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="st">'fr'</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb9-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/facet_nodes.html">facet_nodes</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/group_graph">group_infomap</a></span>())</a></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="st">'fr'</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>() <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/facet_nodes.html">facet_nodes</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/group_graph">group_infomap</a></span>())</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
   </div>
