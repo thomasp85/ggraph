@@ -258,10 +258,11 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
       c(FALSE, TRUE),
       c('x', 'y')
     ])
+    pos_data$group <- make.unique(as.character(pos_data$group))
     names(pos_data) <- c(pos_cols, 'xend', 'yend')
     new_data <- StatEdgeElbow$compute_panel(pos_data, scales, flipped, n, strength)
     extra_cols <- !names(data) %in% pos_cols
-    index <- match(paste0(pos_data$group, '_', seq_len(nrow(pos_data))), new_data$group)
+    index <- match(pos_data$group, new_data$group)
     index <- as.vector(matrix(c(index, index + 1), nrow = 2, byrow = T))
     new_data$.interp <- TRUE
     new_data$.interp[index] <- FALSE
