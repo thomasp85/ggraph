@@ -32,7 +32,7 @@
 #' gr <- create_notable('bull') %>%
 #'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 #'
-#' ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point()
+#' ggraph(gr, 'stress') + geom_node_point()
 #' @export
 #'
 geom_node_point <- function(mapping = NULL, data = NULL, position = 'identity',

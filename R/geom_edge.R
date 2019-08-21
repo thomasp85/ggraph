@@ -359,18 +359,21 @@ GeomEdgeSpanSegment <- ggproto('GeomEdgeSpanSegment', GeomEdgeSegment,
 #' @importFrom grid gpar pointsGrob
 #' @export
 GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
-  draw_panel = function(data, panel_scales, coord, na.rm = FALSE, mirror = FALSE) {
-    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
-      return(zeroGrob())
-    }
-    data$edge_shape <- translate_pch(data$edge_shape)
-    if (mirror) {
+  setup_data = function(data, params) {
+    if (params$mirror) {
       data2 <- data
       data2[, c('x', 'y')] <- data2[, c('y', 'x'), drop = FALSE]
       data2$x <- abs(data2$x) * sign(data$x)
       data2$y <- abs(data2$y) * sign(data$y)
       data <- rbind_dfs(list(data, data2))
     }
+    data
+  },
+  draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
+    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
+      return(zeroGrob())
+    }
+    data$edge_shape <- translate_pch(data$edge_shape)
     coords <- coord$transform(data, panel_scales)
     coords <- coords[order(coords$edge_size, decreasing = TRUE), , drop = FALSE]
     pointsGrob(coords$x, coords$y,
@@ -398,7 +401,8 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
   default_aes = aes(
     edge_shape = 19, edge_colour = 'black', edge_size = 1.5,
     edge_fill = NA, edge_alpha = NA, stroke = 0.5
-  )
+  ),
+  extra_params = c('na.rm', 'mirror')
 )
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -406,16 +410,19 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
 #' @importFrom grid gpar rectGrob
 #' @export
 GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
-  draw_panel = function(data, panel_params, coord, na.rm = FALSE, mirror = FALSE) {
-    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
-      return(zeroGrob())
-    }
-    if (mirror) {
+  setup_data = function(data, params) {
+    if (params$mirror) {
       data2 <- data
       data2[, c('x', 'y')] <- data2[, c('y', 'x'), drop = FALSE]
       data2$x <- abs(data2$x) * sign(data$x)
       data2$y <- abs(data2$y) * sign(data$y)
       data <- rbind_dfs(list(data, data2))
+    }
+    data
+  },
+  draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
+    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
+      return(zeroGrob())
     }
     data$xmin <- data$x - 0.5
     data$xmax <- data$x + 0.5
@@ -464,7 +471,8 @@ GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
   default_aes = aes(
     edge_fill = 'grey20', edge_colour = NA, edge_size = 0.1,
     edge_linetype = 1, edge_alpha = NA
-  )
+  ),
+  extra_params = c('na.rm', 'mirror')
 )
 #' @rdname ggraph-extensions
 #' @format NULL

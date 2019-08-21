@@ -75,7 +75,7 @@ While you don't have to use a straight line for edges it is certainly possible
 and `geom_edge_link()` is here to serve your needs:
 
 ```{r}
-ggraph(hairball, layout = 'kk') + 
+ggraph(hairball, layout = 'stress') + 
   geom_edge_link(aes(colour = year))
 ```
 
@@ -93,8 +93,20 @@ directionality prior to plotting so edges flowing in the same direction will be
 plottet together:
 
 ```{r}
-ggraph(hairball, layout = 'kk') + 
+ggraph(hairball, layout = 'stress') + 
   geom_edge_fan(aes(colour = year))
+```
+
+### Parallel
+An alternative to `geom_edge_fan()` is `geom_edge_parallel()`. It will draw 
+edges as straight lines but in the case of multi-edges it will offset each edge 
+a bit so they run parallel to each other. As with `geom_edge_fan()` the edges 
+will be sorted by direction first. The offset is done at draw time and will thus
+remain constant even during resizing:
+
+```{r}
+ggraph(hairball, layout = 'stress') + 
+  geom_edge_parallel(aes(colour = year))
 ```
 
 ### Loops
@@ -105,7 +117,7 @@ Loops cannot be shown with regular edges as they have no length. A dedicated
 # let's make some of the student love themselves
 loopy_hairball <- hairball %>% 
   bind_edges(tibble::tibble(from = 1:5, to = 1:5, year = rep('1957', 5)))
-ggraph(loopy_hairball, layout = 'kk') + 
+ggraph(loopy_hairball, layout = 'stress') + 
   geom_edge_link(aes(colour = year), alpha = 0.25) + 
   geom_edge_loop(aes(colour = year))
 ```
@@ -123,7 +135,7 @@ the edges, but edges can tend to get overplotted, thus reducing readability.
 of edges in a certain area:
 
 ```{r}
-ggraph(hairball, layout = 'kk') + 
+ggraph(hairball, layout = 'stress') + 
   geom_edge_density(aes(fill = year)) + 
   geom_edge_link(alpha = 0.25)
 ```
@@ -175,6 +187,16 @@ ggraph(hierarchy, layout = 'dendrogram', height = height) +
 
 It tends to look a bit weird with hugely unbalanced trees so use with care...
 
+### Bends
+An alternaitve to diagonals are bend edges which are elbow edges with a 
+smoothed corner. It is implemented as a quadratic bezier with control points at
+the location of the expected elbow corner:
+
+```{r}
+ggraph(hierarchy, layout = 'dendrogram', height = height) + 
+  geom_edge_bend()
+```
+
 ### Hive
 This is certainly a very specific type of edge, intended only for use with hive
 plots. It draws edges as quadratic beziers with control point positioned 
@@ -184,6 +206,38 @@ perpendicular to the axes of the hive layout:
 ggraph(hairball, layout = 'hive', axis = pop_devel, sort.by = popularity) + 
   geom_edge_hive(aes(colour = year)) + 
   geom_axis_hive(label = FALSE) + 
+  coord_fixed()
+```
+
+### Span
+As with the hive edge the `geom_edge_span()` is made in particular for a 
+specific layout - the fabric layout. It draws the edge as a vertical line 
+connecting the horizontal node lines of the layout, potentially with a terminal
+shape.
+
+```{r}
+ggraph(hairball, layout = 'fabric', sort.by = node_rank_fabric()) + 
+  geom_node_range(colour = 'grey') + 
+  geom_edge_span(end_shape = 'circle') + 
+  coord_fixed()
+```
+
+### Point and tile
+It may seem weird to have edge geoms that doesn't have any span, but the matrix
+layout calls for exactly that. The terminal nodes of the edge are determined by
+the vertical and horizontal position of the mark, and for that reason the geom 
+doesn't need any extend. The point and tile geoms serve the same purpose but are
+simply different geometry types:
+
+```{r}
+ggraph(hairball, layout = 'matrix', sort.by = bfs_rank()) + 
+  geom_edge_point() + 
+  coord_fixed()
+```
+
+```{r}
+ggraph(hairball, layout = 'matrix', sort.by = bfs_rank()) + 
+  geom_edge_tile() + 
   coord_fixed()
 ```
 
@@ -235,6 +289,26 @@ This is, sadly, the boring one at the end. You don't get the luxury of smooth
 gradients over the edge and often you have a considerably worse performance.
 What you gain though is tack sharp resolution in the curves so if this is of 
 utmost importance you are covered by this variant.
+
+## Edge strength
+Many of the edge geoms takes a strength argument that denotes their deviation 
+from a straight line. Setting `strength = 0` will always result in a straight
+line, while `strength = 1` is the default look. Anything in between can be used
+to modify the look of the edge, while values outside that range will probably 
+result in some weird looks. Some examples are shown below:
+
+```{r}
+small_tree <- create_tree(5, 2)
+
+ggraph(small_tree, 'dendrogram') + 
+  geom_edge_elbow(strength = 0.75)
+```
+
+```{r}
+ggraph(small_tree, 'dendrogram') + 
+  geom_edge_diagonal(strength = 0.5)
+```
+
 
 ## Decorating edges
 An edge is so much more than a line... Well at least it is also potentially an

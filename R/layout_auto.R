@@ -2,10 +2,12 @@
 #'
 #' This function infers the layout from the graph structure and is the default
 #' when calling [ggraph()]. If an `x` and `y` argument is passed along, the
-#' manual layout is chosen. Otherwise if the graph is either a tree or a forest
-#' the layout will be `dendrogram` if the nodes contains a height variable or
-#' `tree` if not. If the tree is a DAG the `sygiyama` layout will be used.
-#' Otherwise the `nicely` layout will be used.
+#' manual layout is chosen. Otherwise if the graph is either a rooted tree or a
+#' rooted forest the layout will be `dendrogram` if the nodes contains a height
+#' variable or `tree` if not. If the tree is unrooted the `unrooted` layout will
+#' be used. If the tree is a DAG the `sygiyama` layout will be used. Otherwise
+#' the `stress` layout will be used (or `sparse_tree` if the graph contains more
+#' than 2000 nodes).
 #'
 #' @param graph A tbl_graph object
 #'

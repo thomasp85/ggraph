@@ -30,9 +30,9 @@ ggraph(gr, layout = 'kk') +
   geom_point(aes(x=x, y=y))
 ```
 
-The reason this works is that, as discussed in the previous post, layouts return
-a `data.frame` of node positions and metadata and this is used as the default
-plot data:
+The reason this works is that, as discussed in the Layout vignette, layouts 
+return a `data.frame` of node positions and metadata and this is used as the 
+default plot data:
 
 ```{r}
 head(create_layout(gr, layout = 'kk'))
@@ -92,15 +92,29 @@ The usual suspects are of course provided in the form of `geom_node_point()`
 expected, taking in the usual aesthetics (plus *filter*). Only x and y are
 defaulted so everything else must be provided e.g. label which does not default
 to the `name` column like is done in `igraph`. One feature sets 
-`geom_node_text()` and `geom_node_label()` apart from their `ggplot2` counterparts:
-both have a `repel` argument that, when set to `TRUE`, will use the repel 
-functionality provided by the 
+`geom_node_text()` and `geom_node_label()` apart from their `ggplot2` 
+counterparts: both have a `repel` argument that, when set to `TRUE`, will use 
+the repel functionality provided by the 
 [ggrepel](https://CRAN.R-project.org/package=ggrepel) package to avoid 
-overlapping text.
+overlapping text. There is also `geom_node_voronoi()` that plots nodes as cells
+from a voronoi tesselation. This is useful for e.g. showing dominance of certain
+node types in an area as overlapping is avoided:
 
-Apart from these three geoms there's a set of geoms mainly useful for spatial
-node layouts such as treemaps, partition, and circle packing. `geom_node_tile()`
-is the `ggraph` counterpart to `ggplot2`s `geom_tile()` while 
+```{r}
+graph <- create_notable('meredith') %>% 
+  mutate(group = sample(c('A', 'B'), n(), TRUE))
+
+ggraph(graph, 'stress') + 
+  geom_node_voronoi(aes(fill = group), max.radius = 1) + 
+  geom_node_point() + 
+  geom_edge_link() + 
+  coord_fixed()
+```
+
+Apart from these geoms there's a set of geoms mainly useful for spatial
+node layouts such as treemaps, partition, circle packing, and fabric. 
+`geom_node_tile()` and `geom_node_range()` are the `ggraph` counterpart to 
+`ggplot2`s `geom_tile()` and `geom_linerange()` while 
 `geom_node_circle()` and `geom_node_arc_bar()` maps to `ggforce`s 
 `geom_circle()` and `geom_arc_bar()`. Collective for these is that the spatial
 dimensions of the geoms (e.g. radius, width, and height) are precalculated by

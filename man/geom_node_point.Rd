@@ -67,7 +67,7 @@ require(tidygraph)
 gr <- create_notable('bull') \%>\%
   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 
-ggraph(gr, 'igraph', algorithm = 'nicely') + geom_node_point()
+ggraph(gr, 'stress') + geom_node_point()
 }
 \seealso{
 Other geom_node_*: \code{\link{geom_node_arc_bar}},

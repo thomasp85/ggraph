@@ -20,7 +20,7 @@ treemaps. One of the driving factors behind `ggraph` has been to develop an API
 where any type of visual representation of graph structures is supported. In 
 order to achieve this we first need a flexible way of defining the layout...
 
-## `ggraph()` and `create_layout()`
+## The `ggraph()` and `create_layout()` functions
 As the layout is a global specification of the spatial position of the nodes it
 spans all layers in the plot and should thus be defined outside of calls to 
 geoms or stats. In `ggraph` it is often done as part of the plot initialization
@@ -70,7 +70,7 @@ separately using `create_layout()`. This function takes the same arguments as
 of a graph structure in ggraph call:
 
 ```{r}
-layout <- create_layout(graph, layout = 'drl')
+layout <- create_layout(graph, layout = 'eigen')
 ggraph(layout) + 
   geom_edge_link(aes(colour = factor(year))) + 
   geom_node_point()
@@ -95,49 +95,25 @@ by addressing the nodes. Still, use of the `geom_node_*()` family provided by
 is being worked with.
 
 ## Adding support for new data sources
-Out of the box `ggraph` supports `dendrogram` and `igraph` objects natively as
-well as `hclust` and `network` through conversion to one of the above. If there
-is wish for support for additional classes this can be achieved by adding a set
-of specific methods to the class. The `ggraph` source code should be your guide
-in this but I will briefly describe the methods below:
-
-### `create_layout.myclass()`
-This method is responsible for taking a graph structure and returning a 
-`layout_ggraph` object. The object is just a `data.frame` with the correct class
-and attributes added. The class should be 
-`c('layout_myclass', 'layout_ggraph', 'data.frame')` and it should at least have 
-a `graph` attribute holding the original graph object as well as a `circular`
-attribute with a logical giving whether the layout has been transformed to a
-circular representation or not. If the graph structure contains any additional
-information about the nodes this should be added to the `data.frame` as columns
-so these are accessible during plotting.
-
-### `getEdges.layout_myclass()`
-This method takes the return value of `create_layout.myclass()` and returns the
-edges of the graph structure. The return value should be in the form of an edge
-list with a `to` and `from` column giving the indexes of the terminal nodes of
-the edge. Furthermore, it must contain a `circular` column, again indicating
-whether the layout should be considered circular. If there are any additional
-data attached to the edges in the graph structure these should be added as 
-columns to the `data.frame`.
-
-### `getConnection.layout_myclass()`
-This method is intended to return the shortest path between two nodes as a list
-of node indexes. This method can be ignored but will result in lack of support
-for `geom_conn_*` layers.
-
-### `layout_myclass_*()`
-Any type of layout algorithm that needs to be available to this class should be
-defined as a separate `layout_myclass_layoutname()` function. This function will
-be called when `'layoutname'` is used in the `layout` argument in `ggraph()` or
-`create_layout()`. At a minimum each new class should have a 
-`layout_myclass_auto()` defined.
+Out of the box `ggraph` supports `tbl_graph` objects from tidygraph natively. 
+Any other type of object will be attempted to be coerced to a `tbl_graph` object
+automatically. Tidygraph provide convertions for most known graph structure in R
+so almost any data type is supported by ggraph by extension. If there
+is wish for support for additional classes this can be achieved by providing a
+`as_tbl_graph()` method for the class. If you do this, consider submitting the
+method to tidygraph so others can benefit from your work.
 
 ## Layouts abound
-There's a lot of different layouts in `ggraph` --- first and foremost because
-`igraph` implements a lot of layouts for drawing node-edge diagrams and all of
-these are available in `ggraph`. Additionally, `ggraph` provides a lot of new
-layout types and algorithms for your drawing pleasure.
+There's a lot of different layouts in `ggraph` --- All layouts from the 
+graphlayouts and igraph packages are available, an ggraph itself also provide
+some of the more specialised layouts itself. All in all ggraph provides well 
+above 20 different layouts to choose from, far more than we can cover in this 
+text. I urge you to explore the different layout types. Blindly running along 
+with the default layouts is a sad but common mistake in network visualisation 
+that can cloud or distort the insight the network might hold. If ggraph lacks 
+the needed layout it is always possible to supply your own layout function that
+takes a tbl_graph object and returns a data.frame of node positions, or supply
+the positions directly by passing a matrix or data.frame to the layout argument.
 
 ### A note on circularity
 Some layouts can be shown effectively both in a standard Cartesian projection as
@@ -184,20 +160,21 @@ Not every layout has a meaningful circular representation in which cases the
 `circular` argument will be ignored.
 
 ### Node-edge diagram layouts
-`igraph` provides a total of 13 different layout algorithms for classic 
-node-edge diagrams (colloquially referred to as hairballs). Some of these are
-incredibly simple such as *randomly*, *grid*, *circle*, and *star*, while others
-tries to optimize the position of nodes based on different characteristics of
-the graph. There is no such thing as "the best layout algorithm" as algorithms
-have been optimized for different scenarios. Experiment with the choices at hand
-and remember to take the end result with a grain of salt, as it is just one of a 
-range of possible "optimal node position" results. Below is a sample of some of
-the layouts available through `igraph` applied to the highschool graph.
+Both `graphlayout` and `igraph` provides a range of different layout algorithms 
+for classic node-edge diagrams (colloquially referred to as hairballs). Some of 
+these are incredibly simple such as *randomly*, *grid*, *circle*, and *star*, 
+while others tries to optimize the position of nodes based on different 
+characteristics of the graph. There is no such thing as "the best layout 
+algorithm" as algorithms have been optimized for different scenarios. Experiment 
+with the choices at hand and remember to take the end result with a grain of 
+salt, as it is just one of a range of possible "optimal node position" results. 
+Below is a sample of some of the layouts available through `igraph` applied to 
+the highschool graph.
 
 ```{r, fig.show='hold', results='hide'}
 graph <- as_tbl_graph(highschool) %>% 
   mutate(degree = centrality_degree())
-lapply(c('fr', 'kk', 'lgl', 'graphopt'), function(layout) {
+lapply(c('stress', 'fr', 'lgl', 'graphopt'), function(layout) {
   ggraph(graph, layout = layout) + 
     geom_edge_link(aes(colour = factor(year)), show.legend = FALSE) +
     geom_node_point() + 
@@ -222,6 +199,19 @@ graph <- graph %>%
 ggraph(graph, 'hive', axis = friends, sort.by = degree) + 
   geom_edge_hive(aes(colour = factor(year))) + 
   geom_axis_hive(aes(colour = friends), size = 2, label = FALSE) + 
+  coord_fixed()
+```
+
+### Focal layouts
+Some layouts can put focus on a single node or a group of nodes by defining all
+other positions relative to that. An example of this is the `focus` layout, but
+the `centrality` layout is very akin to it:
+
+```{r}
+ggraph(graph, 'focus', focus = node_is_center()) + 
+  ggforce::geom_circle(aes(x0 = 0, y0 = 0, r = r), data.frame(r = 1:5), colour = 'grey') + 
+  geom_edge_link() + 
+  geom_node_point() + 
   coord_fixed()
 ```
 
@@ -265,7 +255,7 @@ farthest sibling (the tree layout, on the other hand, puts all nodes at a
 certain depth at the same level):
 
 ```{r}
-ggraph(graph, 'dendrogram') + 
+ggraph(graph, 'tree') + 
   geom_edge_diagonal()
 ```
 
@@ -285,6 +275,72 @@ tree at the expense of the space given to the root:
 ```{r}
 ggraph(dendrogram, 'dendrogram', circular = TRUE) + 
   geom_edge_elbow() + 
+  coord_fixed()
+```
+
+A type of trees known especially in phylogeny is unrooted trees, where no node
+is considered the root. Often a dendrogram layout will not be faithful as it
+implicitly position a node at the root. To avoid that you can use the `unrooted` 
+layout instead.
+
+```{r}
+ggraph(dendrogram, 'unrooted') + 
+  geom_edge_link()
+```
+
+Often unrooted trees have a branch length attached - this can be passed to both
+the `dendrogram` and `unrooted` layout to determine the length of each edge.
+
+### Matrix layouts
+Many node-edge diagram layouts suffer from poor scalability, where edges will 
+eventually begin to overlap to the extend that the plot becomes unintellible. 
+One way to combat this is by only plotting subsets of the larger plot, but
+another approach is to choose a layout that avoids overlapping edges altogether.
+The matrix layout places each node on a diagonal and draws edges by drawing 
+points or tiles at the intersection of the vertical and horizontal position of
+its terminal nodes. Using matrix layouts efficiently requires that you begin to
+recognise the specific patterns that different network topologies gives rise to.
+Further, it is important to recognise the large effect that the node order has 
+on the look of the matrix layout:
+
+```{r}
+graph <- create_notable('zachary')
+ggraph(graph, 'matrix', sort.by = node_rank_leafsort()) + 
+  geom_edge_point(mirror = TRUE) + 
+  coord_fixed()
+```
+
+```{r}
+ggraph(graph, 'matrix', sort.by = node_rank_spectral()) + 
+  geom_edge_point(mirror = TRUE) + 
+  coord_fixed()
+```
+
+### Fabric layouts
+Another special layout that promises scalability is the biofabric layout (here
+named `fabric` to avoid it being ignored for non-biological networks). The 
+fabric layout is special in that it positions nodes evenly spaced on the y-axis
+and then draws edges as vertical (and by extension, parallel) lines evenly 
+separated as well, connecting the nodes. Nodes are drawn as horizontal lines 
+spanning the extent of the edges that departs from it. As with matrix layouts
+the node ordering have a huge impact on the final look and interpreting the plot
+may take some getting used to.
+
+```{r}
+ggraph(graph, 'fabric', sort.by = node_rank_fabric()) + 
+  geom_node_range(colour = 'grey') + 
+  geom_edge_span(end_shape = 'square') + 
+  coord_fixed()
+```
+
+Fabric layouts allow something called shadow edges where all edges are 
+duplicated to make it easier to follow all edges originating from each node.
+
+```{r}
+ggraph(graph, 'fabric', sort.by = node_rank_fabric(), shadow.edges =TRUE) + 
+  geom_node_range(colour = 'grey') + 
+  geom_edge_span(aes(filter = shadow_edge), colour ='lightblue' , end_shape = 'square') + 
+  geom_edge_span(aes(filter = !shadow_edge), end_shape = 'square') + 
   coord_fixed()
 ```
 

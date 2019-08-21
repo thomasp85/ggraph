@@ -154,7 +154,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
           )
         ))
       ))
-      path_circ <- cbind(path_circ, data[data$.orig_index, !names(data) %in%
+      path_circ <- cbind(path_circ, data[path_circ$.orig_index, !names(data) %in%
         c('x', 'y', 'xend', 'yend')])
       path_circ$.orig_index <- NULL
     }
