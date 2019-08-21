@@ -20,7 +20,7 @@ treemaps. One of the driving factors behind `ggraph` has been to develop an API
 where any type of visual representation of graph structures is supported. In 
 order to achieve this we first need a flexible way of defining the layout...
 
-## The `ggraph()` and `create_layout()` functions
+## The ggraph() and create_layout() functions
 As the layout is a global specification of the spatial position of the nodes it
 spans all layers in the plot and should thus be defined outside of calls to 
 geoms or stats. In `ggraph` it is often done as part of the plot initialization

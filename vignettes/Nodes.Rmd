@@ -27,7 +27,7 @@ set_graph_style(plot_margin = margin(1,1,1,1))
 gr <- as_tbl_graph(highschool)
 
 ggraph(gr, layout = 'kk') + 
-  geom_point(aes(x=x, y=y))
+  geom_point(aes(x = x, y = y))
 ```
 
 The reason this works is that, as discussed in the Layout vignette, layouts 

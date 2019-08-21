@@ -128,7 +128,7 @@ within `facet` formulas. It is thus possible to use algorithms when specifying
 layouts, adding aesthetics to geoms and splitting into subplots - all areas were
 ease of iteration is vital:
 
-```{r}
+```{r, message=FALSE}
 ggraph(graph, 'matrix', sort.by = node_rank_leafsort()) + 
   geom_edge_point(aes(colour = centrality_edge_betweenness()), mirror = TRUE) + 
   theme(legend.position = 'bottom')
