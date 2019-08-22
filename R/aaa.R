@@ -60,7 +60,7 @@ data_type <- function(data) {
 
 # non-orderaltering version of make.unique
 make_unique <- function(x, sep = '.') {
-  groups <- match(x, unique(sort(x)))
+  groups <- match(x, unique(x))
   suffix <- unsplit(lapply(split(x, groups), seq_along), groups)
   max_chars <- nchar(max(suffix))
   suffix_format <- paste0('%0', max_chars, 'd')
