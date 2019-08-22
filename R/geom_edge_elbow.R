@@ -100,7 +100,7 @@ NULL
 #' @export
 StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
   compute_panel = function(data, scales, flipped = FALSE, n = 100, strength = 1) {
-    data$group <- make.unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     if (data$circular[1] && n %% 2 == 1) {
       n <- n + 1
     }
@@ -258,7 +258,7 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
       c(FALSE, TRUE),
       c('x', 'y')
     ])
-    pos_data$group <- make.unique(as.character(pos_data$group))
+    pos_data$group <- make_unique(pos_data$group)
     names(pos_data) <- c(pos_cols, 'xend', 'yend')
     new_data <- StatEdgeElbow$compute_panel(pos_data, scales, flipped, n, strength)
     extra_cols <- !names(data) %in% pos_cols
@@ -328,7 +328,7 @@ geom_edge_elbow2 <- function(mapping = NULL, data = get_edges('long'),
 #' @export
 StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
   compute_panel = function(data, scales, flipped = FALSE, strength = 1) {
-    data$group <- make.unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     if (any(data$circular)) {
       if (strength != 1) warning('strength is ignored for circular elbow edges', call. = FALSE)
       circ_id <- which(data$circular)

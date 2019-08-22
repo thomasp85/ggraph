@@ -101,7 +101,7 @@ StatEdgeBend <- ggproto('StatEdgeBend', StatBezier,
     }
     data <- remove_loop(data)
     if (nrow(data) == 0) return(NULL)
-    data$group <- make.unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
     data2$y <- data2$yend

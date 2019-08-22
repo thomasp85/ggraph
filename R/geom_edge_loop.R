@@ -89,7 +89,7 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
     }
     if (nrow(data) == 0) return(NULL)
     data <- data[data$from == data$to, ]
-    data$group <- make.unique(as.character(data$group))
+    data$group <- make_unique(data$group)
     if (nrow(data) != 0) {
       create_loops(data, params)
     } else {
