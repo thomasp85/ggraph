@@ -41,7 +41,7 @@ layout_tbl_graph_unrooted <- function(graph, daylight = TRUE, length = NULL, tol
   extra_data <- as_tibble(graph, active = 'nodes')
   graph <- as.undirected(graph)
   length <- enquo(length)
-  length <- eval_tidy(length, .N())
+  length <- eval_tidy(length, .E())
   hierarchy <- tree_to_hierarchy(graph, 'out', seq_len(gorder(graph)), weight = NULL, length)
   layout <- unrooted(hierarchy$parent, hierarchy$order, hierarchy$height, daylight, tolerance, rotation_mod, maxiter)[-1, ]
   layout <- new_data_frame(list(
