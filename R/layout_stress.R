@@ -57,7 +57,6 @@ layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
 }
 #' @rdname layout_tbl_graph_stress
 #' @importFrom graphlayouts layout_with_sparse_stress
-#' @export
 layout_tbl_graph_sparse_stress <- function(graph, pivots, weights = NULL,
                                            niter = 500, circular = FALSE) {
   weights <- eval_tidy(enquo(weights))
