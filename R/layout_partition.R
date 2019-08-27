@@ -51,7 +51,7 @@
 #' @references
 #' Kruskal, J. B., Landwehr, J. M. (1983). *Icicle Plots: Better Displays
 #' for Hierarchical Clustering*. American Statistician Vol 37(2), 162-168.
-#' <http://doi.org/10.2307/2685881>
+#' https://doi.org/10.2307/2685881
 #'
 #' @family layout_tbl_graph_*
 #'

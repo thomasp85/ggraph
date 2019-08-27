@@ -62,7 +62,7 @@ not fit this format an attempt to convert it to such a format will be made.
 \references{
 Kruskal, J. B., Landwehr, J. M. (1983). \emph{Icicle Plots: Better Displays
 for Hierarchical Clustering}. American Statistician Vol 37(2), 162-168.
-\url{http://doi.org/10.2307/2685881}
+https://doi.org/10.2307/2685881
 }
 \seealso{
 Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},

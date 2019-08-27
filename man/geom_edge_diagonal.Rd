@@ -93,8 +93,9 @@ often aesthetics, used to set an aesthetic to a fixed value, like
 to the paired geom/stat.}
 }
 \description{
-This geom draws edges as diagonal bezier curves as known from
-\href{https://github.com/mbostock/d3/wiki/SVG-Shapes#_diagonal}{d3.svg.diagonal}.
+This geom draws edges as diagonal bezier curves. The name comes from D3.js
+where this shape was called diagonals until it was renamed to
+\href{https://github.com/d3/d3-shape/blob/v1.3.5/README.md#links}{links}.
 A diagonal in this context is a quadratic bezier with the control points
 positioned halfway between the start and end points but on the same axis.
 This produces a pleasing fan-in, fan-out line that is mostly relevant for

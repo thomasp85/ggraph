@@ -64,7 +64,7 @@
 #' @references
 #' Krzywinski, M., Birol, I., Jones, SJM., and Marra, MA. (2012). *Hive
 #' plots-rational approach to visualizing networks*. Brief Bioinform 13 (5):
-#' 627-644. <http://doi.org/10.1093/bib/bbr069>
+#' 627-644. https://doi.org/10.1093/bib/bbr069
 #'
 #' <http://www.hiveplot.net>
 #'
