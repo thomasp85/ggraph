@@ -123,3 +123,10 @@ network plots
 [`geomnet`](https://CRAN.R-project.org/package=geomnet), and
 [`GGally`](https://CRAN.R-project.org/package=GGally) all provide some
 functionality though none of them are as extensive in scope as `ggraph`.
+
+## Code of Conduct
+
+Please note that the ‘ggraph’ project is released with a [Contributor
+Code of
+Conduct](https://ggraph.data-imaginist.com/CODE_OF_CONDUCT.html). By
+contributing to this project, you agree to abide by its terms.
