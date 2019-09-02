@@ -157,12 +157,94 @@
       <small>Source: <a href='https://github.com/thomasp85/ggraph/blob/master/NEWS.md'><code>NEWS.md</code></a></small>
     </div>
 
+    <div id="ggraph-2-0-0" class="section level1">
+<h1 class="page-header">
+<a href="#ggraph-2-0-0" class="anchor"></a>ggraph 2.0.0<small> Unreleased </small>
+</h1>
+<p>This release is a major release including many new features, bug fixes and some breaking changes.</p>
+<div id="breaking-changes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#breaking-changes" class="anchor"></a>Breaking changes</h2>
+<ul>
+<li>
+<p>Use tidygraph as the central data format. The results of this are several:</p>
+<ul>
+<li>All graph object supported by tidygraph are now supported on even footing in ggraph. All layouts are now available to any graph class</li>
+<li>
+<strong>BREAKING</strong> The <code>"even"</code> layout for dendrograms are no more, but can be obtained by using the <code>"dendrogram"</code> layout with <code>height = NULL</code>
+</li>
+<li>
+<strong>BREAKING</strong> All layouts uses NSE for arguments that refer to node and edge variables, instead of passing in strings that refer to the variable name.</li>
+<li>All examples and vignettes now uses tidygraph for graph manipulation resulting in much cleaner code.</li>
+<li>
+<code>tree_apply</code> has been removed in favour of using <code>tidygraph::map_bfs_*</code>
+</li>
+<li>
+<code>geom_edge_elbow</code> is no longer only available to dendrogram objects</li>
+<li>tidygraph algorithms can now be used directly within ggraph functions. E.g. you can have <code>sort.by = node_rank_hclust()</code> in your specification of a linear layout, or <code>aes(colour = group_infomap())</code> in node geoms</li>
+</ul>
+This big change fixes <a href='https://github.com/thomasp85/ggraph/issues/21'>#21</a>, <a href='https://github.com/thomasp85/ggraph/issues/72'>#72</a>, <a href='https://github.com/thomasp85/ggraph/issues/79'>#79</a>, and <a href='https://github.com/thomasp85/ggraph/issues/81'>#81</a>. A vignette has been added to describe the integration in more detail</li>
+<li>The <code>curvature</code> argument from <code><a href="../reference/geom_edge_arc.html">geom_edge_arc()</a></code> and <code><a href="../reference/geom_edge_hive.html">geom_edge_hive()</a></code> as well as the <code>spread</code> argument from <code><a href="../reference/geom_edge_fan.html">geom_edge_fan()</a></code> has been deprecated in favor of the new <code>strength</code> argument.</li>
+<li><p>ggraph plots now gets constructed with grid and axes removed from the default theme.</p></li>
+</ul>
+</div>
+<div id="new-features" class="section level2">
+<h2 class="hasAnchor">
+<a href="#new-features" class="anchor"></a>New features</h2>
+<ul>
+<li>Add equal-angle and equal-daylight unrooted tree layouts (<a href='https://github.com/thomasp85/ggraph/issues/59'>#59</a>)</li>
+<li>Interface with the graphlayouts package and make all its layouts available. The auto layout now uses the stress layout for standard graphs (sparse stress) for larger graphs.</li>
+<li>Added length argument to the dendrogram layout to allow the layout to be based on edge length rather than node heights (<a href='https://github.com/thomasp85/ggraph/issues/124'>#124</a>).</li>
+<li>Added <code><a href="../reference/geom_edge_parallel.html">geom_edge_parallel()</a></code> for drawing multiedges as parallel lines (<a href='https://github.com/thomasp85/ggraph/issues/191'>#191</a>)</li>
+<li>Added fabric layout to create biofabric plots. Also added <code><a href="../reference/geom_node_range.html">geom_node_range()</a></code> and <code><a href="../reference/geom_edge_span.html">geom_edge_span()</a></code> for visualising such layouts (<a href='https://github.com/thomasp85/ggraph/issues/47'>#47</a>)</li>
+<li>Added <code><a href="../reference/geom_edge_bend.html">geom_edge_bend()</a></code> for drawing soft elbows (<a href='https://github.com/thomasp85/ggraph/issues/45'>#45</a>)</li>
+<li>Added <code><a href="../reference/geom_node_voronoi.html">geom_node_voronoi()</a></code> for displaying nodes as voronoi tiles (<a href='https://github.com/thomasp85/ggraph/issues/100'>#100</a>)</li>
+<li>Added <code><a href="../reference/qgraph.html">qgraph()</a></code> for quickly creating a standard network plot for explorative purpose (<a href='https://github.com/thomasp85/ggraph/issues/94'>#94</a>)</li>
+<li>All non-straight line-based edge geoms now has a <code>strength</code> parameter that controls their deviation from a straight line. <code>0</code> will always give a straight line while <code>1</code> will be their natural look. Numbers outside this range may look weird (<a href='https://github.com/thomasp85/ggraph/issues/97'>#97</a>)</li>
+<li>Added <code>weight</code> and <code>mode</code> arguments to <code><a href="../reference/get_con.html">get_con()</a></code> that are passed on to the shortest path calculations (<a href='https://github.com/thomasp85/ggraph/issues/89'>#89</a>).</li>
+<li>Add matrix layout and <code><a href="../reference/geom_edge_point.html">geom_edge_point()</a></code> (<a href='https://github.com/thomasp85/ggraph/issues/23'>#23</a>)</li>
+<li>Added <code><a href="../reference/geom_edge_tile.html">geom_edge_tile()</a></code> for use with matrix layouts (<a href='https://github.com/thomasp85/ggraph/issues/141'>#141</a>)</li>
+<li>Manual layouts are now easier to specify. You can pass a matrix or data.frame to the layout parameter that will then be used. Also, if an <code>x</code> and <code>y</code> argument is present, the <code>auto</code> layout will choose the <code>manual</code> layout. (<a href='https://github.com/thomasp85/ggraph/issues/91'>#91</a>)</li>
+<li>Custom layout functions are now much more flexible. And can either return a <code>data.frame</code> or an object coercible to a <code>tbl_graph</code>. In the latter case the node table will be used as layout and the graph will be attached. This allows direct use of the particles package as a layout engine as a side effect. (<a href='https://github.com/thomasp85/ggraph/issues/88'>#88</a>)</li>
+</ul>
+</div>
+<div id="bug-fixes" class="section level2">
+<h2 class="hasAnchor">
+<a href="#bug-fixes" class="anchor"></a>Bug fixes</h2>
+<ul>
+<li>Fixed numerious bugs and issues pertaining to the group aesthetic handling in many edge geoms (<a href='https://github.com/thomasp85/ggraph/issues/190'>#190</a>, <a href='https://github.com/thomasp85/ggraph/issues/193'>#193</a>).</li>
+<li>Edge geoms no longer throws an error when all edges are completely capped (<a href='https://github.com/thomasp85/ggraph/issues/176'>#176</a>)</li>
+<li>Fixed a bug that prevented edge capping from being used with *2 variants of edge geoms (<a href='https://github.com/thomasp85/ggraph/issues/167'>#167</a>)</li>
+<li>Fix bug in edge capping that could lead to edges extending to (0,0) (<a href='https://github.com/thomasp85/ggraph/issues/163'>#163</a>)</li>
+<li>Fix bug affecting faceting of capped edges (<a href='https://github.com/thomasp85/ggraph/issues/140'>#140</a>)</li>
+<li>Character aesthetics are no longer cast to factors in edge geoms (<a href='https://github.com/thomasp85/ggraph/issues/131'>#131</a>)</li>
+<li>Fix a bug where start capping was ignored if the previous edge had been completely removed by capping (<a href='https://github.com/thomasp85/ggraph/issues/150'>#150</a>)</li>
+<li>Fix offsetting bug in edge label drawing when some labels are empty strings and <code>label_parse = TRUE</code> (<a href='https://github.com/thomasp85/ggraph/issues/159'>#159</a>)</li>
+<li>Fixed a bug resulting in the wrong mapping of additional values to connections (<a href='https://github.com/thomasp85/ggraph/issues/122'>#122</a>, <a href='https://github.com/thomasp85/ggraph/issues/134'>#134</a>)</li>
+<li>Fixed a bug when using <code><a href="../reference/facet_graph.html">facet_graph()</a></code> with data from both tbl_df and data.frame</li>
+<li>Added <code>override.aes</code> to <code><a href="../reference/guide_edge_direction.html">guide_edge_direction()</a></code>
+</li>
+<li>Fix bug with extracting edges from an empty graph (<a href='https://github.com/thomasp85/ggraph/issues/76'>#76</a>)</li>
+<li>Fixed bug causing shifts in edge aesthetics when one or more edges were completely clipped (<a href='https://github.com/thomasp85/ggraph/issues/62'>#62</a>, <a href='https://github.com/thomasp85/ggraph/issues/115'>#115</a>)</li>
+<li>Fixed bug when clipping completely orthogonal points that produced additional lines going to (0,0) (<a href='https://github.com/thomasp85/ggraph/issues/70'>#70</a>, <a href='https://github.com/thomasp85/ggraph/issues/84'>#84</a>, <a href='https://github.com/thomasp85/ggraph/issues/103'>#103</a>)</li>
+</ul>
+</div>
+<div id="other" class="section level2">
+<h2 class="hasAnchor">
+<a href="#other" class="anchor"></a>Other</h2>
+<ul>
+<li>Changed license to MIT</li>
+<li>Update roxygen documentation to use markdown and reduce duplication (<a href='https://github.com/thomasp85/ggraph/issues/95'>#95</a>)</li>
+</ul>
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <div id="tocnav">
       <h2>Contents</h2>
       <ul class="nav nav-pills nav-stacked">
+        <li><a href="#ggraph-2-0-0">2.0.0</a></li>
       </ul>
     </div>
   </div>

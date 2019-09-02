@@ -54,7 +54,8 @@ added benefit of this is that it also changes the default text-related values
 in the different geoms for a completely coherent look.
 unset_graph_style can be used to revert the defaults back to their
 default settings (that is, they are not necessarily reverted back to what
-they were prior to calling set_graph_style)." />
+they were prior to calling set_graph_style). The th_no_axes() helper is
+provided to modify an existing theme so that grid and axes are removed." />
 
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
@@ -192,7 +193,8 @@ added benefit of this is that it also changes the default text-related values
 in the different geoms for a completely coherent look.
 <code>unset_graph_style</code> can be used to revert the defaults back to their
 default settings (that is, they are not necessarily reverted back to what
-they were prior to calling <code>set_graph_style</code>).</p>
+they were prior to calling <code>set_graph_style</code>). The <code>th_no_axes()</code> helper is
+provided to modify an existing theme so that grid and axes are removed.</p>
     
     </div>
 
@@ -212,6 +214,8 @@ they were prior to calling <code>set_graph_style</code>).</p>
 
 <span class='fu'>th_foreground</span>(<span class='kw'>foreground</span> <span class='kw'>=</span> <span class='st'>"grey80"</span>, <span class='kw'>fg_text_colour</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
   <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+
+<span class='fu'>th_no_axes</span>()
 
 <span class='fu'>set_graph_style</span>(<span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"Arial Narrow"</span>, <span class='kw'>face</span> <span class='kw'>=</span> <span class='st'>"plain"</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>11</span>,
   <span class='kw'>text_size</span> <span class='kw'>=</span> <span class='fl'>11</span>, <span class='kw'>text_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>, <span class='no'>...</span>)
