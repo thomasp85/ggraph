@@ -1,4 +1,4 @@
-# ggraph (development version)
+# ggraph 2.0.0
 
 This release is a major release including many new features, bug fixes and some
 breaking changes.
@@ -25,6 +25,8 @@ breaking changes.
 * The `curvature` argument from `geom_edge_arc()` and `geom_edge_hive()` as well 
   as the `spread` argument from `geom_edge_fan()` has been deprecated in favor 
   of the new `strength` argument.
+* ggraph plots now gets constructed with grid and axes removed from the default
+  theme.
 
 ## New features
 

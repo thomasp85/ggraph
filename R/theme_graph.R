@@ -15,7 +15,8 @@
 #' in the different geoms for a completely coherent look.
 #' `unset_graph_style` can be used to revert the defaults back to their
 #' default settings (that is, they are not necessarily reverted back to what
-#' they were prior to calling `set_graph_style`).
+#' they were prior to calling `set_graph_style`). The `th_no_axes()` helper is
+#' provided to modify an existing theme so that grid and axes are removed.
 #'
 #' @param background The colour to use for the background. This theme sets all
 #' background elements except for plot.background to `element_blank` so
@@ -125,6 +126,49 @@ th_foreground <- function(foreground = 'grey80', fg_text_colour = NULL, border =
     th <- th + theme(strip.text = element_text(colour = fg_text_colour))
   }
   th
+}
+#' @rdname theme_graph
+#'
+#' @export
+th_no_axes <- function() {
+  theme(
+    panel.grid = element_blank(),
+    #panel.grid.major = element_blank(),
+    #panel.grid.major.x = element_blank(),
+    #panel.grid.major.y = element_blank(),
+    #panel.grid.minor = element_blank(),
+    #panel.grid.minor.x = element_blank(),
+    #panel.grid.minor.y = element_blank(),
+    axis.title = element_blank(),
+    #axis.title.x = element_blank(),
+    #axis.title.x.bottom = element_blank(),
+    #axis.title.x.top = element_blank(),
+    #axis.title.y = element_blank(),
+    #axis.title.y.left = element_blank(),
+    #axis.title.y.right = element_blank(),
+    axis.text = element_blank(),
+    #axis.text.x = element_blank(),
+    #axis.text.x.top = element_blank(),
+    #axis.text.x.bottom = element_blank(),
+    #axis.text.y = element_blank(),
+    #axis.text.y.left = element_blank(),
+    #axis.text.y.right = element_blank(),
+    axis.ticks = element_blank(),
+    #axis.ticks.x = element_blank(),
+    #axis.ticks.x.top = element_blank(),
+    #axis.ticks.x.bottom = element_blank(),
+    #axis.ticks.y = element_blank(),
+    #axis.ticks.y.left = element_blank(),
+    #axis.ticks.y.right = element_blank(),
+    axis.line = element_blank(),
+    #axis.line.x = element_blank(),
+    #axis.line.x.bottom = element_blank(),
+    #axis.line.x.top = element_blank(),
+    #axis.line.y = element_blank(),
+    #axis.line.y.left = element_blank(),
+    #axis.line.y.right = element_blank(),
+    NULL
+  )
 }
 #' @rdname theme_graph
 #'

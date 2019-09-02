@@ -107,7 +107,8 @@
 #'
 ggraph <- function(graph, layout = 'auto', ...) {
   envir <- parent.frame()
-  p <- ggplot(data = create_layout(graph, layout, ...), environment = envir)
+  p <- ggplot(data = create_layout(graph, layout, ...), environment = envir) +
+    th_no_axes()
   class(p) <- c('ggraph', class(p))
   p
 }
