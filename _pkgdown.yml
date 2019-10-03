@@ -38,6 +38,8 @@ navbar:
       - text: "Change log"
         href: news/index.html
   right:
+    - text: tidygraph
+      href: https://tidygraph.data-imaginist.com
     - icon: fa-github fa-lg
       href: https://github.com/thomasp85/ggraph
 
