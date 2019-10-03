@@ -20,20 +20,20 @@ Run `revdep_details(,"ggdag")` for more info
     ...
     > 
     > tidy_dagitty(dag) %>% dag_adjustment_sets()
-    [90m# A tibble: 36 x 10[39m
+    [90m# A tibble: 36 x 10[39m
        name      x     y direction to     xend  yend circular adjusted   set       
-       [3m[90m<chr>[39m[23m [3m[90m<dbl>[39m[23m [3m[90m<dbl>[39m[23m [3m[90m<fct>[39m[23m     [3m[90m<chr>[39m[23m [3m[90m<dbl>[39m[23m [3m[90m<dbl>[39m[23m [3m[90m<lgl>[39m[23m    [3m[90m<chr>[39m[23m      [3m[90m<chr>[39m[23m     
-    [90m 1[39m v      23.5  16.9 ->        z1     22.6  16.0 FALSE    unadjusted w1, w2, z2
-    [90m 2[39m v      23.5  16.9 ->        z2     24.5  15.9 FALSE    unadjusted w1, w2, z2
-    [90m 3[39m w1     23.4  15.1 ->        x      22.5  14.7 FALSE    adjusted   w1, w2, z2
-    [90m 4[39m w1     23.4  15.1 ->        y      23.9  14.6 FALSE    adjusted   w1, w2, z2
-    [90m 5[39m w1     23.4  15.1 ->        z1     22.6  16.0 FALSE    adjusted   w1, w2, z2
-    [90m 6[39m w1     23.4  15.1 <->       w2     24.8  14.9 FALSE    adjusted   w1, w2, z2
-    [90m 7[39m w2     24.8  14.9 ->        y      23.9  14.6 FALSE    adjusted   w1, w2, z2
-    [90m 8[39m w2     24.8  14.9 ->        z2     24.5  15.9 FALSE    adjusted   w1, w2, z2
-    [90m 9[39m x      22.5  14.7 ->        y      23.9  14.6 FALSE    unadjusted w1, w2, z2
-    [90m10[39m z1     22.6  16.0 ->        x      22.5  14.7 FALSE    unadjusted w1, w2, z2
-    [90m# … with 26 more rows[39m
+       [3m[90m<chr>[39m[23m [3m[90m<dbl>[39m[23m [3m[90m<dbl>[39m[23m [3m[90m<fct>[39m[23m     [3m[90m<chr>[39m[23m [3m[90m<dbl>[39m[23m [3m[90m<dbl>[39m[23m [3m[90m<lgl>[39m[23m    [3m[90m<chr>[39m[23m      [3m[90m<chr>[39m[23m     
+    [90m 1[39m v      23.5  16.9 ->        z1     22.6  16.0 FALSE    unadjusted w1, w2, z2
+    [90m 2[39m v      23.5  16.9 ->        z2     24.5  15.9 FALSE    unadjusted w1, w2, z2
+    [90m 3[39m w1     23.4  15.1 ->        x      22.5  14.7 FALSE    adjusted   w1, w2, z2
+    [90m 4[39m w1     23.4  15.1 ->        y      23.9  14.6 FALSE    adjusted   w1, w2, z2
+    [90m 5[39m w1     23.4  15.1 ->        z1     22.6  16.0 FALSE    adjusted   w1, w2, z2
+    [90m 6[39m w1     23.4  15.1 <->       w2     24.8  14.9 FALSE    adjusted   w1, w2, z2
+    [90m 7[39m w2     24.8  14.9 ->        y      23.9  14.6 FALSE    adjusted   w1, w2, z2
+    [90m 8[39m w2     24.8  14.9 ->        z2     24.5  15.9 FALSE    adjusted   w1, w2, z2
+    [90m 9[39m x      22.5  14.7 ->        y      23.9  14.6 FALSE    unadjusted w1, w2, z2
+    [90m10[39m z1     22.6  16.0 ->        x      22.5  14.7 FALSE    unadjusted w1, w2, z2
+    [90m# … with 26 more rows[39m
     > 
     > ggdag_adjustment_set(dag)
     Error in -params$strength : invalid argument to unary operator
