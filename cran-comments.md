@@ -1,3 +1,7 @@
+This is a major update with some breaking changes. We detected 3 reverse 
+dependency problems. All were notified some time ago, and I've heard from 2 of
+them that a fix has been submitted.
+
 ## Test environments
 * local OS X install, R 3.6.0
 * ubuntu 14.04 (on travis-ci), R 3.6.0

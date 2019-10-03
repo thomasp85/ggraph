@@ -1,7 +1,7 @@
 Package: ggraph
 Type: Package
 Title: An Implementation of Grammar of Graphics for Graphs and Networks
-Version: 1.0.2.9999
+Version: 2.0.0
 Authors@R:
     c(person(given = "Thomas Lin",
              family = "Pedersen",
@@ -50,6 +50,6 @@ Depends:
     R (>= 2.10),
     ggplot2 (>= 3.0.0)
 VignetteBuilder: knitr
-URL: https://github.com/thomasp85/ggraph
+URL: https://ggraph.data-imaginist.com, https://github.com/thomasp85/ggraph
 BugReports: https://github.com/thomasp85/ggraph/issues
 Roxygen: list(markdown = TRUE)
