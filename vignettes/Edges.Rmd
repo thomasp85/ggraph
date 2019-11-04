@@ -22,14 +22,14 @@ While nodes are the sensible, mature, and predictably geoms, edges are the edgy
 
 ## Meet the `geom_edge_*()` family
 While the introduction might feel a bit over-the-top it is entirely true. An 
-edge is an abstract concept denoting a relationship between two enteties. A 
+edge is an abstract concept denoting a relationship between two entities. A 
 straight line is simply just one of many ways this relationship can be 
 visualised. As we saw when [discussing nodes](Nodes.html)
 sometimes it is not drawn at all but impied using containment or position 
 (treemap, circle packing, and partition layouts), but more often it is shown
 using a line of some sort. This use-case is handled by the large family of edge
 geoms provided in `ggraph`. Some of the edges are general while others are 
-dedicated to specific layouts. Lets creates some graphs for illustrary purpose
+dedicated to specific layouts. Let's creates some graphs for illustrative purposes
 first:
 
 ```{r, message=FALSE}
@@ -90,7 +90,7 @@ covered here. If there are no parallel edges it behaves like `geom_edge_link()`
 and draws a straight line, but if parallel edges exists it will spread them out
 as arcs with different curvature. Parallel edges will be sorted by 
 directionality prior to plotting so edges flowing in the same direction will be
-plottet together:
+plotted together:
 
 ```{r}
 ggraph(hairball, layout = 'stress') + 
@@ -127,7 +127,7 @@ general loops will add a lot of visual clutter to your plot unless the graph is
 very simple.
 
 ### Density
-This one is definetly strange, and I'm unsure of it's usefulness, but it is here
+This one is definitely strange, and I'm unsure of it's usefulness, but it is here
 and it deserves an introduction. Consider the case where it is of interest to
 see which types of edges dominates certain areas of the graph. You can colour
 the edges, but edges can tend to get overplotted, thus reducing readability.
@@ -143,7 +143,7 @@ ggraph(hairball, layout = 'stress') +
 ### Arcs
 While some insists that curved edges should be used in standard *"hairball"* 
 graph visualisations it really is a poor choice, as it increases overplotting
-and decreases interpretability for virtually no gain (unless complexiness is 
+and decreases interpretability for virtually no gain (unless complexity is 
 your thing). That doesn't mean arcs have no use in graph visualizations. Linear 
 and circular layouts can benefit greatly from them and `geom_edge_arc()` is 
 provided precisely for this scenario:
@@ -188,7 +188,7 @@ ggraph(hierarchy, layout = 'dendrogram', height = height) +
 It tends to look a bit weird with hugely unbalanced trees so use with care...
 
 ### Bends
-An alternaitve to diagonals are bend edges which are elbow edges with a 
+An alternative to diagonals are bend edges which are elbow edges with a 
 smoothed corner. It is implemented as a quadratic bezier with control points at
 the location of the expected elbow corner:
 
@@ -338,7 +338,7 @@ I hope you think *Ugh* at the sight of this. The edges naturally extend to the
 node center and nodes are thus drawn on top of the arrow heads. There's a 
 solution to this in the form of the `start_cap` and `end_cap` aesthetics in the
 base and 2-variant edge geoms (sorry 0-variant). This can be used to start and
-stop the edge drawing at an absolut distance from the terminal nodes. Wath this:
+stop the edge drawing at an absolute distance from the terminal nodes. Watch this:
 
 ```{r}
 ggraph(simple, layout = 'graphopt') + 
@@ -422,7 +422,7 @@ The estranged cousin of edges are connections. While edges show the relational
 nature of the nodes in the graph structure, connections connect nodes that are 
 not connected in the graph. This is done by finding the shortest path between
 the two nodes. Currently the only connection geom available is 
-`geom_conn_bundle()` that implements the hierarchical edge bundling techinque:
+`geom_conn_bundle()` that implements the hierarchical edge bundling technique:
 
 ```{r}
 flaregraph <- tbl_graph(flare$vertices, flare$edges)

@@ -94,7 +94,7 @@ adornment. Due to the special nature of fabric layouts where nodes are not
 a single point in space but a line, this geom doesn't derive the x position
 from the location of the terminal nodes, but defaults to using the \code{edge_x}
 variable calculated by the fabric layout. If this geom is used with other
-layouts \code{x}and \code{xend} must be given explicetly.
+layouts \code{x}and \code{xend} must be given explicitly.
 }
 \section{Aesthetics}{
 

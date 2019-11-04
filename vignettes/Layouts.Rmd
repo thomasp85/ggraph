@@ -97,7 +97,7 @@ is being worked with.
 ## Adding support for new data sources
 Out of the box `ggraph` supports `tbl_graph` objects from tidygraph natively. 
 Any other type of object will be attempted to be coerced to a `tbl_graph` object
-automatically. Tidygraph provide convertions for most known graph structure in R
+automatically. Tidygraph provide conversions for most known graph structure in R
 so almost any data type is supported by ggraph by extension. If there
 is wish for support for additional classes this can be achieved by providing a
 `as_tbl_graph()` method for the class. If you do this, consider submitting the
