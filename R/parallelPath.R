@@ -2,7 +2,9 @@
 #' @keywords internal
 makeContent.parallelPath <- function(x) {
   will_cap <- inherits(x, 'cappedpathgrob')
-  sep <- x$sep[!duplicated(x$id)]
+  if (!is.null(x$id)) {
+    sep <- x$sep[!duplicated(x$id)]
+  }
   x <- NextMethod()
 
   if (will_cap) {
