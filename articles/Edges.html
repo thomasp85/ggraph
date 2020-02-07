@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/journal/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="Edges">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png">
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
       </span>
     </div>
 
@@ -91,6 +92,9 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.data-imaginist.com/2019/1-giraffe-2-giraffe-go/">Version 2.0.0</a>
+    </li>
+    <li>
       <a href="https://www.data-imaginist.com/2017/announcing-ggraph/">Version 1.0.0</a>
     </li>
     <li class="divider">
@@ -101,6 +105,9 @@
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://tidygraph.data-imaginist.com">tidygraph</a>
+</li>
 <li>
   <a href="https://github.com/thomasp85/ggraph">
     <span class="fa fa-github fa-lg"></span>
@@ -116,13 +123,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>Edges</h1>
                         <h4 class="author">Thomas Lin Pedersen</h4>
             
-            <h4 class="date">2019-09-02</h4>
+            <h4 class="date">2020-02-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/master/vignettes/Edges.Rmd"><code>vignettes/Edges.Rmd</code></a></small>
       <div class="hidden name"><code>Edges.Rmd</code></div>
@@ -142,20 +150,20 @@
 <div id="meet-the-geom_edge_-family" class="section level2">
 <h2 class="hasAnchor">
 <a href="#meet-the-geom_edge_-family" class="anchor"></a>Meet the <code>geom_edge_*()</code> family</h2>
-<p>While the introduction might feel a bit over-the-top it is entirely true. An edge is an abstract concept denoting a relationship between two enteties. A straight line is simply just one of many ways this relationship can be visualised. As we saw when <a href="Nodes.html">discussing nodes</a> sometimes it is not drawn at all but impied using containment or position (treemap, circle packing, and partition layouts), but more often it is shown using a line of some sort. This use-case is handled by the large family of edge geoms provided in <code>ggraph</code>. Some of the edges are general while others are dedicated to specific layouts. Lets creates some graphs for illustrary purpose first:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggraph)</a>
-<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidygraph)</a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(purrr)</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(rlang)</a>
+<p>While the introduction might feel a bit over-the-top it is entirely true. An edge is an abstract concept denoting a relationship between two entities. A straight line is simply just one of many ways this relationship can be visualised. As we saw when <a href="Nodes.html">discussing nodes</a> sometimes it is not drawn at all but impied using containment or position (treemap, circle packing, and partition layouts), but more often it is shown using a line of some sort. This use-case is handled by the large family of edge geoms provided in <code>ggraph</code>. Some of the edges are general while others are dedicated to specific layouts. Let’s creates some graphs for illustrative purposes first:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggraph)</a>
+<a class="sourceLine" id="cb1-2" data-line-number="2"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidygraph)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(purrr)</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(rlang)</a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="kw"><a href="../reference/theme_graph.html">set_graph_style</a></span>(<span class="dt">plot_margin =</span> <span class="kw">margin</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>))</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">hierarchy &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph">as_tbl_graph</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/hclust">hclust</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/dist">dist</a></span>(iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]))) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/reexports">mutate</a></span>(<span class="dt">Class =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/map_bfs_back">map_bfs_back_chr</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/node_types">node_is_root</a></span>(), <span class="dt">.f =</span> <span class="cf">function</span>(node, path, ...) {</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">hierarchy &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/tbl_graph.html">as_tbl_graph</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span>(<span class="kw"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span>(iris[, <span class="dv">1</span><span class="op">:</span><span class="dv">4</span>]))) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-8" data-line-number="8"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/reexports.html">mutate</a></span>(<span class="dt">Class =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/map_bfs_back.html">map_bfs_back_chr</a></span>(<span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/node_types.html">node_is_root</a></span>(), <span class="dt">.f =</span> <span class="cf">function</span>(node, path, ...) {</a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">    <span class="cf">if</span> (leaf[node]) {</a>
-<a class="sourceLine" id="cb1-10" data-line-number="10">      <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(iris<span class="op">$</span>Species[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/integer">as.integer</a></span>(label[node])])</a>
+<a class="sourceLine" id="cb1-10" data-line-number="10">      <span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(iris<span class="op">$</span>Species[<span class="kw"><a href="https://rdrr.io/r/base/integer.html">as.integer</a></span>(label[node])])</a>
 <a class="sourceLine" id="cb1-11" data-line-number="11">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb1-12" data-line-number="12">      species &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unlist">unlist</a></span>(path<span class="op">$</span>result))</a>
-<a class="sourceLine" id="cb1-13" data-line-number="13">      <span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(species) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</a>
+<a class="sourceLine" id="cb1-12" data-line-number="12">      species &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/unlist.html">unlist</a></span>(path<span class="op">$</span>result))</a>
+<a class="sourceLine" id="cb1-13" data-line-number="13">      <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(species) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) {</a>
 <a class="sourceLine" id="cb1-14" data-line-number="14">        species</a>
 <a class="sourceLine" id="cb1-15" data-line-number="15">      } <span class="cf">else</span> {</a>
 <a class="sourceLine" id="cb1-16" data-line-number="16">        <span class="ot">NA_character_</span></a>
@@ -163,21 +171,21 @@
 <a class="sourceLine" id="cb1-18" data-line-number="18">    }</a>
 <a class="sourceLine" id="cb1-19" data-line-number="19">  }))</a>
 <a class="sourceLine" id="cb1-20" data-line-number="20"></a>
-<a class="sourceLine" id="cb1-21" data-line-number="21">hairball &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph">as_tbl_graph</a></span>(highschool) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/reexports">mutate</a></span>(</a>
-<a class="sourceLine" id="cb1-23" data-line-number="23">    <span class="dt">year_pop =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/map_local">map_local</a></span>(<span class="dt">mode =</span> <span class="st">'in'</span>, <span class="dt">.f =</span> <span class="cf">function</span>(neighborhood, ...) {</a>
-<a class="sourceLine" id="cb1-24" data-line-number="24">      neighborhood <span class="op">%E&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/reexports">pull</a></span>(year) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/table">table</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sort">sort</a></span>(<span class="dt">decreasing =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb1-21" data-line-number="21">hairball &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/tbl_graph.html">as_tbl_graph</a></span>(highschool) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-22" data-line-number="22"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/reexports.html">mutate</a></span>(</a>
+<a class="sourceLine" id="cb1-23" data-line-number="23">    <span class="dt">year_pop =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/map_local.html">map_local</a></span>(<span class="dt">mode =</span> <span class="st">'in'</span>, <span class="dt">.f =</span> <span class="cf">function</span>(neighborhood, ...) {</a>
+<a class="sourceLine" id="cb1-24" data-line-number="24">      neighborhood <span class="op">%E&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/reexports.html">pull</a></span>(year) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/table.html">table</a></span>() <span class="op">%&gt;%</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/sort.html">sort</a></span>(<span class="dt">decreasing =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb1-25" data-line-number="25">    }),</a>
 <a class="sourceLine" id="cb1-26" data-line-number="26">    <span class="dt">pop_devel =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_chr</a></span>(year_pop, <span class="cf">function</span>(pop) {</a>
-<a class="sourceLine" id="cb1-27" data-line-number="27">      <span class="cf">if</span> (<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(pop) <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/length">length</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/unique">unique</a></span>(pop)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/function">return</a></span>(<span class="st">'unchanged'</span>)</a>
-<a class="sourceLine" id="cb1-28" data-line-number="28">      <span class="cf">switch</span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/names">names</a></span>(pop)[<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/which.min">which.max</a></span>(pop)],</a>
+<a class="sourceLine" id="cb1-27" data-line-number="27">      <span class="cf">if</span> (<span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(pop) <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/length.html">length</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/unique.html">unique</a></span>(pop)) <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) <span class="kw"><a href="https://rdrr.io/r/base/function.html">return</a></span>(<span class="st">'unchanged'</span>)</a>
+<a class="sourceLine" id="cb1-28" data-line-number="28">      <span class="cf">switch</span>(<span class="kw"><a href="https://rdrr.io/r/base/names.html">names</a></span>(pop)[<span class="kw"><a href="https://rdrr.io/r/base/which.min.html">which.max</a></span>(pop)],</a>
 <a class="sourceLine" id="cb1-29" data-line-number="29">             <span class="st">'1957'</span> =<span class="st"> 'decreased'</span>,</a>
 <a class="sourceLine" id="cb1-30" data-line-number="30">             <span class="st">'1958'</span> =<span class="st"> 'increased'</span>)</a>
 <a class="sourceLine" id="cb1-31" data-line-number="31">    }),</a>
 <a class="sourceLine" id="cb1-32" data-line-number="32">    <span class="dt">popularity =</span> <span class="kw"><a href="https://purrr.tidyverse.org/reference/map.html">map_dbl</a></span>(year_pop, <span class="op">~</span><span class="st"> </span>.[<span class="dv">1</span>]) <span class="op">%|%</span><span class="st"> </span><span class="dv">0</span></a>
 <a class="sourceLine" id="cb1-33" data-line-number="33">  ) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-34" data-line-number="34"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/activate">activate</a></span>(edges) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-35" data-line-number="35"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/reexports">mutate</a></span>(<span class="dt">year =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/character">as.character</a></span>(year))</a></code></pre></div>
+<a class="sourceLine" id="cb1-34" data-line-number="34"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/activate.html">activate</a></span>(edges) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-35" data-line-number="35"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/reexports.html">mutate</a></span>(<span class="dt">year =</span> <span class="kw"><a href="https://rdrr.io/r/base/character.html">as.character</a></span>(year))</a></code></pre></div>
 <div id="link" class="section level3">
 <h3 class="hasAnchor">
 <a href="#link" class="anchor"></a>Link</h3>
@@ -190,7 +198,7 @@
 <div id="fan" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fan" class="anchor"></a>Fan</h3>
-<p>Sometimes the graph is not simple, i.e. it has multiple edges between the same nodes. Using links is a bad choice here because edges will overlap and the viewer will be unable to discover parallel edges. <code><a href="../reference/geom_edge_fan.html">geom_edge_fan()</a></code> got you covered here. If there are no parallel edges it behaves like <code><a href="../reference/geom_edge_link.html">geom_edge_link()</a></code> and draws a straight line, but if parallel edges exists it will spread them out as arcs with different curvature. Parallel edges will be sorted by directionality prior to plotting so edges flowing in the same direction will be plottet together:</p>
+<p>Sometimes the graph is not simple, i.e. it has multiple edges between the same nodes. Using links is a bad choice here because edges will overlap and the viewer will be unable to discover parallel edges. <code><a href="../reference/geom_edge_fan.html">geom_edge_fan()</a></code> got you covered here. If there are no parallel edges it behaves like <code><a href="../reference/geom_edge_link.html">geom_edge_link()</a></code> and draws a straight line, but if parallel edges exists it will spread them out as arcs with different curvature. Parallel edges will be sorted by directionality prior to plotting so edges flowing in the same direction will be plotted together:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(hairball, <span class="dt">layout =</span> <span class="st">'stress'</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb3-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_fan.html">geom_edge_fan</a></span>(<span class="kw">aes</span>(<span class="dt">colour =</span> year))</a></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
@@ -209,7 +217,7 @@
 <p>Loops cannot be shown with regular edges as they have no length. A dedicated <code><a href="../reference/geom_edge_loop.html">geom_edge_loop()</a></code> exists for these cases:</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="co"># let's make some of the student love themselves</span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2">loopy_hairball &lt;-<span class="st"> </span>hairball <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/bind_graphs">bind_edges</a></span>(tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">from =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">year =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/rep">rep</a></span>(<span class="st">'1957'</span>, <span class="dv">5</span>)))</a>
+<a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/bind_graphs.html">bind_edges</a></span>(tibble<span class="op">::</span><span class="kw"><a href="https://tibble.tidyverse.org/reference/tibble.html">tibble</a></span>(<span class="dt">from =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">to =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>, <span class="dt">year =</span> <span class="kw"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="st">'1957'</span>, <span class="dv">5</span>)))</a>
 <a class="sourceLine" id="cb5-4" data-line-number="4"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(loopy_hairball, <span class="dt">layout =</span> <span class="st">'stress'</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>(<span class="kw">aes</span>(<span class="dt">colour =</span> year), <span class="dt">alpha =</span> <span class="fl">0.25</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-6" data-line-number="6"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_loop.html">geom_edge_loop</a></span>(<span class="kw">aes</span>(<span class="dt">colour =</span> year))</a></code></pre></div>
@@ -219,7 +227,7 @@
 <div id="density" class="section level3">
 <h3 class="hasAnchor">
 <a href="#density" class="anchor"></a>Density</h3>
-<p>This one is definetly strange, and I’m unsure of it’s usefulness, but it is here and it deserves an introduction. Consider the case where it is of interest to see which types of edges dominates certain areas of the graph. You can colour the edges, but edges can tend to get overplotted, thus reducing readability. <code><a href="../reference/geom_edge_density.html">geom_edge_density()</a></code> lets you add a shading to your plot based on the density of edges in a certain area:</p>
+<p>This one is definitely strange, and I’m unsure of it’s usefulness, but it is here and it deserves an introduction. Consider the case where it is of interest to see which types of edges dominates certain areas of the graph. You can colour the edges, but edges can tend to get overplotted, thus reducing readability. <code><a href="../reference/geom_edge_density.html">geom_edge_density()</a></code> lets you add a shading to your plot based on the density of edges in a certain area:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(hairball, <span class="dt">layout =</span> <span class="st">'stress'</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_density.html">geom_edge_density</a></span>(<span class="kw">aes</span>(<span class="dt">fill =</span> year)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>(<span class="dt">alpha =</span> <span class="fl">0.25</span>)</a></code></pre></div>
@@ -228,7 +236,7 @@
 <div id="arcs" class="section level3">
 <h3 class="hasAnchor">
 <a href="#arcs" class="anchor"></a>Arcs</h3>
-<p>While some insists that curved edges should be used in standard <em>“hairball”</em> graph visualisations it really is a poor choice, as it increases overplotting and decreases interpretability for virtually no gain (unless complexiness is your thing). That doesn’t mean arcs have no use in graph visualizations. Linear and circular layouts can benefit greatly from them and <code><a href="../reference/geom_edge_arc.html">geom_edge_arc()</a></code> is provided precisely for this scenario:</p>
+<p>While some insists that curved edges should be used in standard <em>“hairball”</em> graph visualisations it really is a poor choice, as it increases overplotting and decreases interpretability for virtually no gain (unless complexity is your thing). That doesn’t mean arcs have no use in graph visualizations. Linear and circular layouts can benefit greatly from them and <code><a href="../reference/geom_edge_arc.html">geom_edge_arc()</a></code> is provided precisely for this scenario:</p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(hairball, <span class="dt">layout =</span> <span class="st">'linear'</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span>(<span class="kw">aes</span>(<span class="dt">colour =</span> year))</a></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
@@ -258,7 +266,7 @@
 <div id="bends" class="section level3">
 <h3 class="hasAnchor">
 <a href="#bends" class="anchor"></a>Bends</h3>
-<p>An alternaitve to diagonals are bend edges which are elbow edges with a smoothed corner. It is implemented as a quadratic bezier with control points at the location of the expected elbow corner:</p>
+<p>An alternative to diagonals are bend edges which are elbow edges with a smoothed corner. It is implemented as a quadratic bezier with control points at the location of the expected elbow corner:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(hierarchy, <span class="dt">layout =</span> <span class="st">'dendrogram'</span>, <span class="dt">height =</span> height) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb11-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_bend.html">geom_edge_bend</a></span>()</a></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
@@ -287,11 +295,11 @@
 <h3 class="hasAnchor">
 <a href="#point-and-tile" class="anchor"></a>Point and tile</h3>
 <p>It may seem weird to have edge geoms that doesn’t have any span, but the matrix layout calls for exactly that. The terminal nodes of the edge are determined by the vertical and horizontal position of the mark, and for that reason the geom doesn’t need any extend. The point and tile geoms serve the same purpose but are simply different geometry types:</p>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(hairball, <span class="dt">layout =</span> <span class="st">'matrix'</span>, <span class="dt">sort.by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/search_graph">bfs_rank</a></span>()) <span class="op">+</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(hairball, <span class="dt">layout =</span> <span class="st">'matrix'</span>, <span class="dt">sort.by =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/search_graph.html">bfs_rank</a></span>()) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb14-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb14-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(hairball, <span class="dt">layout =</span> <span class="st">'matrix'</span>, <span class="dt">sort.by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/search_graph">bfs_rank</a></span>()) <span class="op">+</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(hairball, <span class="dt">layout =</span> <span class="st">'matrix'</span>, <span class="dt">sort.by =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/search_graph.html">bfs_rank</a></span>()) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb15-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_tile.html">geom_edge_tile</a></span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb15-3" data-line-number="3"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
@@ -329,7 +337,7 @@
 <h2 class="hasAnchor">
 <a href="#edge-strength" class="anchor"></a>Edge strength</h2>
 <p>Many of the edge geoms takes a strength argument that denotes their deviation from a straight line. Setting <code>strength = 0</code> will always result in a straight line, while <code>strength = 1</code> is the default look. Anything in between can be used to modify the look of the edge, while values outside that range will probably result in some weird looks. Some examples are shown below:</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">small_tree &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs">create_tree</a></span>(<span class="dv">5</span>, <span class="dv">2</span>)</a>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" data-line-number="1">small_tree &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/create_graphs.html">create_tree</a></span>(<span class="dv">5</span>, <span class="dv">2</span>)</a>
 <a class="sourceLine" id="cb18-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb18-3" data-line-number="3"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(small_tree, <span class="st">'dendrogram'</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb18-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span>(<span class="dt">strength =</span> <span class="fl">0.75</span>)</a></code></pre></div>
@@ -343,10 +351,10 @@
 <a href="#decorating-edges" class="anchor"></a>Decorating edges</h2>
 <p>An edge is so much more than a line… Well at least it is also potentially an arrow and a label. This section will go into how these can be added. To clearly see the effect here we will use a slightly simpler graph</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" data-line-number="1"><span class="co"># Random names - I swear</span></a>
-<a class="sourceLine" id="cb20-2" data-line-number="2">simple &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs">create_notable</a></span>(<span class="st">'bull'</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/reexports">mutate</a></span>(<span class="dt">name =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'Thomas'</span>, <span class="st">'Bob'</span>, <span class="st">'Hadley'</span>, <span class="st">'Winston'</span>, <span class="st">'Baptiste'</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/activate">activate</a></span>(edges) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/reexports">mutate</a></span>(<span class="dt">type =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/c">c</a></span>(<span class="st">'friend'</span>, <span class="st">'foe'</span>), <span class="dv">5</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
+<a class="sourceLine" id="cb20-2" data-line-number="2">simple &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/create_graphs.html">create_notable</a></span>(<span class="st">'bull'</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/reexports.html">mutate</a></span>(<span class="dt">name =</span> <span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'Thomas'</span>, <span class="st">'Bob'</span>, <span class="st">'Hadley'</span>, <span class="st">'Winston'</span>, <span class="st">'Baptiste'</span>)) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/activate.html">activate</a></span>(edges) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb20-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/reexports.html">mutate</a></span>(<span class="dt">type =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="kw"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'friend'</span>, <span class="st">'foe'</span>), <span class="dv">5</span>, <span class="ot">TRUE</span>))</a></code></pre></div>
 <div id="arrows" class="section level3">
 <h3 class="hasAnchor">
 <a href="#arrows" class="anchor"></a>Arrows</h3>
@@ -355,7 +363,7 @@
 <a class="sourceLine" id="cb21-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>(<span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="dv">4</span>, <span class="st">'mm'</span>))) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb21-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>(<span class="dt">size =</span> <span class="dv">5</span>)</a></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
-<p>I hope you think <em>Ugh</em> at the sight of this. The edges naturally extend to the node center and nodes are thus drawn on top of the arrow heads. There’s a solution to this in the form of the <code>start_cap</code> and <code>end_cap</code> aesthetics in the base and 2-variant edge geoms (sorry 0-variant). This can be used to start and stop the edge drawing at an absolut distance from the terminal nodes. Wath this:</p>
+<p>I hope you think <em>Ugh</em> at the sight of this. The edges naturally extend to the node center and nodes are thus drawn on top of the arrow heads. There’s a solution to this in the form of the <code>start_cap</code> and <code>end_cap</code> aesthetics in the base and 2-variant edge geoms (sorry 0-variant). This can be used to start and stop the edge drawing at an absolute distance from the terminal nodes. Watch this:</p>
 <div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(simple, <span class="dt">layout =</span> <span class="st">'graphopt'</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb22-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>(<span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">length =</span> <span class="kw">unit</span>(<span class="dv">4</span>, <span class="st">'mm'</span>)), </a>
 <a class="sourceLine" id="cb22-3" data-line-number="3">                 <span class="dt">end_cap =</span> <span class="kw"><a href="../reference/geometry.html">circle</a></span>(<span class="dv">3</span>, <span class="st">'mm'</span>)) <span class="op">+</span><span class="st"> </span></a>
@@ -408,10 +416,10 @@
 <div id="connections" class="section level2">
 <h2 class="hasAnchor">
 <a href="#connections" class="anchor"></a>Connections</h2>
-<p>The estranged cousin of edges are connections. While edges show the relational nature of the nodes in the graph structure, connections connect nodes that are not connected in the graph. This is done by finding the shortest path between the two nodes. Currently the only connection geom available is <code><a href="../reference/geom_conn_bundle.html">geom_conn_bundle()</a></code> that implements the hierarchical edge bundling techinque:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">flaregraph &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph">tbl_graph</a></span>(flare<span class="op">$</span>vertices, flare<span class="op">$</span>edges)</a>
-<a class="sourceLine" id="cb27-2" data-line-number="2">from &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/match">match</a></span>(flare<span class="op">$</span>imports<span class="op">$</span>from, flare<span class="op">$</span>vertices<span class="op">$</span>name)</a>
-<a class="sourceLine" id="cb27-3" data-line-number="3">to &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/match">match</a></span>(flare<span class="op">$</span>imports<span class="op">$</span>to, flare<span class="op">$</span>vertices<span class="op">$</span>name)</a>
+<p>The estranged cousin of edges are connections. While edges show the relational nature of the nodes in the graph structure, connections connect nodes that are not connected in the graph. This is done by finding the shortest path between the two nodes. Currently the only connection geom available is <code><a href="../reference/geom_conn_bundle.html">geom_conn_bundle()</a></code> that implements the hierarchical edge bundling technique:</p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" data-line-number="1">flaregraph &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/tbl_graph.html">tbl_graph</a></span>(flare<span class="op">$</span>vertices, flare<span class="op">$</span>edges)</a>
+<a class="sourceLine" id="cb27-2" data-line-number="2">from &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/match.html">match</a></span>(flare<span class="op">$</span>imports<span class="op">$</span>from, flare<span class="op">$</span>vertices<span class="op">$</span>name)</a>
+<a class="sourceLine" id="cb27-3" data-line-number="3">to &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/r/base/match.html">match</a></span>(flare<span class="op">$</span>imports<span class="op">$</span>to, flare<span class="op">$</span>vertices<span class="op">$</span>name)</a>
 <a class="sourceLine" id="cb27-4" data-line-number="4"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(flaregraph, <span class="dt">layout =</span> <span class="st">'dendrogram'</span>, <span class="dt">circular =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb27-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/geom_conn_bundle.html">geom_conn_bundle</a></span>(<span class="dt">data =</span> <span class="kw"><a href="../reference/get_con.html">get_con</a></span>(<span class="dt">from =</span> from, <span class="dt">to =</span> to), <span class="dt">alpha =</span> <span class="fl">0.1</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb27-6" data-line-number="6"><span class="st">  </span><span class="kw">coord_fixed</span>()</a></code></pre></div>
@@ -426,6 +434,7 @@
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -443,17 +452,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

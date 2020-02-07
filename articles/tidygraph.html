@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/journal/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="../pkgdown.css" rel="stylesheet">
 <script src="../pkgdown.js"></script><meta property="og:title" content="tidygraph and ggraph">
 <meta property="og:description" content="">
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png">
@@ -37,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
       </span>
     </div>
 
@@ -91,6 +92,9 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.data-imaginist.com/2019/1-giraffe-2-giraffe-go/">Version 2.0.0</a>
+    </li>
+    <li>
       <a href="https://www.data-imaginist.com/2017/announcing-ggraph/">Version 1.0.0</a>
     </li>
     <li class="divider">
@@ -101,6 +105,9 @@
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://tidygraph.data-imaginist.com">tidygraph</a>
+</li>
 <li>
   <a href="https://github.com/thomasp85/ggraph">
     <span class="fa fa-github fa-lg"></span>
@@ -116,13 +123,14 @@
 <!--/.navbar -->
 
       
+
       </header><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1>tidygraph and ggraph</h1>
                         <h4 class="author">Thomas Lin Pedersen</h4>
             
-            <h4 class="date">2019-09-02</h4>
+            <h4 class="date">2020-02-07</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/master/vignettes/tidygraph.Rmd"><code>vignettes/tidygraph.Rmd</code></a></small>
       <div class="hidden name"><code>tidygraph.Rmd</code></div>
@@ -136,20 +144,20 @@
 <h2 class="hasAnchor">
 <a href="#supported-data-structures" class="anchor"></a>Supported data structures</h2>
 <p>Prior to v2 <code>ggraph</code> had two main supported data structures, namely <code>dendrogram</code> and <code>igraph</code>. In addition <code>hclust</code> and <code>network</code> were supported by automatic conversion to <code>dendrogram</code> and <code>igraph</code> respectively. Each of the two data structures had their own layouts and under the hood two different set of functionality had to be maintained to extract nodes and edges etc. In v2 and going forward this has been simplified and <code>ggraph</code> now uses only <code>tbl_graph</code> as a graph representation. This does not mean that you’re out of luck if you’re not buying into the whole <code>tidygraph</code> idea. Every object supported by <code>tidygraph</code> is supported directly in <code>ggraph</code> by automatic conversion to <code>tbl_graph</code>. This means that <code>igraph</code>, <code>dendrogram</code>, <code>hclust</code>, and <code>network</code> is still supported in addition to <code>data.tree</code>, <code>phylo</code>, and <code>graph</code> as well as a number of <code>data.frame</code>, <code>matrix</code>, and <code>list</code> representations.</p>
-<p>The change has reduced internal code complexity quite a bit which will make it easier to provide new features in future. From a user point of view it has the benefit of simplifying the API in that <code>ggraph</code> doesn’t really care what type of network object you pass in - every layout and geom just works with every data structure. Further, it simplifies how to add <code>ggraph</code> support to additional data structures: just write an <code><a href="https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph">as_tbl_graph()</a></code> method for the class!. Due to the large support of classes and data structures in <code>tidygraph</code> this should relatively straightforward. If you’re developer of a package that defines a custom network class simply export an <code><a href="https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph">as_tbl_graph()</a></code> method for the class to gain native <code>ggraph</code> (and <code>tidygraph</code>) support, or add it directly to <code>tidygraph</code> through a <a href="https://github.com/thomasp85/tidygraph/pulls">PR</a>.</p>
+<p>The change has reduced internal code complexity quite a bit which will make it easier to provide new features in future. From a user point of view it has the benefit of simplifying the API in that <code>ggraph</code> doesn’t really care what type of network object you pass in - every layout and geom just works with every data structure. Further, it simplifies how to add <code>ggraph</code> support to additional data structures: just write an <code><a href="https://rdrr.io/pkg/tidygraph/man/tbl_graph.html">as_tbl_graph()</a></code> method for the class!. Due to the large support of classes and data structures in <code>tidygraph</code> this should relatively straightforward. If you’re developer of a package that defines a custom network class simply export an <code><a href="https://rdrr.io/pkg/tidygraph/man/tbl_graph.html">as_tbl_graph()</a></code> method for the class to gain native <code>ggraph</code> (and <code>tidygraph</code>) support, or add it directly to <code>tidygraph</code> through a <a href="https://github.com/thomasp85/tidygraph/pulls">PR</a>.</p>
 <p>This simplification for both me and the users have really been the motivation for the integration of <code>tidygraph</code> but as it were it has also allowed or instigated a number of cool new features that will be explored below.</p>
 </div>
 <div id="nse-in-layout-specifications" class="section level2">
 <h2 class="hasAnchor">
 <a href="#nse-in-layout-specifications" class="anchor"></a>NSE in layout specifications</h2>
 <p>In <code>ggraph</code> the initiation will need to specify a layout to use for the subsequent node and edge geoms. Many of these layouts use different node and edge variables in their calculations e.g. a node size or an edge weight. Prior to v2 these arguments would simply take a string naming the respective variable to use, but following the v2 update these arguments implement Non-Standard Evaluation (NSE) in a manner known from both <code>dplyr</code> and <code>ggplot2</code> where it is used inside <code>aes()</code> calls. Depending on whether the argument refers to a node or edge value the provided expression will be evaluated in the context of nodes or edges respectively. The bottomline is that given a network such as this:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidygraph)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidygraph)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3">graph &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph">as_tbl_graph</a></span>(</a>
-<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/data.frame">data.frame</a></span>(</a>
-<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="dt">from =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">5</span>, <span class="dv">20</span>, <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">to =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/sample">sample</a></span>(<span class="dv">5</span>, <span class="dv">20</span>, <span class="ot">TRUE</span>),</a>
-<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">weight =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/stats/topics/Uniform">runif</a></span>(<span class="dv">20</span>)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3">graph &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/tbl_graph.html">as_tbl_graph</a></span>(</a>
+<a class="sourceLine" id="cb1-4" data-line-number="4">  <span class="kw"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(</a>
+<a class="sourceLine" id="cb1-5" data-line-number="5">    <span class="dt">from =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">5</span>, <span class="dv">20</span>, <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-6" data-line-number="6">    <span class="dt">to =</span> <span class="kw"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="dv">5</span>, <span class="dv">20</span>, <span class="ot">TRUE</span>),</a>
+<a class="sourceLine" id="cb1-7" data-line-number="7">    <span class="dt">weight =</span> <span class="kw"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="dv">20</span>)</a>
 <a class="sourceLine" id="cb1-8" data-line-number="8">  )</a>
 <a class="sourceLine" id="cb1-9" data-line-number="9">)</a>
 <a class="sourceLine" id="cb1-10" data-line-number="10">graph</a></code></pre></div>
@@ -160,18 +168,18 @@
 ## # Node Data: 5 x 1 (active)
 ##   name 
 ##   &lt;chr&gt;
-## 1 1    
-## 2 3    
-## 3 4    
-## 4 2    
-## 5 5    
+## 1 3    
+## 2 5    
+## 3 1    
+## 4 4    
+## 5 2    
 ## #
 ## # Edge Data: 20 x 3
 ##    from    to weight
 ##   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
-## 1     1     1  0.956
-## 2     1     4  0.398
-## 3     2     5  0.554
+## 1     1     1 0.908 
+## 2     1     5 0.404 
+## 3     2     3 0.0958
 ## # … with 17 more rows</code></pre>
 <p>Then, instead of writing:</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb3-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>, <span class="dt">weights =</span> <span class="st">"weight"</span>) <span class="op">+</span><span class="st"> </span></a>
@@ -183,7 +191,7 @@
 <a class="sourceLine" id="cb4-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>This change means that it is much easier to experiment with modifications to node and edge parameters affecting layouts as it is not necessary to modify the underlying graph but only the plotting code, e.g.:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>, <span class="dt">weights =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/Log">log</a></span>(weight)) <span class="op">+</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>, <span class="dt">weights =</span> <span class="kw"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(weight)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb5-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
@@ -192,28 +200,29 @@
 <h2 class="hasAnchor">
 <a href="#access-to-tidygraph-algorithms-in-ggraph-code" class="anchor"></a>Access to tidygraph algorithms in ggraph code</h2>
 <p>The most important improvement resulting from the integration of <code>tidygraph</code> and <code>ggraph</code> is that <code>tidygraph</code> algorithms are now directly usable within <code>ggraph</code> calls. This means that it is no longer necessary to precompute and store derived node and edge variables on the graph in order to use them in a plot:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">graph &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/create_graphs">create_notable</a></span>(<span class="st">'zachary'</span>)</a>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" data-line-number="1">graph &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/create_graphs.html">create_notable</a></span>(<span class="st">'zachary'</span>)</a>
 <a class="sourceLine" id="cb6-2" data-line-number="2"></a>
 <a class="sourceLine" id="cb6-3" data-line-number="3"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'fr'</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/centrality">centrality_pagerank</a></span>())) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb6-5" data-line-number="5"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>(<span class="kw">aes</span>(<span class="dt">size =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/centrality.html">centrality_pagerank</a></span>())) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb6-6" data-line-number="6"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">'bottom'</span>)</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>here it is not necessary to first compute the pagerank centrality and store it as a node variable in order to plot it, and if you’re interested in looking at one of the myriad of other centrality measures you simply change the plotting code. This feature makes it much easier and painfree to investigate the effect of different graph measures on your plots and is a huge benefit when iterating on your visualisation.</p>
 <p>Access to <code>tidygraph</code> is available within <code><a href="../reference/ggraph.html">ggraph()</a></code> and <code>aes()</code> calls, and within <code>facet</code> formulas. It is thus possible to use algorithms when specifying layouts, adding aesthetics to geoms and splitting into subplots - all areas were ease of iteration is vital:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="st">'matrix'</span>, <span class="dt">sort.by =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/node_rank">node_rank_leafsort</a></span>()) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/centrality">centrality_edge_betweenness</a></span>()), <span class="dt">mirror =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></a>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="st">'matrix'</span>, <span class="dt">sort.by =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/node_rank.html">node_rank_leafsort</a></span>()) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span>(<span class="kw">aes</span>(<span class="dt">colour =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/centrality.html">centrality_edge_betweenness</a></span>()), <span class="dt">mirror =</span> <span class="ot">TRUE</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb7-3" data-line-number="3"><span class="st">  </span><span class="kw">theme</span>(<span class="dt">legend.position =</span> <span class="st">'bottom'</span>)</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" data-line-number="1"><span class="kw"><a href="../reference/ggraph.html">ggraph</a></span>(graph, <span class="st">'fr'</span>) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-2" data-line-number="2"><span class="st">  </span><span class="kw"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb8-3" data-line-number="3"><span class="st">  </span><span class="kw"><a href="../reference/geom_node_point.html">geom_node_point</a></span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/facet_nodes.html">facet_nodes</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/group_graph">group_infomap</a></span>())</a></code></pre></div>
+<a class="sourceLine" id="cb8-4" data-line-number="4"><span class="st">  </span><span class="kw"><a href="../reference/facet_nodes.html">facet_nodes</a></span>(<span class="op">~</span><span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/group_graph.html">group_infomap</a></span>())</a></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
+
         <div id="tocnav">
       <h2 class="hasAnchor">
 <a href="#tocnav" class="anchor"></a>Contents</h2>
@@ -228,17 +237,20 @@
 </div>
 
 
+
       <footer><div class="copyright">
   <p>Developed by <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

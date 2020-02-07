@@ -13,8 +13,9 @@
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="apple-touch-icon-76x76.png">
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="apple-touch-icon-60x60.png">
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/journal/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous">
-<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- sticky kit --><script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous">
+<!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
 <script src="pkgdown.js"></script><meta property="og:title" content="An Implementation of Grammar of Graphics for Graphs and Networks">
 <meta property="og:description" content="The grammar of graphics as implemented in ggplot2 is a poor fit for
     graph and network visualizations due to its reliance on tabular data input.
@@ -28,7 +29,7 @@
 <![endif]-->
 </head>
 <body>
-    <div class="container template-article">
+    <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
     <div class="navbar-header">
@@ -40,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
       </span>
     </div>
 
@@ -94,17 +95,22 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.data-imaginist.com/2019/1-giraffe-2-giraffe-go/">Version 2.0.0</a>
+    </li>
+    <li>
       <a href="https://www.data-imaginist.com/2017/announcing-ggraph/">Version 1.0.0</a>
     </li>
     <li class="divider">
-    </li>
-<li>
+    <li>
       <a href="news/index.html">Change log</a>
     </li>
   </ul>
 </li>
       </ul>
 <ul class="nav navbar-nav navbar-right">
+<li>
+  <a href="https://tidygraph.data-imaginist.com">tidygraph</a>
+</li>
 <li>
   <a href="https://github.com/thomasp85/ggraph">
     <span class="fa fa-github fa-lg"></span>
@@ -120,13 +126,9 @@
 <!--/.navbar -->
 
       
-      </header><div class="row">
-  <div class="col-md-9 contents">
-    
 
-    
-    
-<!-- README.md is generated from README.Rmd. Please edit that file -->
+      </header><div class="row">
+  <div class="contents col-md-9">
 <div id="ggraph" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
 <a href="#ggraph" class="anchor"></a>ggraph <img src="reference/figures/logo.png" align="right">
@@ -141,9 +143,9 @@
 <div id="an-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#an-example" class="anchor"></a>An example</h3>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(ggraph)</a>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb1-1" data-line-number="1"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(ggraph)</a>
 <a class="sourceLine" id="cb1-2" data-line-number="2"><span class="co">#&gt; Loading required package: ggplot2</span></a>
-<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://www.rdocumentation.org/packages/base/topics/library">library</a></span>(tidygraph)</a>
+<a class="sourceLine" id="cb1-3" data-line-number="3"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span>(tidygraph)</a>
 <a class="sourceLine" id="cb1-4" data-line-number="4"><span class="co">#&gt; </span></a>
 <a class="sourceLine" id="cb1-5" data-line-number="5"><span class="co">#&gt; Attaching package: 'tidygraph'</span></a>
 <a class="sourceLine" id="cb1-6" data-line-number="6"><span class="co">#&gt; The following object is masked from 'package:stats':</span></a>
@@ -151,8 +153,8 @@
 <a class="sourceLine" id="cb1-8" data-line-number="8"><span class="co">#&gt;     filter</span></a>
 <a class="sourceLine" id="cb1-9" data-line-number="9"></a>
 <a class="sourceLine" id="cb1-10" data-line-number="10"><span class="co"># Create graph of highschool friendships</span></a>
-<a class="sourceLine" id="cb1-11" data-line-number="11">graph &lt;-<span class="st"> </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/tbl_graph">as_tbl_graph</a></span>(highschool) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="st">    </span><span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/reexports">mutate</a></span>(<span class="dt">Popularity =</span> <span class="kw"><a href="https://www.rdocumentation.org/packages/tidygraph/topics/centrality">centrality_degree</a></span>(<span class="dt">mode =</span> <span class="st">'in'</span>))</a>
+<a class="sourceLine" id="cb1-11" data-line-number="11">graph &lt;-<span class="st"> </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/tbl_graph.html">as_tbl_graph</a></span>(highschool) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb1-12" data-line-number="12"><span class="st">    </span><span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/reexports.html">mutate</a></span>(<span class="dt">Popularity =</span> <span class="kw"><a href="https://rdrr.io/pkg/tidygraph/man/centrality.html">centrality_degree</a></span>(<span class="dt">mode =</span> <span class="st">'in'</span>))</a>
 <a class="sourceLine" id="cb1-13" data-line-number="13"></a>
 <a class="sourceLine" id="cb1-14" data-line-number="14"><span class="co"># plot using ggraph</span></a>
 <a class="sourceLine" id="cb1-15" data-line-number="15"><span class="kw"><a href="reference/ggraph.html">ggraph</a></span>(graph, <span class="dt">layout =</span> <span class="st">'kk'</span>) <span class="op">+</span><span class="st"> </span></a>
@@ -160,13 +162,13 @@
 <a class="sourceLine" id="cb1-17" data-line-number="17"><span class="st">    </span><span class="kw"><a href="reference/geom_node_point.html">geom_node_point</a></span>(<span class="kw">aes</span>(<span class="dt">size =</span> Popularity)) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-18" data-line-number="18"><span class="st">    </span><span class="kw"><a href="reference/facet_edges.html">facet_edges</a></span>(<span class="op">~</span>year) <span class="op">+</span><span class="st"> </span></a>
 <a class="sourceLine" id="cb1-19" data-line-number="19"><span class="st">    </span><span class="kw"><a href="reference/theme_graph.html">theme_graph</a></span>(<span class="dt">foreground =</span> <span class="st">'steelblue'</span>, <span class="dt">fg_text_colour =</span> <span class="st">'white'</span>)</a></code></pre></div>
-<p><img src="reference/figures/README-unnamed-chunk-2-1.png" width="700"></p>
+<p><img src="reference/figures/README-unnamed-chunk-2-1.png"><!-- --></p>
 </div>
 <div id="the-core-concepts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#the-core-concepts" class="anchor"></a>The core concepts</h3>
 <p><code>ggraph</code> builds upon three core concepts that are quite easy to understand:</p>
-<ol style="list-style-type: decimal">
+<ol>
 <li>
 <a href="http://www.data-imaginist.com/2017/ggraph-introduction-layouts/"><strong>The Layout</strong></a> defines how nodes are placed on the plot, that is, it is a conversion of the relational structure into an x and y value for each node in the graph. <code>ggraph</code> has access to all layout functions available in <code>igraph</code> and furthermore provides a large selection of its own, such as hive plots, treemaps, and circle packing.</li>
 <li>
@@ -188,13 +190,13 @@
 <div id="installation" class="section level2">
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
-<p><code>ggraph</code> is available through CRAN and can be installed with <code><a href="https://www.rdocumentation.org/packages/utils/topics/install.packages">install.packages('ggraph')</a></code>. The package is under active development though and the latest set of features can be obtained by installing from this repository using <code>devtools</code></p>
+<p><code>ggraph</code> is available through CRAN and can be installed with <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages('ggraph')</a></code>. The package is under active development though and the latest set of features can be obtained by installing from this repository using <code>devtools</code></p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb2-1" data-line-number="1">devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">'thomasp85/ggraph'</span>)</a></code></pre></div>
 </div>
 <div id="related-work" class="section level2">
 <h2 class="hasAnchor">
 <a href="#related-work" class="anchor"></a>Related work</h2>
-<p><code>ggraph</code> is not the only package to provide some sort of support for relational data in <code>ggplot2</code>, though I’m fairly certain that it is the most ambituous. <a href="https://CRAN.R-project.org/package=ggdendro"><code>ggdendro</code></a> provides support for <code>dendrogram</code> and <code>hclust</code> objects through conversion of the structures into line segments that can then be plotted with <code>geom_segment()</code>. <a href="http://bioconductor.org/packages/ggtree/"><code>ggtree</code></a> provides more extensive support for all things tree-related, though it lacks some of the layouts and edge types that <code>ggraph</code> offers (it has other features that <code>ggraph</code> lacks though). For more standard <em>hairball</em> network plots <a href="https://CRAN.R-project.org/package=ggnetwork"><code>ggnetwork</code></a>, <a href="https://CRAN.R-project.org/package=geomnet"><code>geomnet</code></a>, and <a href="https://CRAN.R-project.org/package=GGally"><code>GGally</code></a> all provide some functionality though none of them are as extensive in scope as <code>ggraph</code>.</p>
+<p><code>ggraph</code> is not the only package to provide some sort of support for relational data in <code>ggplot2</code>, though I’m fairly certain that it is the most ambitious. <a href="https://CRAN.R-project.org/package=ggdendro"><code>ggdendro</code></a> provides support for <code>dendrogram</code> and <code>hclust</code> objects through conversion of the structures into line segments that can then be plotted with <code>geom_segment()</code>. <a href="http://bioconductor.org/packages/ggtree/"><code>ggtree</code></a> provides more extensive support for all things tree-related, though it lacks some of the layouts and edge types that <code>ggraph</code> offers (it has other features that <code>ggraph</code> lacks though). For more standard <em>hairball</em> network plots <a href="https://CRAN.R-project.org/package=ggnetwork"><code>ggnetwork</code></a>, <a href="https://CRAN.R-project.org/package=geomnet"><code>geomnet</code></a>, and <a href="https://CRAN.R-project.org/package=GGally"><code>GGally</code></a> all provide some functionality though none of them are as extensive in scope as <code>ggraph</code>.</p>
 </div>
 <div id="code-of-conduct" class="section level2">
 <h2 class="hasAnchor">
@@ -224,16 +226,22 @@
 </li>
 </ul>
 </div>
+<div class="community">
+<h2>Community</h2>
+<ul class="list-unstyled">
+<li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
+</ul>
+</div>
 <div class="developers">
 <h2>Developers</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://data-imaginist.com">Thomas Lin Pedersen</a> <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-5147-4711" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID" height="16"></a> </li>
+<a href="https://data-imaginist.com">Thomas Lin Pedersen</a> <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-5147-4711" target="orcid.widget"><img src="https://members.orcid.org/sites/default/files/vector_iD_icon.svg" class="orcid" alt="ORCID"></a> </li>
 <li><a href="authors.html">All authors...</a></li>
 </ul>
 </div>
 
-      <div class="dev-status">
+  <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
 <li><a href="https://travis-ci.org/thomasp85/ggraph"><img src="https://travis-ci.org/thomasp85/ggraph.svg?branch=master" alt="Travis-CI Build Status"></a></li>
@@ -243,7 +251,6 @@
 </ul>
 </div>
 </div>
-
 </div>
 
 
@@ -252,12 +259,14 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
 </div>
 
   
+
 
   </body>
 </html>

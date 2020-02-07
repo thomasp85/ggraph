@@ -15,21 +15,25 @@
 <link rel="apple-touch-icon" type="image/png" sizes="120x120" href="../apple-touch-icon-120x120.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="76x76" href="../apple-touch-icon-76x76.png" />
 <link rel="apple-touch-icon" type="image/png" sizes="60x60" href="../apple-touch-icon-60x60.png" />
+
 <!-- jquery -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 <!-- Bootstrap -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.7/journal/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous" />
 
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous"></script>
 
 <!-- Font Awesome icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/all.min.css" integrity="sha256-nAmazAk6vS34Xqo0BSrTb+abbtFlgsFK7NKSi6o7Y78=" crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.7.1/css/v4-shims.min.css" integrity="sha256-6qHlizsOWFskGlwVOKuns+D1nB6ssZrHQrNj1wGplHc=" crossorigin="anonymous" />
 
 <!-- clipboard.js -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js" integrity="sha256-FiZwavyI2V6+EXO1U+xzLG3IKldpiTFf3153ea9zikQ=" crossorigin="anonymous"></script>
 
-<!-- sticky kit -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/sticky-kit/1.1.3/sticky-kit.min.js" integrity="sha256-c4Rlo1ZozqTPE2RLuvbusY3+SU1pQaJC0TjuhygMipw=" crossorigin="anonymous"></script>
+<!-- headroom.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/headroom.min.js" integrity="sha256-DJFC1kqIhelURkuza0AvYal5RxMtpzLjFhsnVIeuk+U=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.9.4/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script>
 
 <!-- pkgdown -->
 <link href="../pkgdown.css" rel="stylesheet">
@@ -37,14 +41,14 @@
 
 
 
-<meta property="og:title" content="Pack circles together — pack_circles" />
 
+<meta property="og:title" content="Pack circles together — pack_circles" />
 <meta property="og:description" content="This function is a direct interface to the circle packing algorithm used by
 layout_tbl_graph_circlepack. It takes a vector of sizes and
 returns the x and y position of each circle as a two-column matrix." />
-
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
+
 
 
 
@@ -56,6 +60,7 @@ returns the x and y position of each circle as a two-column matrix." />
 <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
 <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
 <![endif]-->
+
 
 
   </head>
@@ -74,7 +79,7 @@ returns the x and y position of each circle as a two-column matrix." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">1.0.2.9999</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.0.9000</span>
       </span>
     </div>
 
@@ -128,6 +133,9 @@ returns the x and y position of each circle as a two-column matrix." />
   <ul class="dropdown-menu" role="menu">
     <li class="dropdown-header">Release notes</li>
     <li>
+      <a href="https://www.data-imaginist.com/2019/1-giraffe-2-giraffe-go/">Version 2.0.0</a>
+    </li>
+    <li>
       <a href="https://www.data-imaginist.com/2017/announcing-ggraph/">Version 1.0.0</a>
     </li>
     <li class="divider"></li>
@@ -137,9 +145,11 @@ returns the x and y position of each circle as a two-column matrix." />
   </ul>
 </li>
       </ul>
-      
       <ul class="nav navbar-nav navbar-right">
         <li>
+  <a href="https://tidygraph.data-imaginist.com">tidygraph</a>
+</li>
+<li>
   <a href="https://github.com/thomasp85/ggraph">
     <span class="fa fa-github fa-lg"></span>
      
@@ -152,6 +162,7 @@ returns the x and y position of each circle as a two-column matrix." />
 </div><!--/.navbar -->
 
       
+
       </header>
 
 <div class="row">
@@ -163,15 +174,13 @@ returns the x and y position of each circle as a two-column matrix." />
     </div>
 
     <div class="ref-description">
-    
     <p>This function is a direct interface to the circle packing algorithm used by
 <code><a href='layout_tbl_graph_circlepack.html'>layout_tbl_graph_circlepack</a></code>. It takes a vector of sizes and
 returns the x and y position of each circle as a two-column matrix.</p>
-    
     </div>
 
     <pre class="usage"><span class='fu'>pack_circles</span>(<span class='no'>areas</span>)</pre>
-    
+
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
     <colgroup><col class="name" /><col class="desc" /></colgroup>
@@ -180,7 +189,7 @@ returns the x and y position of each circle as a two-column matrix.</p>
       <td><p>A vector of circle areas</p></td>
     </tr>
     </table>
-    
+
     <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
     <p>A matrix with two columns and the same number of rows as the length
@@ -188,25 +197,23 @@ of the "areas" vector. The matrix has the following attributes added:
 "enclosing_radius" giving the radius of the smallest enclosing circle, and
 "front_chain" giving the terminating members of the front chain (see
 Wang <em>et al</em>. 2006).</p>
-    
     <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
 
     <p>Wang, W., Wang, H. H., Dai, G., &amp; Wang, H. (2006). <em>Visualization of
 large hierarchical data by circle packing</em>. Chi, 517-520.</p>
-    
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/library'>library</a></span>(<span class='no'>ggforce</span>)
-<span class='no'>sizes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/sample'>sample</a></span>(<span class='fl'>10</span>, <span class='fl'>100</span>, <span class='fl'>TRUE</span>)
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>ggforce</span>)
+<span class='no'>sizes</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='fl'>10</span>, <span class='fl'>100</span>, <span class='fl'>TRUE</span>)
 
 <span class='no'>position</span> <span class='kw'>&lt;-</span> <span class='fu'>pack_circles</span>(<span class='no'>sizes</span>)
-<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/data.frame'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>position</span>[,<span class='fl'>1</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>position</span>[,<span class='fl'>2</span>], <span class='kw'>r</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/MathFun'>sqrt</a></span>(<span class='no'>sizes</span>/<span class='no'>pi</span>))
+<span class='no'>data</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>position</span>[,<span class='fl'>1</span>], <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>position</span>[,<span class='fl'>2</span>], <span class='kw'>r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/MathFun.html'>sqrt</a></span>(<span class='no'>sizes</span>/<span class='no'>pi</span>))
 
 <span class='fu'>ggplot</span>() +
   <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_circle.html'>geom_circle</a></span>(<span class='fu'>aes</span>(<span class='kw'>x0</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y0</span> <span class='kw'>=</span> <span class='no'>y</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='no'>r</span>), <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>, <span class='kw'>fill</span> <span class='kw'>=</span> <span class='st'>'steelblue'</span>) +
-  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_circle.html'>geom_circle</a></span>(<span class='fu'>aes</span>(<span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>position</span>, <span class='st'>'enclosing_radius'</span>))) +
+  <span class='fu'><a href='https://ggforce.data-imaginist.com/reference/geom_circle.html'>geom_circle</a></span>(<span class='fu'>aes</span>(<span class='kw'>x0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>y0</span> <span class='kw'>=</span> <span class='fl'>0</span>, <span class='kw'>r</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>position</span>, <span class='st'>'enclosing_radius'</span>))) +
   <span class='fu'>geom_polygon</span>(<span class='fu'>aes</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='no'>x</span>, <span class='kw'>y</span> <span class='kw'>=</span> <span class='no'>y</span>),
-               <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>[<span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/attr'>attr</a></span>(<span class='no'>position</span>, <span class='st'>'front_chain'</span>), ],
+               <span class='kw'>data</span> <span class='kw'>=</span> <span class='no'>data</span>[<span class='fu'><a href='https://rdrr.io/r/base/attr.html'>attr</a></span>(<span class='no'>position</span>, <span class='st'>'front_chain'</span>), ],
                <span class='kw'>fill</span> <span class='kw'>=</span> <span class='fl'>NA</span>,
                <span class='kw'>colour</span> <span class='kw'>=</span> <span class='st'>'black'</span>)</div><div class='img'><img src='pack_circles-1.png' alt='' width='700' height='433' /></div><div class='input'>
 </div></pre>
@@ -215,16 +222,14 @@ large hierarchical data by circle packing</em>. Chi, 517-520.</p>
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      
       <li><a href="#value">Value</a></li>
-
       <li><a href="#references">References</a></li>
-      
       <li><a href="#examples">Examples</a></li>
     </ul>
 
   </div>
 </div>
+
 
       <footer>
       <div class="copyright">
@@ -232,13 +237,16 @@ large hierarchical data by circle packing</em>. Chi, 517-520.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.3.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.4.1.</p>
 </div>
+
       </footer>
    </div>
 
   
 
+
   </body>
 </html>
+
 

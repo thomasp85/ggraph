@@ -6,7 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Place nodes in circles according to centrality measure — layout_tbl_graph_centrality • ggraph</title>
+<title>Quickplot wrapper for networks — autograph • ggraph</title>
 
 <!-- favicons -->
 <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -42,10 +42,15 @@
 
 
 
-<meta property="og:title" content="Place nodes in circles according to centrality measure — layout_tbl_graph_centrality" />
-<meta property="og:description" content="This layout places nodes in circles with the radii relative to a given
-centrality measure. Under the hood it use stress majorisation to place nodes
-optimally given the radius constraint." />
+<meta property="og:title" content="Quickplot wrapper for networks — autograph" />
+<meta property="og:description" content="This function is intended to quickly show an overview of your network data.
+While it returns a ggraph object that layers etc can be added to it is
+limited in use and should not be used as a foundation for more complicated
+plots. It allows colour, labeling and sizing of nodes and edges, and the
+exact combination of layout and layers will depend on these as well as the
+features of the network. The output of this function may be fine-tuned at any
+release and should not be considered stable. If a plot should be reproducible
+it should be created manually." />
 <meta property="og:image" content="https://ggraph.data-imaginist.com/logo.png" />
 <meta name="twitter:card" content="summary" />
 
@@ -168,25 +173,34 @@ optimally given the radius constraint." />
 <div class="row">
   <div class="col-md-9 contents">
     <div class="page-header">
-    <h1>Place nodes in circles according to centrality measure</h1>
-    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/layout_centrality.R'><code>R/layout_centrality.R</code></a></small>
-    <div class="hidden name"><code>layout_tbl_graph_centrality.Rd</code></div>
+    <h1>Quickplot wrapper for networks</h1>
+    <small class="dont-index">Source: <a href='https://github.com/thomasp85/ggraph/blob/master/R/autograph.R'><code>R/autograph.R</code></a></small>
+    <div class="hidden name"><code>autograph.Rd</code></div>
     </div>
 
     <div class="ref-description">
-    <p>This layout places nodes in circles with the radii relative to a given
-centrality measure. Under the hood it use stress majorisation to place nodes
-optimally given the radius constraint.</p>
+    <p>This function is intended to quickly show an overview of your network data.
+While it returns a ggraph object that layers etc can be added to it is
+limited in use and should not be used as a foundation for more complicated
+plots. It allows colour, labeling and sizing of nodes and edges, and the
+exact combination of layout and layers will depend on these as well as the
+features of the network. The output of this function may be fine-tuned at any
+release and should not be considered stable. If a plot should be reproducible
+it should be created manually.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>layout_tbl_graph_centrality</span>(
+    <pre class="usage"><span class='fu'>autograph</span>(<span class='no'>graph</span>, <span class='no'>...</span>)
+
+<span class='co'># S3 method for default</span>
+<span class='fu'>autograph</span>(
   <span class='no'>graph</span>,
-  <span class='no'>centrality</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>niter</span> <span class='kw'>=</span> <span class='fl'>500</span>,
-  <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>1e-04</span>,
-  <span class='kw'>tseq</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.2</span>),
-  <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
+  <span class='no'>...</span>,
+  <span class='kw'>node_colour</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>edge_colour</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>node_size</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>edge_width</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>node_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
+  <span class='kw'>edge_label</span> <span class='kw'>=</span> <span class='kw'>NULL</span>
 )</pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
@@ -194,78 +208,53 @@ optimally given the radius constraint.</p>
     <colgroup><col class="name" /><col class="desc" /></colgroup>
     <tr>
       <th>graph</th>
-      <td><p>A tbl_graph object</p></td>
+      <td><p>An object coercible to a tbl_graph</p></td>
     </tr>
     <tr>
-      <th>centrality</th>
-      <td><p>An expression evaluating to a centrality measure for the
-nodes. See the different <code>centrality_*()</code> algorithms in tidygraph for a
-selection.</p></td>
+      <th>...</th>
+      <td><p>arguments passed on to methods</p></td>
     </tr>
     <tr>
-      <th>scale</th>
-      <td><p>Should the centrality measure be scaled between 0 and 100</p></td>
+      <th>node_colour, edge_colour</th>
+      <td><p>Colour mapping for nodes and edges</p></td>
     </tr>
     <tr>
-      <th>niter</th>
-      <td><p>number of iterations during stress optimization</p></td>
+      <th>node_size, edge_width</th>
+      <td><p>Size/width mapping for nodes and edges</p></td>
     </tr>
     <tr>
-      <th>tolerance</th>
-      <td><p>stopping criterion for stress optimization</p></td>
-    </tr>
-    <tr>
-      <th>tseq</th>
-      <td><p>Transitioning steps</p></td>
-    </tr>
-    <tr>
-      <th>circular</th>
-      <td><p>ignored</p></td>
+      <th>node_label, edge_label</th>
+      <td><p>Label mapping for nodes and edges</p></td>
     </tr>
     </table>
 
-    <h2 class="hasAnchor" id="value"><a class="anchor" href="#value"></a>Value</h2>
 
-    <p>A data.frame with the columns <code>x</code>, <code>y</code>, <code>circular</code>, <code>centrality</code> as
-well as any information stored as node variables in the tbl_graph object.</p>
-    <h2 class="hasAnchor" id="references"><a class="anchor" href="#references"></a>References</h2>
+    <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
+    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidygraph</span>)</div><div class='output co'>#&gt; <span class='message'></span>
+#&gt; <span class='message'>Attaching package: ‘tidygraph’</span></div><div class='output co'>#&gt; <span class='message'>The following object is masked from ‘package:stats’:</span>
+#&gt; <span class='message'></span>
+#&gt; <span class='message'>    filter</span></div><div class='input'><span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/tidygraph/man/create_graphs.html'>create_notable</a></span>(<span class='st'>'herschel'</span>) <span class='kw'>%&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/tidygraph/man/reexports.html'>mutate</a></span>(<span class='kw'>class</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span>(<span class='no'>letters</span>[<span class='fl'>1</span>:<span class='fl'>3</span>], <span class='fu'><a href='https://rdrr.io/pkg/tidygraph/man/reexports.html'>n</a></span>(), <span class='fl'>TRUE</span>)) <span class='kw'>%E&gt;%</span>
+  <span class='fu'><a href='https://rdrr.io/pkg/tidygraph/man/reexports.html'>mutate</a></span>(<span class='kw'>weight</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/stats/Uniform.html'>runif</a></span>(<span class='fu'><a href='https://rdrr.io/pkg/tidygraph/man/reexports.html'>n</a></span>()))
 
-    <p>Brandes, U., &amp; Pich, C. (2011). <em>More flexible radial layout.</em> Journal of
-Graph Algorithms and Applications, 15(1), 157-173.</p>
-    <h2 class="hasAnchor" id="see-also"><a class="anchor" href="#see-also"></a>See also</h2>
-
-    <div class='dont-index'><p>Other layout_tbl_graph_*: 
-<code><a href='layout_tbl_graph_auto.html'>layout_tbl_graph_auto</a>()</code>,
-<code><a href='layout_tbl_graph_backbone.html'>layout_tbl_graph_backbone</a>()</code>,
-<code><a href='layout_tbl_graph_circlepack.html'>layout_tbl_graph_circlepack</a>()</code>,
-<code><a href='layout_tbl_graph_dendrogram.html'>layout_tbl_graph_dendrogram</a>()</code>,
-<code><a href='layout_tbl_graph_eigen.html'>layout_tbl_graph_eigen</a>()</code>,
-<code><a href='layout_tbl_graph_fabric.html'>layout_tbl_graph_fabric</a>()</code>,
-<code><a href='layout_tbl_graph_focus.html'>layout_tbl_graph_focus</a>()</code>,
-<code><a href='layout_tbl_graph_hive.html'>layout_tbl_graph_hive</a>()</code>,
-<code><a href='layout_tbl_graph_igraph.html'>layout_tbl_graph_igraph</a>()</code>,
-<code><a href='layout_tbl_graph_linear.html'>layout_tbl_graph_linear</a>()</code>,
-<code><a href='layout_tbl_graph_manual.html'>layout_tbl_graph_manual</a>()</code>,
-<code><a href='layout_tbl_graph_matrix.html'>layout_tbl_graph_matrix</a>()</code>,
-<code><a href='layout_tbl_graph_partition.html'>layout_tbl_graph_partition</a>()</code>,
-<code><a href='layout_tbl_graph_pmds.html'>layout_tbl_graph_pmds</a>()</code>,
-<code><a href='layout_tbl_graph_stress.html'>layout_tbl_graph_stress</a>()</code>,
-<code><a href='layout_tbl_graph_treemap.html'>layout_tbl_graph_treemap</a>()</code>,
-<code><a href='layout_tbl_graph_unrooted.html'>layout_tbl_graph_unrooted</a>()</code></p></div>
-
+<span class='co'># Standard graph</span>
+<span class='fu'>autograph</span>(<span class='no'>gr</span>)</div><div class='img'><img src='autograph-1.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Adding node labels will cap edges</span>
+<span class='fu'>autograph</span>(<span class='no'>gr</span>, <span class='kw'>node_label</span> <span class='kw'>=</span> <span class='no'>class</span>)</div><div class='img'><img src='autograph-2.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Use tidygraph calls for mapping</span>
+<span class='fu'>autograph</span>(<span class='no'>gr</span>, <span class='kw'>node_size</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/pkg/tidygraph/man/centrality.html'>centrality_pagerank</a></span>())</div><div class='img'><img src='autograph-3.png' alt='' width='700' height='433' /></div><div class='input'>
+<span class='co'># Trees are plotted as dendrograms</span>
+<span class='no'>iris_tree</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></span>(<span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span>(<span class='no'>iris</span>[<span class='fl'>1</span>:<span class='fl'>4</span>], <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>'euclidean'</span>), <span class='kw'>method</span> <span class='kw'>=</span> <span class='st'>'ward.D2'</span>)
+<span class='fu'>autograph</span>(<span class='no'>iris_tree</span>)</div><div class='img'><img src='autograph-4.png' alt='' width='700' height='433' /></div><div class='input'>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="sidebar">
     <h2>Contents</h2>
     <ul class="nav nav-pills nav-stacked">
       <li><a href="#arguments">Arguments</a></li>
-      <li><a href="#value">Value</a></li>
-      <li><a href="#references">References</a></li>
-      <li><a href="#see-also">See also</a></li>
+      <li><a href="#examples">Examples</a></li>
     </ul>
 
-    <h2>Author</h2>
-    <p>The underlying algorithm is implemented in the graphlayouts package
-by David Schoch</p>
   </div>
 </div>
 
