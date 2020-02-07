@@ -19,7 +19,7 @@
 #' @param ... Additional information to be added to the final data output
 #'
 #' @param weight An expression to be evaluated on the edge data to provide
-#' weigths for the shortest path calculations
+#' weights for the shortest path calculations
 #'
 #' @inheritParams igraph::shortest_paths
 #'

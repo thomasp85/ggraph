@@ -110,7 +110,7 @@ devtools::install_github('thomasp85/ggraph')
 
 `ggraph` is not the only package to provide some sort of support for
 relational data in `ggplot2`, though I’m fairly certain that it is the
-most ambituous.
+most ambitious.
 [`ggdendro`](https://CRAN.R-project.org/package=ggdendro) provides
 support for `dendrogram` and `hclust` objects through conversion of the
 structures into line segments that can then be plotted with

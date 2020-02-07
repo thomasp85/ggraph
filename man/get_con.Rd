@@ -16,7 +16,7 @@ connections}
 \item{...}{Additional information to be added to the final data output}
 
 \item{weight}{An expression to be evaluated on the edge data to provide
-weigths for the shortest path calculations}
+weights for the shortest path calculations}
 
 \item{mode}{Character constant, gives whether the shortest paths to or from
 the given vertices should be calculated for directed graphs. If \code{out}

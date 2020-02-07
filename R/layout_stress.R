@@ -1,7 +1,7 @@
 #' Place nodes using stress majorisation
 #'
 #' This layout is related to the stress-minimization algorithm known as
-#' Kamada-Kawai (avalaiable as the 'kk' layout), but uses another optimization
+#' Kamada-Kawai (available as the 'kk' layout), but uses another optimization
 #' strategy. It generally have better runtime, quality, and stability compared
 #' to the Kamada-Kawai layout and is thus generally preferred. The sparse
 #' version of the layout have better performance (especially on larger networks)
