@@ -6,7 +6,7 @@
 #' a single point in space but a line, this geom doesn't derive the x position
 #' from the location of the terminal nodes, but defaults to using the `edge_x`
 #' variable calculated by the fabric layout. If this geom is used with other
-#' layouts `x`and `xend` must be given explicetly.
+#' layouts `x`and `xend` must be given explicitly.
 #'
 #' @inheritSection geom_edge_link Edge variants
 #' @inheritSection geom_edge_link Edge aesthetic name expansion

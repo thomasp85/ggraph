@@ -69,7 +69,7 @@ breaking changes.
   
 ## Bug fixes
 
-* Fixed numerious bugs and issues pertaining to the group aesthetic handling in
+* Fixed numerous bugs and issues pertaining to the group aesthetic handling in
   many edge geoms (#190, #193).
 * Edge geoms no longer throws an error when all edges are completely capped 
   (#176)

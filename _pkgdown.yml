@@ -91,7 +91,7 @@ reference:
       - geom_node_range
   - title: "Edges"
     desc: >
-      Edges are the enteties connecting nodes, often drawn with some sort of
+      Edges are the entities connecting nodes, often drawn with some sort of
       line. Certain layouts calls for other types, e.g. a matrix plot where
       edges are illustrated with points.
     contents:

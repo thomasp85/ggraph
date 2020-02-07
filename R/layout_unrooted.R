@@ -1,11 +1,11 @@
 #' Create an unrooted layout using equal-angle or equal-daylight
 #'
 #' When drawing unrooted trees the standard dendrogram layout is a bad fit as it
-#' implicetly creates a visual root node. Instead it is possible to spread the
+#' implicitly creates a visual root node. Instead it is possible to spread the
 #' leafs out on the plane without putting any special emphasis on a particular
 #' node using an unrooted layout. The standard algorithm is the equal angle
 #' algorithm, but it can struggle with optimising the leaf distribution for
-#' large trees trees with very uneven branch lenght. The equal daylight
+#' large trees trees with very uneven branch length. The equal daylight
 #' algorithm modifies the output of the equal angle algorithm to better disperse
 #' the leaves, at the cost of higher computational cost and the possibility of
 #' edge crossings for very large unbalanced trees. For standard sized trees the
