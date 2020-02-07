@@ -23,7 +23,7 @@ type. In addition to the columns discussed in the details section,
 the data.frame will always contain the columns \code{from}, \code{to} and
 \code{circular}, the two former giving the indexes of the start and end node
 and the latter if the layout is circular (needed for correct formatting of
-some \code{geom_edge_*}). The graph dependent information is:
+some \verb{geom_edge_*}). The graph dependent information is:
 
 \describe{
 \item{dendrogram}{A \code{label} column will hold the value of the
@@ -39,9 +39,9 @@ columns to the data.frame}
 This function returns another function that can extract edges from a
 ggraph_layout object. The functionality of the returned function is decided
 by the arguments to \code{get_edges}. The need for \code{get_edges} is mainly to
-pass to the \code{data} argument of the different \code{geom_edge_*}
+pass to the \code{data} argument of the different \verb{geom_edge_*}
 functions in order to present them with the right kind of data. In general
-each \code{geom_edge_*} has the default set correctly so there is only need
+each \verb{geom_edge_*} has the default set correctly so there is only need
 to modify the data argument if parallel edges should be collapsed.
 }
 \details{
@@ -78,7 +78,8 @@ needed it is suggested that the graph be tidied up before plotting with
 ggraph.
 }
 \seealso{
-Other extractors: \code{\link{get_con}},
-  \code{\link{get_nodes}}
+Other extractors: 
+\code{\link{get_con}()},
+\code{\link{get_nodes}()}
 }
 \concept{extractors}

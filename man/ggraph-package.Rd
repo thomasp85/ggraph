@@ -6,7 +6,7 @@
 \alias{_PACKAGE}
 \title{ggraph: An Implementation of Grammar of Graphics for Graphs and Networks}
 \description{
-\if{html}{\figure{logo.png}{options: align='right'}}
+\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
 The grammar of graphics as implemented in ggplot2 is a poor fit for
     graph and network visualizations due to its reliance on tabular data input.
@@ -16,13 +16,14 @@ The grammar of graphics as implemented in ggplot2 is a poor fit for
 \seealso{
 Useful links:
 \itemize{
+  \item \url{https://ggraph.data-imaginist.com}
   \item \url{https://github.com/thomasp85/ggraph}
   \item Report bugs at \url{https://github.com/thomasp85/ggraph/issues}
 }
 
 }
 \author{
-\strong{Maintainer}: Thomas Lin Pedersen \email{thomasp85@gmail.com} (0000-0002-5147-4711)
+\strong{Maintainer}: Thomas Lin Pedersen \email{thomasp85@gmail.com} (\href{https://orcid.org/0000-0002-5147-4711}{ORCID})
 
 Other contributors:
 \itemize{

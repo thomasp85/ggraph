@@ -60,7 +60,7 @@ transformation object
 as output
 }}
   \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[ggplot2:guides]{guides()}} for more info.}
   \item{super}{The super class to use for the constructed scale}
 }}
 
@@ -86,12 +86,13 @@ the standard scales so it is not necessary to write \code{edge_shape} in
 the call to the geom - just use \code{shape}.
 }
 \seealso{
-Other scale_edge_*: \code{\link{scale_edge_alpha}},
-  \code{\link{scale_edge_colour}},
-  \code{\link{scale_edge_fill}},
-  \code{\link{scale_edge_linetype}},
-  \code{\link{scale_edge_size}},
-  \code{\link{scale_edge_width}},
-  \code{\link{scale_label_size}}
+Other scale_edge_*: 
+\code{\link{scale_edge_alpha}()},
+\code{\link{scale_edge_colour}},
+\code{\link{scale_edge_fill}},
+\code{\link{scale_edge_linetype}()},
+\code{\link{scale_edge_size}()},
+\code{\link{scale_edge_width}()},
+\code{\link{scale_label_size}()}
 }
 \concept{scale_edge_*}

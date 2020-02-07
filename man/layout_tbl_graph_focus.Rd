@@ -4,8 +4,14 @@
 \alias{layout_tbl_graph_focus}
 \title{Place nodes in circles based on distance to a specific node}
 \usage{
-layout_tbl_graph_focus(graph, focus, weights = NULL, niter = 500,
-  tolerance = 1e-04, circular = TRUE)
+layout_tbl_graph_focus(
+  graph,
+  focus,
+  weights = NULL,
+  niter = 500,
+  tolerance = 1e-04,
+  circular = TRUE
+)
 }
 \arguments{
 \item{graph}{a tbl_graph object}
@@ -36,23 +42,24 @@ Brandes, U., & Pich, C. (2011). \emph{More flexible radial layout.} Journal of
 Graph Algorithms and Applications, 15(1), 157-173.
 }
 \seealso{
-Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
-  \code{\link{layout_tbl_graph_backbone}},
-  \code{\link{layout_tbl_graph_centrality}},
-  \code{\link{layout_tbl_graph_circlepack}},
-  \code{\link{layout_tbl_graph_dendrogram}},
-  \code{\link{layout_tbl_graph_eigen}},
-  \code{\link{layout_tbl_graph_fabric}},
-  \code{\link{layout_tbl_graph_hive}},
-  \code{\link{layout_tbl_graph_igraph}},
-  \code{\link{layout_tbl_graph_linear}},
-  \code{\link{layout_tbl_graph_manual}},
-  \code{\link{layout_tbl_graph_matrix}},
-  \code{\link{layout_tbl_graph_partition}},
-  \code{\link{layout_tbl_graph_pmds}},
-  \code{\link{layout_tbl_graph_stress}},
-  \code{\link{layout_tbl_graph_treemap}},
-  \code{\link{layout_tbl_graph_unrooted}}
+Other layout_tbl_graph_*: 
+\code{\link{layout_tbl_graph_auto}()},
+\code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_centrality}()},
+\code{\link{layout_tbl_graph_circlepack}()},
+\code{\link{layout_tbl_graph_dendrogram}()},
+\code{\link{layout_tbl_graph_eigen}()},
+\code{\link{layout_tbl_graph_fabric}()},
+\code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_igraph}()},
+\code{\link{layout_tbl_graph_linear}()},
+\code{\link{layout_tbl_graph_manual}()},
+\code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_partition}()},
+\code{\link{layout_tbl_graph_pmds}()},
+\code{\link{layout_tbl_graph_stress}()},
+\code{\link{layout_tbl_graph_treemap}()},
+\code{\link{layout_tbl_graph_unrooted}()}
 }
 \author{
 The underlying algorithm is implemented in the graphlayouts package

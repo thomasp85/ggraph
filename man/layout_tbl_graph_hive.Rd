@@ -4,11 +4,22 @@
 \alias{layout_tbl_graph_hive}
 \title{Place nodes in a Hive Plot layout}
 \usage{
-layout_tbl_graph_hive(graph, axis, axis.pos = NULL, sort.by = NULL,
-  divide.by = NULL, divide.order = NULL, normalize = TRUE,
-  center.size = 0.1, divide.size = 0.05, use.numeric = FALSE,
-  offset = pi/2, split.axes = "none", split.angle = pi/6,
-  circular = FALSE)
+layout_tbl_graph_hive(
+  graph,
+  axis,
+  axis.pos = NULL,
+  sort.by = NULL,
+  divide.by = NULL,
+  divide.order = NULL,
+  normalize = TRUE,
+  center.size = 0.1,
+  divide.size = 0.05,
+  use.numeric = FALSE,
+  offset = pi/2,
+  split.axes = "none",
+  split.angle = pi/6,
+  circular = FALSE
+)
 }
 \arguments{
 \item{graph}{An \code{tbl_graph} object}
@@ -82,22 +93,23 @@ plots-rational approach to visualizing networks}. Brief Bioinform 13 (5):
 \url{http://www.hiveplot.net}
 }
 \seealso{
-Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
-  \code{\link{layout_tbl_graph_backbone}},
-  \code{\link{layout_tbl_graph_centrality}},
-  \code{\link{layout_tbl_graph_circlepack}},
-  \code{\link{layout_tbl_graph_dendrogram}},
-  \code{\link{layout_tbl_graph_eigen}},
-  \code{\link{layout_tbl_graph_fabric}},
-  \code{\link{layout_tbl_graph_focus}},
-  \code{\link{layout_tbl_graph_igraph}},
-  \code{\link{layout_tbl_graph_linear}},
-  \code{\link{layout_tbl_graph_manual}},
-  \code{\link{layout_tbl_graph_matrix}},
-  \code{\link{layout_tbl_graph_partition}},
-  \code{\link{layout_tbl_graph_pmds}},
-  \code{\link{layout_tbl_graph_stress}},
-  \code{\link{layout_tbl_graph_treemap}},
-  \code{\link{layout_tbl_graph_unrooted}}
+Other layout_tbl_graph_*: 
+\code{\link{layout_tbl_graph_auto}()},
+\code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_centrality}()},
+\code{\link{layout_tbl_graph_circlepack}()},
+\code{\link{layout_tbl_graph_dendrogram}()},
+\code{\link{layout_tbl_graph_eigen}()},
+\code{\link{layout_tbl_graph_fabric}()},
+\code{\link{layout_tbl_graph_focus}()},
+\code{\link{layout_tbl_graph_igraph}()},
+\code{\link{layout_tbl_graph_linear}()},
+\code{\link{layout_tbl_graph_manual}()},
+\code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_partition}()},
+\code{\link{layout_tbl_graph_pmds}()},
+\code{\link{layout_tbl_graph_stress}()},
+\code{\link{layout_tbl_graph_treemap}()},
+\code{\link{layout_tbl_graph_unrooted}()}
 }
 \concept{layout_tbl_graph_*}

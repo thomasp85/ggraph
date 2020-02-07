@@ -10,8 +10,13 @@
 \alias{is.geometry}
 \title{Define simple shapes for line capping}
 \usage{
-geometry(type = "circle", width = 1, height = width,
-  width_unit = "cm", height_unit = width_unit)
+geometry(
+  type = "circle",
+  width = 1,
+  height = width,
+  width_unit = "cm",
+  height_unit = width_unit
+)
 
 circle(radius = 1, unit = "cm")
 
@@ -19,8 +24,7 @@ square(length = 1, unit = "cm")
 
 ellipsis(a = 1, b = 1, a_unit = "cm", b_unit = a_unit)
 
-rectangle(width = 1, height = 1, width_unit = "cm",
-  height_unit = width_unit)
+rectangle(width = 1, height = 1, width_unit = "cm", height_unit = width_unit)
 
 label_rect(label, padding = margin(1, 1, 1.5, 1, "mm"), ...)
 

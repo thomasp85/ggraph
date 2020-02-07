@@ -4,9 +4,16 @@
 \alias{layout_tbl_graph_dendrogram}
 \title{Apply a dendrogram layout to layout_tbl_graph}
 \usage{
-layout_tbl_graph_dendrogram(graph, circular = FALSE, offset = pi/2,
-  height = NULL, length = NULL, repel = FALSE, ratio = 1,
-  direction = "out")
+layout_tbl_graph_dendrogram(
+  graph,
+  circular = FALSE,
+  offset = pi/2,
+  height = NULL,
+  length = NULL,
+  repel = FALSE,
+  ratio = 1,
+  direction = "out"
+)
 }
 \arguments{
 \item{graph}{A \code{tbl_graph} object}
@@ -50,22 +57,23 @@ This function is not intended to be used directly but by setting
 \code{layout = 'dendrogram'} in \code{\link[=create_layout]{create_layout()}}
 }
 \seealso{
-Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
-  \code{\link{layout_tbl_graph_backbone}},
-  \code{\link{layout_tbl_graph_centrality}},
-  \code{\link{layout_tbl_graph_circlepack}},
-  \code{\link{layout_tbl_graph_eigen}},
-  \code{\link{layout_tbl_graph_fabric}},
-  \code{\link{layout_tbl_graph_focus}},
-  \code{\link{layout_tbl_graph_hive}},
-  \code{\link{layout_tbl_graph_igraph}},
-  \code{\link{layout_tbl_graph_linear}},
-  \code{\link{layout_tbl_graph_manual}},
-  \code{\link{layout_tbl_graph_matrix}},
-  \code{\link{layout_tbl_graph_partition}},
-  \code{\link{layout_tbl_graph_pmds}},
-  \code{\link{layout_tbl_graph_stress}},
-  \code{\link{layout_tbl_graph_treemap}},
-  \code{\link{layout_tbl_graph_unrooted}}
+Other layout_tbl_graph_*: 
+\code{\link{layout_tbl_graph_auto}()},
+\code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_centrality}()},
+\code{\link{layout_tbl_graph_circlepack}()},
+\code{\link{layout_tbl_graph_eigen}()},
+\code{\link{layout_tbl_graph_fabric}()},
+\code{\link{layout_tbl_graph_focus}()},
+\code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_igraph}()},
+\code{\link{layout_tbl_graph_linear}()},
+\code{\link{layout_tbl_graph_manual}()},
+\code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_partition}()},
+\code{\link{layout_tbl_graph_pmds}()},
+\code{\link{layout_tbl_graph_stress}()},
+\code{\link{layout_tbl_graph_treemap}()},
+\code{\link{layout_tbl_graph_unrooted}()}
 }
 \concept{layout_tbl_graph_*}

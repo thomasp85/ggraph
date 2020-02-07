@@ -8,27 +8,49 @@
 \alias{unset_graph_style}
 \title{A theme tuned for graph visualizations}
 \usage{
-theme_graph(base_family = "Arial Narrow", base_size = 11,
-  background = "white", foreground = NULL, border = TRUE,
-  text_colour = "black", bg_text_colour = text_colour,
-  fg_text_colour = text_colour, title_family = base_family,
-  title_size = 18, title_face = "bold", title_margin = 10,
-  title_colour = bg_text_colour, subtitle_family = base_family,
-  subtitle_size = 12, subtitle_face = "plain", subtitle_margin = 15,
-  subtitle_colour = bg_text_colour, strip_text_family = base_family,
-  strip_text_size = 10, strip_text_face = "bold",
-  strip_text_colour = fg_text_colour, caption_family = base_family,
-  caption_size = 9, caption_face = "italic", caption_margin = 10,
-  caption_colour = bg_text_colour, plot_margin = margin(30, 30, 30,
-  30))
+theme_graph(
+  base_family = "Arial Narrow",
+  base_size = 11,
+  background = "white",
+  foreground = NULL,
+  border = TRUE,
+  text_colour = "black",
+  bg_text_colour = text_colour,
+  fg_text_colour = text_colour,
+  title_family = base_family,
+  title_size = 18,
+  title_face = "bold",
+  title_margin = 10,
+  title_colour = bg_text_colour,
+  subtitle_family = base_family,
+  subtitle_size = 12,
+  subtitle_face = "plain",
+  subtitle_margin = 15,
+  subtitle_colour = bg_text_colour,
+  strip_text_family = base_family,
+  strip_text_size = 10,
+  strip_text_face = "bold",
+  strip_text_colour = fg_text_colour,
+  caption_family = base_family,
+  caption_size = 9,
+  caption_face = "italic",
+  caption_margin = 10,
+  caption_colour = bg_text_colour,
+  plot_margin = margin(30, 30, 30, 30)
+)
 
-th_foreground(foreground = "grey80", fg_text_colour = NULL,
-  border = FALSE)
+th_foreground(foreground = "grey80", fg_text_colour = NULL, border = FALSE)
 
 th_no_axes()
 
-set_graph_style(family = "Arial Narrow", face = "plain", size = 11,
-  text_size = 11, text_colour = "black", ...)
+set_graph_style(
+  family = "Arial Narrow",
+  face = "plain",
+  size = 11,
+  text_size = 11,
+  text_colour = "black",
+  ...
+)
 
 unset_graph_style()
 }

@@ -4,8 +4,13 @@
 \alias{geom_node_arc_bar}
 \title{Show nodes as thick arcs}
 \usage{
-geom_node_arc_bar(mapping = NULL, data = NULL, position = "identity",
-  show.legend = NA, ...)
+geom_node_arc_bar(
+  mapping = NULL,
+  data = NULL,
+  position = "identity",
+  show.legend = NA,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -75,12 +80,13 @@ ggraph(gr, 'partition', circular = TRUE, weight = size) +
   geom_node_arc_bar()
 }
 \seealso{
-Other geom_node_*: \code{\link{geom_node_circle}},
-  \code{\link{geom_node_point}},
-  \code{\link{geom_node_range}},
-  \code{\link{geom_node_text}},
-  \code{\link{geom_node_tile}},
-  \code{\link{geom_node_voronoi}}
+Other geom_node_*: 
+\code{\link{geom_node_circle}()},
+\code{\link{geom_node_point}()},
+\code{\link{geom_node_range}()},
+\code{\link{geom_node_text}()},
+\code{\link{geom_node_tile}()},
+\code{\link{geom_node_voronoi}()}
 }
 \author{
 Thomas Lin Pedersen

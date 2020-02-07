@@ -4,9 +4,16 @@
 \alias{layout_tbl_graph_partition}
 \title{Calculate nodes as areas dividing their parent}
 \usage{
-layout_tbl_graph_partition(graph, weight = NULL, circular = FALSE,
-  height = NULL, sort.by = NULL, direction = "out", offset = pi/2,
-  const.area = TRUE)
+layout_tbl_graph_partition(
+  graph,
+  weight = NULL,
+  circular = FALSE,
+  height = NULL,
+  sort.by = NULL,
+  direction = "out",
+  offset = pi/2,
+  const.area = TRUE
+)
 }
 \arguments{
 \item{graph}{An \code{tbl_graph} object}
@@ -65,22 +72,23 @@ for Hierarchical Clustering}. American Statistician Vol 37(2), 162-168.
 https://doi.org/10.2307/2685881
 }
 \seealso{
-Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
-  \code{\link{layout_tbl_graph_backbone}},
-  \code{\link{layout_tbl_graph_centrality}},
-  \code{\link{layout_tbl_graph_circlepack}},
-  \code{\link{layout_tbl_graph_dendrogram}},
-  \code{\link{layout_tbl_graph_eigen}},
-  \code{\link{layout_tbl_graph_fabric}},
-  \code{\link{layout_tbl_graph_focus}},
-  \code{\link{layout_tbl_graph_hive}},
-  \code{\link{layout_tbl_graph_igraph}},
-  \code{\link{layout_tbl_graph_linear}},
-  \code{\link{layout_tbl_graph_manual}},
-  \code{\link{layout_tbl_graph_matrix}},
-  \code{\link{layout_tbl_graph_pmds}},
-  \code{\link{layout_tbl_graph_stress}},
-  \code{\link{layout_tbl_graph_treemap}},
-  \code{\link{layout_tbl_graph_unrooted}}
+Other layout_tbl_graph_*: 
+\code{\link{layout_tbl_graph_auto}()},
+\code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_centrality}()},
+\code{\link{layout_tbl_graph_circlepack}()},
+\code{\link{layout_tbl_graph_dendrogram}()},
+\code{\link{layout_tbl_graph_eigen}()},
+\code{\link{layout_tbl_graph_fabric}()},
+\code{\link{layout_tbl_graph_focus}()},
+\code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_igraph}()},
+\code{\link{layout_tbl_graph_linear}()},
+\code{\link{layout_tbl_graph_manual}()},
+\code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_pmds}()},
+\code{\link{layout_tbl_graph_stress}()},
+\code{\link{layout_tbl_graph_treemap}()},
+\code{\link{layout_tbl_graph_unrooted}()}
 }
 \concept{layout_tbl_graph_*}

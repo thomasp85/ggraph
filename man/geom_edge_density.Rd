@@ -4,8 +4,14 @@
 \alias{geom_edge_density}
 \title{Show edges as a density map}
 \usage{
-geom_edge_density(mapping = NULL, data = get_edges("short"),
-  position = "identity", show.legend = NA, n = 100, ...)
+geom_edge_density(
+  mapping = NULL,
+  data = get_edges("short"),
+  position = "identity",
+  show.legend = NA,
+  n = 100,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -29,7 +35,7 @@ display.}
 \item{n}{The number of points to estimate in the x and y direction, i.e. the
 resolution of the raster.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -82,18 +88,19 @@ ggraph(gr, 'stress') +
   geom_edge_link() + geom_node_point()
 }
 \seealso{
-Other geom_edge_*: \code{\link{geom_edge_arc}},
-  \code{\link{geom_edge_bend}},
-  \code{\link{geom_edge_diagonal}},
-  \code{\link{geom_edge_elbow}},
-  \code{\link{geom_edge_fan}},
-  \code{\link{geom_edge_hive}},
-  \code{\link{geom_edge_link}},
-  \code{\link{geom_edge_loop}},
-  \code{\link{geom_edge_parallel}},
-  \code{\link{geom_edge_point}},
-  \code{\link{geom_edge_span}},
-  \code{\link{geom_edge_tile}}
+Other geom_edge_*: 
+\code{\link{geom_edge_arc}()},
+\code{\link{geom_edge_bend}()},
+\code{\link{geom_edge_diagonal}()},
+\code{\link{geom_edge_elbow}()},
+\code{\link{geom_edge_fan}()},
+\code{\link{geom_edge_hive}()},
+\code{\link{geom_edge_link}()},
+\code{\link{geom_edge_loop}()},
+\code{\link{geom_edge_parallel}()},
+\code{\link{geom_edge_point}()},
+\code{\link{geom_edge_span}()},
+\code{\link{geom_edge_tile}()}
 }
 \author{
 Thomas Lin Pedersen

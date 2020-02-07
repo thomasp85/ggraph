@@ -6,25 +6,63 @@
 \alias{geom_edge_fan0}
 \title{Draw edges as curves of different curvature}
 \usage{
-geom_edge_fan(mapping = NULL, data = get_edges(),
-  position = "identity", arrow = NULL, strength = 1, n = 100,
-  lineend = "butt", linejoin = "round", linemitre = 1,
-  label_colour = "black", label_alpha = 1, label_parse = FALSE,
-  check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...,
-  spread)
+geom_edge_fan(
+  mapping = NULL,
+  data = get_edges(),
+  position = "identity",
+  arrow = NULL,
+  strength = 1,
+  n = 100,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 1,
+  label_colour = "black",
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = "rot",
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...,
+  spread
+)
 
-geom_edge_fan2(mapping = NULL, data = get_edges("long"),
-  position = "identity", arrow = NULL, strength = 1, n = 100,
-  lineend = "butt", linejoin = "round", linemitre = 1,
-  label_colour = "black", label_alpha = 1, label_parse = FALSE,
-  check_overlap = FALSE, angle_calc = "rot", force_flip = TRUE,
-  label_dodge = NULL, label_push = NULL, show.legend = NA, ...,
-  spread)
+geom_edge_fan2(
+  mapping = NULL,
+  data = get_edges("long"),
+  position = "identity",
+  arrow = NULL,
+  strength = 1,
+  n = 100,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 1,
+  label_colour = "black",
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = "rot",
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...,
+  spread
+)
 
-geom_edge_fan0(mapping = NULL, data = get_edges(),
-  position = "identity", arrow = NULL, strength = 1,
-  lineend = "butt", show.legend = NA, ..., spread)
+geom_edge_fan0(
+  mapping = NULL,
+  data = get_edges(),
+  position = "identity",
+  arrow = NULL,
+  strength = 1,
+  lineend = "butt",
+  show.legend = NA,
+  ...,
+  spread
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -84,7 +122,7 @@ to add to the label in case of \code{angle_calc} is either 'along' or 'across'}
 It can also be a named logical vector to finely select the aesthetics to
 display.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -183,7 +221,7 @@ edges based on the given specifications. This means that if
 \code{end_cap = circle(1, 'cm')} the edges will end at a distance of 1cm even
 during resizing of the plot window.
 
-All \code{geom_edge_*} and \code{geom_edge_*2} have the ability to draw a
+All \verb{geom_edge_*} and \code{geom_edge_*2} have the ability to draw a
 label along the edge. The reason this is not a separate geom is that in order
 for the label to know the location of the edge it needs to know the edge type
 etc. Labels are drawn by providing a label aesthetic. The label_pos can be
@@ -222,18 +260,19 @@ ggraph(gr, 'stress') +
   geom_edge_fan0(aes(colour = class))
 }
 \seealso{
-Other geom_edge_*: \code{\link{geom_edge_arc}},
-  \code{\link{geom_edge_bend}},
-  \code{\link{geom_edge_density}},
-  \code{\link{geom_edge_diagonal}},
-  \code{\link{geom_edge_elbow}},
-  \code{\link{geom_edge_hive}},
-  \code{\link{geom_edge_link}},
-  \code{\link{geom_edge_loop}},
-  \code{\link{geom_edge_parallel}},
-  \code{\link{geom_edge_point}},
-  \code{\link{geom_edge_span}},
-  \code{\link{geom_edge_tile}}
+Other geom_edge_*: 
+\code{\link{geom_edge_arc}()},
+\code{\link{geom_edge_bend}()},
+\code{\link{geom_edge_density}()},
+\code{\link{geom_edge_diagonal}()},
+\code{\link{geom_edge_elbow}()},
+\code{\link{geom_edge_hive}()},
+\code{\link{geom_edge_link}()},
+\code{\link{geom_edge_loop}()},
+\code{\link{geom_edge_parallel}()},
+\code{\link{geom_edge_point}()},
+\code{\link{geom_edge_span}()},
+\code{\link{geom_edge_tile}()}
 }
 \author{
 Thomas Lin Pedersen

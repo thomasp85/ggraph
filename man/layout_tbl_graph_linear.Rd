@@ -4,8 +4,13 @@
 \alias{layout_tbl_graph_linear}
 \title{Place nodes on a line or circle}
 \usage{
-layout_tbl_graph_linear(graph, circular, sort.by = NULL,
-  use.numeric = FALSE, offset = pi/2)
+layout_tbl_graph_linear(
+  graph,
+  circular,
+  sort.by = NULL,
+  use.numeric = FALSE,
+  offset = pi/2
+)
 }
 \arguments{
 \item{graph}{An \code{tbl_graph} object}
@@ -34,22 +39,23 @@ will be used as the x-position and it is thus possible to have uneven spacing
 between the nodes.
 }
 \seealso{
-Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
-  \code{\link{layout_tbl_graph_backbone}},
-  \code{\link{layout_tbl_graph_centrality}},
-  \code{\link{layout_tbl_graph_circlepack}},
-  \code{\link{layout_tbl_graph_dendrogram}},
-  \code{\link{layout_tbl_graph_eigen}},
-  \code{\link{layout_tbl_graph_fabric}},
-  \code{\link{layout_tbl_graph_focus}},
-  \code{\link{layout_tbl_graph_hive}},
-  \code{\link{layout_tbl_graph_igraph}},
-  \code{\link{layout_tbl_graph_manual}},
-  \code{\link{layout_tbl_graph_matrix}},
-  \code{\link{layout_tbl_graph_partition}},
-  \code{\link{layout_tbl_graph_pmds}},
-  \code{\link{layout_tbl_graph_stress}},
-  \code{\link{layout_tbl_graph_treemap}},
-  \code{\link{layout_tbl_graph_unrooted}}
+Other layout_tbl_graph_*: 
+\code{\link{layout_tbl_graph_auto}()},
+\code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_centrality}()},
+\code{\link{layout_tbl_graph_circlepack}()},
+\code{\link{layout_tbl_graph_dendrogram}()},
+\code{\link{layout_tbl_graph_eigen}()},
+\code{\link{layout_tbl_graph_fabric}()},
+\code{\link{layout_tbl_graph_focus}()},
+\code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_igraph}()},
+\code{\link{layout_tbl_graph_manual}()},
+\code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_partition}()},
+\code{\link{layout_tbl_graph_pmds}()},
+\code{\link{layout_tbl_graph_stress}()},
+\code{\link{layout_tbl_graph_treemap}()},
+\code{\link{layout_tbl_graph_unrooted}()}
 }
 \concept{layout_tbl_graph_*}

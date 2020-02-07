@@ -4,26 +4,38 @@
 \alias{guide_edge_direction}
 \title{Edge direction guide}
 \usage{
-guide_edge_direction(title = waiver(), title.position = NULL,
-  title.theme = NULL, title.hjust = NULL, title.vjust = NULL,
-  arrow = TRUE, arrow.position = NULL, barwidth = NULL,
-  barheight = NULL, nbin = 500, direction = NULL,
-  default.unit = "line", reverse = FALSE, order = 0,
-  override.aes = list(), ...)
+guide_edge_direction(
+  title = waiver(),
+  title.position = NULL,
+  title.theme = NULL,
+  title.hjust = NULL,
+  title.vjust = NULL,
+  arrow = TRUE,
+  arrow.position = NULL,
+  barwidth = NULL,
+  barheight = NULL,
+  nbin = 500,
+  direction = NULL,
+  default.unit = "line",
+  reverse = FALSE,
+  order = 0,
+  override.aes = list(),
+  ...
+)
 }
 \arguments{
 \item{title}{A character string or expression indicating a title of guide.
 If \code{NULL}, the title is not shown. By default
-(\code{\link[=waiver]{waiver()}}), the name of the scale object or the name
-specified in \code{\link[=labs]{labs()}} is used for the title.}
+(\code{\link[ggplot2:waiver]{waiver()}}), the name of the scale object or the name
+specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
 
 \item{title.position}{A character string indicating the position of a
 title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."}
 
 \item{title.theme}{A theme object for rendering the title text. Usually the
-object of \code{\link[=element_text]{element_text()}} is expected. By default, the theme is
-specified by \code{legend.title} in \code{\link[=theme]{theme()}} or theme.}
+object of \code{\link[ggplot2:element_text]{element_text()}} is expected. By default, the theme is
+specified by \code{legend.title} in \code{\link[ggplot2:theme]{theme()}} or theme.}
 
 \item{title.hjust}{A number specifying horizontal justification of the
 title text.}
@@ -38,11 +50,11 @@ Defaults to \code{TRUE}}
 
 \item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the width of the colourbar. Default value is \code{legend.key.width} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+\code{legend.key.size} in \code{\link[ggplot2:theme]{theme()}} or theme.}
 
 \item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the height of the colourbar. Default value is \code{legend.key.height} or
-\code{legend.key.size} in \code{\link[=theme]{theme()}} or theme.}
+\code{legend.key.size} in \code{\link[ggplot2:theme]{theme()}} or theme.}
 
 \item{nbin}{A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.}

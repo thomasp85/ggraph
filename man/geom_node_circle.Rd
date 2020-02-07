@@ -4,8 +4,13 @@
 \alias{geom_node_circle}
 \title{Show nodes as circles}
 \usage{
-geom_node_circle(mapping = NULL, data = NULL, position = "identity",
-  show.legend = NA, ...)
+geom_node_circle(
+  mapping = NULL,
+  data = NULL,
+  position = "identity",
+  show.legend = NA,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -74,12 +79,13 @@ ggraph(gr, 'circlepack', weight = size) +
   coord_fixed()
 }
 \seealso{
-Other geom_node_*: \code{\link{geom_node_arc_bar}},
-  \code{\link{geom_node_point}},
-  \code{\link{geom_node_range}},
-  \code{\link{geom_node_text}},
-  \code{\link{geom_node_tile}},
-  \code{\link{geom_node_voronoi}}
+Other geom_node_*: 
+\code{\link{geom_node_arc_bar}()},
+\code{\link{geom_node_point}()},
+\code{\link{geom_node_range}()},
+\code{\link{geom_node_text}()},
+\code{\link{geom_node_tile}()},
+\code{\link{geom_node_voronoi}()}
 }
 \author{
 Thomas Lin Pedersen

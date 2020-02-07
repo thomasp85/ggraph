@@ -25,7 +25,8 @@ mandatory and is only required if additional data should be added to selected
 node layers.
 }
 \seealso{
-Other extractors: \code{\link{get_con}},
-  \code{\link{get_edges}}
+Other extractors: 
+\code{\link{get_con}()},
+\code{\link{get_edges}()}
 }
 \concept{extractors}

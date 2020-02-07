@@ -28,25 +28,58 @@
 \alias{scale_edge_color_viridis}
 \title{Edge colour scales}
 \usage{
-scale_edge_colour_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
+scale_edge_colour_hue(
+  ...,
+  h = c(0, 360) + 15,
+  c = 100,
+  l = 65,
+  h.start = 0,
+  direction = 1,
+  na.value = "grey50"
+)
 
-scale_edge_colour_brewer(..., type = "seq", palette = 1,
-  direction = 1)
+scale_edge_colour_brewer(..., type = "seq", palette = 1, direction = 1)
 
-scale_edge_colour_distiller(..., type = "seq", palette = 1,
-  direction = -1, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "edge_colourbar")
+scale_edge_colour_distiller(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar"
+)
 
-scale_edge_colour_gradient(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "edge_colourbar")
+scale_edge_colour_gradient(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar"
+)
 
-scale_edge_colour_gradient2(..., low = muted("red"), mid = "white",
-  high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "edge_colourbar")
+scale_edge_colour_gradient2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar"
+)
 
-scale_edge_colour_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "edge_colourbar", colors)
+scale_edge_colour_gradientn(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  colors
+)
 
 scale_edge_colour_grey(..., start = 0.2, end = 0.8, na.value = "red")
 
@@ -54,34 +87,87 @@ scale_edge_colour_identity(..., guide = "none")
 
 scale_edge_colour_manual(..., values)
 
-scale_edge_colour_viridis(..., alpha = 1, begin = 0, end = 1,
-  discrete = FALSE, option = "D", direction = 1)
+scale_edge_colour_viridis(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  discrete = FALSE,
+  option = "D",
+  direction = 1
+)
 
-scale_edge_colour_continuous(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "edge_colourbar")
+scale_edge_colour_continuous(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar"
+)
 
-scale_edge_colour_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
+scale_edge_colour_discrete(
+  ...,
+  h = c(0, 360) + 15,
+  c = 100,
+  l = 65,
+  h.start = 0,
+  direction = 1,
+  na.value = "grey50"
+)
 
-scale_edge_color_hue(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
+scale_edge_color_hue(
+  ...,
+  h = c(0, 360) + 15,
+  c = 100,
+  l = 65,
+  h.start = 0,
+  direction = 1,
+  na.value = "grey50"
+)
 
-scale_edge_color_brewer(..., type = "seq", palette = 1,
-  direction = 1)
+scale_edge_color_brewer(..., type = "seq", palette = 1, direction = 1)
 
-scale_edge_color_distiller(..., type = "seq", palette = 1,
-  direction = -1, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "edge_colourbar")
+scale_edge_color_distiller(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar"
+)
 
-scale_edge_color_gradient(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "edge_colourbar")
+scale_edge_color_gradient(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar"
+)
 
-scale_edge_color_gradient2(..., low = muted("red"), mid = "white",
-  high = muted("blue"), midpoint = 0, space = "Lab",
-  na.value = "grey50", guide = "edge_colourbar")
+scale_edge_color_gradient2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar"
+)
 
-scale_edge_color_gradientn(..., colours, values = NULL, space = "Lab",
-  na.value = "grey50", guide = "edge_colourbar", colors)
+scale_edge_color_gradientn(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  colors
+)
 
 scale_edge_color_grey(..., start = 0.2, end = 0.8, na.value = "red")
 
@@ -89,14 +175,34 @@ scale_edge_color_identity(..., guide = "none")
 
 scale_edge_color_manual(..., values)
 
-scale_edge_color_continuous(..., low = "#132B43", high = "#56B1F7",
-  space = "Lab", na.value = "grey50", guide = "edge_colourbar")
+scale_edge_color_continuous(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar"
+)
 
-scale_edge_color_discrete(..., h = c(0, 360) + 15, c = 100, l = 65,
-  h.start = 0, direction = 1, na.value = "grey50")
+scale_edge_color_discrete(
+  ...,
+  h = c(0, 360) + 15,
+  c = 100,
+  l = 65,
+  h.start = 0,
+  direction = 1,
+  na.value = "grey50"
+)
 
-scale_edge_color_viridis(..., alpha = 1, begin = 0, end = 1,
-  discrete = FALSE, option = "D", direction = 1)
+scale_edge_color_viridis(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  discrete = FALSE,
+  option = "D",
+  direction = 1
+)
 }
 \arguments{
 \item{...}{Arguments passed on to \code{discrete_scale}
@@ -140,12 +246,12 @@ as output
 }}
   \item{expand}{Vector of range expansion constants used to add some
 padding around the data, to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+away from the axes. Use the convenience function \code{\link[ggplot2:expand_scale]{expand_scale()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
   \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[ggplot2:guides]{guides()}} for more info.}
   \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}
   \item{super}{The super class to use for the constructed scale}
@@ -215,12 +321,13 @@ know whether to use edge scales or the standard scales so it is not necessary
 to write \code{edge_colour} in the call to the geom - just use \code{colour}.
 }
 \seealso{
-Other scale_edge_*: \code{\link{scale_edge_alpha}},
-  \code{\link{scale_edge_fill}},
-  \code{\link{scale_edge_linetype}},
-  \code{\link{scale_edge_shape}},
-  \code{\link{scale_edge_size}},
-  \code{\link{scale_edge_width}},
-  \code{\link{scale_label_size}}
+Other scale_edge_*: 
+\code{\link{scale_edge_alpha}()},
+\code{\link{scale_edge_fill}},
+\code{\link{scale_edge_linetype}()},
+\code{\link{scale_edge_shape}()},
+\code{\link{scale_edge_size}()},
+\code{\link{scale_edge_width}()},
+\code{\link{scale_label_size}()}
 }
 \concept{scale_edge_*}

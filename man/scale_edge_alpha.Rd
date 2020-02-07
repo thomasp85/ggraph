@@ -19,8 +19,8 @@ scale_edge_alpha_manual(..., values)
 scale_edge_alpha_identity(..., guide = "none")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link[=continuous_scale]{continuous_scale()}}
-or \code{\link[=discrete_scale]{discrete_scale()}} as appropriate, to control name, limits,
+\item{...}{Other arguments passed on to \code{\link[ggplot2:continuous_scale]{continuous_scale()}}
+or \code{\link[ggplot2:discrete_scale]{discrete_scale()}} as appropriate, to control name, limits,
 breaks, labels and so forth.}
 
 \item{range}{Output range of alpha values. Must lie between 0 and 1.}
@@ -44,12 +44,13 @@ the standard scales so it is not necessary to write \code{edge_alpha} in
 the call to the geom - just use \code{alpha}.
 }
 \seealso{
-Other scale_edge_*: \code{\link{scale_edge_colour}},
-  \code{\link{scale_edge_fill}},
-  \code{\link{scale_edge_linetype}},
-  \code{\link{scale_edge_shape}},
-  \code{\link{scale_edge_size}},
-  \code{\link{scale_edge_width}},
-  \code{\link{scale_label_size}}
+Other scale_edge_*: 
+\code{\link{scale_edge_colour}},
+\code{\link{scale_edge_fill}},
+\code{\link{scale_edge_linetype}()},
+\code{\link{scale_edge_shape}()},
+\code{\link{scale_edge_size}()},
+\code{\link{scale_edge_width}()},
+\code{\link{scale_label_size}()}
 }
 \concept{scale_edge_*}

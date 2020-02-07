@@ -74,13 +74,13 @@ are defined in the scales package, and are called \code{name_trans}, e.g.
 \code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}. You can create your own
 transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
   \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[ggplot2:guides]{guides()}} for more info.}
   \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}
   \item{super}{The super class to use for the constructed scale}
   \item{expand}{Vector of range expansion constants used to add some
 padding around the data, to ensure that they are placed some distance
-away from the axes. Use the convenience function \code{\link[=expand_scale]{expand_scale()}}
+away from the axes. Use the convenience function \code{\link[ggplot2:expand_scale]{expand_scale()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
@@ -96,7 +96,7 @@ the limits of the scale. Any data values that don't match will be
 given \code{na.value}.}
 
 \item{guide}{A function used to create a guide or its name. See
-\code{\link[=guides]{guides()}} for more info.}
+\code{\link[ggplot2:guides]{guides()}} for more info.}
 }
 \value{
 A ggproto object inheriting from \code{Scale}
@@ -106,12 +106,13 @@ This set of scales defines new size scales for edge labels in order to allow
 for separate sizing of edges and their labels.
 }
 \seealso{
-Other scale_edge_*: \code{\link{scale_edge_alpha}},
-  \code{\link{scale_edge_colour}},
-  \code{\link{scale_edge_fill}},
-  \code{\link{scale_edge_linetype}},
-  \code{\link{scale_edge_shape}},
-  \code{\link{scale_edge_size}},
-  \code{\link{scale_edge_width}}
+Other scale_edge_*: 
+\code{\link{scale_edge_alpha}()},
+\code{\link{scale_edge_colour}},
+\code{\link{scale_edge_fill}},
+\code{\link{scale_edge_linetype}()},
+\code{\link{scale_edge_shape}()},
+\code{\link{scale_edge_size}()},
+\code{\link{scale_edge_width}()}
 }
 \concept{scale_edge_*}

@@ -4,8 +4,13 @@
 \alias{geom_node_range}
 \title{Show nodes as a line spanning a horizontal range}
 \usage{
-geom_node_range(mapping = NULL, data = NULL, position = "identity",
-  show.legend = NA, ...)
+geom_node_range(
+  mapping = NULL,
+  data = NULL,
+  position = "identity",
+  show.legend = NA,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -16,11 +21,11 @@ and y and yend are mapped to y in the node data.}
 options:
 
 If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
 
 A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
@@ -36,7 +41,7 @@ a call to a position adjustment function.}
 It can also be a named logical vector to finely select the aesthetics to
 display.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -70,12 +75,13 @@ ggraph(gr, layout = 'fabric') +
   geom_node_range()
 }
 \seealso{
-Other geom_node_*: \code{\link{geom_node_arc_bar}},
-  \code{\link{geom_node_circle}},
-  \code{\link{geom_node_point}},
-  \code{\link{geom_node_text}},
-  \code{\link{geom_node_tile}},
-  \code{\link{geom_node_voronoi}}
+Other geom_node_*: 
+\code{\link{geom_node_arc_bar}()},
+\code{\link{geom_node_circle}()},
+\code{\link{geom_node_point}()},
+\code{\link{geom_node_text}()},
+\code{\link{geom_node_tile}()},
+\code{\link{geom_node_voronoi}()}
 }
 \author{
 Thomas Lin Pedersen

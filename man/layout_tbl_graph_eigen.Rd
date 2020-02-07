@@ -4,8 +4,12 @@
 \alias{layout_tbl_graph_eigen}
 \title{Place nodes according to their eigenvalues}
 \usage{
-layout_tbl_graph_eigen(graph, type = "laplacian",
-  eigenvector = "smallest", circular = FALSE)
+layout_tbl_graph_eigen(
+  graph,
+  type = "laplacian",
+  eigenvector = "smallest",
+  circular = FALSE
+)
 }
 \arguments{
 \item{graph}{A tbl_graph object}
@@ -28,23 +32,24 @@ are calculated directly by decomposing a matrix representation of the graph
 and extracting the eigenvectors.
 }
 \seealso{
-Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
-  \code{\link{layout_tbl_graph_backbone}},
-  \code{\link{layout_tbl_graph_centrality}},
-  \code{\link{layout_tbl_graph_circlepack}},
-  \code{\link{layout_tbl_graph_dendrogram}},
-  \code{\link{layout_tbl_graph_fabric}},
-  \code{\link{layout_tbl_graph_focus}},
-  \code{\link{layout_tbl_graph_hive}},
-  \code{\link{layout_tbl_graph_igraph}},
-  \code{\link{layout_tbl_graph_linear}},
-  \code{\link{layout_tbl_graph_manual}},
-  \code{\link{layout_tbl_graph_matrix}},
-  \code{\link{layout_tbl_graph_partition}},
-  \code{\link{layout_tbl_graph_pmds}},
-  \code{\link{layout_tbl_graph_stress}},
-  \code{\link{layout_tbl_graph_treemap}},
-  \code{\link{layout_tbl_graph_unrooted}}
+Other layout_tbl_graph_*: 
+\code{\link{layout_tbl_graph_auto}()},
+\code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_centrality}()},
+\code{\link{layout_tbl_graph_circlepack}()},
+\code{\link{layout_tbl_graph_dendrogram}()},
+\code{\link{layout_tbl_graph_fabric}()},
+\code{\link{layout_tbl_graph_focus}()},
+\code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_igraph}()},
+\code{\link{layout_tbl_graph_linear}()},
+\code{\link{layout_tbl_graph_manual}()},
+\code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_partition}()},
+\code{\link{layout_tbl_graph_pmds}()},
+\code{\link{layout_tbl_graph_stress}()},
+\code{\link{layout_tbl_graph_treemap}()},
+\code{\link{layout_tbl_graph_unrooted}()}
 }
 \author{
 The underlying algorithm is implemented in the graphlayouts package

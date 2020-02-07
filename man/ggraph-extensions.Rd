@@ -63,13 +63,13 @@
 \description{
 This help page lists all exported ggproto classes defined by ggraph. In
 general these should be of no concern to the user as the main interface to
-the functionality is, as with ggplot2, the \code{geom_*} format. As opposed
-to ggplot2 there really aren't any use for separate \code{stat_*} functions
+the functionality is, as with ggplot2, the \verb{geom_*} format. As opposed
+to ggplot2 there really aren't any use for separate \verb{stat_*} functions
 as they are intimately linked to each geom and mixing and matching stats and
 geoms would only cause a lot of trouble.
 }
 \details{
-Many of the \code{geom_edge_*} geoms comes in different flavors dependent on
+Many of the \verb{geom_edge_*} geoms comes in different flavors dependent on
 the functionality required. There will always be a base geom and some will
 have a \code{geom_edge_*0} and \code{geom_edge_*2} version. The base geom
 will, in the case of multiple versions, draw the edge as a sequence of small

@@ -4,10 +4,19 @@
 \alias{facet_graph}
 \title{Create a grid of small multiples by node and/or edge attributes}
 \usage{
-facet_graph(facets, row_type = "edge", col_type = "node",
-  margins = FALSE, scales = "fixed", space = "fixed",
-  shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE)
+facet_graph(
+  facets,
+  row_type = "edge",
+  col_type = "node",
+  margins = FALSE,
+  scales = "fixed",
+  space = "fixed",
+  shrink = TRUE,
+  labeller = "label_value",
+  as.table = TRUE,
+  switch = NULL,
+  drop = TRUE
+)
 }
 \arguments{
 \item{facets}{This argument is soft-deprecated, please use \code{rows}
@@ -45,8 +54,8 @@ column corresponds to one factor. Thus there will be more than
 one with formulae of the type \code{~cyl + am}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with \code{\link[=labeller]{labeller()}}. See
-\code{\link[=label_value]{label_value()}} for more details and pointers to other
+for compatibility with \code{\link[ggplot2:labeller]{labeller()}}. See
+\code{\link[ggplot2:label_value]{label_value()}} for more details and pointers to other
 options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
@@ -88,7 +97,8 @@ ggraph(gr) +
   facet_graph(year ~ popularity)
 }
 \seealso{
-Other ggraph-facets: \code{\link{facet_edges}},
-  \code{\link{facet_nodes}}
+Other ggraph-facets: 
+\code{\link{facet_edges}()},
+\code{\link{facet_nodes}()}
 }
 \concept{ggraph-facets}

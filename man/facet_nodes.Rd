@@ -4,12 +4,22 @@
 \alias{facet_nodes}
 \title{Create small multiples based on node attributes}
 \usage{
-facet_nodes(facets, nrow = NULL, ncol = NULL, scales = "fixed",
-  shrink = TRUE, labeller = "label_value", as.table = TRUE,
-  switch = NULL, drop = TRUE, dir = "h", strip.position = "top")
+facet_nodes(
+  facets,
+  nrow = NULL,
+  ncol = NULL,
+  scales = "fixed",
+  shrink = TRUE,
+  labeller = "label_value",
+  as.table = TRUE,
+  switch = NULL,
+  drop = TRUE,
+  dir = "h",
+  strip.position = "top"
+)
 }
 \arguments{
-\item{facets}{A set of variables or expressions quoted by \code{\link[=vars]{vars()}}
+\item{facets}{A set of variables or expressions quoted by \code{\link[ggplot2:vars]{vars()}}
 and defining faceting groups on the rows or columns dimension.
 The variables can be named (the names are passed to \code{labeller}).
 
@@ -35,8 +45,8 @@ column corresponds to one factor. Thus there will be more than
 one with formulae of the type \code{~cyl + am}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
-for compatibility with \code{\link[=labeller]{labeller()}}. See
-\code{\link[=label_value]{label_value()}} for more details and pointers to other
+for compatibility with \code{\link[ggplot2:labeller]{labeller()}}. See
+\code{\link[ggplot2:label_value]{label_value()}} for more details and pointers to other
 options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like
@@ -79,7 +89,8 @@ ggraph(gr) +
   facet_nodes(~popularity)
 }
 \seealso{
-Other ggraph-facets: \code{\link{facet_edges}},
-  \code{\link{facet_graph}}
+Other ggraph-facets: 
+\code{\link{facet_edges}()},
+\code{\link{facet_graph}()}
 }
 \concept{ggraph-facets}

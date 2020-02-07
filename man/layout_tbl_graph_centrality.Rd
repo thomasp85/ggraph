@@ -4,15 +4,21 @@
 \alias{layout_tbl_graph_centrality}
 \title{Place nodes in circles according to centrality measure}
 \usage{
-layout_tbl_graph_centrality(graph, centrality, scale = TRUE,
-  niter = 500, tolerance = 1e-04, tseq = seq(0, 1, 0.2),
-  circular = FALSE)
+layout_tbl_graph_centrality(
+  graph,
+  centrality,
+  scale = TRUE,
+  niter = 500,
+  tolerance = 1e-04,
+  tseq = seq(0, 1, 0.2),
+  circular = FALSE
+)
 }
 \arguments{
 \item{graph}{A tbl_graph object}
 
 \item{centrality}{An expression evaluating to a centrality measure for the
-nodes. See the different \code{centrality_*()} algorithms in tidygraph for a
+nodes. See the different \verb{centrality_*()} algorithms in tidygraph for a
 selection.}
 
 \item{scale}{Should the centrality measure be scaled between 0 and 100}
@@ -39,23 +45,24 @@ Brandes, U., & Pich, C. (2011). \emph{More flexible radial layout.} Journal of
 Graph Algorithms and Applications, 15(1), 157-173.
 }
 \seealso{
-Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
-  \code{\link{layout_tbl_graph_backbone}},
-  \code{\link{layout_tbl_graph_circlepack}},
-  \code{\link{layout_tbl_graph_dendrogram}},
-  \code{\link{layout_tbl_graph_eigen}},
-  \code{\link{layout_tbl_graph_fabric}},
-  \code{\link{layout_tbl_graph_focus}},
-  \code{\link{layout_tbl_graph_hive}},
-  \code{\link{layout_tbl_graph_igraph}},
-  \code{\link{layout_tbl_graph_linear}},
-  \code{\link{layout_tbl_graph_manual}},
-  \code{\link{layout_tbl_graph_matrix}},
-  \code{\link{layout_tbl_graph_partition}},
-  \code{\link{layout_tbl_graph_pmds}},
-  \code{\link{layout_tbl_graph_stress}},
-  \code{\link{layout_tbl_graph_treemap}},
-  \code{\link{layout_tbl_graph_unrooted}}
+Other layout_tbl_graph_*: 
+\code{\link{layout_tbl_graph_auto}()},
+\code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_circlepack}()},
+\code{\link{layout_tbl_graph_dendrogram}()},
+\code{\link{layout_tbl_graph_eigen}()},
+\code{\link{layout_tbl_graph_fabric}()},
+\code{\link{layout_tbl_graph_focus}()},
+\code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_igraph}()},
+\code{\link{layout_tbl_graph_linear}()},
+\code{\link{layout_tbl_graph_manual}()},
+\code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_partition}()},
+\code{\link{layout_tbl_graph_pmds}()},
+\code{\link{layout_tbl_graph_stress}()},
+\code{\link{layout_tbl_graph_treemap}()},
+\code{\link{layout_tbl_graph_unrooted}()}
 }
 \author{
 The underlying algorithm is implemented in the graphlayouts package

@@ -4,9 +4,15 @@
 \alias{layout_tbl_graph_unrooted}
 \title{Create an unrooted layout using equal-angle or equal-daylight}
 \usage{
-layout_tbl_graph_unrooted(graph, daylight = TRUE, length = NULL,
-  tolerance = 0.05, rotation_mod = 1, maxiter = 100,
-  circular = FALSE)
+layout_tbl_graph_unrooted(
+  graph,
+  daylight = TRUE,
+  length = NULL,
+  tolerance = 0.05,
+  rotation_mod = 1,
+  maxiter = 100,
+  circular = FALSE
+)
 }
 \arguments{
 \item{graph}{A tbl_graph object}
@@ -52,22 +58,23 @@ Felsenstein, J. (2004) \emph{Drawing Trees}, in Inferring Phylogenies. Sinauer
 Assoc., pp 573-584
 }
 \seealso{
-Other layout_tbl_graph_*: \code{\link{layout_tbl_graph_auto}},
-  \code{\link{layout_tbl_graph_backbone}},
-  \code{\link{layout_tbl_graph_centrality}},
-  \code{\link{layout_tbl_graph_circlepack}},
-  \code{\link{layout_tbl_graph_dendrogram}},
-  \code{\link{layout_tbl_graph_eigen}},
-  \code{\link{layout_tbl_graph_fabric}},
-  \code{\link{layout_tbl_graph_focus}},
-  \code{\link{layout_tbl_graph_hive}},
-  \code{\link{layout_tbl_graph_igraph}},
-  \code{\link{layout_tbl_graph_linear}},
-  \code{\link{layout_tbl_graph_manual}},
-  \code{\link{layout_tbl_graph_matrix}},
-  \code{\link{layout_tbl_graph_partition}},
-  \code{\link{layout_tbl_graph_pmds}},
-  \code{\link{layout_tbl_graph_stress}},
-  \code{\link{layout_tbl_graph_treemap}}
+Other layout_tbl_graph_*: 
+\code{\link{layout_tbl_graph_auto}()},
+\code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_centrality}()},
+\code{\link{layout_tbl_graph_circlepack}()},
+\code{\link{layout_tbl_graph_dendrogram}()},
+\code{\link{layout_tbl_graph_eigen}()},
+\code{\link{layout_tbl_graph_fabric}()},
+\code{\link{layout_tbl_graph_focus}()},
+\code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_igraph}()},
+\code{\link{layout_tbl_graph_linear}()},
+\code{\link{layout_tbl_graph_manual}()},
+\code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_partition}()},
+\code{\link{layout_tbl_graph_pmds}()},
+\code{\link{layout_tbl_graph_stress}()},
+\code{\link{layout_tbl_graph_treemap}()}
 }
 \concept{layout_tbl_graph_*}

@@ -4,8 +4,14 @@
 \alias{geom_edge_point}
 \title{Draw edges as glyphs}
 \usage{
-geom_edge_point(mapping = NULL, data = get_edges(),
-  position = "identity", mirror = FALSE, show.legend = NA, ...)
+geom_edge_point(
+  mapping = NULL,
+  data = get_edges(),
+  position = "identity",
+  mirror = FALSE,
+  show.legend = NA,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -29,7 +35,7 @@ diagonal. Intended for undirected graphs. Default to \code{FALSE}}
 It can also be a named logical vector to finely select the aesthetics to
 display.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
@@ -80,18 +86,19 @@ ggraph(gr, 'matrix', sort.by = node_rank_hclust()) +
   ggtitle("Zachary' Karate Club")
 }
 \seealso{
-Other geom_edge_*: \code{\link{geom_edge_arc}},
-  \code{\link{geom_edge_bend}},
-  \code{\link{geom_edge_density}},
-  \code{\link{geom_edge_diagonal}},
-  \code{\link{geom_edge_elbow}},
-  \code{\link{geom_edge_fan}},
-  \code{\link{geom_edge_hive}},
-  \code{\link{geom_edge_link}},
-  \code{\link{geom_edge_loop}},
-  \code{\link{geom_edge_parallel}},
-  \code{\link{geom_edge_span}},
-  \code{\link{geom_edge_tile}}
+Other geom_edge_*: 
+\code{\link{geom_edge_arc}()},
+\code{\link{geom_edge_bend}()},
+\code{\link{geom_edge_density}()},
+\code{\link{geom_edge_diagonal}()},
+\code{\link{geom_edge_elbow}()},
+\code{\link{geom_edge_fan}()},
+\code{\link{geom_edge_hive}()},
+\code{\link{geom_edge_link}()},
+\code{\link{geom_edge_loop}()},
+\code{\link{geom_edge_parallel}()},
+\code{\link{geom_edge_span}()},
+\code{\link{geom_edge_tile}()}
 }
 \author{
 Thomas Lin Pedersen

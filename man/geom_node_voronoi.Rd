@@ -4,9 +4,20 @@
 \alias{geom_node_voronoi}
 \title{Show nodes as voronoi tiles}
 \usage{
-geom_node_voronoi(mapping = NULL, data = NULL, position = "identity",
-  show.legend = NA, bound = NULL, eps = 1e-09, max.radius = NULL,
-  normalize = FALSE, asp.ratio = 1, expand = 0, radius = 0, ...)
+geom_node_voronoi(
+  mapping = NULL,
+  data = NULL,
+  position = "identity",
+  show.legend = NA,
+  bound = NULL,
+  eps = 1e-09,
+  max.radius = NULL,
+  normalize = FALSE,
+  asp.ratio = 1,
+  expand = 0,
+  radius = 0,
+  ...
+)
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
@@ -116,12 +127,13 @@ ggraph(gr) +
   geom_node_point()
 }
 \seealso{
-Other geom_node_*: \code{\link{geom_node_arc_bar}},
-  \code{\link{geom_node_circle}},
-  \code{\link{geom_node_point}},
-  \code{\link{geom_node_range}},
-  \code{\link{geom_node_text}},
-  \code{\link{geom_node_tile}}
+Other geom_node_*: 
+\code{\link{geom_node_arc_bar}()},
+\code{\link{geom_node_circle}()},
+\code{\link{geom_node_point}()},
+\code{\link{geom_node_range}()},
+\code{\link{geom_node_text}()},
+\code{\link{geom_node_tile}()}
 }
 \author{
 Thomas Lin Pedersen
