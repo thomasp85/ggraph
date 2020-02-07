@@ -1,6 +1,10 @@
 # ggraph (development version)
 
 * Fix bug in ggraph that will surface with the next grid release
+* Deprecate `qgraph()` in favour of `autograph()` to avoid name collision with
+  `qgraph::qgraph()`. `autograph()` is now also a generic with a default method,
+  so you can provide your own specific ggraph plot method for your network 
+  classes
 
 # ggraph 2.0.0
 

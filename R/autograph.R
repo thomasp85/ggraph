@@ -10,9 +10,7 @@
 #' it should be created manually.
 #'
 #' @param graph An object coercible to a tbl_graph
-#' @param node_colour,edge_colour Colour mapping for nodes and edges
-#' @param node_size,edge_width Size/width mapping for nodes and edges
-#' @param node_label,edge_label Label mapping for nodes and edges
+#' @param ... arguments passed on to methods
 #'
 #' @importFrom tidygraph as_tbl_graph .register_graph_context graph_is_tree graph_is_forest
 #' @importFrom rlang quo_is_null quo_text as_quosure sym
@@ -25,20 +23,30 @@
 #'   mutate(weight = runif(n()))
 #'
 #' # Standard graph
-#' qgraph(gr)
+#' autograph(gr)
 #'
 #' # Adding node labels will cap edges
-#' qgraph(gr, node_label = class)
+#' autograph(gr, node_label = class)
 #'
 #' # Use tidygraph calls for mapping
-#' qgraph(gr, node_size = centrality_pagerank())
+#' autograph(gr, node_size = centrality_pagerank())
 #'
 #' # Trees are plotted as dendrograms
 #' iris_tree <- hclust(dist(iris[1:4], method = 'euclidean'), method = 'ward.D2')
-#' qgraph(iris_tree)
+#' autograph(iris_tree)
 #'
-qgraph <- function(graph, node_colour = NULL, edge_colour = NULL, node_size = NULL,
-                   edge_width = NULL, node_label = NULL, edge_label = NULL) {
+autograph <- function(graph, ...) {
+  UseMethod('autograph')
+}
+
+#' @export
+#' @rdname autograph
+#' @param node_colour,edge_colour Colour mapping for nodes and edges
+#' @param node_size,edge_width Size/width mapping for nodes and edges
+#' @param node_label,edge_label Label mapping for nodes and edges
+autograph.default <- function(graph, ..., node_colour = NULL, edge_colour = NULL,
+                              node_size = NULL, edge_width = NULL,
+                              node_label = NULL, edge_label = NULL) {
   node_colour <- enquo(node_colour)
   edge_colour <- enquo(edge_colour)
   node_size <- enquo(node_size)
@@ -94,6 +102,14 @@ qgraph <- function(graph, node_colour = NULL, edge_colour = NULL, node_size = NU
   }
 
   p
+}
+
+#' Deprecated autograph predecessor
+#'
+#' @export
+#' @keywords internal
+qgraph <- function(...) {
+  .Deprecated('autograph', msg = 'To avoid name clashing with qgraph::qgraph(), ggraph::qgraph() has been renamed to ggraph::autograph()')
 }
 
 utils::globalVariables(c(
