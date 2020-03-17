@@ -1,4 +1,4 @@
-# ggraph (development version)
+# ggraph 2.0.2
 
 * Remove reshape2 dependency
 
