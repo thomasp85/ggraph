@@ -87,8 +87,7 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
     )
 
     # Add margins
-    base <- reshape2::add_margins(base, list(names(rows), names(cols)), params$margins)
-    # Work around bug in reshape2
+    base <- reshape_add_margins(base, list(names(rows), names(cols)), params$margins)
     base <- unique(base)
 
     # Create panel info dataset
