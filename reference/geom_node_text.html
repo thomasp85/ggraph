@@ -78,7 +78,7 @@ ggplot2::geom_label() and allows for simple annotation of nodes." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
       </span>
     </div>
 
@@ -231,7 +231,8 @@ from a <code>formula</code> (e.g. <code>~ head(.x, 10)</code>).</p></td>
     <tr>
       <th>position</th>
       <td><p>Position adjustment, either as a string, or the result of
-a call to a position adjustment function.</p></td>
+a call to a position adjustment function. Cannot be jointy specified with
+<code>nudge_x</code> or <code>nudge_y</code>.</p></td>
     </tr>
     <tr>
       <th>parse</th>
@@ -246,7 +247,9 @@ Useful for offsetting text from points, particularly on discrete scales.</p></td
     <tr>
       <th>check_overlap</th>
       <td><p>If <code>TRUE</code>, text that overlaps previous text in the
-same layer will not be plotted.</p></td>
+same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
+the order of the data. Therefore data should be arranged by the label
+column before calling <code>geom_label()</code> or <code>geom_text()</code>.</p></td>
     </tr>
     <tr>
       <th>show.legend</th>

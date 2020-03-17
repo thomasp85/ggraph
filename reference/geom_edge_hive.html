@@ -80,7 +80,7 @@ curvature argument." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.1.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
       </span>
     </div>
 
@@ -306,7 +306,9 @@ and displayed as described in <code><a href='https://rdrr.io/r/grDevices/plotmat
     <tr>
       <th>check_overlap</th>
       <td><p>If <code>TRUE</code>, text that overlaps previous text in the
-same layer will not be plotted.</p></td>
+same layer will not be plotted. <code>check_overlap</code> happens at draw time and in
+the order of the data. Therefore data should be arranged by the label
+column before calling <code>geom_label()</code> or <code>geom_text()</code>.</p></td>
     </tr>
     <tr>
       <th>angle_calc</th>
