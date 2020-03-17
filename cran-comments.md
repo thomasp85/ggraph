@@ -1,5 +1,5 @@
-This is a small "bug"-fix release in anticipation of changes in the next version
-of grid. No user facing changes
+This is a small "bug"-fix release that fixes a failing check related to reshape2
+import
 
 ## Test environments
 * local R installation, R 3.6.0
