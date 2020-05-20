@@ -1,11 +1,12 @@
 pandoc: '2.2'
-pkgdown: 1.4.1
+pkgdown: 1.5.1
 pkgdown_sha: ~
 articles:
   Edges: Edges.html
   Layouts: Layouts.html
   Nodes: Nodes.html
   tidygraph: tidygraph.html
+last_built: 2020-05-20T19:28Z
 urls:
   reference: https://ggraph.data-imaginist.com/reference
   article: https://ggraph.data-imaginist.com/articles
