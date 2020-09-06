@@ -4,7 +4,8 @@
 \name{flare}
 \alias{flare}
 \title{The class hierarchy of the flare visualization library}
-\format{A list of three data.frames describing the software structure of
+\format{
+A list of three data.frames describing the software structure of
 flare:
 \describe{
 \item{edges}{This data.frame maps the hierarchical structure of the class
@@ -15,7 +16,8 @@ It contains the full name, size and short name of each class.}
 \item{imports}{This data.frame contains the class imports for each class
 implementation. The \code{from} column gives the importing class and the
 \code{to} column gives the import.}
-}}
+}
+}
 \source{
 The data have been adapted from the JSON downloaded from
 \url{https://gist.github.com/mbostock/1044242#file-readme-flare-imports-json}

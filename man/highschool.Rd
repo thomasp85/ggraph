@@ -4,12 +4,14 @@
 \name{highschool}
 \alias{highschool}
 \title{Friendship among high school boys}
-\format{The graph is stored as an unnamed edgelist with a year attribute.
+\format{
+The graph is stored as an unnamed edgelist with a year attribute.
 \describe{
 \item{from}{The boy answering the question}
 \item{to}{The boy being the answer to the question}
 \item{year}{The year the friendship was reported}
-}}
+}
+}
 \source{
 Coleman, J. S. \emph{Introduction to Mathematical Sociology}. New York: Free
 Press, pp.450-451.
