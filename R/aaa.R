@@ -70,7 +70,7 @@ make_unique <- function(x, sep = '.') {
 
 warn_dropped_vars <- function(layout, data) {
   overlap <- intersect(names(layout), names(data))
-  if (length(overlap) > 0) {
+  if (length(overlap) > 0 && !identical(as.list(layout[overlap]), as.list(data[overlap]))) {
     warning('Existing variables ', paste(paste0('`', overlap, '`'), collapse = ', '), ' overwritten by layout variables', call. = FALSE)
   }
 }
