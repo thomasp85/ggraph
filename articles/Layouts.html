@@ -350,17 +350,20 @@
 <code class="sourceCode R"><span class="va">dendrogram</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">dendrogram</span>, <span class="st">'dendrogram'</span>, height <span class="op">=</span> <span class="va">height</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning: Existing variables `leaf` overwritten by layout variables</code></pre>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <p>Dendrograms are one of the layouts that are amenable for circular transformations, which can be effective in giving more space at the leafs of the tree at the expense of the space given to the root:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">dendrogram</span>, <span class="st">'dendrogram'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning: Existing variables `leaf` overwritten by layout variables</code></pre>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 <p>A type of trees known especially in phylogeny is unrooted trees, where no node is considered the root. Often a dendrogram layout will not be faithful as it implicitly position a node at the root. To avoid that you can use the <code>unrooted</code> layout instead.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">dendrogram</span>, <span class="st">'unrooted'</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
+<pre><code>## Warning: Existing variables `leaf` overwritten by layout variables</code></pre>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 <p>Often unrooted trees have a branch length attached - this can be passed to both the <code>dendrogram</code> and <code>unrooted</code> layout to determine the length of each edge.</p>
 </div>
@@ -368,13 +371,13 @@
 <h3 class="hasAnchor">
 <a href="#matrix-layouts" class="anchor"></a>Matrix layouts</h3>
 <p>Many node-edge diagram layouts suffer from poor scalability, where edges will eventually begin to overlap to the extend that the plot becomes unintellible. One way to combat this is by only plotting subsets of the larger plot, but another approach is to choose a layout that avoids overlapping edges altogether. The matrix layout places each node on a diagonal and draws edges by drawing points or tiles at the intersection of the vertical and horizontal position of its terminal nodes. Using matrix layouts efficiently requires that you begin to recognise the specific patterns that different network topologies gives rise to. Further, it is important to recognise the large effect that the node order has on the look of the matrix layout:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html">create_notable</a></span><span class="op">(</span><span class="st">'zachary'</span><span class="op">)</span>
 <span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html">node_rank_leafsort</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span>mirror <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html">node_rank_spectral</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span>mirror <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
@@ -384,14 +387,14 @@
 <h3 class="hasAnchor">
 <a href="#fabric-layouts" class="anchor"></a>Fabric layouts</h3>
 <p>Another special layout that promises scalability is the biofabric layout (here named <code>fabric</code> to avoid it being ignored for non-biological networks). The fabric layout is special in that it positions nodes evenly spaced on the y-axis and then draws edges as vertical (and by extension, parallel) lines evenly separated as well, connecting the nodes. Nodes are drawn as horizontal lines spanning the extent of the edges that departs from it. As with matrix layouts the node ordering have a huge impact on the final look and interpreting the plot may take some getting used to.</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'fabric'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="../reference/layout_tbl_graph_fabric.html">node_rank_fabric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_node_range.html">geom_node_range</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span>end_shape <span class="op">=</span> <span class="st">'square'</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
 <p>Fabric layouts allow something called shadow edges where all edges are duplicated to make it easier to follow all edges originating from each node.</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'fabric'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="../reference/layout_tbl_graph_fabric.html">node_rank_fabric</a></span><span class="op">(</span><span class="op">)</span>, shadow.edges <span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_node_range.html">geom_node_range</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span> <span class="op">+</span> 
   <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>filter <span class="op">=</span> <span class="va">shadow_edge</span><span class="op">)</span>, colour <span class="op">=</span><span class="st">'lightblue'</span> , end_shape <span class="op">=</span> <span class="st">'square'</span><span class="op">)</span> <span class="op">+</span> 
