@@ -12,6 +12,7 @@
   instead of inheriting the colour of the edge (#238)
 * Fix a bug in edge geoms that prevented edge labels from being parsed as 
   expressions (#245)
+* Improve performance of dendrogram layout when calculating depth (#248)
 
 # ggraph 2.0.3
 
