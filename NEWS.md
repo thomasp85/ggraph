@@ -1,5 +1,8 @@
 # ggraph (development version)
 
+* Fix bug in faceting functions where using algorithms based on sampling 
+  directly would result in errors
+
 # ggraph 2.0.3
 
 * Fix bug in `geom_edge_elbow()` that resulted in duplicated `group` columns in
