@@ -44,7 +44,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       if (any(attr(start_cap, 'unit') == 'native') ||
         any(attr(start_cap2, 'unit') == 'native')) {
         recalc <- coord$transform(
-          new_data_Frame(list(x = as.vector(start_cap), y = as.vector(start_cap2))),
+          new_data_frame(list(x = as.vector(start_cap), y = as.vector(start_cap2))),
           panel_scales
         )
         start_cap[attr(start_cap, 'unit') == 'native'] <- unit(recalc$x - zero$x, 'npc')
