@@ -84,7 +84,7 @@ is simply the angle of the vector describing the edge." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -186,9 +186,9 @@ layouts where it can be used to calculate the angle of labels. For edges it
 is simply the angle of the vector describing the edge.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>node_angle</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='kw'>degrees</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
+    <pre class="usage"><span class='fu'>node_angle</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, degrees <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
 
-<span class='fu'>edge_angle</span>(<span class='no'>x</span>, <span class='no'>y</span>, <span class='no'>xend</span>, <span class='no'>yend</span>, <span class='kw'>degrees</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)</pre>
+<span class='fu'>edge_angle</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span>, <span class='va'>xend</span>, <span class='va'>yend</span>, degrees <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -213,15 +213,16 @@ or radians (<code>FALSE</code>). Defaults to <code>TRUE</code>.</p></td>
     <p>A vector with the angle of each node/edge</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>tidygraph</span>)
-<span class='no'>flareGraph</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/tbl_graph.html'>tbl_graph</a></span>(<span class='no'>flare</span>$<span class='no'>vertices</span>, <span class='no'>flare</span>$<span class='no'>edges</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://tidygraph.data-imaginist.com'>tidygraph</a></span><span class='op'>)</span>
+<span class='va'>flareGraph</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/tbl_graph.html'>tbl_graph</a></span><span class='op'>(</span><span class='va'>flare</span><span class='op'>$</span><span class='va'>vertices</span>, <span class='va'>flare</span><span class='op'>$</span><span class='va'>edges</span><span class='op'>)</span>
 
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>flareGraph</span>, <span class='st'>'dendrogram'</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>) +
-  <span class='fu'><a href='geom_edge_diagonal.html'>geom_edge_diagonal0</a></span>() +
-  <span class='fu'><a href='geom_node_text.html'>geom_node_text</a></span>(<span class='fu'>aes</span>(<span class='kw'>filter</span> <span class='kw'>=</span> <span class='no'>leaf</span>, <span class='kw'>angle</span> <span class='kw'>=</span> <span class='fu'>node_angle</span>(<span class='no'>x</span>, <span class='no'>y</span>), <span class='kw'>label</span> <span class='kw'>=</span> <span class='no'>shortName</span>),
-    <span class='kw'>hjust</span> <span class='kw'>=</span> <span class='st'>'outward'</span>, <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>2</span>
-  ) +
-  <span class='fu'>expand_limits</span>(<span class='kw'>x</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1.3</span>, <span class='fl'>1.3</span>), <span class='kw'>y</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(-<span class='fl'>1.3</span>, <span class='fl'>1.3</span>))</div><div class='img'><img src='node_angle-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span><span class='op'>(</span><span class='va'>flareGraph</span>, <span class='st'>'dendrogram'</span>, circular <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_edge_diagonal.html'>geom_edge_diagonal0</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_node_text.html'>geom_node_text</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>filter <span class='op'>=</span> <span class='va'>leaf</span>, angle <span class='op'>=</span> <span class='fu'>node_angle</span><span class='op'>(</span><span class='va'>x</span>, <span class='va'>y</span><span class='op'>)</span>, label <span class='op'>=</span> <span class='va'>shortName</span><span class='op'>)</span>,
+    hjust <span class='op'>=</span> <span class='st'>'outward'</span>, size <span class='op'>=</span> <span class='fl'>2</span>
+  <span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>expand_limits</span><span class='op'>(</span>x <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1.3</span>, <span class='fl'>1.3</span><span class='op'>)</span>, y <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1.3</span>, <span class='fl'>1.3</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='node_angle-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -237,7 +238,7 @@ or radians (<code>FALSE</code>). Defaults to <code>TRUE</code>.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

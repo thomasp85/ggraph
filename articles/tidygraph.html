@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -124,13 +124,14 @@
 
       
 
-      </header><div class="row">
+      </header><script src="tidygraph_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="tidygraph_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="tidygraph_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>tidygraph and ggraph</h1>
                         <h4 class="author">Thomas Lin Pedersen</h4>
             
-            <h4 class="date">2020-05-20</h4>
+            <h4 class="date">2020-11-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/master/vignettes/tidygraph.Rmd"><code>vignettes/tidygraph.Rmd</code></a></small>
       <div class="hidden name"><code>tidygraph.Rmd</code></div>
@@ -151,16 +152,17 @@
 <h2 class="hasAnchor">
 <a href="#nse-in-layout-specifications" class="anchor"></a>NSE in layout specifications</h2>
 <p>In <code>ggraph</code> the initiation will need to specify a layout to use for the subsequent node and edge geoms. Many of these layouts use different node and edge variables in their calculations e.g. a node size or an edge weight. Prior to v2 these arguments would simply take a string naming the respective variable to use, but following the v2 update these arguments implement Non-Standard Evaluation (NSE) in a manner known from both <code>dplyr</code> and <code>ggplot2</code> where it is used inside <code>aes()</code> calls. Depending on whether the argument refers to a node or edge value the provided expression will be evaluated in the context of nodes or edges respectively. The bottomline is that given a network such as this:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidygraph</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidygraph.data-imaginist.com">tidygraph</a></span><span class="op">)</span>
 
-<span class="no">graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">as_tbl_graph</a></span>(
-  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(
-    <span class="kw">from</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fl">5</span>, <span class="fl">20</span>, <span class="fl">TRUE</span>),
-    <span class="kw">to</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span>(<span class="fl">5</span>, <span class="fl">20</span>, <span class="fl">TRUE</span>),
-    <span class="kw">weight</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">20</span>)
-  )
-)
-<span class="no">graph</span></pre></body></html></div>
+<span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">as_tbl_graph</a></span><span class="op">(</span>
+  <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>
+    from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">20</span>, <span class="cn">TRUE</span><span class="op">)</span>,
+    to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html">sample</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">20</span>, <span class="cn">TRUE</span><span class="op">)</span>,
+    weight <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">20</span><span class="op">)</span>
+  <span class="op">)</span>
+<span class="op">)</span>
+<span class="va">graph</span></code></pre></div>
 <pre><code>## # A tbl_graph: 5 nodes and 20 edges
 ## #
 ## # A directed multigraph with 1 component
@@ -168,55 +170,61 @@
 ## # Node Data: 5 x 1 (active)
 ##   name 
 ##   &lt;chr&gt;
-## 1 2    
-## 2 1    
+## 1 1    
+## 2 5    
 ## 3 4    
 ## 4 3    
-## 5 5    
+## 5 2    
 ## #
 ## # Edge Data: 20 x 3
 ##    from    to weight
 ##   &lt;int&gt; &lt;int&gt;  &lt;dbl&gt;
-## 1     1     1  0.344
-## 2     2     4  0.347
-## 3     2     1  0.591
+## 1     1     2  0.310
+## 2     2     2  0.976
+## 3     3     4  0.183
 ## # … with 17 more rows</code></pre>
 <p>Then, instead of writing:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'fr'</span>, <span class="kw">weights</span> <span class="kw">=</span> <span class="st">"weight"</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'fr'</span>, weights <span class="op">=</span> <span class="st">"weight"</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p>You would simply write:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'fr'</span>, <span class="kw">weights</span> <span class="kw">=</span> <span class="no">weight</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'fr'</span>, weights <span class="op">=</span> <span class="va">weight</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>This change means that it is much easier to experiment with modifications to node and edge parameters affecting layouts as it is not necessary to modify the underlying graph but only the plotting code, e.g.:</p>
-<div class="sourceCode" id="cb5"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'fr'</span>, <span class="kw">weights</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span>(<span class="no">weight</span>)) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'fr'</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
 </div>
 <div id="access-to-tidygraph-algorithms-in-ggraph-code" class="section level2">
 <h2 class="hasAnchor">
 <a href="#access-to-tidygraph-algorithms-in-ggraph-code" class="anchor"></a>Access to tidygraph algorithms in ggraph code</h2>
 <p>The most important improvement resulting from the integration of <code>tidygraph</code> and <code>ggraph</code> is that <code>tidygraph</code> algorithms are now directly usable within <code>ggraph</code> calls. This means that it is no longer necessary to precompute and store derived node and edge variables on the graph in order to use them in a plot:</p>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="no">graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html">create_notable</a></span>(<span class="st">'zachary'</span>)
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html">create_notable</a></span><span class="op">(</span><span class="st">'zachary'</span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'fr'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>(<span class="fu">aes</span>(<span class="kw">size</span> <span class="kw">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_pagerank</a></span>())) +
-  <span class="fu">theme</span>(<span class="kw">legend.position</span> <span class="kw">=</span> <span class="st">'bottom'</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'fr'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_pagerank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>here it is not necessary to first compute the pagerank centrality and store it as a node variable in order to plot it, and if you’re interested in looking at one of the myriad of other centrality measures you simply change the plotting code. This feature makes it much easier and painfree to investigate the effect of different graph measures on your plots and is a huge benefit when iterating on your visualisation.</p>
 <p>Access to <code>tidygraph</code> is available within <code><a href="../reference/ggraph.html">ggraph()</a></code> and <code>aes()</code> calls, and within <code>facet</code> formulas. It is thus possible to use algorithms when specifying layouts, adding aesthetics to geoms and splitting into subplots - all areas were ease of iteration is vital:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'matrix'</span>, <span class="kw">sort.by</span> <span class="kw">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html">node_rank_leafsort</a></span>()) +
-  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_edge_betweenness</a></span>()), <span class="kw">mirror</span> <span class="kw">=</span> <span class="fl">TRUE</span>) +
-  <span class="fu">theme</span>(<span class="kw">legend.position</span> <span class="kw">=</span> <span class="st">'bottom'</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html">node_rank_leafsort</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_edge_betweenness</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, mirror <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">theme</span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb8"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'fr'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>() +
-  <span class="fu"><a href="../reference/facet_nodes.html">facet_nodes</a></span>(~ <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/group_graph.html">group_infomap</a></span>())</pre></body></html></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'fr'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/facet_nodes.html">facet_nodes</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/group_graph.html">group_infomap</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
 </div>
   </div>
@@ -236,7 +244,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -85,7 +85,7 @@ a description of all available layouts." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -188,18 +188,18 @@ Alternatively a layout can be prepared in advance using
 a description of all available layouts.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>ggraph</span>(<span class='no'>graph</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>"auto"</span>, <span class='no'>...</span>)
+    <pre class="usage"><span class='fu'>ggraph</span><span class='op'>(</span><span class='va'>graph</span>, layout <span class='op'>=</span> <span class='st'>"auto"</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>create_layout</span>(<span class='no'>graph</span>, <span class='no'>layout</span>, <span class='no'>circular</span>, <span class='no'>...</span>)
+<span class='fu'>create_layout</span><span class='op'>(</span><span class='va'>graph</span>, <span class='va'>layout</span>, <span class='va'>circular</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for default</span>
-<span class='fu'>create_layout</span>(<span class='no'>graph</span>, <span class='no'>layout</span>, <span class='no'>...</span>)
+<span class='fu'>create_layout</span><span class='op'>(</span><span class='va'>graph</span>, <span class='va'>layout</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for layout_ggraph</span>
-<span class='fu'>create_layout</span>(<span class='no'>graph</span>, <span class='no'>...</span>)
+<span class='fu'>create_layout</span><span class='op'>(</span><span class='va'>graph</span>, <span class='va'>...</span><span class='op'>)</span>
 
 <span class='co'># S3 method for tbl_graph</span>
-<span class='fu'>create_layout</span>(<span class='no'>graph</span>, <span class='no'>layout</span>, <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='no'>...</span>)</pre>
+<span class='fu'>create_layout</span><span class='op'>(</span><span class='va'>graph</span>, <span class='va'>layout</span>, circular <span class='op'>=</span> <span class='cn'>FALSE</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -254,7 +254,7 @@ long range of different layout functions that are all available through the
 can also be passed directly into the <code>layout</code> argument.</p>
 <p>Any object that has an appropriate <code>as_tbl_graph</code> method can be passed
 into <code>ggraph()</code> and will automatically be converted underneath.</p>
-<dl'>
+<dl>
 <dt><code>auto</code></dt><dd><p>The default layout. See <code><a href='layout_tbl_graph_auto.html'>layout_tbl_graph_auto()</a></code> for further
 details</p></dd>
 <dt><code>igraph</code></dt><dd><p>Use one of the internal igraph layout algorithms.
@@ -306,9 +306,10 @@ and the graph will be added as the <code>graph</code> attribute.</p>
 layout and <code><a href='get_con.html'>get_con()</a></code> for extracting path information.</p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>require</a></span>(<span class='no'>tidygraph</span>)
-<span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/create_graphs.html'>create_notable</a></span>(<span class='st'>'bull'</span>)
-<span class='no'>layout</span> <span class='kw'>&lt;-</span> <span class='fu'>create_layout</span>(<span class='no'>gr</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>'igraph'</span>, <span class='kw'>algorithm</span> <span class='kw'>=</span> <span class='st'>'kk'</span>)</div></pre>
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>require</a></span><span class='op'>(</span><span class='va'><a href='https://tidygraph.data-imaginist.com'>tidygraph</a></span><span class='op'>)</span>
+<span class='va'>gr</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/create_graphs.html'>create_notable</a></span><span class='op'>(</span><span class='st'>'bull'</span><span class='op'>)</span>
+<span class='va'>layout</span> <span class='op'>&lt;-</span> <span class='fu'>create_layout</span><span class='op'>(</span><span class='va'>gr</span>, layout <span class='op'>=</span> <span class='st'>'igraph'</span>, algorithm <span class='op'>=</span> <span class='st'>'kk'</span><span class='op'>)</span>
+</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -324,7 +325,7 @@ layout and <code><a href='get_con.html'>get_con()</a></code> for extracting path
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

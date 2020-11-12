@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -129,9 +129,9 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="ggraph" class="section level1">
+<div id="ggraph-" class="section level1">
 <div class="page-header"><h1 class="hasAnchor">
-<a href="#ggraph" class="anchor"></a>ggraph <img src="reference/figures/logo.png" align="right">
+<a href="#ggraph-" class="anchor"></a>ggraph <img src="reference/figures/logo.png" align="right">
 </h1></div>
 <!-- badges: start -->
 
@@ -143,9 +143,10 @@
 <div id="an-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#an-example" class="anchor"></a>An example</h3>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggraph</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
 <span class="co">#&gt; Loading required package: ggplot2</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidygraph</span>)
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidygraph.data-imaginist.com">tidygraph</a></span><span class="op">)</span>
 <span class="co">#&gt; </span>
 <span class="co">#&gt; Attaching package: 'tidygraph'</span>
 <span class="co">#&gt; The following object is masked from 'package:stats':</span>
@@ -153,15 +154,15 @@
 <span class="co">#&gt;     filter</span>
 
 <span class="co"># Create graph of highschool friendships</span>
-<span class="no">graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">as_tbl_graph</a></span>(<span class="no">highschool</span>) <span class="kw">%&gt;%</span>
-    <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/reexports.html">mutate</a></span>(<span class="kw">Popularity</span> <span class="kw">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_degree</a></span>(<span class="kw">mode</span> <span class="kw">=</span> <span class="st">'in'</span>))
+<span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">as_tbl_graph</a></span><span class="op">(</span><span class="va">highschool</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Popularity <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_degree</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">'in'</span><span class="op">)</span><span class="op">)</span>
 
 <span class="co"># plot using ggraph</span>
-<span class="fu"><a href="reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'kk'</span>) +
-    <span class="fu"><a href="reference/geom_edge_fan.html">geom_edge_fan</a></span>(<span class="fu">aes</span>(<span class="kw">alpha</span> <span class="kw">=</span> <span class="fu">stat</span>(<span class="no">index</span>)), <span class="kw">show.legend</span> <span class="kw">=</span> <span class="fl">FALSE</span>) +
-    <span class="fu"><a href="reference/geom_node_point.html">geom_node_point</a></span>(<span class="fu">aes</span>(<span class="kw">size</span> <span class="kw">=</span> <span class="no">Popularity</span>)) +
-    <span class="fu"><a href="reference/facet_edges.html">facet_edges</a></span>(~<span class="no">year</span>) +
-    <span class="fu"><a href="reference/theme_graph.html">theme_graph</a></span>(<span class="kw">foreground</span> <span class="kw">=</span> <span class="st">'steelblue'</span>, <span class="kw">fg_text_colour</span> <span class="kw">=</span> <span class="st">'white'</span>)</pre></div>
+<span class="fu"><a href="reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'kk'</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="reference/geom_edge_fan.html">geom_edge_fan</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fu">stat</span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>size <span class="op">=</span> <span class="va">Popularity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="reference/facet_edges.html">facet_edges</a></span><span class="op">(</span><span class="op">~</span><span class="va">year</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="reference/theme_graph.html">theme_graph</a></span><span class="op">(</span>foreground <span class="op">=</span> <span class="st">'steelblue'</span>, fg_text_colour <span class="op">=</span> <span class="st">'white'</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png"><!-- --></p>
 </div>
 <div id="the-core-concepts" class="section level3">
@@ -172,7 +173,7 @@
 <li>
 <a href="http://www.data-imaginist.com/2017/ggraph-introduction-layouts/"><strong>The Layout</strong></a> defines how nodes are placed on the plot, that is, it is a conversion of the relational structure into an x and y value for each node in the graph. <code>ggraph</code> has access to all layout functions available in <code>igraph</code> and furthermore provides a large selection of its own, such as hive plots, treemaps, and circle packing.</li>
 <li>
-<a href="http://www.data-imaginist.com/2017/ggraph-introduction-nodes/"><strong>The Nodes</strong></a> are the connected entities in the relational structure. These can be plotted using the <code>geom_node_*()</code> family of geoms. Some node geoms make more sense for certain layouts, e.g. <code><a href="reference/geom_node_tile.html">geom_node_tile()</a></code> for treemaps and icicle plots, while others are more general purpose, e.g. <code><a href="reference/geom_node_point.html">geom_node_point()</a></code>.</li>
+<a href="http://www.data-imaginist.com/2017/ggraph-introduction-nodes/"><strong>The Nodes</strong></a> are the connected entities in the relational structure. These can be plotted using the <code>geom_node_*()</code> family of geoms. Some node geoms make more sense for certain layouts, e.g. <code><a href="reference/geom_node_tile.html">geom_node_tile()</a></code> for treemaps and icicle plots, while others are more general purpose, e.g. <code><a href="reference/geom_node_point.html">geom_node_point()</a></code>.</li>
 <li>
 <a href="http://www.data-imaginist.com/2017/ggraph-introduction-edges/"><strong>The Edges</strong></a> are the connections between the entities in the relational structure. These can be visualized using the <code>geom_edge_*()</code> family of geoms that contain a lot of different edge types for different scenarios. Sometimes the edges are implied by the layout (e.g. with treemaps) and need not be plotted, but often some sort of line is warranted.</li>
 </ol>
@@ -191,7 +192,8 @@
 <h2 class="hasAnchor">
 <a href="#installation" class="anchor"></a>Installation</h2>
 <p><code>ggraph</code> is available through CRAN and can be installed with <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages('ggraph')</a></code>. The package is under active development though and the latest set of features can be obtained by installing from this repository using <code>devtools</code></p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">'thomasp85/ggraph'</span>)</pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'thomasp85/ggraph'</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="related-work" class="section level2">
 <h2 class="hasAnchor">
@@ -244,10 +246,10 @@
   <div class="dev-status">
 <h2>Dev status</h2>
 <ul class="list-unstyled">
-<li><a href="https://travis-ci.org/thomasp85/ggraph"><img src="https://travis-ci.org/thomasp85/ggraph.svg?branch=master" alt="Travis-CI Build Status"></a></li>
-<li><a href="https://ci.appveyor.com/project/thomasp85/ggraph"><img src="https://ci.appveyor.com/api/projects/status/github/thomasp85/ggraph?branch=master&amp;svg=true" alt="AppVeyor Build Status"></a></li>
+<li><a href="https://github.com/thomasp85/ggraph/actions"><img src="https://github.com/thomasp85/ggraph/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
 <li><a href="https://CRAN.R-project.org/package=ggraph"><img src="http://www.r-pkg.org/badges/version-ago/ggraph" alt="CRAN_Release_Badge"></a></li>
 <li><a href="https://CRAN.R-project.org/package=ggraph"><img src="http://cranlogs.r-pkg.org/badges/ggraph" alt="CRAN_Download_Badge"></a></li>
+<li><a href="https://codecov.io/gh/thomasp85/ggraph?branch=master"><img src="https://codecov.io/gh/thomasp85/ggraph/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
 </ul>
 </div>
 </div>
@@ -259,7 +261,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

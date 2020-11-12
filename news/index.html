@@ -79,7 +79,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -177,29 +177,38 @@
 <a href="#ggraph-development-version" class="anchor"></a>ggraph (development version)<small> Unreleased </small>
 </h1>
 <ul>
+<li>Fix bug in faceting functions where using algorithms based on sampling directly would result in errors</li>
+<li>Move CI to GitHub Actions</li>
+</ul>
+</div>
+    <div id="ggraph-203" class="section level1">
+<h1 class="page-header" data-toc-text="2.0.3">
+<a href="#ggraph-203" class="anchor"></a>ggraph 2.0.3<small> 2020-05-20 </small>
+</h1>
+<ul>
 <li>Fix bug in <code><a href="../reference/geom_edge_elbow.html">geom_edge_elbow()</a></code> that resulted in duplicated <code>group</code> columns in the data.</li>
 </ul>
 </div>
-    <div id="ggraph-2-0-2" class="section level1">
+    <div id="ggraph-202" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.2">
-<a href="#ggraph-2-0-2" class="anchor"></a>ggraph 2.0.2<small> 2020-03-17 </small>
+<a href="#ggraph-202" class="anchor"></a>ggraph 2.0.2<small> 2020-03-17 </small>
 </h1>
 <ul>
 <li>Remove reshape2 dependency</li>
 </ul>
 </div>
-    <div id="ggraph-2-0-1" class="section level1">
+    <div id="ggraph-201" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.1">
-<a href="#ggraph-2-0-1" class="anchor"></a>ggraph 2.0.1<small> 2020-02-07 </small>
+<a href="#ggraph-201" class="anchor"></a>ggraph 2.0.1<small> 2020-02-07 </small>
 </h1>
 <ul>
 <li>Fix bug in ggraph that will surface with the next grid release</li>
 <li>Deprecate <code><a href="../reference/qgraph.html">qgraph()</a></code> in favour of <code><a href="../reference/autograph.html">autograph()</a></code> to avoid name collision with <code>qgraph::qgraph()</code>. <code><a href="../reference/autograph.html">autograph()</a></code> is now also a generic with a default method, so you can provide your own specific ggraph plot method for your network classes</li>
 </ul>
 </div>
-    <div id="ggraph-2-0-0" class="section level1">
+    <div id="ggraph-200" class="section level1">
 <h1 class="page-header" data-toc-text="2.0.0">
-<a href="#ggraph-2-0-0" class="anchor"></a>ggraph 2.0.0<small> 2019-09-02 </small>
+<a href="#ggraph-200" class="anchor"></a>ggraph 2.0.0<small> 2019-09-02 </small>
 </h1>
 <p>This release is a major release including many new features, bug fixes and some breaking changes.</p>
 <div id="breaking-changes" class="section level2">
@@ -223,8 +232,9 @@
 <code>geom_edge_elbow</code> is no longer only available to dendrogram objects</li>
 <li>tidygraph algorithms can now be used directly within ggraph functions. E.g. you can have <code>sort.by = node_rank_hclust()</code> in your specification of a linear layout, or <code>aes(colour = group_infomap())</code> in node geoms</li>
 </ul>
-This big change fixes <a href='https://github.com/thomasp85/ggraph/issues/21'>#21</a>, <a href='https://github.com/thomasp85/ggraph/issues/72'>#72</a>, <a href='https://github.com/thomasp85/ggraph/issues/79'>#79</a>, and <a href='https://github.com/thomasp85/ggraph/issues/81'>#81</a>. A vignette has been added to describe the integration in more detail</li>
-<li>The <code>curvature</code> argument from <code><a href="../reference/geom_edge_arc.html">geom_edge_arc()</a></code> and <code><a href="../reference/geom_edge_hive.html">geom_edge_hive()</a></code> as well as the <code>spread</code> argument from <code><a href="../reference/geom_edge_fan.html">geom_edge_fan()</a></code> has been deprecated in favor of the new <code>strength</code> argument.</li>
+<p>This big change fixes <a href='https://github.com/thomasp85/ggraph/issues/21'>#21</a>, <a href='https://github.com/thomasp85/ggraph/issues/72'>#72</a>, <a href='https://github.com/thomasp85/ggraph/issues/79'>#79</a>, and <a href='https://github.com/thomasp85/ggraph/issues/81'>#81</a>. A vignette has been added to describe the integration in more detail</p>
+</li>
+<li><p>The <code>curvature</code> argument from <code><a href="../reference/geom_edge_arc.html">geom_edge_arc()</a></code> and <code><a href="../reference/geom_edge_hive.html">geom_edge_hive()</a></code> as well as the <code>spread</code> argument from <code><a href="../reference/geom_edge_fan.html">geom_edge_fan()</a></code> has been deprecated in favor of the new <code>strength</code> argument.</p></li>
 <li><p>ggraph plots now gets constructed with grid and axes removed from the default theme.</p></li>
 </ul>
 </div>
@@ -295,7 +305,7 @@ This big change fixes <a href='https://github.com/thomasp85/ggraph/issues/21'>#2
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

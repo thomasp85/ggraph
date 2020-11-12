@@ -82,7 +82,7 @@ optimally given the radius constraint." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -182,15 +182,15 @@ centrality measure. Under the hood it use stress majorisation to place nodes
 optimally given the radius constraint.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>layout_tbl_graph_centrality</span>(
-  <span class='no'>graph</span>,
-  <span class='no'>centrality</span>,
-  <span class='kw'>scale</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>niter</span> <span class='kw'>=</span> <span class='fl'>500</span>,
-  <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>1e-04</span>,
-  <span class='kw'>tseq</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span>(<span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.2</span>),
-  <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+    <pre class="usage"><span class='fu'>layout_tbl_graph_centrality</span><span class='op'>(</span>
+  <span class='va'>graph</span>,
+  <span class='va'>centrality</span>,
+  scale <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  niter <span class='op'>=</span> <span class='fl'>500</span>,
+  tolerance <span class='op'>=</span> <span class='fl'>1e-04</span>,
+  tseq <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span>, <span class='fl'>0.2</span><span class='op'>)</span>,
+  circular <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -255,6 +255,10 @@ Graph Algorithms and Applications, 15(1), 157-173.</p>
 <code><a href='layout_tbl_graph_stress.html'>layout_tbl_graph_stress</a>()</code>,
 <code><a href='layout_tbl_graph_treemap.html'>layout_tbl_graph_treemap</a>()</code>,
 <code><a href='layout_tbl_graph_unrooted.html'>layout_tbl_graph_unrooted</a>()</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The underlying algorithm is implemented in the graphlayouts package
+by David Schoch</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -271,7 +275,7 @@ Graph Algorithms and Applications, 15(1), 157-173.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

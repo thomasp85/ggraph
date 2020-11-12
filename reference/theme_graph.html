@@ -96,7 +96,7 @@ provided to modify an existing theme so that grid and axes are removed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -210,51 +210,51 @@ they were prior to calling <code>set_graph_style</code>). The <code>th_no_axes()
 provided to modify an existing theme so that grid and axes are removed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>theme_graph</span>(
-  <span class='kw'>base_family</span> <span class='kw'>=</span> <span class='st'>"Arial Narrow"</span>,
-  <span class='kw'>base_size</span> <span class='kw'>=</span> <span class='fl'>11</span>,
-  <span class='kw'>background</span> <span class='kw'>=</span> <span class='st'>"white"</span>,
-  <span class='kw'>foreground</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>text_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='kw'>bg_text_colour</span> <span class='kw'>=</span> <span class='no'>text_colour</span>,
-  <span class='kw'>fg_text_colour</span> <span class='kw'>=</span> <span class='no'>text_colour</span>,
-  <span class='kw'>title_family</span> <span class='kw'>=</span> <span class='no'>base_family</span>,
-  <span class='kw'>title_size</span> <span class='kw'>=</span> <span class='fl'>18</span>,
-  <span class='kw'>title_face</span> <span class='kw'>=</span> <span class='st'>"bold"</span>,
-  <span class='kw'>title_margin</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>title_colour</span> <span class='kw'>=</span> <span class='no'>bg_text_colour</span>,
-  <span class='kw'>subtitle_family</span> <span class='kw'>=</span> <span class='no'>base_family</span>,
-  <span class='kw'>subtitle_size</span> <span class='kw'>=</span> <span class='fl'>12</span>,
-  <span class='kw'>subtitle_face</span> <span class='kw'>=</span> <span class='st'>"plain"</span>,
-  <span class='kw'>subtitle_margin</span> <span class='kw'>=</span> <span class='fl'>15</span>,
-  <span class='kw'>subtitle_colour</span> <span class='kw'>=</span> <span class='no'>bg_text_colour</span>,
-  <span class='kw'>strip_text_family</span> <span class='kw'>=</span> <span class='no'>base_family</span>,
-  <span class='kw'>strip_text_size</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>strip_text_face</span> <span class='kw'>=</span> <span class='st'>"bold"</span>,
-  <span class='kw'>strip_text_colour</span> <span class='kw'>=</span> <span class='no'>fg_text_colour</span>,
-  <span class='kw'>caption_family</span> <span class='kw'>=</span> <span class='no'>base_family</span>,
-  <span class='kw'>caption_size</span> <span class='kw'>=</span> <span class='fl'>9</span>,
-  <span class='kw'>caption_face</span> <span class='kw'>=</span> <span class='st'>"italic"</span>,
-  <span class='kw'>caption_margin</span> <span class='kw'>=</span> <span class='fl'>10</span>,
-  <span class='kw'>caption_colour</span> <span class='kw'>=</span> <span class='no'>bg_text_colour</span>,
-  <span class='kw'>plot_margin</span> <span class='kw'>=</span> <span class='fu'>margin</span>(<span class='fl'>30</span>, <span class='fl'>30</span>, <span class='fl'>30</span>, <span class='fl'>30</span>)
-)
+    <pre class="usage"><span class='fu'>theme_graph</span><span class='op'>(</span>
+  base_family <span class='op'>=</span> <span class='st'>"Arial Narrow"</span>,
+  base_size <span class='op'>=</span> <span class='fl'>11</span>,
+  background <span class='op'>=</span> <span class='st'>"white"</span>,
+  foreground <span class='op'>=</span> <span class='cn'>NULL</span>,
+  border <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  text_colour <span class='op'>=</span> <span class='st'>"black"</span>,
+  bg_text_colour <span class='op'>=</span> <span class='va'>text_colour</span>,
+  fg_text_colour <span class='op'>=</span> <span class='va'>text_colour</span>,
+  title_family <span class='op'>=</span> <span class='va'>base_family</span>,
+  title_size <span class='op'>=</span> <span class='fl'>18</span>,
+  title_face <span class='op'>=</span> <span class='st'>"bold"</span>,
+  title_margin <span class='op'>=</span> <span class='fl'>10</span>,
+  title_colour <span class='op'>=</span> <span class='va'>bg_text_colour</span>,
+  subtitle_family <span class='op'>=</span> <span class='va'>base_family</span>,
+  subtitle_size <span class='op'>=</span> <span class='fl'>12</span>,
+  subtitle_face <span class='op'>=</span> <span class='st'>"plain"</span>,
+  subtitle_margin <span class='op'>=</span> <span class='fl'>15</span>,
+  subtitle_colour <span class='op'>=</span> <span class='va'>bg_text_colour</span>,
+  strip_text_family <span class='op'>=</span> <span class='va'>base_family</span>,
+  strip_text_size <span class='op'>=</span> <span class='fl'>10</span>,
+  strip_text_face <span class='op'>=</span> <span class='st'>"bold"</span>,
+  strip_text_colour <span class='op'>=</span> <span class='va'>fg_text_colour</span>,
+  caption_family <span class='op'>=</span> <span class='va'>base_family</span>,
+  caption_size <span class='op'>=</span> <span class='fl'>9</span>,
+  caption_face <span class='op'>=</span> <span class='st'>"italic"</span>,
+  caption_margin <span class='op'>=</span> <span class='fl'>10</span>,
+  caption_colour <span class='op'>=</span> <span class='va'>bg_text_colour</span>,
+  plot_margin <span class='op'>=</span> <span class='fu'>margin</span><span class='op'>(</span><span class='fl'>30</span>, <span class='fl'>30</span>, <span class='fl'>30</span>, <span class='fl'>30</span><span class='op'>)</span>
+<span class='op'>)</span>
 
-<span class='fu'>th_foreground</span>(<span class='kw'>foreground</span> <span class='kw'>=</span> <span class='st'>"grey80"</span>, <span class='kw'>fg_text_colour</span> <span class='kw'>=</span> <span class='kw'>NULL</span>, <span class='kw'>border</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
+<span class='fu'>th_foreground</span><span class='op'>(</span>foreground <span class='op'>=</span> <span class='st'>"grey80"</span>, fg_text_colour <span class='op'>=</span> <span class='cn'>NULL</span>, border <span class='op'>=</span> <span class='cn'>FALSE</span><span class='op'>)</span>
 
-<span class='fu'>th_no_axes</span>()
+<span class='fu'>th_no_axes</span><span class='op'>(</span><span class='op'>)</span>
 
-<span class='fu'>set_graph_style</span>(
-  <span class='kw'>family</span> <span class='kw'>=</span> <span class='st'>"Arial Narrow"</span>,
-  <span class='kw'>face</span> <span class='kw'>=</span> <span class='st'>"plain"</span>,
-  <span class='kw'>size</span> <span class='kw'>=</span> <span class='fl'>11</span>,
-  <span class='kw'>text_size</span> <span class='kw'>=</span> <span class='fl'>11</span>,
-  <span class='kw'>text_colour</span> <span class='kw'>=</span> <span class='st'>"black"</span>,
-  <span class='no'>...</span>
-)
+<span class='fu'>set_graph_style</span><span class='op'>(</span>
+  family <span class='op'>=</span> <span class='st'>"Arial Narrow"</span>,
+  face <span class='op'>=</span> <span class='st'>"plain"</span>,
+  size <span class='op'>=</span> <span class='fl'>11</span>,
+  text_size <span class='op'>=</span> <span class='fl'>11</span>,
+  text_colour <span class='op'>=</span> <span class='st'>"black"</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span>
 
-<span class='fu'>unset_graph_style</span>()</pre>
+<span class='fu'>unset_graph_style</span><span class='op'>(</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -308,10 +308,11 @@ provided?</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'><a href='https://rdrr.io/r/base/library.html'>library</a></span>(<span class='no'>tidygraph</span>)
-<span class='no'>graph</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/tbl_graph.html'>as_tbl_graph</a></span>(<span class='no'>highschool</span>)
+    <pre class="examples"><div class='input'><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidygraph.data-imaginist.com'>tidygraph</a></span><span class='op'>)</span>
+<span class='va'>graph</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/tbl_graph.html'>as_tbl_graph</a></span><span class='op'>(</span><span class='va'>highschool</span><span class='op'>)</span>
 
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>graph</span>) + <span class='fu'><a href='geom_edge_link.html'>geom_edge_link</a></span>() + <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span>() + <span class='fu'>theme_graph</span>()</div><div class='output co'>#&gt; <span class='message'>Using `stress` as default layout</span></div><div class='img'><img src='theme_graph-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span><span class='op'>(</span><span class='va'>graph</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_edge_link.html'>geom_edge_link</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'>theme_graph</span><span class='op'>(</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using `stress` as default layout</span></div><div class='img'><img src='theme_graph-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -327,7 +328,7 @@ provided?</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

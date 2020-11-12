@@ -38,7 +38,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -124,13 +124,14 @@
 
       
 
-      </header><div class="row">
+      </header><script src="Layouts_files/accessible-code-block-0.0.1/empty-anchor.js"></script><link href="Layouts_files/anchor-sections-1.0/anchor-sections.css" rel="stylesheet">
+<script src="Layouts_files/anchor-sections-1.0/anchor-sections.js"></script><div class="row">
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Layouts</h1>
                         <h4 class="author">Thomas Lin Pedersen</h4>
             
-            <h4 class="date">2020-05-20</h4>
+            <h4 class="date">2020-11-12</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/master/vignettes/Layouts.Rmd"><code>vignettes/Layouts.Rmd</code></a></small>
       <div class="hidden name"><code>Layouts.Rmd</code></div>
@@ -144,38 +145,44 @@
 <h2 class="hasAnchor">
 <a href="#the-ggraph-and-create_layout-functions" class="anchor"></a>The ggraph() and create_layout() functions</h2>
 <p>As the layout is a global specification of the spatial position of the nodes it spans all layers in the plot and should thus be defined outside of calls to geoms or stats. In <code>ggraph</code> it is often done as part of the plot initialization using <code><a href="../reference/ggraph.html">ggraph()</a></code> — a function equivalent in intent to <code>ggplot()</code>. As a minimum <code><a href="../reference/ggraph.html">ggraph()</a></code> must be passed a graph object supported by <code>ggraph</code>:</p>
-<div class="sourceCode" id="cb1"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">ggraph</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">tidygraph</span>)
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidygraph.data-imaginist.com">tidygraph</a></span><span class="op">)</span>
 
-<span class="fu"><a href="../reference/theme_graph.html">set_graph_style</a></span>(<span class="kw">plot_margin</span> <span class="kw">=</span> <span class="fu">margin</span>(<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>))
-<span class="no">graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">as_tbl_graph</a></span>(<span class="no">highschool</span>)
+<span class="fu"><a href="../reference/theme_graph.html">set_graph_style</a></span><span class="op">(</span>plot_margin <span class="op">=</span> <span class="fu">margin</span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span><span class="op">)</span>
+<span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">as_tbl_graph</a></span><span class="op">(</span><span class="va">highschool</span><span class="op">)</span>
 
 <span class="co"># Not specifying the layout - defaults to "auto"</span>
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">year</span>))) +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</pre></body></html></div>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-1-1.png" width="700"></p>
 <p>Not specifying a layout will make <code>ggraph</code> pick one for you. This is only intended to get quickly up and running. The choice of layout should be deliberate on the part of the user as it will have a great effect on what the end result will communicate. From now on all calls to <code><a href="../reference/ggraph.html">ggraph()</a></code> will contain a specification of the layout:</p>
-<div class="sourceCode" id="cb2"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'kk'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">year</span>))) +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'kk'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
 <p>If the layout algorithm accepts additional parameters (most do), they can be supplied in the call to <code><a href="../reference/ggraph.html">ggraph()</a></code> as well:</p>
-<div class="sourceCode" id="cb3"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'kk'</span>, <span class="kw">maxiter</span> <span class="kw">=</span> <span class="fl">100</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">year</span>))) +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'kk'</span>, maxiter <span class="op">=</span> <span class="fl">100</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
 <p>If any layout parameters refers to node or edge variables they must be supplied as unquoted expression (like inside <code>aes()</code> and <code>tidyverse</code> verbs)</p>
 <p>In addition to specifying the layout during plot creation it can also happen separately using <code><a href="../reference/ggraph.html">create_layout()</a></code>. This function takes the same arguments as <code><a href="../reference/ggraph.html">ggraph()</a></code> but returns a <code>layout_ggraph</code> object that can later be used in place of a graph structure in ggraph call:</p>
-<div class="sourceCode" id="cb4"><html><body><pre class="r"><span class="no">layout</span> <span class="kw">&lt;-</span> <span class="fu"><a href="../reference/ggraph.html">create_layout</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'eigen'</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">layout</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggraph.html">create_layout</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'eigen'</span><span class="op">)</span></code></pre></div>
 <pre><code>## Warning in layout_with_eigen(graph, type = type, ev = eigenvector): g is
 ## directed. undirected version is used for the layout.</code></pre>
-<div class="sourceCode" id="cb6"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">layout</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">year</span>))) +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">layout</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>Examining the return of <code><a href="../reference/ggraph.html">create_layout()</a></code> we see that it is really just a <code>data.frame</code> of node positions and (possible) attributes. Furthermore the original graph object along with other relevant information is passed along as attributes:</p>
-<div class="sourceCode" id="cb7"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span>(<span class="no">layout</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">layout</span><span class="op">)</span></code></pre></div>
 <pre><code>##             x           y circular name .ggraph.orig_index .ggraph.index
 ## 1 -0.04317633 -0.15611549    FALSE    1                  1             1
 ## 2 -0.03414457 -0.20843892    FALSE    2                  2             2
@@ -183,7 +190,8 @@
 ## 4  0.18211675  0.03597610    FALSE    4                  4             4
 ## 5  0.18048193 -0.01111635    FALSE    5                  5             5
 ## 6  0.01389960 -0.19521616    FALSE    6                  6             6</code></pre>
-<div class="sourceCode" id="cb9"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span>(<span class="no">layout</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/attributes.html">attributes</a></span><span class="op">(</span><span class="va">layout</span><span class="op">)</span></code></pre></div>
 <pre><code>## $names
 ## [1] "x"                  "y"                  "circular"          
 ## [4] "name"               ".ggraph.orig_index" ".ggraph.index"     
@@ -236,25 +244,29 @@
 <div id="a-note-on-circularity" class="section level3">
 <h3 class="hasAnchor">
 <a href="#a-note-on-circularity" class="anchor"></a>A note on circularity</h3>
-<p>Some layouts can be shown effectively both in a standard Cartesian projection as well as in a polar projection. The standard approach in <code>ggplot2</code> has been to change the coordinate system with the addition of e.g. <code>coord_polar()</code>. This approach — while consistent with the grammar — is not optimal for <code>ggraph</code> as it does not allow layers to decide how to respond to circularity. The prime example of this is trying to draw straight lines in a plot using <code>coord_polar()</code>. Instead circularity is part of the layout specification and gets communicated to the layers with the <code>circular</code> column in the data, allowing each layer to respond appropriately. Sometimes standard and circular representations of the same layout get used so often that they get different names. In <code>ggraph</code> they’ll have the same name and only differ in whether or not <code>circular</code> is set to <code>TRUE</code>:</p>
-<div class="sourceCode" id="cb11"><html><body><pre class="r"><span class="co"># An arc diagram</span>
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'linear'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">year</span>)))</pre></body></html></div>
+<p>Some layouts can be shown effectively both in a standard Cartesian projection as well as in a polar projection. The standard approach in <code>ggplot2</code> has been to change the coordinate system with the addition of e.g. <code>coord_polar()</code>. This approach — while consistent with the grammar — is not optimal for <code>ggraph</code> as it does not allow layers to decide how to respond to circularity. The prime example of this is trying to draw straight lines in a plot using <code>coord_polar()</code>. Instead circularity is part of the layout specification and gets communicated to the layers with the <code>circular</code> column in the data, allowing each layer to respond appropriately. Sometimes standard and circular representations of the same layout get used so often that they get different names. In <code>ggraph</code> they’ll have the same name and only differ in whether or not <code>circular</code> is set to <code>TRUE</code>:</p>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># An arc diagram</span>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'linear'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb12"><html><body><pre class="r"><span class="co"># A coord diagram</span>
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="st">'linear'</span>, <span class="kw">circular</span> <span class="kw">=</span> <span class="fl">TRUE</span>) +
-  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">year</span>))) +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># A coord diagram</span>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'linear'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<div class="sourceCode" id="cb13"><html><body><pre class="r"><span class="no">graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">tbl_graph</a></span>(<span class="no">flare</span>$<span class="no">vertices</span>, <span class="no">flare</span>$<span class="no">edges</span>)
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">tbl_graph</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">vertices</span>, <span class="va">flare</span><span class="op">$</span><span class="va">edges</span><span class="op">)</span>
 <span class="co"># An icicle plot</span>
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'partition'</span>) +
-  <span class="fu"><a href="../reference/geom_node_tile.html">geom_node_tile</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">depth</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>)</pre></body></html></div>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'partition'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_tile.html">geom_node_tile</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode" id="cb14"><html><body><pre class="r"><span class="co"># A sunburst plot</span>
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'partition'</span>, <span class="kw">circular</span> <span class="kw">=</span> <span class="fl">TRUE</span>) +
-  <span class="fu"><a href="../reference/geom_node_arc_bar.html">geom_node_arc_bar</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">depth</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>) +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># A sunburst plot</span>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'partition'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_arc_bar.html">geom_node_arc_bar</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
 <p>Not every layout has a meaningful circular representation in which cases the <code>circular</code> argument will be ignored.</p>
 </div>
@@ -262,82 +274,93 @@
 <h3 class="hasAnchor">
 <a href="#node-edge-diagram-layouts" class="anchor"></a>Node-edge diagram layouts</h3>
 <p>Both <code>graphlayout</code> and <code>igraph</code> provides a range of different layout algorithms for classic node-edge diagrams (colloquially referred to as hairballs). Some of these are incredibly simple such as <em>randomly</em>, <em>grid</em>, <em>circle</em>, and <em>star</em>, while others tries to optimize the position of nodes based on different characteristics of the graph. There is no such thing as “the best layout algorithm” as algorithms have been optimized for different scenarios. Experiment with the choices at hand and remember to take the end result with a grain of salt, as it is just one of a range of possible “optimal node position” results. Below is a sample of some of the layouts available through <code>igraph</code> applied to the highschool graph.</p>
-<div class="sourceCode" id="cb15"><html><body><pre class="r"><span class="no">graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">as_tbl_graph</a></span>(<span class="no">highschool</span>) <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/reexports.html">mutate</a></span>(<span class="kw">degree</span> <span class="kw">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_degree</a></span>())
-<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="st">'stress'</span>, <span class="st">'fr'</span>, <span class="st">'lgl'</span>, <span class="st">'graphopt'</span>), <span class="kw">function</span>(<span class="no">layout</span>) {
-  <span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="kw">layout</span> <span class="kw">=</span> <span class="no">layout</span>) +
-    <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">year</span>)), <span class="kw">show.legend</span> <span class="kw">=</span> <span class="fl">FALSE</span>) +
-    <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>() +
-    <span class="fu">labs</span>(<span class="kw">caption</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span>(<span class="st">'Layout: '</span>, <span class="no">layout</span>))
-})</pre></body></html></div>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">as_tbl_graph</a></span><span class="op">(</span><span class="va">highschool</span><span class="op">)</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>degree <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_degree</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/lapply.html">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">'stress'</span>, <span class="st">'fr'</span>, <span class="st">'lgl'</span>, <span class="st">'graphopt'</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">layout</span><span class="op">)</span> <span class="op">{</span>
+  <span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="va">layout</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span>
+    <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+    <span class="fu">labs</span><span class="op">(</span>caption <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste0</a></span><span class="op">(</span><span class="st">'Layout: '</span>, <span class="va">layout</span><span class="op">)</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-11-1.png" width="700"><img src="Layouts_files/figure-html/unnamed-chunk-11-2.png" width="700"><img src="Layouts_files/figure-html/unnamed-chunk-11-3.png" width="700"><img src="Layouts_files/figure-html/unnamed-chunk-11-4.png" width="700"></p>
 </div>
 <div id="hive-plots" class="section level3">
 <h3 class="hasAnchor">
 <a href="#hive-plots" class="anchor"></a>Hive plots</h3>
 <p>A hive plot, while still technically a node-edge diagram, is a bit different from the rest as it uses information pertaining to the nodes, rather than the connection information in the graph. This means that hive plots, to a certain extent are more interpretable as well as less vulnerable to small changes in the graph structure. They are less common though, so use will often require some additional explanation.</p>
-<div class="sourceCode" id="cb16"><html><body><pre class="r"><span class="no">graph</span> <span class="kw">&lt;-</span> <span class="no">graph</span> <span class="kw">%&gt;%</span>
-  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/reexports.html">mutate</a></span>(<span class="kw">friends</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(
-    <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_degree</a></span>(<span class="kw">mode</span> <span class="kw">=</span> <span class="st">'in'</span>) <span class="kw">&lt;</span> <span class="fl">5</span>, <span class="st">'few'</span>,
-    <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span>(<span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_degree</a></span>(<span class="kw">mode</span> <span class="kw">=</span> <span class="st">'in'</span>) <span class="kw">&gt;=</span> <span class="fl">15</span>, <span class="st">'many'</span>, <span class="st">'medium'</span>)
-  ))
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'hive'</span>, <span class="kw">axis</span> <span class="kw">=</span> <span class="no">friends</span>, <span class="kw">sort.by</span> <span class="kw">=</span> <span class="no">degree</span>) +
-  <span class="fu"><a href="../reference/geom_edge_hive.html">geom_edge_hive</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">year</span>))) +
-  <span class="fu"><a href="../reference/geom_axis_hive.html">geom_axis_hive</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="no">friends</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">2</span>, <span class="kw">label</span> <span class="kw">=</span> <span class="fl">FALSE</span>) +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">graph</span> <span class="op">&lt;-</span> <span class="va">graph</span> <span class="op">%&gt;%</span> 
+  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>friends <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span>
+    <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_degree</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">'in'</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">5</span>, <span class="st">'few'</span>,
+    <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_degree</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">'in'</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">15</span>, <span class="st">'many'</span>, <span class="st">'medium'</span><span class="op">)</span>
+  <span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'hive'</span>, axis <span class="op">=</span> <span class="va">friends</span>, sort.by <span class="op">=</span> <span class="va">degree</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_hive.html">geom_edge_hive</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">year</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_axis_hive.html">geom_axis_hive</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="va">friends</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">2</span>, label <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
 </div>
 <div id="focal-layouts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#focal-layouts" class="anchor"></a>Focal layouts</h3>
 <p>Some layouts can put focus on a single node or a group of nodes by defining all other positions relative to that. An example of this is the <code>focus</code> layout, but the <code>centrality</code> layout is very akin to it:</p>
-<div class="sourceCode" id="cb17"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'focus'</span>, <span class="kw">focus</span> <span class="kw">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_types.html">node_is_center</a></span>()) +
-  <span class="kw pkg">ggforce</span><span class="kw ns">::</span><span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_circle.html">geom_circle</a></span>(<span class="fu">aes</span>(<span class="kw">x0</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">y0</span> <span class="kw">=</span> <span class="fl">0</span>, <span class="kw">r</span> <span class="kw">=</span> <span class="no">r</span>), <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span>(<span class="kw">r</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">5</span>), <span class="kw">colour</span> <span class="kw">=</span> <span class="st">'grey'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>() +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'focus'</span>, focus <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_types.html">node_is_center</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">ggforce</span><span class="fu">::</span><span class="fu"><a href="https://ggforce.data-imaginist.com/reference/geom_circle.html">geom_circle</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>x0 <span class="op">=</span> <span class="fl">0</span>, y0 <span class="op">=</span> <span class="fl">0</span>, r <span class="op">=</span> <span class="va">r</span><span class="op">)</span>, <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span>r <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">)</span>, colour <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
 </div>
 <div id="hierarchical-layouts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#hierarchical-layouts" class="anchor"></a>Hierarchical layouts</h3>
 <p>Trees and hierarchies are an important subset of graph structures, and <code>ggraph</code> provides a range of layouts optimized for their visual representation. Some of these use enclosure and position rather than edges to communicate relations (e.g. treemaps and circle packing). Still, these layouts can just as well be used for drawing edges if you wish to:</p>
-<div class="sourceCode" id="cb18"><html><body><pre class="r"><span class="no">graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">tbl_graph</a></span>(<span class="no">flare</span>$<span class="no">vertices</span>, <span class="no">flare</span>$<span class="no">edges</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1</span>)
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'circlepack'</span>, <span class="kw">weight</span> <span class="kw">=</span> <span class="no">size</span>) +
-  <span class="fu"><a href="../reference/geom_node_circle.html">geom_node_circle</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">depth</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>, <span class="kw">n</span> <span class="kw">=</span> <span class="fl">50</span>) +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">tbl_graph</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">vertices</span>, <span class="va">flare</span><span class="op">$</span><span class="va">edges</span><span class="op">)</span>
+<span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'circlepack'</span>, weight <span class="op">=</span> <span class="va">size</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_circle.html">geom_node_circle</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.25</span>, n <span class="op">=</span> <span class="fl">50</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<div class="sourceCode" id="cb19"><html><body><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span>(<span class="fl">1</span>)
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'circlepack'</span>, <span class="kw">weight</span> <span class="kw">=</span> <span class="no">size</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="no">depth</span>)) +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="https://rdrr.io/r/base/Random.html">set.seed</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'circlepack'</span>, weight <span class="op">=</span> <span class="va">size</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
-<div class="sourceCode" id="cb20"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'treemap'</span>, <span class="kw">weight</span> <span class="kw">=</span> <span class="no">size</span>) +
-  <span class="fu"><a href="../reference/geom_node_tile.html">geom_node_tile</a></span>(<span class="fu">aes</span>(<span class="kw">fill</span> <span class="kw">=</span> <span class="no">depth</span>), <span class="kw">size</span> <span class="kw">=</span> <span class="fl">0.25</span>)</pre></body></html></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'treemap'</span>, weight <span class="op">=</span> <span class="va">size</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_tile.html">geom_node_tile</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<div class="sourceCode" id="cb21"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'treemap'</span>, <span class="kw">weight</span> <span class="kw">=</span> <span class="no">size</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>() +
-  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span>(<span class="fu">aes</span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="no">depth</span>))</pre></body></html></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'treemap'</span>, weight <span class="op">=</span> <span class="va">size</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>colour <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 <p>The most recognized tree plot is probably dendrograms though. If nothing else is stated the height of each node is calculated based on the distance to its farthest sibling (the tree layout, on the other hand, puts all nodes at a certain depth at the same level):</p>
-<div class="sourceCode" id="cb22"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'tree'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'tree'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
 <p>The height of each branch point can be set to a variable — e.g. the height provided by hclust and dendrogram objects:</p>
-<div class="sourceCode" id="cb23"><html><body><pre class="r"><span class="no">dendrogram</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span>(<span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span>(<span class="no">iris</span>[, <span class="fl">1</span>:<span class="fl">4</span>]))
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">dendrogram</span>, <span class="st">'dendrogram'</span>, <span class="kw">height</span> <span class="kw">=</span> <span class="no">height</span>) +
-  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">dendrogram</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html">hclust</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html">dist</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">dendrogram</span>, <span class="st">'dendrogram'</span>, height <span class="op">=</span> <span class="va">height</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
 <p>Dendrograms are one of the layouts that are amenable for circular transformations, which can be effective in giving more space at the leafs of the tree at the expense of the space given to the root:</p>
-<div class="sourceCode" id="cb24"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">dendrogram</span>, <span class="st">'dendrogram'</span>, <span class="kw">circular</span> <span class="kw">=</span> <span class="fl">TRUE</span>) +
-  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span>() +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">dendrogram</span>, <span class="st">'dendrogram'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 <p>A type of trees known especially in phylogeny is unrooted trees, where no node is considered the root. Often a dendrogram layout will not be faithful as it implicitly position a node at the root. To avoid that you can use the <code>unrooted</code> layout instead.</p>
-<div class="sourceCode" id="cb25"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">dendrogram</span>, <span class="st">'unrooted'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span>()</pre></body></html></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">dendrogram</span>, <span class="st">'unrooted'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 <p>Often unrooted trees have a branch length attached - this can be passed to both the <code>dendrogram</code> and <code>unrooted</code> layout to determine the length of each edge.</p>
 </div>
@@ -345,34 +368,35 @@
 <h3 class="hasAnchor">
 <a href="#matrix-layouts" class="anchor"></a>Matrix layouts</h3>
 <p>Many node-edge diagram layouts suffer from poor scalability, where edges will eventually begin to overlap to the extend that the plot becomes unintellible. One way to combat this is by only plotting subsets of the larger plot, but another approach is to choose a layout that avoids overlapping edges altogether. The matrix layout places each node on a diagonal and draws edges by drawing points or tiles at the intersection of the vertical and horizontal position of its terminal nodes. Using matrix layouts efficiently requires that you begin to recognise the specific patterns that different network topologies gives rise to. Further, it is important to recognise the large effect that the node order has on the look of the matrix layout:</p>
-<div class="sourceCode" id="cb26"><html><body><pre class="r"><span class="no">graph</span> <span class="kw">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html">create_notable</a></span>(<span class="st">'zachary'</span>)
-<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'matrix'</span>, <span class="kw">sort.by</span> <span class="kw">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html">node_rank_leafsort</a></span>()) +
-  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span>(<span class="kw">mirror</span> <span class="kw">=</span> <span class="fl">TRUE</span>) +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
-<pre><code>## Registered S3 method overwritten by 'seriation':
-##   method         from 
-##   reorder.hclust gclus</code></pre>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html">create_notable</a></span><span class="op">(</span><span class="st">'zachary'</span><span class="op">)</span>
+<span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html">node_rank_leafsort</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span>mirror <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
-<div class="sourceCode" id="cb28"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'matrix'</span>, <span class="kw">sort.by</span> <span class="kw">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html">node_rank_spectral</a></span>()) +
-  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span>(<span class="kw">mirror</span> <span class="kw">=</span> <span class="fl">TRUE</span>) +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html">node_rank_spectral</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span>mirror <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
 </div>
 <div id="fabric-layouts" class="section level3">
 <h3 class="hasAnchor">
 <a href="#fabric-layouts" class="anchor"></a>Fabric layouts</h3>
 <p>Another special layout that promises scalability is the biofabric layout (here named <code>fabric</code> to avoid it being ignored for non-biological networks). The fabric layout is special in that it positions nodes evenly spaced on the y-axis and then draws edges as vertical (and by extension, parallel) lines evenly separated as well, connecting the nodes. Nodes are drawn as horizontal lines spanning the extent of the edges that departs from it. As with matrix layouts the node ordering have a huge impact on the final look and interpreting the plot may take some getting used to.</p>
-<div class="sourceCode" id="cb29"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'fabric'</span>, <span class="kw">sort.by</span> <span class="kw">=</span> <span class="fu"><a href="../reference/layout_tbl_graph_fabric.html">node_rank_fabric</a></span>()) +
-  <span class="fu"><a href="../reference/geom_node_range.html">geom_node_range</a></span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="st">'grey'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span>(<span class="kw">end_shape</span> <span class="kw">=</span> <span class="st">'square'</span>) +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'fabric'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="../reference/layout_tbl_graph_fabric.html">node_rank_fabric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_range.html">geom_node_range</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span>end_shape <span class="op">=</span> <span class="st">'square'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
 <p>Fabric layouts allow something called shadow edges where all edges are duplicated to make it easier to follow all edges originating from each node.</p>
-<div class="sourceCode" id="cb30"><html><body><pre class="r"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span>(<span class="no">graph</span>, <span class="st">'fabric'</span>, <span class="kw">sort.by</span> <span class="kw">=</span> <span class="fu"><a href="../reference/layout_tbl_graph_fabric.html">node_rank_fabric</a></span>(), <span class="kw">shadow.edges</span> <span class="kw">=</span><span class="fl">TRUE</span>) +
-  <span class="fu"><a href="../reference/geom_node_range.html">geom_node_range</a></span>(<span class="kw">colour</span> <span class="kw">=</span> <span class="st">'grey'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span>(<span class="fu">aes</span>(<span class="kw">filter</span> <span class="kw">=</span> <span class="no">shadow_edge</span>), <span class="kw">colour</span> <span class="kw">=</span><span class="st">'lightblue'</span> , <span class="kw">end_shape</span> <span class="kw">=</span> <span class="st">'square'</span>) +
-  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span>(<span class="fu">aes</span>(<span class="kw">filter</span> <span class="kw">=</span> !<span class="no">shadow_edge</span>), <span class="kw">end_shape</span> <span class="kw">=</span> <span class="st">'square'</span>) +
-  <span class="fu">coord_fixed</span>()</pre></body></html></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'fabric'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="../reference/layout_tbl_graph_fabric.html">node_rank_fabric</a></span><span class="op">(</span><span class="op">)</span>, shadow.edges <span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_node_range.html">geom_node_range</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>filter <span class="op">=</span> <span class="va">shadow_edge</span><span class="op">)</span>, colour <span class="op">=</span><span class="st">'lightblue'</span> , end_shape <span class="op">=</span> <span class="st">'square'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>filter <span class="op">=</span> <span class="op">!</span><span class="va">shadow_edge</span><span class="op">)</span>, end_shape <span class="op">=</span> <span class="st">'square'</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_fixed</span><span class="op">(</span><span class="op">)</span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
 </div>
 </div>
@@ -398,7 +422,7 @@
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

@@ -87,7 +87,7 @@ point." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -192,25 +192,25 @@ making sure that the capping remains at an absolute distance to the end
 point.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>geometry</span>(
-  <span class='kw'>type</span> <span class='kw'>=</span> <span class='st'>"circle"</span>,
-  <span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>,
-  <span class='kw'>height</span> <span class='kw'>=</span> <span class='no'>width</span>,
-  <span class='kw'>width_unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>,
-  <span class='kw'>height_unit</span> <span class='kw'>=</span> <span class='no'>width_unit</span>
-)
+    <pre class="usage"><span class='fu'>geometry</span><span class='op'>(</span>
+  type <span class='op'>=</span> <span class='st'>"circle"</span>,
+  width <span class='op'>=</span> <span class='fl'>1</span>,
+  height <span class='op'>=</span> <span class='va'>width</span>,
+  width_unit <span class='op'>=</span> <span class='st'>"cm"</span>,
+  height_unit <span class='op'>=</span> <span class='va'>width_unit</span>
+<span class='op'>)</span>
 
-<span class='fu'>circle</span>(<span class='kw'>radius</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>)
+<span class='fu'>circle</span><span class='op'>(</span>radius <span class='op'>=</span> <span class='fl'>1</span>, unit <span class='op'>=</span> <span class='st'>"cm"</span><span class='op'>)</span>
 
-<span class='fu'>square</span>(<span class='kw'>length</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>)
+<span class='fu'>square</span><span class='op'>(</span>length <span class='op'>=</span> <span class='fl'>1</span>, unit <span class='op'>=</span> <span class='st'>"cm"</span><span class='op'>)</span>
 
-<span class='fu'>ellipsis</span>(<span class='kw'>a</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>b</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>a_unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>, <span class='kw'>b_unit</span> <span class='kw'>=</span> <span class='no'>a_unit</span>)
+<span class='fu'>ellipsis</span><span class='op'>(</span>a <span class='op'>=</span> <span class='fl'>1</span>, b <span class='op'>=</span> <span class='fl'>1</span>, a_unit <span class='op'>=</span> <span class='st'>"cm"</span>, b_unit <span class='op'>=</span> <span class='va'>a_unit</span><span class='op'>)</span>
 
-<span class='fu'>rectangle</span>(<span class='kw'>width</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>height</span> <span class='kw'>=</span> <span class='fl'>1</span>, <span class='kw'>width_unit</span> <span class='kw'>=</span> <span class='st'>"cm"</span>, <span class='kw'>height_unit</span> <span class='kw'>=</span> <span class='no'>width_unit</span>)
+<span class='fu'>rectangle</span><span class='op'>(</span>width <span class='op'>=</span> <span class='fl'>1</span>, height <span class='op'>=</span> <span class='fl'>1</span>, width_unit <span class='op'>=</span> <span class='st'>"cm"</span>, height_unit <span class='op'>=</span> <span class='va'>width_unit</span><span class='op'>)</span>
 
-<span class='fu'>label_rect</span>(<span class='no'>label</span>, <span class='kw'>padding</span> <span class='kw'>=</span> <span class='fu'>margin</span>(<span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>, <span class='st'>"mm"</span>), <span class='no'>...</span>)
+<span class='fu'>label_rect</span><span class='op'>(</span><span class='va'>label</span>, padding <span class='op'>=</span> <span class='fu'>margin</span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>1</span>, <span class='fl'>1.5</span>, <span class='fl'>1</span>, <span class='st'>"mm"</span><span class='op'>)</span>, <span class='va'>...</span><span class='op'>)</span>
 
-<span class='fu'>is.geometry</span>(<span class='no'>x</span>)</pre>
+<span class='fu'>is.geometry</span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -262,10 +262,14 @@ a list of strings and potentially formatting options creates a rectangle that
 encloses the string.</p>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='fu'>geometry</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'circle'</span>, <span class='st'>'rect'</span>, <span class='st'>'rect'</span>), <span class='fl'>1</span>:<span class='fl'>3</span>, <span class='fl'>3</span>:<span class='fl'>1</span>)</div><div class='output co'>#&gt; [1] "circle(1cm, 3cm)" "rect(2cm, 2cm)"   "rect(3cm, 1cm)"  </div><div class='input'>
-<span class='fu'>circle</span>(<span class='fl'>1</span>:<span class='fl'>4</span>, <span class='st'>'mm'</span>)</div><div class='output co'>#&gt; [1] "circle(2mm, 2mm)" "circle(4mm, 4mm)" "circle(6mm, 6mm)" "circle(8mm, 8mm)"</div><div class='input'>
-<span class='fu'>label_rect</span>(<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span>(<span class='st'>'some'</span>, <span class='st'>'different'</span>, <span class='st'>'words'</span>), <span class='kw'>fontsize</span> <span class='kw'>=</span> <span class='fl'>18</span>)</div><div class='output co'>#&gt; [1] "rect(1.752575cm, 0.70593cm)" "rect(2.475205cm, 0.70593cm)"
-#&gt; [3] "rect(1.887195cm, 0.70593cm)"</div></pre>
+    <pre class="examples"><div class='input'><span class='fu'>geometry</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'circle'</span>, <span class='st'>'rect'</span>, <span class='st'>'rect'</span><span class='op'>)</span>, <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span>, <span class='fl'>3</span><span class='op'>:</span><span class='fl'>1</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "circle(1cm, 3cm)" "rect(2cm, 2cm)"   "rect(3cm, 1cm)"  </div><div class='input'>
+<span class='fu'>circle</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>4</span>, <span class='st'>'mm'</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "circle(2mm, 2mm)" "circle(4mm, 4mm)" "circle(6mm, 6mm)" "circle(8mm, 8mm)"</div><div class='input'>
+<span class='fu'>label_rect</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>'some'</span>, <span class='st'>'different'</span>, <span class='st'>'words'</span><span class='op'>)</span>, fontsize <span class='op'>=</span> <span class='fl'>18</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; [1] "rect(1.75332465277778cm, 0.708611111111111cm)"
+#&gt; [2] "rect(2.48423611111111cm, 0.708611111111111cm)"
+#&gt; [3] "rect(1.89443576388889cm, 0.708611111111111cm)"</div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -281,7 +285,7 @@ encloses the string.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

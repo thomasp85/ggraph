@@ -86,7 +86,7 @@ to modify the data argument if parallel edges should be collapsed." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -190,7 +190,7 @@ each <code>geom_edge_*</code> has the default set correctly so there is only nee
 to modify the data argument if parallel edges should be collapsed.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>get_edges</span>(<span class='kw'>format</span> <span class='kw'>=</span> <span class='st'>"short"</span>, <span class='kw'>collapse</span> <span class='kw'>=</span> <span class='st'>"none"</span>, <span class='no'>...</span>)</pre>
+    <pre class="usage"><span class='fu'>get_edges</span><span class='op'>(</span>format <span class='op'>=</span> <span class='st'>"short"</span>, collapse <span class='op'>=</span> <span class='st'>"none"</span>, <span class='va'>...</span><span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -221,7 +221,7 @@ the data.frame will always contain the columns <code>from</code>, <code>to</code
 <code>circular</code>, the two former giving the indexes of the start and end node
 and the latter if the layout is circular (needed for correct formatting of
 some <code>geom_edge_*</code>). The graph dependent information is:</p>
-<dl'>
+<dl>
 <dt>dendrogram</dt><dd><p>A <code>label</code> column will hold the value of the
 <code>edgetext</code> attribute. In addition any value stored in the
 <code>edgePar</code> attribute will be added. Lastly a <code>direction</code> column
@@ -236,7 +236,7 @@ columns to the data.frame</p></dd>
 
     <p>There are two types of return formats possible for the result of the returned
 function:</p>
-<dl'>
+<dl>
 <dt>short</dt><dd><p>In this format each edge is described in one line in the
 format expected for <code><a href='https://ggplot2.tidyverse.org/reference/geom_segment.html'>ggplot2::geom_segment()</a></code>, that is, the start
 node position is encoded in the <code>x</code> and <code>y</code> column and the end
@@ -285,7 +285,7 @@ ggraph.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

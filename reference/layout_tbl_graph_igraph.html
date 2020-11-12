@@ -86,7 +86,7 @@ will throw an error when applied to other layouts." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -190,14 +190,14 @@ only supported for tree-like layout (<code>tree</code> and <code>sugiyama</code>
 will throw an error when applied to other layouts.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>layout_tbl_graph_igraph</span>(
-  <span class='no'>graph</span>,
-  <span class='no'>algorithm</span>,
-  <span class='no'>circular</span>,
-  <span class='kw'>offset</span> <span class='kw'>=</span> <span class='no'>pi</span>/<span class='fl'>2</span>,
-  <span class='kw'>use.dummy</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>layout_tbl_graph_igraph</span><span class='op'>(</span>
+  <span class='va'>graph</span>,
+  <span class='va'>algorithm</span>,
+  <span class='va'>circular</span>,
+  offset <span class='op'>=</span> <span class='va'>pi</span><span class='op'>/</span><span class='fl'>2</span>,
+  use.dummy <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -243,7 +243,7 @@ well as any information stored as node variables in the tbl_graph object.</p>
     <p>igraph provides a huge amount of possible layouts. They are all briefly
 described below:</p>
 <p><strong>Hierarchical layouts</strong></p>
-<dl'>
+<dl>
 <dt><code>tree</code></dt><dd><p>Uses the <em>Reingold-Tilford</em> algorithm to place the
 nodes below their parent with the parent centered above its children. See
 <code><a href='https://rdrr.io/pkg/igraph/man/layout_as_tree.html'>igraph::as_tree()</a></code></p></dd>
@@ -254,7 +254,7 @@ crossing edges. See <code><a href='https://rdrr.io/pkg/igraph/man/layout_with_su
 </dl>
 
 <p><strong>Standard layouts</strong></p>
-<dl'>
+<dl>
 <dt><code>bipartite</code></dt><dd><p>Minimize edge-crossings in a simple two-row (or
 column) layout for bipartite graphs. See <code><a href='https://rdrr.io/pkg/igraph/man/layout_as_bipartite.html'>igraph::as_bipartite()</a></code></p></dd>
 <dt><code>star</code></dt><dd><p>Place one node in the center and the rest equidistantly
@@ -332,7 +332,7 @@ nodes. See <code><a href='https://rdrr.io/pkg/igraph/man/layout_with_lgl.html'>i
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

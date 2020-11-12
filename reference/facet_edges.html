@@ -81,7 +81,7 @@ facets edges. Nodes are repeated in every panel." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -180,19 +180,19 @@ facets edges. Nodes are repeated in every panel." />
 facets edges. Nodes are repeated in every panel.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>facet_edges</span>(
-  <span class='no'>facets</span>,
-  <span class='kw'>nrow</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>ncol</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>scales</span> <span class='kw'>=</span> <span class='st'>"fixed"</span>,
-  <span class='kw'>shrink</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>labeller</span> <span class='kw'>=</span> <span class='st'>"label_value"</span>,
-  <span class='kw'>as.table</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>switch</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>drop</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>dir</span> <span class='kw'>=</span> <span class='st'>"h"</span>,
-  <span class='kw'>strip.position</span> <span class='kw'>=</span> <span class='st'>"top"</span>
-)</pre>
+    <pre class="usage"><span class='fu'>facet_edges</span><span class='op'>(</span>
+  <span class='va'>facets</span>,
+  nrow <span class='op'>=</span> <span class='cn'>NULL</span>,
+  ncol <span class='op'>=</span> <span class='cn'>NULL</span>,
+  scales <span class='op'>=</span> <span class='st'>"fixed"</span>,
+  shrink <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  labeller <span class='op'>=</span> <span class='st'>"label_value"</span>,
+  as.table <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  switch <span class='op'>=</span> <span class='cn'>NULL</span>,
+  drop <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  dir <span class='op'>=</span> <span class='st'>"h"</span>,
+  strip.position <span class='op'>=</span> <span class='st'>"top"</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -280,12 +280,13 @@ either of the four sides by setting <code>strip.position = c("top",
 <code><a href='facet_nodes.html'>facet_nodes</a>()</code></p></div>
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tidygraph</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/tbl_graph.html'>as_tbl_graph</a></span>(<span class='no'>highschool</span>)
+    <pre class="examples"><div class='input'><span class='va'>gr</span> <span class='op'>&lt;-</span> <span class='fu'>tidygraph</span><span class='fu'>::</span><span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/tbl_graph.html'>as_tbl_graph</a></span><span class='op'>(</span><span class='va'>highschool</span><span class='op'>)</span>
 
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>) +
-  <span class='fu'><a href='geom_edge_link.html'>geom_edge_link</a></span>() +
-  <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span>() +
-  <span class='fu'>facet_edges</span>(~<span class='no'>year</span>)</div><div class='output co'>#&gt; <span class='message'>Using `stress` as default layout</span></div><div class='img'><img src='facet_edges-1.png' alt='' width='700' height='433' /></div></pre>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span><span class='op'>(</span><span class='va'>gr</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_edge_link.html'>geom_edge_link</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_node_point.html'>geom_node_point</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>facet_edges</span><span class='op'>(</span><span class='op'>~</span><span class='va'>year</span><span class='op'>)</span>
+</div><div class='output co'>#&gt; <span class='message'>Using `stress` as default layout</span></div><div class='img'><img src='facet_edges-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -301,7 +302,7 @@ either of the four sides by setting <code>strip.position = c("top",
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

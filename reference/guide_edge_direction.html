@@ -81,7 +81,7 @@ mapped to its progression, such as changing width, colour and opacity." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -180,24 +180,24 @@ mapped to its progression, such as changing width, colour and opacity." />
 mapped to its progression, such as changing width, colour and opacity.</p>
     </div>
 
-    <pre class="usage"><span class='fu'>guide_edge_direction</span>(
-  <span class='kw'>title</span> <span class='kw'>=</span> <span class='fu'>waiver</span>(),
-  <span class='kw'>title.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title.theme</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title.hjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>title.vjust</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>arrow</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>arrow.position</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>barwidth</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>barheight</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>nbin</span> <span class='kw'>=</span> <span class='fl'>500</span>,
-  <span class='kw'>direction</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>default.unit</span> <span class='kw'>=</span> <span class='st'>"line"</span>,
-  <span class='kw'>reverse</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>,
-  <span class='kw'>order</span> <span class='kw'>=</span> <span class='fl'>0</span>,
-  <span class='kw'>override.aes</span> <span class='kw'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span>(),
-  <span class='no'>...</span>
-)</pre>
+    <pre class="usage"><span class='fu'>guide_edge_direction</span><span class='op'>(</span>
+  title <span class='op'>=</span> <span class='fu'>waiver</span><span class='op'>(</span><span class='op'>)</span>,
+  title.position <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title.theme <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title.hjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  title.vjust <span class='op'>=</span> <span class='cn'>NULL</span>,
+  arrow <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  arrow.position <span class='op'>=</span> <span class='cn'>NULL</span>,
+  barwidth <span class='op'>=</span> <span class='cn'>NULL</span>,
+  barheight <span class='op'>=</span> <span class='cn'>NULL</span>,
+  nbin <span class='op'>=</span> <span class='fl'>500</span>,
+  direction <span class='op'>=</span> <span class='cn'>NULL</span>,
+  default.unit <span class='op'>=</span> <span class='st'>"line"</span>,
+  reverse <span class='op'>=</span> <span class='cn'>FALSE</span>,
+  order <span class='op'>=</span> <span class='fl'>0</span>,
+  override.aes <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='op'>)</span>,
+  <span class='va'>...</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -291,10 +291,11 @@ If 0 (default), the order is determined by a secret algorithm.</p></td>
 
 
     <h2 class="hasAnchor" id="examples"><a class="anchor" href="#examples"></a>Examples</h2>
-    <pre class="examples"><div class='input'><span class='no'>gr</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>tidygraph</span><span class='kw ns'>::</span><span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/tbl_graph.html'>as_tbl_graph</a></span>(<span class='no'>highschool</span>)
-<span class='fu'><a href='ggraph.html'>ggraph</a></span>(<span class='no'>gr</span>, <span class='kw'>layout</span> <span class='kw'>=</span> <span class='st'>'kk'</span>) +
-  <span class='fu'><a href='geom_edge_fan.html'>geom_edge_fan</a></span>(<span class='fu'>aes</span>(<span class='kw'>alpha</span> <span class='kw'>=</span> <span class='fu'>stat</span>(<span class='no'>index</span>))) +
-  <span class='fu'>guides</span>(<span class='kw'>edge_alpha</span> <span class='kw'>=</span> <span class='fu'>guide_edge_direction</span>())</div><div class='img'><img src='guide_edge_direction-1.png' alt='' width='700' height='433' /></div></pre>
+    <pre class="examples"><div class='input'><span class='va'>gr</span> <span class='op'>&lt;-</span> <span class='fu'>tidygraph</span><span class='fu'>::</span><span class='fu'><a href='https://tidygraph.data-imaginist.com/reference/tbl_graph.html'>as_tbl_graph</a></span><span class='op'>(</span><span class='va'>highschool</span><span class='op'>)</span>
+<span class='fu'><a href='ggraph.html'>ggraph</a></span><span class='op'>(</span><span class='va'>gr</span>, layout <span class='op'>=</span> <span class='st'>'kk'</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'><a href='geom_edge_fan.html'>geom_edge_fan</a></span><span class='op'>(</span><span class='fu'>aes</span><span class='op'>(</span>alpha <span class='op'>=</span> <span class='fu'>stat</span><span class='op'>(</span><span class='va'>index</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span>
+  <span class='fu'>guides</span><span class='op'>(</span>edge_alpha <span class='op'>=</span> <span class='fu'>guide_edge_direction</span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</div><div class='img'><img src='guide_edge_direction-1.png' alt='' width='700' height='433' /></div></pre>
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <nav id="toc" data-toggle="toc" class="sticky-top">
@@ -310,7 +311,7 @@ If 0 (default), the order is determined by a secret algorithm.</p></td>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>

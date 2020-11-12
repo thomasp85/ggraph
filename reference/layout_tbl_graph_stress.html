@@ -87,7 +87,7 @@ layout from igraph)." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.2.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
       </span>
     </div>
 
@@ -192,23 +192,23 @@ algorithms for large graphs in both runtime and quality (e.g. the 'drl'
 layout from igraph).</p>
     </div>
 
-    <pre class="usage"><span class='fu'>layout_tbl_graph_stress</span>(
-  <span class='no'>graph</span>,
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>niter</span> <span class='kw'>=</span> <span class='fl'>500</span>,
-  <span class='kw'>tolerance</span> <span class='kw'>=</span> <span class='fl'>1e-04</span>,
-  <span class='kw'>mds</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>,
-  <span class='kw'>bbox</span> <span class='kw'>=</span> <span class='fl'>50</span>,
-  <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)
+    <pre class="usage"><span class='fu'>layout_tbl_graph_stress</span><span class='op'>(</span>
+  <span class='va'>graph</span>,
+  weights <span class='op'>=</span> <span class='cn'>NULL</span>,
+  niter <span class='op'>=</span> <span class='fl'>500</span>,
+  tolerance <span class='op'>=</span> <span class='fl'>1e-04</span>,
+  mds <span class='op'>=</span> <span class='cn'>TRUE</span>,
+  bbox <span class='op'>=</span> <span class='fl'>50</span>,
+  circular <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span>
 
-<span class='fu'>layout_tbl_graph_sparse_stress</span>(
-  <span class='no'>graph</span>,
-  <span class='no'>pivots</span>,
-  <span class='kw'>weights</span> <span class='kw'>=</span> <span class='kw'>NULL</span>,
-  <span class='kw'>niter</span> <span class='kw'>=</span> <span class='fl'>500</span>,
-  <span class='kw'>circular</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>
-)</pre>
+<span class='fu'>layout_tbl_graph_sparse_stress</span><span class='op'>(</span>
+  <span class='va'>graph</span>,
+  <span class='va'>pivots</span>,
+  weights <span class='op'>=</span> <span class='cn'>NULL</span>,
+  niter <span class='op'>=</span> <span class='fl'>500</span>,
+  circular <span class='op'>=</span> <span class='cn'>FALSE</span>
+<span class='op'>)</span></pre>
 
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -278,6 +278,10 @@ majorization.</em> In International Symposium on Graph Drawing (pp. 239-250). Sp
 <code><a href='layout_tbl_graph_pmds.html'>layout_tbl_graph_pmds</a>()</code>,
 <code><a href='layout_tbl_graph_treemap.html'>layout_tbl_graph_treemap</a>()</code>,
 <code><a href='layout_tbl_graph_unrooted.html'>layout_tbl_graph_unrooted</a>()</code></p></div>
+    <h2 class="hasAnchor" id="author"><a class="anchor" href="#author"></a>Author</h2>
+
+    <p>The underlying algorithm is implemented in the graphlayouts package
+by David Schoch</p>
 
   </div>
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -294,7 +298,7 @@ majorization.</em> In International Symposium on Graph Drawing (pp. 239-250). Sp
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
 </div>
 
       </footer>
