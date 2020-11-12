@@ -2,6 +2,7 @@
 
 * Fix bug in faceting functions where using algorithms based on sampling 
   directly would result in errors
+* Move CI to GitHub Actions
 
 # ggraph 2.0.3
 

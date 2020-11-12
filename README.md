@@ -5,12 +5,12 @@
 
 <!-- badges: start -->
 
-[![Travis-CI Build
-Status](https://travis-ci.org/thomasp85/ggraph.svg?branch=master)](https://travis-ci.org/thomasp85/ggraph)
-[![AppVeyor Build
-Status](https://ci.appveyor.com/api/projects/status/github/thomasp85/ggraph?branch=master&svg=true)](https://ci.appveyor.com/project/thomasp85/ggraph)
+[![R build
+status](https://github.com/thomasp85/ggraph/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/ggraph/actions)
 [![CRAN\_Release\_Badge](http://www.r-pkg.org/badges/version-ago/ggraph)](https://CRAN.R-project.org/package=ggraph)
 [![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/ggraph)](https://CRAN.R-project.org/package=ggraph)
+[![Codecov test
+coverage](https://codecov.io/gh/thomasp85/ggraph/branch/master/graph/badge.svg)](https://codecov.io/gh/thomasp85/ggraph?branch=master)
 <!-- badges: end -->
 
 */dʒiː.dʒɪˈrɑːf/* (or g-giraffe)
@@ -65,9 +65,9 @@ understand:
     Nodes**](http://www.data-imaginist.com/2017/ggraph-introduction-nodes/)
     are the connected entities in the relational structure. These can be
     plotted using the `geom_node_*()` family of geoms. Some node geoms
-    make more sense for certain layouts, e.g. `geom_node_tile()` for
+    make more sense for certain layouts, e.g. `geom_node_tile()` for
     treemaps and icicle plots, while others are more general purpose,
-    e.g. `geom_node_point()`.
+    e.g. `geom_node_point()`.
 3.  [**The
     Edges**](http://www.data-imaginist.com/2017/ggraph-introduction-edges/)
     are the connections between the entities in the relational

@@ -34,7 +34,8 @@ Imports:
     viridis,
     rlang,
     tidygraph,
-    graphlayouts (>= 0.5.0)
+    graphlayouts (>= 0.5.0),
+    withr
 Suggests: 
     network,
     knitr,
@@ -43,7 +44,8 @@ Suggests:
     tibble,
     seriation,
     deldir,
-    gganimate
+    gganimate,
+    covr
 LinkingTo: Rcpp
 RoxygenNote: 7.0.2
 Depends:
