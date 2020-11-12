@@ -128,6 +128,8 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         if (any(lab_len == 0)) {
           lab[lab_len == 0] <- "` `"
           lab <- sapply(X=lab, FUN=str2expression)
+        } else {
+          lab <- lab_expressions
         }
       }
       label_grob <- textAlongGrob(

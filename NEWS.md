@@ -10,6 +10,8 @@
 * Fix a bug in edge geoms due to a typo (#246)
 * Fix a bug in edge geoms where setting `label_colour` to `NA` would turn it off
   instead of inheriting the colour of the edge (#238)
+* Fix a bug in edge geoms that prevented edge labels from being parsed as 
+  expressions (#245)
 
 # ggraph 2.0.3
 
