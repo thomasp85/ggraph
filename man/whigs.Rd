@@ -4,9 +4,11 @@
 \name{whigs}
 \alias{whigs}
 \title{Membership network of American Whigs}
-\format{The data is stored as an incidence matrix with persons as rows and
+\format{
+The data is stored as an incidence matrix with persons as rows and
 organizations as columns. A 0 means no membership while a one means
-membership.}
+membership.
+}
 \source{
 \url{https://github.com/kjhealy/revere/blob/master/data/PaulRevereAppD.csv}
 adapted from:

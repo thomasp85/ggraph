@@ -34,10 +34,10 @@ each major break)
 \itemize{
 \item Function that handles limits outside of the scale limits
 (out of bounds).
-\item The default (\code{\link[scales:censor]{scales::censor()}}) replaces out of
+\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
-\item \code{\link[scales:squish]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:squish_infinite]{scales::squish_infinite()}} for squishing infitite values into range.
+\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
+\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
 }}
     \item{\code{na.value}}{Missing values will be replaced with this value.}
     \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
@@ -70,7 +70,7 @@ A ggproto object inheriting from \code{Scale}
 This set of scales defines width scales for edge geoms. Of all the new edge
 scales defined in ggraph, this is the only one not having an equivalent in
 ggplot2. In essence it mimics the use of size in
-\code{\link[ggplot2:geom_line]{ggplot2::geom_line()}} and related. As almost all edge
+\code{\link[ggplot2:geom_path]{ggplot2::geom_line()}} and related. As almost all edge
 representations are lines of some sort, edge_width will be used much more
 often than edge_size. It is not necessary to spell out that it is an edge
 scale as the geom knows if it is drawing an edge. Just write \code{width} and

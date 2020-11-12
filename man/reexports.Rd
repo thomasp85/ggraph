@@ -12,6 +12,6 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{viridis}{\code{\link[viridis]{scale_color_viridis}}, \code{\link[viridis]{scale_fill_viridis}}}
+  \item{viridis}{\code{\link[viridis:scale_viridis]{scale_color_viridis}}, \code{\link[viridis:scale_viridis]{scale_fill_viridis}}}
 }}
 

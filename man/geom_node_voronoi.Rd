@@ -28,11 +28,11 @@ the node data and group set to \code{-1}.}
 options:
 
 If \code{NULL}, the default, the data is inherited from the plot
-data as specified in the call to \code{\link[=ggplot]{ggplot()}}.
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
 
 A \code{data.frame}, or other object, will override the plot
 data. All objects will be fortified to produce a data frame. See
-\code{\link[=fortify]{fortify()}} for which variables will be created.
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
 
 A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
@@ -50,7 +50,7 @@ display.}
 
 \item{bound}{The bounding rectangle for the tesselation or a custom polygon
 to clip the tesselation to. Defaults to \code{NULL} which creates a rectangle
-expanded 10\% in all directions. If supplied as a bounding box it should be a
+expanded 10\\% in all directions. If supplied as a bounding box it should be a
 vector giving the bounds in the following order: xmin, xmax, ymin, ymax. If
 supplied as a polygon it should either be a 2-column matrix or a data.frame
 containing an \code{x} and \code{y} column.}
@@ -81,15 +81,15 @@ plot area width.}
 
 \item{radius}{As \code{expand} but specifying the corner radius.}
 
-\item{...}{Other arguments passed on to \code{\link[=layer]{layer()}}. These are
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
 often aesthetics, used to set an aesthetic to a fixed value, like
 \code{colour = "red"} or \code{size = 3}. They may also be parameters
 to the paired geom/stat.}
 }
 \description{
-This geom is equivalent in functionality to \code{\link[ggforce:geom_voronoi_tile]{ggforce::geom_voronoi_tile()}}
+This geom is equivalent in functionality to \code{\link[ggforce:geom_delvor]{ggforce::geom_voronoi_tile()}}
 and allows for plotting of nodes as tiles from a voronoi tesselation. As with
-\code{\link[ggforce:geom_voronoi_tile]{ggforce::geom_voronoi_tile()}} it is possible to restrict the size of the
+\code{\link[ggforce:geom_delvor]{ggforce::geom_voronoi_tile()}} it is possible to restrict the size of the
 tile to a fixed radius, as well as round corners and expand/contract the
 tile.
 }
