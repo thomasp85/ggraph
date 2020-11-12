@@ -1,3 +1,5 @@
+# ggraph (development version)
+
 # ggraph 2.0.3
 
 * Fix bug in `geom_edge_elbow()` that resulted in duplicated `group` columns in
