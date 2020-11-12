@@ -179,6 +179,9 @@ node_depth <- function(graph, mode) {
 }
 #' @importFrom rlang .data
 add_direction <- function(graph, pos, direction = 'out') {
+  if (igraph::gsize(graph) == 0) {
+    return(graph)
+  }
   graph <- activate(graph, 'edges')
   graph <- mutate(graph, direction = ifelse(pos$x[.data$to] < pos$x[.data$from], 'right', 'left'))
   if (direction == 'in') {

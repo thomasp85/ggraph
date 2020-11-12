@@ -3,6 +3,11 @@
 * Fix bug in faceting functions where using algorithms based on sampling 
   directly would result in errors
 * Move CI to GitHub Actions
+* Warn if a precalculated layout is passed to `layout` in `create_layout()` 
+  (#208)
+* Warn when setting `dim` to a value higher than 2 in igraph layouts (#160)
+* Fix bug when trying to plot a graph with no edges (#214)
+* Fix a bug in edge geoms due to a typo (#246)
 
 # ggraph 2.0.3
 
