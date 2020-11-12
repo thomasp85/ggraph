@@ -8,6 +8,8 @@
 * Warn when setting `dim` to a value higher than 2 in igraph layouts (#160)
 * Fix bug when trying to plot a graph with no edges (#214)
 * Fix a bug in edge geoms due to a typo (#246)
+* Fix a bug in edge geoms where setting `label_colour` to `NA` would turn it off
+  instead of inheriting the colour of the edge (#238)
 
 # ggraph 2.0.3
 

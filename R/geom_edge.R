@@ -136,7 +136,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         hjust = label_data$hjust, vjust = label_data$vjust,
         rot = label_data$angle,
         gp = gpar(
-          col = alpha(label_colour, label_alpha),
+          col = alpha(label_data$label_colour, label_data$label_alpha),
           fontsize = label_data$label_size * .pt,
           fontfamily = label_data$family,
           fontface = label_data$fontface,
