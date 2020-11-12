@@ -52,6 +52,7 @@ layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
   nodes <- new_data_frame(list(x = xy[,1],y = xy[,2]))
   nodes$circular <- FALSE
   extra_data <- as_tibble(graph, active = 'nodes')
+  warn_dropped_vars(nodes, extra_data)
   nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
   nodes
 }
@@ -68,6 +69,7 @@ layout_tbl_graph_sparse_stress <- function(graph, pivots, weights = NULL,
   nodes <- new_data_frame(list(x = xy[,1], y = xy[,2]))
   nodes$circular <- FALSE
   extra_data <- as_tibble(graph, active = 'nodes')
+  warn_dropped_vars(nodes, extra_data)
   nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
   nodes
 }

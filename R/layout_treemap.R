@@ -90,6 +90,7 @@ layout_tbl_graph_treemap <- function(graph, algorithm = 'split', weight = NULL, 
     depth = node_depth(graph, mode = direction)
   ))
   extra_data <- as_tibble(graph, active = 'nodes')
+  warn_dropped_vars(layout, extra_data)
   layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
   layout
 }

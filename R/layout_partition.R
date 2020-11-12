@@ -107,6 +107,7 @@ layout_tbl_graph_partition <- function(graph, weight = NULL, circular = FALSE, h
   layout$leaf <- degree(graph, mode = direction) == 0
   layout$depth <- node_depth(graph, mode = direction)
   extra_data <- as_tibble(graph, active = 'nodes')
+  warn_dropped_vars(layout, extra_data)
   layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
   attr(layout, 'graph') <- add_direction(graph, layout)
   layout

@@ -39,6 +39,7 @@ layout_tbl_graph_focus <- function(graph, focus, weights = NULL, niter = 500, to
   nodes <- new_data_frame(list(x = xy[,1],y = xy[,2], distance = layout$distance))
   nodes$circular <- FALSE
   extra_data <- as_tibble(graph, active = 'nodes')
+  warn_dropped_vars(nodes, extra_data)
   nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
   nodes
 }
