@@ -14,6 +14,8 @@
   expressions (#245)
 * Improve performance of dendrogram layout when calculating depth (#248)
 * Fix a bug in hive layout when segmenting by a factor with unused levels (#252)
+* Fix a bug in capping of path due to updates in grid. Setting cap unit to 
+  `native` now works as expected again (#254)
 
 # ggraph 2.0.3
 
