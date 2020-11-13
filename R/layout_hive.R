@@ -103,6 +103,9 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
     normalize_to <- lengths(axes) / max(lengths(axes))
   }
   node.pos <- Map(function(nodes, axis_length, axis, angle) {
+    if (length(nodes) == 0) {
+      return(new_data_frame())
+    }
     split_axis <- switch(
       split.axes,
       all = TRUE,
@@ -158,6 +161,7 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
       append(l, list(r + node_div + divide.size + max(l[[length(l)]])))
     }, x = node_pos[-1], init = node_pos[1])
     node_pos <- unlist(node_pos) + center.size
+
     new_data_frame(list(
       node = nodes,
       r = node_pos[match(nodes, unlist(node_split))],
@@ -170,7 +174,7 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
     ))
   }, nodes = axes, axis_length = normalize_to, axis = names(axes), angle = axis.pos)
   for (i in seq_along(node.pos)) {
-    if (node.pos[[i]]$split[1]) {
+    if (nrow(node.pos[[i]]) > 0 && node.pos[[i]]$split[1]) {
       n_new_nodes <- nrow(node.pos[[i]])
       new_node_start <- gorder(graph) + 1
       extra_nodes <- node.pos[[i]]
@@ -221,8 +225,10 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
     }
   }
   node.pos <- lapply(node.pos, function(nodes) {
-    nodes$x <- nodes$r * cos(nodes$angle)
-    nodes$y <- nodes$r * sin(nodes$angle)
+    if (nrow(nodes) > 0) {
+      nodes$x <- nodes$r * cos(nodes$angle)
+      nodes$y <- nodes$r * sin(nodes$angle)
+    }
     nodes
   })
   node.pos <- rbind_dfs(node.pos)
