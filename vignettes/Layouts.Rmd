@@ -284,7 +284,10 @@ implicitly position a node at the root. To avoid that you can use the `unrooted`
 layout instead.
 
 ```{r}
-ggraph(dendrogram, 'unrooted') + 
+tree <- create_tree(100, 2, directed = FALSE) %>% 
+  activate(edges) %>% 
+  mutate(length = runif(n()))
+ggraph(tree, 'unrooted', length = length) + 
   geom_edge_link()
 ```
 
