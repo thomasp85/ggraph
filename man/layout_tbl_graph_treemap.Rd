@@ -82,7 +82,7 @@ applications on handheld devices}. Master's Degree Project.
 
 Johnson, B., & Ben Shneiderman. (1991). \emph{Tree maps: A Space-Filling
 Approach to the Visualization of Hierarchical Information Structures}. IEEE
-Visualization, 284-291. \url{http://doi.org/10.1109/VISUAL.1991.175815}
+Visualization, 284-291. \url{https://doi.org/10.1109/VISUAL.1991.175815}
 }
 \seealso{
 Other layout_tbl_graph_*: 
