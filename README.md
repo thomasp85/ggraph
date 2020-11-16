@@ -17,7 +17,7 @@ coverage](https://codecov.io/gh/thomasp85/ggraph/branch/master/graph/badge.svg)]
 
 ## A grammar of graphics for relational data
 
-ggraph is an extension of [`ggplot2`](http://ggplot2.tidyverse.org)
+ggraph is an extension of [`ggplot2`](https://ggplot2.tidyverse.org)
 aimed at supporting relational data structures such as networks, graphs,
 and trees. While it builds upon the foundation of `ggplot2` and its API
 it comes with its own self-contained set of geoms, facets, etc., as well
@@ -55,21 +55,21 @@ ggraph(graph, layout = 'kk') +
 understand:
 
 1.  [**The
-    Layout**](http://www.data-imaginist.com/2017/ggraph-introduction-layouts/)
+    Layout**](https://www.data-imaginist.com/2017/ggraph-introduction-layouts/)
     defines how nodes are placed on the plot, that is, it is a
     conversion of the relational structure into an x and y value for
     each node in the graph. `ggraph` has access to all layout functions
     available in `igraph` and furthermore provides a large selection of
     its own, such as hive plots, treemaps, and circle packing.
 2.  [**The
-    Nodes**](http://www.data-imaginist.com/2017/ggraph-introduction-nodes/)
+    Nodes**](https://www.data-imaginist.com/2017/ggraph-introduction-nodes/)
     are the connected entities in the relational structure. These can be
     plotted using the `geom_node_*()` family of geoms. Some node geoms
     make more sense for certain layouts, e.g. `geom_node_tile()` for
     treemaps and icicle plots, while others are more general purpose,
     e.g. `geom_node_point()`.
 3.  [**The
-    Edges**](http://www.data-imaginist.com/2017/ggraph-introduction-edges/)
+    Edges**](https://www.data-imaginist.com/2017/ggraph-introduction-edges/)
     are the connections between the entities in the relational
     structure. These can be visualized using the `geom_edge_*()` family
     of geoms that contain a lot of different edge types for different
