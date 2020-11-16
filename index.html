@@ -41,7 +41,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.3.9000</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.4</span>
       </span>
     </div>
 
@@ -139,7 +139,7 @@
 <div id="a-grammar-of-graphics-for-relational-data" class="section level2">
 <h2 class="hasAnchor">
 <a href="#a-grammar-of-graphics-for-relational-data" class="anchor"></a>A grammar of graphics for relational data</h2>
-<p>ggraph is an extension of <a href="http://ggplot2.tidyverse.org"><code>ggplot2</code></a> aimed at supporting relational data structures such as networks, graphs, and trees. While it builds upon the foundation of <code>ggplot2</code> and its API it comes with its own self-contained set of geoms, facets, etc., as well as adding the concept of <em>layouts</em> to the grammar.</p>
+<p>ggraph is an extension of <a href="https://ggplot2.tidyverse.org"><code>ggplot2</code></a> aimed at supporting relational data structures such as networks, graphs, and trees. While it builds upon the foundation of <code>ggplot2</code> and its API it comes with its own self-contained set of geoms, facets, etc., as well as adding the concept of <em>layouts</em> to the grammar.</p>
 <div id="an-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#an-example" class="anchor"></a>An example</h3>
@@ -171,11 +171,11 @@
 <p><code>ggraph</code> builds upon three core concepts that are quite easy to understand:</p>
 <ol>
 <li>
-<a href="http://www.data-imaginist.com/2017/ggraph-introduction-layouts/"><strong>The Layout</strong></a> defines how nodes are placed on the plot, that is, it is a conversion of the relational structure into an x and y value for each node in the graph. <code>ggraph</code> has access to all layout functions available in <code>igraph</code> and furthermore provides a large selection of its own, such as hive plots, treemaps, and circle packing.</li>
+<a href="https://www.data-imaginist.com/2017/ggraph-introduction-layouts/"><strong>The Layout</strong></a> defines how nodes are placed on the plot, that is, it is a conversion of the relational structure into an x and y value for each node in the graph. <code>ggraph</code> has access to all layout functions available in <code>igraph</code> and furthermore provides a large selection of its own, such as hive plots, treemaps, and circle packing.</li>
 <li>
-<a href="http://www.data-imaginist.com/2017/ggraph-introduction-nodes/"><strong>The Nodes</strong></a> are the connected entities in the relational structure. These can be plotted using the <code>geom_node_*()</code> family of geoms. Some node geoms make more sense for certain layouts, e.g. <code><a href="reference/geom_node_tile.html">geom_node_tile()</a></code> for treemaps and icicle plots, while others are more general purpose, e.g. <code><a href="reference/geom_node_point.html">geom_node_point()</a></code>.</li>
+<a href="https://www.data-imaginist.com/2017/ggraph-introduction-nodes/"><strong>The Nodes</strong></a> are the connected entities in the relational structure. These can be plotted using the <code>geom_node_*()</code> family of geoms. Some node geoms make more sense for certain layouts, e.g. <code><a href="reference/geom_node_tile.html">geom_node_tile()</a></code> for treemaps and icicle plots, while others are more general purpose, e.g. <code><a href="reference/geom_node_point.html">geom_node_point()</a></code>.</li>
 <li>
-<a href="http://www.data-imaginist.com/2017/ggraph-introduction-edges/"><strong>The Edges</strong></a> are the connections between the entities in the relational structure. These can be visualized using the <code>geom_edge_*()</code> family of geoms that contain a lot of different edge types for different scenarios. Sometimes the edges are implied by the layout (e.g. with treemaps) and need not be plotted, but often some sort of line is warranted.</li>
+<a href="https://www.data-imaginist.com/2017/ggraph-introduction-edges/"><strong>The Edges</strong></a> are the connections between the entities in the relational structure. These can be visualized using the <code>geom_edge_*()</code> family of geoms that contain a lot of different edge types for different scenarios. Sometimes the edges are implied by the layout (e.g. with treemaps) and need not be plotted, but often some sort of line is warranted.</li>
 </ol>
 <p>All of the tree concepts have been discussed in detail in dedicated blog posts that are also available as vignettes in the package. Please refer to these for more information.</p>
 <blockquote>
