@@ -1,3 +1,5 @@
+# ggraph (development version)
+
 # ggraph 2.0.4
 
 * Fix bug in faceting functions where using algorithms based on sampling 
