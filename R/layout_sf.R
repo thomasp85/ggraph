@@ -1,6 +1,6 @@
 #' Place nodes on their geographical space
 #'
-#' This layout is built for `sfnetwork` objects and is meant to
+#' This layout is built for objects of class `sfnetwork` and is meant to
 #' plot a graph on its geographical space, by extracting its X and Y coordinates
 #'
 #' @param graph A sfnetwork object
@@ -14,9 +14,15 @@ layout_tbl_graph_sf <- function(graph, circular = FALSE) {
   if (!requireNamespace("sf", quietly = TRUE)) {
     stop("Package sf required, please install it first.", call. = FALSE)
   }
+  # Check the presence of sfnetworks.
+  if (!requireNamespace("sfnetworks", quietly = TRUE)) {
+    stop("Package sfnetworks required, please install it first.", call. = FALSE)
+  }
+  # Extract X and Y coordinates from the nodes
   graph <- activate(graph, "nodes")
   x <- sf::st_coordinates(graph)[,"X"]
   y <- sf::st_coordinates(graph)[,"Y"]
+  # Create layout data frame
   nodes <- new_data_frame(list(x = x, y = y))
   extra_data <- sf::st_drop_geometry(as_tibble(graph, active = "nodes"))
   warn_dropped_vars(nodes, extra_data)
