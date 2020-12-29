@@ -1,79 +1,12 @@
-# EcoNetGen
+# NA
 
 <details>
 
-* Version: 0.2.3
-* Source code: https://github.com/cran/EcoNetGen
-* URL: https://github.com/cboettig/EcoNetGen
-* BugReports: https://github.com/cboettig/EcoNetGen/issues
-* Date/Publication: 2019-07-13 23:30:14 UTC
-* Number of recursive dependencies: 73
-
-Run `revdep_details(,"EcoNetGen")` for more info
-
-</details>
-
-## In both
-
-*   checking whether package ‘EcoNetGen’ can be installed ... ERROR
-    ```
-    Installation failed.
-    See ‘/Users/thomas/Dropbox/GitHub/ggraph/revdep/checks.noindex/EcoNetGen/new/EcoNetGen.Rcheck/00install.out’ for details.
-    ```
-
-## Installation
-
-### Devel
-
-```
-* installing *source* package ‘EcoNetGen’ ...
-** package ‘EcoNetGen’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-gfortran  -fPIC  -Wall -g -O2  -c  FortranNetGen.f90 -o FortranNetGen.o
-gfortran  -fPIC  -Wall -g -O2  -c  FortranSampling.f90 -o FortranSampling.o
-clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c zzz.c -o zzz.o
-clang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o EcoNetGen.so FortranNetGen.o FortranSampling.o zzz.o -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0'
-ld: warning: directory not found for option '-L/usr/local/gfortran/lib'
-ld: library not found for -lgfortran
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
-make: *** [EcoNetGen.so] Error 1
-ERROR: compilation failed for package ‘EcoNetGen’
-* removing ‘/Users/thomas/Dropbox/GitHub/ggraph/revdep/checks.noindex/EcoNetGen/new/EcoNetGen.Rcheck/EcoNetGen’
-
-```
-### CRAN
-
-```
-* installing *source* package ‘EcoNetGen’ ...
-** package ‘EcoNetGen’ successfully unpacked and MD5 sums checked
-** using staged installation
-** libs
-gfortran  -fPIC  -Wall -g -O2  -c  FortranNetGen.f90 -o FortranNetGen.o
-gfortran  -fPIC  -Wall -g -O2  -c  FortranSampling.f90 -o FortranSampling.o
-clang -I"/Library/Frameworks/R.framework/Resources/include" -DNDEBUG   -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX.sdk -I/usr/local/include  -fPIC  -Wall -g -O2  -c zzz.c -o zzz.o
-clang -dynamiclib -Wl,-headerpad_max_install_names -undefined dynamic_lookup -single_module -multiply_defined suppress -L/Library/Frameworks/R.framework/Resources/lib -L/usr/local/lib -o EcoNetGen.so FortranNetGen.o FortranSampling.o zzz.o -L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0 -L/usr/local/gfortran/lib -lgfortran -lquadmath -lm -F/Library/Frameworks/R.framework/.. -framework R -Wl,-framework -Wl,CoreFoundation
-ld: warning: directory not found for option '-L/usr/local/gfortran/lib/gcc/x86_64-apple-darwin15/6.1.0'
-ld: warning: directory not found for option '-L/usr/local/gfortran/lib'
-ld: library not found for -lgfortran
-clang: error: linker command failed with exit code 1 (use -v to see invocation)
-make: *** [EcoNetGen.so] Error 1
-ERROR: compilation failed for package ‘EcoNetGen’
-* removing ‘/Users/thomas/Dropbox/GitHub/ggraph/revdep/checks.noindex/EcoNetGen/old/EcoNetGen.Rcheck/EcoNetGen’
-
-```
-# ReactomePA
-
-<details>
-
-* Version: 
-* Source code: ???
-* URL: https://github.com/thomasp85/ggraph
-* BugReports: https://github.com/thomasp85/ggraph/issues
+* Version: NA
+* Source code: https://github.com/cran/NA
 * Number of recursive dependencies: 0
 
-Run `revdep_details(,"")` for more info
+Run `cloud_details(, "NA")` for more info
 
 </details>
 
@@ -83,15 +16,8 @@ Run `revdep_details(,"")` for more info
 
 ```
 
-  There are binary versions available but the source versions are later:
-         binary source needs_compilation
-bookdown   0.12   0.13             FALSE
-sys         3.2    3.3              TRUE
-
-  Binaries will be installed
 
 
-installing the source packages ‘bookdown’, ‘reactome.db’
 
 
 
@@ -100,15 +26,77 @@ installing the source packages ‘bookdown’, ‘reactome.db’
 
 ```
 
-  There are binary versions available but the source versions are later:
-         binary source needs_compilation
-bookdown   0.12   0.13             FALSE
-sys         3.2    3.3              TRUE
-
-  Binaries will be installed
 
 
-installing the source packages ‘bookdown’, ‘reactome.db’
+
+
+
+```
+# phylopath
+
+<details>
+
+* Version: 1.1.2
+* Source code: https://github.com/cran/phylopath
+* URL: http://Ax3man.github.io/phylopath/
+* BugReports: https://github.com/Ax3man/phylopath/issues
+* Date/Publication: 2019-12-07 01:10:07 UTC
+* Number of recursive dependencies: 94
+
+Run `cloud_details(, "phylopath")` for more info
+
+</details>
+
+## Error before installation
+
+### Devel
+
+```
+* using log directory ‘/tmp/workdir/phylopath/new/phylopath.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘phylopath/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘phylopath’ version ‘1.1.2’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'ggm', 'phylolm'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
+
+
+
+```
+### CRAN
+
+```
+* using log directory ‘/tmp/workdir/phylopath/old/phylopath.Rcheck’
+* using R version 3.6.3 (2020-02-29)
+* using platform: x86_64-pc-linux-gnu (64-bit)
+* using session charset: UTF-8
+* using options ‘--no-manual --no-build-vignettes’
+* checking for file ‘phylopath/DESCRIPTION’ ... OK
+* checking extension type ... Package
+* this is package ‘phylopath’ version ‘1.1.2’
+* checking package namespace information ... OK
+* checking package dependencies ... ERROR
+Packages required but not available: 'ggm', 'phylolm'
+
+See section ‘The DESCRIPTION file’ in the ‘Writing R Extensions’
+manual.
+* DONE
+Status: 1 ERROR
+
+
+
 
 
 

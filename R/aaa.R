@@ -67,3 +67,10 @@ make_unique <- function(x, sep = '.') {
   suffix_format <- paste0('%0', max_chars, 'd')
   paste0(x, sep, sprintf(suffix_format, suffix))
 }
+
+warn_dropped_vars <- function(layout, data) {
+  overlap <- intersect(names(layout), names(data))
+  if (length(overlap) > 0 && !identical(as.list(layout[overlap]), as.list(data[overlap]))) {
+    warning('Existing variables ', paste(paste0('`', overlap, '`'), collapse = ', '), ' overwritten by layout variables', call. = FALSE)
+  }
+}

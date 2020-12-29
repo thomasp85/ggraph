@@ -46,12 +46,13 @@
 layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2, height = NULL, length = NULL, repel = FALSE, ratio = 1, direction = 'out') {
   height <- enquo(height)
   length <- enquo(length)
+  reverse_dir <- if (direction == 'out') 'in' else 'out'
   if (quo_is_null(height)) {
     if (quo_is_null(length)) {
       height <- NA
     } else {
       length <- eval_tidy(length, .E())
-      full_lengths <- distances(graph, to = node_is_root(), weights = length)
+      full_lengths <- distances(graph, to = node_is_root(), weights = length, mode = reverse_dir)
       full_lengths[is.infinite(full_lengths)] <- 0
       height <- unname(apply(full_lengths, 1, max))
       height <- abs(height - max(height))
@@ -59,7 +60,6 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
   } else {
     height <- eval_tidy(height, .N())
   }
-  reverse_dir <- if (direction == 'out') 'in' else 'out'
   nodes <- new_data_frame(list(
     x = rep(NA_real_, gorder(graph)),
     y = height,
@@ -113,6 +113,7 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
     nodes$y <- coords$y
   }
   extra_data <- as_tibble(graph, active = 'nodes')
+  warn_dropped_vars(nodes, extra_data)
   nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
   nodes$circular <- circular
   attr(nodes, 'graph') <- graph

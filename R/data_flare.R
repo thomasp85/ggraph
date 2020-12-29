@@ -1,7 +1,7 @@
 #' The class hierarchy of the flare visualization library
 #'
 #' This dataset contains the graph that describes the class hierarchy for the
-#' [Flare](http://flare.prefuse.org) ActionScript visualization library. It
+#' [Flare](https://blokt.com/tool/prefuse-flare) ActionScript visualization library. It
 #' contains both the class hierarchy as well as the import connections between
 #' classes. This dataset has been used extensively in the D3.js documentation
 #' and examples and are included here to make it easy to redo the examples in

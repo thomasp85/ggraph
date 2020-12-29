@@ -41,6 +41,13 @@ facet_graph <- function(facets, row_type = 'edge', col_type = 'node',
     space = space, shrink = shrink, labeller = labeller,
     as.table = as.table, switch = switch, drop = drop
   )
+  seed <- sample(.Machine$integer.max, 1L)
+  facet$params$rows[] <- lapply(seq_along(facet$params$rows), function(i) {
+    rlang::quo(withr::with_seed(seed, !!facet$params$rows[[i]]))
+  })
+  facet$params$cols[] <- lapply(seq_along(facet$params$cols), function(i) {
+    rlang::quo(withr::with_seed(seed, !!facet$params$cols[[i]]))
+  })
 
   ggproto(NULL, FacetGraph,
     shrink = shrink,
@@ -139,7 +146,7 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
         })
         panel <- rep(seq_along(node_map), vapply(node_map, nrow, numeric(1)))
         node_map <- rbind_dfs(node_map)
-        node_map$PANEL <- as.factor(panel)
+        node_map$PANEL <- factor(panel, levels = levels(layout$PANEL))
         node_map
       }, {
         FacetGrid$map_data(data, layout, params)
@@ -180,6 +187,7 @@ expand_facet_map <- function(map, layout) {
       map <- rbind_dfs(map)
     }
   }
+  map$PANEL <- factor(map$PANEL, levels = levels(layout$PANEL))
   map
 }
 df.grid <- function(a, b) {
@@ -198,8 +206,7 @@ ulevels <- function(x) {
   if (is.factor(x)) {
     x <- addNA(x, TRUE)
     factor(levels(x), levels(x), exclude = NULL)
-  }
-  else {
+  } else {
     sort(unique(x))
   }
 }

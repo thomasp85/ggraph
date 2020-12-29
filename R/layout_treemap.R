@@ -65,7 +65,7 @@
 #'
 #' Johnson, B., & Ben Shneiderman. (1991). *Tree maps: A Space-Filling
 #' Approach to the Visualization of Hierarchical Information Structures*. IEEE
-#' Visualization, 284-291. <http://doi.org/10.1109/VISUAL.1991.175815>
+#' Visualization, 284-291. <https://doi.org/10.1109/VISUAL.1991.175815>
 #'
 #' @family layout_tbl_graph_*
 #'
@@ -90,6 +90,7 @@ layout_tbl_graph_treemap <- function(graph, algorithm = 'split', weight = NULL, 
     depth = node_depth(graph, mode = direction)
   ))
   extra_data <- as_tibble(graph, active = 'nodes')
+  warn_dropped_vars(layout, extra_data)
   layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
   layout
 }

@@ -114,7 +114,11 @@ layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi / 2,
   if (algorithm == 'layout_as_tree') {
     layout[, 1] <- layout[, 1] + components(graph)$membership - 1
   }
+  if ('dim' %in% names(dots) && isTRUE(dots$dim > 2)) {
+    warning('Only the first two dimensions will be used despite requesting more', call. = FALSE)
+  }
   extra_data <- as_tibble(graph, active = 'nodes')
+  warn_dropped_vars(data.frame(x = 1, y = 1), extra_data)
   layout <- cbind(x = layout[, 1], y = layout[, 2], extra_data[, !names(extra_data) %in% c('x', 'y'), drop = FALSE])
   graph <- add_direction(graph, layout)
   if (circular) {

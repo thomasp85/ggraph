@@ -1,5 +1,28 @@
 # ggraph (development version)
 
+# ggraph 2.0.4
+
+* Fix bug in faceting functions where using algorithms based on sampling 
+  directly would result in errors
+* Move CI to GitHub Actions
+* Warn if a precalculated layout is passed to `layout` in `create_layout()` 
+  (#208)
+* Warn when setting `dim` to a value higher than 2 in igraph layouts (#160)
+* Fix bug when trying to plot a graph with no edges (#214)
+* Fix a bug in edge geoms due to a typo (#246)
+* Fix a bug in edge geoms where setting `label_colour` to `NA` would turn it off
+  instead of inheriting the colour of the edge (#238)
+* Fix a bug in edge geoms that prevented edge labels from being parsed as 
+  expressions (#245)
+* Improve performance of dendrogram layout when calculating depth (#248)
+* Fix a bug in hive layout when segmenting by a factor with unused levels (#252)
+* Fix a bug in capping of path due to updates in grid. Setting cap unit to 
+  `native` now works as expected again (#254)
+* Fix a bug in `get_con()` that would require input to be sorted in the `from`
+  vector (#258)
+
+# ggraph 2.0.3
+
 * Fix bug in `geom_edge_elbow()` that resulted in duplicated `group` columns in
   the data.
 
