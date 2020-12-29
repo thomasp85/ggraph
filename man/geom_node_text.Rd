@@ -131,6 +131,7 @@ Other geom_node_*:
 \code{\link{geom_node_circle}()},
 \code{\link{geom_node_point}()},
 \code{\link{geom_node_range}()},
+\code{\link{geom_node_sf}()},
 \code{\link{geom_node_tile}()},
 \code{\link{geom_node_voronoi}()}
 }

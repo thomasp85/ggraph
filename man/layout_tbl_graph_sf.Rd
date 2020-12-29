@@ -15,7 +15,7 @@ layout_tbl_graph_sf(graph, circular = FALSE)
 A data.frame with the columns \code{x}, \code{y}, \code{circular}.
 }
 \description{
-This layout is built for \code{sfnetwork} objects and is meant to
+This layout is built for objects of class \code{sfnetwork} and is meant to
 plot a graph on its geographical space, by extracting its X and Y coordinates
 }
 \seealso{
