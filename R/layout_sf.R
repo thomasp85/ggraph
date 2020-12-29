@@ -18,9 +18,9 @@ layout_tbl_graph_sf <- function(graph, circular = FALSE) {
   x <- sf::st_coordinates(graph)[,"X"]
   y <- sf::st_coordinates(graph)[,"Y"]
   nodes <- new_data_frame(list(x = x, y = y))
-  # extra_data <- sf::st_drop_geometry(as_tibble(graph, active = "nodes"))
-  # warn_dropped_vars(nodes, extra_data)
-  # nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
+  extra_data <- sf::st_drop_geometry(as_tibble(graph, active = "nodes"))
+  warn_dropped_vars(nodes, extra_data)
+  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
   nodes$circular <- FALSE
   attr(nodes, 'graph') <- graph
   nodes
