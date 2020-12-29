@@ -53,7 +53,7 @@
 #' Holten, D. (2006). *Hierarchical edge bundles: visualization
 #' of adjacency relations in hierarchical data.* IEEE Transactions on
 #' Visualization and Computer Graphics, **12**(5), 741-748.
-#' <http://doi.org/10.1109/TVCG.2006.147>
+#' <https://doi.org/10.1109/TVCG.2006.147>
 #'
 #' @examples
 #' # Create a graph of the flare class system

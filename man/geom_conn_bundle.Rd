@@ -144,7 +144,7 @@ ggraph(flareGraph, 'dendrogram', circular = TRUE) +
 Holten, D. (2006). \emph{Hierarchical edge bundles: visualization
 of adjacency relations in hierarchical data.} IEEE Transactions on
 Visualization and Computer Graphics, \strong{12}(5), 741-748.
-\url{http://doi.org/10.1109/TVCG.2006.147}
+\url{https://doi.org/10.1109/TVCG.2006.147}
 }
 \author{
 Thomas Lin Pedersen

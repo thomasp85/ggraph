@@ -41,14 +41,15 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       start_captype <- geo_type(scap)
       start_cap <- geo_width(scap)
       start_cap2 <- geo_height(scap)
-      if (any(attr(start_cap, 'unit') == 'native') ||
-        any(attr(start_cap2, 'unit') == 'native')) {
+      native_start <- grepl('native', as.character(start_cap))
+      native_start2 <- grepl('native', as.character(start_cap2))
+      if (any(native_start) || any(native_start2)) {
         recalc <- coord$transform(
-          new_data_Frame(list(x = as.vector(start_cap), y = as.vector(start_cap2))),
+          new_data_frame(list(x = as.vector(start_cap), y = as.vector(start_cap2))),
           panel_scales
         )
-        start_cap[attr(start_cap, 'unit') == 'native'] <- unit(recalc$x - zero$x, 'npc')
-        start_cap2[attr(start_cap2, 'unit') == 'native'] <- unit(recalc$y - zero$y, 'npc')
+        start_cap[native_start] <- unit(recalc$x - zero$x, 'npc')[native_start]
+        start_cap2[native_start2] <- unit(recalc$y - zero$y, 'npc')[native_start2]
       }
     }
     if (all(is.na(data$end_cap))) {
@@ -60,14 +61,15 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       end_captype <- geo_type(ecap)
       end_cap <- geo_width(ecap)
       end_cap2 <- geo_height(ecap)
-      if (any(attr(end_cap, 'unit') == 'native') ||
-        any(attr(end_cap2, 'unit') == 'native')) {
+      native_end <- grepl('native', as.character(end_cap))
+      native_end2 <- grepl('native', as.character(end_cap2))
+      if (any(native_end) || any(native_end2)) {
         recalc <- coord$transform(
           new_data_frame(list(x = as.vector(end_cap), y = as.vector(end_cap2))),
           panel_scales
         )
-        end_cap[attr(end_cap, 'unit') == 'native'] <- unit(recalc$x - zero$x, 'native')
-        end_cap2[attr(end_cap2, 'unit') == 'native'] <- unit(recalc$y - zero$y, 'native')
+        end_cap[native_end] <- unit(recalc$x - zero$x, 'native')[native_end]
+        end_cap2[native_end2] <- unit(recalc$y - zero$y, 'native')[native_end2]
       }
     }
     if ((is.null(start_cap) && !is.null(end_cap)) ||
@@ -128,6 +130,8 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         if (any(lab_len == 0)) {
           lab[lab_len == 0] <- "` `"
           lab <- sapply(X=lab, FUN=str2expression)
+        } else {
+          lab <- lab_expressions
         }
       }
       label_grob <- textAlongGrob(
@@ -136,7 +140,7 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
         hjust = label_data$hjust, vjust = label_data$vjust,
         rot = label_data$angle,
         gp = gpar(
-          col = alpha(label_colour, label_alpha),
+          col = alpha(label_data$label_colour, label_data$label_alpha),
           fontsize = label_data$label_size * .pt,
           fontfamily = label_data$family,
           fontface = label_data$fontface,

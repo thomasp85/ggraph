@@ -50,6 +50,7 @@ layout_tbl_graph_unrooted <- function(graph, daylight = TRUE, length = NULL, tol
     circular = FALSE,
     leaf = degree(graph) == 1
   ))
+  warn_dropped_vars(layout, extra_data)
   layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
   layout
 }

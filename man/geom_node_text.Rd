@@ -91,7 +91,7 @@ to the paired geom/stat.}
 }
 \description{
 These geoms are equivalent in functionality to \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} and
-\code{\link[ggplot2:geom_label]{ggplot2::geom_label()}} and allows for simple annotation of nodes.
+\code{\link[ggplot2:geom_text]{ggplot2::geom_label()}} and allows for simple annotation of nodes.
 }
 \section{Aesthetics}{
 

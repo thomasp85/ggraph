@@ -4,8 +4,13 @@
 #'
 #' @export
 create_layout <- function(graph, layout, circular, ...) {
+  if (is_layout(layout)) {
+    warning('Ignoring `graph` as layout is already calculated. Pass the calculated layout to the `graph` argument to silence this warning', call. = FALSE)
+    return(layout)
+  }
   UseMethod('create_layout', graph)
 }
+is_layout <- function(x) inherits(x, 'layout_ggraph')
 #' @rdname ggraph
 #' @export
 create_layout.default <- function(graph, layout, ...) {

@@ -31,6 +31,10 @@ facet_nodes <- function(facets, nrow = NULL, ncol = NULL, scales = 'fixed',
     as.table = as.table, switch = switch, drop = drop,
     dir = dir, strip.position = strip.position
   )
+  seed <- sample(.Machine$integer.max, 1L)
+  facet$params$facets[] <- lapply(seq_along(facet$params$facets), function(i) {
+    rlang::quo(withr::with_seed(seed, !!facet$params$facets[[i]]))
+  })
   ggproto(NULL, FacetNodes,
     shrink = shrink,
     params = facet$params
@@ -68,7 +72,7 @@ FacetNodes <- ggproto('FacetNodes', FacetWrap,
         }, map = rep(list(data), length(node_placement)), nodes = node_placement)
         panel <- rep(seq_along(edge_map), vapply(edge_map, nrow, numeric(1)))
         edge_map <- rbind_dfs(edge_map)
-        edge_map$PANEL <- as.factor(panel)
+        edge_map$PANEL <- factor(panel, levels = levels(layout$PANEL))
         edge_map
       },
       node_ggraph = , {
