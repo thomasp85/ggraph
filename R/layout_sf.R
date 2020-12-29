@@ -9,19 +9,19 @@
 #' @return A data.frame with the columns `x`, `y`, `circular`.
 #'
 #' @family layout_tbl_graph_*
-#'
-#' @importFrom sf st_coordinates
 layout_tbl_graph_sf <- function(graph, circular = FALSE) {
-
-  graph = activate(graph, "nodes")
-
-  x <- st_coordinates(graph)[,"X"]
-  y <- st_coordinates(graph)[,"Y"]
-
-  layout <- new_data_frame(list(x = x, y = y))
-
-  layout$circular <- FALSE
-
-  attr(layout, 'graph') <- graph
-  layout
+  # Check the presence of sf.
+  if (!requireNamespace("sf", quietly = TRUE)) {
+    stop("Package sf required, please install it first.", call. = FALSE)
+  }
+  graph <- activate(graph, "nodes")
+  x <- sf::st_coordinates(graph)[,"X"]
+  y <- sf::st_coordinates(graph)[,"Y"]
+  nodes <- new_data_frame(list(x = x, y = y))
+  # extra_data <- sf::st_drop_geometry(as_tibble(graph, active = "nodes"))
+  # warn_dropped_vars(nodes, extra_data)
+  # nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
+  nodes$circular <- FALSE
+  attr(nodes, 'graph') <- graph
+  nodes
 }
