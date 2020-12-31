@@ -268,6 +268,7 @@ Other geom_edge_*:
 \code{\link{geom_edge_link}()},
 \code{\link{geom_edge_loop}()},
 \code{\link{geom_edge_point}()},
+\code{\link{geom_edge_sf}()},
 \code{\link{geom_edge_span}()},
 \code{\link{geom_edge_tile}()}
 }

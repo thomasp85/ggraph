@@ -23,10 +23,11 @@
 #' @family geom_node_*
 #'
 #' @examples
-#' require(sfnetworks)
-#' gr <- as_sfnetwork(roxel)
+#' if (require("sfnetworks", quietly = TRUE)) {
+#'   gr <- as_sfnetwork(roxel)
+#'   ggraph(gr, 'sf') + geom_node_sf()
+#' }
 #'
-#' ggraph(gr, 'sf') + geom_node_sf()
 #' @export
 #'
 geom_node_sf <- function(mapping = NULL, data = get_sf_nodes(), stat = 'sf',
@@ -43,6 +44,8 @@ geom_node_sf <- function(mapping = NULL, data = get_sf_nodes(), stat = 'sf',
 
 get_sf_nodes <- function(){
   function(layout) {
-    sf::st_as_sf(attr(layout, "graph"), "nodes")
+    nodes <- sf::st_as_sf(attr(layout, "graph"), "nodes")
+    attr(nodes, 'type_ggraph') <- 'node_ggraph'
+    nodes
   }
 }

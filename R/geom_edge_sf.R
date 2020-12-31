@@ -1,13 +1,42 @@
 #' Draw edges as LINESTRINGs in geographical space
+#'
+#' This geom is equivalent in functionality to [ggplot2::geom_sf()] for `LINESTRING`
+#' geometries and allows for plotting of edges in their geographical space in
+#' different colours, linetypes and widths.
+#'
+#' @section Aesthetics:
+#' `geom_node_sf` understand the following aesthetics.
+#'
+#' - alpha
+#' - colour
+#' - linetype
+#' - width
+#'
+#' @inheritParams ggplot2::geom_sf
+#'
+#' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
+#' or [ggplot2::aes_()]. By default x and y are mapped to x and y in
+#' the node data.
+#'
+#' @author Lorena Abad
+#'
+#' @family geom_edge_*
+#'
+#' @examples
+#' if (require("sfnetworks", quietly = TRUE)) {
+#'   gr <- as_sfnetwork(roxel)
+#'   ggraph(gr, 'sf') + geom_edge_sf()
+#' }
+#'
 #' @export
 #'
 geom_edge_sf <- function(mapping = NULL, data = get_sf_edges(), stat = 'sf',
                          position = 'identity', show.legend = NA, ...) {
-  # mapping <- complete_edge_aes(mapping)
+  mapping <- complete_edge_aes(mapping)
   c(
     layer_sf(
-      geom = GeomSf, data = data, mapping = mapping, stat = stat,
-      position = position, show.legend = show.legend, inherit.aes = FALSE,
+      geom = GeomEdgeSf, data = data, mapping = mapping, stat = stat,
+      position = position, show.legend = show.legend, inherit.aes = TRUE,
       params = list(na.rm = FALSE, ...)
     ),
     coord_sf(default = TRUE)
@@ -16,6 +45,20 @@ geom_edge_sf <- function(mapping = NULL, data = get_sf_edges(), stat = 'sf',
 
 get_sf_edges <- function(){
   function(layout) {
-    sf::st_as_sf(attr(layout, "graph"), "edges")
+    edges <- sf::st_as_sf(attr(layout, "graph"), "edges")
+    attr(edges, 'type_ggraph') <- 'edge_ggraph'
+    edges
   }
 }
+
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @export
+GeomEdgeSf = ggproto("GeomEdgeSf", GeomSf,
+  draw_panel = function(data, panel_params, coords) {
+    names(data) <- sub('edge_', '', names(data))
+    names(data)[names(data) == 'width'] <- 'size'
+    GeomSf$draw_panel(data, panel_params, coords)
+  }
+)

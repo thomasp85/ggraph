@@ -4,8 +4,9 @@
 %   R/geom_edge_arc.R, R/geom_edge_bend.R, R/geom_edge_density.R,
 %   R/geom_edge_diagonal.R, R/geom_edge_elbow.R, R/geom_edge_fan.R,
 %   R/geom_edge_hive.R, R/geom_edge_link.R, R/geom_edge_loop.R,
-%   R/geom_edge_parallel.R, R/geom_node_arc_bar.R, R/geom_node_circle.R,
-%   R/geom_node_tile.R, R/geom_node_voronoi.R, R/ggproto-classes.R
+%   R/geom_edge_parallel.R, R/geom_edge_sf.R, R/geom_node_arc_bar.R,
+%   R/geom_node_circle.R, R/geom_node_tile.R, R/geom_node_voronoi.R,
+%   R/ggproto-classes.R
 \docType{data}
 \name{StatFilter}
 \alias{StatFilter}
@@ -54,6 +55,7 @@
 \alias{StatEdgeParallel}
 \alias{StatEdgeParallel2}
 \alias{StatEdgeParallel0}
+\alias{GeomEdgeSf}
 \alias{StatNodeArcBar}
 \alias{StatNodeCircle}
 \alias{GeomNodeTile}

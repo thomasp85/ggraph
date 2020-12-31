@@ -68,10 +68,11 @@ different shapes, colours and sizes.
 }
 
 \examples{
-require(sfnetworks)
-gr <- as_sfnetwork(roxel)
+if (require("sfnetworks", quietly = TRUE)) {
+  gr <- as_sfnetwork(roxel)
+  ggraph(gr, 'sf') + geom_node_sf()
+}
 
-ggraph(gr, 'sf') + geom_node_sf()
 }
 \seealso{
 Other geom_node_*: 

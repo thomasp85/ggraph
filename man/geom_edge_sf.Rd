@@ -6,13 +6,91 @@
 \usage{
 geom_edge_sf(
   mapping = NULL,
-  data = get_sf_nodes(),
+  data = get_sf_edges(),
   stat = "sf",
   position = "identity",
   show.legend = NA,
   ...
 )
 }
-\description{
-Draw edges as LINESTRINGs in geographical space
+\arguments{
+\item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x and y are mapped to x and y in
+the node data.}
+
+\item{data}{The data to be displayed in this layer. There are three
+options:
+
+If \code{NULL}, the default, the data is inherited from the plot
+data as specified in the call to \code{\link[ggplot2:ggplot]{ggplot()}}.
+
+A \code{data.frame}, or other object, will override the plot
+data. All objects will be fortified to produce a data frame. See
+\code{\link[ggplot2:fortify]{fortify()}} for which variables will be created.
+
+A \code{function} will be called with a single argument,
+the plot data. The return value must be a \code{data.frame}, and
+will be used as the layer data. A \code{function} can be created
+from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
+
+\item{stat}{The statistical transformation to use on the data for this
+layer, as a string.}
+
+\item{position}{Position adjustment, either as a string, or the result of
+a call to a position adjustment function.}
+
+\item{show.legend}{logical. Should this layer be included in the legends?
+\code{NA}, the default, includes if any aesthetics are mapped.
+\code{FALSE} never includes, and \code{TRUE} always includes.
+
+You can also set this to one of "polygon", "line", and "point" to
+override the default legend.}
+
+\item{...}{Other arguments passed on to \code{\link[ggplot2:layer]{layer()}}. These are
+often aesthetics, used to set an aesthetic to a fixed value, like
+\code{colour = "red"} or \code{size = 3}. They may also be parameters
+to the paired geom/stat.}
 }
+\description{
+This geom is equivalent in functionality to \code{\link[ggplot2:ggsf]{ggplot2::geom_sf()}} for \code{LINESTRING}
+geometries and allows for plotting of edges in their geographical space in
+different colours, linetypes and widths.
+}
+\section{Aesthetics}{
+
+\code{geom_node_sf} understand the following aesthetics.
+\itemize{
+\item alpha
+\item colour
+\item linetype
+\item width
+}
+}
+
+\examples{
+if (require("sfnetworks", quietly = TRUE)) {
+  gr <- as_sfnetwork(roxel)
+  ggraph(gr, 'sf') + geom_edge_sf()
+}
+
+}
+\seealso{
+Other geom_edge_*: 
+\code{\link{geom_edge_arc}()},
+\code{\link{geom_edge_bend}()},
+\code{\link{geom_edge_density}()},
+\code{\link{geom_edge_diagonal}()},
+\code{\link{geom_edge_elbow}()},
+\code{\link{geom_edge_fan}()},
+\code{\link{geom_edge_hive}()},
+\code{\link{geom_edge_link}()},
+\code{\link{geom_edge_loop}()},
+\code{\link{geom_edge_parallel}()},
+\code{\link{geom_edge_point}()},
+\code{\link{geom_edge_span}()},
+\code{\link{geom_edge_tile}()}
+}
+\author{
+Lorena Abad
+}
+\concept{geom_edge_*}
