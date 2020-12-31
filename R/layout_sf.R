@@ -3,7 +3,7 @@
 #' This layout is built for objects of class `sfnetwork` and is meant to
 #' plot a graph on its geographical space, by extracting its X and Y coordinates
 #'
-#' @param graph A sfnetwork object
+#' @param graph An sfnetwork object
 #' @param circular ignored
 #'
 #' @return A data.frame with the columns `x`, `y`, `circular`.
@@ -13,10 +13,6 @@ layout_tbl_graph_sf <- function(graph, circular = FALSE) {
   # Check the presence of sf.
   if (!requireNamespace("sf", quietly = TRUE)) {
     stop("Package sf required, please install it first.", call. = FALSE)
-  }
-  # Check the presence of sfnetworks.
-  if (!requireNamespace("sfnetworks", quietly = TRUE)) {
-    stop("Package sfnetworks required, please install it first.", call. = FALSE)
   }
   # Extract X and Y coordinates from the nodes
   graph <- activate(graph, "nodes")

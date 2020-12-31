@@ -7,7 +7,7 @@
 layout_tbl_graph_sf(graph, circular = FALSE)
 }
 \arguments{
-\item{graph}{A sfnetwork object}
+\item{graph}{An sfnetwork object}
 
 \item{circular}{ignored}
 }
