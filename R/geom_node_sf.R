@@ -24,8 +24,9 @@
 #'
 #' @examples
 #' if (require("sfnetworks", quietly = TRUE)) {
-#'   gr <- as_sfnetwork(roxel)
-#'   ggraph(gr, 'sf') + geom_node_sf()
+#'   gr <- as_sfnetwork(roxel) %>%
+#'     mutate(centrality = centrality_betweenness())
+#'   ggraph(gr, 'sf') + geom_node_sf(aes(color = centrality))
 #' }
 #'
 #' @export
