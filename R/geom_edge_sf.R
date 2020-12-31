@@ -5,14 +5,11 @@
 #' different colours, linetypes and widths.
 #'
 #' @section Aesthetics:
-#' `geom_node_sf` understand the following aesthetics.
+#' `geom_edge_sf` understand the following aesthetics.
 #'
 #' - alpha
 #' - colour
 #' - linetype
-#' - width
-#'
-#' @inheritParams ggplot2::geom_sf
 #'
 #' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
 #' or [ggplot2::aes_()]. By default geometry is mapped to the geometry in
@@ -36,7 +33,7 @@ geom_edge_sf <- function(mapping = NULL, data = get_sf_edges(), stat = 'sf',
   c(
     layer_sf(
       geom = GeomEdgeSf, data = data, mapping = mapping, stat = stat,
-      position = position, show.legend = show.legend, inherit.aes = TRUE,
+      position = position, show.legend = show.legend, inherit.aes = FALSE,
       params = list(na.rm = FALSE, ...)
     ),
     coord_sf(default = TRUE)
