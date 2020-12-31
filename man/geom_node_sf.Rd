@@ -15,7 +15,7 @@ geom_node_sf(
 }
 \arguments{
 \item{mapping}{Set of aesthetic mappings created by \code{\link[ggplot2:aes]{ggplot2::aes()}}
-or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default x and y are mapped to x and y in
+or \code{\link[ggplot2:aes_]{ggplot2::aes_()}}. By default geometry is mapped to the geometry in
 the node data.}
 
 \item{data}{The data to be displayed in this layer. There are three
@@ -69,8 +69,9 @@ different shapes, colours and sizes.
 
 \examples{
 if (require("sfnetworks", quietly = TRUE)) {
-  gr <- as_sfnetwork(roxel)
-  ggraph(gr, 'sf') + geom_node_sf()
+  gr <- as_sfnetwork(roxel) \%>\%
+    mutate(centrality = centrality_betweenness())
+  ggraph(gr, 'sf') + geom_node_sf(aes(color = centrality))
 }
 
 }

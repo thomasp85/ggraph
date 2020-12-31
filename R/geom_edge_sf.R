@@ -15,8 +15,8 @@
 #' @inheritParams ggplot2::geom_sf
 #'
 #' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
-#' or [ggplot2::aes_()]. By default x and y are mapped to x and y in
-#' the node data.
+#' or [ggplot2::aes_()]. By default geometry is mapped to the geometry in
+#' the edge data.
 #'
 #' @author Lorena Abad
 #'
