@@ -7,7 +7,6 @@
 geom_node_sf(
   mapping = NULL,
   data = get_sf_nodes(),
-  stat = "sf",
   position = "identity",
   show.legend = NA,
   ...
@@ -32,9 +31,6 @@ A \code{function} will be called with a single argument,
 the plot data. The return value must be a \code{data.frame}, and
 will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
-
-\item{stat}{The statistical transformation to use on the data for this
-layer, as a string.}
 
 \item{position}{Position adjustment, either as a string, or the result of
 a call to a position adjustment function.}
@@ -64,12 +60,13 @@ different shapes, colours and sizes.
 \item colour
 \item shape
 \item size
+\item filter
 }
 }
 
 \examples{
 if (require("sfnetworks", quietly = TRUE)) {
-  gr <- as_sfnetwork(roxel) \%>\%
+  gr <- sfnetworks::as_sfnetwork(roxel) \%>\%
     mutate(centrality = centrality_betweenness())
   ggraph(gr, 'sf') + geom_node_sf(aes(color = centrality))
 }
