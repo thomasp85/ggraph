@@ -11,6 +11,7 @@
 #' - colour
 #' - shape
 #' - size
+#' - filter
 #'
 #' @inheritParams ggplot2::geom_sf
 #'
@@ -24,18 +25,18 @@
 #'
 #' @examples
 #' if (require("sfnetworks", quietly = TRUE)) {
-#'   gr <- as_sfnetwork(roxel) %>%
+#'   gr <- sfnetworks::as_sfnetwork(roxel) %>%
 #'     mutate(centrality = centrality_betweenness())
 #'   ggraph(gr, 'sf') + geom_node_sf(aes(color = centrality))
 #' }
 #'
 #' @export
 #'
-geom_node_sf <- function(mapping = NULL, data = get_sf_nodes(), stat = 'sf',
+geom_node_sf <- function(mapping = NULL, data = get_sf_nodes(),
                           position = 'identity', show.legend = NA, ...) {
   c(
     layer_sf(
-      geom = GeomSf, data = data, mapping = mapping, stat = stat,
+      geom = GeomSf, data = data, mapping = mapping, stat = StatFilterSf,
       position = position, show.legend = show.legend, inherit.aes = FALSE,
       params = list(na.rm = FALSE, ...)
     ),

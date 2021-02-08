@@ -10,6 +10,9 @@
 #' - alpha
 #' - colour
 #' - linetype
+#' - filter
+#'
+#' @inheritParams ggplot2::geom_sf
 #'
 #' @param mapping Set of aesthetic mappings created by [ggplot2::aes()]
 #' or [ggplot2::aes_()]. By default geometry is mapped to the geometry in
@@ -21,18 +24,18 @@
 #'
 #' @examples
 #' if (require("sfnetworks", quietly = TRUE)) {
-#'   gr <- as_sfnetwork(roxel)
+#'   gr <- sfnetworks::as_sfnetwork(roxel)
 #'   ggraph(gr, 'sf') + geom_edge_sf()
 #' }
 #'
 #' @export
 #'
-geom_edge_sf <- function(mapping = NULL, data = get_sf_edges(), stat = 'sf',
+geom_edge_sf <- function(mapping = NULL, data = get_sf_edges(),
                          position = 'identity', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   c(
     layer_sf(
-      geom = GeomEdgeSf, data = data, mapping = mapping, stat = stat,
+      geom = GeomEdgeSf, data = data, mapping = mapping, stat = StatFilterSf,
       position = position, show.legend = show.legend, inherit.aes = FALSE,
       params = list(na.rm = FALSE, ...)
     ),
