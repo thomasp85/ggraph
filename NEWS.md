@@ -1,5 +1,8 @@
 # ggraph (development version)
 
+* Fix deprecation of std::random_shuffle in C++14 by specifyin C++11 as the
+  compile version
+
 # ggraph 2.0.4
 
 * Fix bug in faceting functions where using algorithms based on sampling 
