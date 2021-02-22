@@ -49,7 +49,7 @@ BioFabric website: \url{http://www.biofabric.org}
 
 Longabaugh, William J.R. (2012).
 \emph{Combing the hairball with BioFabric: a new approach for visualization of large networks}.
-BMC Bioinformatics, 13: 275. \url{https://doi.org/10.1186/1471-2105-13-275}
+BMC Bioinformatics, 13: 275. \doi{10.1186/1471-2105-13-275}
 }
 \seealso{
 Other layout_tbl_graph_*: 

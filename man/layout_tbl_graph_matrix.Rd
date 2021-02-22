@@ -31,7 +31,7 @@ different patterns to look out for.
 \references{
 Behrisch, M., Bach, B., Riche, N. H., Schreck, T., Fekete, J.-D. (2016).
 \emph{Matrix Reordering Methods for Table and Network Visualization}.
-Computer Graphics Forum, 35: 693–716. \url{https://doi.org/10.1111/cgf.12935}
+Computer Graphics Forum, 35: 693–716. \doi{10.1111/cgf.12935}
 }
 \seealso{
 Other layout_tbl_graph_*: 

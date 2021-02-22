@@ -65,7 +65,7 @@
 #'
 #' Johnson, B., & Ben Shneiderman. (1991). *Tree maps: A Space-Filling
 #' Approach to the Visualization of Hierarchical Information Structures*. IEEE
-#' Visualization, 284-291. <https://doi.org/10.1109/VISUAL.1991.175815>
+#' Visualization, 284-291. \doi{10.1109/VISUAL.1991.175815}
 #'
 #' @family layout_tbl_graph_*
 #'
