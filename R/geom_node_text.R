@@ -90,7 +90,7 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
                             label.padding = unit(0.25, 'lines'),
                             label.r = unit(0.15, 'lines'),
                             label.size = 0.25, show.legend = NA,
-                            repel = FALSE, ...) {
+                            repel = FALSE, richtext = TRUE, ...) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       stop('Specify either `position` or `nudge_x`/`nudge_y`',
@@ -105,6 +105,8 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
   )
   if (repel) {
     geom <- GeomLabelRepel
+  } else if (richtext) {
+    geom <- ggtext::GeomRichText
   } else {
     geom <- GeomLabel
   }
