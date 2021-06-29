@@ -30,6 +30,7 @@ geom_node_label(
   label.size = 0.25,
   show.legend = NA,
   repel = FALSE,
+  richtext = TRUE,
   ...
 )
 }
@@ -88,6 +89,9 @@ to the paired geom/stat.}
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
 
 \item{label.size}{Size of label border, in mm.}
+
+\item{richtext}{whether to parse markdown/CSS in the text label like
+\code{ggtext::geom_richtext()}.}
 }
 \description{
 These geoms are equivalent in functionality to \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} and

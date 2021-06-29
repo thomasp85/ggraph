@@ -305,15 +305,26 @@ Defaults to 0.}
 
 \item{end}{grey value at high end of palette}
 
-\item{alpha}{pass through parameter to \code{viridis}}
+\item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
+\code{\link[grDevices]{hsv}}.}
 
-\item{begin}{The (corrected) hue in [0,1] at which the viridis colormap begins.}
+\item{begin}{The (corrected) hue in [0,1] at which the color map begins.}
 
-\item{discrete}{generate a discrete palette? (default: \code{FALSE} - generate continuous palette)}
+\item{discrete}{Generate a discrete palette? (default: \code{FALSE} -
+generate continuous palette).}
 
-\item{option}{A character string indicating the colormap option to use. Four
-options are available: "magma" (or "A"), "inferno" (or "B"), "plasma" (or "C"),
-"viridis" (or "D", the default option) and "cividis" (or "E").}
+\item{option}{A character string indicating the color map option to use.
+Eight options are available:
+\itemize{
+ \item "magma" (or "A")
+ \item "inferno" (or "B")
+ \item "plasma" (or "C")
+ \item "viridis" (or "D")
+ \item "cividis" (or "E")
+ \item "rocket" (or "F")
+ \item "mako" (or "G")
+ \item "turbo" (or "H")
+}}
 }
 \value{
 A ggproto object inheriting from \code{Scale}

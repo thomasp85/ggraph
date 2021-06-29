@@ -81,7 +81,9 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = 'identity',
 #' @rdname geom_node_text
 #'
 #' @inheritParams ggplot2::geom_label
-#'
+#' @param richtext whether to parse markdown/CSS in the text label like
+#'   `ggtext::geom_richtext()`.
+#'   
 #' @importFrom ggrepel GeomLabelRepel
 #' @export
 #'
