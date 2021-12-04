@@ -27,7 +27,7 @@
 #' @references
 #' Behrisch, M., Bach, B., Riche, N. H., Schreck, T., Fekete, J.-D. (2016).
 #' *Matrix Reordering Methods for Table and Network Visualization*.
-#' Computer Graphics Forum, 35: 693–716. <https://doi.org/10.1111/cgf.12935>
+#' Computer Graphics Forum, 35: 693–716. \doi{10.1111/cgf.12935}
 #'
 layout_tbl_graph_matrix <- function(graph, circular = FALSE, sort.by = NULL) {
   sort.by <- enquo(sort.by)

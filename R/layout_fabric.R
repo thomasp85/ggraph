@@ -37,7 +37,7 @@
 #'
 #' Longabaugh, William J.R. (2012).
 #' *Combing the hairball with BioFabric: a new approach for visualization of large networks*.
-#' BMC Bioinformatics, 13: 275. <https://doi.org/10.1186/1471-2105-13-275>
+#' BMC Bioinformatics, 13: 275. \doi{10.1186/1471-2105-13-275}
 #'
 layout_tbl_graph_fabric <- function(graph, circular = FALSE, sort.by = NULL, shadow.edges = FALSE) {
   sort.by <- enquo(sort.by)
