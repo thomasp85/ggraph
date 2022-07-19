@@ -96,7 +96,7 @@ node and edge parameters affecting layouts as it is not necessary to modify the
 underlying graph but only the plotting code, e.g.:
 
 ```{r}
-ggraph(graph, layout = 'fr', weights = log(weight)) + 
+ggraph(graph, layout = 'fr', weights = -log(weight)) + 
   geom_edge_link() + 
   geom_node_point()
 ```
