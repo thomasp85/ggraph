@@ -1,3 +1,5 @@
+# ggraph (development version)
+
 # ggraph 2.0.6
 
 * Fix vignette errors on CRAN
