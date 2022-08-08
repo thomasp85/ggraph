@@ -50,7 +50,7 @@ reference:
       initialise plots, allowing you to set global settings such as layouts etc.
     contents:
       - ggraph
-      - qgraph
+      - autograph
   - title: "Layouts"
     desc: >
       Layouts specify the spatial positioning of the nodes in the graph. In

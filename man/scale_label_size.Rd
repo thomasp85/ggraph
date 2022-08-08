@@ -28,12 +28,14 @@ scale_label_size_identity(..., guide = "none")
 \item \code{waiver()} for the default breaks (one minor break between
 each major break)
 \item A numeric vector of positions
-\item A function that given the limits returns a vector of minor breaks.
+\item A function that given the limits returns a vector of minor breaks. Also
+accepts rlang \link[rlang:as_function]{lambda} function notation.
 }}
     \item{\code{oob}}{One of:
 \itemize{
 \item Function that handles limits outside of the scale limits
-(out of bounds).
+(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
+function notation.
 \item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
 bounds values with \code{NA}.
 \item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.

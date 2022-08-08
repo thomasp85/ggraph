@@ -66,7 +66,7 @@ title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."}
 
 \item{title.theme}{A theme object for rendering the title text. Usually the
-object of \code{\link[ggplot2:element]{element_text()}} is expected. By default, the theme is
+object of \code{\link[ggplot2:element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.title} in \code{\link[ggplot2:theme]{theme()}} or theme.}
 
 \item{title.hjust}{A number specifying horizontal justification of the
@@ -83,7 +83,7 @@ label. One of "top", "bottom" (default for horizontal guide), "left", or
 "right" (default for vertical guide).}
 
 \item{label.theme}{A theme object for rendering the label text. Usually the
-object of \code{\link[ggplot2:element]{element_text()}} is expected. By default, the theme is
+object of \code{\link[ggplot2:element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.text} in \code{\link[ggplot2:theme]{theme()}}.}
 
 \item{label.hjust}{A numeric specifying horizontal justification of the
