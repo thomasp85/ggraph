@@ -5,7 +5,7 @@
 #' @export
 #'
 create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
-  graph <- mutate(activate(graph, 'nodes'), .ggraph.orig_index = seq_len(graph_order()))
+  graph <- mutate(ungroup(activate(graph, 'nodes')), .ggraph.orig_index = seq_len(graph_order()))
   graph <- prepare_graph(graph, layout, ...)
   .register_graph_context(graph, free = TRUE)
   if (gorder(graph) == 0) {
