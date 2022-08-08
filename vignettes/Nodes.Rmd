@@ -9,6 +9,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include=FALSE}
+set.seed(2022)
+```
+
 Nodes in a network are the entities that are connected. Sometimes these are also
 referred to as vertices, but `ggraph` has opted for this nomenclature and uses it
 consistently. While the nodes in a graph are the abstract concepts of entities, 

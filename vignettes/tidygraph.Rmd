@@ -12,6 +12,7 @@ vignette: >
 ```{r, include=FALSE}
 library(ggraph)
 set_graph_style(family = 'Arial', size = 7, foreground = 'lightgrey', plot_margin = margin(0, 0, 0, 0))
+set.seed(2022)
 ```
 
 
