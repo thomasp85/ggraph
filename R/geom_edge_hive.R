@@ -180,7 +180,7 @@ StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
     keep <- atan2(data$y, data$x) != atan2(data2$y, data2$x)
-    create_hive_bazier(data[keep, ], data2[keep, ], params)
+    create_hive_bezier(data[keep, ], data2[keep, ], params)
   },
   required_aes = c('x', 'y', 'group'),
   default_aes = aes(filter = TRUE),
