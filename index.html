@@ -29,6 +29,8 @@
 <![endif]-->
 </head>
 <body data-spy="scroll" data-target="#toc">
+    
+
     <div class="container template-home">
       <header><div class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container">
@@ -41,7 +43,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="index.html">ggraph</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">2.0.4</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">2.0.5.9000</span>
       </span>
     </div>
 
@@ -57,7 +59,7 @@
   <a href="reference/index.html">Reference</a>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Getting Started
      
     <span class="caret"></span>
@@ -75,7 +77,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     Articles
      
     <span class="caret"></span>
@@ -87,7 +89,7 @@
   </ul>
 </li>
 <li class="dropdown">
-  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
     News
      
     <span class="caret"></span>
@@ -95,13 +97,14 @@
   <ul class="dropdown-menu" role="menu">
 <li class="dropdown-header">Release notes</li>
     <li>
-      <a href="https://www.data-imaginist.com/2019/1-giraffe-2-giraffe-go/">Version 2.0.0</a>
+      <a href="https://www.data-imaginist.com/2019/1-giraffe-2-giraffe-go/" class="external-link">Version 2.0.0</a>
     </li>
     <li>
-      <a href="https://www.data-imaginist.com/2017/announcing-ggraph/">Version 1.0.0</a>
+      <a href="https://www.data-imaginist.com/2017/announcing-ggraph/" class="external-link">Version 1.0.0</a>
     </li>
     <li class="divider">
-    <li>
+    </li>
+<li>
       <a href="news/index.html">Change log</a>
     </li>
   </ul>
@@ -109,10 +112,10 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://tidygraph.data-imaginist.com">tidygraph</a>
+  <a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a>
 </li>
 <li>
-  <a href="https://github.com/thomasp85/ggraph">
+  <a href="https://github.com/thomasp85/ggraph" class="external-link">
     <span class="fa fa-github fa-lg"></span>
      
   </a>
@@ -129,80 +132,76 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-<div id="ggraph-" class="section level1">
-<div class="page-header"><h1 class="hasAnchor">
-<a href="#ggraph-" class="anchor"></a>ggraph <img src="reference/figures/logo.png" align="right">
+<div class="section level1">
+<div class="page-header"><h1 id="ggraph-">ggraph <img src="reference/figures/logo.png" align="right"><a class="anchor" aria-label="anchor" href="#ggraph-"></a>
 </h1></div>
 <!-- badges: start -->
-
 <p><em>/dʒiː.dʒɪˈrɑːf/</em> (or g-giraffe)</p>
-<div id="a-grammar-of-graphics-for-relational-data" class="section level2">
-<h2 class="hasAnchor">
-<a href="#a-grammar-of-graphics-for-relational-data" class="anchor"></a>A grammar of graphics for relational data</h2>
-<p>ggraph is an extension of <a href="https://ggplot2.tidyverse.org"><code>ggplot2</code></a> aimed at supporting relational data structures such as networks, graphs, and trees. While it builds upon the foundation of <code>ggplot2</code> and its API it comes with its own self-contained set of geoms, facets, etc., as well as adding the concept of <em>layouts</em> to the grammar.</p>
-<div id="an-example" class="section level3">
-<h3 class="hasAnchor">
-<a href="#an-example" class="anchor"></a>An example</h3>
+<div class="section level2">
+<h2 id="a-grammar-of-graphics-for-relational-data">A grammar of graphics for relational data<a class="anchor" aria-label="anchor" href="#a-grammar-of-graphics-for-relational-data"></a>
+</h2>
+<p>ggraph is an extension of <a href="https://ggplot2.tidyverse.org" class="external-link"><code>ggplot2</code></a> aimed at supporting relational data structures such as networks, graphs, and trees. While it builds upon the foundation of <code>ggplot2</code> and its API it comes with its own self-contained set of geoms, facets, etc., as well as adding the concept of <em>layouts</em> to the grammar.</p>
+<div class="section level3">
+<h3 id="an-example">An example<a class="anchor" aria-label="anchor" href="#an-example"></a>
+</h3>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span>
-<span class="co">#&gt; Loading required package: ggplot2</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidygraph.data-imaginist.com">tidygraph</a></span><span class="op">)</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt; Attaching package: 'tidygraph'</span>
-<span class="co">#&gt; The following object is masked from 'package:stats':</span>
-<span class="co">#&gt; </span>
-<span class="co">#&gt;     filter</span>
-
-<span class="co"># Create graph of highschool friendships</span>
-<span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html">as_tbl_graph</a></span><span class="op">(</span><span class="va">highschool</span><span class="op">)</span> <span class="op">%&gt;%</span> 
-    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html">mutate</a></span><span class="op">(</span>Popularity <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html">centrality_degree</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">'in'</span><span class="op">)</span><span class="op">)</span>
-
-<span class="co"># plot using ggraph</span>
-<span class="fu"><a href="reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'kk'</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="reference/geom_edge_fan.html">geom_edge_fan</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>alpha <span class="op">=</span> <span class="fu">stat</span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu">aes</span><span class="op">(</span>size <span class="op">=</span> <span class="va">Popularity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="reference/facet_edges.html">facet_edges</a></span><span class="op">(</span><span class="op">~</span><span class="va">year</span><span class="op">)</span> <span class="op">+</span> 
-    <span class="fu"><a href="reference/theme_graph.html">theme_graph</a></span><span class="op">(</span>foreground <span class="op">=</span> <span class="st">'steelblue'</span>, fg_text_colour <span class="op">=</span> <span class="st">'white'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; Loading required package: ggplot2</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Attaching package: 'tidygraph'</span></span>
+<span><span class="co">#&gt; The following object is masked from 'package:stats':</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt;     filter</span></span>
+<span></span>
+<span><span class="co"># Create graph of highschool friendships</span></span>
+<span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html" class="external-link">as_tbl_graph</a></span><span class="op">(</span><span class="va">highschool</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<span>    <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>Popularity <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html" class="external-link">centrality_degree</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">'in'</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># plot using ggraph</span></span>
+<span><span class="fu"><a href="reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'kk'</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="reference/geom_edge_fan.html">geom_edge_fan</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">stat</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">)</span>, show.legend <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="va">Popularity</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="reference/facet_edges.html">facet_edges</a></span><span class="op">(</span><span class="op">~</span><span class="va">year</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>    <span class="fu"><a href="reference/theme_graph.html">theme_graph</a></span><span class="op">(</span>foreground <span class="op">=</span> <span class="st">'steelblue'</span>, fg_text_colour <span class="op">=</span> <span class="st">'white'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="reference/figures/README-unnamed-chunk-2-1.png"><!-- --></p>
 </div>
-<div id="the-core-concepts" class="section level3">
-<h3 class="hasAnchor">
-<a href="#the-core-concepts" class="anchor"></a>The core concepts</h3>
+<div class="section level3">
+<h3 id="the-core-concepts">The core concepts<a class="anchor" aria-label="anchor" href="#the-core-concepts"></a>
+</h3>
 <p><code>ggraph</code> builds upon three core concepts that are quite easy to understand:</p>
-<ol>
+<ol style="list-style-type: decimal">
 <li>
-<a href="https://www.data-imaginist.com/2017/ggraph-introduction-layouts/"><strong>The Layout</strong></a> defines how nodes are placed on the plot, that is, it is a conversion of the relational structure into an x and y value for each node in the graph. <code>ggraph</code> has access to all layout functions available in <code>igraph</code> and furthermore provides a large selection of its own, such as hive plots, treemaps, and circle packing.</li>
+<a href="https://www.data-imaginist.com/2017/ggraph-introduction-layouts/" class="external-link"><strong>The Layout</strong></a> defines how nodes are placed on the plot, that is, it is a conversion of the relational structure into an x and y value for each node in the graph. <code>ggraph</code> has access to all layout functions available in <code>igraph</code> and furthermore provides a large selection of its own, such as hive plots, treemaps, and circle packing.</li>
 <li>
-<a href="https://www.data-imaginist.com/2017/ggraph-introduction-nodes/"><strong>The Nodes</strong></a> are the connected entities in the relational structure. These can be plotted using the <code>geom_node_*()</code> family of geoms. Some node geoms make more sense for certain layouts, e.g. <code><a href="reference/geom_node_tile.html">geom_node_tile()</a></code> for treemaps and icicle plots, while others are more general purpose, e.g. <code><a href="reference/geom_node_point.html">geom_node_point()</a></code>.</li>
+<a href="https://www.data-imaginist.com/2017/ggraph-introduction-nodes/" class="external-link"><strong>The Nodes</strong></a> are the connected entities in the relational structure. These can be plotted using the <code>geom_node_*()</code> family of geoms. Some node geoms make more sense for certain layouts, e.g. <code><a href="reference/geom_node_tile.html">geom_node_tile()</a></code> for treemaps and icicle plots, while others are more general purpose, e.g. <code><a href="reference/geom_node_point.html">geom_node_point()</a></code>.</li>
 <li>
-<a href="https://www.data-imaginist.com/2017/ggraph-introduction-edges/"><strong>The Edges</strong></a> are the connections between the entities in the relational structure. These can be visualized using the <code>geom_edge_*()</code> family of geoms that contain a lot of different edge types for different scenarios. Sometimes the edges are implied by the layout (e.g. with treemaps) and need not be plotted, but often some sort of line is warranted.</li>
+<a href="https://www.data-imaginist.com/2017/ggraph-introduction-edges/" class="external-link"><strong>The Edges</strong></a> are the connections between the entities in the relational structure. These can be visualized using the <code>geom_edge_*()</code> family of geoms that contain a lot of different edge types for different scenarios. Sometimes the edges are implied by the layout (e.g. with treemaps) and need not be plotted, but often some sort of line is warranted.</li>
 </ol>
 <p>All of the tree concepts have been discussed in detail in dedicated blog posts that are also available as vignettes in the package. Please refer to these for more information.</p>
-<blockquote>
-<p><strong>Note:</strong> The linked blog posts are based on ggraph v1. After ggraph v1.1 the underlying implementation was moved to tidygraph and cleaned up, but this resulted in some breaking changes in the process. Therefore the vignette versions are generally recommended as they have been updated.</p>
-</blockquote>
+<blockquote><p><strong>Note:</strong> The linked blog posts are based on ggraph v1. After ggraph v1.1 the underlying implementation was moved to tidygraph and cleaned up, but this resulted in some breaking changes in the process. Therefore the vignette versions are generally recommended as they have been updated.</p></blockquote>
 </div>
-<div id="supported-data-types" class="section level3">
-<h3 class="hasAnchor">
-<a href="#supported-data-types" class="anchor"></a>Supported data types</h3>
+<div class="section level3">
+<h3 id="supported-data-types">Supported data types<a class="anchor" aria-label="anchor" href="#supported-data-types"></a>
+</h3>
 <p>There are many different ways to store and work with relational data in R. <code>ggraph</code> is built upon <code>tidygraph</code> and the large swath of data structures it supports are thus natively supported in <code>ggraph</code>. In order to get a data type supported by <code>ggraph</code>, simply provide an <code>as_tbl_graph</code> method for it.</p>
 </div>
 </div>
-<div id="installation" class="section level2">
-<h2 class="hasAnchor">
-<a href="#installation" class="anchor"></a>Installation</h2>
-<p><code>ggraph</code> is available through CRAN and can be installed with <code><a href="https://rdrr.io/r/utils/install.packages.html">install.packages('ggraph')</a></code>. The package is under active development though and the latest set of features can be obtained by installing from this repository using <code>devtools</code></p>
+<div class="section level2">
+<h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
+</h2>
+<p><code>ggraph</code> is available through CRAN and can be installed with <code>install.packages('ggraph')</code>. The package is under active development though and the latest set of features can be obtained by installing from this repository using <code>devtools</code></p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'thomasp85/ggraph'</span><span class="op">)</span></code></pre></div>
+<code class="sourceCode R"><span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">'thomasp85/ggraph'</span><span class="op">)</span></span></code></pre></div>
 </div>
-<div id="related-work" class="section level2">
-<h2 class="hasAnchor">
-<a href="#related-work" class="anchor"></a>Related work</h2>
-<p><code>ggraph</code> is not the only package to provide some sort of support for relational data in <code>ggplot2</code>, though I’m fairly certain that it is the most ambitious. <a href="https://CRAN.R-project.org/package=ggdendro"><code>ggdendro</code></a> provides support for <code>dendrogram</code> and <code>hclust</code> objects through conversion of the structures into line segments that can then be plotted with <code>geom_segment()</code>. <a href="http://bioconductor.org/packages/ggtree/"><code>ggtree</code></a> provides more extensive support for all things tree-related, though it lacks some of the layouts and edge types that <code>ggraph</code> offers (it has other features that <code>ggraph</code> lacks though). For more standard <em>hairball</em> network plots <a href="https://CRAN.R-project.org/package=ggnetwork"><code>ggnetwork</code></a>, <a href="https://CRAN.R-project.org/package=geomnet"><code>geomnet</code></a>, and <a href="https://CRAN.R-project.org/package=GGally"><code>GGally</code></a> all provide some functionality though none of them are as extensive in scope as <code>ggraph</code>.</p>
+<div class="section level2">
+<h2 id="related-work">Related work<a class="anchor" aria-label="anchor" href="#related-work"></a>
+</h2>
+<p><code>ggraph</code> is not the only package to provide some sort of support for relational data in <code>ggplot2</code>, though I’m fairly certain that it is the most ambitious. <a href="https://CRAN.R-project.org/package=ggdendro" class="external-link"><code>ggdendro</code></a> provides support for <code>dendrogram</code> and <code>hclust</code> objects through conversion of the structures into line segments that can then be plotted with <code><a href="https://ggplot2.tidyverse.org/reference/geom_segment.html" class="external-link">geom_segment()</a></code>. <a href="http://bioconductor.org/packages/ggtree/" class="external-link"><code>ggtree</code></a> provides more extensive support for all things tree-related, though it lacks some of the layouts and edge types that <code>ggraph</code> offers (it has other features that <code>ggraph</code> lacks though). For more standard <em>hairball</em> network plots <a href="https://CRAN.R-project.org/package=ggnetwork" class="external-link"><code>ggnetwork</code></a>, <a href="https://CRAN.R-project.org/package=geomnet" class="external-link"><code>geomnet</code></a>, and <a href="https://CRAN.R-project.org/package=GGally" class="external-link"><code>GGally</code></a> all provide some functionality though none of them are as extensive in scope as <code>ggraph</code>.</p>
 </div>
-<div id="code-of-conduct" class="section level2">
-<h2 class="hasAnchor">
-<a href="#code-of-conduct" class="anchor"></a>Code of Conduct</h2>
+<div class="section level2">
+<h2 id="code-of-conduct">Code of Conduct<a class="anchor" aria-label="anchor" href="#code-of-conduct"></a>
+</h2>
 <p>Please note that the ‘ggraph’ project is released with a <a href="https://ggraph.data-imaginist.com/CODE_OF_CONDUCT.html">Contributor Code of Conduct</a>. By contributing to this project, you agree to abide by its terms.</p>
 </div>
 </div>
@@ -210,58 +209,68 @@
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
     <div class="links">
-<h2>Links</h2>
+<h2 data-toc-skip>Links</h2>
 <ul class="list-unstyled">
-<li>Download from CRAN at <br><a href="https://cloud.r-project.org/package=ggraph">https://​cloud.r-project.org/​package=ggraph</a>
-</li>
-<li>Browse source code at <br><a href="https://github.com/thomasp85/ggraph/">https://​github.com/​thomasp85/​ggraph/​</a>
-</li>
-<li>Report a bug at <br><a href="https://github.com/thomasp85/ggraph/issues">https://​github.com/​thomasp85/​ggraph/​issues</a>
-</li>
+<li><a href="https://cloud.r-project.org/package=ggraph" class="external-link">View on CRAN</a></li>
+<li><a href="https://github.com/thomasp85/ggraph/" class="external-link">Browse source code</a></li>
+<li><a href="https://github.com/thomasp85/ggraph/issues" class="external-link">Report a bug</a></li>
 </ul>
 </div>
+
 <div class="license">
-<h2>License</h2>
+<h2 data-toc-skip>License</h2>
 <ul class="list-unstyled">
 <li>
-<a href="https://opensource.org/licenses/mit-license.php">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
+<a href="https://opensource.org/licenses/mit-license.php" class="external-link">MIT</a> + file <a href="LICENSE-text.html">LICENSE</a>
 </li>
 </ul>
 </div>
+
 <div class="community">
-<h2>Community</h2>
+<h2 data-toc-skip>Community</h2>
 <ul class="list-unstyled">
 <li><a href="CODE_OF_CONDUCT.html">Code of conduct</a></li>
 </ul>
 </div>
-<div class="developers">
-<h2>Developers</h2>
+
+<div class="citation">
+<h2 data-toc-skip>Citation</h2>
 <ul class="list-unstyled">
-<li>
-<a href="https://data-imaginist.com">Thomas Lin Pedersen</a> <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-5147-4711" target="orcid.widget" aria-label="ORCID"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
-<li><a href="authors.html">All authors...</a></li>
+<li><a href="authors.html#citation">Citing ggraph</a></li>
 </ul>
 </div>
 
-  <div class="dev-status">
-<h2>Dev status</h2>
+<div class="developers">
+<h2 data-toc-skip>Developers</h2>
 <ul class="list-unstyled">
-<li><a href="https://github.com/thomasp85/ggraph/actions"><img src="https://github.com/thomasp85/ggraph/workflows/R-CMD-check/badge.svg" alt="R build status"></a></li>
-<li><a href="https://CRAN.R-project.org/package=ggraph"><img src="http://www.r-pkg.org/badges/version-ago/ggraph" alt="CRAN_Release_Badge"></a></li>
-<li><a href="https://CRAN.R-project.org/package=ggraph"><img src="http://cranlogs.r-pkg.org/badges/ggraph" alt="CRAN_Download_Badge"></a></li>
-<li><a href="https://codecov.io/gh/thomasp85/ggraph?branch=master"><img src="https://codecov.io/gh/thomasp85/ggraph/branch/master/graph/badge.svg" alt="Codecov test coverage"></a></li>
+<li>
+<a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a> <br><small class="roles"> Maintainer, author </small> <a href="https://orcid.org/0000-0002-5147-4711" target="orcid.widget" aria-label="ORCID" class="external-link"><span class="fab fa-orcid orcid" aria-hidden="true"></span></a> </li>
+<li><a href="authors.html">More about authors...</a></li>
 </ul>
 </div>
+
+<div class="dev-status">
+<h2 data-toc-skip>Dev status</h2>
+<ul class="list-unstyled">
+<li><a href="https://github.com/thomasp85/ggraph/actions/workflows/R-CMD-check.yaml" class="external-link"><img src="https://github.com/thomasp85/ggraph/actions/workflows/R-CMD-check.yaml/badge.svg" alt="R-CMD-check"></a></li>
+<li><a href="https://CRAN.R-project.org/package=ggraph" class="external-link"><img src="http://www.r-pkg.org/badges/version-ago/ggraph" alt="CRAN_Release_Badge"></a></li>
+<li><a href="https://CRAN.R-project.org/package=ggraph" class="external-link"><img src="http://cranlogs.r-pkg.org/badges/ggraph" alt="CRAN_Download_Badge"></a></li>
+<li><a href="https://app.codecov.io/gh/thomasp85/ggraph?branch=main" class="external-link"><img src="https://codecov.io/gh/thomasp85/ggraph/branch/main/graph/badge.svg" alt="Codecov test coverage"></a></li>
+</ul>
 </div>
+
+  </div>
 </div>
 
 
       <footer><div class="copyright">
-  <p>Developed by <a href="https://data-imaginist.com">Thomas Lin Pedersen</a>.</p>
+  <p></p>
+<p>Developed by <a href="https://data-imaginist.com" class="external-link">Thomas Lin Pedersen</a>.</p>
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.</p>
+  <p></p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
 </div>
 
       </footer>
@@ -269,6 +278,8 @@
 
   
 
+
+  
 
   </body>
 </html>
