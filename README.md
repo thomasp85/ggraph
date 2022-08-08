@@ -9,7 +9,7 @@
 [![CRAN_Release_Badge](http://www.r-pkg.org/badges/version-ago/ggraph)](https://CRAN.R-project.org/package=ggraph)
 [![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/ggraph)](https://CRAN.R-project.org/package=ggraph)
 [![Codecov test
-coverage](https://codecov.io/gh/thomasp85/ggraph/branch/master/graph/badge.svg)](https://codecov.io/gh/thomasp85/ggraph?branch=master)
+coverage](https://codecov.io/gh/thomasp85/ggraph/branch/main/graph/badge.svg)](https://app.codecov.io/gh/thomasp85/ggraph?branch=main)
 <!-- badges: end -->
 
 */dʒiː.dʒɪˈrɑːf/* (or g-giraffe)
