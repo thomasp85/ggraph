@@ -242,7 +242,7 @@ GeomEdgeParallelPath <- ggproto('GeomEdgeParallelPath', GeomEdgePath,
 GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
   draw_panel = function(data, panel_scales, coord, arrow = NULL, lineend = 'butt',
                           na.rm = FALSE) {
-    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
+    if (empty_data(data)) {
       return(zeroGrob())
     }
     coord <- coord$transform(data, panel_scales)
@@ -374,7 +374,7 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
     data
   },
   draw_panel = function(data, panel_scales, coord, na.rm = FALSE) {
-    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
+    if (empty_data(data)) {
       return(zeroGrob())
     }
     data$edge_shape <- translate_pch(data$edge_shape)
@@ -425,7 +425,7 @@ GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
     data
   },
   draw_panel = function(data, panel_params, coord, na.rm = FALSE) {
-    if (is.null(data) || nrow(data) == 0 || ncol(data) == 0) {
+    if (empty_data(data)) {
       return(zeroGrob())
     }
     data$xmin <- data$x - 0.5

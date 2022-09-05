@@ -103,14 +103,9 @@ NULL
 #' @export
 StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
@@ -166,14 +161,9 @@ geom_edge_fan <- function(mapping = NULL, data = get_edges(),
 #' @export
 StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]

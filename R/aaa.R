@@ -74,3 +74,8 @@ warn_dropped_vars <- function(layout, data) {
     warning('Existing variables ', paste(paste0('`', overlap, '`'), collapse = ', '), ' overwritten by layout variables', call. = FALSE)
   }
 }
+
+empty_data <- function(x) {
+  length(x) == 0 || nrow(x) == 0
+}
+

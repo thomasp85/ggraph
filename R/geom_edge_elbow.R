@@ -199,14 +199,9 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
     paths[order(paths$group), ]
   },
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data
   },
   default_aes = aes(filter = TRUE),
@@ -275,14 +270,9 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
     new_data
   },
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data
   },
   default_aes = aes(filter = TRUE),
@@ -393,14 +383,7 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
     paths[order(paths$group), ]
   },
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
-    data
+    StatEdgeElbow$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE),
   required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction')

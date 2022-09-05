@@ -81,19 +81,14 @@ NULL
 #' @export
 StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
+    data <- StatFilter$setup_data(data, params)
+    if (nrow(data) == 0) return(data)
     data <- data[data$from == data$to, ]
     data$group <- make_unique(data$group)
     if (nrow(data) != 0) {
       create_loops(data, params)
     } else {
-      NULL
+      data
     }
   },
   required_aes = c('x', 'y', 'from', 'to', 'span', 'direction', 'strength'),
