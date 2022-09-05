@@ -75,6 +75,11 @@ warn_dropped_vars <- function(layout, data) {
   }
 }
 
+combine_layout_nodes <- function(layout, nodes) {
+  warn_dropped_vars(layout, nodes)
+  cbind(layout, nodes[, !names(nodes) %in% names(layout), drop = FALSE])
+}
+
 empty_data <- function(x) {
   length(x) == 0 || nrow(x) == 0
 }

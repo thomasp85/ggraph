@@ -229,7 +229,7 @@ layout_to_table.matrix <- function(layout, graph, ...) {
 }
 #' @export
 layout_to_table.data.frame <- function(layout, graph, ...) {
-  cbind(layout, as_tibble(graph, active = 'nodes'))
+  combine_layout_nodes(layout, as_tibble(graph, active = 'nodes'))
 }
 #' @export
 layout_to_table.function <- function(layout, graph, circular, ...) {
@@ -253,12 +253,12 @@ layout_to_table.function <- function(layout, graph, circular, ...) {
   }
   if (is.tbl_graph(layout)) {
     graph <- layout
-    layout <- as_tibble(graph, active = 'nodes')
-    attr(layout, 'graph') <- graph
+    nodes <- as_tibble(graph, active = 'nodes')
+    attr(nodes, 'graph') <- graph
   } else {
-    layout <- cbind(layout, as_tibble(graph, active = 'nodes'))
+    nodes <- combine_layout_nodes(layout, as_tibble(graph, active = 'nodes'))
   }
-  layout
+  nodes
 }
 
 igraphlayouts <- c(

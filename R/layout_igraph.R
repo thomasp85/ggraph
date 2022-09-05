@@ -117,24 +117,22 @@ layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi / 2,
   if ('dim' %in% names(dots) && isTRUE(dots$dim > 2)) {
     warning('Only the first two dimensions will be used despite requesting more', call. = FALSE)
   }
-  extra_data <- as_tibble(graph, active = 'nodes')
-  warn_dropped_vars(data.frame(x = 1, y = 1), extra_data)
-  layout <- cbind(x = layout[, 1], y = layout[, 2], extra_data[, !names(extra_data) %in% c('x', 'y'), drop = FALSE])
-  graph <- add_direction(graph, layout)
+  nodes <- combine_layout_nodes(data.frame(x = layout[, 1], y = layout[, 2]), as_tibble(graph, active = 'nodes'))
+  graph <- add_direction(graph, nodes)
   if (circular) {
     if (!algorithm %in% c('layout_as_tree', 'layout_with_sugiyama')) {
       stop('Circular layout only applicable to tree and DAG layout')
     }
     radial <- radial_trans(
-      r.range = rev(range(layout$y)),
-      a.range = range(layout$x),
+      r.range = rev(range(nodes$y)),
+      a.range = range(nodes$x),
       offset = offset
     )
-    coords <- radial$transform(layout$y, layout$x)
-    layout$x <- coords$x
-    layout$y <- coords$y
+    coords <- radial$transform(nodes$y, nodes$x)
+    nodes$x <- coords$x
+    nodes$y <- coords$y
   }
-  layout$circular <- circular
-  attr(layout, 'graph') <- graph
-  layout
+  nodes$circular <- circular
+  attr(nodes, 'graph') <- graph
+  nodes
 }

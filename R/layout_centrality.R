@@ -34,8 +34,5 @@ layout_tbl_graph_centrality <- function(graph, centrality, scale = TRUE,
                                iter = niter, tol = tolerance, tseq = tseq)
   nodes <- new_data_frame(list(x = xy[,1],y = xy[,2], centrality = centrality))
   nodes$circular <- FALSE
-  extra_data <- as_tibble(graph, active = 'nodes')
-  warn_dropped_vars(nodes, extra_data)
-  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
-  nodes
+  combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

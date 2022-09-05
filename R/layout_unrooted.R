@@ -44,13 +44,11 @@ layout_tbl_graph_unrooted <- function(graph, daylight = TRUE, length = NULL, tol
   length <- eval_tidy(length, .E())
   hierarchy <- tree_to_hierarchy(graph, 'out', seq_len(gorder(graph)), weight = NULL, length)
   layout <- unrooted(hierarchy$parent, hierarchy$order, hierarchy$height, daylight, tolerance, rotation_mod, maxiter)[-1, ]
-  layout <- new_data_frame(list(
+  nodes <- new_data_frame(list(
     x = layout[, 1],
     y = layout[, 2],
     circular = FALSE,
     leaf = degree(graph) == 1
   ))
-  warn_dropped_vars(layout, extra_data)
-  layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
-  layout
+  combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

@@ -30,8 +30,5 @@ layout_tbl_graph_pmds <- function(graph, pivots, weights = NULL, circular = FALS
   xy <- layout_with_pmds(graph, pivots = pivots, weights = weights)
   nodes <- new_data_frame(list(x = xy[,1], y = xy[,2]))
   nodes$circular <- FALSE
-  extra_data <- as_tibble(graph, active = 'nodes')
-  warn_dropped_vars(nodes, extra_data)
-  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
-  nodes
+  combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }
