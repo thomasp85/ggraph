@@ -339,10 +339,15 @@ omitted.</p></dd>
 <li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
+<li><p>An expression vector (must be the same length as breaks). See ?plotmath for details.</p></li>
 <li><p>A function that takes the breaks as input and returns labels
 as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
 notation.</p></li>
 </ul></dd>
+
+    <dt><code>guide</code></dt>
+<dd><p>A function used to create a guide or its name. See
+<code><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides()</a></code> for more information.</p></dd>
 
     <dt><code>expand</code></dt>
 <dd><p>For position scales, a vector of range expansion constants used to add some
@@ -351,10 +356,6 @@ away from the axes. Use the convenience function <code><a href="https://ggplot2.
 to generate the values for the <code>expand</code> argument. The defaults are to
 expand the scale by 5% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.</p></dd>
-
-    <dt><code>guide</code></dt>
-<dd><p>A function used to create a guide or its name. See
-<code><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides()</a></code> for more information.</p></dd>
 
     <dt><code>position</code></dt>
 <dd><p>For position scales, The position of the axis.
@@ -394,7 +395,8 @@ combination of hue and luminance.</p></dd>
 
 
 <dt>type</dt>
-<dd><p>One of seq (sequential), div (diverging) or qual (qualitative)</p></dd>
+<dd><p>One of "seq" (sequential), "div" (diverging) or "qual"
+(qualitative)</p></dd>
 
 
 <dt>palette</dt>
