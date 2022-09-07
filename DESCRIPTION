@@ -35,7 +35,10 @@ Imports:
     rlang,
     tidygraph,
     graphlayouts (>= 0.5.0),
-    withr
+    withr,
+    cli,
+    vctrs,
+    lifecycle
 Suggests: 
     network,
     knitr,

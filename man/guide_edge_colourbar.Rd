@@ -5,133 +5,82 @@
 \alias{guide_edge_colorbar}
 \title{Colourbar legend for edges}
 \usage{
-guide_edge_colourbar(
-  title = waiver(),
-  title.position = NULL,
-  title.theme = NULL,
-  title.hjust = NULL,
-  title.vjust = NULL,
-  label = TRUE,
-  label.position = NULL,
-  label.theme = NULL,
-  label.hjust = NULL,
-  label.vjust = NULL,
-  barwidth = NULL,
-  barheight = NULL,
-  nbin = 20,
-  raster = TRUE,
-  ticks = TRUE,
-  draw.ulim = TRUE,
-  draw.llim = TRUE,
-  direction = NULL,
-  default.unit = "line",
-  reverse = FALSE,
-  order = 0,
-  ...
-)
+guide_edge_colourbar(..., available_aes = c("edge_colour", "edge_fill"))
 
-guide_edge_colorbar(
-  title = waiver(),
-  title.position = NULL,
-  title.theme = NULL,
-  title.hjust = NULL,
-  title.vjust = NULL,
-  label = TRUE,
-  label.position = NULL,
-  label.theme = NULL,
-  label.hjust = NULL,
-  label.vjust = NULL,
-  barwidth = NULL,
-  barheight = NULL,
-  nbin = 20,
-  raster = TRUE,
-  ticks = TRUE,
-  draw.ulim = TRUE,
-  draw.llim = TRUE,
-  direction = NULL,
-  default.unit = "line",
-  reverse = FALSE,
-  order = 0,
-  ...
-)
+guide_edge_colorbar(..., available_aes = c("edge_colour", "edge_fill"))
 }
 \arguments{
-\item{title}{A character string or expression indicating a title of guide.
+\item{...}{
+  Arguments passed on to \code{\link[ggplot2:guide_colourbar]{ggplot2::guide_colourbar}}
+  \describe{
+    \item{\code{title}}{A character string or expression indicating a title of guide.
 If \code{NULL}, the title is not shown. By default
 (\code{\link[ggplot2:waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
-
-\item{title.position}{A character string indicating the position of a
+    \item{\code{title.position}}{A character string indicating the position of a
 title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."}
-
-\item{title.theme}{A theme object for rendering the title text. Usually the
+    \item{\code{title.theme}}{A theme object for rendering the title text. Usually the
 object of \code{\link[ggplot2:element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.title} in \code{\link[ggplot2:theme]{theme()}} or theme.}
-
-\item{title.hjust}{A number specifying horizontal justification of the
+    \item{\code{title.hjust}}{A number specifying horizontal justification of the
 title text.}
-
-\item{title.vjust}{A number specifying vertical justification of the title
+    \item{\code{title.vjust}}{A number specifying vertical justification of the title
 text.}
-
-\item{label}{logical. If \code{TRUE} then the labels are drawn. If
+    \item{\code{label}}{logical. If \code{TRUE} then the labels are drawn. If
 \code{FALSE} then the labels are invisible.}
-
-\item{label.position}{A character string indicating the position of a
+    \item{\code{label.position}}{A character string indicating the position of a
 label. One of "top", "bottom" (default for horizontal guide), "left", or
 "right" (default for vertical guide).}
-
-\item{label.theme}{A theme object for rendering the label text. Usually the
+    \item{\code{label.theme}}{A theme object for rendering the label text. Usually the
 object of \code{\link[ggplot2:element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.text} in \code{\link[ggplot2:theme]{theme()}}.}
-
-\item{label.hjust}{A numeric specifying horizontal justification of the
-label text.}
-
-\item{label.vjust}{A numeric specifying vertical justification of the label
+    \item{\code{label.hjust}}{A numeric specifying horizontal justification of the
+label text. The default for standard text is 0 (left-aligned) and 1
+(right-aligned) for expressions.}
+    \item{\code{label.vjust}}{A numeric specifying vertical justification of the label
 text.}
-
-\item{barwidth}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
+    \item{\code{barwidth}}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the width of the colourbar. Default value is \code{legend.key.width} or
 \code{legend.key.size} in \code{\link[ggplot2:theme]{theme()}} or theme.}
-
-\item{barheight}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
+    \item{\code{barheight}}{A numeric or a \code{\link[grid:unit]{grid::unit()}} object specifying
 the height of the colourbar. Default value is \code{legend.key.height} or
 \code{legend.key.size} in \code{\link[ggplot2:theme]{theme()}} or theme.}
-
-\item{nbin}{A numeric specifying the number of bins for drawing the
+    \item{\code{nbin}}{A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.}
-
-\item{raster}{A logical. If \code{TRUE} then the colourbar is rendered as a
+    \item{\code{raster}}{A logical. If \code{TRUE} then the colourbar is rendered as a
 raster object. If \code{FALSE} then the colourbar is rendered as a set of
 rectangles. Note that not all graphics devices are capable of rendering
 raster image.}
-
-\item{ticks}{A logical specifying if tick marks on the colourbar should be
+    \item{\code{frame.colour}}{A string specifying the colour of the frame
+drawn around the bar. If \code{NULL} (the default), no frame is drawn.}
+    \item{\code{frame.linewidth}}{A numeric specifying the width of the frame
+drawn around the bar in millimetres.}
+    \item{\code{frame.linetype}}{A numeric specifying the linetype of the frame
+drawn around the bar.}
+    \item{\code{ticks}}{A logical specifying if tick marks on the colourbar should be
 visible.}
-
-\item{draw.ulim}{A logical specifying if the upper limit tick marks should
+    \item{\code{ticks.colour}}{A string specifying the colour of the tick marks.}
+    \item{\code{ticks.linewidth}}{A numeric specifying the width of the tick marks in
+millimetres.}
+    \item{\code{draw.ulim}}{A logical specifying if the upper limit tick marks should
 be visible.}
-
-\item{draw.llim}{A logical specifying if the lower limit tick marks should
+    \item{\code{draw.llim}}{A logical specifying if the lower limit tick marks should
 be visible.}
-
-\item{direction}{A character string indicating the direction of the guide.
+    \item{\code{direction}}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
-
-\item{default.unit}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
+    \item{\code{default.unit}}{A character string indicating \code{\link[grid:unit]{grid::unit()}}
 for \code{barwidth} and \code{barheight}.}
-
-\item{reverse}{logical. If \code{TRUE} the colourbar is reversed. By default,
+    \item{\code{reverse}}{logical. If \code{TRUE} the colourbar is reversed. By default,
 the highest value is on the top and the lowest value is on the bottom}
-
-\item{order}{positive integer less than 99 that specifies the order of
+    \item{\code{order}}{positive integer less than 99 that specifies the order of
 this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
+  }}
 
-\item{...}{ignored.}
+\item{available_aes}{A vector of character strings listing the aesthetics
+for which a colourbar can be drawn.}
 }
 \value{
 A guide object

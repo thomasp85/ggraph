@@ -60,11 +60,11 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
   } else {
     height <- eval_tidy(height, .N())
   }
-  nodes <- new_data_frame(list(
+  nodes <- data_frame0(
     x = rep(NA_real_, gorder(graph)),
     y = height,
     leaf = degree(graph, mode = direction) == 0
-  ))
+  )
   if (all(is.na(nodes$y))) {
     nodes$y <- vapply(seq_len(gorder(graph)), function(i) {
       max(bfs(graph, i, direction, unreachable = FALSE, order = FALSE, dist = TRUE)$dist, na.rm = TRUE)
@@ -76,7 +76,7 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
     pad <- 0
   }
   startnode <- which(degree(graph, mode = reverse_dir) == 0)
-  if (length(startnode) < 1) stop('No root nodes in graph')
+  if (length(startnode) < 1) cli::cli_abort('The graph doesn\'t contain a root node')
   recurse_layout <- function(gr, node, layout, direction, offset = 0) {
     children <- as.numeric(neighbors(gr, node, direction))
     if (length(children) == 0) {

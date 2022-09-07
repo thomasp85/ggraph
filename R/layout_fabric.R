@@ -71,9 +71,13 @@ layout_tbl_graph_fabric <- function(graph, circular = FALSE, sort.by = NULL, sha
     range(edge_rank[as.integer(e)])
   }, numeric(2))
 
-  nodes <- new_data_frame(list(x = colMeans(node_span), xmin = node_span[1,],
-                      xmax = node_span[2,], y = abs(pos - max(pos))))
-  nodes$circular <- FALSE
+  nodes <- data_frame0(
+    x = colMeans(node_span),
+    xmin = node_span[1,],
+    xmax = node_span[2,],
+    y = abs(pos - max(pos)),
+    circular = FALSE
+  )
   nodes <- combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 
   graph <- activate(graph, 'edges')

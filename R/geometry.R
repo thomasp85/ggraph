@@ -126,7 +126,7 @@ length.geometry <- function(x) length(unclass(x))
 }
 #' @export
 `[<-.geometry` <- function(x, ..., value) {
-  if (!is.geometry(value)) stop('Only possible to insert geometries', call. = FALSE)
+  if (!is.geometry(value)) cli::cli_abort('It is only possible to insert {.cls geometry} objects')
   type <- unclass(x)
   type[...] <- unclass(value)
   width <- attr(x, 'width')
@@ -164,13 +164,13 @@ rep.geometry <- function(x, ...) {
 }
 #' @export
 as.data.frame.geometry <- function(x, row.names = NULL, optional = FALSE, ...) {
-  new_data_frame(list(x))
+  data_frame0(x)
 }
 #' @export
 c.geometry <- function(...) {
-  geometries <- list(...)
-  base <- do.call(c, lapply(geometries, unclass))
-  g_attr <- do.call(Map, c(list(f = c), lapply(geometries, attributes)))
+  geometries <- list2(...)
+  base <- inject(c(!!!lapply(geometries, unclass)))
+  g_attr <- inject(Map(f = c, !!!lapply(geometries, attributes)))
   g_attr$class <- 'geometry'
   attributes(base) <- g_attr
   base
@@ -180,15 +180,15 @@ is.na.geometry <- function(x) {
   is.na(unclass(x))
 }
 geo_type <- function(x) {
-  if (!is.geometry(x)) stop('x must be a geometry object', call. = FALSE)
+  if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls geometry} object')
   unclass(x)
 }
 geo_width <- function(x) {
-  if (!is.geometry(x)) stop('x must be a geometry object', call. = FALSE)
+  if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls geometry} object')
   unit(attr(x, 'width'), attr(x, 'uwidth'))
 }
 geo_height <- function(x) {
-  if (!is.geometry(x)) stop('x must be a geometry object', call. = FALSE)
+  if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls geometry} object')
   unit(attr(x, 'height'), attr(x, 'uheight'))
 }
 #' @importFrom grid convertHeight grobHeight

@@ -28,7 +28,6 @@ layout_tbl_graph_pmds <- function(graph, pivots, weights = NULL, circular = FALS
   weights <- eval_tidy(enquo(weights), .E())
   if (is.null(weights)) weights <- NA
   xy <- layout_with_pmds(graph, pivots = pivots, weights = weights)
-  nodes <- new_data_frame(list(x = xy[,1], y = xy[,2]))
-  nodes$circular <- FALSE
+  nodes <- data_frame0(x = xy[,1], y = xy[,2], circular = FALSE)
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

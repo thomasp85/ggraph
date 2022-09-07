@@ -18,8 +18,12 @@
 #'
 facet_edges <- function(facets, nrow = NULL, ncol = NULL, scales = 'fixed',
                         shrink = TRUE, labeller = 'label_value', as.table = TRUE,
-                        switch = NULL, drop = TRUE, dir = 'h',
+                        switch = deprecated(), drop = TRUE, dir = 'h',
                         strip.position = 'top') {
+  # Work around non-lifecycle deprecation
+  if (!lifecycle::is_present(switch) && utils::packageVersion('ggplot2') <= '3.3.6') {
+    switch <- NULL
+  }
   facet <- facet_wrap(
     facets = facets, nrow = nrow, ncol = ncol,
     scales = scales, shrink = shrink, labeller = labeller,
@@ -58,7 +62,7 @@ FacetEdges <- ggproto('FacetEdges', FacetWrap,
       node_ggraph = {
         node_map <- rep(list(data), length(attr(layout, 'node_placement')))
         panel <- rep(seq_along(node_map), vapply(node_map, nrow, numeric(1)))
-        node_map <- rbind_dfs(node_map)
+        node_map <- vec_rbind(!!!node_map)
         node_map$PANEL <- factor(panel, levels = levels(layout$PANEL))
         node_map
       },

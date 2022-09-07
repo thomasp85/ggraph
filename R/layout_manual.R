@@ -17,16 +17,16 @@
 #' @importFrom rlang enquo eval_tidy quo_is_symbol
 #'
 layout_tbl_graph_manual <- function(graph, x, y, circular) {
-  if (circular) {
-    warning('circular argument ignored for manual layout')
+  if (isTRUE(circular)) {
+    cli::cli_warn('{.arg circular} argument ignored for manual layout')
   }
   x <- enquo(x)
   y <- enquo(y)
-  nodes <- new_data_frame(list(
+  nodes <- data_frame0(
     x = eval_tidy(x, .N()),
-    y = eval_tidy(y, .N())
-  ))
+    y = eval_tidy(y, .N()),
+    circular = FALSE
+  )
   nodes <- combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
-  nodes$circular <- FALSE
   nodes
 }

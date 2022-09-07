@@ -84,7 +84,7 @@ layout_tbl_graph_partition <- function(graph, weight = NULL, circular = FALSE, h
       layout[, 2] + layout[, 4] / 2,
       layout[, 1] + layout[, 3] / 2
     )
-    nodes <- new_data_frame(list(
+    nodes <- data_frame0(
       x = coords$x,
       y = coords$y,
       r0 = layout[, 2],
@@ -92,17 +92,17 @@ layout_tbl_graph_partition <- function(graph, weight = NULL, circular = FALSE, h
       start = 2 * pi * layout[, 1] / width_range[2],
       end = 2 * pi * (layout[, 1] + layout[, 3]) / width_range[2],
       circular = TRUE
-    ))
+    )
     nodes$x[1] <- 0
     nodes$y[1] <- 0
   } else {
-    nodes <- new_data_frame(list(
+    nodes <- data_frame0(
       x = layout[, 1] + layout[, 3] / 2,
       y = layout[, 2] + layout[, 4] / 2,
       width = layout[, 3],
       height = layout[, 4],
       circular = FALSE
-    ))
+    )
   }
   nodes$leaf <- degree(graph, mode = direction) == 0
   nodes$depth <- node_depth(graph, mode = direction)

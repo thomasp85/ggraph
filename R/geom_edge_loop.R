@@ -173,7 +173,7 @@ create_loops <- function(loops, params) {
   controls1$index <- bezier_start + 1
   controls2$index <- bezier_start + 2
   end$index <- bezier_start + 3
-  loops <- rbind_dfs(list(loops, controls1, controls2, end))
+  loops <- vec_rbind(loops, controls1, controls2, end)
   loops[order(loops$index), names(loops) != 'index']
 }
 find_loop_controls <- function(loops, angle) {

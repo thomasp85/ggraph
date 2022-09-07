@@ -45,7 +45,10 @@ scale_edge_fill_distiller <- function(..., type = 'seq', palette = 1, direction 
   # warn about using a qualitative brewer palette to generate the gradient
   type <- match.arg(type, c('seq', 'div', 'qual'))
   if (type == 'qual') {
-    warning('Using a discrete fill palette in a continuous scale.\n  Consider using type = "seq" or type = "div" instead', call. = FALSE)
+    cli::cli_warn(c(
+      "Using a discrete fill palette in a continuous scale",
+      "i" = "Consider using {.code type = \"seq\"} or {.code type = \"div\"} instead"
+    ))
   }
   continuous_scale('edge_fill', 'distiller',
     gradient_n_pal(brewer_pal(type, palette, direction)(6), values, space),

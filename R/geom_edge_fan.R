@@ -278,6 +278,6 @@ create_fans <- function(from, to, params) {
   from$index <- bezier_start
   to$index <- bezier_start + 2
   data$index <- bezier_start + 1
-  data <- rbind_dfs(list(from, data, to))
+  data <- vec_rbind(from, data, to)
   data[order(data$index), names(data) != 'index']
 }

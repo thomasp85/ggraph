@@ -12,7 +12,7 @@ facet_edges(
   shrink = TRUE,
   labeller = "label_value",
   as.table = TRUE,
-  switch = NULL,
+  switch = deprecated(),
   drop = TRUE,
   dir = "h",
   strip.position = "top"

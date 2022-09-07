@@ -278,6 +278,6 @@ create_hive_bezier <- function(from, to, params) {
   data2$y <- node_r2 * sin(ifelse(from_first, middle_axis1, middle_axis2))
   data3$x <- node_r3 * cos(ifelse(from_first, middle_axis2, middle_axis1))
   data3$y <- node_r3 * sin(ifelse(from_first, middle_axis2, middle_axis1))
-  data <- rbind_dfs(list(from, data2, data3, to))
+  data <- vec_rbind(from, data2, data3, to)
   data[order(data$index), names(data) != 'index']
 }

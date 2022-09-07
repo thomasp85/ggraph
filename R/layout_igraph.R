@@ -102,7 +102,13 @@ layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi / 2,
       eval_tidy(dots[[nq]])
     }
   }), names(dots))
-  layout <- do.call(algorithm, c(list(graph), dots))
+  alg_fun <- try_fetch(
+    utils::getFromNamespace(algorithm, 'igraph'),
+    error = function(cnd) {
+      cli::cli_abort("Could not find the {.val {algorithm}} layout algorithm in the {.var igraph} namespace")
+    }
+  )
+  layout <- inject(alg_fun(graph, !!!dots))
   if (algorithm == 'layout_with_sugiyama') {
     if (use.dummy) {
       graph <- as_tbl_graph(layout$extd_graph)
@@ -115,13 +121,13 @@ layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi / 2,
     layout[, 1] <- layout[, 1] + components(graph)$membership - 1
   }
   if ('dim' %in% names(dots) && isTRUE(dots$dim > 2)) {
-    warning('Only the first two dimensions will be used despite requesting more', call. = FALSE)
+    cli::cli_warn('Only the first two dimensions will be used despite requesting more')
   }
-  nodes <- combine_layout_nodes(data.frame(x = layout[, 1], y = layout[, 2]), as_tibble(graph, active = 'nodes'))
+  nodes <- combine_layout_nodes(data_frame0(x = layout[, 1], y = layout[, 2]), as_tibble(graph, active = 'nodes'))
   graph <- add_direction(graph, nodes)
   if (circular) {
     if (!algorithm %in% c('layout_as_tree', 'layout_with_sugiyama')) {
-      stop('Circular layout only applicable to tree and DAG layout')
+      cli::cli_abort('Circular layout only applicable to tree and DAG layout')
     }
     radial <- radial_trans(
       r.range = rev(range(nodes$y)),

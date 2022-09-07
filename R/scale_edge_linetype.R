@@ -31,7 +31,10 @@ scale_edge_linetype <- function(..., na.value = 'blank') {
 #'
 #' @export
 scale_edge_linetype_continuous <- function(...) {
-  stop('A continuous variable can not be mapped to linetype', call. = FALSE)
+  cli::cli_abort(c(
+    "A continuous variable cannot be mapped to the {.field edge_linetype} aesthetic",
+    "i" = "choose a different aesthetic or use {.fn scale_edge_linetype_binned}"
+  ))
 }
 #' @rdname scale_edge_linetype
 #'

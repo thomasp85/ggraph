@@ -36,7 +36,6 @@ layout_tbl_graph_focus <- function(graph, focus, weights = NULL, niter = 500, to
                               tol = tolerance)
   xy <- layout$xy
 
-  nodes <- new_data_frame(list(x = xy[,1],y = xy[,2], distance = layout$distance))
-  nodes$circular <- FALSE
+  nodes <- data_frame0(x = xy[,1],y = xy[,2], distance = layout$distance, circular = FALSE)
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

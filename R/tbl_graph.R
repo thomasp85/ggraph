@@ -9,8 +9,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
   graph <- prepare_graph(graph, layout, ...)
   .register_graph_context(graph, free = TRUE)
   if (gorder(graph) == 0) {
-    layout <- new_data_frame(list(x = numeric(), y = numeric(), circular = logical()))
-    layout <- cbind(layout, .N())
+    layout <- data_frame0(x = numeric(), y = numeric(), circular = logical(), .N())
   } else {
     layout <- layout_to_table(layout, graph, circular = circular, ...)
   }
@@ -30,7 +29,7 @@ collect_edges.layout_tbl_graph <- function(layout) {
   gr <- attr(layout, 'graph')
   edges <- as_tibble(gr, active = 'edges')
   edges$circular <- rep(attr(layout, 'circular'), nrow(edges))
-  as.data.frame(edges, stringsAsFactors = FALSE)
+  data_frame0(edges)
 }
 #' @importFrom igraph shortest_paths
 #' @importFrom rlang enquo eval_tidy
@@ -62,14 +61,14 @@ is.igraphlayout <- function(type) {
     FALSE
   }
 }
-as.igraphlayout <- function(type) {
+as.igraphlayout <- function(type, call = caller_env()) {
   if (type %in% igraphlayouts) {
     layout <- type
   } else {
     new_type <- paste0(c('as_', 'in_', 'with_', 'on_'), type)
     type_ind <- which(new_type %in% igraphlayouts)
     if (length(type_ind) == 0) {
-      stop('Cannot find igraph layout')
+      cli::cli_abort('Cannot find the igraph layout {.val {type}}', call = call)
     }
     layout <- new_type[type_ind]
   }
@@ -95,7 +94,7 @@ prepare_graph <- function(graph, layout, direction = 'out', ...) {
 #' @importFrom igraph degree unfold_tree components induced_subgraph vertex_attr vertex_attr<- is.directed simplify
 graph_to_tree <- function(graph, mode) {
   if (!is.directed(graph)) {
-    stop('Graph must be directed')
+    cli::cli_abort('{.arg graph} must be directed')
   }
   graph <- simplify(graph, edge.attr.comb = 'first')
   parent_dir <- if (mode == 'out') 'in' else 'out'
@@ -104,13 +103,16 @@ graph_to_tree <- function(graph, mode) {
     graph <- induced_subgraph(graph, which(comp$membership == i))
     n_parents <- degree(graph, mode = parent_dir)
     if (!any(n_parents == 0)) {
-      stop('No root in graph. Provide graph with one parentless node')
+      cli::cli_abort(c(
+        '{.arg graph} doesn\'t contain a root.',
+        i = ' Provide graph with one parentless node'
+      ))
     }
     if (any(n_parents > 1)) {
-      message('Multiple parents. Unfolding graph')
+      cli::cli_inform('Multiple parents. Unfolding graph')
       root <- which(degree(graph, mode = parent_dir) == 0)
       if (length(root) > 1) {
-        message('Multiple roots in graph. Choosing the first')
+        cli::cli_inform('Multiple roots in graph. Choosing the first')
         root <- root[1]
       }
       tree <- unfold_tree(graph, mode = mode, roots = root)
@@ -120,7 +122,7 @@ graph_to_tree <- function(graph, mode) {
     }
     as_tbl_graph(graph)
   })
-  do.call(bind_graphs, graphs)
+  inject(bind_graphs(!!!graphs))
 }
 #' @importFrom igraph gorder as_edgelist delete_vertex_attr is.named
 tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
@@ -128,7 +130,7 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
   parent_col <- if (mode == 'out') 1 else 2
   node_col <- if (mode == 'out') 2 else 1
   edges <- as_edgelist(graph)
-  hierarchy <- new_data_frame(list(parent = rep(0, gorder(graph))))
+  hierarchy <- data_frame0(parent = rep(0, gorder(graph)))
   hierarchy$parent[edges[, node_col]] <- edges[, parent_col]
   if (is.null(sort.by)) {
     hierarchy$order <- seq_len(nrow(hierarchy)) + 1
@@ -147,14 +149,14 @@ tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
     hierarchy$weight[leaf] <- 1
   } else {
     if (!is.numeric(weight)) {
-      stop('Weight must be numeric')
+      cli::cli_abort('{.arg weight} must be numeric')
     }
     hierarchy$weight <- weight
     if (any(hierarchy$weight[!leaf] != 0)) {
-      message('Non-leaf weights ignored')
+      cli::cli_inform('Non-leaf weights ignored')
     }
     if (any(hierarchy$weight[leaf] == 0)) {
-      stop('Leafs must have a weight')
+      cli::cli_abort('leaf nodes must have a weight')
     }
     hierarchy$weight[!leaf] <- 0
   }
@@ -169,7 +171,10 @@ node_depth <- function(graph, mode) {
     mode,
     `in` = 'out',
     out = 'in',
-    stop('unknown mode')
+    cli::cli_abort(c(
+      'Unknown graph mode {.val {mode}}',
+      i = "use either {.val in} or {.val out}"
+    ))
   )
   root <- which(degree(graph, mode = mode_rev) == 0)
   depth <- rep(NA_integer_, gorder(graph))
@@ -211,7 +216,7 @@ layout_to_table <- function(layout, graph, ...) {
 }
 #' @export
 layout_to_table.default <- function(layout, graph, ...) {
-  stop('Unknown layout', call. = FALSE)
+  cli::cli_abort('Unknown {.arg layout}')
 }
 #' @export
 layout_to_table.character <- function(layout, graph, circular, ...) {
@@ -224,7 +229,7 @@ layout_to_table.character <- function(layout, graph, circular, ...) {
 }
 #' @export
 layout_to_table.matrix <- function(layout, graph, ...) {
-  layout <- new_data_frame(list(x = layout[, 1], y = layout[, 2]))
+  layout <- data_frame0(x = layout[, 1], y = layout[, 2])
   layout_to_table(layout, graph, ...)
 }
 #' @export
@@ -239,13 +244,13 @@ layout_to_table.function <- function(layout, graph, circular, ...) {
     layout(graph, ...)
   }
   if (!is.tbl_graph(layout) && !is.data.frame(layout)) {
-    layout <- tryCatch(
-      as.data.frame(layout, stringsAsFactors = FALSE),
+    layout <- try_fetch(
+      data_frame0(layout),
       error = function(e) {
-        tryCatch(
+        try_fetch(
           as_tbl_graph(layout),
           error = function(e) {
-            stop('layout function must return an object coerceble to either a data.frame or tbl_graph', call. = FALSE)
+            cli::cli_abort('layout function must return an object coerceble to either a {.cls data.frame} or {.cls tbl_graph}')
           }
         )
       }

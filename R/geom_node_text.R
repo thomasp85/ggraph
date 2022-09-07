@@ -57,9 +57,10 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = 'identity',
                            repel = FALSE, ...) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop('Specify either `position` or `nudge_x`/`nudge_y`',
-        call. = FALSE
-      )
+      cli::cli_abort(c(
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "i" = "Only use one approach to alter the position"
+      ))
     }
     position <- position_nudge(nudge_x, nudge_y)
   }
@@ -93,9 +94,10 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
                             repel = FALSE, ...) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
-      stop('Specify either `position` or `nudge_x`/`nudge_y`',
-        call. = FALSE
-      )
+      cli::cli_abort(c(
+        "both {.arg position} and {.arg nudge_x}/{.arg nudge_y} are supplied",
+        "i" = "Only use one approach to alter the position"
+      ))
     }
     position <- position_nudge(nudge_x, nudge_y)
   }

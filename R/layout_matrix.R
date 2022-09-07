@@ -37,8 +37,7 @@ layout_tbl_graph_matrix <- function(graph, circular = FALSE, sort.by = NULL) {
   } else {
     pos <- seq_len(gorder(graph))
   }
-  nodes <- new_data_frame(list(x = pos, y = pos))
+  nodes <- data_frame0(x = pos, y = pos, circular = FALSE)
   nodes <- combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
-  nodes$circular <- FALSE
   nodes
 }

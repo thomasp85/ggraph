@@ -57,13 +57,13 @@ layout_tbl_graph_circlepack <- function(graph, weight = NULL, circular = FALSE, 
   sort.by <- eval_tidy(sort.by, .N())
   hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
   nodes <- circlePackLayout(hierarchy$parent, hierarchy$weight)[-1, ]
-  nodes <- new_data_frame(list(
+  nodes <- data_frame0(
     x = nodes[, 1],
     y = nodes[, 2],
     r = nodes[, 3],
     circular = FALSE,
     leaf = degree(graph, mode = direction) == 0,
     depth = node_depth(graph, mode = direction)
-  ))
+  )
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

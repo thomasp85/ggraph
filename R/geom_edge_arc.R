@@ -298,6 +298,6 @@ create_arc <- function(from, to, params) {
       data3$y[!circ] <- abs(data3$y[!circ]) * sign(params$strength)
     }
   }
-  data <- rbind_dfs(list(from, data2, data3, to))
+  data <- vec_rbind(from, data2, data3, to)
   data[order(data$index), names(data) != 'index']
 }

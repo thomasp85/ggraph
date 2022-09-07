@@ -17,7 +17,7 @@ StatAxisHive <- ggproto('StatAxisHive', StatFilter,
       ) %>%
       slice(1) %>%
       ungroup()
-    as.data.frame(data, stringsAsFactors = FALSE)
+    data_frame0(data)
   },
   required_aes = c('r', 'angle', 'center_size', 'axis', 'section'),
   extra_params = c('na.rm', 'n', 'curvature')
@@ -48,7 +48,7 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
         fontface = .data$fontface[1],
         lineheight = .data$lineheight[1]
       )
-    label_data <- as.data.frame(label_data, stringsAsFactors = FALSE)
+    label_data <- data_frame0(label_data)
     lab_dist <- sqrt(label_data$x^2 + label_data$y^2)
     dist_dodge <- max(lab_dist) * 1.05 - max(lab_dist)
     label_data$x <- label_data$x * (dist_dodge + lab_dist) / lab_dist
