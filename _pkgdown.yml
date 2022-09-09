@@ -141,6 +141,7 @@ reference:
     contents:
       - guide_edge_direction
       - guide_edge_colourbar
+      - guide_edge_coloursteps
   - title: "Helpers"
     desc: >
       ggraph contains an assortment of helpers for various tasks related to
