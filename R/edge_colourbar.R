@@ -8,8 +8,6 @@
 #'
 #' @return A guide object
 #'
-#' @importFrom grid is.unit unit
-#' @importFrom digest digest
 #' @export
 guide_edge_colourbar <- function(..., available_aes = c("edge_colour", "edge_fill")) {
   guide <- guide_colourbar(..., available_aes = available_aes)
@@ -19,3 +17,26 @@ guide_edge_colourbar <- function(..., available_aes = c("edge_colour", "edge_fil
 #' @rdname guide_edge_colourbar
 #' @export
 guide_edge_colorbar <- guide_edge_colourbar
+
+#' Coloursteps legend for edges
+#'
+#' This function is equivalent to [ggplot2::guide_coloursteps()] but
+#' works for edge aesthetics.
+#'
+#' @inheritParams ggplot2::guide_coloursteps
+#' @inheritParams ggplot2::guide_colourbar
+#' @inheritDotParams ggplot2::guide_coloursteps
+#'
+#' @return A guide object
+#'
+#' @export
+guide_edge_coloursteps <- function(even.steps = TRUE, show.limits = NULL, ticks = FALSE, ...,
+                                   available_aes = c("edge_colour", "edge_fill")) {
+  guide <- guide_coloursteps(even.steps = even.steps, show.limits = show.limits,
+                             ticks = ticks, ..., available_aes = available_aes)
+  guide$name <- 'edge_coloursteps'
+  guide
+}
+#' @rdname guide_edge_coloursteps
+#' @export
+guide_edge_colorsteps <- guide_edge_coloursteps

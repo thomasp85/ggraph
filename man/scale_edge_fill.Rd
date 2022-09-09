@@ -12,8 +12,13 @@
 \alias{scale_edge_fill_identity}
 \alias{scale_edge_fill_manual}
 \alias{scale_edge_fill_viridis}
+\alias{scale_edge_fill_steps}
+\alias{scale_edge_fill_steps2}
+\alias{scale_edge_fill_stepsn}
+\alias{scale_edge_fill_fermenter}
 \alias{scale_edge_fill_continuous}
 \alias{scale_edge_fill_discrete}
+\alias{scale_edge_fill_binned}
 \title{Edge fill scales}
 \usage{
 scale_edge_fill_hue(
@@ -23,10 +28,17 @@ scale_edge_fill_hue(
   l = 65,
   h.start = 0,
   direction = 1,
-  na.value = "grey50"
+  na.value = "grey50",
+  aesthetics = "edge_fill"
 )
 
-scale_edge_fill_brewer(..., type = "seq", palette = 1, direction = 1)
+scale_edge_fill_brewer(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = 1,
+  aesthetics = "edge_fill"
+)
 
 scale_edge_fill_distiller(
   ...,
@@ -36,7 +48,8 @@ scale_edge_fill_distiller(
   values = NULL,
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_fill"
 )
 
 scale_edge_fill_gradient(
@@ -45,7 +58,8 @@ scale_edge_fill_gradient(
   high = "#56B1F7",
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_fill"
 )
 
 scale_edge_fill_gradient2(
@@ -56,7 +70,8 @@ scale_edge_fill_gradient2(
   midpoint = 0,
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_fill"
 )
 
 scale_edge_fill_gradientn(
@@ -66,23 +81,80 @@ scale_edge_fill_gradientn(
   space = "Lab",
   na.value = "grey50",
   guide = "edge_colourbar",
+  aesthetics = "edge_fill",
   colors
 )
 
-scale_edge_fill_grey(..., start = 0.2, end = 0.8, na.value = "red")
+scale_edge_fill_grey(
+  ...,
+  start = 0.2,
+  end = 0.8,
+  na.value = "red",
+  aesthetics = "edge_fill"
+)
 
-scale_edge_fill_identity(..., guide = "none")
+scale_edge_fill_identity(..., guide = "none", aesthetics = "edge_fill")
 
-scale_edge_fill_manual(..., values)
+scale_edge_fill_manual(
+  ...,
+  values,
+  aesthetics = "edge_fill",
+  breaks = waiver(),
+  na.value = "grey50"
+)
 
 scale_edge_fill_viridis(
   ...,
   alpha = 1,
   begin = 0,
   end = 1,
+  direction = 1,
   discrete = FALSE,
   option = "D",
-  direction = 1
+  aesthetics = "edge_fill"
+)
+
+scale_edge_fill_steps(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_fill"
+)
+
+scale_edge_fill_steps2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_fill"
+)
+
+scale_edge_fill_stepsn(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_fill",
+  colors
+)
+
+scale_edge_fill_fermenter(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_fill"
 )
 
 scale_edge_fill_continuous(
@@ -91,7 +163,8 @@ scale_edge_fill_continuous(
   high = "#56B1F7",
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_fill"
 )
 
 scale_edge_fill_discrete(
@@ -101,7 +174,18 @@ scale_edge_fill_discrete(
   l = 65,
   h.start = 0,
   direction = 1,
-  na.value = "grey50"
+  na.value = "grey50",
+  aesthetics = "edge_fill"
+)
+
+scale_edge_fill_binned(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_fill"
 )
 }
 \arguments{
@@ -179,6 +263,11 @@ combination of hue and luminance.}
 
 \item{na.value}{Colour to use for missing values}
 
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
+
 \item{type}{One of "seq" (sequential), "div" (diverging) or "qual"
 (qualitative)}
 
@@ -209,6 +298,15 @@ Defaults to 0.}
 \item{start}{grey value at low end of palette}
 
 \item{end}{grey value at high end of palette}
+
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
 
 \item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
 \code{\link[grDevices]{hsv}}.}

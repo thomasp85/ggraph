@@ -5,26 +5,125 @@
 \alias{scale_edge_size_continuous}
 \alias{scale_edge_radius}
 \alias{scale_edge_size_discrete}
+\alias{scale_edge_size_binned}
 \alias{scale_edge_size_area}
+\alias{scale_edge_size_binned_area}
 \alias{scale_edge_size_manual}
 \alias{scale_edge_size_identity}
 \title{Edge size scales}
 \usage{
-scale_edge_size_continuous(..., range = c(1, 6))
+scale_edge_size_continuous(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  trans = "identity",
+  guide = "legend"
+)
 
-scale_edge_radius(..., range = c(1, 6))
+scale_edge_radius(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  trans = "identity",
+  guide = "legend"
+)
 
-scale_edge_size(..., range = c(1, 6))
+scale_edge_size(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  trans = "identity",
+  guide = "legend"
+)
 
-scale_edge_size_discrete(..., range = c(2, 6))
+scale_edge_size_discrete(...)
+
+scale_edge_size_binned(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  n.breaks = NULL,
+  nice.breaks = TRUE,
+  trans = "identity",
+  guide = "bins"
+)
 
 scale_edge_size_area(..., max_size = 6)
 
-scale_edge_size_manual(..., values)
+scale_edge_size_binned_area(..., max_size = 6)
+
+scale_edge_size_manual(..., values, breaks = waiver(), na.value = NA)
 
 scale_edge_size_identity(..., guide = "none")
 }
 \arguments{
+\item{name}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
+
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks computed by the
+\link[scales:trans_new]{transformation object}
+\item A numeric vector of positions
+\item A function that takes the limits as input and returns breaks
+as output (e.g., a function returned by \code{\link[scales:breaks_extended]{scales::extended_breaks()}}).
+Also accepts rlang \link[rlang:as_function]{lambda} function notation.
+}}
+
+\item{labels}{One of:
+\itemize{
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
+\item A function that takes the breaks as input and returns labels
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
+}}
+
+\item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
+Note that setting limits on positional scales will \strong{remove} data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see \code{\link[ggplot2:coord_cartesian]{coord_cartesian()}}).
+}}
+
+\item{range}{a numeric vector of length 2 that specifies the minimum and
+maximum size of the plotting symbol after transformation.}
+
+\item{trans}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
+
+A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \verb{<name>_trans} (e.g.,
+\code{\link[scales:boxcox_trans]{scales::boxcox_trans()}}). You can create your own
+transformation with \code{\link[scales:trans_new]{scales::trans_new()}}.}
+
+\item{guide}{A function used to create a guide or its name. See
+\code{\link[ggplot2:guides]{guides()}} for more information.}
+
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:continuous_scale]{continuous_scale}}
   \describe{
@@ -59,8 +158,16 @@ expand the scale by 5\% on each side for continuous variables, and by
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
-\item{range}{a numeric vector of length 2 that specifies the minimum and
-maximum size of the plotting symbol after transformation.}
+\item{n.breaks}{An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if \code{breaks = waiver()}. Use \code{NULL} to use the default
+number of breaks given by the transformation.}
+
+\item{nice.breaks}{Logical. Should breaks be attempted placed at nice values
+instead of exactly evenly spaced between the limits. If \code{TRUE} (default)
+the scale will ask the transformation object to create breaks, and this
+may result in a different number of breaks than requested. Ignored if
+breaks are given explicitly.}
 
 \item{max_size}{Size of largest points.}
 
@@ -70,8 +177,7 @@ scale, or with \code{breaks} if provided. If this is a named vector, then the
 values will be matched based on the names instead. Data values that don't
 match will be given \code{na.value}.}
 
-\item{guide}{A function used to create a guide or its name. See
-\code{\link[ggplot2:guides]{guides()}} for more information.}
+\item{na.value}{The aesthetic value to use for missing (\code{NA}) values}
 }
 \value{
 A ggproto object inheriting from \code{Scale}

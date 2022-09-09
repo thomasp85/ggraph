@@ -4,6 +4,7 @@
 \alias{scale_edge_linetype}
 \alias{scale_edge_linetype_continuous}
 \alias{scale_edge_linetype_discrete}
+\alias{scale_edge_linetype_binned}
 \alias{scale_edge_linetype_manual}
 \alias{scale_edge_linetype_identity}
 \title{Edge linetype scales}
@@ -14,7 +15,9 @@ scale_edge_linetype_continuous(...)
 
 scale_edge_linetype_discrete(..., na.value = "blank")
 
-scale_edge_linetype_manual(..., values)
+scale_edge_linetype_binned(..., na.value = "blank")
+
+scale_edge_linetype_manual(..., values, breaks = waiver(), na.value = "blank")
 
 scale_edge_linetype_identity(..., guide = "none")
 }
@@ -79,6 +82,15 @@ will be matched in order (usually alphabetical) with the limits of the
 scale, or with \code{breaks} if provided. If this is a named vector, then the
 values will be matched based on the names instead. Data values that don't
 match will be given \code{na.value}.}
+
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
 
 \item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
 }
