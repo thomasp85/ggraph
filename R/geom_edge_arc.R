@@ -137,7 +137,7 @@ geom_edge_arc <- function(mapping = NULL, data = get_edges(),
                           label_dodge = NULL, label_push = NULL,
                           show.legend = NA, ..., curvature) {
   if (!missing(curvature)) {
-    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_arc(curvature)', 'geom_edge_arc(strength)')
     strength <- curvature
   }
   mapping <- complete_edge_aes(mapping)
@@ -194,7 +194,7 @@ geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ..., curvature) {
   if (!missing(curvature)) {
-    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_arc2(curvature)', 'geom_edge_arc2(strength)')
     strength <- curvature
   }
   mapping <- complete_edge_aes(mapping)
@@ -239,7 +239,7 @@ geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
                            position = 'identity', arrow = NULL, strength = 1,
                            lineend = 'butt', show.legend = NA, fold = fold, ..., curvature) {
   if (!missing(curvature)) {
-    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_arc0(curvature)', 'geom_edge_arc0(strength)')
     strength <- curvature
   }
   mapping <- complete_edge_aes(mapping)

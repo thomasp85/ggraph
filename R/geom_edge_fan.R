@@ -129,7 +129,7 @@ geom_edge_fan <- function(mapping = NULL, data = get_edges(),
                           label_dodge = NULL, label_push = NULL,
                           show.legend = NA, ..., spread) {
   if (!missing(spread)) {
-    .Deprecated(msg = 'The spread argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_fan(spread)', 'geom_edge_fan(strength)')
     strength <- spread
   }
   mapping <- complete_edge_aes(mapping)
@@ -186,7 +186,7 @@ geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ..., spread) {
   if (!missing(spread)) {
-    .Deprecated(msg = 'The spread argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_fan2(spread)', 'geom_edge_fan2(strength)')
     strength <- spread
   }
   mapping <- complete_edge_aes(mapping)
@@ -231,7 +231,7 @@ geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
                            position = 'identity', arrow = NULL, strength = 1,
                            lineend = 'butt', show.legend = NA, ..., spread) {
   if (!missing(spread)) {
-    .Deprecated(msg = 'The spread argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_fan0(spread)', 'geom_edge_fan0(strength)')
     strength <- spread
   }
   mapping <- complete_edge_aes(mapping)
