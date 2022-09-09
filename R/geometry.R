@@ -39,20 +39,36 @@
 geometry <- function(type = 'circle', width = 1, height = width,
                      width_unit = 'cm', height_unit = width_unit) {
   l <- max(length(type), length(width), length(height))
-  g <- rep(type, length.out = l)
+  g <- rep_len(vec_cast(type, character()), l)
   g_na <- is.na(g)
-  width <- rep(width, length.out = l)
-  width[g_na] <- 0
-  height <- rep(height, length.out = l)
-  height[g_na] <- 0
-  uwidth <- rep(width_unit, length.out = l)
-  uheight <- rep(height_unit, length.out = l)
   g[g_na] <- 'circle'
-  attributes(g) <- list(
-    width = width, uwidth = uwidth, height = height,
-    uheight = uheight, class = 'geometry'
+  width <- rep_len(vec_cast(width, double()), l)
+  width[g_na] <- 0
+  height <- rep_len(vec_cast(height, double()), l)
+  height[g_na] <- 0
+  uwidth <- rep_len(vec_cast(width_unit, character()), l)
+  uheight <- rep_len(vec_cast(height_unit, character()), l)
+  new_geometry(
+    geometry = g,
+    width = width,
+    height = height,
+    width_unit = uwidth,
+    height_unit = uheight
   )
-  g
+}
+new_geometry <- function(geometry, width, height, width_unit, height_unit) {
+  vec_assert(geometry, character())
+  vec_assert(width, double())
+  vec_assert(height, double())
+  vec_assert(width_unit, character())
+  vec_assert(height_unit, character())
+  new_rcrd(list(
+    geometry = geometry,
+    width = width,
+    height = height,
+    width_unit = width_unit,
+    height_unit = height_unit
+  ), class = 'ggraph_geometry')
 }
 #' @rdname geometry
 #'
@@ -109,87 +125,29 @@ label_rect <- function(label, padding = margin(1, 1, 1.5, 1, 'mm'), ...) {
 #' @param x An object to test for geometry inheritance
 #'
 #' @export
-is.geometry <- function(x) inherits(x, 'geometry')
+is.geometry <- function(x) inherits(x, 'ggraph_geometry')
 #' @export
-length.geometry <- function(x) length(unclass(x))
-#' @export
-`[.geometry` <- function(x, i, ...) {
-  g <- unclass(x)[i]
-  attributes(g) <- list(
-    width = attr(x, 'width')[i],
-    height = attr(x, 'height')[i],
-    uwidth = attr(x, 'uwidth')[i],
-    uheight = attr(x, 'uheight')[i],
-    class = 'geometry'
-  )
-  g
-}
-#' @export
-`[<-.geometry` <- function(x, ..., value) {
-  if (!is.geometry(value)) cli::cli_abort('It is only possible to insert {.cls geometry} objects')
-  type <- unclass(x)
-  type[...] <- unclass(value)
-  width <- attr(x, 'width')
-  width[...] <- attr(value, 'width')
-  height <- attr(x, 'height')
-  height[...] <- attr(value, 'height')
-  uwidth <- attr(x, 'uwidth')
-  uwidth[...] <- attr(value, 'uwidth')
-  uheight <- attr(x, 'uheight')
-  uheight[...] <- attr(value, 'uheight')
-  attributes(type) <- list(
-    width = width,
-    height = height,
-    uwidth = uwidth,
-    uheight = uheight,
-    class = 'geometry'
-  )
-  type
-}
-#' @export
-format.geometry <- function(x, ...) {
+format.ggraph_geometry <- function(x, ...) {
   paste0(
-    unclass(x), '(', attr(x, 'width'), attr(x, 'uwidth'),
-    ', ', attr(x, 'height'), attr(x, 'uheight'), ')'
+    field(x, 'geometry'), '(', field(x, 'width'), field(x, 'width_unit'),
+    ', ', field(x, 'height'), field(x, 'height_unit'), ')'
   )
 }
 #' @export
-print.geometry <- function(x, ...) {
-  print(format(x, ...))
-}
-#' @export
-rep.geometry <- function(x, ...) {
-  i <- rep(seq_along(x), ...)
-  x[i]
-}
-#' @export
-as.data.frame.geometry <- function(x, row.names = NULL, optional = FALSE, ...) {
-  data_frame0(x)
-}
-#' @export
-c.geometry <- function(...) {
-  geometries <- list2(...)
-  base <- inject(c(!!!lapply(geometries, unclass)))
-  g_attr <- inject(Map(f = c, !!!lapply(geometries, attributes)))
-  g_attr$class <- 'geometry'
-  attributes(base) <- g_attr
-  base
-}
-#' @export
-is.na.geometry <- function(x) {
-  is.na(unclass(x))
+is.na.ggraph_geometry <- function(x) {
+  is.na(field(x, 'geometry'))
 }
 geo_type <- function(x) {
-  if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls geometry} object')
-  unclass(x)
+  if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls ggraph_geometry} object')
+  field(x, 'geometry')
 }
 geo_width <- function(x) {
   if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls geometry} object')
-  unit(attr(x, 'width'), attr(x, 'uwidth'))
+  unit(field(x, 'width'), field(x, 'width_unit'))
 }
 geo_height <- function(x) {
   if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls geometry} object')
-  unit(attr(x, 'height'), attr(x, 'uheight'))
+  unit(field(x, 'height'), field(x, 'height_unit'))
 }
 #' @importFrom grid convertHeight grobHeight
 abs_height <- function(grobs) {
@@ -207,4 +165,4 @@ abs_width <- function(grobs) {
 #' @export
 #'
 #' @keywords internal
-scale_type.geometry <- function(x) 'identity'
+scale_type.ggraph_geometry <- function(x) 'identity'
