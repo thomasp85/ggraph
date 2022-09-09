@@ -157,6 +157,8 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
     segmentsGrob(0.1, 0.5, 0.9, 0.5,
       gp = gpar(
         col = alpha(data$edge_colour, data$edge_alpha),
+        fill = alpha(params$arrow.fill %||% data$edge_colour
+                     %||% data$edge_fill %||% "black", data$edge_alpha),
         lwd = data$edge_width * .pt,
         lty = data$edge_linetype, lineend = 'butt'
       ),
@@ -257,6 +259,8 @@ GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
     segmentsGrob(0.1, 0.5, 0.9, 0.5,
       gp = gpar(
         col = alpha(data$edge_colour, data$edge_alpha),
+        fill = alpha(params$arrow.fill %||% data$edge_colour
+                     %||% data$edge_fill %||% "black", data$edge_alpha),
         lwd = data$edge_width * .pt,
         lty = data$edge_linetype, lineend = 'butt'
       ),
@@ -488,6 +492,8 @@ GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
     segmentsGrob(0.1, 0.5, 0.9, 0.5,
       gp = gpar(
         col = alpha(data$edge_colour, data$edge_alpha),
+        fill = alpha(params$arrow.fill %||% data$edge_colour
+                     %||% data$edge_fill %||% "black", data$edge_alpha),
         lwd = data$edge_width * .pt,
         lty = data$edge_linetype, lineend = 'butt'
       ),
@@ -519,6 +525,8 @@ GeomEdgeBspline <- ggproto('GeomEdgeBspline', GeomBspline0,
     segmentsGrob(0.1, 0.5, 0.9, 0.5,
       gp = gpar(
         col = alpha(data$edge_colour, data$edge_alpha),
+        fill = alpha(params$arrow.fill %||% data$edge_colour
+                     %||% data$edge_fill %||% "black", data$edge_alpha),
         lwd = data$edge_width * .pt,
         lty = data$edge_linetype, lineend = 'butt'
       ),
