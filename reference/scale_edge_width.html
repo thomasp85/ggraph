@@ -117,20 +117,114 @@ not <code>edge_width</code> in the call to geoms.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_edge_width_continuous</span><span class="op">(</span><span class="va">...</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">scale_edge_width_continuous</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  labels <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"legend"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_edge_width</span><span class="op">(</span><span class="va">...</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">scale_edge_width</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  labels <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"legend"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_edge_width_discrete</span><span class="op">(</span><span class="va">...</span>, range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">2</span>, <span class="fl">6</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu">scale_edge_width_discrete</span><span class="op">(</span><span class="va">...</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_edge_width_manual</span><span class="op">(</span><span class="va">...</span>, <span class="va">values</span><span class="op">)</span></span>
+<span><span class="fu">scale_edge_width_binned</span><span class="op">(</span></span>
+<span>  name <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  labels <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  limits <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  range <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">6</span><span class="op">)</span>,</span>
+<span>  n.breaks <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  nice.breaks <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  trans <span class="op">=</span> <span class="st">"identity"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"bins"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_edge_width_manual</span><span class="op">(</span><span class="va">...</span>, <span class="va">values</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>, na.value <span class="op">=</span> <span class="cn">NA</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_edge_width_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
     <h2>Arguments</h2>
-    <dl><dt>...</dt>
+    <dl><dt>name</dt>
+<dd><p>The name of the scale. Used as the axis or legend title. If
+<code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code>, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
+omitted.</p></dd>
+
+
+<dt>breaks</dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks computed by the
+<a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">transformation object</a></p></li>
+<li><p>A numeric vector of positions</p></li>
+<li><p>A function that takes the limits as input and returns breaks
+as output (e.g., a function returned by <code><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
+Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
+</ul></dd>
+
+
+<dt>labels</dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> for no labels</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default labels computed by the
+transformation object</p></li>
+<li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
+<li><p>An expression vector (must be the same length as breaks). See ?plotmath for details.</p></li>
+<li><p>A function that takes the breaks as input and returns labels
+as output. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
+notation.</p></li>
+</ul></dd>
+
+
+<dt>limits</dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> to use the default scale range</p></li>
+<li><p>A numeric vector of length two providing limits of the scale.
+Use <code>NA</code> to refer to the existing minimum or maximum</p></li>
+<li><p>A function that accepts the existing (automatic) limits and returns
+new limits. Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function
+notation.
+Note that setting limits on positional scales will <strong>remove</strong> data outside of the limits.
+If the purpose is to zoom, use the limit argument in the coordinate system
+(see <code><a href="https://ggplot2.tidyverse.org/reference/coord_cartesian.html" class="external-link">coord_cartesian()</a></code>).</p></li>
+</ul></dd>
+
+
+<dt>range</dt>
+<dd><p>a numeric vector of length 2 that specifies the minimum and
+maximum size of the plotting symbol after transformation.</p></dd>
+
+
+<dt>trans</dt>
+<dd><p>For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".</p>
+<p>A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
+<code><a href="https://scales.r-lib.org/reference/boxcox_trans.html" class="external-link">scales::boxcox_trans()</a></code>). You can create your own
+transformation with <code><a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">scales::trans_new()</a></code>.</p></dd>
+
+
+<dt>guide</dt>
+<dd><p>A function used to create a guide or its name. See
+<code><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides()</a></code> for more information.</p></dd>
+
+
+<dt>...</dt>
 <dd><p>Arguments passed on to <code><a href="https://ggplot2.tidyverse.org/reference/continuous_scale.html" class="external-link">continuous_scale</a></code></p><dl><dt><code>minor_breaks</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no minor breaks</p></li>
 <li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks (one minor break between
@@ -172,9 +266,19 @@ expand the scale by 5% on each side for continuous variables, and by
 </dl></dd>
 
 
-<dt>range</dt>
-<dd><p>a numeric vector of length 2 that specifies the minimum and
-maximum size of the plotting symbol after transformation.</p></dd>
+<dt>n.breaks</dt>
+<dd><p>An integer guiding the number of major breaks. The algorithm
+may choose a slightly different number to ensure nice break labels. Will
+only have an effect if <code>breaks = waiver()</code>. Use <code>NULL</code> to use the default
+number of breaks given by the transformation.</p></dd>
+
+
+<dt>nice.breaks</dt>
+<dd><p>Logical. Should breaks be attempted placed at nice values
+instead of exactly evenly spaced between the limits. If <code>TRUE</code> (default)
+the scale will ask the transformation object to create breaks, and this
+may result in a different number of breaks than requested. Ignored if
+breaks are given explicitly.</p></dd>
 
 
 <dt>values</dt>
@@ -185,9 +289,8 @@ values will be matched based on the names instead. Data values that don't
 match will be given <code>na.value</code>.</p></dd>
 
 
-<dt>guide</dt>
-<dd><p>A function used to create a guide or its name. See
-<code><a href="https://ggplot2.tidyverse.org/reference/guides.html" class="external-link">guides()</a></code> for more information.</p></dd>
+<dt>na.value</dt>
+<dd><p>The aesthetic value to use for missing (<code>NA</code>) values</p></dd>
 
 </dl></div>
     <div id="value">

@@ -118,10 +118,17 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
 <span>  l <span class="op">=</span> <span class="fl">65</span>,</span>
 <span>  h.start <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  direction <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span></span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_edge_fill_brewer</span><span class="op">(</span><span class="va">...</span>, type <span class="op">=</span> <span class="st">"seq"</span>, palette <span class="op">=</span> <span class="fl">1</span>, direction <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span><span class="fu">scale_edge_fill_brewer</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"seq"</span>,</span>
+<span>  palette <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  direction <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_edge_fill_distiller</span><span class="op">(</span></span>
 <span>  <span class="va">...</span>,</span>
@@ -131,7 +138,8 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
 <span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
-<span>  guide <span class="op">=</span> <span class="st">"edge_colourbar"</span></span>
+<span>  guide <span class="op">=</span> <span class="st">"edge_colourbar"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_edge_fill_gradient</span><span class="op">(</span></span>
@@ -140,7 +148,8 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
 <span>  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,</span>
 <span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
-<span>  guide <span class="op">=</span> <span class="st">"edge_colourbar"</span></span>
+<span>  guide <span class="op">=</span> <span class="st">"edge_colourbar"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_edge_fill_gradient2</span><span class="op">(</span></span>
@@ -151,7 +160,8 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
 <span>  midpoint <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
-<span>  guide <span class="op">=</span> <span class="st">"edge_colourbar"</span></span>
+<span>  guide <span class="op">=</span> <span class="st">"edge_colourbar"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_edge_fill_gradientn</span><span class="op">(</span></span>
@@ -161,23 +171,80 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
 <span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
 <span>  guide <span class="op">=</span> <span class="st">"edge_colourbar"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span>,</span>
 <span>  <span class="va">colors</span></span>
 <span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_edge_fill_grey</span><span class="op">(</span><span class="va">...</span>, start <span class="op">=</span> <span class="fl">0.2</span>, end <span class="op">=</span> <span class="fl">0.8</span>, na.value <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span></span>
+<span><span class="fu">scale_edge_fill_grey</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  start <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span>  end <span class="op">=</span> <span class="fl">0.8</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"red"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_edge_fill_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span>
+<span><span class="fu">scale_edge_fill_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span>, aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_edge_fill_manual</span><span class="op">(</span><span class="va">...</span>, <span class="va">values</span><span class="op">)</span></span>
+<span><span class="fu">scale_edge_fill_manual</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">values</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span>,</span>
+<span>  breaks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span></span>
+<span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_edge_fill_viridis</span><span class="op">(</span></span>
 <span>  <span class="va">...</span>,</span>
 <span>  alpha <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  begin <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  end <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  direction <span class="op">=</span> <span class="fl">1</span>,</span>
 <span>  discrete <span class="op">=</span> <span class="cn">FALSE</span>,</span>
 <span>  option <span class="op">=</span> <span class="st">"D"</span>,</span>
-<span>  direction <span class="op">=</span> <span class="fl">1</span></span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_edge_fill_steps</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  low <span class="op">=</span> <span class="st">"#132B43"</span>,</span>
+<span>  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"edge_coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_edge_fill_steps2</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  low <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"red"</span><span class="op">)</span>,</span>
+<span>  mid <span class="op">=</span> <span class="st">"white"</span>,</span>
+<span>  high <span class="op">=</span> <span class="fu">muted</span><span class="op">(</span><span class="st">"blue"</span><span class="op">)</span>,</span>
+<span>  midpoint <span class="op">=</span> <span class="fl">0</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"edge_coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_edge_fill_stepsn</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  <span class="va">colours</span>,</span>
+<span>  values <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"edge_coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span>,</span>
+<span>  <span class="va">colors</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_edge_fill_fermenter</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  type <span class="op">=</span> <span class="st">"seq"</span>,</span>
+<span>  palette <span class="op">=</span> <span class="fl">1</span>,</span>
+<span>  direction <span class="op">=</span> <span class="op">-</span><span class="fl">1</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"edge_coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_edge_fill_continuous</span><span class="op">(</span></span>
@@ -186,7 +253,8 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
 <span>  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,</span>
 <span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
 <span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
-<span>  guide <span class="op">=</span> <span class="st">"edge_colourbar"</span></span>
+<span>  guide <span class="op">=</span> <span class="st">"edge_colourbar"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_edge_fill_discrete</span><span class="op">(</span></span>
@@ -196,7 +264,18 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
 <span>  l <span class="op">=</span> <span class="fl">65</span>,</span>
 <span>  h.start <span class="op">=</span> <span class="fl">0</span>,</span>
 <span>  direction <span class="op">=</span> <span class="fl">1</span>,</span>
-<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span></span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
+<span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_edge_fill_binned</span><span class="op">(</span></span>
+<span>  <span class="va">...</span>,</span>
+<span>  low <span class="op">=</span> <span class="st">"#132B43"</span>,</span>
+<span>  high <span class="op">=</span> <span class="st">"#56B1F7"</span>,</span>
+<span>  space <span class="op">=</span> <span class="st">"Lab"</span>,</span>
+<span>  na.value <span class="op">=</span> <span class="st">"grey50"</span>,</span>
+<span>  guide <span class="op">=</span> <span class="st">"edge_coloursteps"</span>,</span>
+<span>  aesthetics <span class="op">=</span> <span class="st">"edge_fill"</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -306,6 +385,13 @@ combination of hue and luminance.</p></dd>
 <dd><p>Colour to use for missing values</p></dd>
 
 
+<dt>aesthetics</dt>
+<dd><p>Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the <code>colour</code> and <code>fill</code> aesthetics at the
+same time, via <code>aesthetics = c("colour", "fill")</code>.</p></dd>
+
+
 <dt>type</dt>
 <dd><p>One of "seq" (sequential), "div" (diverging) or "qual"
 (qualitative)</p></dd>
@@ -357,6 +443,15 @@ Defaults to 0.</p></dd>
 
 <dt>end</dt>
 <dd><p>grey value at high end of palette</p></dd>
+
+
+<dt>breaks</dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks (the scale limits)</p></li>
+<li><p>A character vector of breaks</p></li>
+<li><p>A function that takes the limits as input and returns breaks
+as output</p></li>
+</ul></dd>
 
 
 <dt>alpha</dt>

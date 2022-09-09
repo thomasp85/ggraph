@@ -119,7 +119,9 @@ use <code>linetype</code>.</p>
 <span></span>
 <span><span class="fu">scale_edge_linetype_discrete</span><span class="op">(</span><span class="va">...</span>, na.value <span class="op">=</span> <span class="st">"blank"</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">scale_edge_linetype_manual</span><span class="op">(</span><span class="va">...</span>, <span class="va">values</span><span class="op">)</span></span>
+<span><span class="fu">scale_edge_linetype_binned</span><span class="op">(</span><span class="va">...</span>, na.value <span class="op">=</span> <span class="st">"blank"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu">scale_edge_linetype_manual</span><span class="op">(</span><span class="va">...</span>, <span class="va">values</span>, breaks <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver</a></span><span class="op">(</span><span class="op">)</span>, na.value <span class="op">=</span> <span class="st">"blank"</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu">scale_edge_linetype_identity</span><span class="op">(</span><span class="va">...</span>, guide <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -205,6 +207,15 @@ will be matched in order (usually alphabetical) with the limits of the
 scale, or with <code>breaks</code> if provided. If this is a named vector, then the
 values will be matched based on the names instead. Data values that don't
 match will be given <code>na.value</code>.</p></dd>
+
+
+<dt>breaks</dt>
+<dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks (the scale limits)</p></li>
+<li><p>A character vector of breaks</p></li>
+<li><p>A function that takes the limits as input and returns breaks
+as output</p></li>
+</ul></dd>
 
 
 <dt>guide</dt>

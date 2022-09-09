@@ -191,15 +191,18 @@ encloses the string.</p>
     <div id="ref-examples">
     <h2>Examples</h2>
     <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu">geometry</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'circle'</span>, <span class="st">'rect'</span>, <span class="st">'rect'</span><span class="op">)</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">3</span>, <span class="fl">3</span><span class="op">:</span><span class="fl">1</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "circle(1cm, 3cm)" "rect(2cm, 2cm)"   "rect(3cm, 1cm)"  </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ggraph_geometry[3]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] circle(1cm, 3cm) rect(2cm, 2cm)   rect(3cm, 1cm)  </span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">circle</span><span class="op">(</span><span class="fl">1</span><span class="op">:</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "circle(2mm, 2mm)" "circle(4mm, 4mm)" "circle(6mm, 6mm)" "circle(8mm, 8mm)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ggraph_geometry[4]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] circle(2mm, 2mm) circle(4mm, 4mm) circle(6mm, 6mm) circle(8mm, 8mm)</span>
 <span class="r-in"><span></span></span>
 <span class="r-in"><span><span class="fu">label_rect</span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'some'</span>, <span class="st">'different'</span>, <span class="st">'words'</span><span class="op">)</span>, fontsize <span class="op">=</span> <span class="fl">18</span><span class="op">)</span></span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [1] "rect(1.92861111111111cm, 0.708611111111111cm)"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [2] "rect(2.89709635416667cm, 0.708611111111111cm)"</span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> [3] "rect(2.09121961805556cm, 0.708611111111111cm)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> &lt;ggraph_geometry[3]&gt;</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [1] rect(1.92861111111111cm, 0.708611111111111cm)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [2] rect(2.89709635416667cm, 0.708611111111111cm)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> [3] rect(2.09121961805556cm, 0.708611111111111cm)</span>
 </code></pre></div>
     </div>
   </div>
