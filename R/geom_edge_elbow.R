@@ -349,7 +349,7 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
         )
       )
       path_circ <- cbind(path_circ, data[path_circ$.orig_index, !names(data) %in%
-        c('x', 'y', 'xend', 'yend')])
+        c('x', 'y', 'xend', 'yend', 'group')])
       path_circ$.orig_index <- NULL
     }
     if (any(!data$circular)) {
@@ -368,7 +368,7 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
           )
         }
         cbind(path, data[rep(i, nrow(path)), !names(data) %in%
-          c('x', 'y', 'xend', 'yend')])
+          c('x', 'y', 'xend', 'yend', 'group')])
       })
       path_lin <- vec_rbind(!!!path_lin)
 
