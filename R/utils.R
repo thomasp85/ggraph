@@ -306,3 +306,39 @@ id <- function(.variables, drop = FALSE) {
     res
   }
 }
+
+# Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
+lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
+upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
+to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
+
+tolower <- function(x) {
+  cli::cli_abort("Please use {.fn to_lower_ascii}, which works fine in all locales.")
+}
+
+toupper <- function(x) {
+  cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
+}
+
+# Convert a snake_case string to camelCase
+camelize <- function(x, first = FALSE) {
+  x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
+  if (first) x <- firstUpper(x)
+  x
+}
+
+snakeize <- function(x) {
+  x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
+  x <- gsub(".", "_", x, fixed = TRUE)
+  x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
+  to_lower_ascii(x)
+}
+
+firstUpper <- function(s) {
+  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
+}
+
+snake_class <- function(x) {
+  snakeize(class(x)[1])
+}

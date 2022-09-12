@@ -63,7 +63,7 @@ facet_graph <- function(facets, row_type = 'edge', col_type = 'node',
 #' @usage NULL
 #' @export
 FacetGraph <- ggproto('FacetGraph', FacetGrid,
-  compute_layout = function(data, params) {
+  compute_layout = function(self, data, params) {
     plot_data <- data[[1]]
     data <- split(data, vapply(data, data_type, character(1)))
 
@@ -82,6 +82,14 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
       cli::cli_abort('{.arg col_type} must be either {.val node} or {.val edge}')
     )
 
+    dups <- intersect(names(rows), names(cols))
+    if (length(dups) > 0 && params$col_type == params$row_type) {
+      cli::cli_abort(c(
+        "Faceting variables can only appear in {.arg rows} or {.arg cols}, not both.\n",
+        "i" = "Duplicated variables: {.val {dups}}"
+      ), call = call2(snake_class(self)))
+    }
+
     base_rows <- combine_vars(row_data, params$plot_env, rows, drop = params$drop)
     if (!params$as.table) {
       rev_order <- function(x) factor(x, levels = rev(ulevels(x)))
@@ -98,8 +106,8 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
     panel <- id(base, drop = TRUE)
     panel <- factor(panel, levels = seq_len(attr(panel, 'n')))
 
-    rows <- if (is.null(names(rows))) 1L else id(base[names(rows)], drop = TRUE)
-    cols <- if (is.null(names(cols))) 1L else id(base[names(cols)], drop = TRUE)
+    rows <- if (length(names(rows)) == 0) 1L else id(base[names(rows)], drop = TRUE)
+    cols <- if (length(names(cols)) == 0) 1L else id(base[names(cols)], drop = TRUE)
 
     panels <- data_frame0(PANEL = panel, ROW = rows, COL = cols, base)
     panels <- panels[order(panels$PANEL), , drop = FALSE]
@@ -108,15 +116,21 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
     panels$SCALE_X <- if (params$free$x) panels$COL else 1L
     panels$SCALE_Y <- if (params$free$y) panels$ROW else 1L
 
-    node_placement <- if (nrow(base_cols) == 0) {
-      list(`1` = plot_data$ggraph_index)
+    node_placement <- if (nrow(base) == 0) {
+      list(`1` = plot_data$.ggraph_index)
     } else {
       if (params$row_type == 'edge') params$rows <- NULL
       if (params$col_type == 'edge') params$cols <- NULL
-      node_map <- FacetGrid$map_data(plot_data, panels, params)
-      node_map <- expand_facet_map(node_map, panels)
-      node_map <- node_map[order(node_map$.ggraph.index), , drop = FALSE]
-      split(node_map$.ggraph.index, node_map$PANEL)
+      if (length(params$cols) == 0 && length(params$rows) == 0) {
+        node_map <- rep(list(node_map$.ggraph.index), nrow(panels))
+        names(node_map) <- panels$PANEL
+        node_map
+      } else {
+        node_map <- FacetGrid$map_data(plot_data, panels, params)
+        node_map <- expand_facet_map(node_map, panels)
+        node_map <- node_map[order(node_map$.ggraph.index), , drop = FALSE]
+        split(node_map$.ggraph.index, node_map$PANEL)
+      }
     }
 
     attr(panels, 'node_placement') <- node_placement
@@ -128,8 +142,12 @@ FacetGraph <- ggproto('FacetGraph', FacetGrid,
       edge_ggraph = {
         if (params$row_type == 'node') params$rows <- NULL
         if (params$col_type == 'node') params$cols <- NULL
-        edge_map <- FacetGrid$map_data(data, layout, params)
-        edge_map <- expand_facet_map(edge_map, layout)
+        if (length(params$cols) == 0 && length(params$rows) == 0) {
+          edge_map <- cbind(vec_rep(data, nrow(layout)), PANEL = rep(layout$PANEL, each = nrow(data)))
+        } else {
+          edge_map <- FacetGrid$map_data(data, layout, params)
+          edge_map <- expand_facet_map(edge_map, layout)
+        }
         edge_map <- Map(function(map, nodes) {
           map[map$from %in% nodes & map$to %in% nodes, , drop = FALSE]
         }, map = split(edge_map, edge_map$PANEL), nodes = attr(layout, 'node_placement'))

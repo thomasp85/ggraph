@@ -8,6 +8,7 @@
   data without getting duplicate column names
 * Fixed a bug in the start_cap implementation that would cause edges consisting
   of only two points to disappear
+* Fixed a bug in `facet_graph()` when using `.` on either dimension (#313)
 
 # ggraph 2.0.6
 
