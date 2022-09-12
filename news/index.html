@@ -106,6 +106,7 @@
 <li>Make sure all lyaout functions now correctly merge the layout with the node data without getting duplicate column names</li>
 <li>Fixed a bug in the start_cap implementation that would cause edges consisting of only two points to disappear</li>
 <li>Fixed a bug in <code><a href="../reference/facet_graph.html">facet_graph()</a></code> when using <code>.</code> on either dimension (<a href="https://github.com/thomasp85/ggraph/issues/313" class="external-link">#313</a>)</li>
+<li>Move dendrogram layout calculations to compiled code to avoid R’s recursion stack limitations (<a href="https://github.com/thomasp85/ggraph/issues/311" class="external-link">#311</a>)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.0.6" id="ggraph-206">ggraph 2.0.6<small>2022-08-08</small><a class="anchor" aria-label="anchor" href="#ggraph-206"></a></h2>
