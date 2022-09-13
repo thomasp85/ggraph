@@ -92,7 +92,7 @@
 #'   reroute(from = to, to = from, subset = switch)
 #'
 #' ggraph(gr, 'linear') +
-#'   geom_edge_arc(aes(alpha = stat(index)))
+#'   geom_edge_arc(aes(alpha = after_stat(index)))
 #'
 #' ggraph(gr, 'linear') +
 #'   geom_edge_arc2(aes(colour = node.class), strength = 0.6)

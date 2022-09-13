@@ -82,7 +82,7 @@
 #'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 #'
 #' ggraph(gr, 'tree') +
-#'   geom_edge_diagonal(aes(alpha = stat(index)))
+#'   geom_edge_diagonal(aes(alpha = after_stat(index)))
 #'
 #' ggraph(gr, 'tree') +
 #'   geom_edge_diagonal2(aes(colour = node.class))

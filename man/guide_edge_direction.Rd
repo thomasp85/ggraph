@@ -84,6 +84,6 @@ mapped to its progression, such as changing width, colour and opacity.
 \examples{
 gr <- tidygraph::as_tbl_graph(highschool)
 ggraph(gr, layout = 'kk') +
-  geom_edge_fan(aes(alpha = stat(index))) +
+  geom_edge_fan(aes(alpha = after_stat(index))) +
   guides(edge_alpha = guide_edge_direction())
 }

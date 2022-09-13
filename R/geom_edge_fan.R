@@ -84,7 +84,7 @@
 #'   mutate(class = sample(c('x', 'y'), 5, TRUE))
 #'
 #' ggraph(gr, 'stress') +
-#'   geom_edge_fan(aes(alpha = stat(index)))
+#'   geom_edge_fan(aes(alpha = after_stat(index)))
 #'
 #' ggraph(gr, 'stress') +
 #'   geom_edge_fan2(aes(colour = node.class))

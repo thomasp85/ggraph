@@ -81,7 +81,7 @@
 #'   mutate(class = sample(letters[1:3], n(), TRUE))
 #'
 #' ggraph(irisDen, 'dendrogram', circular = TRUE) +
-#'   geom_edge_elbow(aes(alpha = stat(index)))
+#'   geom_edge_elbow(aes(alpha = after_stat(index)))
 #'
 #' ggraph(irisDen, 'dendrogram') +
 #'   geom_edge_elbow2(aes(colour = node.class))

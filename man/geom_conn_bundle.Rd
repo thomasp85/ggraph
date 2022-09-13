@@ -133,7 +133,7 @@ importTo <- match(flare$imports$to, flare$vertices$name)
 
 # Use class inheritance for layout but plot class imports as bundles
 ggraph(flareGraph, 'dendrogram', circular = TRUE) +
-  geom_conn_bundle(aes(colour = stat(index)),
+  geom_conn_bundle(aes(colour = after_stat(index)),
     data = get_con(importFrom, importTo),
     edge_alpha = 0.25
   ) +
