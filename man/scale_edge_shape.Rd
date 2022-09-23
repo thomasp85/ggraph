@@ -4,6 +4,7 @@
 \alias{scale_edge_shape}
 \alias{scale_edge_shape_discrete}
 \alias{scale_edge_shape_continuous}
+\alias{scale_edge_shape_binned}
 \alias{scale_edge_shape_manual}
 \alias{scale_edge_shape_identity}
 \title{Edge shape scales}
@@ -14,7 +15,9 @@ scale_edge_shape_discrete(..., solid = TRUE)
 
 scale_edge_shape_continuous(...)
 
-scale_edge_shape_manual(..., values)
+scale_edge_shape_binned(..., solid = TRUE)
+
+scale_edge_shape_manual(..., values, breaks = waiver(), na.value = NA)
 
 scale_edge_shape_identity(..., guide = "none")
 }
@@ -31,7 +34,8 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item \code{waiver()} for the default breaks (the scale limits)
 \item A character vector of breaks
 \item A function that takes the limits as input and returns breaks
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{limits}}{One of:
 \itemize{
@@ -39,7 +43,8 @@ as output
 \item A character vector that defines possible values of the scale and their
 order
 \item A function that accepts the existing (automatic) values and returns
-new ones
+new ones. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
@@ -64,7 +69,8 @@ omitted.}
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{guide}}{A function used to create a guide or its name. See
 \code{\link[ggplot2:guides]{guides()}} for more information.}
@@ -79,6 +85,17 @@ will be matched in order (usually alphabetical) with the limits of the
 scale, or with \code{breaks} if provided. If this is a named vector, then the
 values will be matched based on the names instead. Data values that don't
 match will be given \code{na.value}.}
+
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
+
+\item{na.value}{The aesthetic value to use for missing (\code{NA}) values}
 
 \item{guide}{Guide to use for this scale.}
 }

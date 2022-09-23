@@ -39,7 +39,7 @@ layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric
   } else {
     x <- seq_len(gorder(graph))
   }
-  nodes <- new_data_frame(list(x = x, y = 0))
+  nodes <- data_frame0(x = x, y = 0)
   if (circular) {
     radial <- radial_trans(
       r.range = rev(range(nodes$y)),
@@ -50,9 +50,7 @@ layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric
     nodes$x <- coords$x
     nodes$y <- coords$y
   }
-  extra_data <- as_tibble(graph, active = 'nodes')
-  warn_dropped_vars(nodes, extra_data)
-  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
+  nodes <- combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
   nodes$circular <- circular
   nodes
 }

@@ -72,7 +72,7 @@
 #'
 #' # Use class inheritance for layout but plot class imports as bundles
 #' ggraph(flareGraph, 'dendrogram', circular = TRUE) +
-#'   geom_conn_bundle(aes(colour = stat(index)),
+#'   geom_conn_bundle(aes(colour = after_stat(index)),
 #'     data = get_con(importFrom, importTo),
 #'     edge_alpha = 0.25
 #'   ) +
@@ -92,13 +92,8 @@ NULL
 #' @export
 StatConnBundle <- ggproto('StatConnBundle', StatBspline,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
+    data <- StatFilter$setup_data(data, params)
+    if (nrow(data) == 0) return(data)
     relax(data, params$tension)
   },
   setup_params = function(data, params) {

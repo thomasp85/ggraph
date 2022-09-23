@@ -69,14 +69,7 @@ geom_node_voronoi <- function(mapping = NULL, data = NULL, position = 'identity'
 #' @export
 StatNodeVoronoi <- ggproto('StatNodeVoronoi', StatVoronoiTile,
   finish_layer = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
-    data
+    StatFilter$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
 )

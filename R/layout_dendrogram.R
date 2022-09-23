@@ -39,7 +39,7 @@
 #'
 #' @family layout_tbl_graph_*
 #'
-#' @importFrom igraph gorder degree neighbors distances
+#' @importFrom igraph gorder degree adjacent_vertices distances neighbors
 #' @importFrom tidygraph node_is_root
 #' @importFrom rlang enquo eval_tidy
 #'
@@ -60,11 +60,11 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
   } else {
     height <- eval_tidy(height, .N())
   }
-  nodes <- new_data_frame(list(
+  nodes <- data_frame0(
     x = rep(NA_real_, gorder(graph)),
     y = height,
     leaf = degree(graph, mode = direction) == 0
-  ))
+  )
   if (all(is.na(nodes$y))) {
     nodes$y <- vapply(seq_len(gorder(graph)), function(i) {
       max(bfs(graph, i, direction, unreachable = FALSE, order = FALSE, dist = TRUE)$dist, na.rm = TRUE)
@@ -76,31 +76,9 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
     pad <- 0
   }
   startnode <- which(degree(graph, mode = reverse_dir) == 0)
-  if (length(startnode) < 1) stop('No root nodes in graph')
-  recurse_layout <- function(gr, node, layout, direction, offset = 0) {
-    children <- as.numeric(neighbors(gr, node, direction))
-    if (length(children) == 0) {
-      layout$x[node] <- offset
-      layout
-    } else {
-      children_missing <- children[is.na(layout$x[children])]
-      for (i in children_missing) {
-        layout <- recurse_layout(gr, i, layout, direction, offset)
-        offset <- if (repel) {
-          max(layout$x[layout$leaf], na.rm = TRUE) + (layout$y[node] + pad) * ratio
-        } else {
-          max(layout$x[layout$leaf], na.rm = TRUE) + 1 + pad
-        }
-      }
-      layout$x[node] <- mean(range(layout$x[children]))
-      layout
-    }
-  }
-  offset <- 0
-  for (i in startnode) {
-    nodes <- recurse_layout(graph, i, nodes, direction = direction, offset)
-    offset <- max(nodes$x[nodes$leaf], na.rm = TRUE) + 1
-  }
+  if (length(startnode) < 1) cli::cli_abort('The graph doesn\'t contain a root node')
+  neighbors <- lapply(adjacent_vertices(graph, seq_len(gorder(graph)), direction), as.integer)
+  nodes$x <- dendrogram_spread(neighbors, startnode, nodes$y, nodes$leaf, repel, pad, ratio)
   graph <- add_direction(graph, nodes)
   if (circular) {
     radial <- radial_trans(
@@ -112,9 +90,7 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
     nodes$x <- coords$x
     nodes$y <- coords$y
   }
-  extra_data <- as_tibble(graph, active = 'nodes')
-  warn_dropped_vars(nodes, extra_data)
-  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
+  nodes <- combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
   nodes$circular <- circular
   attr(nodes, 'graph') <- graph
   nodes

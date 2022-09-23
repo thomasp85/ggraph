@@ -69,9 +69,6 @@ geom_node_tile <- function(mapping = NULL, data = NULL, position = 'identity',
 #' @export
 #'
 GeomNodeTile <- ggproto('GeomNodeTile', GeomTile,
-  default_aes = aes(
-    fill = NA, colour = 'black', size = 0.5, linetype = 1,
-    alpha = NA, width = 1, height = 1
-  ),
+  default_aes = combine_aes(GeomTile$default_aes, aes(fill = NA, colour = 'black', width = 1, height = 1)),
   required_aes = c('x', 'y')
 )

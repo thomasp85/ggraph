@@ -75,7 +75,7 @@
 #'   mutate(class = sample(c('x', 'y'), 5, TRUE))
 #'
 #' ggraph(gr, 'stress') +
-#'   geom_edge_parallel(aes(alpha = stat(index)))
+#'   geom_edge_parallel(aes(alpha = after_stat(index)))
 #'
 #' ggraph(gr, 'stress') +
 #'   geom_edge_parallel2(aes(colour = node.class))
@@ -101,14 +101,9 @@ NULL
 #' @export
 StatEdgeParallel <- ggproto('StatEdgeParallel', StatLink,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data2 <- data
     data2$x <- data2$xend
     data2$y <- data2$yend
@@ -157,14 +152,9 @@ geom_edge_parallel <- function(mapping = NULL, data = get_edges(),
 #' @export
 StatEdgeParallel2 <- ggproto('StatEdgeParallel2', StatLink2,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data1 <- data[c(TRUE, FALSE), ]

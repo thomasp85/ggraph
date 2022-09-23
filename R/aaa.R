@@ -31,7 +31,7 @@ StatFilter <- ggproto('StatFilter', StatIdentity,
   setup_data = function(data, params) {
     if (any(names(data) == 'filter')) {
       if (!is.logical(data$filter)) {
-        stop('filter must be logical')
+        cli::cli_abort('{.field filter} must be logical')
       }
       data <- data[data$filter, names(data) != 'filter']
     }
@@ -61,7 +61,7 @@ data_type <- function(data) {
 # non-orderaltering version of make.unique
 make_unique <- function(x, sep = '.') {
   if (!anyDuplicated(x)) return(x)
-  groups <- match(x, unique(x))
+  groups <- match(x, unique0(x))
   suffix <- unsplit(lapply(split(x, groups), seq_along), groups)
   max_chars <- nchar(max(suffix))
   suffix_format <- paste0('%0', max_chars, 'd')
@@ -71,6 +71,21 @@ make_unique <- function(x, sep = '.') {
 warn_dropped_vars <- function(layout, data) {
   overlap <- intersect(names(layout), names(data))
   if (length(overlap) > 0 && !identical(as.list(layout[overlap]), as.list(data[overlap]))) {
-    warning('Existing variables ', paste(paste0('`', overlap, '`'), collapse = ', '), ' overwritten by layout variables', call. = FALSE)
+    cli::cli_warn('Existing variables {.var {overlap}} overwritten by layout variables')
   }
+}
+
+combine_layout_nodes <- function(layout, nodes) {
+  warn_dropped_vars(layout, nodes)
+  cbind(layout, nodes[, !names(nodes) %in% names(layout), drop = FALSE])
+}
+
+empty_data <- function(x) {
+  length(x) == 0 || nrow(x) == 0
+}
+
+combine_aes <- function(aes1, aes2) {
+  aes_all <- c(aes1[setdiff(names(aes1), names(aes2))], aes2)
+  class(aes_all) <- class(aes1)
+  aes_all
 }

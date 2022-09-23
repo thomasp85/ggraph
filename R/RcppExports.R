@@ -44,6 +44,10 @@ circlePackLayout <- function(parent, weight) {
     .Call('_ggraph_circlePackLayout', PACKAGE = 'ggraph', parent, weight)
 }
 
+dendrogram_spread <- function(graph, starts, y, leaf, repel, pad, ratio) {
+    .Call('_ggraph_dendrogram_spread', PACKAGE = 'ggraph', graph, starts, y, leaf, repel, pad, ratio)
+}
+
 partitionTree <- function(parent, order, weight, height) {
     .Call('_ggraph_partitionTree', PACKAGE = 'ggraph', parent, order, weight, height)
 }

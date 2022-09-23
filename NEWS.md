@@ -1,5 +1,21 @@
 # ggraph (development version)
 
+* Update errors to use cli
+* Use vctrs internally
+* Add binned edge scales
+* Fix a bug where removing the full data with a filter would throw an error
+* Make sure all lyaout functions now correctly merge the layout with the node
+  data without getting duplicate column names
+* Fixed a bug in the start_cap implementation that would cause edges consisting
+  of only two points to disappear
+* Fixed a bug in `facet_graph()` when using `.` on either dimension (#313)
+* Move dendrogram layout calculations to compiled code to avoid R's recursion
+  stack limitations (#311)
+
+# ggraph 2.0.6
+
+* Fix vignette errors on CRAN
+
 # ggraph 2.0.5
 
 * Fix deprecation of std::random_shuffle in C++14 by specifyin C++11 as the

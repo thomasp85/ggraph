@@ -81,7 +81,7 @@
 #'   mutate(class = sample(letters[1:3], n(), TRUE))
 #'
 #' ggraph(irisDen, 'dendrogram', circular = TRUE) +
-#'   geom_edge_elbow(aes(alpha = stat(index)))
+#'   geom_edge_elbow(aes(alpha = after_stat(index)))
 #'
 #' ggraph(irisDen, 'dendrogram') +
 #'   geom_edge_elbow2(aes(colour = node.class))
@@ -109,7 +109,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
     }
     index <- seq(0, 1, length.out = n)
     if (any(data$circular)) {
-      if (strength != 1) warning('strength is ignored for circular elbow edges', call. = FALSE)
+      if (strength != 1) cli::cli_warn('{.arg strength} is ignored for circular elbow edges')
       circ_id <- which(data$circular)
       data_circ <- data[circ_id, ]
       radial <- radial_trans(c(0, 1), c(2 * pi, 0), pad = 0, offset = 0)
@@ -141,9 +141,9 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
         from = elbow_y, to = data_circ$yend,
         length.out = n / 2
       ))
-      path_circ <- rbind_dfs(list(
+      path_circ <- vec_rbind(
         path_circ,
-        new_data_frame(list(
+        data_frame0(
           x = elbow_x,
           y = elbow_y,
           .orig_index = path_circ$.orig_index,
@@ -152,8 +152,8 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             index[seq_len(n / 2) + n / 2],
             length(circ_id)
           )
-        ))
-      ))
+        )
+      )
       path_circ <- cbind(path_circ, data[path_circ$.orig_index, !names(data) %in%
         c('x', 'y', 'xend', 'yend', 'group')])
       path_circ$.orig_index <- NULL
@@ -161,7 +161,7 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
     if (any(!data$circular)) {
       path_lin <- lapply(which(!data$circular), function(i) {
         if (flipped) {
-          path <- new_data_frame(list(
+          path <- data_frame0(
             x = approx(c(data$x[i], data$xend[i] + (data$x[i] - data$xend[i]) * strength, data$xend[i]),
               n = n
             )$y,
@@ -170,9 +170,9 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             )$y,
             group = data$group[i],
             index = index
-          ))
+          )
         } else {
-          path <- new_data_frame(list(
+          path <- data_frame0(
             x = approx(c(data$x[i], data$xend[i], data$xend[i]),
               n = n
             )$y,
@@ -181,15 +181,15 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
             )$y,
             group = data$group[i],
             index = index
-          ))
+          )
         }
         cbind(path, data[rep(i, nrow(path)), !names(data) %in%
           c('x', 'y', 'xend', 'yend', 'group')])
       })
-      path_lin <- rbind_dfs(path_lin)
+      path_lin <- vec_rbind(!!!path_lin)
 
       if (any(data$circular)) {
-        paths <- rbind_dfs(list(path_lin, path_circ))
+        paths <- vec_rbind(path_lin, path_circ)
       } else {
         paths <- path_lin
       }
@@ -199,14 +199,9 @@ StatEdgeElbow <- ggproto('StatEdgeElbow', Stat,
     paths[order(paths$group), ]
   },
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data
   },
   default_aes = aes(filter = TRUE),
@@ -275,14 +270,9 @@ StatEdgeElbow2 <- ggproto('StatEdgeElbow2', Stat,
     new_data
   },
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data
   },
   default_aes = aes(filter = TRUE),
@@ -330,7 +320,7 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
   compute_panel = function(data, scales, flipped = FALSE, strength = 1) {
     data$group <- make_unique(data$group)
     if (any(data$circular)) {
-      if (strength != 1) warning('strength is ignored for circular elbow edges', call. = FALSE)
+      if (strength != 1) cli::cli_warn('{.arg strength} is ignored for circular elbow edges')
       circ_id <- which(data$circular)
       data_circ <- data[circ_id, ]
       radial <- radial_trans(c(0, 1), c(2 * pi, 0), pad = 0, offset = 0)
@@ -349,41 +339,41 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
       path_circ <- radial$transform(r = radii, a = angles)
       path_circ$.orig_index <- rep(circ_id, each = 50)
       path_circ$group <- rep(data_circ$group, each = 50)
-      path_circ <- rbind_dfs(list(
+      path_circ <- vec_rbind(
         path_circ,
-        new_data_frame(list(
+        data_frame0(
           x = data$xend[circ_id],
           y = data$yend[circ_id],
           .orig_index = circ_id,
           group = data_circ$group
-        ))
-      ))
+        )
+      )
       path_circ <- cbind(path_circ, data[path_circ$.orig_index, !names(data) %in%
-        c('x', 'y', 'xend', 'yend')])
+        c('x', 'y', 'xend', 'yend', 'group')])
       path_circ$.orig_index <- NULL
     }
     if (any(!data$circular)) {
       path_lin <- lapply(which(!data$circular), function(i) {
         if (flipped) {
-          path <- new_data_frame(list(
+          path <- data_frame0(
             x = c(data$x[i], data$xend[i] + (data$x[i] - data$xend[i]) * strength, data$xend[i]),
             y = c(data$y[i], data$yend[i], data$yend[i]),
             group = data$group
-          ))
+          )
         } else {
-          path <- new_data_frame(list(
+          path <- data_frame0(
             x = c(data$x[i], data$xend[i], data$xend[i]),
             y = c(data$y[i], data$yend[i] + (data$y[i] - data$yend[i]) * strength, data$yend[i]),
             group = data$group[i]
-          ))
+          )
         }
         cbind(path, data[rep(i, nrow(path)), !names(data) %in%
-          c('x', 'y', 'xend', 'yend')])
+          c('x', 'y', 'xend', 'yend', 'group')])
       })
-      path_lin <- rbind_dfs(path_lin)
+      path_lin <- vec_rbind(!!!path_lin)
 
       if (any(data$circular)) {
-        paths <- rbind_dfs(list(path_lin, path_circ))
+        paths <- vec_rbind(path_lin, path_circ)
       } else {
         paths <- path_lin
       }
@@ -393,14 +383,7 @@ StatEdgeElbow0 <- ggproto('StatEdgeElbow0', Stat,
     paths[order(paths$group), ]
   },
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
-    data
+    StatEdgeElbow$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE),
   required_aes = c('x', 'y', 'xend', 'yend', 'circular', 'direction')

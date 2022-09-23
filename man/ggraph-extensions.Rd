@@ -76,7 +76,7 @@ will, in the case of multiple versions, draw the edge as a sequence of small
 segments. The different aesthetics will be repeated for each segment and a
 counter will be added the enumerates the progression of segments, so that a
 gradient of colour or size can be added along the edge by assigning the
-respective aesthetic to \code{stat(index)}. \code{geom_edge_*2} will also draw
+respective aesthetic to \code{after_stat(index)}. \code{geom_edge_*2} will also draw
 the edge as segments but will interpolate between the aesthetics at the end
 points. This makes it possible for an edge to interpolate node properties of
 its end nodes. \code{geom_edge_*2} is less performant than the base geom so

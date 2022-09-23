@@ -34,7 +34,7 @@ title. One of "top" (default for a vertical guide), "bottom", "left"
 (default for a horizontal guide), or "right."}
 
 \item{title.theme}{A theme object for rendering the title text. Usually the
-object of \code{\link[ggplot2:element]{element_text()}} is expected. By default, the theme is
+object of \code{\link[ggplot2:element_text]{element_text()}} is expected. By default, the theme is
 specified by \code{legend.title} in \code{\link[ggplot2:theme]{theme()}} or theme.}
 
 \item{title.hjust}{A number specifying horizontal justification of the
@@ -84,6 +84,6 @@ mapped to its progression, such as changing width, colour and opacity.
 \examples{
 gr <- tidygraph::as_tbl_graph(highschool)
 ggraph(gr, layout = 'kk') +
-  geom_edge_fan(aes(alpha = stat(index))) +
+  geom_edge_fan(aes(alpha = after_stat(index))) +
   guides(edge_alpha = guide_edge_direction())
 }

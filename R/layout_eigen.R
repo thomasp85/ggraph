@@ -24,10 +24,6 @@ layout_tbl_graph_eigen <- function(graph, type = 'laplacian', eigenvector = 'sma
   type <- match.arg(type, c('laplacian', 'adjacency'))
   eigenvector <- match.arg(eigenvector, c('smallest', 'largest'))
   xy <- layout_with_eigen(graph, type = type, ev = eigenvector)
-  nodes <- new_data_frame(list(x = xy[,1],y = xy[,2]))
-  nodes$circular <- FALSE
-  extra_data <- as_tibble(graph, active = 'nodes')
-  warn_dropped_vars(nodes, extra_data)
-  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
-  nodes
+  nodes <- data_frame0(x = xy[,1],y = xy[,2], circular = FALSE)
+  combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

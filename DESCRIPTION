@@ -1,7 +1,7 @@
 Package: ggraph
 Type: Package
 Title: An Implementation of Grammar of Graphics for Graphs and Networks
-Version: 2.0.5.9000
+Version: 2.0.6.9000
 Authors@R:
     c(person(given = "Thomas Lin",
              family = "Pedersen",
@@ -35,7 +35,10 @@ Imports:
     rlang,
     tidygraph,
     graphlayouts (>= 0.5.0),
-    withr
+    withr,
+    cli,
+    vctrs,
+    lifecycle
 Suggests: 
     network,
     knitr,
@@ -47,7 +50,7 @@ Suggests:
     gganimate,
     covr
 LinkingTo: Rcpp
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.1
 Depends:
     R (>= 2.10),
     ggplot2 (>= 3.0.0)

@@ -12,8 +12,13 @@
 \alias{scale_edge_colour_identity}
 \alias{scale_edge_colour_manual}
 \alias{scale_edge_colour_viridis}
+\alias{scale_edge_colour_steps}
+\alias{scale_edge_colour_steps2}
+\alias{scale_edge_colour_stepsn}
+\alias{scale_edge_colour_fermenter}
 \alias{scale_edge_colour_continuous}
 \alias{scale_edge_colour_discrete}
+\alias{scale_edge_colour_binned}
 \alias{scale_edge_color_hue}
 \alias{scale_edge_color_brewer}
 \alias{scale_edge_color_distiller}
@@ -26,6 +31,11 @@
 \alias{scale_edge_color_continuous}
 \alias{scale_edge_color_discrete}
 \alias{scale_edge_color_viridis}
+\alias{scale_edge_color_steps}
+\alias{scale_edge_color_steps2}
+\alias{scale_edge_color_stepsn}
+\alias{scale_edge_color_fermenter}
+\alias{scale_edge_color_binned}
 \title{Edge colour scales}
 \usage{
 scale_edge_colour_hue(
@@ -35,10 +45,17 @@ scale_edge_colour_hue(
   l = 65,
   h.start = 0,
   direction = 1,
-  na.value = "grey50"
+  na.value = "grey50",
+  aesthetics = "edge_colour"
 )
 
-scale_edge_colour_brewer(..., type = "seq", palette = 1, direction = 1)
+scale_edge_colour_brewer(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = 1,
+  aesthetics = "edge_colour"
+)
 
 scale_edge_colour_distiller(
   ...,
@@ -48,7 +65,8 @@ scale_edge_colour_distiller(
   values = NULL,
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_colour_gradient(
@@ -57,7 +75,8 @@ scale_edge_colour_gradient(
   high = "#56B1F7",
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_colour_gradient2(
@@ -68,7 +87,8 @@ scale_edge_colour_gradient2(
   midpoint = 0,
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_colour_gradientn(
@@ -78,23 +98,80 @@ scale_edge_colour_gradientn(
   space = "Lab",
   na.value = "grey50",
   guide = "edge_colourbar",
+  aesthetics = "edge_colour",
   colors
 )
 
-scale_edge_colour_grey(..., start = 0.2, end = 0.8, na.value = "red")
+scale_edge_colour_grey(
+  ...,
+  start = 0.2,
+  end = 0.8,
+  na.value = "red",
+  aesthetics = "edge_colour"
+)
 
-scale_edge_colour_identity(..., guide = "none")
+scale_edge_colour_identity(..., guide = "none", aesthetics = "edge_colour")
 
-scale_edge_colour_manual(..., values)
+scale_edge_colour_manual(
+  ...,
+  values,
+  aesthetics = "edge_colour",
+  breaks = waiver(),
+  na.value = "grey50"
+)
 
 scale_edge_colour_viridis(
   ...,
   alpha = 1,
   begin = 0,
   end = 1,
+  direction = 1,
   discrete = FALSE,
   option = "D",
-  direction = 1
+  aesthetics = "edge_colour"
+)
+
+scale_edge_colour_steps(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
+)
+
+scale_edge_colour_steps2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
+)
+
+scale_edge_colour_stepsn(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour",
+  colors
+)
+
+scale_edge_colour_fermenter(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_colour_continuous(
@@ -103,7 +180,8 @@ scale_edge_colour_continuous(
   high = "#56B1F7",
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_colour_discrete(
@@ -113,7 +191,18 @@ scale_edge_colour_discrete(
   l = 65,
   h.start = 0,
   direction = 1,
-  na.value = "grey50"
+  na.value = "grey50",
+  aesthetics = "edge_colour"
+)
+
+scale_edge_colour_binned(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_color_hue(
@@ -123,10 +212,17 @@ scale_edge_color_hue(
   l = 65,
   h.start = 0,
   direction = 1,
-  na.value = "grey50"
+  na.value = "grey50",
+  aesthetics = "edge_colour"
 )
 
-scale_edge_color_brewer(..., type = "seq", palette = 1, direction = 1)
+scale_edge_color_brewer(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = 1,
+  aesthetics = "edge_colour"
+)
 
 scale_edge_color_distiller(
   ...,
@@ -136,7 +232,8 @@ scale_edge_color_distiller(
   values = NULL,
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_color_gradient(
@@ -145,7 +242,8 @@ scale_edge_color_gradient(
   high = "#56B1F7",
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_color_gradient2(
@@ -156,7 +254,8 @@ scale_edge_color_gradient2(
   midpoint = 0,
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_color_gradientn(
@@ -166,14 +265,27 @@ scale_edge_color_gradientn(
   space = "Lab",
   na.value = "grey50",
   guide = "edge_colourbar",
+  aesthetics = "edge_colour",
   colors
 )
 
-scale_edge_color_grey(..., start = 0.2, end = 0.8, na.value = "red")
+scale_edge_color_grey(
+  ...,
+  start = 0.2,
+  end = 0.8,
+  na.value = "red",
+  aesthetics = "edge_colour"
+)
 
-scale_edge_color_identity(..., guide = "none")
+scale_edge_color_identity(..., guide = "none", aesthetics = "edge_colour")
 
-scale_edge_color_manual(..., values)
+scale_edge_color_manual(
+  ...,
+  values,
+  aesthetics = "edge_colour",
+  breaks = waiver(),
+  na.value = "grey50"
+)
 
 scale_edge_color_continuous(
   ...,
@@ -181,7 +293,8 @@ scale_edge_color_continuous(
   high = "#56B1F7",
   space = "Lab",
   na.value = "grey50",
-  guide = "edge_colourbar"
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_color_discrete(
@@ -191,7 +304,8 @@ scale_edge_color_discrete(
   l = 65,
   h.start = 0,
   direction = 1,
-  na.value = "grey50"
+  na.value = "grey50",
+  aesthetics = "edge_colour"
 )
 
 scale_edge_color_viridis(
@@ -199,9 +313,63 @@ scale_edge_color_viridis(
   alpha = 1,
   begin = 0,
   end = 1,
+  direction = 1,
   discrete = FALSE,
   option = "D",
-  direction = 1
+  aesthetics = "edge_colour"
+)
+
+scale_edge_color_steps(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
+)
+
+scale_edge_color_steps2(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
+)
+
+scale_edge_color_stepsn(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour",
+  colors
+)
+
+scale_edge_color_fermenter(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
+)
+
+scale_edge_color_binned(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
 )
 }
 \arguments{
@@ -217,7 +385,8 @@ they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
 \item \code{waiver()} for the default breaks (the scale limits)
 \item A character vector of breaks
 \item A function that takes the limits as input and returns breaks
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{limits}}{One of:
 \itemize{
@@ -225,7 +394,8 @@ as output
 \item A character vector that defines possible values of the scale and their
 order
 \item A function that accepts the existing (automatic) values and returns
-new ones
+new ones. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
@@ -246,7 +416,8 @@ omitted.}
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
@@ -274,6 +445,11 @@ combination of hue and luminance.}
 1 = clockwise, -1 = counter-clockwise}
 
 \item{na.value}{Colour to use for missing values}
+
+\item{aesthetics}{Character string or vector of character strings listing the
+name(s) of the aesthetic(s) that this scale works with. This can be useful, for
+example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
+same time, via \code{aesthetics = c("colour", "fill")}.}
 
 \item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
@@ -304,6 +480,15 @@ Defaults to 0.}
 \item{start}{grey value at low end of palette}
 
 \item{end}{grey value at high end of palette}
+
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
 
 \item{alpha}{The alpha transparency, a number in [0,1], see argument alpha in
 \code{\link[grDevices]{hsv}}.}

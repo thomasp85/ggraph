@@ -50,7 +50,7 @@ reference:
       initialise plots, allowing you to set global settings such as layouts etc.
     contents:
       - ggraph
-      - qgraph
+      - autograph
   - title: "Layouts"
     desc: >
       Layouts specify the spatial positioning of the nodes in the graph. In
@@ -141,6 +141,7 @@ reference:
     contents:
       - guide_edge_direction
       - guide_edge_colourbar
+      - guide_edge_coloursteps
   - title: "Helpers"
     desc: >
       ggraph contains an assortment of helpers for various tasks related to

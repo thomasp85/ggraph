@@ -63,8 +63,8 @@
 #' )
 #'
 #' ggraph(gr, 'stress') +
-#'   geom_edge_loop(aes(alpha = stat(index))) +
-#'   geom_edge_fan(aes(alpha = stat(index)))
+#'   geom_edge_loop(aes(alpha = after_stat(index))) +
+#'   geom_edge_fan(aes(alpha = after_stat(index)))
 #'
 #' ggraph(gr, 'stress') +
 #'   geom_edge_loop0() +
@@ -81,19 +81,14 @@ NULL
 #' @export
 StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
+    data <- StatFilter$setup_data(data, params)
+    if (nrow(data) == 0) return(data)
     data <- data[data$from == data$to, ]
     data$group <- make_unique(data$group)
     if (nrow(data) != 0) {
       create_loops(data, params)
     } else {
-      NULL
+      data
     }
   },
   required_aes = c('x', 'y', 'from', 'to', 'span', 'direction', 'strength'),
@@ -178,7 +173,7 @@ create_loops <- function(loops, params) {
   controls1$index <- bezier_start + 1
   controls2$index <- bezier_start + 2
   end$index <- bezier_start + 3
-  loops <- rbind_dfs(list(loops, controls1, controls2, end))
+  loops <- vec_rbind(loops, controls1, controls2, end)
   loops[order(loops$index), names(loops) != 'index']
 }
 find_loop_controls <- function(loops, angle) {

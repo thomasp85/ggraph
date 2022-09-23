@@ -22,10 +22,15 @@ NULL
 #'
 #' @inheritParams ggplot2::scale_size_continuous
 #'
-#' @importFrom scales rescale_pal
 #' @export
-scale_edge_width_continuous <- function(..., range = c(1, 6)) {
-  continuous_scale('edge_width', 'width_c', rescale_pal(range), ...)
+scale_edge_width_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
+                                        limits = NULL, range = c(1, 6),
+                                        trans = "identity", guide = "legend") {
+  sc <- scale_radius(name = name, breaks = breaks, labels = labels, limits = limits,
+                     range = range, trans = trans, guide = guide)
+  sc$scale_name <- 'width_c'
+  sc$aesthetics <- 'edge_width'
+  sc
 }
 #' @rdname scale_edge_width
 #'
@@ -34,32 +39,45 @@ scale_edge_width <- scale_edge_width_continuous
 #' @rdname scale_edge_width
 #'
 #' @inheritParams ggplot2::scale_size_discrete
-#'
-#' @importFrom scales rescale_pal
 #' @export
-scale_edge_width_discrete <- function(..., range = c(2, 6)) {
-  discrete_scale('edge_width', 'width_d', function(n) {
-    area <- seq(range[1]^2, range[2]^2, length.out = n)
-    sqrt(area)
-  }, ...)
+scale_edge_width_discrete <- function(...) {
+  cli::cli_warn("Using {.field edge_width} for a discrete variable is not advised.")
+  sc <- scale_size_ordinal(...)
+  sc$scale_name <- 'width_d'
+  sc$aesthetics <- 'edge_width'
+  sc
+}
+#' @rdname scale_edge_width
+#'
+#' @inheritParams ggplot2::scale_size_binned
+#' @export
+scale_edge_width_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
+                                    limits = NULL, range = c(1, 6), n.breaks = NULL,
+                                    nice.breaks = TRUE, trans = "identity", guide = "bins") {
+  sc <- scale_size_binned(name = name, breaks = breaks, labels = labels, limits = limits,
+                          range = range, n.breaks = n.breaks, nice.breaks = nice.breaks,
+                          trans = trans, guide = guide)
+  sc$scale_name <- 'width_b'
+  sc$aesthetics <- 'edge_width'
+  sc
 }
 #' @rdname scale_edge_width
 #'
 #' @inheritParams ggplot2::scale_size_manual
 #'
 #' @export
-scale_edge_width_manual <- function(..., values) {
-  manual_scale('edge_width', values, ...)
+scale_edge_width_manual <- function(..., values, breaks = waiver(), na.value = NA) {
+  sc <- scale_size_manual(..., values = values, breaks = breaks, na.value = na.value)
+  sc$aesthetics <- 'edge_width'
+  sc
 }
 #' @rdname scale_edge_width
 #'
 #' @inheritParams ggplot2::scale_size_identity
 #'
-#' @importFrom scales identity_pal
 #' @export
 scale_edge_width_identity <- function(..., guide = 'none') {
-  sc <- discrete_scale('edge_width', 'identity', identity_pal(), ...,
-    guide = guide, super = ScaleDiscreteIdentity
-  )
+  sc <- scale_size_identity(..., guide = guide)
+  sc$aesthetics <- 'edge_width'
   sc
 }

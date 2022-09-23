@@ -109,7 +109,7 @@ autograph.default <- function(graph, ..., node_colour = NULL, edge_colour = NULL
 #' @export
 #' @keywords internal
 qgraph <- function(...) {
-  .Deprecated('autograph', msg = 'To avoid name clashing with qgraph::qgraph(), ggraph::qgraph() has been renamed to ggraph::autograph()')
+  lifecycle::deprecate_warn('2.0.6', 'qgraph()', 'autograph()')
 }
 
 utils::globalVariables(c(

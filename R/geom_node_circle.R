@@ -57,15 +57,7 @@ geom_node_circle <- function(mapping = NULL, data = NULL, position = 'identity',
 #' @export
 StatNodeCircle <- ggproto('StatNodeCircle', StatCircle,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
-    data$group <- make_unique(data$group)
-    data
+    StatFilter$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
 )

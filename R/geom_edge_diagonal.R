@@ -82,7 +82,7 @@
 #'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 #'
 #' ggraph(gr, 'tree') +
-#'   geom_edge_diagonal(aes(alpha = stat(index)))
+#'   geom_edge_diagonal(aes(alpha = after_stat(index)))
 #'
 #' ggraph(gr, 'tree') +
 #'   geom_edge_diagonal2(aes(colour = node.class))
@@ -101,14 +101,9 @@ NULL
 #' @export
 StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
@@ -160,14 +155,9 @@ geom_edge_diagonal <- function(mapping = NULL, data = get_edges(),
 #' @export
 StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
@@ -284,6 +274,6 @@ create_diagonal <- function(from, to, params) {
       data3$y[!from$circular] <- to$y[!from$circular] + h_diff / 2 * params$strength
     }
   }
-  data <- rbind_dfs(list(from, data2, data3, to))
+  data <- vec_rbind(from, data2, data3, to)
   data[order(data$index), names(data) != 'index']
 }

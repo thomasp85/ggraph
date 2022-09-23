@@ -16,10 +16,14 @@ NULL
 #'
 #' @inheritParams ggplot2::scale_size_continuous
 #'
-#' @importFrom scales area_pal
 #' @export
-scale_label_size_continuous <- function(..., range = c(1, 6)) {
-  continuous_scale('label_size', 'area', area_pal(range), ...)
+scale_label_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
+                                        limits = NULL, range = c(1, 6),
+                                        trans = "identity", guide = "legend") {
+  sc <- scale_size_continuous(name = name, breaks = breaks, labels = labels, limits = limits,
+                              range = range, trans = trans, guide = guide)
+  sc$aesthetics <- 'label_size'
+  sc
 }
 #' @rdname scale_label_size
 #'
@@ -29,21 +33,35 @@ scale_label_size <- scale_label_size_continuous
 #'
 #' @inheritParams ggplot2::scale_size_discrete
 #'
-#' @importFrom scales rescale_pal
 #' @export
-scale_label_size_discrete <- function(..., range = c(2, 6)) {
-  discrete_scale('label_size', 'size_d', function(n) {
-    area <- seq(range[1]^2, range[2]^2, length.out = n)
-    sqrt(area)
-  }, ...)
+scale_label_size_discrete <- function(...) {
+  cli::cli_warn("Using {.field label_size} for a discrete variable is not advised.")
+  sc <- scale_size_ordinal(...)
+  sc$aesthetics <- 'label_size'
+  sc
+}
+#' @rdname scale_label_size
+#'
+#' @inheritParams ggplot2::scale_size_binned
+#' @export
+scale_label_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
+                                    limits = NULL, range = c(1, 6), n.breaks = NULL,
+                                    nice.breaks = TRUE, trans = "identity", guide = "bins") {
+  sc <- scale_size_binned(name = name, breaks = breaks, labels = labels, limits = limits,
+                          range = range, n.breaks = n.breaks, nice.breaks = nice.breaks,
+                          trans = trans, guide = guide)
+  sc$aesthetics <- 'label_size'
+  sc
 }
 #' @rdname scale_label_size
 #'
 #' @inheritParams ggplot2::scale_size_manual
 #'
 #' @export
-scale_label_size_manual <- function(..., values) {
-  manual_scale('label_size', values, ...)
+scale_label_size_manual <- function(..., values, breaks = waiver(), na.value = NA) {
+  sc <- scale_size_manual(..., values = values, breaks = breaks, na.value = na.value)
+  sc$aesthetics <- 'label_size'
+  sc
 }
 #' @rdname scale_label_size
 #'
@@ -52,8 +70,7 @@ scale_label_size_manual <- function(..., values) {
 #' @importFrom scales identity_pal
 #' @export
 scale_label_size_identity <- function(..., guide = 'none') {
-  sc <- discrete_scale('label_size', 'identity', identity_pal(), ...,
-    guide = guide, super = ScaleDiscreteIdentity
-  )
+  sc <- scale_size_identity(..., guide = guide)
+  sc$aesthetics <- 'label_size'
   sc
 }

@@ -9,6 +9,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include=FALSE}
+set.seed(2022)
+```
+
 In very short terms, a layout is the vertical and horizontal placement of nodes
 when plotting a particular graph structure. Conversely, a layout algorithm is an
 algorithm that takes in a graph structure (and potentially some additional 

@@ -21,10 +21,11 @@ NULL
 #'
 #' @inheritParams ggplot2::scale_shape
 #'
-#' @importFrom scales shape_pal
 #' @export
 scale_edge_shape <- function(..., solid = TRUE) {
-  discrete_scale('edge_shape', 'shape_d', shape_pal(solid), ...)
+  sc <- scale_shape(..., solid = solid)
+  sc$aesthetics <- 'edge_shape'
+  sc
 }
 #' @rdname scale_edge_shape
 #'
@@ -34,15 +35,28 @@ scale_edge_shape_discrete <- scale_edge_shape
 #'
 #' @export
 scale_edge_shape_continuous <- function(...) {
-  stop('A continuous variable can not be mapped to shape', call. = FALSE)
+  cli::cli_abort(c(
+    "A continuous variable cannot be mapped to the {.field edge_shape} aesthetic",
+    "i" = "choose a different aesthetic or use {.fn scale_edge_shape_binned}"
+  ))
+}
+#' @rdname scale_edge_shape
+#'
+#' @export
+scale_edge_shape_binned <- function(..., solid = TRUE) {
+  sc <- scale_shape_binned(..., solid = solid)
+  sc$aesthetics <- 'edge_shape'
+  sc
 }
 #' @rdname scale_edge_shape
 #'
 #' @inheritParams ggplot2::scale_shape_manual
 #'
 #' @export
-scale_edge_shape_manual <- function(..., values) {
-  manual_scale('edge_shape', values, ...)
+scale_edge_shape_manual <- function(..., values, breaks = waiver(), na.value = NA) {
+  sc <- scale_shape_manual(..., values = values, breaks = breaks, na.value = na.value)
+  sc$aesthetics <- 'edge_shape'
+  sc
 }
 #' @rdname scale_edge_shape
 #'
@@ -51,8 +65,7 @@ scale_edge_shape_manual <- function(..., values) {
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_shape_identity <- function(..., guide = 'none') {
-  sc <- discrete_scale('edge_shape', 'identity', identity_pal(), ...,
-    guide = guide, ScaleDiscreteIdentity
-  )
+  sc <- scale_shape_identity(..., guide = guide)
+  sc$aesthetics <- 'edge_shape'
   sc
 }

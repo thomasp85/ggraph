@@ -53,35 +53,48 @@ mid_rescaler <- function(mid) {
     rescale_mid(x, to, from, mid)
   }
 }
-manual_scale <- function(aesthetic, values, ...) {
+manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limits = NULL) {
+  # check for missing `values` parameter, in lieu of providing
+  # a default to all the different scale_*_manual() functions
+  if (is_missing(values)) {
+    values <- NULL
+  } else {
+    force(values)
+  }
+
+  if (is.null(limits) && !is.null(names(values))) {
+    # Limits as function to access `values` names later on (#4619)
+    limits <- function(x) intersect(x, names(values))
+  }
+
+  # order values according to breaks
+  if (is.vector(values) && is.null(names(values)) && !inherits(breaks, 'waiver') &&
+      !is.null(breaks) && !is.function(breaks)) {
+    if (length(breaks) <= length(values)) {
+      names(values) <- breaks
+    } else {
+      names(values) <- breaks[1:length(values)]
+    }
+  }
+
   pal <- function(n) {
     if (n > length(values)) {
-      stop('Insufficient values in manual scale. ', n,
-        ' needed but only ', length(values), ' provided.',
-        call. = FALSE
-      )
+      cli::cli_abort("Insufficient values in manual scale. {n} needed but only {length(values)} provided.")
     }
     values
   }
-  discrete_scale(aesthetic, 'manual', pal, ...)
+  discrete_scale(aesthetic, "manual", pal, breaks = breaks, limits = limits, ...)
 }
 #' @importFrom scales zero_range
 resolution <- function(x, zero = TRUE) {
   if (is.integer(x) || zero_range(range(x, na.rm = TRUE))) {
     return(1)
   }
-  x <- unique(as.numeric(x))
+  x <- unique0(as.numeric(x))
   if (zero) {
-    x <- unique(c(0, x))
+    x <- unique0(c(0, x))
   }
   min(diff(sort(x)))
-}
-'%||%' <- function(a, b) {
-  if (!is.null(a)) {
-    a
-  } else {
-    b
-  }
 }
 #' @importFrom grid grobName
 ggname <- function(prefix, grob) {
@@ -91,7 +104,7 @@ ggname <- function(prefix, grob) {
 element_render <- function(theme, element, ..., name = NULL) {
   el <- calc_element(element, theme)
   if (is.null(el)) {
-    message('Theme element ', element, ' missing')
+    cli::cli_inform("Theme element {.var {element}} is missing")
     return(zeroGrob())
   }
   ggname(paste(element, name, sep = '.'), element_grob(el, ...))
@@ -125,46 +138,62 @@ rename_aes <- function(x) {
   x
 }
 
-pch_lookup <- c(
-  "square open" = 0,
-  "circle open" = 1,
-  "triangle open" = 2,
-  "plus" = 3,
-  "cross" = 4,
-  "diamond open" = 5,
-  "triangle down open" = 6,
-  "square cross" = 7,
-  "asterisk" = 8,
-  "diamond plus" = 9,
-  "circle plus" = 10,
-  "star" = 11,
-  "square plus" = 12,
-  "circle cross" = 13,
-  "square triangle" = 14,
-  "triangle square" = 14,
-  "square" = 15,
-  "circle small" = 16,
-  "triangle" = 17,
-  "diamond" = 18,
-  "circle" = 19,
-  "bullet" = 20,
-  "circle filled" = 21,
-  "square filled" = 22,
-  "diamond filled" = 23,
-  "triangle filled" = 24,
-  "triangle down filled" = 25
-)
-translate_pch <- function(pch) {
-  if (is.numeric(pch)) return(pch)
-  if (!is.character(pch)) stop('Unknown shape format', call. = FALSE)
-  if (nchar(pch[1]) <= 1) return(pch)
+translate_shape_string <- function(shape_string) {
+  if (is.numeric(shape_string)) return(shape_string)
+  # strings of length 0 or 1 are interpreted as symbols by grid
+  if (nchar(shape_string[1]) <= 1) {
+    return(shape_string)
+  }
 
-  pch <- charmatch(pch, names(pch_lookup))
+  pch_table <- c(
+    "square open"           = 0,
+    "circle open"           = 1,
+    "triangle open"         = 2,
+    "plus"                  = 3,
+    "cross"                 = 4,
+    "diamond open"          = 5,
+    "triangle down open"    = 6,
+    "square cross"          = 7,
+    "asterisk"              = 8,
+    "diamond plus"          = 9,
+    "circle plus"           = 10,
+    "star"                  = 11,
+    "square plus"           = 12,
+    "circle cross"          = 13,
+    "square triangle"       = 14,
+    "triangle square"       = 14,
+    "square"                = 15,
+    "circle small"          = 16,
+    "triangle"              = 17,
+    "diamond"               = 18,
+    "circle"                = 19,
+    "bullet"                = 20,
+    "circle filled"         = 21,
+    "square filled"         = 22,
+    "diamond filled"        = 23,
+    "triangle filled"       = 24,
+    "triangle down filled"  = 25
+  )
 
-  if (any(is.na(pch))) stop('Unknown shape name', call. = FALSE)
-  if (any(pch == 0)) stop('Ambiguous shape name', call. = FALSE)
+  shape_match <- charmatch(shape_string, names(pch_table))
 
-  pch_lookup[pch]
+  invalid_strings <- is.na(shape_match)
+  nonunique_strings <- shape_match == 0
+
+  if (any(invalid_strings)) {
+    bad_string <- unique0(shape_string[invalid_strings])
+    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}")
+  }
+
+  if (any(nonunique_strings)) {
+    bad_string <- unique0(shape_string[nonunique_strings])
+    cli::cli_abort(c(
+      "shape names must be given unambiguously",
+      "i" = "Fix {.val {bad_string}}"
+    ))
+  }
+
+  unname(pch_table[shape_match])
 }
 
 #' @importFrom viridis scale_color_viridis
@@ -175,27 +204,15 @@ viridis::scale_color_viridis
 #' @export
 viridis::scale_fill_viridis
 
-new_data_frame <- function(x = list(), n = NULL) {
-  if (length(x) != 0 && is.null(names(x))) stop('Elements must be named',
-                                                call. = FALSE)
-  lengths <- vapply(x, length, integer(1))
-  if (is.null(n)) {
-    n <- if (length(x) == 0) 0 else max(lengths)
-  }
-  for (i in seq_along(x)) {
-    if (lengths[i] == n) next
-    if (lengths[i] != 1) stop('Elements must equal the number of rows or 1',
-                              call. = FALSE)
-    x[[i]] <- rep(x[[i]], n)
-  }
+# Wrapping vctrs data_frame constructor with no name repair
+data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 
-  class(x) <- 'data.frame'
+# Wrapping unique0() to accept NULL
+unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 
-  attr(x, 'row.names') <- .set_row_names(n)
-  x
-}
 df_rows <- function(x, i) {
-  new_data_frame(lapply(x, `[`, i = i))
+  cols <- lapply(x, `[`, i = i)
+  data_frame0(!!!cols, .size = length(i))
 }
 split_matrix <- function(x, col_names = colnames(x)) {
   force(col_names)
@@ -227,7 +244,7 @@ id_var <- function(x, drop = FALSE) {
     id <- as.integer(x)
     n <- length(levels(x))
   } else {
-    levels <- sort(unique(x), na.last = TRUE)
+    levels <- sort(unique0(x), na.last = TRUE)
     id <- match(x, levels)
     n <- max(id)
   }
@@ -272,12 +289,12 @@ id <- function(.variables, drop = FALSE) {
   ndistinct <- vapply(ids, attr, 'n', FUN.VALUE = numeric(1), USE.NAMES = FALSE)
   n <- prod(ndistinct)
   if (n > 2^31) {
-    char_id <- do.call('paste', c(ids, sep = '\r'))
-    res <- match(char_id, unique(char_id))
+    char_id <- inject(paste(!!!ids, sep = '\r'))
+    res <- match(char_id, unique0(char_id))
   }
   else {
     combs <- c(1, cumprod(ndistinct[-p]))
-    mat <- do.call('cbind', ids)
+    mat <- inject(cbind(!!!ids))
     res <- c((mat - 1L) %*% combs + 1L)
   }
   if (drop) {
@@ -289,70 +306,39 @@ id <- function(.variables, drop = FALSE) {
     res
   }
 }
-#' Bind data frames together by common column names
-#'
-#' This function is akin to `plyr::rbind.fill`, `dplyr::bind_rows`, and
-#' `data.table::rbindlist`. It takes data frames in a list and stacks them on
-#' top of each other, filling out values with `NA` if the column is missing from
-#' a data.frame
-#'
-#' @param dfs A list of data frames
-#'
-#' @return A data.frame with the union of all columns from the data frames given
-#' in `dfs`
-#'
-#' @keywords internal
-#' @noRd
-#'
-rbind_dfs <- function(dfs) {
-  out <- list()
-  columns <- unique(unlist(lapply(dfs, names)))
-  nrows <- vapply(dfs, .row_names_info, integer(1), type = 2L)
-  total <- sum(nrows)
-  if (length(columns) == 0) return(new_data_frame(list(), total))
-  allocated <- rep(FALSE, length(columns))
-  names(allocated) <- columns
-  col_levels <- list()
-  for (df in dfs) {
-    new_columns <- intersect(names(df), columns[!allocated])
-    for (col in new_columns) {
-      if (is.factor(df[[col]])) {
-        all_factors <- all(vapply(dfs, function(df) {
-          val <- .subset2(df, col)
-          is.null(val) || is.factor(val)
-        }, logical(1)))
-        if (all_factors) {
-          col_levels[[col]] <- unique(
-            unlist(lapply(dfs, function(df) levels(.subset2(df, col))))
-          )
-        }
-        out[[col]] <- rep(NA_character_, total)
-      } else {
-        out[[col]] <- rep(.subset2(df, col)[1][NA], total)
-      }
-    }
-    allocated[new_columns] <- TRUE
-    if (all(allocated)) break
-  }
-  pos <- c(cumsum(nrows) - nrows + 1)
-  for (i in seq_along(dfs)) {
-    df <- dfs[[i]]
-    rng <- seq(pos[i], length.out = nrows[i])
-    for (col in names(df)) {
-      if (inherits(df[[col]], 'factor')) {
-        out[[col]][rng] <- as.character(df[[col]])
-      } else {
-        out[[col]][rng] <- df[[col]]
-      }
-    }
-  }
-  for (col in names(col_levels)) {
-    out[[col]] <- factor(out[[col]], levels = col_levels[[col]])
-  }
-  attributes(out) <- list(
-    class = 'data.frame',
-    names = names(out),
-    row.names = .set_row_names(total)
-  )
-  out
+
+# Use chartr() for safety since toupper() fails to convert i to I in Turkish locale
+lower_ascii <- "abcdefghijklmnopqrstuvwxyz"
+upper_ascii <- "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
+to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
+
+tolower <- function(x) {
+  cli::cli_abort("Please use {.fn to_lower_ascii}, which works fine in all locales.")
+}
+
+toupper <- function(x) {
+  cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
+}
+
+# Convert a snake_case string to camelCase
+camelize <- function(x, first = FALSE) {
+  x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
+  if (first) x <- firstUpper(x)
+  x
+}
+
+snakeize <- function(x) {
+  x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
+  x <- gsub(".", "_", x, fixed = TRUE)
+  x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
+  to_lower_ascii(x)
+}
+
+firstUpper <- function(s) {
+  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
+}
+
+snake_class <- function(x) {
+  snakeize(class(x)[1])
 }

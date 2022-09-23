@@ -9,6 +9,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include=FALSE}
+set.seed(2022)
+```
+
 If the natural `ggplot2` equivalent to nodes is `geom_point()`, then surely the
 equivalent to edges must be `geom_segment()`? Well, sort of, but there's a bit 
 more to it than that.

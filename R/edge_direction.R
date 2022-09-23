@@ -19,7 +19,7 @@
 #' @examples
 #' gr <- tidygraph::as_tbl_graph(highschool)
 #' ggraph(gr, layout = 'kk') +
-#'   geom_edge_fan(aes(alpha = stat(index))) +
+#'   geom_edge_fan(aes(alpha = after_stat(index))) +
 #'   guides(edge_alpha = guide_edge_direction())
 guide_edge_direction <- function(title = waiver(), title.position = NULL,
                                  title.theme = NULL, title.hjust = NULL,
@@ -57,38 +57,28 @@ guide_edge_direction <- function(title = waiver(), title.position = NULL,
 #' @rdname guide-helpers
 #' @keywords internal
 guide_train.edge_direction <- function(guide, scale, aesthetic = NULL) {
-  if (length(intersect(scale$aesthetics, c(
-    'edge_colour',
-    'edge_alpha',
-    'edge_width'
-  ))) == 0) {
-    warning('edge_colourbar guide needs edge_colour or edge_alpha or edge_width scales.')
+  if (!any(c('edge_colour', 'edge_fill', 'edge_alpha') %in% scale$aesthetics)) {
+    cli::cli_warn('{.fn guide_edge_direction} needs {.var edge_colour}, {.var edge_fill}, or {.var edge_alpha} scales.')
     return(NULL)
   }
   if (scale$is_discrete()) {
-    warning('edge_colourbar guide needs continuous scales.')
+    cli::cli_warn('{.fn guide_edge_direction} guide needs continuous scales.')
     return(NULL)
   }
   breaks <- scale$get_breaks()
   if (length(breaks) == 0 || all(is.na(breaks))) {
     return()
   }
-  ticks <- as.data.frame(setNames(
-    list(scale$map(breaks)),
-    aesthetic %||% scale$aesthetics[1]
-  ), stringsAsFactors = FALSE)
+  ticks <- data_frame(scale$map(breaks), .name_repair = ~ aesthetic %||% scale$aesthetics[1])
   ticks$.value <- breaks
   ticks$.label <- scale$get_labels(breaks)
   guide$key <- ticks
   .limits <- scale$get_limits()
   .bar <- discard(pretty(.limits, n = guide$nbin), scale$get_limits())
   if (length(.bar) == 0) {
-    .bar <- unique(.limits)
+    .bar <- unique0(.limits)
   }
-  guide$bar <- as.data.frame(setNames(
-    list(scale$map(.bar)),
-    scale$aesthetics[1]
-  ), stringsAsFactors = FALSE)
+  guide$bar <- data_frame(scale$map(.bar), .name_repair = ~ scale$aesthetics[1])
   guide$bar$.value <- .bar
   guide$bar <- guide$bar[order(.bar), ]
   if (guide$reverse) {
@@ -106,7 +96,7 @@ guide_train.edge_direction <- function(guide, scale, aesthetic = NULL) {
 guide_merge.edge_direction <- function(guide, new_guide) {
   guide$bar <- merge(guide$bar, new_guide$bar, sort = FALSE)
   guide$override.aes <- c(guide$override.aes, new_guide$override.aes)
-  if (any(duplicated(names(guide$override.aes)))) warning('Duplicated override.aes is ignored.')
+  if (any(duplicated(names(guide$override.aes)))) cli::cli_warn('Duplicated {.arg override.aes} is ignored.')
   guide$override.aes <- guide$override.aes[!duplicated(names(guide$override.aes))]
   guide
 }
@@ -163,12 +153,12 @@ guide_gengrob.edge_direction <- function(guide, theme) {
   switch(guide$direction, horizontal = {
     arrow.position <- guide$arrow.position %||% 'bottom'
     if (!arrow.position %in% c('top', 'bottom')) {
-      stop('label position "', arrow.position, '" is invalid')
+      cli::cli_abort('{.arg arrow.position} {.val {arrow.position}} is invalid')
     }
   }, vertical = {
     arrow.position <- guide$arrow.position %||% 'right'
     if (!arrow.position %in% c('left', 'right')) {
-      stop('label position "', arrow.position, '" is invalid')
+      cli::cli_abort('{.arg arrow.position} {.val {arrow.position}} is invalid')
     }
   })
   arrowlength <- convertWidth(guide$arrowlength %||%
@@ -222,7 +212,7 @@ guide_gengrob.edge_direction <- function(guide, theme) {
       })
     }
   )
-  grob.bar <- do.call(gList, grob.bar)
+  grob.bar <- inject(gList(!!!grob.bar))
   grob.title <- ggname(
     'guide.title',
     element_grob(guide$title.theme %||%

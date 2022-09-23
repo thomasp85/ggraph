@@ -98,7 +98,8 @@ and displayed as described in \code{\link[grDevices:plotmath]{grDevices::plotmat
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling \code{geom_label()} or \code{geom_text()}.}
+column before calling \code{geom_text()}. Note that this argument is not
+supported by \code{geom_label()}.}
 
 \item{angle_calc}{Either 'none', 'along', or 'across'. If 'none' the label will
 use the angle aesthetic of the geom. If 'along' The label will be written
@@ -194,7 +195,7 @@ needed over the drawing. The default (no numeric postfix) generate a number
 of points (\code{n}) along the edge and draws it as a path. Each point along
 the line has a numeric value associated with it giving the position along the
 path, and it is therefore possible to show the direction of the edge by
-mapping to this e.g. \code{colour = stat(index)}. The version postfixed with a
+mapping to this e.g. \code{colour = after_stat(index)}. The version postfixed with a
 "2" uses the "long" edge format (see \code{\link[=get_edges]{get_edges()}}) and makes it
 possible to interpolate node parameter between the start and end node along
 the edge. It is considerable less performant so should only be used if this
@@ -241,7 +242,7 @@ gr <- create_notable('bull') \%>\%
   mutate(class = sample(c('x', 'y'), 5, TRUE))
 
 ggraph(gr, 'stress') +
-  geom_edge_parallel(aes(alpha = stat(index)))
+  geom_edge_parallel(aes(alpha = after_stat(index)))
 
 ggraph(gr, 'stress') +
   geom_edge_parallel2(aes(colour = node.class))

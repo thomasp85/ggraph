@@ -21,15 +21,14 @@
 #'
 get_nodes <- function(...) {
   function(layout) {
-    nodes <- do.call(
-      cbind,
-      c(
-        list(layout),
-        lapply(list(...), rep, length.out = nrow(layout)),
-        list(stringsAsFactors = FALSE)
+    extra_data <- lapply(list2(...), rep, length.out = nrow(layout))
+    if (length(extra_data) > 0) {
+      layout <- cbind(
+        layout,
+        data_frame0(!!!extra_data)
       )
-    )
-    attr(nodes, 'type_ggraph') <- 'node_ggraph'
-    nodes
+    }
+    attr(layout, 'type_ggraph') <- 'node_ggraph'
+    layout
   }
 }

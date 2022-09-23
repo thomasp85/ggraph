@@ -78,9 +78,9 @@ layout_tbl_graph_treemap <- function(graph, algorithm = 'split', weight = NULL, 
   layout <- switch(
     algorithm,
     split = splitTreemap(hierarchy$parent, hierarchy$order, hierarchy$weight, width, height),
-    stop('Unknown algorithm')
+    cli::cli_abort('Unknown treemap algorithm')
   )[-1, ]
-  layout <- new_data_frame(list(
+  nodes <- data_frame0(
     x = layout[, 1] + layout[, 3] / 2,
     y = layout[, 2] + layout[, 4] / 2,
     width = layout[, 3],
@@ -88,9 +88,6 @@ layout_tbl_graph_treemap <- function(graph, algorithm = 'split', weight = NULL, 
     circular = FALSE,
     leaf = degree(graph, mode = direction) == 0,
     depth = node_depth(graph, mode = direction)
-  ))
-  extra_data <- as_tibble(graph, active = 'nodes')
-  warn_dropped_vars(layout, extra_data)
-  layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
-  layout
+  )
+  combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

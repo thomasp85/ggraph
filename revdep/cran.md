@@ -1,6 +1,3 @@
-This is a very minor release fixing a vignette issue from the recent igraph
-update.
-
 ## revdepcheck results
 
 We checked 66 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.

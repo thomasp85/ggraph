@@ -92,7 +92,7 @@
 #'   reroute(from = to, to = from, subset = switch)
 #'
 #' ggraph(gr, 'linear') +
-#'   geom_edge_arc(aes(alpha = stat(index)))
+#'   geom_edge_arc(aes(alpha = after_stat(index)))
 #'
 #' ggraph(gr, 'linear') +
 #'   geom_edge_arc2(aes(colour = node.class), strength = 0.6)
@@ -111,14 +111,9 @@ NULL
 #' @export
 StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
@@ -142,7 +137,7 @@ geom_edge_arc <- function(mapping = NULL, data = get_edges(),
                           label_dodge = NULL, label_push = NULL,
                           show.legend = NA, ..., curvature) {
   if (!missing(curvature)) {
-    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_arc(curvature)', 'geom_edge_arc(strength)')
     strength <- curvature
   }
   mapping <- complete_edge_aes(mapping)
@@ -174,14 +169,9 @@ geom_edge_arc <- function(mapping = NULL, data = get_edges(),
 #' @export
 StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
@@ -204,7 +194,7 @@ geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ..., curvature) {
   if (!missing(curvature)) {
-    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_arc2(curvature)', 'geom_edge_arc2(strength)')
     strength <- curvature
   }
   mapping <- complete_edge_aes(mapping)
@@ -249,7 +239,7 @@ geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
                            position = 'identity', arrow = NULL, strength = 1,
                            lineend = 'butt', show.legend = NA, fold = fold, ..., curvature) {
   if (!missing(curvature)) {
-    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_arc0(curvature)', 'geom_edge_arc0(strength)')
     strength <- curvature
   }
   mapping <- complete_edge_aes(mapping)
@@ -308,6 +298,6 @@ create_arc <- function(from, to, params) {
       data3$y[!circ] <- abs(data3$y[!circ]) * sign(params$strength)
     }
   }
-  data <- rbind_dfs(list(from, data2, data3, to))
+  data <- vec_rbind(from, data2, data3, to)
   data[order(data$index), names(data) != 'index']
 }

@@ -23,8 +23,12 @@
 #'
 facet_nodes <- function(facets, nrow = NULL, ncol = NULL, scales = 'fixed',
                         shrink = TRUE, labeller = 'label_value', as.table = TRUE,
-                        switch = NULL, drop = TRUE, dir = 'h',
+                        switch = deprecated(), drop = TRUE, dir = 'h',
                         strip.position = 'top') {
+  # Work around non-lifecycle deprecation
+  if (!lifecycle::is_present(switch) && utils::packageVersion('ggplot2') <= '3.3.6') {
+    switch <- NULL
+  }
   facet <- facet_wrap(
     facets = facets, nrow = nrow, ncol = ncol,
     scales = scales, shrink = shrink, labeller = labeller,
@@ -71,7 +75,7 @@ FacetNodes <- ggproto('FacetNodes', FacetWrap,
           map[map$from %in% nodes & map$to %in% nodes, , drop = FALSE]
         }, map = rep(list(data), length(node_placement)), nodes = node_placement)
         panel <- rep(seq_along(edge_map), vapply(edge_map, nrow, numeric(1)))
-        edge_map <- rbind_dfs(edge_map)
+        edge_map <- vec_rbind(!!!edge_map)
         edge_map$PANEL <- factor(panel, levels = levels(layout$PANEL))
         edge_map
       },

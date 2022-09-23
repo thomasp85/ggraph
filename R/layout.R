@@ -5,7 +5,10 @@
 #' @export
 create_layout <- function(graph, layout, circular, ...) {
   if (is_layout(layout)) {
-    warning('Ignoring `graph` as layout is already calculated. Pass the calculated layout to the `graph` argument to silence this warning', call. = FALSE)
+    cli::cli_warn(c(
+      'Ignoring {.arg graph} as layout is already calculated',
+      i = 'Pass the calculated layout to the {.arg graph} argument to silence this warning'
+    ))
     return(layout)
   }
   UseMethod('create_layout', graph)
@@ -14,8 +17,8 @@ is_layout <- function(x) inherits(x, 'layout_ggraph')
 #' @rdname ggraph
 #' @export
 create_layout.default <- function(graph, layout, ...) {
-  graph <- tryCatch(as_tbl_graph(graph), error = function(e) {
-    stop('No layout function defined for objects of class ', class(graph), call. = FALSE)
+  graph <- try_fetch(as_tbl_graph(graph), error = function(e) {
+    cli::cli_abort('No layout function defined for objects of class {.cls {class(graph)[1]}}')
   })
   create_layout(graph, layout, ...)
 }
@@ -34,23 +37,23 @@ as.data.frame.layout_ggraph <- function(x, ...) {
 }
 check_layout <- function(layout) {
   if (!is.data.frame(layout)) {
-    stop('layout must be a data.frame', call. = FALSE)
+    cli::cli_abort('{.arg layout} must be a {.cls data.frame}')
   }
   if (!(is.numeric(layout$x) && is.numeric(layout$y))) {
-    stop('layout must contain numeric `x` and `y` columns', call. = FALSE)
+    cli::cli_abort('{.arg layout} must contain numeric {.col x} and {.col y} columns')
   }
   graph <- attr(layout, 'graph')
   if (!is.tbl_graph(graph)) {
-    stop('layout must have a tbl_graph as the `graph` attribute', call. = FALSE)
+    cli::cli_abort('{.arg layout} must have a {.cls tbl_graph} as the {.arg graph} attribute')
   }
   if (nrow(layout) != gorder(graph)) {
-    stop('layout must contain the same number of rows as nodes', call. = FALSE)
+    cli::cli_abort('{.arg layout} must contain the same number of rows as the number of nodes in the graph')
   }
   if (!'circular' %in% names(layout)) {
     layout$circular <- FALSE
   }
   if (!is.logical(layout$circular)) {
-    stop('circular column must be logical', call. = FALSE)
+    cli::cli_abort('The {.col circular} column must be logical')
   }
   layout
 }

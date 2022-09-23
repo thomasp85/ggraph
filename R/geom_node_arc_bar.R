@@ -60,14 +60,7 @@ geom_node_arc_bar <- function(mapping = NULL, data = NULL, position = 'identity'
 #' @export
 StatNodeArcBar <- ggproto('StatNodeArcBar', StatArcBar,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
-    data
+    StatFilter$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
 )
