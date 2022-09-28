@@ -11,6 +11,8 @@
 * Fixed a bug in `facet_graph()` when using `.` on either dimension (#313)
 * Move dendrogram layout calculations to compiled code to avoid R's recursion
   stack limitations (#311)
+* Fixed a bug in the circle pack algorithm that could result in overlapping 
+  circles (#305)
 
 # ggraph 2.0.6
 

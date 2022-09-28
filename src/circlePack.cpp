@@ -14,53 +14,68 @@ struct Circle {
   Circle* next;
   Circle* prev;
 };
+
+void place(Circle* c, Circle* b, Circle* a) {
+  double dx = b->x - a->x;
+  double dy = b->y - a->y;
+  double d2 = dx * dx + dy * dy;
+  if (d2 != 0.0) {
+    double a2 = a->r + c->r;
+    a2 *= a2;
+    double b2 = b->r + c->r;
+    b2 *= b2;
+    if (a2 > b2) {
+      double x = (d2 + b2 - a2) / (2 * d2);
+      double y = std::sqrt(std::max(0.0, b2 / d2 - x * x));
+      c->x = b->x - x * dx - y * dy;
+      c->y = b->y - x * dy + y * dx;
+    } else {
+      double x = (d2 + a2 - b2) / (2 * d2);
+      double y = std::sqrt(std::max(0.0, a2 / d2 - x * x));
+      c->x = a->x + x * dx - y * dy;
+      c->y = a->y + x * dy + y * dx;
+    }
+  } else {
+    c->x = a->x + c->r;
+    c->y = a->y;
+  }
+}
+bool circles_intersect(Circle* c1, Circle* c2) {
+  double dx = c2->x - c1->x;
+  double dy = c2->y - c1->y;
+  double dr = c2->r + c1->r - 1e-6;
+  return dr > 0 && dr*dr > dx*dx + dy*dy;
+}
+double score(Circle* c) {
+  double ab = c->r + c->next->r;
+  double dx = (c->x * c->next->r + c->next->x * c->r) / ab;
+  double dy = (c->y * c->next->r + c->next->y * c->r) / ab;
+  return dx * dx + dy * dy;
+}
+
 class FrontChain {
-  double center_x;
-  double center_y;
-  double total_weight;
   Circle enclosure;
   Circle* next_circle;
 
-  void place(Circle* c, Circle* c1, Circle* c2) {
-    double r0 = c1->r + c->r;
-    double r1 = c2->r + c->r;
-    double dx = c2->x - c1->x;
-    double dy = c2->y - c1->y;
-    double d = std::sqrt(float(dx*dx + dy*dy));
-    double a = (r0*r0 - r1*r1 + d*d) / (2*d);
-    double h = std::sqrt(float(r0*r0 - a*a));
-    c->x = c1->x + a*(c2->x - c1->x)/d - h*(c2->y - c1->y)/d;
-    c->y = c1->y + a*(c2->y - c1->y)/d + h*(c2->x - c1->x)/d;
-  };
-  double dist_to_center(Circle* c) {
-    double dx = c->x - center_x / total_weight;
-    double dy = c->y - center_y / total_weight;
-    return c->r + std::sqrt(float(dx*dx + dy*dy));
-  }
-  bool circles_intersect(Circle* c1, Circle* c2) {
-    double dx = c2->x - c1->x;
-    double dy = c2->y - c1->y;
-    double dr = c2->r + c1-> r;
-    return dr*dr > dx*dx + dy*dy;
-  };
   void update_closest_circle() {
-    Circle* circle_it = next_circle;
-    Circle* current_close = circle_it;
-    double dist = dist_to_center(circle_it);
-    circle_it = circle_it->next;
-    while(circle_it != next_circle) {
-      double temp_dist = dist_to_center(circle_it);
-      if (temp_dist < dist) {
-        dist = temp_dist;
-        current_close = circle_it;
+    Circle* a = next_circle;
+    double aa = score(a);
+    Circle* b = a->next;
+    while (b != next_circle) {
+      double ba = score(b);
+      if (ba < aa) {
+        a = b;
+        aa = ba;
       }
-      circle_it = circle_it->next;
+      b = b->next;
     }
-    next_circle = current_close;
+    next_circle = a;
   };
-  void update_chain(Circle* from, Circle* to) {
-    from->next = to;
-    to->prev = from;
+  void update_chain(Circle* c, Circle* after) {
+    Circle* before = after->next;
+    c->prev = after;
+    c->next = before;
+    after->next = before->prev = c;
   };
   bool encloses(Circle enc, Circle* c) {
     double dx = c->x - enc.x;
@@ -161,9 +176,6 @@ public:
     double a1 = c1->r*c1->r;
     double a2 = c2->r*c2->r;
     double a3 = c3->r*c3->r;
-    total_weight = a1 + a2 + a3;
-    center_x = a1*c1->x + a2*c2->x + a3*c3->x;
-    center_y = a1*c1->y + a2*c2->y + a3*c3->y;
 
     // Inititalize the front chain
     c1->next = c2;
@@ -201,41 +213,48 @@ public:
     next_circle = c1;
   };
   void add(Circle* c) {
-    Circle* n = next_circle;
-    Circle* m = next_circle->next;
-    place(c, n, m);
-    bool at_m = false;
-    bool at_n = false;
-    while(true) {
-      n = n->prev;
-      if (n == m) break;
-      if (circles_intersect(c, n)) {
-        at_n = true;
-        break;
+    Circle* a = next_circle;
+    Circle* b = next_circle->next;
+
+    place(c, a, b);
+
+    Circle* j = b->next;
+    Circle* k = a->prev;
+    double sj = b->r;
+    double sk = a->r;
+    bool did_intersect = false;
+
+    do {
+      if (sj <= sk) {
+        if (circles_intersect(j, c)) {
+          b = j;
+          a->next = b;
+          b->prev = a;
+          next_circle = a;
+          did_intersect = true;
+          add(c);
+          break;
+        }
+        sj += j->r;
+        j = j->next;
+      } else {
+        if (circles_intersect(k, c)) {
+          a = k;
+          a->next = b;
+          b->prev = a;
+          next_circle = a;
+          did_intersect = true;
+          add(c);
+          break;
+        }
+        sk += k->r;
+        k = k->prev;
       }
-      m = m->next;
-      if (n == m) break;
-      if (circles_intersect(c, m)) {
-        at_m = true;
-        break;
-      }
-    }
-    if (at_m) {
-      update_chain(next_circle, m);
-      add(c);
-    } else if (at_n) {
-      update_chain(n, next_circle->next);
-      next_circle = n;
-      add(c);
-    } else {
-      c->next = next_circle->next;
-      c->prev = next_circle;
-      next_circle->next->prev = c;
-      next_circle->next = c;
-      double a = c->r*c->r;
-      total_weight += a;
-      center_x += a*c->x;
-      center_y += a*c->y;
+    } while (j != k->next);
+
+    if (!did_intersect) {
+      update_chain(c, a);
+
       update_closest_circle();
     }
   };
