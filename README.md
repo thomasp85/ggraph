@@ -40,7 +40,7 @@ graph <- as_tbl_graph(highschool) %>%
 
 # plot using ggraph
 ggraph(graph, layout = 'kk') + 
-    geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) + 
+    geom_edge_fan(aes(alpha = after_stat(index)), show.legend = FALSE) + 
     geom_node_point(aes(size = Popularity)) + 
     facet_edges(~year) + 
     theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
