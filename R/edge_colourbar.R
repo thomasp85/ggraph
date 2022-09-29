@@ -25,7 +25,7 @@ guide_edge_colorbar <- guide_edge_colourbar
 #'
 #' @inheritParams ggplot2::guide_coloursteps
 #' @inheritParams ggplot2::guide_colourbar
-#' @inheritDotParams ggplot2::guide_coloursteps
+#' @inheritDotParams ggplot2::guide_colourbar
 #'
 #' @return A guide object
 #'
