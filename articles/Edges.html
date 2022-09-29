@@ -133,7 +133,7 @@
       <h1 data-toc-skip>Edges</h1>
                         <h4 data-toc-skip class="author">Thomas Lin Pedersen</h4>
             
-            <h4 data-toc-skip class="date">2022-09-28</h4>
+            <h4 data-toc-skip class="date">2022-09-29</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/HEAD/vignettes/Edges.Rmd" class="external-link"><code>vignettes/Edges.Rmd</code></a></small>
       <div class="hidden name"><code>Edges.Rmd</code></div>
@@ -333,7 +333,7 @@
 <p>The basic edge geom is drawn by calculating a number of points along the edge path and draw a line between these. This means that you’re in control of the detail level of curved edges and that all complex calculations happens up front. Generally you will see better performance using the base variant rather than the 0-variant that uses grid grobs, unless you set the number of points to calculate to something huge (50–100 is usually sufficient for a smooth look). Apart from better performance you also get a nice bonus (you actually get several, but only one is discussed here): The possibility of drawing a gradient along the edge. Each calculated point gets an index value between 0 and 1 that specifies how far along the edge it is positioned and this value can be used to e.g. map to an alpha level to show the direction of the edge:</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'linear'</span><span class="op">)</span> <span class="op">+</span> </span>
-<span>  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span>, alpha <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">stat</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span>, alpha <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/scale_edge_alpha.html">scale_edge_alpha</a></span><span class="op">(</span><span class="st">'Edge direction'</span>, guide <span class="op">=</span> <span class="st">'edge_direction'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 </div>
