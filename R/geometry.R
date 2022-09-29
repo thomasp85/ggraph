@@ -56,7 +56,9 @@ geometry <- function(type = 'circle', width = 1, height = width,
     height_unit = uheight
   )
 }
-new_geometry <- function(geometry, width, height, width_unit, height_unit) {
+new_geometry <- function(geometry = character(), width = numeric(),
+                         height = numeric(), width_unit = character(),
+                         height_unit = character()) {
   vec_assert(geometry, character())
   vec_assert(width, double())
   vec_assert(height, double())
@@ -157,6 +159,16 @@ abs_height <- function(grobs) {
 abs_width <- function(grobs) {
   vapply(grobs, function(g) convertWidth(grobWidth(g), 'cm', TRUE), numeric(1))
 }
+
+#' @export
+vec_ptype2.ggraph_geometry.ggraph_geometry <- function(x, y, ...) new_geometry()
+#' @export
+vec_ptype2.ggraph_geometry.character <- function(x, y, ...) character()
+#' @export
+vec_ptype2.character.ggraph_geometry <- function(x, y, ...) character()
+#' @export
+vec_cast.character.ggraph_geometry <- function(x, to, ...) as.character(field(x, 'geometry'))
+
 #' Define default scale type for geometry
 #'
 #' This function is quite useless as geometry is not meant to be scaled, but it
