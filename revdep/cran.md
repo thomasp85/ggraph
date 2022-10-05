@@ -1,12 +1,18 @@
 ## revdepcheck results
 
-We checked 66 reverse dependencies, comparing R CMD check results across CRAN and dev versions of this package.
+We checked 81 reverse dependencies (80 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
- * We saw 0 new problems
- * We failed to check 1 packages
+ * We saw 2 new problems
+ * We failed to check 0 packages
 
 Issues with CRAN packages are summarised below.
 
-### Failed to check
+### New problems
+(This reports the first line of each new failure)
 
-* apisensr (NA)
+* LabApplStat
+  checking examples ... ERROR
+
+* migraph
+  checking tests ... ERROR
+
