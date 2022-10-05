@@ -133,7 +133,7 @@
       <h1 data-toc-skip>Edges</h1>
                         <h4 data-toc-skip class="author">Thomas Lin Pedersen</h4>
             
-            <h4 data-toc-skip class="date">2022-09-29</h4>
+            <h4 data-toc-skip class="date">2022-10-05</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/HEAD/vignettes/Edges.Rmd" class="external-link"><code>vignettes/Edges.Rmd</code></a></small>
       <div class="hidden name"><code>Edges.Rmd</code></div>
@@ -410,7 +410,6 @@
 <span>                     end_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">label_rect</a></span><span class="op">(</span><span class="va">node2.name</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>                 arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Computation failed in `stat_edge_link()`:</span></span></code></pre>
 <p><img src="Edges_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
 <p>The capping of edges is dynamic and responds to resizing of the plot so the absolute size of the cap areas are maintained at all time.</p>
 <div class="section level4">
@@ -423,7 +422,7 @@
 <h3 id="labels">Labels<a class="anchor" aria-label="anchor" href="#labels"></a>
 </h3>
 <p>You would expect that edge labels would be their own geom(s), but <code>ggraph</code> departs from the stringent grammar interpretation here. This is because the label placement is dependent on the choice of edge. Because of this edge labeling is bundled with each edge geom (but not the 0-variant) through the label aesthetic</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, </span>
 <span>                 arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span>, </span>
@@ -431,7 +430,7 @@
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
 <p>Usually you would like the labels to run along the edges, but providing a fixed angle will only work at a very specific aspect ratio. Instead <code>ggraph</code> offers to calculate the correct angle dynamically so the labels always runs along the edge. Furthermore it can offset the label by an absolute length:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, </span>
 <span>                 angle_calc <span class="op">=</span> <span class="st">'along'</span>,</span>
@@ -447,7 +446,7 @@
 <h2 id="connections">Connections<a class="anchor" aria-label="anchor" href="#connections"></a>
 </h2>
 <p>The estranged cousin of edges are connections. While edges show the relational nature of the nodes in the graph structure, connections connect nodes that are not connected in the graph. This is done by finding the shortest path between the two nodes. Currently the only connection geom available is <code><a href="../reference/geom_conn_bundle.html">geom_conn_bundle()</a></code> that implements the hierarchical edge bundling technique:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flaregraph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html" class="external-link">tbl_graph</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">vertices</span>, <span class="va">flare</span><span class="op">$</span><span class="va">edges</span><span class="op">)</span></span>
 <span><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">imports</span><span class="op">$</span><span class="va">from</span>, <span class="va">flare</span><span class="op">$</span><span class="va">vertices</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
 <span><span class="va">to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">imports</span><span class="op">$</span><span class="va">to</span>, <span class="va">flare</span><span class="op">$</span><span class="va">vertices</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
