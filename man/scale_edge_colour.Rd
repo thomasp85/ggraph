@@ -415,19 +415,18 @@ omitted.}
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
-\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
 as output. Also accepts rlang \link[rlang:as_function]{lambda} function
 notation.
 }}
-    \item{\code{guide}}{A function used to create a guide or its name. See
-\code{\link[ggplot2:guides]{guides()}} for more information.}
     \item{\code{expand}}{For position scales, a vector of range expansion constants used to add some
 padding around the data to ensure that they are placed some distance
 away from the axes. Use the convenience function \code{\link[ggplot2:expansion]{expansion()}}
 to generate the values for the \code{expand} argument. The defaults are to
 expand the scale by 5\% on each side for continuous variables, and by
 0.6 units on each side for discrete variables.}
+    \item{\code{guide}}{A function used to create a guide or its name. See
+\code{\link[ggplot2:guides]{guides()}} for more information.}
     \item{\code{position}}{For position scales, The position of the axis.
 \code{left} or \code{right} for y axes, \code{top} or \code{bottom} for x axes.}
     \item{\code{super}}{The super class to use for the constructed scale}
@@ -452,8 +451,7 @@ name(s) of the aesthetic(s) that this scale works with. This can be useful, for
 example, to apply colour settings to the \code{colour} and \code{fill} aesthetics at the
 same time, via \code{aesthetics = c("colour", "fill")}.}
 
-\item{type}{One of "seq" (sequential), "div" (diverging) or "qual"
-(qualitative)}
+\item{type}{One of seq (sequential), div (diverging) or qual (qualitative)}
 
 \item{palette}{If a string, will use that named palette. If a number, will index into
 the list of palettes of appropriate \code{type}. The list of available palettes can found

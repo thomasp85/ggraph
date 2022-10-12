@@ -22,7 +22,7 @@ scale_edge_alpha_manual(..., values, breaks = waiver(), na.value = NA)
 scale_edge_alpha_identity(..., guide = "none")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link[ggplot2:continuous_scale]{continuous_scale()}}, \code{\link[ggplot2:binned_scale]{binned_scale()}},
+\item{...}{Other arguments passed on to \code{\link[ggplot2:continuous_scale]{continuous_scale()}}, \link[ggplot2]{binned_scale},
 or \code{\link[ggplot2:discrete_scale]{discrete_scale()}} as appropriate, to control name, limits,
 breaks, labels and so forth.}
 

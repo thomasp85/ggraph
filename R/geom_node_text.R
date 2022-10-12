@@ -82,7 +82,9 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = 'identity',
 #' @rdname geom_node_text
 #'
 #' @inheritParams ggplot2::geom_label
-#'
+#' @param richtext whether to parse markdown/CSS in the text label like
+#'   `ggtext::geom_richtext()`.
+#'   
 #' @importFrom ggrepel GeomLabelRepel
 #' @export
 #'
@@ -91,7 +93,7 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
                             label.padding = unit(0.25, 'lines'),
                             label.r = unit(0.15, 'lines'),
                             label.size = 0.25, show.legend = NA,
-                            repel = FALSE, ...) {
+                            repel = FALSE, richtext = TRUE, ...) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
@@ -107,6 +109,8 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
   )
   if (repel) {
     geom <- GeomLabelRepel
+  } else if (richtext) {
+    geom <- ggtext::GeomRichText
   } else {
     geom <- GeomLabel
   }

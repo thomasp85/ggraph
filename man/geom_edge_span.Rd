@@ -71,10 +71,8 @@ data.}
 giving edges in correct format (see details for for guidance on the format).
 See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 
-\item{position}{Position adjustment, either as a string naming the adjustment
-(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
-position adjustment function. Use the latter if you need to change the
-settings of the adjustment.}
+\item{position}{Position adjustment, either as a string, or the result of
+a call to a position adjustment function.}
 
 \item{end_shape}{The adornment to put at the ends of the span. The naming
 follows the conventions of the shape aesthetic in \code{\link[ggplot2:geom_point]{ggplot2::geom_point()}}}
