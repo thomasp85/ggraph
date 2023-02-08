@@ -172,11 +172,6 @@ public:
     // Place third circle according to the first two
     place(c3, c2, c1);
 
-    // Set weighted center
-    double a1 = c1->r*c1->r;
-    double a2 = c2->r*c2->r;
-    double a3 = c3->r*c3->r;
-
     // Inititalize the front chain
     c1->next = c2;
     c1->prev = c3;
