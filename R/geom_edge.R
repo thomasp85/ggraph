@@ -402,7 +402,7 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
     )
   },
   default_aes = aes(
-    edge_shape = 19, edge_colour = 'black', edge_size = 1.5,
+    edge_shape = 19, edge_colour = 'black', edge_linewidth = 1.5,
     edge_fill = NA, edge_alpha = NA, stroke = 0.5
   ),
   extra_params = c('na.rm', 'mirror')
@@ -470,7 +470,7 @@ GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
       ))
   },
   default_aes = aes(
-    edge_fill = 'grey20', edge_colour = NA, edge_size = 0.1,
+    edge_fill = 'grey20', edge_colour = NA, edge_linewidth = 0.1,
     edge_linetype = 1, edge_alpha = NA
   ),
   extra_params = c('na.rm', 'mirror')
