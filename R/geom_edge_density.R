@@ -146,7 +146,8 @@ GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
   },
   draw_key = function(data, params, size) {
     rectGrob(gp = gpar(
-      col = NA, fill = alpha(data),
+      col = NA,
+      fill = alpha(data$edge_fill %||% data$fill %||% "darkgrey"),
       lty = 0
     ))
   },
