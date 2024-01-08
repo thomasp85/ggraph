@@ -54,7 +54,7 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function. Cannot be jointy specified with
+a call to a position adjustment function. Cannot be jointly specified with
 \code{nudge_x} or \code{nudge_y}.}
 
 \item{parse}{If \code{TRUE}, the labels will be parsed into expressions and

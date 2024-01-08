@@ -19,7 +19,7 @@ facet_graph(
 )
 }
 \arguments{
-\item{facets}{This argument is soft-deprecated, please use \code{rows}
+\item{facets}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{rows}
 and \code{cols} instead.}
 
 \item{row_type, col_type}{Either \code{'node'} or \code{'edge'}. Which data
