@@ -156,7 +156,7 @@ omitted.</p></dd>
 <dt>breaks</dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
 <li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks computed by the
-<a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">transformation object</a></p></li>
+<a href="https://scales.r-lib.org/reference/new_transform.html" class="external-link">transformation object</a></p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by <code><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
@@ -195,16 +195,8 @@ maximum size of the plotting symbol after transformation.</p></dd>
 
 
 <dt>trans</dt>
-<dd><p>For continuous scales, the name of a transformation object
-or the object itself. Built-in transformations include "asn", "atanh",
-"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
-"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
-"reverse", "sqrt" and "time".</p>
-<p>A transformation object bundles together a transform, its inverse,
-and methods for generating breaks and labels. Transformation objects
-are defined in the scales package, and are called <code>&lt;name&gt;_trans</code> (e.g.,
-<code><a href="https://scales.r-lib.org/reference/boxcox_trans.html" class="external-link">scales::boxcox_trans()</a></code>). You can create your own
-transformation with <code><a href="https://scales.r-lib.org/reference/trans_new.html" class="external-link">scales::trans_new()</a></code>.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> Deprecated in favour of
+<code>transform</code>.</p></dd>
 
 
 <dt>guide</dt>
@@ -219,7 +211,9 @@ transformation with <code><a href="https://scales.r-lib.org/reference/trans_new.
 each major break)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks. Also
-accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
+accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation. When
+the function has two arguments, it will be given the limits and major
+breaks.</p></li>
 </ul></dd>
 
     <dt><code>oob</code></dt>
@@ -246,6 +240,9 @@ expand the scale by 5% on each side for continuous variables, and by
     <dt><code>position</code></dt>
 <dd><p>For position scales, The position of the axis.
 <code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></dd>
+
+    <dt><code>call</code></dt>
+<dd><p>The <code>call</code> used to construct the scale for reporting messages.</p></dd>
 
     <dt><code>super</code></dt>
 <dd><p>The super class to use for the constructed scale</p></dd>
@@ -313,7 +310,7 @@ match will be given <code>na.value</code>.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

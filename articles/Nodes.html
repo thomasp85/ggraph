@@ -131,9 +131,10 @@
   <div class="col-md-9 contents">
     <div class="page-header toc-ignore">
       <h1 data-toc-skip>Nodes</h1>
-                        <h4 data-toc-skip class="author">Thomas Lin Pedersen</h4>
+                        <h4 data-toc-skip class="author">Thomas Lin
+Pedersen</h4>
             
-            <h4 data-toc-skip class="date">2022-10-10</h4>
+            <h4 data-toc-skip class="date">2024-01-08</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/HEAD/vignettes/Nodes.Rmd" class="external-link"><code>vignettes/Nodes.Rmd</code></a></small>
       <div class="hidden name"><code>Nodes.Rmd</code></div>
@@ -142,7 +143,17 @@
 
     
     
-<p>Nodes in a network are the entities that are connected. Sometimes these are also referred to as vertices, but <code>ggraph</code> has opted for this nomenclature and uses it consistently. While the nodes in a graph are the abstract concepts of entities, and the layout is their physical placement, the node geoms are the visual manifestation of the entities. Conceptually one can simply think of it in terms of a scatter plot — the layout provides the x and y coordinates, and these can be used to draw nodes in different ways in the plotting window. Actually, due to the design of <code>ggraph</code> the standard <em>scatterplot-like</em> geoms from <code>ggplot2</code> can be used directly for plotting nodes:</p>
+<p>Nodes in a network are the entities that are connected. Sometimes
+these are also referred to as vertices, but <code>ggraph</code> has
+opted for this nomenclature and uses it consistently. While the nodes in
+a graph are the abstract concepts of entities, and the layout is their
+physical placement, the node geoms are the visual manifestation of the
+entities. Conceptually one can simply think of it in terms of a scatter
+plot — the layout provides the x and y coordinates, and these can be
+used to draw nodes in different ways in the plotting window. Actually,
+due to the design of <code>ggraph</code> the standard
+<em>scatterplot-like</em> geoms from <code>ggplot2</code> can be used
+directly for plotting nodes:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://ggraph.data-imaginist.com">ggraph</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://tidygraph.data-imaginist.com" class="external-link">tidygraph</a></span><span class="op">)</span></span>
@@ -153,49 +164,90 @@
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'kk'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-2-1.png" width="700"></p>
-<p>The reason this works is that, as discussed in the Layout vignette, layouts return a <code>data.frame</code> of node positions and metadata and this is used as the default plot data:</p>
+<p>The reason this works is that, as discussed in the Layout vignette,
+layouts return a <code>data.frame</code> of node positions and metadata
+and this is used as the default plot data:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ggraph.html">create_layout</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'kk'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##           x         y name .ggraph.orig_index circular .ggraph.index</span></span>
-<span><span class="co">## 1  2.341496 1.3403189    1                  1    FALSE             1</span></span>
-<span><span class="co">## 2  2.715361 1.8415074    2                  2    FALSE             2</span></span>
-<span><span class="co">## 3  3.316011 1.3054303    3                  3    FALSE             3</span></span>
-<span><span class="co">## 4 -2.541228 0.8835075    4                  4    FALSE             4</span></span>
-<span><span class="co">## 5 -1.755490 1.9465456    5                  5    FALSE             5</span></span>
-<span><span class="co">## 6 -0.356624 3.3315857    6                  6    FALSE             6</span></span></code></pre>
+<pre><code><span><span class="co">##           x         y .ggraph.orig_index circular .ggraph.index</span></span>
+<span><span class="co">## 1  2.341496 1.3403189                  1    FALSE             1</span></span>
+<span><span class="co">## 2  2.715361 1.8415074                  2    FALSE             2</span></span>
+<span><span class="co">## 3  3.316011 1.3054303                  3    FALSE             3</span></span>
+<span><span class="co">## 4 -2.541228 0.8835075                  4    FALSE             4</span></span>
+<span><span class="co">## 5 -1.755490 1.9465456                  5    FALSE             5</span></span>
+<span><span class="co">## 6 -0.356624 3.3315857                  6    FALSE             6</span></span></code></pre>
 <div class="section level2">
 <h2 id="geom_node_">
 <code>geom_node_*()</code><a class="anchor" aria-label="anchor" href="#geom_node_"></a>
 </h2>
-<p>While usage of the default <code>ggplot2</code> is absolutely allowed, <code>ggraph</code> comes with its own set of node geoms. Many of these are direct translations of <code>ggplot2</code> own geoms like <code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point()</a></code> so one could wonder why bother to use them.</p>
-<p>The first reason is to provide clear code. It is not apparent anywhere that the standard geoms are addressing the nodes and using <code>geom_node_*()</code> makes it clear that this layer will draw nodes.</p>
-<p>The second reason is that it will save typing. Since <code>ggraph</code> is in control of the shape of the input data through the layout calculations, it knows that <em>x</em> and <em>y</em> position is encoded in an <code>x</code> and <code>y</code> column. This means that <code>geom_node_*</code> can default the x and y aesthetics so there’s no need to type them:</p>
+<p>While usage of the default <code>ggplot2</code> is absolutely
+allowed, <code>ggraph</code> comes with its own set of node geoms. Many
+of these are direct translations of <code>ggplot2</code> own geoms like
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_point.html" class="external-link">geom_point()</a></code> so one could wonder why bother to use
+them.</p>
+<p>The first reason is to provide clear code. It is not apparent
+anywhere that the standard geoms are addressing the nodes and using
+<code>geom_node_*()</code> makes it clear that this layer will draw
+nodes.</p>
+<p>The second reason is that it will save typing. Since
+<code>ggraph</code> is in control of the shape of the input data through
+the layout calculations, it knows that <em>x</em> and <em>y</em>
+position is encoded in an <code>x</code> and <code>y</code> column. This
+means that <code>geom_node_*</code> can default the x and y aesthetics
+so there’s no need to type them:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'kk'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<p>sometimes there is a need for addressing the x and y aesthetics, which is still possible, for instance if a partition layout should be inverted:</p>
+<p>sometimes there is a need for addressing the x and y aesthetics,
+which is still possible, for instance if a partition layout should be
+inverted:</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html" class="external-link">tbl_graph</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">vertices</span>, <span class="va">flare</span><span class="op">$</span><span class="va">edges</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'partition'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_tile.html">geom_node_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>y <span class="op">=</span> <span class="op">-</span><span class="va">y</span>, fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<p>of course this could also be accomplished by reversing the y-axis using <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse()</a></code> so this is just to illustrate that the defaults are easily overwritten if needed.</p>
-<p>The third reason is for the added functionality. All <code>ggraph</code> geoms get a <code>filter</code> aesthetic that allows you to quickly filter the input data. The use of this can be illustrated when plotting a tree:</p>
+<p>of course this could also be accomplished by reversing the y-axis
+using <code><a href="https://ggplot2.tidyverse.org/reference/scale_continuous.html" class="external-link">scale_y_reverse()</a></code> so this is just to illustrate that
+the defaults are easily overwritten if needed.</p>
+<p>The third reason is for the added functionality. All
+<code>ggraph</code> geoms get a <code>filter</code> aesthetic that
+allows you to quickly filter the input data. The use of this can be
+illustrated when plotting a tree:</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'dendrogram'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="va">leaf</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` in the `default_aes` field and elsewhere instead.</span></span>
+<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<p>In the above plot only the terminal nodes are drawn by filtering on the logical leaf column provided by the dendrogram layout.</p>
+<p>In the above plot only the terminal nodes are drawn by filtering on
+the logical leaf column provided by the dendrogram layout.</p>
 </div>
 <div class="section level2">
 <h2 id="the-different-node-geoms">The different node geoms<a class="anchor" aria-label="anchor" href="#the-different-node-geoms"></a>
 </h2>
-<p>The usual suspects are of course provided in the form of <code><a href="../reference/geom_node_point.html">geom_node_point()</a></code> (showcased above), <code><a href="../reference/geom_node_text.html">geom_node_text()</a></code>, and <code><a href="../reference/geom_node_text.html">geom_node_label()</a></code>. These work as expected, taking in the usual aesthetics (plus <em>filter</em>). Only x and y are defaulted so everything else must be provided e.g. label which does not default to the <code>name</code> column like is done in <code>igraph</code>. One feature sets <code><a href="../reference/geom_node_text.html">geom_node_text()</a></code> and <code><a href="../reference/geom_node_text.html">geom_node_label()</a></code> apart from their <code>ggplot2</code> counterparts: both have a <code>repel</code> argument that, when set to <code>TRUE</code>, will use the repel functionality provided by the <a href="https://CRAN.R-project.org/package=ggrepel" class="external-link">ggrepel</a> package to avoid overlapping text. There is also <code><a href="../reference/geom_node_voronoi.html">geom_node_voronoi()</a></code> that plots nodes as cells from a voronoi tesselation. This is useful for e.g. showing dominance of certain node types in an area as overlapping is avoided:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<p>The usual suspects are of course provided in the form of
+<code><a href="../reference/geom_node_point.html">geom_node_point()</a></code> (showcased above),
+<code><a href="../reference/geom_node_text.html">geom_node_text()</a></code>, and <code><a href="../reference/geom_node_text.html">geom_node_label()</a></code>. These
+work as expected, taking in the usual aesthetics (plus <em>filter</em>).
+Only x and y are defaulted so everything else must be provided
+e.g. label which does not default to the <code>name</code> column like
+is done in <code>igraph</code>. One feature sets
+<code><a href="../reference/geom_node_text.html">geom_node_text()</a></code> and <code><a href="../reference/geom_node_text.html">geom_node_label()</a></code> apart
+from their <code>ggplot2</code> counterparts: both have a
+<code>repel</code> argument that, when set to <code>TRUE</code>, will
+use the repel functionality provided by the <a href="https://CRAN.R-project.org/package=ggrepel" class="external-link">ggrepel</a> package to
+avoid overlapping text. There is also <code><a href="../reference/geom_node_voronoi.html">geom_node_voronoi()</a></code>
+that plots nodes as cells from a voronoi tesselation. This is useful for
+e.g. showing dominance of certain node types in an area as overlapping
+is avoided:</p>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_notable</a></span><span class="op">(</span><span class="st">'meredith'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'A'</span>, <span class="st">'B'</span><span class="op">)</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -205,28 +257,45 @@
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<p>Apart from these geoms there’s a set of geoms mainly useful for spatial node layouts such as treemaps, partition, circle packing, and fabric. <code><a href="../reference/geom_node_tile.html">geom_node_tile()</a></code> and <code><a href="../reference/geom_node_range.html">geom_node_range()</a></code> are the <code>ggraph</code> counterpart to <code>ggplot2</code>s <code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_tile()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_linerange()</a></code> while <code><a href="../reference/geom_node_circle.html">geom_node_circle()</a></code> and <code><a href="../reference/geom_node_arc_bar.html">geom_node_arc_bar()</a></code> maps to <code>ggforce</code>s <code><a href="https://ggforce.data-imaginist.com/reference/geom_circle.html" class="external-link">geom_circle()</a></code> and <code><a href="https://ggforce.data-imaginist.com/reference/geom_arc_bar.html" class="external-link">geom_arc_bar()</a></code>. Collective for these is that the spatial dimensions of the geoms (e.g. radius, width, and height) are precalculated by their intended layouts and defaulted by the geoms:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<p>Apart from these geoms there’s a set of geoms mainly useful for
+spatial node layouts such as treemaps, partition, circle packing, and
+fabric. <code><a href="../reference/geom_node_tile.html">geom_node_tile()</a></code> and <code><a href="../reference/geom_node_range.html">geom_node_range()</a></code>
+are the <code>ggraph</code> counterpart to <code>ggplot2</code>s
+<code><a href="https://ggplot2.tidyverse.org/reference/geom_tile.html" class="external-link">geom_tile()</a></code> and <code><a href="https://ggplot2.tidyverse.org/reference/geom_linerange.html" class="external-link">geom_linerange()</a></code> while
+<code><a href="../reference/geom_node_circle.html">geom_node_circle()</a></code> and <code><a href="../reference/geom_node_arc_bar.html">geom_node_arc_bar()</a></code>
+maps to <code>ggforce</code>s <code><a href="https://ggforce.data-imaginist.com/reference/geom_circle.html" class="external-link">geom_circle()</a></code> and
+<code><a href="https://ggforce.data-imaginist.com/reference/geom_arc_bar.html" class="external-link">geom_arc_bar()</a></code>. Collective for these is that the spatial
+dimensions of the geoms (e.g. radius, width, and height) are
+precalculated by their intended layouts and defaulted by the geoms:</p>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'treemap'</span>, weight <span class="op">=</span> <span class="va">size</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_tile.html">geom_node_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<p>All spatial node geoms will be center-based, meaning that the x and y value of the layout will refer to the center of the layout and not e.g. the bottom-left corner. This makes it easier to add labels to spatial layouts as well as using spatial layouts in a non-spatial way:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<p>All spatial node geoms will be center-based, meaning that the x and y
+value of the layout will refer to the center of the layout and not
+e.g. the bottom-left corner. This makes it easier to add labels to
+spatial layouts as well as using spatial layouts in a non-spatial
+way:</p>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'partition'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">l</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_node_arc_bar.html">geom_node_arc_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">l</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-<p>More node geoms are sure to appear in <code>ggraph</code> with time but they will generally be quite easily comprehensible due to their strong resemblance to the standard <code>ggplot2</code> geoms. After all it is just points on a plane…</p>
+<p>More node geoms are sure to appear in <code>ggraph</code> with time
+but they will generally be quite easily comprehensible due to their
+strong resemblance to the standard <code>ggplot2</code> geoms. After all
+it is just points on a plane…</p>
 </div>
 <div class="section level2">
 <h2 id="want-more">Want more?<a class="anchor" aria-label="anchor" href="#want-more"></a>
 </h2>
-<p>Check out the other vignettes for more information on how to specify <a href="Layouts.html">layouts</a> and draw <a href="Edges.html">edges</a>…</p>
+<p>Check out the other vignettes for more information on how to specify
+<a href="Layouts.html">layouts</a> and draw <a href="Edges.html">edges</a>…</p>
 </div>
   </div>
 
@@ -247,7 +316,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>

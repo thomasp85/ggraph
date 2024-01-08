@@ -119,89 +119,32 @@ If <code>NULL</code>, the title is not shown. By default
 (<code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code>), the name of the scale object or the name
 specified in <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs()</a></code> is used for the title.</p></dd>
 
-    <dt><code>title.position</code></dt>
-<dd><p>A character string indicating the position of a
-title. One of "top" (default for a vertical guide), "bottom", "left"
-(default for a horizontal guide), or "right."</p></dd>
-
-    <dt><code>title.theme</code></dt>
-<dd><p>A theme object for rendering the title text. Usually the
-object of <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text()</a></code> is expected. By default, the theme is
-specified by <code>legend.title</code> in <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code> or theme.</p></dd>
-
-    <dt><code>title.hjust</code></dt>
-<dd><p>A number specifying horizontal justification of the
-title text.</p></dd>
-
-    <dt><code>title.vjust</code></dt>
-<dd><p>A number specifying vertical justification of the title
-text.</p></dd>
-
-    <dt><code>label</code></dt>
-<dd><p>logical. If <code>TRUE</code> then the labels are drawn. If
-<code>FALSE</code> then the labels are invisible.</p></dd>
-
-    <dt><code>label.position</code></dt>
-<dd><p>A character string indicating the position of a
-label. One of "top", "bottom" (default for horizontal guide), "left", or
-"right" (default for vertical guide).</p></dd>
-
-    <dt><code>label.theme</code></dt>
-<dd><p>A theme object for rendering the label text. Usually the
-object of <code><a href="https://ggplot2.tidyverse.org/reference/element.html" class="external-link">element_text()</a></code> is expected. By default, the theme is
-specified by <code>legend.text</code> in <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code>.</p></dd>
-
-    <dt><code>label.hjust</code></dt>
-<dd><p>A numeric specifying horizontal justification of the
-label text. The default for standard text is 0 (left-aligned) and 1
-(right-aligned) for expressions.</p></dd>
-
-    <dt><code>label.vjust</code></dt>
-<dd><p>A numeric specifying vertical justification of the label
-text.</p></dd>
-
-    <dt><code>barwidth</code></dt>
-<dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying
-the width of the colourbar. Default value is <code>legend.key.width</code> or
-<code>legend.key.size</code> in <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code> or theme.</p></dd>
-
-    <dt><code>barheight</code></dt>
-<dd><p>A numeric or a <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code> object specifying
-the height of the colourbar. Default value is <code>legend.key.height</code> or
-<code>legend.key.size</code> in <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme()</a></code> or theme.</p></dd>
+    <dt><code>theme</code></dt>
+<dd><p>A <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></code> object to style the guide individually or
+differently from the plot's theme settings. The <code>theme</code> argument in the
+guide overrides, and is combined with, the plot's theme.</p></dd>
 
     <dt><code>nbin</code></dt>
 <dd><p>A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.</p></dd>
 
+    <dt><code>display</code></dt>
+<dd><p>A string indicating a method to display the colourbar. Can be
+one of the following:</p><ul><li><p><code>"raster"</code> to display as a bitmap image.</p></li>
+<li><p><code>"rectangles"</code> to display as a series of rectangles.</p></li>
+<li><p><code>"gradient"</code> to display as a linear gradient.</p></li>
+</ul><p>Note that not all devices are able to render rasters and gradients.</p></dd>
+
     <dt><code>raster</code></dt>
-<dd><p>A logical. If <code>TRUE</code> then the colourbar is rendered as a
-raster object. If <code>FALSE</code> then the colourbar is rendered as a set of
-rectangles. Note that not all graphics devices are capable of rendering
-raster image.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a>  A logical. If <code>TRUE</code> then
+the colourbar is rendered as a raster object. If <code>FALSE</code> then the colourbar
+is rendered as a set of rectangles. Note that not all graphics devices are
+capable of rendering raster image.</p></dd>
 
-    <dt><code>frame.colour</code></dt>
-<dd><p>A string specifying the colour of the frame
-drawn around the bar. If <code>NULL</code> (the default), no frame is drawn.</p></dd>
-
-    <dt><code>frame.linewidth</code></dt>
-<dd><p>A numeric specifying the width of the frame
-drawn around the bar in millimetres.</p></dd>
-
-    <dt><code>frame.linetype</code></dt>
-<dd><p>A numeric specifying the linetype of the frame
-drawn around the bar.</p></dd>
-
-    <dt><code>ticks</code></dt>
-<dd><p>A logical specifying if tick marks on the colourbar should be
-visible.</p></dd>
-
-    <dt><code>ticks.colour</code></dt>
-<dd><p>A string specifying the colour of the tick marks.</p></dd>
-
-    <dt><code>ticks.linewidth</code></dt>
-<dd><p>A numeric specifying the width of the tick marks in
-millimetres.</p></dd>
+    <dt><code>alpha</code></dt>
+<dd><p>A numeric between 0 and 1 setting the colour transparency of
+the bar. Use <code>NA</code> to preserve the alpha encoded in the colour itself
+(default).</p></dd>
 
     <dt><code>draw.ulim</code></dt>
 <dd><p>A logical specifying if the upper limit tick marks should
@@ -211,13 +154,13 @@ be visible.</p></dd>
 <dd><p>A logical specifying if the lower limit tick marks should
 be visible.</p></dd>
 
+    <dt><code>position</code></dt>
+<dd><p>A character string indicating where the legend should be
+placed relative to the plot panels.</p></dd>
+
     <dt><code>direction</code></dt>
 <dd><p>A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."</p></dd>
-
-    <dt><code>default.unit</code></dt>
-<dd><p>A character string indicating <code><a href="https://rdrr.io/r/grid/unit.html" class="external-link">grid::unit()</a></code>
-for <code>barwidth</code> and <code>barheight</code>.</p></dd>
 
     <dt><code>reverse</code></dt>
 <dd><p>logical. If <code>TRUE</code> the colourbar is reversed. By default,
@@ -257,7 +200,7 @@ for which a colourbar can be drawn.</p></dd>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

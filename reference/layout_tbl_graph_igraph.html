@@ -133,7 +133,7 @@ will throw an error when applied to other layouts.</p>
 
 <dt>algorithm</dt>
 <dd><p>The type of layout algorithm to apply. See <em>Details</em> or
-<code><a href="https://rdrr.io/pkg/igraph/man/layout_.html" class="external-link">igraph::layout_()</a></code> for links to the layouts supplied by igraph.</p></dd>
+<code><a href="https://r.igraph.org/reference/layout_.html" class="external-link">igraph::layout_()</a></code> for links to the layouts supplied by igraph.</p></dd>
 
 
 <dt>circular</dt>
@@ -172,78 +172,78 @@ described below:</p>
 <dl><dt><code>tree</code></dt>
 <dd><p>Uses the <em>Reingold-Tilford</em> algorithm to place the
 nodes below their parent with the parent centered above its children. See
-<code><a href="https://rdrr.io/pkg/igraph/man/layout_as_tree.html" class="external-link">igraph::as_tree()</a></code></p></dd>
+<code><a href="https://r.igraph.org/reference/layout_as_tree.html" class="external-link">igraph::as_tree()</a></code></p></dd>
 
 <dt><code>sugiyama</code></dt>
 <dd><p>Designed for directed acyclic graphs (that is,
 hierarchies where multiple parents are allowed) it minimizes the number of
-crossing edges. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_with_sugiyama.html" class="external-link">igraph::with_sugiyama()</a></code></p></dd>
+crossing edges. See <code><a href="https://r.igraph.org/reference/layout_with_sugiyama.html" class="external-link">igraph::with_sugiyama()</a></code></p></dd>
 
 
 </dl><p><strong>Standard layouts</strong></p>
 <dl><dt><code>bipartite</code></dt>
 <dd><p>Minimize edge-crossings in a simple two-row (or
-column) layout for bipartite graphs. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_as_bipartite.html" class="external-link">igraph::as_bipartite()</a></code></p></dd>
+column) layout for bipartite graphs. See <code><a href="https://r.igraph.org/reference/layout_as_bipartite.html" class="external-link">igraph::as_bipartite()</a></code></p></dd>
 
 <dt><code>star</code></dt>
 <dd><p>Place one node in the center and the rest equidistantly
-around it. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_as_star.html" class="external-link">igraph::as_star()</a></code></p></dd>
+around it. See <code><a href="https://r.igraph.org/reference/layout_as_star.html" class="external-link">igraph::as_star()</a></code></p></dd>
 
 <dt><code>circle</code></dt>
 <dd><p>Place nodes in a circle in the order of their index.
 Consider using <code><a href="layout_tbl_graph_linear.html">layout_tbl_graph_linear()</a></code> with <code>circular=TRUE</code>
-for more control. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_in_circle.html" class="external-link">igraph::in_circle()</a></code></p></dd>
+for more control. See <code><a href="https://r.igraph.org/reference/layout_in_circle.html" class="external-link">igraph::in_circle()</a></code></p></dd>
 
 <dt><code>nicely</code></dt>
 <dd><p>Tries to pick an appropriate layout. See
-<code><a href="https://rdrr.io/pkg/igraph/man/layout_nicely.html" class="external-link">igraph::nicely()</a></code> for a description of the simple decision tree
+<code><a href="https://r.igraph.org/reference/layout_nicely.html" class="external-link">igraph::nicely()</a></code> for a description of the simple decision tree
 it uses</p></dd>
 
 <dt><code>dh</code></dt>
 <dd><p>Uses <em>Davidson and Harels</em> simulated annealing
-algorithm to place nodes. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_with_dh.html" class="external-link">igraph::with_dh()</a></code></p></dd>
+algorithm to place nodes. See <code><a href="https://r.igraph.org/reference/layout_with_dh.html" class="external-link">igraph::with_dh()</a></code></p></dd>
 
 <dt><code>gem</code></dt>
 <dd><p>Place nodes on the plane using the GEM force-directed
-layout algorithm. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_with_gem.html" class="external-link">igraph::with_gem()</a></code></p></dd>
+layout algorithm. See <code><a href="https://r.igraph.org/reference/layout_with_gem.html" class="external-link">igraph::with_gem()</a></code></p></dd>
 
 <dt><code>graphopt</code></dt>
 <dd><p>Uses the Graphopt algorithm based on alternating
 attraction and repulsion to place nodes. See
-<code><a href="https://rdrr.io/pkg/igraph/man/layout_with_graphopt.html" class="external-link">igraph::with_graphopt()</a></code></p></dd>
+<code><a href="https://r.igraph.org/reference/layout_with_graphopt.html" class="external-link">igraph::with_graphopt()</a></code></p></dd>
 
 <dt><code>grid</code></dt>
 <dd><p>Place nodes on a rectangular grid. See
-<code><a href="https://rdrr.io/pkg/igraph/man/layout_on_grid.html" class="external-link">igraph::on_grid()</a></code></p></dd>
+<code><a href="https://r.igraph.org/reference/layout_on_grid.html" class="external-link">igraph::on_grid()</a></code></p></dd>
 
 <dt><code>mds</code></dt>
 <dd><p>Perform a multidimensional scaling of nodes using either
 the shortest path or a user supplied distance. See
-<code><a href="https://rdrr.io/pkg/igraph/man/layout_with_mds.html" class="external-link">igraph::with_mds()</a></code></p></dd>
+<code><a href="https://r.igraph.org/reference/layout_with_mds.html" class="external-link">igraph::with_mds()</a></code></p></dd>
 
 <dt><code>sphere</code></dt>
 <dd><p>Place nodes uniformly on a sphere - less relevant for
-2D visualizations of networks. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_on_sphere.html" class="external-link">igraph::on_sphere()</a></code></p></dd>
+2D visualizations of networks. See <code><a href="https://r.igraph.org/reference/layout_on_sphere.html" class="external-link">igraph::on_sphere()</a></code></p></dd>
 
 <dt><code>randomly</code></dt>
 <dd><p>Places nodes uniformly random. See
-<code><a href="https://rdrr.io/pkg/igraph/man/layout_randomly.html" class="external-link">igraph::randomly()</a></code></p></dd>
+<code><a href="https://r.igraph.org/reference/layout_randomly.html" class="external-link">igraph::randomly()</a></code></p></dd>
 
 <dt><code>fr</code></dt>
 <dd><p>Places nodes according to the force-directed algorithm of
-Fruchterman and Reingold. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_with_fr.html" class="external-link">igraph::with_fr()</a></code></p></dd>
+Fruchterman and Reingold. See <code><a href="https://r.igraph.org/reference/layout_with_fr.html" class="external-link">igraph::with_fr()</a></code></p></dd>
 
 <dt><code>kk</code></dt>
 <dd><p>Uses the spring-based algorithm by Kamada and Kawai to
-place nodes. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_with_kk.html" class="external-link">igraph::with_kk()</a></code></p></dd>
+place nodes. See <code><a href="https://r.igraph.org/reference/layout_with_kk.html" class="external-link">igraph::with_kk()</a></code></p></dd>
 
 <dt><code>drl</code></dt>
 <dd><p>Uses the force directed algorithm from the DrL toolbox to
-place nodes. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_with_drl.html" class="external-link">igraph::with_drl()</a></code></p></dd>
+place nodes. See <code><a href="https://r.igraph.org/reference/layout_with_drl.html" class="external-link">igraph::with_drl()</a></code></p></dd>
 
 <dt><code>lgl</code></dt>
 <dd><p>Uses the algorithm from Large Graph Layout to place
-nodes. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_with_lgl.html" class="external-link">igraph::with_lgl()</a></code></p></dd>
+nodes. See <code><a href="https://r.igraph.org/reference/layout_with_lgl.html" class="external-link">igraph::with_lgl()</a></code></p></dd>
 
 
 </dl></div>
@@ -286,7 +286,7 @@ nodes. See <code><a href="https://rdrr.io/pkg/igraph/man/layout_with_lgl.html" c
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>

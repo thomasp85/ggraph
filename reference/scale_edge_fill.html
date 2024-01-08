@@ -285,7 +285,7 @@ to write <code>edge_fill</code> in the call to the geom - just use <code>fill</c
 <dd><p>Arguments passed on to <code><a href="https://ggplot2.tidyverse.org/reference/discrete_scale.html" class="external-link">discrete_scale</a></code></p><dl><dt><code>palette</code></dt>
 <dd><p>A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., <code><a href="https://scales.r-lib.org/reference/hue_pal.html" class="external-link">scales::hue_pal()</a></code>).</p></dd>
+they should take (e.g., <code><a href="https://scales.r-lib.org/reference/pal_hue.html" class="external-link">scales::pal_hue()</a></code>).</p></dd>
 
     <dt><code>breaks</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no breaks</p></li>
@@ -316,14 +316,8 @@ missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify <code>na.translate = FALSE</code>.</p></dd>
 
     <dt><code>scale_name</code></dt>
-<dd><p>The name of the scale that should be used for error messages
-associated with this scale.</p></dd>
-
-    <dt><code>name</code></dt>
-<dd><p>The name of the scale. Used as the axis or legend title. If
-<code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code>, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If <code>NULL</code>, the legend title will be
-omitted.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#deprecated" class="external-link"><img src="figures/lifecycle-deprecated.svg" alt="[Deprecated]"></a> The name of the scale
+that should be used for error messages associated with this scale.</p></dd>
 
     <dt><code>labels</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no labels</p></li>
@@ -351,6 +345,9 @@ expand the scale by 5% on each side for continuous variables, and by
     <dt><code>position</code></dt>
 <dd><p>For position scales, The position of the axis.
 <code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></dd>
+
+    <dt><code>call</code></dt>
+<dd><p>The <code>call</code> used to construct the scale for reporting messages.</p></dd>
 
     <dt><code>super</code></dt>
 <dd><p>The super class to use for the constructed scale</p></dd>
@@ -513,7 +510,7 @@ Eight options are available:</p><ul><li><p>"magma" (or "A")</p></li>
 </div>
 
 <div class="pkgdown">
-  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+  <p></p><p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer></div>
