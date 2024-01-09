@@ -85,7 +85,7 @@ class FrontChain {
   };
   Circle enclose1(Circle* c1) {
     Circle enc = {c1->x, c1->y, c1->r};
-    if (enc.r > 1e10) {
+    if (enc.r > 1e10 || enc.r < 0) {
       stop("enc1 error");
     }
     return enc;
@@ -100,35 +100,36 @@ class FrontChain {
       (c1->y + c2->y + dy / l * dr) / 2,
       (l + c1->r + c2->r) / 2
     };
-    if (enc.r > 1e10) {
+    if (enc.r > 1e10 || enc.r < 0) {
       stop("enc2 error");
     }
     return enc;
   };
   Circle enclose3(Circle* c1, Circle* c2, Circle* c3) {
-    double A2 = 2 * (c1->x - c2->x);
-    double B2 = 2 * (c1->y - c2->y);
-    double C2 = 2 * (c2->r - c1->r);
-    double D2 = c1->x * c1->x + c1->y * c1->y - c1->r * c1->r - c2->x * c2->x - c2->y * c2->y + c2->r * c2->r;
-    double A3 = 2 * (c1->x - c3->x);
-    double B3 = 2 * (c1->y - c3->y);
-    double C3 = 2 * (c3->r - c1->r);
-    double D3 = c1->x * c1->x + c1->y * c1->y - c1->r * c1->r - c3->x * c3->x - c3->y * c3->y + c3->r * c3->r;
+    double A2 = c1->x - c2->x;
+    double A3 = c1->x - c3->x;
+    double B2 = c1->y - c2->y;
+    double B3 = c1->y - c3->y;
+    double C2 = c2->r - c1->r;
+    double C3 = c3->r - c1->r;
+    double D1 = c1->x * c1->x + c1->y * c1->y - c1->r * c1->r;
+    double D2 = D1 - c2->x * c2->x - c2->y * c2->y + c2->r * c2->r;
+    double D3 = D1 - c3->x * c3->x - c3->y * c3->y + c3->r * c3->r;
     double AB = A3 * B2 - A2 * B3;
-    double XA = (B2 * D3 - B3 * D2) / AB - c1->x;
+    double XA = (B2 * D3 - B3 * D2) / (AB * 2) - c1->x;
     double XB = (B3 * C2 - B2 * C3) / AB;
-    double YA = (A3 * D2 - A2 * D3) / AB - c1->y;
+    double YA = (A3 * D2 - A2 * D3) / (AB * 2) - c1->y;
     double YB = (A2 * C3 - A3 * C2) / AB;
     double A = XB * XB + YB * YB - 1;
     double B = 2 * (XA * XB + YA * YB + c1->r);
     double C = XA * XA + YA * YA - c1->r * c1->r;
-    double r = (-B - std::sqrt(float(B * B - 4 * A * C))) / (2 * A);
+    double r = -(std::abs(A) > 1e-6 ? (B + std::sqrt(B * B - 4 * A * C)) / (2 * A) : C / B);
     Circle enc = {
       XA + XB * r + c1->x,
       YA + YB * r + c1->y,
       r
     };
-    if (enc.r > 1e10) {
+    if (enc.r > 1e10 || enc.r < 0) {
       stop("enc3 error");
     }
     return enc;
@@ -171,11 +172,6 @@ public:
 
     // Place third circle according to the first two
     place(c3, c2, c1);
-
-    // Set weighted center
-    double a1 = c1->r*c1->r;
-    double a2 = c2->r*c2->r;
-    double a3 = c3->r*c3->r;
 
     // Inititalize the front chain
     c1->next = c2;
