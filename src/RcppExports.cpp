@@ -50,6 +50,111 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// euclidean_distance
+double euclidean_distance(NumericVector P, NumericVector Q);
+RcppExport SEXP _ggraph_euclidean_distance(SEXP PSEXP, SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type P(PSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(euclidean_distance(P, Q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// angle_compatibility
+double angle_compatibility(NumericVector P, NumericVector Q);
+RcppExport SEXP _ggraph_angle_compatibility(SEXP PSEXP, SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type P(PSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(angle_compatibility(P, Q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// scale_compatibility
+double scale_compatibility(NumericVector P, NumericVector Q);
+RcppExport SEXP _ggraph_scale_compatibility(SEXP PSEXP, SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type P(PSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(scale_compatibility(P, Q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// position_compatibility
+double position_compatibility(NumericVector P, NumericVector Q);
+RcppExport SEXP _ggraph_position_compatibility(SEXP PSEXP, SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type P(PSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(position_compatibility(P, Q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// visibility_compatibility
+double visibility_compatibility(NumericVector P, NumericVector Q);
+RcppExport SEXP _ggraph_visibility_compatibility(SEXP PSEXP, SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type P(PSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(visibility_compatibility(P, Q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// compatibility_score
+double compatibility_score(NumericVector P, NumericVector Q);
+RcppExport SEXP _ggraph_compatibility_score(SEXP PSEXP, SEXP QSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericVector >::type P(PSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type Q(QSEXP);
+    rcpp_result_gen = Rcpp::wrap(compatibility_score(P, Q));
+    return rcpp_result_gen;
+END_RCPP
+}
+// compute_compatibility_lists
+List compute_compatibility_lists(NumericMatrix edges_xy, double compatibility_threshold);
+RcppExport SEXP _ggraph_compute_compatibility_lists(SEXP edges_xySEXP, SEXP compatibility_thresholdSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type edges_xy(edges_xySEXP);
+    Rcpp::traits::input_parameter< double >::type compatibility_threshold(compatibility_thresholdSEXP);
+    rcpp_result_gen = Rcpp::wrap(compute_compatibility_lists(edges_xy, compatibility_threshold));
+    return rcpp_result_gen;
+END_RCPP
+}
+// force_bundle_iter
+List force_bundle_iter(NumericMatrix edges_xy, List elist, double K, int C, int P, int P_rate, double S, int I, double I_rate, double compatibility_threshold, double eps);
+RcppExport SEXP _ggraph_force_bundle_iter(SEXP edges_xySEXP, SEXP elistSEXP, SEXP KSEXP, SEXP CSEXP, SEXP PSEXP, SEXP P_rateSEXP, SEXP SSEXP, SEXP ISEXP, SEXP I_rateSEXP, SEXP compatibility_thresholdSEXP, SEXP epsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type edges_xy(edges_xySEXP);
+    Rcpp::traits::input_parameter< List >::type elist(elistSEXP);
+    Rcpp::traits::input_parameter< double >::type K(KSEXP);
+    Rcpp::traits::input_parameter< int >::type C(CSEXP);
+    Rcpp::traits::input_parameter< int >::type P(PSEXP);
+    Rcpp::traits::input_parameter< int >::type P_rate(P_rateSEXP);
+    Rcpp::traits::input_parameter< double >::type S(SSEXP);
+    Rcpp::traits::input_parameter< int >::type I(ISEXP);
+    Rcpp::traits::input_parameter< double >::type I_rate(I_rateSEXP);
+    Rcpp::traits::input_parameter< double >::type compatibility_threshold(compatibility_thresholdSEXP);
+    Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
+    rcpp_result_gen = Rcpp::wrap(force_bundle_iter(edges_xy, elist, K, C, P, P_rate, S, I, I_rate, compatibility_threshold, eps));
+    return rcpp_result_gen;
+END_RCPP
+}
 // partitionTree
 NumericMatrix partitionTree(IntegerVector parent, IntegerVector order, NumericVector weight, NumericVector height);
 RcppExport SEXP _ggraph_partitionTree(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP heightSEXP) {
@@ -132,6 +237,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ggraph_pack", (DL_FUNC) &_ggraph_pack, 1},
     {"_ggraph_circlePackLayout", (DL_FUNC) &_ggraph_circlePackLayout, 2},
     {"_ggraph_dendrogram_spread", (DL_FUNC) &_ggraph_dendrogram_spread, 7},
+    {"_ggraph_euclidean_distance", (DL_FUNC) &_ggraph_euclidean_distance, 2},
+    {"_ggraph_angle_compatibility", (DL_FUNC) &_ggraph_angle_compatibility, 2},
+    {"_ggraph_scale_compatibility", (DL_FUNC) &_ggraph_scale_compatibility, 2},
+    {"_ggraph_position_compatibility", (DL_FUNC) &_ggraph_position_compatibility, 2},
+    {"_ggraph_visibility_compatibility", (DL_FUNC) &_ggraph_visibility_compatibility, 2},
+    {"_ggraph_compatibility_score", (DL_FUNC) &_ggraph_compatibility_score, 2},
+    {"_ggraph_compute_compatibility_lists", (DL_FUNC) &_ggraph_compute_compatibility_lists, 2},
+    {"_ggraph_force_bundle_iter", (DL_FUNC) &_ggraph_force_bundle_iter, 11},
     {"_ggraph_partitionTree", (DL_FUNC) &_ggraph_partitionTree, 4},
     {"_ggraph_cut_lines", (DL_FUNC) &_ggraph_cut_lines, 9},
     {"_ggraph_pathAttr", (DL_FUNC) &_ggraph_pathAttr, 2},

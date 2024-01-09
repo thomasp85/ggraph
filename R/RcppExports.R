@@ -48,6 +48,38 @@ dendrogram_spread <- function(graph, starts, y, leaf, repel, pad, ratio) {
     .Call('_ggraph_dendrogram_spread', PACKAGE = 'ggraph', graph, starts, y, leaf, repel, pad, ratio)
 }
 
+euclidean_distance <- function(P, Q) {
+    .Call('_ggraph_euclidean_distance', PACKAGE = 'ggraph', P, Q)
+}
+
+angle_compatibility <- function(P, Q) {
+    .Call('_ggraph_angle_compatibility', PACKAGE = 'ggraph', P, Q)
+}
+
+scale_compatibility <- function(P, Q) {
+    .Call('_ggraph_scale_compatibility', PACKAGE = 'ggraph', P, Q)
+}
+
+position_compatibility <- function(P, Q) {
+    .Call('_ggraph_position_compatibility', PACKAGE = 'ggraph', P, Q)
+}
+
+visibility_compatibility <- function(P, Q) {
+    .Call('_ggraph_visibility_compatibility', PACKAGE = 'ggraph', P, Q)
+}
+
+compatibility_score <- function(P, Q) {
+    .Call('_ggraph_compatibility_score', PACKAGE = 'ggraph', P, Q)
+}
+
+compute_compatibility_lists <- function(edges_xy, compatibility_threshold) {
+    .Call('_ggraph_compute_compatibility_lists', PACKAGE = 'ggraph', edges_xy, compatibility_threshold)
+}
+
+force_bundle_iter <- function(edges_xy, elist, K, C, P, P_rate, S, I, I_rate, compatibility_threshold, eps) {
+    .Call('_ggraph_force_bundle_iter', PACKAGE = 'ggraph', edges_xy, elist, K, C, P, P_rate, S, I, I_rate, compatibility_threshold, eps)
+}
+
 partitionTree <- function(parent, order, weight, height) {
     .Call('_ggraph_partitionTree', PACKAGE = 'ggraph', parent, order, weight, height)
 }
