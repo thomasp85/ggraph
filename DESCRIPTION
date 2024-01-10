@@ -58,3 +58,4 @@ VignetteBuilder: knitr
 URL: https://ggraph.data-imaginist.com, https://github.com/thomasp85/ggraph
 BugReports: https://github.com/thomasp85/ggraph/issues
 Roxygen: list(markdown = TRUE)
+Remotes: tidyverse/ggplot2

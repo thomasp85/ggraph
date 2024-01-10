@@ -376,7 +376,9 @@ GeomEdgePoint <- ggproto('GeomEdgePoint', GeomPoint,
     if (empty_data(data)) {
       return(zeroGrob())
     }
-    data$edge_shape <- translate_shape_string(data$edge_shape)
+    if (is.character(data$edge_shape)) {
+      data$edge_shape <- translate_shape_string(data$edge_shape)
+    }
     coords <- coord$transform(data, panel_scales)
     coords <- coords[order(coords$edge_size, decreasing = TRUE), , drop = FALSE]
     pointsGrob(coords$x, coords$y,
@@ -441,7 +443,7 @@ GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
       gp = gpar(
         col = coords$edge_colour,
         fill = alpha(coords$edge_fill, coords$edge_alpha),
-        lwd = coords$edge_size * .pt,
+        lwd = coords$edge_width * .pt,
         lty = coords$edge_linetype,
         linejoin = linejoin,
         lineend = lineend
@@ -449,11 +451,11 @@ GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
     )
   },
   draw_key = function(data, params, size) {
-    if (is.null(data$edge_size)) {
-      data$edge_size <- 0.5
+    if (is.null(data$edge_width)) {
+      data$edge_width <- 0.5
     }
 
-    lwd <- min(data$edge_size, min(size) / 4)
+    lwd <- min(data$edge_width, min(size) / 4)
 
     rectGrob(
       width = unit(1, "npc") - unit(lwd, "mm"),
@@ -470,7 +472,7 @@ GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
       ))
   },
   default_aes = aes(
-    edge_fill = 'grey20', edge_colour = NA, edge_size = 0.1,
+    edge_fill = 'grey20', edge_colour = NA, edge_width = 0.1,
     edge_linetype = 1, edge_alpha = NA
   ),
   extra_params = c('na.rm', 'mirror')
@@ -485,7 +487,7 @@ GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
                           lineend = 'butt', linejoin = 'round', linemitre = 1,
                           na.rm = FALSE) {
     names(data) <- sub('edge_', '', names(data))
-    names(data)[names(data) == 'width'] <- 'size'
+    names(data)[names(data) == 'width'] <- 'linewidth'
     GeomBezier0$draw_panel(data, panel_scales, coord, arrow, lineend, linejoin, linemitre, na.rm)
   },
   draw_key = function(data, params, size) {
@@ -518,7 +520,7 @@ GeomEdgeBspline <- ggproto('GeomEdgeBspline', GeomBspline0,
                           lineend = 'butt', linejoin = 'round', linemitre = 1,
                           na.rm = FALSE) {
     names(data) <- sub('edge_', '', names(data))
-    names(data)[names(data) == 'width'] <- 'size'
+    names(data)[names(data) == 'width'] <- 'linewidth'
     GeomBspline0$draw_panel(data, panel_scales, coord, arrow, lineend, linejoin, linemitre, na.rm)
   },
   draw_key = function(data, params, size) {
