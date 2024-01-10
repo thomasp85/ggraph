@@ -220,11 +220,6 @@ illustrated when plotting a tree:</p>
 <span>  <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="va">leaf</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` in the `default_aes` field and elsewhere instead.</span></span>
-<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
 <p>In the above plot only the terminal nodes are drawn by filtering on
 the logical leaf column provided by the dendrogram layout.</p>
@@ -247,7 +242,7 @@ avoid overlapping text. There is also <code><a href="../reference/geom_node_voro
 that plots nodes as cells from a voronoi tesselation. This is useful for
 e.g. showing dominance of certain node types in an area as overlapping
 is avoided:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_notable</a></span><span class="op">(</span><span class="st">'meredith'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>group <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/sample.html" class="external-link">sample</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'A'</span>, <span class="st">'B'</span><span class="op">)</span>, <span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span>, <span class="cn">TRUE</span><span class="op">)</span><span class="op">)</span></span>
 <span></span>
@@ -267,7 +262,7 @@ maps to <code>ggforce</code>s <code><a href="https://ggforce.data-imaginist.com/
 <code><a href="https://ggforce.data-imaginist.com/reference/geom_arc_bar.html" class="external-link">geom_arc_bar()</a></code>. Collective for these is that the spatial
 dimensions of the geoms (e.g. radius, width, and height) are
 precalculated by their intended layouts and defaulted by the geoms:</p>
-<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'treemap'</span>, weight <span class="op">=</span> <span class="va">size</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_tile.html">geom_node_tile</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
@@ -276,12 +271,12 @@ value of the layout will refer to the center of the layout and not
 e.g. the bottom-left corner. This makes it easier to add labels to
 spatial layouts as well as using spatial layouts in a non-spatial
 way:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">l</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'partition'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="va">l</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_node_arc_bar.html">geom_node_arc_bar</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Nodes_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">l</span> <span class="op">+</span> <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>

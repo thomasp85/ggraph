@@ -236,17 +236,12 @@ is that given a network such as this:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'fr'</span>, weights <span class="op">=</span> <span class="va">weight</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: Using the `size` aesthetic in this geom was deprecated in ggplot2 3.4.0.</span></span>
-<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Please use `linewidth` in the `default_aes` field and elsewhere instead.</span></span>
-<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
-<span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
-<span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
 <p>This change means that it is much easier to experiment with
 modifications to node and edge parameters affecting layouts as it is not
 necessary to modify the underlying graph but only the plotting code,
 e.g.:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'fr'</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -261,7 +256,7 @@ e.g.:</p>
 <code>ggraph</code> calls. This means that it is no longer necessary to
 precompute and store derived node and edge variables on the graph in
 order to use them in a plot:</p>
-<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_notable</a></span><span class="op">(</span><span class="st">'zachary'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'fr'</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -281,14 +276,14 @@ visualisation.</p>
 <code>facet</code> formulas. It is thus possible to use algorithms when
 specifying layouts, adding aesthetics to geoms and splitting into
 subplots - all areas were ease of iteration is vital:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html" class="external-link">node_rank_leafsort</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html" class="external-link">centrality_edge_betweenness</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, mirror <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in .hclust_helper(x, control): control parameter method is deprecated.</span></span>
 <span><span class="co">## Use linkage instead!</span></span></code></pre>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'fr'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
