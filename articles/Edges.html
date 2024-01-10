@@ -134,7 +134,7 @@
                         <h4 data-toc-skip class="author">Thomas Lin
 Pedersen</h4>
             
-            <h4 data-toc-skip class="date">2024-01-09</h4>
+            <h4 data-toc-skip class="date">2024-01-10</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/HEAD/vignettes/Edges.Rmd" class="external-link"><code>vignettes/Edges.Rmd</code></a></small>
       <div class="hidden name"><code>Edges.Rmd</code></div>
@@ -285,8 +285,8 @@ certain area:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'stress'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_density.html">geom_edge_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">xend,</span></span></span>
-<span><span class="co">## <span style="color: #00BB00;">yend</span></span></span>
+<pre><code><span><span class="co">## Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">xend</span></span></span>
+<span><span class="co">## and <span style="color: #00BB00;">yend</span>.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
 <span><span class="co">##   the data.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> Did you forget to specify a `group` aesthetic or to convert a numerical</span></span>
@@ -436,6 +436,11 @@ edge:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'linear'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span>, alpha <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/scale_edge_alpha.html">scale_edge_alpha</a></span><span class="op">(</span><span class="st">'Edge direction'</span>, guide <span class="op">=</span> <span class="st">'edge_direction'</span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Warning: The S3 guide system was deprecated in ggplot2 3.5.0.</span></span>
+<span><span class="co">## <span style="color: #00BBBB;">ℹ</span> It has been replaced by a ggproto system that can be extended.</span></span>
+<span><span class="co">## <span style="color: #555555;">This warning is displayed once every 8 hours.</span></span></span>
+<span><span class="co">## <span style="color: #555555;">Call `lifecycle::last_lifecycle_warnings()` to see where this warning was</span></span></span>
+<span><span class="co">## <span style="color: #555555;">generated.</span></span></span></code></pre>
 <p><img src="Edges_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
 </div>
 <div class="section level3">
@@ -445,7 +450,7 @@ edge:</p>
 and draws a path along them. The difference here is that in this variant
 you can map node attributes to the edge and the aesthetics are then
 interpolated along the edge. This is easier to show than to explain:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hierarchy</span>, layout <span class="op">=</span> <span class="st">'dendrogram'</span>, height <span class="op">=</span> <span class="va">height</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow2</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">node.Class</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
@@ -472,13 +477,13 @@ always result in a straight line, while <code>strength = 1</code> is the
 default look. Anything in between can be used to modify the look of the
 edge, while values outside that range will probably result in some weird
 looks. Some examples are shown below:</p>
-<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">small_tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_tree</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">small_tree</span>, <span class="st">'dendrogram'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span><span class="op">(</span>strength <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">small_tree</span>, <span class="st">'dendrogram'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span>strength <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
@@ -490,7 +495,7 @@ looks. Some examples are shown below:</p>
 potentially an arrow and a label. This section will go into how these
 can be added. To clearly see the effect here we will use a slightly
 simpler graph</p>
-<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Random names - I swear</span></span>
 <span><span class="va">simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_notable</a></span><span class="op">(</span><span class="st">'bull'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Thomas'</span>, <span class="st">'Bob'</span>, <span class="st">'Hadley'</span>, <span class="st">'Winston'</span>, <span class="st">'Baptiste'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -503,7 +508,7 @@ simpler graph</p>
 good old arrow is still available. As with the standard
 <code>ggplot2</code> geoms an arrow can be added using the arrow
 argument:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
@@ -515,7 +520,7 @@ the arrow heads. There’s a solution to this in the form of the
 and 2-variant edge geoms (sorry 0-variant). This can be used to start
 and stop the edge drawing at an absolute distance from the terminal
 nodes. Watch this:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>                 end_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">circle</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -525,7 +530,7 @@ nodes. Watch this:</p>
 <code><a href="../reference/geometry.html">ellipsis()</a></code>, and <code><a href="../reference/geometry.html">rectangle()</a></code> helpers it is
 possible to get a lot of control over how edges are capped at either
 end. This works for any edge, curved or not:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'linear'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>                start_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">circle</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">'mm'</span><span class="op">)</span>,</span>
@@ -537,7 +542,7 @@ end. This works for any edge, curved or not:</p>
 outgoing edges overlaps with the labels. <code>ggraph</code> provides a
 helper that calculates the bounding rectangle of the labels and cap
 edges based on that:</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>start_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">label_rect</a></span><span class="op">(</span><span class="va">node1.name</span><span class="op">)</span>,</span>
 <span>                     end_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">label_rect</a></span><span class="op">(</span><span class="va">node2.name</span><span class="op">)</span><span class="op">)</span>, </span>
@@ -565,7 +570,7 @@ of course, but this is the responsibility of the user as
 here. This is because the label placement is dependent on the choice of
 edge. Because of this edge labeling is bundled with each edge geom (but
 not the 0-variant) through the label aesthetic</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, </span>
 <span>                 arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span>, </span>
@@ -577,7 +582,7 @@ providing a fixed angle will only work at a very specific aspect ratio.
 Instead <code>ggraph</code> offers to calculate the correct angle
 dynamically so the labels always runs along the edge. Furthermore it can
 offset the label by an absolute length:</p>
-<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, </span>
 <span>                 angle_calc <span class="op">=</span> <span class="st">'along'</span>,</span>
@@ -601,7 +606,7 @@ connect nodes that are not connected in the graph. This is done by
 finding the shortest path between the two nodes. Currently the only
 connection geom available is <code><a href="../reference/geom_conn_bundle.html">geom_conn_bundle()</a></code> that
 implements the hierarchical edge bundling technique:</p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flaregraph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html" class="external-link">tbl_graph</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">vertices</span>, <span class="va">flare</span><span class="op">$</span><span class="va">edges</span><span class="op">)</span></span>
 <span><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">imports</span><span class="op">$</span><span class="va">from</span>, <span class="va">flare</span><span class="op">$</span><span class="va">vertices</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
 <span><span class="va">to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">imports</span><span class="op">$</span><span class="va">to</span>, <span class="va">flare</span><span class="op">$</span><span class="va">vertices</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
