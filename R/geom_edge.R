@@ -6,7 +6,7 @@
 #' @importFrom ggforce interpolateDataFrame
 #' @export
 GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
-  draw_panel = function(self, data, panel_scales, coord, arrow = NULL,
+  draw_panel = function(self, data, panel_scales, coord, arrow = NULL, arrow.fill = NULL,
                         lineend = 'butt', linejoin = 'round', linemitre = 1,
                         na.rm = FALSE, interpolate = TRUE,
                         label_colour = 'black', label_alpha = 1, label_parse = FALSE,
@@ -84,9 +84,11 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
       cli::cli_abort("{.fn {snake_class(self)}} can't have varying {.field edge_colour}, {.field edge_width}, and/or {.field edge_alpha} along the line when {.field edge_linetype} isn't solid")
     }
 
+    arrow.fill <- arrow.fill %||% data$edge_colour
+
     gp <- gpar(
       col = alpha(data$edge_colour, data$edge_alpha),
-      fill = alpha(data$edge_colour, data$edge_alpha),
+      fill = alpha(arrow.fill, data$edge_alpha),
       lwd = data$edge_width * .pt, lty = data$edge_linetype,
       lineend = lineend, linejoin = linejoin, linemitre = linemitre
     )
@@ -238,17 +240,18 @@ GeomEdgeParallelPath <- ggproto('GeomEdgeParallelPath', GeomEdgePath,
 #' @importFrom grid gpar segmentsGrob
 #' @export
 GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
-  draw_panel = function(data, panel_scales, coord, arrow = NULL, lineend = 'butt',
-                          na.rm = FALSE) {
+  draw_panel = function(data, panel_scales, coord, arrow = NULL, arrow.fill = NULL,
+                        lineend = 'butt', na.rm = FALSE) {
     if (empty_data(data)) {
       return(zeroGrob())
     }
     coord <- coord$transform(data, panel_scales)
+    arrow.fill <- arrow.fill %||% coord$edge_colour
     segmentsGrob(coord$x, coord$y, coord$xend, coord$yend,
       default.units = 'native',
       gp = gpar(
         col = alpha(coord$edge_colour, coord$edge_alpha),
-        fill = alpha(coord$edge_colour, coord$edge_alpha),
+        fill = alpha(arrow.fill, coord$edge_alpha),
         lwd = coord$edge_width * .pt,
         lty = coord$edge_linetype,
         lineend = lineend

@@ -119,6 +119,9 @@
 #' along the edge direction. If 'across' the label will be written across the
 #' edge direction.
 #'
+#' @param arrow.fill fill color to use for the arrow head (if closed). `NULL`
+#' means use `colour` aesthetic.
+#'
 #' @param force_flip Logical. If `angle_calc` is either 'along' or 'across'
 #' should the label be flipped if it is on it's head. Default to `TRUE`.
 #'
@@ -185,7 +188,8 @@ StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
 #' @importFrom ggforce StatLink
 #' @export
 geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
-                           position = 'identity', arrow = NULL, n = 100,
+                           position = 'identity', arrow = NULL, arrow.fill = NULL,
+                           n = 100,
                            lineend = 'butt', linejoin = 'round', linemitre = 1,
                            label_colour = 'black', label_alpha = 1,
                            label_parse = FALSE, check_overlap = FALSE,
@@ -202,7 +206,8 @@ geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        arrow = arrow, arrow.fill = arrow.fill,
+        lineend = lineend, linejoin = linejoin,
         linemitre = linemitre, na.rm = FALSE, n = n,
         interpolate = FALSE,
         label_colour = label_colour, label_alpha = label_alpha,
@@ -218,7 +223,8 @@ geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
 #' @importFrom ggforce StatLink2
 #' @export
 geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
-                            position = 'identity', arrow = NULL, n = 100,
+                            position = 'identity', arrow = NULL, arrow.fill = NULL,
+                            n = 100,
                             lineend = 'butt', linejoin = 'round', linemitre = 1,
                             label_colour = 'black', label_alpha = 1,
                             label_parse = FALSE, check_overlap = FALSE,
@@ -234,7 +240,8 @@ geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        arrow = arrow, arrow.fill = arrow.fill,
+        lineend = lineend, linejoin = linejoin,
         linemitre = linemitre, na.rm = FALSE, n = n,
         interpolate = TRUE,
         label_colour = label_colour, label_alpha = label_alpha,
@@ -250,7 +257,7 @@ geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
 #' @importFrom ggforce StatLink2
 #' @export
 geom_edge_link0 <- function(mapping = NULL, data = get_edges(),
-                            position = 'identity', arrow = NULL,
+                            position = 'identity', arrow = NULL, arrow.fill = NULL,
                             lineend = 'butt', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(x = x, y = y,
@@ -260,7 +267,7 @@ geom_edge_link0 <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgeSegment, position = position,
     show.legend = show.legend, inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+      list(arrow = arrow, arrow.fill = arrow.fill, lineend = lineend, na.rm = FALSE, ...)
     )
   )
 }
