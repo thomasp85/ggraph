@@ -185,7 +185,7 @@ complete_edge_aes <- function(aesthetics) {
 }
 expand_edge_aes <- function(x) {
   short_names <- names(x) %in% c(
-    'colour', 'color', 'fill', 'linetype', 'shape', 'size', 'width', 'alpha'
+    'colour', 'color', 'fill', 'linetype', 'shape', 'size', 'width', 'alpha', 'linewidth'
   )
   names(x)[short_names] <- paste0('edge_', names(x)[short_names])
   if (all(c('edge_linewidth', 'edge_width') %in% names(x) == c(TRUE, FALSE))) {
