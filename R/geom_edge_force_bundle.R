@@ -143,15 +143,15 @@ geom_edge_force_bundle <- function(mapping = NULL, data = get_edges(),
 
 force_bundle <- function(data, params) {
   # parameter handling
-  K <- params$K # 1
-  C <- params$C # 6
-  P <- params$P # 1
-  S <- params$S # 0.04
-  P_rate <- params$P_rate # 2
-  I <- params$I # 50
-  I_rate <- params$I_rate # 2/3
-  compatibility_threshold <- params$compatibility_threshold # 0.1
-  eps <- params$eps # 1e-8
+  K <- params$K
+  C <- params$C
+  P <- params$P
+  S <- params$S
+  P_rate <- params$P_rate
+  I <- params$I
+  I_rate <- params$I_rate
+  compatibility_threshold <- params$compatibility_threshold
+  eps <- params$eps
 
   # initialize matrix with coordinates
   extraCols <- !names(data) %in% c("x", "y", "xend", "yend", "group", "PANEL")
@@ -175,7 +175,7 @@ force_bundle <- function(data, params) {
 
   idx <- seq(0, 1, length.out = segments)
   data_bundle <- as.data.frame(cbind(
-    rep(1, m * segments), # hard coded, pretty sure that's wrong
+    rep(1, m * segments),
     do.call("rbind", elist),
     rep(idx, m),
     rep(1:m, each = segments)
