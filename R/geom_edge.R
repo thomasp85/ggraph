@@ -194,7 +194,8 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
     label_pos = 0.5, label_size = 3.88, angle = 0,
     hjust = 0.5, vjust = 0.5, family = '', fontface = 1,
     lineheight = 1.2
-  )
+  ),
+  rename_size = FALSE
 )
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -270,7 +271,8 @@ GeomEdgeSegment <- ggproto('GeomEdgeSegment', GeomSegment,
   default_aes = aes(
     edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
     edge_alpha = NA
-  )
+  ),
+  rename_size = FALSE
 )
 #' @rdname ggraph-extensions
 #' @format NULL
@@ -475,6 +477,7 @@ GeomEdgeTile <- ggproto('GeomEdgeTile', GeomTile,
     edge_fill = 'grey20', edge_colour = NA, edge_width = 0.1,
     edge_linetype = 1, edge_alpha = NA
   ),
+  rename_size = FALSE,
   extra_params = c('na.rm', 'mirror')
 )
 #' @rdname ggraph-extensions
@@ -506,6 +509,7 @@ GeomEdgeBezier <- ggproto('GeomEdgeBezier', GeomBezier0,
     edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
     edge_alpha = NA
   ),
+  rename_size = FALSE,
   handle_na = function(data, ...) {
     data
   }
@@ -539,6 +543,7 @@ GeomEdgeBspline <- ggproto('GeomEdgeBspline', GeomBspline0,
     edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
     edge_alpha = NA
   ),
+  rename_size = FALSE,
   handle_na = function(data, ...) {
     data
   }
