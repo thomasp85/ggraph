@@ -55,7 +55,9 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
       )
       nodes <- vec_rbind(nodes, extra)
     }
-    extra_data <- lapply(list2(...), rep, length.out = nrow(nodes))
+    extra_data <- lapply(list2(...), function(x) {
+      rep(x, length.out = length(from))[nodes$con.id]
+    })
     if (length(extra_data) > 0) {
       nodes <- cbind(
         nodes,
