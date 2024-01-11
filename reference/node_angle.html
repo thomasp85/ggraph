@@ -111,9 +111,9 @@ is simply the angle of the vector describing the edge.</p>
     </div>
 
     <div id="ref-usage">
-    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_angle</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, degrees <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">node_angle</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, degrees <span class="op">=</span> <span class="cn">TRUE</span>, avoid_flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">edge_angle</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">xend</span>, <span class="va">yend</span>, degrees <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<span><span class="fu">edge_angle</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">xend</span>, <span class="va">yend</span>, degrees <span class="op">=</span> <span class="cn">TRUE</span>, avoid_flip <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
     </div>
 
     <div id="arguments">
@@ -125,6 +125,11 @@ is simply the angle of the vector describing the edge.</p>
 <dt>degrees</dt>
 <dd><p>Logical. Should the angle be returned in degree (<code>TRUE</code>)
 or radians (<code>FALSE</code>). Defaults to <code>TRUE</code>.</p></dd>
+
+
+<dt>avoid_flip</dt>
+<dd><p>Logical. Should the angle be adjusted so that text is
+always upside-down</p></dd>
 
 
 <dt>xend, yend</dt>
