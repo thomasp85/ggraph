@@ -116,10 +116,9 @@ geom_edge_loop <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgePath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
+      list2(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, na.rm = FALSE, n = n,
-        interpolate = FALSE,
+        linemitre = linemitre, n = n, interpolate = FALSE,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
         angle_calc = angle_calc, force_flip = force_flip,
@@ -157,7 +156,7 @@ geom_edge_loop0 <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgeBezier, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+      list2(arrow = arrow, lineend = lineend, ...)
     )
   )
 }

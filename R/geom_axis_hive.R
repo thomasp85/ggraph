@@ -160,6 +160,6 @@ geom_axis_hive <- function(mapping = NULL, data = NULL,
     data = data, mapping = mapping, stat = StatAxisHive,
     geom = GeomAxisHive, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
-    params = list(na.rm = FALSE, label = label, axis = axis, ...)
+    params = list2(label = label, axis = axis, ...)
   )
 }

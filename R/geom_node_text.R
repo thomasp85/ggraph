@@ -64,7 +64,7 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = 'identity',
     }
     position <- position_nudge(nudge_x, nudge_y)
   }
-  params <- list(parse = parse, na.rm = FALSE, ...)
+  params <- list2(parse = parse, ...)
   if (repel) {
     geom <- GeomTextRepel
   } else {
@@ -101,9 +101,9 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
     }
     position <- position_nudge(nudge_x, nudge_y)
   }
-  params <- list(
+  params <- list2(
     parse = parse, label.padding = label.padding,
-    label.r = label.r, label.size = label.size, na.rm = FALSE, ...
+    label.r = label.r, label.size = label.size, ...
   )
   if (repel) {
     geom <- GeomLabelRepel

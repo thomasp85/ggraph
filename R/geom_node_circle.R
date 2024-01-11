@@ -46,7 +46,7 @@ geom_node_circle <- function(mapping = NULL, data = NULL, position = 'identity',
   layer(
     data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
     position = position, show.legend = show.legend, inherit.aes = FALSE,
-    params = list(na.rm = FALSE, ...)
+    params = list2(...)
   )
 }
 

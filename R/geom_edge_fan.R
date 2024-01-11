@@ -142,9 +142,9 @@ geom_edge_fan <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgePath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
+      list2(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, na.rm = FALSE, n = n,
+        linemitre = linemitre, n = n,
         interpolate = FALSE, strength = strength,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
@@ -199,9 +199,9 @@ geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
     geom = GeomEdgePath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
+      list2(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, na.rm = FALSE, n = n,
+        linemitre = linemitre, n = n,
         interpolate = TRUE, strength = strength,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
@@ -244,9 +244,8 @@ geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgeBezier, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE,
-        strength = strength, ...
+      list2(
+        arrow = arrow, lineend = lineend, strength = strength, ...
       )
     )
   )

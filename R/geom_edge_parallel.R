@@ -135,9 +135,8 @@ geom_edge_parallel <- function(mapping = NULL, data = get_edges(),
         geom = GeomEdgeParallelPath, position = position, show.legend = show.legend,
         inherit.aes = FALSE,
         params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, sep = sep, n = n,
-               interpolate = FALSE,
+          list2(arrow = arrow, lineend = lineend, linejoin = linejoin,
+               linemitre = linemitre, sep = sep, n = n, interpolate = FALSE,
                label_colour = label_colour, label_alpha = label_alpha,
                label_parse = label_parse, check_overlap = check_overlap,
                angle_calc = angle_calc, force_flip = force_flip,
@@ -187,9 +186,8 @@ geom_edge_parallel2 <- function(mapping = NULL, data = get_edges('long'),
     geom = GeomEdgeParallelPath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-           linemitre = linemitre, na.rm = FALSE, sep = sep, n = n,
-           interpolate = TRUE,
+      list2(arrow = arrow, lineend = lineend, linejoin = linejoin,
+           linemitre = linemitre, sep = sep, n = n, interpolate = TRUE,
            label_colour = label_colour, label_alpha = label_alpha,
            label_parse = label_parse, check_overlap = check_overlap,
            angle_calc = angle_calc, force_flip = force_flip,
@@ -226,9 +224,8 @@ geom_edge_parallel0 <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgeParallelSegment, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE,
-        sep = sep, ...
+      list2(
+        arrow = arrow, lineend = lineend, sep = sep, ...
       )
     )
   )

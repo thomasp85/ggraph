@@ -7,6 +7,7 @@
 * Fix a bug with auto layout on undirected trees (#247)
 * Fix a bug in `get_con()` that would lead to wrong matching of additional data
   (#249)
+* Allow `na.rm` in geoms (#301)
 
 # ggraph 2.1.0
 
