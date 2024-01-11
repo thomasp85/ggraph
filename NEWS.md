@@ -4,6 +4,7 @@
 * `GeomEdgeTile` now uses `edge_width` instead of `edge_size` for the border
 * Fix a bug in `geom_edge_parallel()` when used with edge labels. Edges are now
   correctly offset, though label may still overlap (#227)
+* Fix a bug with auto layout on undirected trees (#247)
 
 # ggraph 2.1.0
 

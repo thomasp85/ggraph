@@ -85,8 +85,9 @@ prepare_graph <- function(graph, layout, direction = 'out', ...) {
     'circlepack',
     'partition'
   )
-  if (is_hierarchy || (layout == 'auto' && with_graph(graph, graph_is_tree() || graph_is_forest()))) {
-    graph <- graph_to_tree(graph, mode = direction)
+  graph_is_treeish <- with_graph(graph, graph_is_tree() || graph_is_forest())
+  if (is_hierarchy || (layout == 'auto' && graph_is_treeish)) {
+    if (!graph_is_treeish) graph <- graph_to_tree(graph, mode = direction)
     graph <- permute(graph, match(seq_len(gorder(graph)), order(node_depth(graph, direction))))
   }
   as_tbl_graph(graph)
