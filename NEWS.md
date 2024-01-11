@@ -2,6 +2,8 @@
 
 * Fix a precision bug in circle pack layout (#345)
 * `GeomEdgeTile` now uses `edge_width` instead of `edge_size` for the border
+* Fix a bug in `geom_edge_parallel()` when used with edge labels. Edges are now
+  correctly offset, though label may still overlap (#227)
 
 # ggraph 2.1.0
 

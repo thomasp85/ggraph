@@ -223,7 +223,7 @@ GeomEdgeParallelPath <- ggproto('GeomEdgeParallelPath', GeomEdgePath,
                                      label_dodge = label_dodge,
                                      label_push = label_push)
     if (inherits(panel, 'gList')) {
-      panel[[1]]$sep <- (data$.position * sep)[panel[[1]]$id]
+      panel[[1]]$sep <- (data$.position[!duplicated(data$group)] * sep)[panel[[1]]$id]
       class(panel[[1]]) <- c('parallelPath', class(panel[[1]]))
     } else {
       panel$sep <- (data$.position[!duplicated(data$group)] * sep)[panel$id]
