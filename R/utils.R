@@ -13,6 +13,9 @@
 #' @param degrees Logical. Should the angle be returned in degree (`TRUE`)
 #' or radians (`FALSE`). Defaults to `TRUE`.
 #'
+#' @param avoid_flip Logical. Should the angle be adjusted so that text is
+#' always upside-down
+#'
 #' @return A vector with the angle of each node/edge
 #'
 #' @examples
@@ -27,9 +30,13 @@
 #'   expand_limits(x = c(-1.3, 1.3), y = c(-1.3, 1.3))
 #' @export
 #'
-node_angle <- function(x, y, degrees = TRUE) {
+node_angle <- function(x, y, degrees = TRUE, avoid_flip = TRUE) {
   angles <- atan2(y, x)
   angles[angles < 0] <- angles[angles < 0] + 2 * pi
+  if (avoid_flip) {
+    needs_flip <- angles > pi/2 & angles < 3*pi/2
+    angles[needs_flip] <- angles[needs_flip] + pi
+  }
   if (degrees) {
     angles * 360 / (2 * pi)
   } else {
@@ -39,10 +46,10 @@ node_angle <- function(x, y, degrees = TRUE) {
 #' @rdname node_angle
 #'
 #' @export
-edge_angle <- function(x, y, xend, yend, degrees = TRUE) {
+edge_angle <- function(x, y, xend, yend, degrees = TRUE, avoid_flip = TRUE) {
   x <- xend - x
   y <- yend - y
-  node_angle(x, y, degrees)
+  node_angle(x, y, degrees, avoid_flip = avoid_flip)
 }
 
 
