@@ -11,7 +11,7 @@
 #' automatically be renamed appropriately.
 #'
 #' @section Aesthetics:
-#' `geom_edge_force_bundle` understand the following
+#' `geom_edge_bundle_force` understand the following
 #' aesthetics. Bold aesthetics are automatically set, but can be overridden.
 #'
 #' - **x**
@@ -52,8 +52,8 @@
 #' Holten, Danny, and Jarke J. Van Wijk. "Force‐Directed Edge Bundling for Graph Visualization."
 #' Computer Graphics Forum (Blackwell Publishing Ltd) 28, no. 3 (2009): 983-990.
 #'
-#' @rdname geom_edge_force_bundle
-#' @name geom_edge_force_bundle
+#' @rdname geom_edge_bundle_force
+#' @name geom_edge_bundle_force
 #'
 NULL
 
@@ -61,7 +61,7 @@ NULL
 #' @format NULL
 #' @usage NULL
 #' @export
-StatEdgeForceBundle <- ggproto("StatEdgeForceBundle", StatIdentity,
+StatEdgeBundleForce <- ggproto("StatEdgeBundleForce", StatIdentity,
   setup_data = function(data, params) {
     if (any(names(data) == "filter")) {
       if (!is.logical(data$filter)) {
@@ -77,10 +77,10 @@ StatEdgeForceBundle <- ggproto("StatEdgeForceBundle", StatIdentity,
   extra_params = c("K", "C", "P", "S", "P_rate", "I", "I_rate", "compatibility_threshold", "eps")
 )
 
-#' @rdname geom_edge_force_bundle
+#' @rdname geom_edge_bundle_force
 #'
 #' @export
-geom_edge_force_bundle <- function(mapping = NULL, data = get_edges(),
+geom_edge_bundle_force <- function(mapping = NULL, data = get_edges(),
                                    position = "identity", arrow = NULL,
                                    lineend = "butt", show.legend = NA,
                                    K = 1, C = 6, P = 1, S = 0.04, P_rate = 2,
@@ -92,7 +92,7 @@ geom_edge_force_bundle <- function(mapping = NULL, data = get_edges(),
     xend = xend, yend = yend
   ))
   layer(
-    data = data, mapping = mapping, stat = StatEdgeForceBundle,
+    data = data, mapping = mapping, stat = StatEdgeBundleForce,
     geom = GeomEdgePath, position = position,
     show.legend = show.legend, inherit.aes = FALSE,
     params = expand_edge_aes(
@@ -108,7 +108,7 @@ geom_edge_force_bundle <- function(mapping = NULL, data = get_edges(),
 
 force_bundle <- function(data, params) {
   if (!rlang::is_installed("memoise")) {
-    stop("the package 'memoise' is needed for geom_edge_force_bundle(). Please install it ")
+    stop("the package 'memoise' is needed for geom_edge_bundle_force(). Please install it ")
   }
   # parameter handling
   K <- params$K
