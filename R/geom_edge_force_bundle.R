@@ -4,41 +4,6 @@
 #' It uses a self-organizing approach to bundling in which edges are modeled as flexible springs
 #' that can attract each other without the need of a hierarchy.
 #'
-#' @section Edge variants:
-#' Many geom_edge_* layers comes in 3 flavors depending on the level of control
-#' needed over the drawing. The default (no numeric postfix) generate a number
-#' of points (`n`) along the edge and draws it as a path. Each point along
-#' the line has a numeric value associated with it giving the position along the
-#' path, and it is therefore possible to show the direction of the edge by
-#' mapping to this e.g. `colour = ..index..`. The version postfixed with a
-#' "2" uses the "long" edge format (see [get_edges()]) and makes it
-#' possible to interpolate node parameter between the start and end node along
-#' the edge. It is considerable less performant so should only be used if this
-#' is needed. The version postfixed with a "0" draws the edge in the most
-#' performant way, often directly using an appropriate grob from the grid
-#' package, but does not allow for gradients along the edge.
-#'
-#' Often it is beneficial to stop the drawing of the edge before it reaches the
-#' node, for instance in cases where an arrow should be drawn and the arrowhead
-#' shouldn't lay on top or below the node point. geom_edge_* and geom_edge_*2
-#' supports this through the start_cap and end_cap aesthetics that takes a
-#' [geometry()] specification and dynamically caps the termini of the
-#' edges based on the given specifications. This means that if
-#' `end_cap = circle(1, 'cm')` the edges will end at a distance of 1cm even
-#' during resizing of the plot window.
-#'
-#' All `geom_edge_*` and `geom_edge_*2` have the ability to draw a
-#' label along the edge. The reason this is not a separate geom is that in order
-#' for the label to know the location of the edge it needs to know the edge type
-#' etc. Labels are drawn by providing a label aesthetic. The label_pos can be
-#' used to specify where along the edge it should be drawn by supplying a number
-#' between 0 and 1. The label_size aesthetic can be used to control the size of
-#' the label. Often it is needed to have the label written along the direction
-#' of the edge, but since the actual angle is dependent on the plot dimensions
-#' this cannot be calculated beforehand. Using the angle_calc argument allows
-#' you to specify whether to use the supplied angle aesthetic or whether to draw
-#' the label along or across the edge.
-#'
 #' @section Edge aesthetic name expansion:
 #' In order to avoid excessive typing edge aesthetic names are
 #' automatically expanded. Because of this it is not necessary to write
@@ -105,7 +70,7 @@ StatEdgeForceBundle <- ggproto("StatEdgeForceBundle", StatIdentity,
       data <- data[data$filter, names(data) != "filter"]
     }
     data <- remove_loop(data)
-    force_bundle(data, params)
+    force_bundle_mem(data, params)
   },
   required_aes = c("x", "y", "xend", "yend"),
   default_aes = aes(filter = TRUE),
@@ -142,6 +107,9 @@ geom_edge_force_bundle <- function(mapping = NULL, data = get_edges(),
 }
 
 force_bundle <- function(data, params) {
+  if (!rlang::is_installed("memoise")) {
+    stop("the package 'memoise' is needed for geom_edge_force_bundle(). Please install it ")
+  }
   # parameter handling
   K <- params$K
   C <- params$C
@@ -183,3 +151,5 @@ force_bundle <- function(data, params) {
   names(data_bundle) <- c("PANEL", "x", "y", "index", "group")
   cbind(data_bundle, data[rep(1:m, each = segments), extraCols, drop = FALSE])
 }
+
+force_bundle_mem <- memoise::memoise(force_bundle)
