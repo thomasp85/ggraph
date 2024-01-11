@@ -87,7 +87,7 @@ geom_edge_bundle_force <- function(mapping = NULL, data = get_edges(),
                                    position = "identity", arrow = NULL,
                                    lineend = "butt", show.legend = NA,
                                    K = 1, C = 6, P = 1, S = 0.04, P_rate = 2,
-                                   I = 50, I_rate = 2 / 3, compatibility_threshold = 0.1,
+                                   I = 50, I_rate = 2 / 3, compatibility_threshold = 0.6,
                                    eps = 1e-8, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
