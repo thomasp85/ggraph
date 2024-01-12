@@ -10,6 +10,9 @@
 * Allow `na.rm` in geoms (#301)
 * If `check_overlap = TRUE` in `geom_node_text()` the rendering order is 
   reversed so that the top nodes are rendered, not the bottom ones
+* Updated guides to the new ggplot2 interface. For `guide_edge_direction()`,
+  this update adds the option to use labels instead of an arrow using the 
+  `labels` argument.
 
 # ggraph 2.1.0
 

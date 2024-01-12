@@ -67,6 +67,26 @@ rename_aes <- function(x) {
   }
   x
 }
+flip_names <- c(
+  x = "y",
+  y = "x",
+  width = "height",
+  height = "width",
+  hjust = "vjust",
+  vjust = "hjust",
+  margin_x = "margin_y",
+  margin_y = "margin_x"
+)
+flip_element_grob <- function(..., flip = FALSE) {
+  if (!flip) {
+    ans <- element_grob(...)
+    return(ans)
+  }
+  args <- list(...)
+  translate <- names(args) %in% names(flip_names)
+  names(args)[translate] <- flip_names[names(args)[translate]]
+  do.call(element_grob, args)
+}
 
 #' @importFrom viridis scale_color_viridis
 #' @export

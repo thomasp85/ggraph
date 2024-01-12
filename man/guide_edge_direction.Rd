@@ -5,22 +5,19 @@
 \title{Edge direction guide}
 \usage{
 guide_edge_direction(
-  title = waiver(),
-  title.position = NULL,
-  title.theme = NULL,
-  title.hjust = NULL,
-  title.vjust = NULL,
-  arrow = TRUE,
-  arrow.position = NULL,
-  barwidth = NULL,
-  barheight = NULL,
+  title = NULL,
+  theme = NULL,
+  arrow = NULL,
+  labels = NULL,
   nbin = 500,
+  position = NULL,
   direction = NULL,
-  default.unit = "line",
   reverse = FALSE,
   order = 0,
   override.aes = list(),
-  ...
+  ...,
+  available_aes = c("edge_colour", "edge_alpha", "edge_width"),
+  arrow.position = deprecated()
 )
 }
 \arguments{
@@ -29,13 +26,23 @@ If \code{NULL}, the title is not shown. By default
 (\code{\link[ggplot2:waiver]{waiver()}}), the name of the scale object or the name
 specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
 
-\item{arrow}{Logical. Should an arrow be drawn to illustrate the direction.
-Defaults to \code{TRUE}}
+\item{theme}{A \code{\link[ggplot2:theme]{theme}} object to style the guide individually or
+differently from the plot's theme settings. The \code{theme} argument in the
+guide overrides, and is combined with, the plot's theme.}
 
-\item{arrow.position}{The position of the arrow relative to the example edge.}
+\item{arrow}{Logical. Should an arrow be drawn to illustrate the direction.
+Defaults to \code{TRUE}. The arrow is styled with the \code{legend.axis.line} theme
+element. If \code{FALSE} the direction will be indicated by the text
+given in \code{labels}}
+
+\item{labels}{A vector with two strings giving the labels to place at the
+start and the end of the legend to indicate direction if \code{arrow = FALSE}}
 
 \item{nbin}{A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.}
+
+\item{position}{A character string indicating where the legend should be
+placed relative to the plot panels.}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
@@ -48,9 +55,17 @@ this guide among multiple guides. This controls the order in which
 multiple guides are displayed, not the contents of the guide itself.
 If 0 (default), the order is determined by a secret algorithm.}
 
-\item{override.aes}{A list specifying aesthetic parameters of legend key.}
+\item{override.aes}{A list specifying aesthetic parameters of legend key.
+See details and examples.}
 
 \item{...}{ignored.}
+
+\item{available_aes}{A vector of character strings listing the aesthetics
+for which a colourbar can be drawn.}
+
+\item{arrow.position}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The position of the
+arrow relative to the example edge. Use the \code{legend.text.position} argument
+in \code{theme()} instead.}
 }
 \description{
 This guide is intended to show the direction of edges based on the aesthetics
@@ -61,4 +76,20 @@ gr <- tidygraph::as_tbl_graph(highschool)
 ggraph(gr, layout = 'kk') +
   geom_edge_fan(aes(alpha = after_stat(index))) +
   guides(edge_alpha = guide_edge_direction())
+
+# Use text labels instead of an arrow
+ggraph(gr, layout = 'kk') +
+  geom_edge_fan(aes(alpha = after_stat(index))) +
+  guides(edge_alpha = guide_edge_direction(labels = c('start', 'end')))
+
+# Style the indicator arrow
+arrow_style <- element_line(linewidth = 3, arrow = grid::arrow(type = "closed"))
+ggraph(gr, layout = 'kk') +
+  geom_edge_fan(aes(alpha = after_stat(index))) +
+  guides(
+    edge_alpha = guide_edge_direction(
+      theme = theme(legend.axis.line = arrow_style)
+    )
+  )
+
 }
