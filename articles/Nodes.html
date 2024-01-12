@@ -169,13 +169,15 @@ layouts return a <code>data.frame</code> of node positions and metadata
 and this is used as the default plot data:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="fu"><a href="../reference/ggraph.html">create_layout</a></span><span class="op">(</span><span class="va">gr</span>, layout <span class="op">=</span> <span class="st">'kk'</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##           x         y .ggraph.orig_index circular .ggraph.index</span></span>
-<span><span class="co">## 1  2.341496 1.3403189                  1    FALSE             1</span></span>
-<span><span class="co">## 2  2.715361 1.8415074                  2    FALSE             2</span></span>
-<span><span class="co">## 3  3.316011 1.3054303                  3    FALSE             3</span></span>
-<span><span class="co">## 4 -2.541228 0.8835075                  4    FALSE             4</span></span>
-<span><span class="co">## 5 -1.755490 1.9465456                  5    FALSE             5</span></span>
-<span><span class="co">## 6 -0.356624 3.3315857                  6    FALSE             6</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">##        x     y .ggraph.orig_index circular .ggraph.index</span></span>
+<span><span class="co">##    <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>              <span style="color: #949494; font-style: italic;">&lt;int&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>            <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span>  2.34  1.34                   1 FALSE                1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span>  2.72  1.84                   2 FALSE                2</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span>  3.32  1.31                   3 FALSE                3</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span> -<span style="color: #BB0000;">2.54</span>  0.884                  4 FALSE                4</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span> -<span style="color: #BB0000;">1.76</span>  1.95                   5 FALSE                5</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span> -<span style="color: #BB0000;">0.357</span> 3.33                   6 FALSE                6</span></span></code></pre>
 <div class="section level2">
 <h2 id="geom_node_">
 <code>geom_node_*()</code><a class="anchor" aria-label="anchor" href="#geom_node_"></a>

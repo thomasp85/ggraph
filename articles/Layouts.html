@@ -218,13 +218,15 @@ is really just a <code>data.frame</code> of node positions and
 other relevant information is passed along as attributes:</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html" class="external-link">head</a></span><span class="op">(</span><span class="va">layout</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">##              x           y circular .ggraph.orig_index .ggraph.index</span></span>
-<span><span class="co">## 1 -0.044663781  0.15559667    FALSE                  1             1</span></span>
-<span><span class="co">## 2 -0.037385404  0.20774400    FALSE                  2             2</span></span>
-<span><span class="co">## 3 -0.056485523  0.29917717    FALSE                  3             3</span></span>
-<span><span class="co">## 4  0.179811980 -0.03475970    FALSE                  4             4</span></span>
-<span><span class="co">## 5  0.176570267  0.01218347    FALSE                  5             5</span></span>
-<span><span class="co">## 6  0.009982631  0.19472509    FALSE                  6             6</span></span></code></pre>
+<pre><code><span><span class="co">## <span style="color: #949494;"># A tibble: 6 × 5</span></span></span>
+<span><span class="co">##          x       y circular .ggraph.orig_index .ggraph.index</span></span>
+<span><span class="co">##      <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span>   <span style="color: #949494; font-style: italic;">&lt;dbl&gt;</span> <span style="color: #949494; font-style: italic;">&lt;lgl&gt;</span>                 <span style="color: #949494; font-style: italic;">&lt;int&gt;</span>         <span style="color: #949494; font-style: italic;">&lt;int&gt;</span></span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">1</span> -<span style="color: #BB0000;">0.044</span><span style="color: #BB0000; text-decoration: underline;">7</span>   0.156  FALSE                     1             1</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">2</span> -<span style="color: #BB0000;">0.037</span><span style="color: #BB0000; text-decoration: underline;">4</span>   0.208  FALSE                     2             2</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">3</span> -<span style="color: #BB0000;">0.056</span><span style="color: #BB0000; text-decoration: underline;">5</span>   0.299  FALSE                     3             3</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">4</span>  0.180   -<span style="color: #BB0000;">0.034</span><span style="color: #BB0000; text-decoration: underline;">8</span> FALSE                     4             4</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">5</span>  0.177    0.012<span style="text-decoration: underline;">2</span> FALSE                     5             5</span></span>
+<span><span class="co">## <span style="color: #BCBCBC;">6</span>  0.009<span style="text-decoration: underline;">98</span>  0.195  FALSE                     6             6</span></span></code></pre>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/attributes.html" class="external-link">attributes</a></span><span class="op">(</span><span class="va">layout</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## $names</span></span>
@@ -237,7 +239,8 @@ other relevant information is passed along as attributes:</p>
 <span><span class="co">## [51] 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70</span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $class</span></span>
-<span><span class="co">## [1] "layout_tbl_graph" "layout_ggraph"    "data.frame"      </span></span>
+<span><span class="co">## [1] "layout_tbl_graph" "layout_ggraph"    "tbl_df"           "tbl"             </span></span>
+<span><span class="co">## [5] "data.frame"      </span></span>
 <span><span class="co">## </span></span>
 <span><span class="co">## $graph</span></span>
 <span><span class="co">## <span style="color: #949494;"># A tbl_graph: 70 nodes and 506 edges</span></span></span>
