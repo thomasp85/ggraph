@@ -116,7 +116,8 @@ between the nodes.</p>
 <span>  <span class="va">circular</span>,</span>
 <span>  sort.by <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  use.numeric <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>  offset <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">2</span></span>
+<span>  offset <span class="op">=</span> <span class="va">pi</span><span class="op">/</span><span class="fl">2</span>,</span>
+<span>  weight <span class="op">=</span> <span class="cn">NULL</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
 
@@ -145,13 +146,21 @@ to FALSE</p></dd>
 <dd><p>If <code>circular = TRUE</code>, where should it begin. Defaults to
 <code>pi/2</code> which is equivalent to 12 o'clock.</p></dd>
 
+
+<dt>weight</dt>
+<dd><p>A weight for each node. Nodes will be spread out according to
+their weight so that nodes with heigher weight will have more space around
+them. Ignored if <code>use.numeric = TRUE</code></p></dd>
+
 </dl></div>
     <div id="value">
     <h2>Value</h2>
     
 
 <p>A data.frame with the columns <code>x</code>, <code>y</code>, <code>circular</code> as
-well as any information stored as node variables in the tbl_graph object.</p>
+well as any information stored as node variables in the tbl_graph object.
+Further, if <code>circular = FALSE</code> a <code>width</code> column and if <code>circular = TRUE</code> a
+<code>start</code>, <code>end</code>, and <code>r0</code> column.</p>
     </div>
     <div id="see-also">
     <h2>See also</h2>
