@@ -237,45 +237,15 @@ is that given a network such as this:</p>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>This change means that it is much easier to experiment with
 modifications to node and edge parameters affecting layouts as it is not
 necessary to modify the underlying graph but only the plotting code,
 e.g.:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'fr'</span>, weights <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/Log.html" class="external-link">exp</a></span><span class="op">(</span><span class="va">weight</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="access-to-tidygraph-algorithms-in-ggraph-code">Access to tidygraph algorithms in ggraph code<a class="anchor" aria-label="anchor" href="#access-to-tidygraph-algorithms-in-ggraph-code"></a>
@@ -286,7 +256,7 @@ e.g.:</p>
 <code>ggraph</code> calls. This means that it is no longer necessary to
 precompute and store derived node and edge variables on the graph in
 order to use them in a plot:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_notable</a></span><span class="op">(</span><span class="st">'zachary'</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="st">'fr'</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -294,21 +264,6 @@ order to use them in a plot:</p>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html" class="external-link">centrality_pagerank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>here it is not necessary to first compute the pagerank centrality and
 store it as a node variable in order to plot it, and if you’re
 interested in looking at one of the myriad of other centrality measures
@@ -321,49 +276,19 @@ visualisation.</p>
 <code>facet</code> formulas. It is thus possible to use algorithms when
 specifying layouts, adding aesthetics to geoms and splitting into
 subplots - all areas were ease of iteration is vital:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html" class="external-link">node_rank_leafsort</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html" class="external-link">centrality_edge_betweenness</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span>, mirror <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">'bottom'</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in .hclust_helper(x, control): control parameter method is deprecated.</span></span>
 <span><span class="co">## Use linkage instead!</span></span></code></pre>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-7-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'fr'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/facet_nodes.html">facet_nodes</a></span><span class="op">(</span><span class="op">~</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/group_graph.html" class="external-link">group_infomap</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="tidygraph_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
   </div>
 

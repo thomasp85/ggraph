@@ -215,21 +215,6 @@ needs:</p>
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'stress'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-3-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>There’s really not much more to it — every edge is simply a straight
 line between the terminal nodes. Moving on…</p>
 </div>
@@ -245,25 +230,10 @@ straight line, but if parallel edges exists it will spread them out as
 arcs with different curvature. Parallel edges will be sorted by
 directionality prior to plotting so edges flowing in the same direction
 will be plotted together:</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'stress'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_fan.html">geom_edge_fan</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-4-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="parallel">Parallel<a class="anchor" aria-label="anchor" href="#parallel"></a>
@@ -274,32 +244,17 @@ but in the case of multi-edges it will offset each edge a bit so they
 run parallel to each other. As with <code><a href="../reference/geom_edge_fan.html">geom_edge_fan()</a></code> the
 edges will be sorted by direction first. The offset is done at draw time
 and will thus remain constant even during resizing:</p>
-<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'stress'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_parallel.html">geom_edge_parallel</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-5-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="loops">Loops<a class="anchor" aria-label="anchor" href="#loops"></a>
 </h3>
 <p>Loops cannot be shown with regular edges as they have no length. A
 dedicated <code><a href="../reference/geom_edge_loop.html">geom_edge_loop()</a></code> exists for these cases:</p>
-<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># let's make some of the student love themselves</span></span>
 <span><span class="va">loopy_hairball</span> <span class="op">&lt;-</span> <span class="va">hairball</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/bind_graphs.html" class="external-link">bind_edges</a></span><span class="op">(</span><span class="fu">tibble</span><span class="fu">::</span><span class="fu"><a href="https://tibble.tidyverse.org/reference/tibble.html" class="external-link">tibble</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, to <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">5</span>, year <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html" class="external-link">rep</a></span><span class="op">(</span><span class="st">'1957'</span>, <span class="fl">5</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
@@ -307,36 +262,6 @@ dedicated <code><a href="../reference/geom_edge_loop.html">geom_edge_loop()</a><
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span><span class="op">)</span>, alpha <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_loop.html">geom_edge_loop</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-6-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span>
-<span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>The direction, span, and strength of the loop can all be controlled,
 but in general loops will add a lot of visual clutter to your plot
 unless the graph is very simple.</p>
@@ -351,40 +276,10 @@ the graph. You can colour the edges, but edges can tend to get
 overplotted, thus reducing readability. <code><a href="../reference/geom_edge_density.html">geom_edge_density()</a></code>
 lets you add a shading to your plot based on the density of edges in a
 certain area:</p>
-<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'stress'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_density.html">geom_edge_density</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span>alpha <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span></span></code></pre></div>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span>
-<span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <pre><code><span><span class="co">## Warning: The following aesthetics were dropped during statistical transformation: <span style="color: #00BB00;">xend</span></span></span>
 <span><span class="co">## and <span style="color: #00BB00;">yend</span>.</span></span>
 <span><span class="co">## <span style="color: #00BBBB;">ℹ</span> This can happen when ggplot fails to infer the correct grouping structure in</span></span>
@@ -403,49 +298,19 @@ no gain (unless complexity is your thing). That doesn’t mean arcs have
 no use in graph visualizations. Linear and circular layouts can benefit
 greatly from them and <code><a href="../reference/geom_edge_arc.html">geom_edge_arc()</a></code> is provided precisely
 for this scenario:</p>
-<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'linear'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-8-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>Arcs behave differently in circular layouts as they will always bend
 towards the center no matter the direction of the edge (the same thing
 can be achieved in a linear layout by setting
 <code>fold = TRUE</code>).</p>
-<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'linear'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-9-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="elbow">Elbow<a class="anchor" aria-label="anchor" href="#elbow"></a>
@@ -455,25 +320,10 @@ such visualizations are also supported with the
 <code><a href="../reference/geom_edge_elbow.html">geom_edge_elbow()</a></code>. It goes without saying that this type of
 edge requires a layout that flows in a defined direction, such as a
 tree:</p>
-<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hierarchy</span>, layout <span class="op">=</span> <span class="st">'dendrogram'</span>, height <span class="op">=</span> <span class="va">height</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-10-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="diagonals">Diagonals<a class="anchor" aria-label="anchor" href="#diagonals"></a>
@@ -483,25 +333,10 @@ a smoother version in the form of <code><a href="../reference/geom_edge_diagonal
 This edge is a quadratic bezier with control points positioned at the
 same x-value as the terminal nodes and halfway in-between the nodes on
 the y-axis. The result is more organic than the elbows:</p>
-<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hierarchy</span>, layout <span class="op">=</span> <span class="st">'dendrogram'</span>, height <span class="op">=</span> <span class="va">height</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-11-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>It tends to look a bit weird with hugely unbalanced trees so use with
 care…</p>
 </div>
@@ -511,25 +346,10 @@ care…</p>
 <p>An alternative to diagonals are bend edges which are elbow edges with
 a smoothed corner. It is implemented as a quadratic bezier with control
 points at the location of the expected elbow corner:</p>
-<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hierarchy</span>, layout <span class="op">=</span> <span class="st">'dendrogram'</span>, height <span class="op">=</span> <span class="va">height</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_bend.html">geom_edge_bend</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-12-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="hive">Hive<a class="anchor" aria-label="anchor" href="#hive"></a>
@@ -537,27 +357,12 @@ points at the location of the expected elbow corner:</p>
 <p>This is certainly a very specific type of edge, intended only for use
 with hive plots. It draws edges as quadratic beziers with control point
 positioned perpendicular to the axes of the hive layout:</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'hive'</span>, axis <span class="op">=</span> <span class="va">pop_devel</span>, sort.by <span class="op">=</span> <span class="va">popularity</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_hive.html">geom_edge_hive</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_axis_hive.html">geom_axis_hive</a></span><span class="op">(</span>label <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-13-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="span">Span<a class="anchor" aria-label="anchor" href="#span"></a>
@@ -566,27 +371,12 @@ positioned perpendicular to the axes of the hive layout:</p>
 particular for a specific layout - the fabric layout. It draws the edge
 as a vertical line connecting the horizontal node lines of the layout,
 potentially with a terminal shape.</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'fabric'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="../reference/layout_tbl_graph_fabric.html">node_rank_fabric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_range.html">geom_node_range</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span>end_shape <span class="op">=</span> <span class="st">'circle'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-14-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="point-and-tile">Point and tile<a class="anchor" aria-label="anchor" href="#point-and-tile"></a>
@@ -597,46 +387,16 @@ are determined by the vertical and horizontal position of the mark, and
 for that reason the geom doesn’t need any extend. The point and tile
 geoms serve the same purpose but are simply different geometry
 types:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/search_graph.html" class="external-link">bfs_rank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-15-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/search_graph.html" class="external-link">bfs_rank</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_tile.html">geom_edge_tile</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-16-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 </div>
 <div class="section level2">
@@ -667,26 +427,11 @@ the edge. Each calculated point gets an index value between 0 and 1 that
 specifies how far along the edge it is positioned and this value can be
 used to e.g. map to an alpha level to show the direction of the
 edge:</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hairball</span>, layout <span class="op">=</span> <span class="st">'linear'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">year</span>, alpha <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/scale_edge_alpha.html">scale_edge_alpha</a></span><span class="op">(</span><span class="st">'Edge direction'</span>, guide <span class="op">=</span> <span class="st">'edge_direction'</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-17-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level3">
 <h3 id="variant">2-variant<a class="anchor" aria-label="anchor" href="#variant"></a>
@@ -695,25 +440,10 @@ edge:</p>
 and draws a path along them. The difference here is that in this variant
 you can map node attributes to the edge and the aesthetics are then
 interpolated along the edge. This is easier to show than to explain:</p>
-<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">hierarchy</span>, layout <span class="op">=</span> <span class="st">'dendrogram'</span>, height <span class="op">=</span> <span class="va">height</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow2</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">node.Class</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>There are considerably more computation going on than in the base
 variant so unless you need to interpolate values between the terminal
 nodes you should go with the base variant.</p>
@@ -737,46 +467,16 @@ always result in a straight line, while <code>strength = 1</code> is the
 default look. Anything in between can be used to modify the look of the
 edge, while values outside that range will probably result in some weird
 looks. Some examples are shown below:</p>
-<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">small_tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_tree</a></span><span class="op">(</span><span class="fl">5</span>, <span class="fl">2</span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">small_tree</span>, <span class="st">'dendrogram'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span><span class="op">(</span>strength <span class="op">=</span> <span class="fl">0.75</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
-<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">small_tree</span>, <span class="st">'dendrogram'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span>strength <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 </div>
 <div class="section level2">
 <h2 id="decorating-edges">Decorating edges<a class="anchor" aria-label="anchor" href="#decorating-edges"></a>
@@ -785,7 +485,7 @@ looks. Some examples are shown below:</p>
 potentially an arrow and a label. This section will go into how these
 can be added. To clearly see the effect here we will use a slightly
 simpler graph</p>
-<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># Random names - I swear</span></span>
 <span><span class="va">simple</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_notable</a></span><span class="op">(</span><span class="st">'bull'</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>name <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'Thomas'</span>, <span class="st">'Bob'</span>, <span class="st">'Hadley'</span>, <span class="st">'Winston'</span>, <span class="st">'Baptiste'</span><span class="op">)</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
@@ -798,26 +498,11 @@ simpler graph</p>
 good old arrow is still available. As with the standard
 <code>ggplot2</code> geoms an arrow can be added using the arrow
 argument:</p>
-<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>I hope you think <em>Ugh</em> at the sight of this. The edges
 naturally extend to the node center and nodes are thus drawn on top of
 the arrow heads. There’s a solution to this in the form of the
@@ -825,32 +510,17 @@ the arrow heads. There’s a solution to this in the form of the
 and 2-variant edge geoms (sorry 0-variant). This can be used to start
 and stop the edge drawing at an absolute distance from the terminal
 nodes. Watch this:</p>
-<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>                 end_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">circle</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>Using the <code><a href="../reference/geometry.html">circle()</a></code>, <code><a href="../reference/geometry.html">square()</a></code>,
 <code><a href="../reference/geometry.html">ellipsis()</a></code>, and <code><a href="../reference/geometry.html">rectangle()</a></code> helpers it is
 possible to get a lot of control over how edges are capped at either
 end. This works for any edge, curved or not:</p>
-<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'linear'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_arc.html">geom_edge_arc</a></span><span class="op">(</span>arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>                start_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">circle</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">'mm'</span><span class="op">)</span>,</span>
@@ -858,47 +528,17 @@ end. This works for any edge, curved or not:</p>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>When plotting node labels you often want to avoid that incoming and
 outgoing edges overlaps with the labels. <code>ggraph</code> provides a
 helper that calculates the bounding rectangle of the labels and cap
 edges based on that:</p>
-<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>start_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">label_rect</a></span><span class="op">(</span><span class="va">node1.name</span><span class="op">)</span>,</span>
 <span>                     end_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">label_rect</a></span><span class="op">(</span><span class="va">node2.name</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>                 arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_text.html">geom_node_text</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">name</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>The capping of edges is dynamic and responds to resizing of the plot
 so the absolute size of the cap areas are maintained at all time.</p>
 <div class="section level4">
@@ -920,34 +560,19 @@ of course, but this is the responsibility of the user as
 here. This is because the label placement is dependent on the choice of
 edge. Because of this edge labeling is bundled with each edge geom (but
 not the 0-variant) through the label aesthetic</p>
-<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, </span>
 <span>                 arrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/arrow.html" class="external-link">arrow</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/grid/unit.html" class="external-link">unit</a></span><span class="op">(</span><span class="fl">4</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span>, </span>
 <span>                 end_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">circle</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p>Usually you would like the labels to run along the edges, but
 providing a fixed angle will only work at a very specific aspect ratio.
 Instead <code>ggraph</code> offers to calculate the correct angle
 dynamically so the labels always runs along the edge. Furthermore it can
 offset the label by an absolute length:</p>
-<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">simple</span>, layout <span class="op">=</span> <span class="st">'graphopt'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>label <span class="op">=</span> <span class="va">type</span><span class="op">)</span>, </span>
 <span>                 angle_calc <span class="op">=</span> <span class="st">'along'</span>,</span>
@@ -956,21 +581,6 @@ offset the label by an absolute length:</p>
 <span>                 end_cap <span class="op">=</span> <span class="fu"><a href="../reference/geometry.html">circle</a></span><span class="op">(</span><span class="fl">3</span>, <span class="st">'mm'</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">5</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Edges_files/figure-html/unnamed-chunk-27-1.png" width="700"></p>
-<pre><code><span><span class="co">## Called from: data(...)</span></span>
-<span><span class="co">## debug: edges &lt;- collect_edges(layout)</span></span>
-<span><span class="co">## debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span></span>
-<span><span class="co">##     direction = collapse_dir_edges(edges))</span></span>
-<span><span class="co">## debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span></span>
-<span><span class="co">##     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span></span>
-<span><span class="co">## debug: extra_data &lt;- lapply(dots, function(x) {</span></span>
-<span><span class="co">##     val &lt;- eval_tidy(x, edges)</span></span>
-<span><span class="co">##     rep(val, length.out = nrow(edges))</span></span>
-<span><span class="co">## })</span></span>
-<span><span class="co">## debug: if (length(extra_data) &gt; 0) {</span></span>
-<span><span class="co">##     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span></span>
-<span><span class="co">## }</span></span>
-<span><span class="co">## debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span></span>
-<span><span class="co">## debug: edges</span></span></code></pre>
 <p><code>ggraph</code> offers a lot of additional customization of the
 edge labels but this shows the main features. As with arrowheads labels
 can severely clutter your visualization so it is only advisable on very
@@ -986,7 +596,7 @@ connect nodes that are not connected in the graph. This is done by
 finding the shortest path between the two nodes. Currently the only
 connection geom available is <code><a href="../reference/geom_conn_bundle.html">geom_conn_bundle()</a></code> that
 implements the hierarchical edge bundling technique:</p>
-<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">flaregraph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html" class="external-link">tbl_graph</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">vertices</span>, <span class="va">flare</span><span class="op">$</span><span class="va">edges</span><span class="op">)</span></span>
 <span><span class="va">from</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">imports</span><span class="op">$</span><span class="va">from</span>, <span class="va">flare</span><span class="op">$</span><span class="va">vertices</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
 <span><span class="va">to</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">imports</span><span class="op">$</span><span class="va">to</span>, <span class="va">flare</span><span class="op">$</span><span class="va">vertices</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
