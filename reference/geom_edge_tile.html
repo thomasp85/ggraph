@@ -222,6 +222,21 @@ automatically be renamed appropriately.</p>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>edge_colour <span class="op">=</span> <span class="st">'Infomap Cluster'</span><span class="op">)</span> <span class="op">+</span></span></span>
 <span class="r-in"><span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">ggtitle</a></span><span class="op">(</span><span class="st">"Zachary' Karate Club"</span><span class="op">)</span></span></span>
 <span class="r-plt img"><img src="geom_edge_tile-1.png" alt="" width="700" height="433"></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Called from: data(...)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: edges &lt;- collect_edges(layout)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: edges &lt;- switch(collapse, none = edges, all = collapse_all_edges(edges), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     direction = collapse_dir_edges(edges))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: edges &lt;- switch(format, short = format_short_edges(edges, layout), </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     long = format_long_edges(edges, layout), cli::cli_abort("Unknown {.arg format}. Use either {.val short} or {.val long}"))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: extra_data &lt;- lapply(dots, function(x) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     val &lt;- eval_tidy(x, edges)</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     rep(val, length.out = nrow(edges))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> })</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: if (length(extra_data) &gt; 0) {</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>     edges &lt;- cbind(edges, data_frame0(!!!extra_data))</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> }</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: attr(edges, "type_ggraph") &lt;- "edge_ggraph"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> debug: edges</span>
 </code></pre></div>
     </div>
   </div>

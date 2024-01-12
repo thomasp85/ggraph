@@ -110,6 +110,7 @@
 <li>Updated guides to the new ggplot2 interface. For <code><a href="../reference/guide_edge_direction.html">guide_edge_direction()</a></code>, this update adds the option to use labels instead of an arrow using the <code>labels</code> argument.</li>
 <li>
 <code><a href="../reference/ggraph.html">create_layout()</a></code> now returns a modified tibble rather than a data.frame</li>
+<li>The <code>...</code> in <code><a href="../reference/get_nodes.html">get_nodes()</a></code>, <code><a href="../reference/get_edges.html">get_edges()</a></code>, and <code><a href="../reference/get_con.html">get_con()</a></code> now accepts tidy evaluation. <code><a href="../reference/get_nodes.html">get_nodes()</a></code> and <code><a href="../reference/get_con.html">get_con()</a></code> will get evaluated on the node data in the original order (layouts may reorder nodes), and <code><a href="../reference/get_edges.html">get_edges()</a></code> will get evaluated on the edge data (<a href="https://github.com/thomasp85/ggraph/issues/272" class="external-link">#272</a>)</li>
 </ul></div>
     <div class="section level2">
 <h2 class="page-header" data-toc-text="2.1.0" id="ggraph-210">ggraph 2.1.0<small>2022-10-09</small><a class="anchor" aria-label="anchor" href="#ggraph-210"></a></h2>
