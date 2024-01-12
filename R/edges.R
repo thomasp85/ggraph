@@ -49,7 +49,7 @@
 #' details for more information
 #'
 #' @param ... Additional data that will be cbind'ed together with the returned
-#' edge data.
+#' edge data. Accepts expressions that will be evaluated on the edge data
 #'
 #' @return A data.frame with columns dependent on format as well as the graph
 #' type. In addition to the columns discussed in the details section,
@@ -74,9 +74,10 @@
 #'
 get_edges <- function(format = 'short', collapse = 'none', ...) {
   if (!collapse %in% c('none', 'all', 'direction')) {
-    cli::cli_abort('{.arg ollapse} must be either {.val none}, {.val all} or {.val direction}')
+    cli::cli_abort('{.arg collapse} must be either {.val none}, {.val all} or {.val direction}')
   }
-  function(layout) {
+  dots <- enquos(...)
+  function(layout) {browser()
     edges <- collect_edges(layout)
     edges <- switch(
       collapse,
@@ -90,7 +91,10 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
       long = format_long_edges(edges, layout),
       cli::cli_abort('Unknown {.arg format}. Use either {.val short} or {.val long}')
     )
-    extra_data <- lapply(list2(...), rep, length.out = nrow(edges))
+    extra_data <- lapply(dots, function(x) {
+      val <- eval_tidy(x, edges)
+      rep(val, length.out = nrow(edges))
+    })
     if (length(extra_data) > 0) {
       edges <- cbind(
         edges,

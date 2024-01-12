@@ -10,7 +10,8 @@
 #' node layers.
 #'
 #' @param ... Additional data that should be cbind'ed together with the node
-#' data.
+#' data. Accepts expressions that will be evaluated on the node data in it's
+#' original order (irrespective of any reordering by the layout)
 #'
 #' @return A data.frame with the node data as well of any additional data
 #' supplied through `...`
@@ -20,8 +21,13 @@
 #' @export
 #'
 get_nodes <- function(...) {
+  dots <- enquos(...)
   function(layout) {
-    extra_data <- lapply(list2(...), rep, length.out = nrow(layout))
+    layout_reorder <- layout[order(layout$.ggraph.orig_index), ]
+    extra_data <- lapply(dots, function(x) {
+      val <- eval_tidy(x, layout_reorder)
+      rep(val, length.out = nrow(layout))[layout$.ggraph.orig_index]
+    })
     if (length(extra_data) > 0) {
       layout <- cbind(
         layout,

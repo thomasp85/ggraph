@@ -16,7 +16,9 @@
 #' @param paths A list of integer vectors giving the index of nodes defining
 #' connections
 #'
-#' @param ... Additional information to be added to the final data output
+#' @param ... Additional information to be added to the final data output.
+#' Accepts expressions that will be evaluated on the node data in it's
+#' original order (irrespective of any reordering by the layout)
 #'
 #' @param weight An expression to be evaluated on the edge data to provide
 #' weights for the shortest path calculations
@@ -33,6 +35,7 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
   if (length(from) != length(to)) {
     cli::cli_abort('{.arg from} and {.arg to} must be of equal length')
   }
+  dots <- enquos(...)
   function(layout) {
     if (length(from) == 0) {
       return(NULL)
@@ -55,8 +58,10 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
       )
       nodes <- vec_rbind(nodes, extra)
     }
-    extra_data <- lapply(list2(...), function(x) {
-      rep(x, length.out = length(from))[nodes$con.id]
+    layout <- layout[order(layout$.ggraph.orig_index), ]
+    extra_data <- lapply(dots, function(x) {
+      val <- eval_tidy(x, layout)
+      rep(val, length.out = length(from))[nodes$con.id]
     })
     if (length(extra_data) > 0) {
       nodes <- cbind(

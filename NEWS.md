@@ -14,6 +14,10 @@
   this update adds the option to use labels instead of an arrow using the 
   `labels` argument.
 * `create_layout()` now returns a modified tibble rather than a data.frame
+* The `...` in `get_nodes()`, `get_edges()`, and `get_con()` now accepts 
+  tidy evaluation. `get_nodes()` and `get_con()` will get evaluated on the node
+  data in the original order (layouts may reorder nodes), and `get_edges()` will
+  get evaluated on the edge data (#272)
 
 # ggraph 2.1.0
 
