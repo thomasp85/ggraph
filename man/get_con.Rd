@@ -19,7 +19,9 @@ get_con(
 \item{paths}{A list of integer vectors giving the index of nodes defining
 connections}
 
-\item{...}{Additional information to be added to the final data output}
+\item{...}{Additional information to be added to the final data output.
+Accepts expressions that will be evaluated on the node data in it's
+original order (irrespective of any reordering by the layout)}
 
 \item{weight}{An expression to be evaluated on the edge data to provide
 weights for the shortest path calculations}

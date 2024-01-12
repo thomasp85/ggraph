@@ -8,7 +8,8 @@ get_nodes(...)
 }
 \arguments{
 \item{...}{Additional data that should be cbind'ed together with the node
-data.}
+data. Accepts expressions that will be evaluated on the node data in it's
+original order (irrespective of any reordering by the layout)}
 }
 \value{
 A data.frame with the node data as well of any additional data
