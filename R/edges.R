@@ -77,7 +77,7 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
     cli::cli_abort('{.arg collapse} must be either {.val none}, {.val all} or {.val direction}')
   }
   dots <- enquos(...)
-  function(layout) {browser()
+  function(layout) {
     edges <- collect_edges(layout)
     edges <- switch(
       collapse,
