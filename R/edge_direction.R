@@ -251,6 +251,7 @@ GuideEdgeDirection <- ggproto(
       heights = elements$height_cm
     )
     sizes <- GuideLegend$measure_grobs(grobs, params, elements)
+    sizes[c('widths', 'heights')] <- params$sizes
     if (params$arrow) {
       l <- convertHeight(elements$arrow_line$arrow$length, "cm", valueOnly = TRUE)
       a <- 2 * pi * elements$arrow_line$arrow$angle / 360
