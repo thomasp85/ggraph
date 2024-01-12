@@ -13,6 +13,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
   } else {
     layout <- layout_to_table(layout, graph, circular = circular, ...)
   }
+  layout <- as_tibble(layout)
   layout$.ggraph.index <- seq_len(nrow(layout))
   if (is.null(attr(layout, 'graph'))) {
     attr(layout, 'graph') <- graph
@@ -21,7 +22,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
   class(layout) <- c(
     'layout_tbl_graph',
     'layout_ggraph',
-    'data.frame'
+    class(layout)
   )
   check_layout(layout)
 }

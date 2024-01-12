@@ -13,6 +13,7 @@
 * Updated guides to the new ggplot2 interface. For `guide_edge_direction()`,
   this update adds the option to use labels instead of an arrow using the 
   `labels` argument.
+* `create_layout()` now returns a modified tibble rather than a data.frame
 
 # ggraph 2.1.0
 
