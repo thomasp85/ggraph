@@ -109,8 +109,8 @@ method to tidygraph so others can benefit from your work.
 
 ## Layouts abound
 There's a lot of different layouts in `ggraph` --- All layouts from the 
-graphlayouts and igraph packages are available, an ggraph itself also provide
-some of the more specialised layouts itself. All in all ggraph provides well 
+graphlayouts and igraph packages are available, and ggraph itself also provides
+some of the more specialised layouts itself. All in all, ggraph provides well 
 above 20 different layouts to choose from, far more than we can cover in this 
 text. I urge you to explore the different layout types. Blindly running along 
 with the default layouts is a sad but common mistake in network visualisation 
