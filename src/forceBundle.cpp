@@ -5,7 +5,6 @@
 #include <Rcpp.h>
 using namespace Rcpp;
 
-// [[Rcpp::export]]
 double euclidean_distance(NumericVector P, NumericVector Q) {
   return sqrt((P[0] - Q[0]) * (P[0] - Q[0]) + (P[1] - Q[1]) * (P[1] - Q[1]));
 }
@@ -124,7 +123,6 @@ List update_edge_divisions(List elist, int P) {
   return elist;
 }
 
-// [[Rcpp::export]]
 double angle_compatibility(NumericVector P, NumericVector Q) {
   NumericVector P_source = {P[0], P[1]};
   NumericVector P_target = {P[2], P[3]};
@@ -138,7 +136,6 @@ double angle_compatibility(NumericVector P, NumericVector Q) {
   return std::abs(frac_PQ);
 }
 
-// [[Rcpp::export]]
 double scale_compatibility(NumericVector P, NumericVector Q) {
   NumericVector P_source = {P[0], P[1]};
   NumericVector P_target = {P[2], P[3]};
@@ -152,7 +149,6 @@ double scale_compatibility(NumericVector P, NumericVector Q) {
   return 2.0 / (lavg / std::min(euc_P, euc_Q) + std::max(euc_P, euc_Q) / lavg);
 }
 
-// [[Rcpp::export]]
 double position_compatibility(NumericVector P, NumericVector Q) {
   NumericVector P_source = {P[0], P[1]};
   NumericVector P_target = {P[2], P[3]};
@@ -174,12 +170,10 @@ double position_compatibility(NumericVector P, NumericVector Q) {
   return lavg / (lavg + euc_mid);
 }
 
-// [[Rcpp::export]]
 double visibility_compatibility(NumericVector P, NumericVector Q) {
   return std::min(edge_visibility(P, Q), edge_visibility(Q, P));
 }
 
-// [[Rcpp::export]]
 double compatibility_score(NumericVector P, NumericVector Q) {
   return angle_compatibility(P, Q) * scale_compatibility(P, Q) *
          position_compatibility(P, Q) * visibility_compatibility(P, Q);
@@ -190,7 +184,6 @@ bool are_compatible(NumericVector P, NumericVector Q,
   return compatibility_score(P, Q) >= compatibility_threshold;
 }
 
-// [[Rcpp::export]]
 List compute_compatibility_lists(NumericMatrix edges_xy,
                                  double compatibility_threshold) {
   int m = edges_xy.rows();
