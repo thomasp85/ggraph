@@ -26,8 +26,6 @@ Imports:
     igraph (>= 1.0.0),
     scales,
     MASS,
-    digest,
-    gtable,
     ggrepel,
     utils,
     stats,
