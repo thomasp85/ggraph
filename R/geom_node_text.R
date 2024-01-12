@@ -65,16 +65,20 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = 'identity',
     position <- position_nudge(nudge_x, nudge_y)
   }
   params <- list2(parse = parse, ...)
+  stat <- StatFilter
   if (repel) {
     geom <- GeomTextRepel
   } else {
     geom <- GeomText
     params$check_overlap <- check_overlap
+    if (check_overlap && is.null(data)) {
+      stat <- StatReverse
+    }
   }
 
   mapping <- aes_intersect(mapping, aes(x = x, y = y))
   layer(
-    data = data, mapping = mapping, stat = StatFilter, geom = geom,
+    data = data, mapping = mapping, stat = stat, geom = geom,
     position = position, show.legend = show.legend, inherit.aes = FALSE,
     params = params
   )

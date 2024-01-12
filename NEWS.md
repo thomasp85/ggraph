@@ -8,6 +8,8 @@
 * Fix a bug in `get_con()` that would lead to wrong matching of additional data
   (#249)
 * Allow `na.rm` in geoms (#301)
+* If `check_overlap = TRUE` in `geom_node_text()` the rendering order is 
+  reversed so that the top nodes are rendered, not the bottom ones
 
 # ggraph 2.1.0
 
