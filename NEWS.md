@@ -18,6 +18,9 @@
   tidy evaluation. `get_nodes()` and `get_con()` will get evaluated on the node
   data in the original order (layouts may reorder nodes), and `get_edges()` will
   get evaluated on the edge data (#272)
+* The linear layout has gained a `weight` argument allowing you to set how much
+  space each node occupy. Further, the layout now calculates statistics so that
+  it can be used in conjunction with `geom_node_tile()` and `geom_node_arc_bar()`
 
 # ggraph 2.1.0
 
