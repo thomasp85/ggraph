@@ -83,6 +83,8 @@
 #'   \item{`unrooted`}{Draws unrooted trees based on equal angle with optional
 #'   equal daylight modification. See [layout_tbl_graph_unrooted()] for further
 #'   details}
+#'   \item{`htree`}{Draws binary trees as a space filling fractal. See
+#'   [layout_tbl_graph_htree()] for further details}
 #' }
 #'
 #' Alternatively a matrix or a data.frame can be provided to the `layout`

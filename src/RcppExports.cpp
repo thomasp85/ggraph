@@ -66,6 +66,18 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// hTree
+NumericMatrix hTree(IntegerVector parent, IntegerVector order);
+RcppExport SEXP _ggraph_hTree(SEXP parentSEXP, SEXP orderSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type order(orderSEXP);
+    rcpp_result_gen = Rcpp::wrap(hTree(parent, order));
+    return rcpp_result_gen;
+END_RCPP
+}
 // partitionTree
 NumericMatrix partitionTree(IntegerVector parent, IntegerVector order, NumericVector weight, NumericVector height);
 RcppExport SEXP _ggraph_partitionTree(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP heightSEXP) {
@@ -149,6 +161,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_ggraph_pack", (DL_FUNC) &_ggraph_pack, 1},
     {"_ggraph_circlePackLayout", (DL_FUNC) &_ggraph_circlePackLayout, 2},
     {"_ggraph_dendrogram_spread", (DL_FUNC) &_ggraph_dendrogram_spread, 7},
+    {"_ggraph_hTree", (DL_FUNC) &_ggraph_hTree, 2},
     {"_ggraph_partitionTree", (DL_FUNC) &_ggraph_partitionTree, 4},
     {"_ggraph_cut_lines", (DL_FUNC) &_ggraph_cut_lines, 9},
     {"_ggraph_pathAttr", (DL_FUNC) &_ggraph_pathAttr, 2},

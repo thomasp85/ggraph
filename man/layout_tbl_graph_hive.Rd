@@ -103,6 +103,7 @@ Other layout_tbl_graph_*:
 \code{\link{layout_tbl_graph_eigen}()},
 \code{\link{layout_tbl_graph_fabric}()},
 \code{\link{layout_tbl_graph_focus}()},
+\code{\link{layout_tbl_graph_htree}()},
 \code{\link{layout_tbl_graph_igraph}()},
 \code{\link{layout_tbl_graph_linear}()},
 \code{\link{layout_tbl_graph_manual}()},

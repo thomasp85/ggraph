@@ -197,4 +197,5 @@ public:
 
 std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight);
 std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight, std::vector<double> height);
+std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order);
 std::vector<Node*> createUnrooted(std::vector<int> parent, std::vector<int> order, std::vector<double> length);

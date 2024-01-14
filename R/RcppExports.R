@@ -52,6 +52,10 @@ dendrogram_spread <- function(graph, starts, y, leaf, repel, pad, ratio) {
     .Call('_ggraph_dendrogram_spread', PACKAGE = 'ggraph', graph, starts, y, leaf, repel, pad, ratio)
 }
 
+hTree <- function(parent, order) {
+    .Call('_ggraph_hTree', PACKAGE = 'ggraph', parent, order)
+}
+
 partitionTree <- function(parent, order, weight, height) {
     .Call('_ggraph_partitionTree', PACKAGE = 'ggraph', parent, order, weight, height)
 }

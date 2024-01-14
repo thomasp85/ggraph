@@ -26,6 +26,7 @@
   periphery of their parent (#226)
 * Updated layout functions from the graphlayouts package to support grouped and
   constrained versions (centrality, focus, and stress layouts)
+* Added H Tree layout for binary trees (#58)
 
 # ggraph 2.1.0
 
