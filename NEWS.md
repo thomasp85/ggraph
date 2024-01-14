@@ -24,6 +24,8 @@
 * New layout added. Cactustree is a hierarchical layout optimised for 
   hierarchical edge bundling by placing nodes as budding circles on the 
   periphery of their parent (#226)
+* Updated layout functions from the graphlayouts package to support grouped and
+  constrained versions (centrality, focus, and stress layouts)
 
 # ggraph 2.1.0
 

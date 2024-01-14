@@ -18,6 +18,8 @@
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
 #' @param bbox constrain dimension of output. Only relevant to determine the
 #' placement of disconnected graphs.
+#' @param x_coord,y_coord Expressions evaluated on the node data giving
+#' coordinates along x and/or y axis to fix nodes to.
 #' @param circular ignored
 #'
 #' @return A data.frame with the columns `x`, `y`, `circular` as
@@ -34,11 +36,12 @@
 #' @author The underlying algorithm is implemented in the graphlayouts package
 #' by David Schoch
 #'
-#' @importFrom graphlayouts layout_with_stress
+#' @importFrom graphlayouts layout_with_stress layout_with_constrained_stress
 #' @importFrom rlang eval_tidy enquo
 #'
 layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
                                     tolerance = 1e-4, mds = TRUE, bbox = 50,
+                                    x_coord = NULL, y_coord = NULL,
                                     circular = FALSE) {
   weights <- eval_tidy(enquo(weights), .E())
   if (is.null(weights)) {
@@ -46,8 +49,20 @@ layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
   } else {
     weights <- 1 / weights
   }
-  xy <- layout_with_stress(graph, weights = weights, iter = niter,
-                           tol = tolerance, mds = mds, bbox = bbox)
+  x_coord <- eval_tidy(enquo(x_coord), .N())
+  y_coord <- eval_tidy(enquo(y_coord), .N())
+  if (is.null(x_coord) && is.null(y_coord)) {
+    xy <- layout_with_stress(graph, weights = weights, iter = niter,
+                             tol = tolerance, mds = mds, bbox = bbox)
+  } else if (!is.null(x_coord) && !is.null(y_coord)) {
+    xy <- cbind(x_coord, y_coord)
+  } else {
+    dim <- if (is.null(x_coord)) "y" else "x"
+    coord <- if (is.null(x_coord)) y_coord else x_coord
+    xy <- layout_with_constrained_stress(graph, coord = coord, fixdim = dim,
+                                         weights = weights, iter = niter,
+                                         tol = tolerance, mds = mds, bbox = bbox)
+  }
 
   nodes <- data_frame0(x = xy[,1],y = xy[,2], circular = FALSE)
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))

@@ -7,6 +7,7 @@
 #' @param focus An expression evaluating to a selected node. Can either be a
 #' single integer or a logical vector with a single `TRUE` element.
 #' @inheritParams layout_tbl_graph_stress
+#' @inheritParams layout_tbl_graph_centrality
 #'
 #' @return A data.frame with the columns `x`, `y`, `circular`, `distance` as
 #' well as any information stored as node variables in the tbl_graph object.
@@ -20,10 +21,10 @@
 #' @author The underlying algorithm is implemented in the graphlayouts package
 #' by David Schoch
 #'
-#' @importFrom graphlayouts layout_with_focus
+#' @importFrom graphlayouts layout_with_focus layout_with_focus_group
 #' @importFrom rlang eval_tidy enquo
 layout_tbl_graph_focus <- function(graph, focus, weights = NULL, niter = 500, tolerance = 1e-4,
-                                   circular = TRUE) {
+                                   group = NULL, shrink = 10, circular = TRUE) {
   focus <- eval_tidy(enquo(focus), .N())
   if (is.logical(focus)) focus <- which(focus)[1]
 
@@ -32,8 +33,17 @@ layout_tbl_graph_focus <- function(graph, focus, weights = NULL, niter = 500, to
     weights <- NA
   }
 
-  layout <- layout_with_focus(graph, v = focus, weights = weights, iter = niter,
-                              tol = tolerance)
+  group <- eval_tidy(enquo(group), .N())
+
+  if (is.null(group)) {
+    layout <- layout_with_focus(graph, v = focus, weights = weights, iter = niter,
+                                tol = tolerance)
+  } else {
+    layout <- layout_with_focus_group(graph, v = focus, group = group,
+                                      shrink = shrink, weights = weights, iter = niter,
+                                      tol = tolerance)
+  }
+
   xy <- layout$xy
 
   nodes <- data_frame0(x = xy[,1],y = xy[,2], distance = layout$distance, circular = FALSE)

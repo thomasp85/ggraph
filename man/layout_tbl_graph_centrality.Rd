@@ -11,6 +11,8 @@ layout_tbl_graph_centrality(
   niter = 500,
   tolerance = 1e-04,
   tseq = seq(0, 1, 0.2),
+  group = NULL,
+  shrink = 10,
   circular = FALSE
 )
 }
@@ -28,6 +30,12 @@ selection.}
 \item{tolerance}{stopping criterion for stress optimization}
 
 \item{tseq}{Transitioning steps}
+
+\item{group}{An expression evaluating to a grouping of the nodes. If given
+the layout will keep grouped nodes within an angle range of the origin}
+
+\item{shrink}{shrink the reserved angle range for a group to increase the
+gaps between groups}
 
 \item{circular}{ignored}
 }

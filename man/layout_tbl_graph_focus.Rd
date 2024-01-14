@@ -10,6 +10,8 @@ layout_tbl_graph_focus(
   weights = NULL,
   niter = 500,
   tolerance = 1e-04,
+  group = NULL,
+  shrink = 10,
   circular = TRUE
 )
 }
@@ -25,6 +27,12 @@ weights for the layout. Currently ignored for the sparse version}
 \item{niter}{number of iterations during stress optimization}
 
 \item{tolerance}{stopping criterion for stress optimization}
+
+\item{group}{An expression evaluating to a grouping of the nodes. If given
+the layout will keep grouped nodes within an angle range of the origin}
+
+\item{shrink}{shrink the reserved angle range for a group to increase the
+gaps between groups}
 
 \item{circular}{ignored}
 }

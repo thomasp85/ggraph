@@ -12,6 +12,8 @@ layout_tbl_graph_stress(
   tolerance = 1e-04,
   mds = TRUE,
   bbox = 50,
+  x_coord = NULL,
+  y_coord = NULL,
   circular = FALSE
 )
 
@@ -37,6 +39,9 @@ weights for the layout. Currently ignored for the sparse version}
 
 \item{bbox}{constrain dimension of output. Only relevant to determine the
 placement of disconnected graphs.}
+
+\item{x_coord, y_coord}{Expressions evaluated on the node data giving
+coordinates along x and/or y axis to fix nodes to.}
 
 \item{circular}{ignored}
 
