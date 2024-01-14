@@ -114,6 +114,8 @@ optimally given the radius constraint.</p>
 <span>  niter <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>  tolerance <span class="op">=</span> <span class="fl">1e-04</span>,</span>
 <span>  tseq <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html" class="external-link">seq</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">1</span>, <span class="fl">0.2</span><span class="op">)</span>,</span>
+<span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  shrink <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  circular <span class="op">=</span> <span class="cn">FALSE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -144,6 +146,16 @@ selection.</p></dd>
 
 <dt>tseq</dt>
 <dd><p>Transitioning steps</p></dd>
+
+
+<dt>group</dt>
+<dd><p>An expression evaluating to a grouping of the nodes. If given
+the layout will keep grouped nodes within an angle range of the origin</p></dd>
+
+
+<dt>shrink</dt>
+<dd><p>shrink the reserved angle range for a group to increase the
+gaps between groups</p></dd>
 
 
 <dt>circular</dt>

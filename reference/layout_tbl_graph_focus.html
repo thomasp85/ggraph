@@ -113,6 +113,8 @@ distribution according to this constraint.</p>
 <span>  weights <span class="op">=</span> <span class="cn">NULL</span>,</span>
 <span>  niter <span class="op">=</span> <span class="fl">500</span>,</span>
 <span>  tolerance <span class="op">=</span> <span class="fl">1e-04</span>,</span>
+<span>  group <span class="op">=</span> <span class="cn">NULL</span>,</span>
+<span>  shrink <span class="op">=</span> <span class="fl">10</span>,</span>
 <span>  circular <span class="op">=</span> <span class="cn">TRUE</span></span>
 <span><span class="op">)</span></span></code></pre></div>
     </div>
@@ -139,6 +141,16 @@ weights for the layout. Currently ignored for the sparse version</p></dd>
 
 <dt>tolerance</dt>
 <dd><p>stopping criterion for stress optimization</p></dd>
+
+
+<dt>group</dt>
+<dd><p>An expression evaluating to a grouping of the nodes. If given
+the layout will keep grouped nodes within an angle range of the origin</p></dd>
+
+
+<dt>shrink</dt>
+<dd><p>shrink the reserved angle range for a group to increase the
+gaps between groups</p></dd>
 
 
 <dt>circular</dt>
