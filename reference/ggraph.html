@@ -230,6 +230,53 @@ subdivides the division given by the preceding layer. See
 based on node attributes. See <code><a href="layout_tbl_graph_hive.html">layout_tbl_graph_hive()</a></code> for further
 details</p></dd>
 
+<dt><code>cactustree</code></dt>
+<dd><p>Positions nodes as circles on the periphery of their
+parent circle. See <code><a href="layout_tbl_graph_cactustree.html">layout_tbl_graph_cactustree()</a></code> for further
+details</p></dd>
+
+<dt><code>backbone</code></dt>
+<dd><p>Layout optimised for highly connected small-world graphs
+such as social networks. See <code><a href="layout_tbl_graph_backbone.html">layout_tbl_graph_backbone()</a></code> for further
+details</p></dd>
+
+<dt><code>centrality</code></dt>
+<dd><p>Place nodes around origin based on their centrality.
+See <code><a href="layout_tbl_graph_centrality.html">layout_tbl_graph_centrality()</a></code> for further
+details</p></dd>
+
+<dt><code>eigen</code></dt>
+<dd><p>Spectral layout based on the eigenvector of a matrix
+representation of the graph. See <code><a href="layout_tbl_graph_eigen.html">layout_tbl_graph_eigen()</a></code> for further
+details</p></dd>
+
+<dt><code>fabric</code></dt>
+<dd><p>Draw nodes as horizontal lines and connect them with
+vertical lines if an edge exists between them. See
+<code><a href="layout_tbl_graph_fabric.html">layout_tbl_graph_fabric()</a></code> for further
+details</p></dd>
+
+<dt><code>focus</code></dt>
+<dd><p>Place nodes around a focus node based on their distance to
+that node. See <code><a href="layout_tbl_graph_focus.html">layout_tbl_graph_focus()</a></code> for further
+details</p></dd>
+
+<dt><code>pmds</code></dt>
+<dd><p>Layout based on multidimensional scaling of a set of pivot
+nodes, allowing MDS layout to be used on larger graphs. See
+<code><a href="layout_tbl_graph_pmds.html">layout_tbl_graph_pmds()</a></code> for further
+details</p></dd>
+
+<dt><code>stress</code></dt>
+<dd><p>Layout based on stress minimisation with better stability
+than Kamada-Kawai layout. See <code><a href="layout_tbl_graph_stress.html">layout_tbl_graph_stress()</a></code> for further
+details</p></dd>
+
+<dt><code>unrooted</code></dt>
+<dd><p>Draws unrooted trees based on equal angle with optional
+equal daylight modification. See <code><a href="layout_tbl_graph_unrooted.html">layout_tbl_graph_unrooted()</a></code> for further
+details</p></dd>
+
 
 </dl><p>Alternatively a matrix or a data.frame can be provided to the <code>layout</code>
 argument. In the former case the first column will be used as x coordinates
