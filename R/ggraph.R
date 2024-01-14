@@ -54,6 +54,9 @@
 #'   \item{`hive`}{Positions nodes on axes spreading out from the center
 #'   based on node attributes. See [layout_tbl_graph_hive()] for further
 #'   details}
+#'   \item{`cactustree`}{Positions nodes as circles on the periphery of their
+#'   parent circle. See [layout_tbl_graph_cactustree()] for further
+#'   details}
 #' }
 #'
 #' Alternatively a matrix or a data.frame can be provided to the `layout`

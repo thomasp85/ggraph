@@ -74,6 +74,7 @@ reference:
       - layout_tbl_graph_circlepack
       - layout_tbl_graph_treemap
       - layout_tbl_graph_partition
+      - layout_tbl_graph_cactustree
       - layout_tbl_graph_matrix
       - layout_tbl_graph_hive
       - layout_tbl_graph_fabric
