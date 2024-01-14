@@ -61,6 +61,7 @@ Assoc., pp 573-584
 Other layout_tbl_graph_*: 
 \code{\link{layout_tbl_graph_auto}()},
 \code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_cactustree}()},
 \code{\link{layout_tbl_graph_centrality}()},
 \code{\link{layout_tbl_graph_circlepack}()},
 \code{\link{layout_tbl_graph_dendrogram}()},

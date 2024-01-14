@@ -117,6 +117,14 @@ public:
     }
     return leafs;
   }
+  void tallyWeights() {
+    for (unsigned int i = 0; i < children.size(); ++i) {
+      if (!children[i]->leaf()) {
+        children[i]->tallyWeights();
+      }
+      Weight += children[i]->Weight;
+    }
+  }
   unsigned int nChildren() {
     return children.size();
   };

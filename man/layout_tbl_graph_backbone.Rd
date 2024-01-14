@@ -36,6 +36,7 @@ Algorithms and Applications: JGAA, 19(2), 595-618.
 \seealso{
 Other layout_tbl_graph_*: 
 \code{\link{layout_tbl_graph_auto}()},
+\code{\link{layout_tbl_graph_cactustree}()},
 \code{\link{layout_tbl_graph_centrality}()},
 \code{\link{layout_tbl_graph_circlepack}()},
 \code{\link{layout_tbl_graph_dendrogram}()},

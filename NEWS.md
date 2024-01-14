@@ -21,6 +21,9 @@
 * The linear layout has gained a `weight` argument allowing you to set how much
   space each node occupy. Further, the layout now calculates statistics so that
   it can be used in conjunction with `geom_node_tile()` and `geom_node_arc_bar()`
+* New layout added. Cactustree is a hierarchical layout optimised for 
+  hierarchical edge bundling by placing nodes as budding circles on the 
+  periphery of their parent (#226)
 
 # ggraph 2.1.0
 

@@ -84,7 +84,8 @@ prepare_graph <- function(graph, layout, direction = 'out', ...) {
     'dendrogram',
     'treemap',
     'circlepack',
-    'partition'
+    'partition',
+    'cactustree'
   )
   graph_is_treeish <- with_graph(graph, graph_is_tree() || graph_is_forest())
   if (is_hierarchy || (layout == 'auto' && graph_is_treeish)) {

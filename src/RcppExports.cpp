@@ -10,6 +10,22 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// cactusTree
+NumericMatrix cactusTree(IntegerVector parent, IntegerVector order, NumericVector weight, double scale, double overlap, bool upright);
+RcppExport SEXP _ggraph_cactusTree(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP scaleSEXP, SEXP overlapSEXP, SEXP uprightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type order(orderSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type weight(weightSEXP);
+    Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< double >::type overlap(overlapSEXP);
+    Rcpp::traits::input_parameter< bool >::type upright(uprightSEXP);
+    rcpp_result_gen = Rcpp::wrap(cactusTree(parent, order, weight, scale, overlap, upright));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pack
 NumericMatrix pack(NumericVector areas);
 RcppExport SEXP _ggraph_pack(SEXP areasSEXP) {
@@ -129,6 +145,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_ggraph_cactusTree", (DL_FUNC) &_ggraph_cactusTree, 6},
     {"_ggraph_pack", (DL_FUNC) &_ggraph_pack, 1},
     {"_ggraph_circlePackLayout", (DL_FUNC) &_ggraph_circlePackLayout, 2},
     {"_ggraph_dendrogram_spread", (DL_FUNC) &_ggraph_dendrogram_spread, 7},
