@@ -134,7 +134,7 @@
                         <h4 data-toc-skip class="author">Thomas Lin
 Pedersen</h4>
             
-            <h4 data-toc-skip class="date">2024-01-12</h4>
+            <h4 data-toc-skip class="date">2024-01-14</h4>
       
       <small class="dont-index">Source: <a href="https://github.com/thomasp85/ggraph/blob/HEAD/vignettes/Layouts.Rmd" class="external-link"><code>vignettes/Layouts.Rmd</code></a></small>
       <div class="hidden name"><code>Layouts.Rmd</code></div>
@@ -448,40 +448,63 @@ wish to:</p>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="va">depth</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-18-1.png" width="700"></p>
+<p>Cactustree is a layout type specifically developed for use with
+hierarchical edge bundling, but can be used on it’s own as well</p>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'cactustree'</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_node_circle.html">geom_node_circle</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span>, size <span class="op">=</span> <span class="fl">0.25</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">importFrom</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">imports</span><span class="op">$</span><span class="va">from</span>, <span class="va">flare</span><span class="op">$</span><span class="va">vertices</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
+<span><span class="va">importTo</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/match.html" class="external-link">match</a></span><span class="op">(</span><span class="va">flare</span><span class="op">$</span><span class="va">imports</span><span class="op">$</span><span class="va">to</span>, <span class="va">flare</span><span class="op">$</span><span class="va">vertices</span><span class="op">$</span><span class="va">name</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'cactustree'</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_node_circle.html">geom_node_circle</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>fill <span class="op">=</span> <span class="va">depth</span><span class="op">)</span>, </span>
+<span>    size <span class="op">=</span> <span class="fl">0.25</span>, </span>
+<span>    alpha <span class="op">=</span> <span class="fl">0.2</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_conn_bundle.html">geom_conn_bundle</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes_eval.html" class="external-link">after_stat</a></span><span class="op">(</span><span class="va">index</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    data <span class="op">=</span> <span class="fu"><a href="../reference/get_con.html">get_con</a></span><span class="op">(</span><span class="va">importFrom</span>, <span class="va">importTo</span><span class="op">)</span>,</span>
+<span>    edge_alpha <span class="op">=</span> <span class="fl">0.25</span></span>
+<span>  <span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></span><span class="op">(</span>legend.position <span class="op">=</span> <span class="st">"none"</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
 <p>The most recognized tree plot is probably dendrograms though. If
 nothing else is stated the height of each node is calculated based on
 the distance to its farthest sibling (the tree layout, on the other
 hand, puts all nodes at a certain depth at the same level):</p>
-<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'tree'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_diagonal.html">geom_edge_diagonal</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Layouts_files/figure-html/unnamed-chunk-19-1.png" width="700"></p>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
 <p>The height of each branch point can be set to a variable — e.g. the
 height provided by hclust and dendrogram objects:</p>
-<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">dendrogram</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/hclust.html" class="external-link">hclust</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">dist</a></span><span class="op">(</span><span class="va">iris</span><span class="op">[</span>, <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">]</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">dendrogram</span>, <span class="st">'dendrogram'</span>, height <span class="op">=</span> <span class="va">height</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Layouts_files/figure-html/unnamed-chunk-20-1.png" width="700"></p>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
 <p>Dendrograms are one of the layouts that are amenable for circular
 transformations, which can be effective in giving more space at the
 leafs of the tree at the expense of the space given to the root:</p>
-<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">dendrogram</span>, <span class="st">'dendrogram'</span>, circular <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_elbow.html">geom_edge_elbow</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Layouts_files/figure-html/unnamed-chunk-21-1.png" width="700"></p>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
 <p>A type of trees known especially in phylogeny is unrooted trees,
 where no node is considered the root. Often a dendrogram layout will not
 be faithful as it implicitly position a node at the root. To avoid that
 you can use the <code>unrooted</code> layout instead.</p>
-<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_tree</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">2</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">tree</span>, <span class="st">'unrooted'</span>, length <span class="op">=</span> <span class="va">length</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Layouts_files/figure-html/unnamed-chunk-22-1.png" width="700"></p>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
 <p>Often unrooted trees have a branch length attached - this can be
 passed to both the <code>dendrogram</code> and <code>unrooted</code>
 layout to determine the length of each edge.</p>
@@ -500,19 +523,19 @@ nodes. Using matrix layouts efficiently requires that you begin to
 recognise the specific patterns that different network topologies gives
 rise to. Further, it is important to recognise the large effect that the
 node order has on the look of the matrix layout:</p>
-<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_notable</a></span><span class="op">(</span><span class="st">'zachary'</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html" class="external-link">node_rank_leafsort</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span>mirror <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <pre><code><span><span class="co">## Warning in .hclust_helper(x, control): control parameter method is deprecated.</span></span>
 <span><span class="co">## Use linkage instead!</span></span></code></pre>
-<p><img src="Layouts_files/figure-html/unnamed-chunk-23-1.png" width="700"></p>
-<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<p><img src="Layouts_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'matrix'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/node_rank.html" class="external-link">node_rank_spectral</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_point.html">geom_edge_point</a></span><span class="op">(</span>mirror <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Layouts_files/figure-html/unnamed-chunk-24-1.png" width="700"></p>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
 </div>
 <div class="section level3">
 <h3 id="fabric-layouts">Fabric layouts<a class="anchor" aria-label="anchor" href="#fabric-layouts"></a>
@@ -526,22 +549,22 @@ connecting the nodes. Nodes are drawn as horizontal lines spanning the
 extent of the edges that departs from it. As with matrix layouts the
 node ordering have a huge impact on the final look and interpreting the
 plot may take some getting used to.</p>
-<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'fabric'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="../reference/layout_tbl_graph_fabric.html">node_rank_fabric</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_range.html">geom_node_range</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span>end_shape <span class="op">=</span> <span class="st">'square'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Layouts_files/figure-html/unnamed-chunk-25-1.png" width="700"></p>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-27-1.png" width="700"></p>
 <p>Fabric layouts allow something called shadow edges where all edges
 are duplicated to make it easier to follow all edges originating from
 each node.</p>
-<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, <span class="st">'fabric'</span>, sort.by <span class="op">=</span> <span class="fu"><a href="../reference/layout_tbl_graph_fabric.html">node_rank_fabric</a></span><span class="op">(</span><span class="op">)</span>, shadow.edges <span class="op">=</span><span class="cn">TRUE</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_node_range.html">geom_node_range</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">'grey'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="va">shadow_edge</span><span class="op">)</span>, colour <span class="op">=</span><span class="st">'lightblue'</span> , end_shape <span class="op">=</span> <span class="st">'square'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="op">!</span><span class="va">shadow_edge</span><span class="op">)</span>, end_shape <span class="op">=</span> <span class="st">'square'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
-<p><img src="Layouts_files/figure-html/unnamed-chunk-26-1.png" width="700"></p>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-28-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
