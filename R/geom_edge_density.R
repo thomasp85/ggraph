@@ -169,7 +169,7 @@ geom_edge_density <- function(mapping = NULL, data = get_edges('short'),
     geom = GeomEdgeDensity, position = position,
     show.legend = show.legend, inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(na.rm = FALSE, n = n, ...)
+      list2(n = n, ...)
     )
   )
 }

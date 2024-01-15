@@ -11,6 +11,8 @@ layout_tbl_graph_centrality(
   niter = 500,
   tolerance = 1e-04,
   tseq = seq(0, 1, 0.2),
+  group = NULL,
+  shrink = 10,
   circular = FALSE
 )
 }
@@ -28,6 +30,12 @@ selection.}
 \item{tolerance}{stopping criterion for stress optimization}
 
 \item{tseq}{Transitioning steps}
+
+\item{group}{An expression evaluating to a grouping of the nodes. If given
+the layout will keep grouped nodes within an angle range of the origin}
+
+\item{shrink}{shrink the reserved angle range for a group to increase the
+gaps between groups}
 
 \item{circular}{ignored}
 }
@@ -48,12 +56,14 @@ Graph Algorithms and Applications, 15(1), 157-173.
 Other layout_tbl_graph_*: 
 \code{\link{layout_tbl_graph_auto}()},
 \code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_cactustree}()},
 \code{\link{layout_tbl_graph_circlepack}()},
 \code{\link{layout_tbl_graph_dendrogram}()},
 \code{\link{layout_tbl_graph_eigen}()},
 \code{\link{layout_tbl_graph_fabric}()},
 \code{\link{layout_tbl_graph_focus}()},
 \code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_htree}()},
 \code{\link{layout_tbl_graph_igraph}()},
 \code{\link{layout_tbl_graph_linear}()},
 \code{\link{layout_tbl_graph_manual}()},

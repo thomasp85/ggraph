@@ -56,7 +56,7 @@ geom_node_voronoi <- function(mapping = NULL, data = NULL, position = 'identity'
   layer(
     data = data, mapping = mapping, stat = StatNodeVoronoi, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = FALSE,
-    params = list(na.rm = FALSE, bound = bound, eps = eps, max.radius = max.radius,
+    params = list2(bound = bound, eps = eps, max.radius = max.radius,
                   normalize = normalize, asp.ratio = asp.ratio, expand = expand,
                   radius = radius, ...)
   )

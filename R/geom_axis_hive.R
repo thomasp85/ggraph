@@ -83,7 +83,7 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
         gp = gpar(
           col = alpha(data$colour, data$alpha),
           fill = alpha(data$colour, data$alpha),
-          lwd = data$size * .pt,
+          lwd = data$linewidth * .pt,
           lty = data$linetype,
           lineend = 'square'
         )
@@ -94,7 +94,7 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     gList(axis_grob, label_grob)
   },
   default_aes = aes(
-    colour = 'black', size = 0.5, linetype = 1, alpha = NA,
+    colour = 'black', linewidth = 0.5, linetype = 1, alpha = NA,
     label_size = 3.88, family = '', fontface = 1,
     lineheight = 1.2
   )
@@ -160,6 +160,6 @@ geom_axis_hive <- function(mapping = NULL, data = NULL,
     data = data, mapping = mapping, stat = StatAxisHive,
     geom = GeomAxisHive, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
-    params = list(na.rm = FALSE, label = label, axis = axis, ...)
+    params = list2(label = label, axis = axis, ...)
   )
 }

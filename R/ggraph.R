@@ -54,6 +54,37 @@
 #'   \item{`hive`}{Positions nodes on axes spreading out from the center
 #'   based on node attributes. See [layout_tbl_graph_hive()] for further
 #'   details}
+#'   \item{`cactustree`}{Positions nodes as circles on the periphery of their
+#'   parent circle. See [layout_tbl_graph_cactustree()] for further
+#'   details}
+#'   \item{`backbone`}{Layout optimised for highly connected small-world graphs
+#'   such as social networks. See [layout_tbl_graph_backbone()] for further
+#'   details}
+#'   \item{`centrality`}{Place nodes around origin based on their centrality.
+#'   See [layout_tbl_graph_centrality()] for further
+#'   details}
+#'   \item{`eigen`}{Spectral layout based on the eigenvector of a matrix
+#'   representation of the graph. See [layout_tbl_graph_eigen()] for further
+#'   details}
+#'   \item{`fabric`}{Draw nodes as horizontal lines and connect them with
+#'   vertical lines if an edge exists between them. See
+#'   [layout_tbl_graph_fabric()] for further
+#'   details}
+#'   \item{`focus`}{Place nodes around a focus node based on their distance to
+#'   that node. See [layout_tbl_graph_focus()] for further
+#'   details}
+#'   \item{`pmds`}{Layout based on multidimensional scaling of a set of pivot
+#'   nodes, allowing MDS layout to be used on larger graphs. See
+#'   [layout_tbl_graph_pmds()] for further
+#'   details}
+#'   \item{`stress`}{Layout based on stress minimisation with better stability
+#'   than Kamada-Kawai layout. See [layout_tbl_graph_stress()] for further
+#'   details}
+#'   \item{`unrooted`}{Draws unrooted trees based on equal angle with optional
+#'   equal daylight modification. See [layout_tbl_graph_unrooted()] for further
+#'   details}
+#'   \item{`htree`}{Draws binary trees as a space filling fractal. See
+#'   [layout_tbl_graph_htree()] for further details}
 #' }
 #'
 #' Alternatively a matrix or a data.frame can be provided to the `layout`

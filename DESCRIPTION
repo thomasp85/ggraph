@@ -26,8 +26,6 @@ Imports:
     igraph (>= 1.0.0),
     scales,
     MASS,
-    digest,
-    gtable,
     ggrepel,
     utils,
     stats,
@@ -59,3 +57,4 @@ VignetteBuilder: knitr
 URL: https://ggraph.data-imaginist.com, https://github.com/thomasp85/ggraph
 BugReports: https://github.com/thomasp85/ggraph/issues
 Roxygen: list(markdown = TRUE)
+Remotes: tidyverse/ggplot2

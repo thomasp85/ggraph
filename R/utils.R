@@ -13,6 +13,9 @@
 #' @param degrees Logical. Should the angle be returned in degree (`TRUE`)
 #' or radians (`FALSE`). Defaults to `TRUE`.
 #'
+#' @param avoid_flip Logical. Should the angle be adjusted so that text is
+#' always upside-down
+#'
 #' @return A vector with the angle of each node/edge
 #'
 #' @examples
@@ -27,9 +30,13 @@
 #'   expand_limits(x = c(-1.3, 1.3), y = c(-1.3, 1.3))
 #' @export
 #'
-node_angle <- function(x, y, degrees = TRUE) {
+node_angle <- function(x, y, degrees = TRUE, avoid_flip = TRUE) {
   angles <- atan2(y, x)
   angles[angles < 0] <- angles[angles < 0] + 2 * pi
+  if (avoid_flip) {
+    needs_flip <- angles > pi/2 & angles < 3*pi/2
+    angles[needs_flip] <- angles[needs_flip] + pi
+  }
   if (degrees) {
     angles * 360 / (2 * pi)
   } else {
@@ -39,161 +46,46 @@ node_angle <- function(x, y, degrees = TRUE) {
 #' @rdname node_angle
 #'
 #' @export
-edge_angle <- function(x, y, xend, yend, degrees = TRUE) {
+edge_angle <- function(x, y, xend, yend, degrees = TRUE, avoid_flip = TRUE) {
   x <- xend - x
   y <- yend - y
-  node_angle(x, y, degrees)
+  node_angle(x, y, degrees, avoid_flip = avoid_flip)
 }
 
 
 ### COPY FROM GGPLOT2 NON-EXPORTS
-#' @importFrom scales rescale_mid
-mid_rescaler <- function(mid) {
-  function(x, to = c(0, 1), from = range(x, na.rm = TRUE)) {
-    rescale_mid(x, to, from, mid)
-  }
-}
-manual_scale <- function(aesthetic, values = NULL, breaks = waiver(), ..., limits = NULL) {
-  # check for missing `values` parameter, in lieu of providing
-  # a default to all the different scale_*_manual() functions
-  if (is_missing(values)) {
-    values <- NULL
-  } else {
-    force(values)
-  }
-
-  if (is.null(limits) && !is.null(names(values))) {
-    # Limits as function to access `values` names later on (#4619)
-    limits <- function(x) intersect(x, names(values))
-  }
-
-  # order values according to breaks
-  if (is.vector(values) && is.null(names(values)) && !inherits(breaks, 'waiver') &&
-      !is.null(breaks) && !is.function(breaks)) {
-    if (length(breaks) <= length(values)) {
-      names(values) <- breaks
-    } else {
-      names(values) <- breaks[1:length(values)]
-    }
-  }
-
-  pal <- function(n) {
-    if (n > length(values)) {
-      cli::cli_abort("Insufficient values in manual scale. {n} needed but only {length(values)} provided.")
-    }
-    values
-  }
-  discrete_scale(aesthetic, "manual", pal, breaks = breaks, limits = limits, ...)
-}
-#' @importFrom scales zero_range
-resolution <- function(x, zero = TRUE) {
-  if (is.integer(x) || zero_range(range(x, na.rm = TRUE))) {
-    return(1)
-  }
-  x <- unique0(as.numeric(x))
-  if (zero) {
-    x <- unique0(c(0, x))
-  }
-  min(diff(sort(x)))
-}
 #' @importFrom grid grobName
 ggname <- function(prefix, grob) {
   grob$name <- grobName(grob, prefix)
   grob
 }
-element_render <- function(theme, element, ..., name = NULL) {
-  el <- calc_element(element, theme)
-  if (is.null(el)) {
-    cli::cli_inform("Theme element {.var {element}} is missing")
-    return(zeroGrob())
-  }
-  ggname(paste(element, name, sep = '.'), element_grob(el, ...))
-}
-.all_aesthetics <- c(
-  'adj', 'alpha', 'angle', 'bg', 'cex', 'col', 'color', 'colour',
-  'fg', 'fill', 'group', 'hjust', 'label', 'linetype', 'lower',
-  'lty', 'lwd', 'max', 'middle', 'min', 'pch', 'radius', 'sample',
-  'shape', 'size', 'srt', 'upper', 'vjust', 'weight', 'width',
-  'x', 'xend', 'xmax', 'xmin', 'xintercept', 'y', 'yend', 'ymax',
-  'ymin', 'yintercept', 'z'
-)
-.base_to_ggplot <- structure(
-  c(
-    'colour', 'colour', 'shape', 'size', 'linetype', 'size', 'angle', 'hjust',
-    'fill', 'colour', 'ymin', 'ymax'
-  ),
-  .Names = c(
-    'col', 'color', 'pch', 'cex', 'lty', 'lwd', 'srt', 'adj', 'bg',
-    'fg', 'min', 'max'
-  )
-)
 rename_aes <- function(x) {
-  # Convert prefixes to full names
-  full <- match(names(x), .all_aesthetics)
-  names(x)[!is.na(full)] <- .all_aesthetics[full[!is.na(full)]]
-
-  old_names <- match(names(x), names(.base_to_ggplot))
-  names(x)[!is.na(old_names)] <- .base_to_ggplot[old_names[!is.na(old_names)]]
-
+  names(x) <- standardise_aes_names(names(x))
+  duplicated_names <- names(x)[duplicated(names(x))]
+  if (length(duplicated_names) > 0L) {
+    cli::cli_warn("Duplicated aesthetics after name standardisation: {.field {unique0(duplicated_names)}}")
+  }
   x
 }
-
-translate_shape_string <- function(shape_string) {
-  if (is.numeric(shape_string)) return(shape_string)
-  # strings of length 0 or 1 are interpreted as symbols by grid
-  if (nchar(shape_string[1]) <= 1) {
-    return(shape_string)
+flip_names <- c(
+  x = "y",
+  y = "x",
+  width = "height",
+  height = "width",
+  hjust = "vjust",
+  vjust = "hjust",
+  margin_x = "margin_y",
+  margin_y = "margin_x"
+)
+flip_element_grob <- function(..., flip = FALSE) {
+  if (!flip) {
+    ans <- element_grob(...)
+    return(ans)
   }
-
-  pch_table <- c(
-    "square open"           = 0,
-    "circle open"           = 1,
-    "triangle open"         = 2,
-    "plus"                  = 3,
-    "cross"                 = 4,
-    "diamond open"          = 5,
-    "triangle down open"    = 6,
-    "square cross"          = 7,
-    "asterisk"              = 8,
-    "diamond plus"          = 9,
-    "circle plus"           = 10,
-    "star"                  = 11,
-    "square plus"           = 12,
-    "circle cross"          = 13,
-    "square triangle"       = 14,
-    "triangle square"       = 14,
-    "square"                = 15,
-    "circle small"          = 16,
-    "triangle"              = 17,
-    "diamond"               = 18,
-    "circle"                = 19,
-    "bullet"                = 20,
-    "circle filled"         = 21,
-    "square filled"         = 22,
-    "diamond filled"        = 23,
-    "triangle filled"       = 24,
-    "triangle down filled"  = 25
-  )
-
-  shape_match <- charmatch(shape_string, names(pch_table))
-
-  invalid_strings <- is.na(shape_match)
-  nonunique_strings <- shape_match == 0
-
-  if (any(invalid_strings)) {
-    bad_string <- unique0(shape_string[invalid_strings])
-    cli::cli_abort("Shape aesthetic contains invalid value{?s}: {.val {bad_string}}")
-  }
-
-  if (any(nonunique_strings)) {
-    bad_string <- unique0(shape_string[nonunique_strings])
-    cli::cli_abort(c(
-      "shape names must be given unambiguously",
-      "i" = "Fix {.val {bad_string}}"
-    ))
-  }
-
-  unname(pch_table[shape_match])
+  args <- list(...)
+  translate <- names(args) %in% names(flip_names)
+  names(args)[translate] <- flip_names[names(args)[translate]]
+  do.call(element_grob, args)
 }
 
 #' @importFrom viridis scale_color_viridis
@@ -210,27 +102,6 @@ data_frame0 <- function(...) data_frame(..., .name_repair = "minimal")
 # Wrapping unique0() to accept NULL
 unique0 <- function(x, ...) if (is.null(x)) x else vec_unique(x, ...)
 
-df_rows <- function(x, i) {
-  cols <- lapply(x, `[`, i = i)
-  data_frame0(!!!cols, .size = length(i))
-}
-split_matrix <- function(x, col_names = colnames(x)) {
-  force(col_names)
-  x <- lapply(seq_len(ncol(x)), function(i) x[, i])
-  if (!is.null(col_names)) names(x) <- col_names
-  x
-}
-# More performant modifyList without recursion
-modify_list <- function(old, new) {
-  for (i in names(new)) old[[i]] <- new[[i]]
-  old
-}
-empty <- function(df) {
-  is.null(df) || nrow(df) == 0 || ncol(df) == 0
-}
-split_indices <- function(group) {
-  split(seq_along(group), group)
-}
 # Adapted from plyr:::id_vars
 # Create a unique id for elements in a single vector
 id_var <- function(x, drop = FALSE) {
@@ -321,22 +192,11 @@ toupper <- function(x) {
   cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
 }
 
-# Convert a snake_case string to camelCase
-camelize <- function(x, first = FALSE) {
-  x <- gsub("_(.)", "\\U\\1", x, perl = TRUE)
-  if (first) x <- firstUpper(x)
-  x
-}
-
 snakeize <- function(x) {
   x <- gsub("([A-Za-z])([A-Z])([a-z])", "\\1_\\2\\3", x)
   x <- gsub(".", "_", x, fixed = TRUE)
   x <- gsub("([a-z])([A-Z])", "\\1_\\2", x)
   to_lower_ascii(x)
-}
-
-firstUpper <- function(s) {
-  paste0(to_upper_ascii(substring(s, 1, 1)), substring(s, 2))
 }
 
 snake_class <- function(x) {

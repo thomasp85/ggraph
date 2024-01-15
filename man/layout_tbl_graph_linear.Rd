@@ -9,7 +9,8 @@ layout_tbl_graph_linear(
   circular,
   sort.by = NULL,
   use.numeric = FALSE,
-  offset = pi/2
+  offset = pi/2,
+  weight = NULL
 )
 }
 \arguments{
@@ -26,10 +27,16 @@ to FALSE}
 
 \item{offset}{If \code{circular = TRUE}, where should it begin. Defaults to
 \code{pi/2} which is equivalent to 12 o'clock.}
+
+\item{weight}{A weight for each node. Nodes will be spread out according to
+their weight so that nodes with heigher weight will have more space around
+them. Ignored if \code{use.numeric = TRUE}}
 }
 \value{
 A data.frame with the columns \code{x}, \code{y}, \code{circular} as
 well as any information stored as node variables in the tbl_graph object.
+Further, if \code{circular = FALSE} a \code{width} column and if \code{circular = TRUE} a
+\code{start}, \code{end}, and \code{r0} column.
 }
 \description{
 This layout puts all nodes on a line, possibly sorted by a node attribute. If
@@ -42,6 +49,7 @@ between the nodes.
 Other layout_tbl_graph_*: 
 \code{\link{layout_tbl_graph_auto}()},
 \code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_cactustree}()},
 \code{\link{layout_tbl_graph_centrality}()},
 \code{\link{layout_tbl_graph_circlepack}()},
 \code{\link{layout_tbl_graph_dendrogram}()},
@@ -49,6 +57,7 @@ Other layout_tbl_graph_*:
 \code{\link{layout_tbl_graph_fabric}()},
 \code{\link{layout_tbl_graph_focus}()},
 \code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_htree}()},
 \code{\link{layout_tbl_graph_igraph}()},
 \code{\link{layout_tbl_graph_manual}()},
 \code{\link{layout_tbl_graph_matrix}()},

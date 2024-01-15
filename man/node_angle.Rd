@@ -5,15 +5,18 @@
 \alias{edge_angle}
 \title{Get the angle of nodes and edges}
 \usage{
-node_angle(x, y, degrees = TRUE)
+node_angle(x, y, degrees = TRUE, avoid_flip = TRUE)
 
-edge_angle(x, y, xend, yend, degrees = TRUE)
+edge_angle(x, y, xend, yend, degrees = TRUE, avoid_flip = TRUE)
 }
 \arguments{
 \item{x, y}{A vector of positions}
 
 \item{degrees}{Logical. Should the angle be returned in degree (\code{TRUE})
 or radians (\code{FALSE}). Defaults to \code{TRUE}.}
+
+\item{avoid_flip}{Logical. Should the angle be adjusted so that text is
+always upside-down}
 
 \item{xend, yend}{The end position of the edge}
 }

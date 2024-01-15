@@ -11,7 +11,7 @@
 #' @export
 guide_edge_colourbar <- function(..., available_aes = c("edge_colour", "edge_fill")) {
   guide <- guide_colourbar(..., available_aes = available_aes)
-  guide$name <- 'edge_colourbar'
+  guide$params$name <- 'edge_colourbar'
   guide
 }
 #' @rdname guide_edge_colourbar
@@ -34,7 +34,7 @@ guide_edge_coloursteps <- function(even.steps = TRUE, show.limits = NULL, ticks 
                                    available_aes = c("edge_colour", "edge_fill")) {
   guide <- guide_coloursteps(even.steps = even.steps, show.limits = show.limits,
                              ticks = ticks, ..., available_aes = available_aes)
-  guide$name <- 'edge_coloursteps'
+  guide$params$name <- 'edge_coloursteps'
   guide
 }
 #' @rdname guide_edge_coloursteps

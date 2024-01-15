@@ -10,6 +10,7 @@
 \docType{data}
 \name{StatFilter}
 \alias{StatFilter}
+\alias{StatReverse}
 \alias{FacetEdges}
 \alias{FacetGraph}
 \alias{FacetNodes}

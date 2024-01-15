@@ -13,6 +13,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
   } else {
     layout <- layout_to_table(layout, graph, circular = circular, ...)
   }
+  layout <- as_tibble(layout)
   layout$.ggraph.index <- seq_len(nrow(layout))
   if (is.null(attr(layout, 'graph'))) {
     attr(layout, 'graph') <- graph
@@ -21,7 +22,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
   class(layout) <- c(
     'layout_tbl_graph',
     'layout_ggraph',
-    'data.frame'
+    class(layout)
   )
   check_layout(layout)
 }
@@ -83,10 +84,13 @@ prepare_graph <- function(graph, layout, direction = 'out', ...) {
     'dendrogram',
     'treemap',
     'circlepack',
-    'partition'
+    'partition',
+    'cactustree',
+    'htree'
   )
-  if (is_hierarchy || (layout == 'auto' && with_graph(graph, graph_is_tree() || graph_is_forest()))) {
-    graph <- graph_to_tree(graph, mode = direction)
+  graph_is_treeish <- with_graph(graph, graph_is_tree() || graph_is_forest())
+  if (is_hierarchy || (layout == 'auto' && graph_is_treeish)) {
+    if (!graph_is_treeish) graph <- graph_to_tree(graph, mode = direction)
     graph <- permute(graph, match(seq_len(gorder(graph)), order(node_depth(graph, direction))))
   }
   as_tbl_graph(graph)

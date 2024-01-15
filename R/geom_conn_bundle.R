@@ -123,9 +123,9 @@ geom_conn_bundle <- function(mapping = NULL, data = get_con(),
     geom = GeomEdgePath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-        interpolate = FALSE, tension = tension, type = 'clamped', ...
+      list2(
+        arrow = arrow, lineend = lineend, n = n, interpolate = FALSE,
+        tension = tension, type = 'clamped', ...
       )
     )
   )
@@ -162,8 +162,8 @@ geom_conn_bundle2 <- function(mapping = NULL, data = get_con(),
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-        interpolate = TRUE, tension = tension, type = 'clamped', ...
+        arrow = arrow, lineend = lineend, n = n, interpolate = TRUE,
+        tension = tension, type = 'clamped', ...
       )
     )
   )
@@ -198,9 +198,9 @@ geom_conn_bundle0 <- function(mapping = NULL, data = get_con(),
     geom = GeomEdgeBspline, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE,
-        tension = tension, type = 'clamped', ...
+      list2(
+        arrow = arrow, lineend = lineend, tension = tension, type = 'clamped',
+        ...
       )
     )
   )
