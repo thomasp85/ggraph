@@ -102,7 +102,8 @@ though and the latest set of features can be obtained by installing from
 this repository using `devtools`
 
 ``` r
-devtools::install_github('thomasp85/ggraph')
+# install.packages("pak")
+pak::pak('thomasp85/ggraph')
 ```
 
 ## Related work
