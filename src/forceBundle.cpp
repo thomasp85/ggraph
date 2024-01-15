@@ -10,7 +10,7 @@ double euclidean_distance(NumericVector P, NumericVector Q) {
 }
 
 double edge_length(NumericVector P, NumericVector Q, double eps) {
-  if ((std::abs(P[0] - Q[0]) < eps) & (std::abs(P[1] - Q[1]) < eps)) {
+  if ((std::abs(P[0] - Q[0]) < eps) && (std::abs(P[1] - Q[1]) < eps)) {
     return eps;
   } else {
     return euclidean_distance(P, Q);
@@ -242,7 +242,7 @@ NumericVector apply_electrostatic_force(List elist, List elist_comp, int e_idx,
   for (int oe = 0; oe < ecomps.length(); ++oe) {
     NumericMatrix oemat = elist[ecomps[oe]];
     NumericVector force = {oemat(i, 0) - emat(i, 0), oemat(i, 1) - emat(i, 1)};
-    if ((std::abs(force[0]) > eps) | (std::abs(force[1]) > eps)) {
+    if ((std::abs(force[0]) > eps) || (std::abs(force[1]) > eps)) {
       double euc = euclidean_distance(oemat(i, _), emat(i, _));
       double diff = std::pow(euc, -1.0);
 

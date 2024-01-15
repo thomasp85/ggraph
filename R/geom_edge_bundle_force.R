@@ -1,29 +1,57 @@
 #' Bundle edges using force directed edge bundling
 #'
 #' This geom performs force directed edge bundling to reduce visual clutter.
-#' It uses a self-organizing approach to bundling in which edges are modeled as flexible springs
-#' that can attract each other without the need of a hierarchy.
+#' It uses a self-organizing approach to bundling in which edges are modeled as
+#' flexible springs that can attract each other without the need of a hierarchy.
+#' Be aware that this bundling technique works globally and thus may bundle
+#' edges that is otherwise unrelated together. Care should be taken when
+#' interpreting the resulting visual.
 #'
-#' @section Edge aesthetic name expansion:
-#' In order to avoid excessive typing edge aesthetic names are
-#' automatically expanded. Because of this it is not necessary to write
-#' `edge_colour` within the `aes()` call as `colour` will
-#' automatically be renamed appropriately.
+#' @inheritSection geom_edge_link Edge variants
+#' @inheritSection geom_edge_link Edge aesthetic name expansion
 #'
 #' @section Aesthetics:
-#' `geom_edge_bundle_force` understand the following
+#' `geom_edge_arc` and `geom_edge_arc0` understand the following
 #' aesthetics. Bold aesthetics are automatically set, but can be overridden.
 #'
 #' - **x**
 #' - **y**
 #' - **xend**
 #' - **yend**
+#' - **circular**
 #' - edge_colour
 #' - edge_width
 #' - edge_linetype
 #' - edge_alpha
 #' - filter
 #'
+#' `geom_edge_arc2` understand the following aesthetics. Bold aesthetics are
+#' automatically set, but can be overridden.
+#'
+#' - **x**
+#' - **y**
+#' - **group**
+#' - **circular**
+#' - edge_colour
+#' - edge_width
+#' - edge_linetype
+#' - edge_alpha
+#' - filter
+#'
+#' `geom_edge_arc` and `geom_edge_arc2` furthermore takes the following
+#' aesthetics.
+#'
+#' - start_cap
+#' - end_cap
+#' - label
+#' - label_pos
+#' - label_size
+#' - angle
+#' - hjust
+#' - vjust
+#' - family
+#' - fontface
+#' - lineheight
 #'
 #'
 #' @section Computed variables:
@@ -35,49 +63,57 @@
 #' @inheritParams geom_edge_link
 #' @inheritParams ggplot2::geom_path
 #'
-#' @param K spring force
-#' @param C number of iteration cycles
-#' @param P initial number of edge divisions
-#' @param S initial step size
-#' @param P_rate factor for how many new division points to add after a cycle
-#' @param I number of iteration steps per cycle
-#' @param I_rate factor of how to decrease the number of iterations per cycle
-#' @param compatibility_threshold threshold for considering two edges to be interacting
+#' @param force The spring force during bundling
+#' @param n_cycle number of iteration cycles
+#' @param cuts_start initial number of edge divisions
+#' @param step initial step size
+#' @param cuts_new factor for how many new division points to add after a cycle
+#' @param n_iter number of iteration steps per cycle
+#' @param iter_new factor of how to decrease the number of iterations per cycle
+#' @param threshold threshold for considering two edges to be interacting
 #' @param eps tolerance
 #'
+#' @author David Schoch
 #'
 #' @family geom_edge_*
 #'
 #' @references
-#' Holten, Danny, and Jarke J. Van Wijk. "Force‐Directed Edge Bundling for Graph Visualization."
-#' Computer Graphics Forum (Blackwell Publishing Ltd) 28, no. 3 (2009): 983-990.
+#' Holten, D. and Wijk, J.J.V. (2009). *Force‐Directed Edge Bundling for Graph
+#' Visualization.* Computer Graphics Forum (Blackwell Publishing Ltd) 28, no. 3:
+#' 983-990. https://doi.org/10.1111/j.1467-8659.2009.01450.x
 #'
 #' @rdname geom_edge_bundle_force
 #' @name geom_edge_bundle_force
+#'
+#' @examples
+#' # (not necessarily an insightful use)
+#' ggraph(highschool) +
+#'   geom_edge_bundle_force(n_cycle = 2, threshold = 0.4)
 #'
 NULL
 
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
+#' @importFrom ggforce StatBspline
 #' @export
-StatEdgeBundleForce <- ggproto("StatEdgeBundleForce", StatIdentity,
+StatEdgeBundleForce <- ggproto("StatEdgeBundleForce", Stat,
   setup_data = function(data, params) {
-    if (any(names(data) == "filter")) {
-      if (!is.logical(data$filter)) {
-        stop("filter must be logical")
-      }
-      data <- data[data$filter, names(data) != "filter"]
-    }
-    data <- remove_loop(data)
-    if (!rlang::is_installed("memoise")) {
-      stop("the package 'memoise' is needed for geom_edge_bundle_force(). Please install it ")
-    }
-    force_bundle_mem(data, params)
+    StatEdgeBundleForce0$setup_data(data, params)
+  },
+  compute_panel = function(data, scales, n = 100, force = 1, n_cycle = 6,
+                           cuts_start = 1, step = 0.04, cuts_new = 2, n_iter = 50,
+                           iter_new = 2/3, threshold = 0.6, eps = 1e-8) {
+    edges <- StatEdgeBundleForce0$compute_panel(
+      data, scales, force = force, n_cycle = n_cycle, cuts_start = cuts_start,
+      step = step, cuts_new = cuts_new, n_iter = n_iter, iter_new = iter_new,
+      threshold = threshold, eps = eps
+    )
+    StatBspline$compute_layer(edges, list(n = n), NULL)
   },
   required_aes = c("x", "y", "xend", "yend"),
   default_aes = aes(filter = TRUE),
-  extra_params = c("K", "C", "P", "S", "P_rate", "I", "I_rate", "compatibility_threshold", "eps")
+  extra_params = c("na.rm")
 )
 
 #' @rdname geom_edge_bundle_force
@@ -85,71 +121,186 @@ StatEdgeBundleForce <- ggproto("StatEdgeBundleForce", StatIdentity,
 #' @export
 geom_edge_bundle_force <- function(mapping = NULL, data = get_edges(),
                                    position = "identity", arrow = NULL,
-                                   lineend = "butt", show.legend = NA,
-                                   K = 1, C = 6, P = 1, S = 0.04, P_rate = 2,
-                                   I = 50, I_rate = 2 / 3, compatibility_threshold = 0.6,
-                                   eps = 1e-8, ...) {
+                                   n = 100, force = 1, n_cycle = 6, cuts_start = 1,
+                                   step = 0.04, cuts_new = 2, n_iter = 50,
+                                   iter_new = 2/3, threshold = 0.6, eps = 1e-8,
+                                   lineend = 'butt', linejoin = 'round', linemitre = 1,
+                                   label_colour = 'black', label_alpha = 1,
+                                   label_parse = FALSE, check_overlap = FALSE,
+                                   angle_calc = 'rot', force_flip = TRUE,
+                                   label_dodge = NULL, label_push = NULL,
+                                   show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(
-    x = x, y = y,
-    xend = xend, yend = yend
+    x = x, y = y, xend = xend, yend = yend, group = edge.id
   ))
   layer(
     data = data, mapping = mapping, stat = StatEdgeBundleForce,
     geom = GeomEdgePath, position = position,
     show.legend = show.legend, inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE,
-        K = K, C = C, P = P, S = S, P_rate = P_rate, I = I, I_rate = I_rate,
-        compatibility_threshold = compatibility_threshold, eps = eps,
-        interpolate = FALSE, ...
+      list2(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, n = n, interpolate = FALSE, force = force,
+        n_cycle = n_cycle, cuts_start = cuts_start, step = step,
+        cuts_new = cuts_new, n_iter = n_iter, iter_new = iter_new,
+        threshold = threshold, eps = eps, label_colour = label_colour,
+        label_alpha = label_alpha, label_parse = label_parse,
+        check_overlap = check_overlap, angle_calc = angle_calc,
+        force_flip = force_flip, label_dodge = label_dodge,
+        label_push = label_push, ...
+      )
+    )
+  )
+}
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @importFrom ggforce StatBspline
+#' @export
+StatEdgeBundleForce2 <- ggproto("StatEdgeBundleForce2", Stat,
+  setup_data = function(data, params) {
+    data <- StatFilter$setup_data(data, params)
+    remove_loop2(data)
+  },
+  compute_panel = function(data, scales, n = 100, force = 1, n_cycle = 6,
+                           cuts_start = 1, step = 0.04, cuts_new = 2, n_iter = 50,
+                           iter_new = 2/3, threshold = 0.6, eps = 1e-8) {
+    data <- data[order(data$group), ]
+    edges <- cbind(data$x[c(TRUE, FALSE)], data$y[c(TRUE, FALSE)], data$x[c(FALSE, TRUE)], data$y[c(FALSE, TRUE)])
+    edges <- force_bundle_mem(edges, K = force, C = n_cycle, P = cuts_start,
+                              S = step, P_rate = cuts_new, I = n_iter,
+                              I_rate = iter_new, compatibility_threshold = threshold,
+                              eps = eps)
+    edges$PANEL <- data$PANEL[1]
+    edges$group <- data$group[edges$group * 2]
+    edges <- StatBspline$compute_layer(edges, list(n = n), NULL)
+    extra_data <- data[1, !names(data) %in% c("x", "y", "group", "PANEL")][rep(NA, nrow(edges)), ]
+    edges$.interp <- TRUE
+    ends <- !duplicated(edges$group) | !duplicated(edges$group, fromLast = TRUE)
+    edges$.interp[ends] <- FALSE
+    extra_data[ends, ] <- data[, names(extra_data)]
+    cbind(edges, extra_data)
+  },
+  required_aes = c("x", "y"),
+  default_aes = aes(filter = TRUE),
+  extra_params = c("na.rm")
+)
+
+#' @rdname geom_edge_bundle_force
+#'
+#' @export
+geom_edge_bundle_force2 <- function(mapping = NULL, data = get_edges("long"),
+                                    position = "identity", arrow = NULL,
+                                    n = 100, force = 1, n_cycle = 6, cuts_start = 1,
+                                    step = 0.04, cuts_new = 2, n_iter = 50,
+                                    iter_new = 2/3, threshold = 0.6, eps = 1e-8,
+                                    lineend = 'butt', linejoin = 'round', linemitre = 1,
+                                    label_colour = 'black', label_alpha = 1,
+                                    label_parse = FALSE, check_overlap = FALSE,
+                                    angle_calc = 'rot', force_flip = TRUE,
+                                    label_dodge = NULL, label_push = NULL,
+                                    show.legend = NA, ...) {
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes(
+    x = x, y = y, group = edge.id
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeBundleForce2,
+    geom = GeomEdgePath, position = position,
+    show.legend = show.legend, inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list2(
+        arrow = arrow, lineend = lineend, linejoin = linejoin,
+        linemitre = linemitre, n = n, interpolate = TRUE, force = force,
+        n_cycle = n_cycle, cuts_start = cuts_start, step = step,
+        cuts_new = cuts_new, n_iter = n_iter, iter_new = iter_new,
+        threshold = threshold, eps = eps, label_colour = label_colour,
+        label_alpha = label_alpha, label_parse = label_parse,
+        check_overlap = check_overlap, angle_calc = angle_calc,
+        force_flip = force_flip, label_dodge = label_dodge,
+        label_push = label_push, ...
+      )
+    )
+  )
+}
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @export
+StatEdgeBundleForce0 <- ggproto('StatEdgeBundleForce0', Stat,
+  setup_data = function(data, params) {
+    data <- StatFilter$setup_data(data, params)
+    remove_loop(data)
+  },
+  compute_panel = function(data, scales, force = 1, n_cycle = 6,
+                           cuts_start = 1, step = 0.04, cuts_new = 2, n_iter = 50,
+                           iter_new = 2/3, threshold = 0.6, eps = 1e-8) {
+    edges <- cbind(data$x, data$y, data$xend, data$yend)
+    edges <- force_bundle_mem(edges, K = force, C = n_cycle, P = cuts_start,
+                              S = step, P_rate = cuts_new, I = n_iter,
+                              I_rate = iter_new, compatibility_threshold = threshold,
+                              eps = eps)
+    edges$PANEL <- data$PANEL[1]
+    edges$group <- data$group[edges$group]
+    cbind(edges, data[edges$group, !names(data) %in% c("x", "y", "xend", "yend", "PANEL", "group")])
+  },
+  required_aes = c('x', 'y', 'xend', 'yend'),
+  default_aes = aes(filter = TRUE),
+  extra_params = c('na.rm')
+)
+#' @rdname geom_edge_bundle_force
+#'
+#' @export
+geom_edge_bundle_force0 <- function(mapping = NULL, data = get_edges("long"),
+                                    position = "identity", arrow = NULL,
+                                    force = 1, n_cycle = 6, cuts_start = 1,
+                                    step = 0.04, cuts_new = 2, n_iter = 50,
+                                    iter_new = 2/3, threshold = 0.6, eps = 1e-8,
+                                    lineend = 'butt', show.legend = NA, ...) {
+  mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes(
+    x = x, y = y, xend = xend, yend = yend, group = edge.id
+  ))
+  layer(
+    data = data, mapping = mapping, stat = StatEdgeBundleForce0,
+    geom = GeomEdgeBspline, position = position,
+    show.legend = show.legend, inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list2(
+        arrow = arrow, lineend = lineend, force = force,
+        n_cycle = n_cycle, cuts_start = cuts_start, step = step,
+        cuts_new = cuts_new, n_iter = n_iter, iter_new = iter_new,
+        threshold = threshold, eps = eps, ...
       )
     )
   )
 }
 
-force_bundle <- function(data, params) {
-  # parameter handling
-  K <- params$K
-  C <- params$C
-  P <- params$P
-  S <- params$S
-  P_rate <- params$P_rate
-  I <- params$I
-  I_rate <- params$I_rate
-  compatibility_threshold <- params$compatibility_threshold
-  eps <- params$eps
+force_bundle <- function(data, K, C, P, S, P_rate, I, I_rate, compatibility_threshold, eps) {
 
   # initialize matrix with coordinates
-  extraCols <- !names(data) %in% c("x", "y", "xend", "yend", "group", "PANEL")
-  edges_xy <- cbind(data$x, data$y, data$xend, data$yend)
-  m <- nrow(edges_xy)
-
-  # initialize edge subdivision list
-  elist <- unname(lapply(
-    split(edges_xy, rep(seq_len(nrow(edges_xy)), ncol(edges_xy))),
-    function(y) matrix(y, 2, 2, byrow = TRUE)
-  ))
+  m <- nrow(data)
+  elist <- lapply(seq_len(m), function(i) {
+    matrix(as.vector(data[i, ]), ncol = 2, byrow = TRUE)
+  })
 
   # main force bundling routine
   elist <- force_bundle_iter(
-    edges_xy, elist, K, C, P, P_rate,
+    data, elist, K, C, P, P_rate,
     S, I, I_rate, compatibility_threshold, eps
   )
 
   # assemble data frame
   segments <- nrow(elist[[1]])
+  elist <- inject(rbind(!!!elist))
 
-  idx <- seq(0, 1, length.out = segments)
-  data_bundle <- as.data.frame(cbind(
-    rep(1, m * segments),
-    do.call("rbind", elist),
-    rep(idx, m),
-    rep(1:m, each = segments)
-  ))
-  names(data_bundle) <- c("PANEL", "x", "y", "index", "group")
-  cbind(data_bundle, data[rep(1:m, each = segments), extraCols, drop = FALSE])
+  data_frame0(
+    x = elist[, 1],
+    y = elist[, 2],
+    group = rep(seq_len(m), each = segments)
+  )
 }
 
-force_bundle_mem <- memoise::memoise(force_bundle)
+#force_bundle_mem <- memoise::memoise(force_bundle)
+force_bundle_mem <- force_bundle

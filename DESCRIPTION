@@ -38,7 +38,8 @@ Imports:
     withr,
     cli,
     vctrs,
-    lifecycle
+    lifecycle,
+    memoise
 Suggests: 
     network,
     knitr,
@@ -48,8 +49,7 @@ Suggests:
     seriation,
     deldir,
     gganimate,
-    covr,
-    memoise
+    covr
 LinkingTo: Rcpp
 RoxygenNote: 7.2.3
 Depends:

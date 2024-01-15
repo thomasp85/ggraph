@@ -93,6 +93,7 @@ ggraph(gr, 'stress') +
 Other geom_edge_*: 
 \code{\link{geom_edge_arc}()},
 \code{\link{geom_edge_bend}()},
+\code{\link{geom_edge_bundle_force}()},
 \code{\link{geom_edge_diagonal}()},
 \code{\link{geom_edge_elbow}()},
 \code{\link{geom_edge_fan}()},
