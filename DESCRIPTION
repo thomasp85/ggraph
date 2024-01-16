@@ -36,7 +36,8 @@ Imports:
     withr,
     cli,
     vctrs,
-    lifecycle
+    lifecycle,
+    memoise
 Suggests: 
     network,
     knitr,

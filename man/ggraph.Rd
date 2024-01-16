@@ -130,6 +130,8 @@ details}
 \item{\code{unrooted}}{Draws unrooted trees based on equal angle with optional
 equal daylight modification. See \code{\link[=layout_tbl_graph_unrooted]{layout_tbl_graph_unrooted()}} for further
 details}
+\item{\code{htree}}{Draws binary trees as a space filling fractal. See
+\code{\link[=layout_tbl_graph_htree]{layout_tbl_graph_htree()}} for further details}
 }
 
 Alternatively a matrix or a data.frame can be provided to the \code{layout}

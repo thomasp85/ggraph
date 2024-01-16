@@ -277,6 +277,9 @@ ggraph(gr, 'linear', circular = TRUE) +
 \seealso{
 Other geom_edge_*: 
 \code{\link{geom_edge_bend}()},
+\code{\link{geom_edge_bundle_force}()},
+\code{\link{geom_edge_bundle_minimal}()},
+\code{\link{geom_edge_bundle_path}()},
 \code{\link{geom_edge_density}()},
 \code{\link{geom_edge_diagonal}()},
 \code{\link{geom_edge_elbow}()},

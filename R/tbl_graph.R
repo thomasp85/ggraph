@@ -1,7 +1,7 @@
 #' @rdname ggraph
 #' @aliases layout_tbl_graph
 #'
-#' @importFrom igraph gorder
+#' @importFrom igraph gorder V<-
 #' @export
 #'
 create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
@@ -15,9 +15,10 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
   }
   layout <- as_tibble(layout)
   layout$.ggraph.index <- seq_len(nrow(layout))
-  if (is.null(attr(layout, 'graph'))) {
-    attr(layout, 'graph') <- graph
-  }
+  graph <- attr(layout, 'graph') %||% graph
+  V(graph)$.ggraph_layout_x <- layout$x
+  V(graph)$.ggraph_layout_y <- layout$y
+  attr(layout, 'graph') <- graph
   attr(layout, 'circular') <- circular
   class(layout) <- c(
     'layout_tbl_graph',

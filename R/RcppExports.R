@@ -52,6 +52,10 @@ dendrogram_spread <- function(graph, starts, y, leaf, repel, pad, ratio) {
     .Call('_ggraph_dendrogram_spread', PACKAGE = 'ggraph', graph, starts, y, leaf, repel, pad, ratio)
 }
 
+force_bundle_iter <- function(edges_xy, elist, K, C, P, P_rate, S, I, I_rate, compatibility_threshold, eps) {
+    .Call('_ggraph_force_bundle_iter', PACKAGE = 'ggraph', edges_xy, elist, K, C, P, P_rate, S, I, I_rate, compatibility_threshold, eps)
+}
+
 hTree <- function(parent, order) {
     .Call('_ggraph_hTree', PACKAGE = 'ggraph', parent, order)
 }

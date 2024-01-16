@@ -110,6 +110,9 @@ reference:
       - geom_edge_point
       - geom_edge_tile
       - geom_edge_density
+      - geom_edge_bundle_force
+      - geom_edge_bundle_path
+      - geom_edge_bundle_minimal
   - title: "Connections"
     desc: >
       Connections are meta-edges, connecting nodes that are not direct
