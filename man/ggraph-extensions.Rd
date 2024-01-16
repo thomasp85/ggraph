@@ -2,11 +2,11 @@
 % Please edit documentation in R/aaa.R, R/facet_edges.R, R/facet_graph.R,
 %   R/facet_nodes.R, R/geom_axis_hive.R, R/geom_conn_bundle.R, R/geom_edge.R,
 %   R/geom_edge_arc.R, R/geom_edge_bend.R, R/geom_edge_bundle_force.R,
-%   R/geom_edge_density.R, R/geom_edge_diagonal.R, R/geom_edge_elbow.R,
-%   R/geom_edge_fan.R, R/geom_edge_hive.R, R/geom_edge_link.R,
-%   R/geom_edge_loop.R, R/geom_edge_parallel.R, R/geom_node_arc_bar.R,
-%   R/geom_node_circle.R, R/geom_node_tile.R, R/geom_node_voronoi.R,
-%   R/ggproto-classes.R
+%   R/geom_edge_bundle_path.R, R/geom_edge_density.R, R/geom_edge_diagonal.R,
+%   R/geom_edge_elbow.R, R/geom_edge_fan.R, R/geom_edge_hive.R,
+%   R/geom_edge_link.R, R/geom_edge_loop.R, R/geom_edge_parallel.R,
+%   R/geom_node_arc_bar.R, R/geom_node_circle.R, R/geom_node_tile.R,
+%   R/geom_node_voronoi.R, R/ggproto-classes.R
 \docType{data}
 \name{StatFilter}
 \alias{StatFilter}
@@ -38,6 +38,9 @@
 \alias{StatEdgeBundleForce}
 \alias{StatEdgeBundleForce2}
 \alias{StatEdgeBundleForce0}
+\alias{StatEdgeBundlePath}
+\alias{StatEdgeBundlePath2}
+\alias{StatEdgeBundlePath0}
 \alias{StatEdgeDensity}
 \alias{GeomEdgeDensity}
 \alias{StatEdgeDiagonal}

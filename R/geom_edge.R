@@ -525,7 +525,7 @@ GeomEdgeBspline <- ggproto('GeomEdgeBspline', GeomBspline0,
                           na.rm = FALSE) {
     names(data) <- sub('edge_', '', names(data))
     names(data)[names(data) == 'width'] <- 'linewidth'
-    GeomBspline0$draw_panel(data, panel_scales, coord, arrow, lineend, linejoin, linemitre, na.rm)
+    GeomBspline0$draw_panel(data, panel_scales, coord, arrow, type = "clamped", lineend, linejoin, linemitre, na.rm)
   },
   draw_key = function(data, params, size) {
     segmentsGrob(0.1, 0.5, 0.9, 0.5,

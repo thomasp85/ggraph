@@ -5,40 +5,39 @@
 #' flexible springs that can attract each other without the need of a hierarchy.
 #' Be aware that this bundling technique works globally and thus may bundle
 #' edges that is otherwise unrelated together. Care should be taken when
-#' interpreting the resulting visual.
+#' interpreting the resulting visual. An alternative approach to edge bundling
+#' that uses the graph topology is provided by [geom_edge_bundle_path()].
 #'
 #' @inheritSection geom_edge_link Edge variants
 #' @inheritSection geom_edge_link Edge aesthetic name expansion
 #'
 #' @section Aesthetics:
-#' `geom_edge_arc` and `geom_edge_arc0` understand the following
+#' `geom_edge_bundle_force` and `geom_edge_bundle_force0` understand the following
 #' aesthetics. Bold aesthetics are automatically set, but can be overridden.
 #'
 #' - **x**
 #' - **y**
 #' - **xend**
 #' - **yend**
-#' - **circular**
 #' - edge_colour
 #' - edge_width
 #' - edge_linetype
 #' - edge_alpha
 #' - filter
 #'
-#' `geom_edge_arc2` understand the following aesthetics. Bold aesthetics are
+#' `geom_edge_bundle_force2` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overridden.
 #'
 #' - **x**
 #' - **y**
 #' - **group**
-#' - **circular**
 #' - edge_colour
 #' - edge_width
 #' - edge_linetype
 #' - edge_alpha
 #' - filter
 #'
-#' `geom_edge_arc` and `geom_edge_arc2` furthermore takes the following
+#' `geom_edge_bundle_force` and `geom_edge_bundle_force2` furthermore takes the following
 #' aesthetics.
 #'
 #' - start_cap
@@ -252,7 +251,7 @@ StatEdgeBundleForce0 <- ggproto('StatEdgeBundleForce0', Stat,
 #' @rdname geom_edge_bundle_force
 #'
 #' @export
-geom_edge_bundle_force0 <- function(mapping = NULL, data = get_edges("long"),
+geom_edge_bundle_force0 <- function(mapping = NULL, data = get_edges(),
                                     position = "identity", arrow = NULL,
                                     force = 1, n_cycle = 6, cuts_start = 1,
                                     step = 0.04, cuts_new = 2, n_iter = 50,
@@ -302,5 +301,4 @@ force_bundle <- function(data, K, C, P, S, P_rate, I, I_rate, compatibility_thre
   )
 }
 
-#force_bundle_mem <- memoise::memoise(force_bundle)
-force_bundle_mem <- force_bundle
+force_bundle_mem <- memoise::memoise(force_bundle)
