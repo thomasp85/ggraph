@@ -61,6 +61,15 @@
     <loc>https://ggraph.data-imaginist.com/reference/geom_edge_bend.html</loc>
   </url>
   <url>
+    <loc>https://ggraph.data-imaginist.com/reference/geom_edge_bundle_force.html</loc>
+  </url>
+  <url>
+    <loc>https://ggraph.data-imaginist.com/reference/geom_edge_bundle_minimal.html</loc>
+  </url>
+  <url>
+    <loc>https://ggraph.data-imaginist.com/reference/geom_edge_bundle_path.html</loc>
+  </url>
+  <url>
     <loc>https://ggraph.data-imaginist.com/reference/geom_edge_density.html</loc>
   </url>
   <url>
