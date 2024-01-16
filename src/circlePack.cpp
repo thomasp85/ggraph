@@ -3,9 +3,22 @@
 
 using namespace Rcpp;
 
-inline int randWrapper(const int n) {
-  return std::floor(float(unif_rand()*n));
-}
+struct randWrapper {
+  using result_type = unsigned int;
+
+  static constexpr result_type min() {
+    return 0;
+  }
+
+  static constexpr result_type max() {
+    return RAND_MAX;
+  }
+
+  result_type operator()() {
+    return unif_rand()*RAND_MAX;
+  }
+};
+
 struct Circle {
   double x;
   double y;
@@ -291,7 +304,7 @@ public:
     } else if (fc.size() == 2) {
       enclosure = enclose2(fc[0], fc[1]);
     } else {
-      std::random_shuffle(fc.begin(), fc.end(), randWrapper);
+      std::shuffle(fc.begin(), fc.end(), randWrapper());
       std::deque<Circle*> Q;
       enclosure = encloseN(fc.begin(), fc.end(), Q);
     }
@@ -455,6 +468,7 @@ int findTopNode(std::vector<NodePack*>& nodes) {
 //'
 //[[Rcpp::export(name = "pack_circles")]]
 NumericMatrix pack(NumericVector areas) {
+  GetRNGstate();
   NumericVector::iterator itr;
   std::deque<Circle> circles;
   NumericMatrix res(areas.size(), 2);
@@ -476,12 +490,13 @@ NumericMatrix pack(NumericVector areas) {
     res.attr("enclosing_radius") = fc.enclose_radius();
     res.attr("front_chain") = wrap(fc.chain_ind());
   }
-
+  PutRNGstate();
   return res;
 }
 
 //[[Rcpp::export]]
 NumericMatrix circlePackLayout(IntegerVector parent, NumericVector weight) {
+  GetRNGstate();
   NumericMatrix res(parent.size(), 3);
   unsigned int i;
   std::vector<NodePack*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<double> >(weight));
@@ -497,6 +512,6 @@ NumericMatrix circlePackLayout(IntegerVector parent, NumericVector weight) {
     res(i, 2) = nodes[i]->r;
     delete nodes[i];
   }
-
+  PutRNGstate();
   return res;
 }
