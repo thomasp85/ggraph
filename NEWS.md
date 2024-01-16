@@ -27,6 +27,8 @@
 * Updated layout functions from the graphlayouts package to support grouped and
   constrained versions (centrality, focus, and stress layouts)
 * Added H Tree layout for binary trees (#58)
+* Added `geom_edge_bundle_force()` and `geom_edge_bundle_path()` (+ variants) to
+  provide support for edge bundling (#267)
 
 # ggraph 2.1.0
 
