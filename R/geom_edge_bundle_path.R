@@ -240,9 +240,10 @@ StatEdgeBundlePath0 <- ggproto('StatEdgeBundlePath0', Stat,
                            weight_fac = 2, tension = 1) {
     graph <- .G()
     nodes <- data_frame0(x = .N()$.ggraph_layout_x, y = .N()$.ggraph_layout_y)
-    edges <- path_bundle_mem(graph, nodes, .E()$from[data$edge_id], .E()$to[data$edge_id],
-                             directed = directed, max_distortion = max_distortion,
-                             weight_fac = weight_fac)
+    from <- .E()$from[data$edge_id]
+    to <- .E()$to[data$edge_id]
+    edges <- path_bundle_mem(graph, nodes, from, to, directed = directed,
+                             max_distortion = max_distortion, weight_fac = weight_fac)
     if (tension < 1) edges <- relax(edges, tension)
     edges$PANEL <- data$PANEL[1]
     edges$group <- data$group[edges$group]
@@ -292,6 +293,7 @@ path_bundle <- function(graph, nodes, from, to, directed = directed, max_distort
   } else if (!is.null(directed)) {
     cli::cli_warn("Ignoring {.arg directed} for undirected graphs")
   }
+  mode <- if (is.null(directed) || !directed) "all" else "out"
   # iterate
   for (e in edges_order) {
     s <- from[e]
