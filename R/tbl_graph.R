@@ -1,7 +1,7 @@
 #' @rdname ggraph
 #' @aliases layout_tbl_graph
 #'
-#' @importFrom igraph gorder
+#' @importFrom igraph gorder V<-
 #' @export
 #'
 create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
