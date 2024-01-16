@@ -58,7 +58,7 @@ it will only produce true circles when combined with
 \section{Aesthetics}{
 
 \code{geom_node_circle} understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item \strong{x0}
 \item \strong{y0}

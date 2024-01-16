@@ -55,7 +55,7 @@ and allows for simple plotting of nodes in different shapes, colours and sizes.
 \section{Aesthetics}{
 
 \code{geom_node_point} understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}

@@ -13,7 +13,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_diagonal` and `geom_edge_diagonal0` understand the following
-#' aesthetics. Bold aesthetics are automatically set, but can be overridden.
+#' aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -27,7 +27,7 @@
 #' - filter
 #'
 #' `geom_edge_diagonal2` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**

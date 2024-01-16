@@ -51,7 +51,7 @@ conjunction with \code{\link[=layout_tbl_graph_matrix]{layout_tbl_graph_matrix()
 \section{Aesthetics}{
 
 \code{geom_edge_point} understands the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
+aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}

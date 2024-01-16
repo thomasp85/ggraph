@@ -10,7 +10,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_density` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' **x**
 #' **y**

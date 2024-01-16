@@ -5,7 +5,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_node_text` understands the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden. Italic aesthetics are required but
+#' automatically set, but can be overwritten. Italic aesthetics are required but
 #' not set by default
 #'
 #' - **x**

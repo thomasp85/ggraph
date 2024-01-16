@@ -180,7 +180,7 @@ that uses the graph topology is provided by \code{\link[=geom_edge_bundle_path]{
 \section{Aesthetics}{
 
 \code{geom_edge_bundle_force} and \code{geom_edge_bundle_force0} understand the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
+aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}
@@ -194,7 +194,7 @@ aesthetics. Bold aesthetics are automatically set, but can be overridden.
 }
 
 \code{geom_edge_bundle_force2} understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}

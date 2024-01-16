@@ -13,7 +13,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_bundle_force` and `geom_edge_bundle_force0` understand the following
-#' aesthetics. Bold aesthetics are automatically set, but can be overridden.
+#' aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -26,7 +26,7 @@
 #' - filter
 #'
 #' `geom_edge_bundle_force2` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**

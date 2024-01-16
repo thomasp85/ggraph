@@ -11,7 +11,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_force_minimal` and `geom_edge_force_minimal0` understand the following
-#' aesthetics. Bold aesthetics are automatically set, but can be overridden.
+#' aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -25,7 +25,7 @@
 #' - filter
 #'
 #' `geom_edge_force_minimal2` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**

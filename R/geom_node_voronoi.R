@@ -8,7 +8,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_node_voronoi` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**

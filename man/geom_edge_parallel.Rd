@@ -135,7 +135,7 @@ direction and then shifted a fixed amount so that all edges are visible.
 \section{Aesthetics}{
 
 \code{geom_edge_parallel} and \code{geom_edge_parallel0} understand the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
+aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}
@@ -151,7 +151,7 @@ aesthetics. Bold aesthetics are automatically set, but can be overridden.
 }
 
 \code{geom_edge_parallel2} understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}

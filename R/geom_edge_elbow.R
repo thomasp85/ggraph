@@ -13,7 +13,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_elbow` and `geom_edge_elbow0` understand the following
-#' aesthetics. Bold aesthetics are automatically set, but can be overridden.
+#' aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -28,7 +28,7 @@
 #' - filter
 #'
 #' `geom_edge_elbow2` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**

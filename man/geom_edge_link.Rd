@@ -175,7 +175,7 @@ automatically be renamed appropriately.
 \section{Aesthetics}{
 
 \code{geom_edge_link} and \code{geom_edge_link0} understand the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
+aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}
@@ -189,7 +189,7 @@ aesthetics. Bold aesthetics are automatically set, but can be overridden.
 }
 
 \code{geom_edge_link2} understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}

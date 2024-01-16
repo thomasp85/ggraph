@@ -147,7 +147,7 @@ not be overplotted.
 \section{Aesthetics}{
 
 \code{geom_edge_fan} and \code{geom_edge_fan0} understand the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
+aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}
@@ -163,7 +163,7 @@ aesthetics. Bold aesthetics are automatically set, but can be overridden.
 }
 
 \code{geom_edge_fan2} understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}

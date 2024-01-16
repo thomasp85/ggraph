@@ -58,7 +58,7 @@ treemap drawing
 \section{Aesthetics}{
 
 \code{geom_treemap} understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}

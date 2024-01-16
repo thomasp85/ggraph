@@ -147,7 +147,7 @@ hierarchical layouts as it implies an overall directionality in the plot.
 \section{Aesthetics}{
 
 \code{geom_edge_diagonal} and \code{geom_edge_diagonal0} understand the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
+aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}
@@ -162,7 +162,7 @@ aesthetics. Bold aesthetics are automatically set, but can be overridden.
 }
 
 \code{geom_edge_diagonal2} understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}

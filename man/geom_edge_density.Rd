@@ -52,7 +52,7 @@ level, making it possible to map a variable to the fill.
 \section{Aesthetics}{
 
 \code{geom_edge_density} understand the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 
 \strong{x}
 \strong{y}

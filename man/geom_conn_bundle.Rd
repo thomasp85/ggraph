@@ -94,7 +94,7 @@ automatically be renamed appropriately.
 \section{Aesthetics}{
 
 geom_conn_bundle* understands the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item{\strong{x}}
 \item{\strong{y}}
