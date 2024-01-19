@@ -50,7 +50,7 @@ reference:
       initialise plots, allowing you to set global settings such as layouts etc.
     contents:
       - ggraph
-      - qgraph
+      - autograph
   - title: "Layouts"
     desc: >
       Layouts specify the spatial positioning of the nodes in the graph. In
@@ -74,6 +74,8 @@ reference:
       - layout_tbl_graph_circlepack
       - layout_tbl_graph_treemap
       - layout_tbl_graph_partition
+      - layout_tbl_graph_cactustree
+      - layout_tbl_graph_htree
       - layout_tbl_graph_matrix
       - layout_tbl_graph_hive
       - layout_tbl_graph_fabric
@@ -108,6 +110,9 @@ reference:
       - geom_edge_point
       - geom_edge_tile
       - geom_edge_density
+      - geom_edge_bundle_force
+      - geom_edge_bundle_path
+      - geom_edge_bundle_minimal
   - title: "Connections"
     desc: >
       Connections are meta-edges, connecting nodes that are not direct
@@ -141,6 +146,7 @@ reference:
     contents:
       - guide_edge_direction
       - guide_edge_colourbar
+      - guide_edge_coloursteps
   - title: "Helpers"
     desc: >
       ggraph contains an assortment of helpers for various tasks related to

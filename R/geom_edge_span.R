@@ -13,7 +13,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_span` and `geom_edge_span0` understand the following
-#' aesthetics. Bold aesthetics are automatically set, but can be overridden.
+#' aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -26,7 +26,7 @@
 #' - filter
 #'
 #' `geom_edge_span2` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -113,9 +113,9 @@ geom_edge_span <- function(mapping = NULL, data = get_edges('short'),
     geom = GeomEdgeSpanPath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
+      list2(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, na.rm = FALSE, n = n,
+        linemitre = linemitre, n = n,
         interpolate = FALSE, end_shape = end_shape,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
@@ -145,9 +145,9 @@ geom_edge_span2 <- function(mapping = NULL, data = get_edges('long'),
     geom = GeomEdgeSpanPath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
+      list2(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, na.rm = FALSE, n = n,
+        linemitre = linemitre, n = n,
         interpolate = TRUE, end_shape = end_shape,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
@@ -172,7 +172,7 @@ geom_edge_span0 <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgeSpanSegment, position = position,
     show.legend = show.legend, inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(end_shape = end_shape, arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+      list2(end_shape = end_shape, arrow = arrow, lineend = lineend, ...)
     )
   )
 }

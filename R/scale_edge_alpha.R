@@ -22,7 +22,9 @@ NULL
 #' @importFrom scales rescale_pal
 #' @export
 scale_edge_alpha <- function(..., range = c(0.1, 1)) {
-  continuous_scale('edge_alpha', 'alpha_c', rescale_pal(range), ...)
+  sc <- scale_alpha(..., range = range)
+  sc$aesthetics <- 'edge_alpha'
+  sc
 }
 
 #' @rdname scale_edge_alpha
@@ -37,18 +39,32 @@ scale_edge_alpha_continuous <- scale_edge_alpha
 #'
 #' @export
 scale_edge_alpha_discrete <- function(..., range = c(0.1, 1)) {
-  discrete_scale(
-    'edge_alpha', 'alpha_d',
-    function(n) seq(range[1], range[2], length.out = n), ...
-  )
+  sc <- scale_alpha_discrete(..., range = range)
+  sc$aesthetics <- 'edge_alpha'
+  sc
 }
+
+#' @rdname scale_edge_alpha
+#'
+#'
+#' @inheritParams ggplot2::scale_alpha_binned
+#'
+#' @export
+scale_edge_alpha_binned <- function(..., range = c(0.1, 1)) {
+  sc <- scale_alpha_binned(..., range = range)
+  sc$aesthetics <- 'edge_alpha'
+  sc
+}
+
 #' @rdname scale_edge_alpha
 #'
 #' @inheritParams ggplot2::scale_alpha_manual
 #'
 #' @export
-scale_edge_alpha_manual <- function(..., values) {
-  manual_scale('edge_alpha', values, ...)
+scale_edge_alpha_manual <- function(..., values, breaks = waiver(), na.value = NA) {
+  sc <- scale_alpha_manual(..., values = values, breaks = breaks, na.value = na.value)
+  sc$aesthetics <- 'edge_alpha'
+  sc
 }
 
 #' @rdname scale_edge_alpha
@@ -58,8 +74,7 @@ scale_edge_alpha_manual <- function(..., values) {
 #' @importFrom scales identity_pal
 #' @export
 scale_edge_alpha_identity <- function(..., guide = 'none') {
-  sc <- continuous_scale('edge_alpha', 'identity', identity_pal(), ...,
-    guide = guide, super = ScaleContinuousIdentity
-  )
+  sc <- scale_alpha_identity(..., guide = guide)
+  sc$aesthetics <- 'edge_alpha'
   sc
 }

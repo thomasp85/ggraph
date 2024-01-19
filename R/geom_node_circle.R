@@ -8,7 +8,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_node_circle` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x0**
 #' - **y0**
@@ -46,7 +46,7 @@ geom_node_circle <- function(mapping = NULL, data = NULL, position = 'identity',
   layer(
     data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
     position = position, show.legend = show.legend, inherit.aes = FALSE,
-    params = list(na.rm = FALSE, ...)
+    params = list2(...)
   )
 }
 
@@ -57,15 +57,7 @@ geom_node_circle <- function(mapping = NULL, data = NULL, position = 'identity',
 #' @export
 StatNodeCircle <- ggproto('StatNodeCircle', StatCircle,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
-    data$group <- make_unique(data$group)
-    data
+    StatFilter$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
 )

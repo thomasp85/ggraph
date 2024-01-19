@@ -4,6 +4,7 @@
 \alias{scale_edge_alpha}
 \alias{scale_edge_alpha_continuous}
 \alias{scale_edge_alpha_discrete}
+\alias{scale_edge_alpha_binned}
 \alias{scale_edge_alpha_manual}
 \alias{scale_edge_alpha_identity}
 \title{Edge alpha scales}
@@ -14,12 +15,14 @@ scale_edge_alpha_continuous(..., range = c(0.1, 1))
 
 scale_edge_alpha_discrete(..., range = c(0.1, 1))
 
-scale_edge_alpha_manual(..., values)
+scale_edge_alpha_binned(..., range = c(0.1, 1))
+
+scale_edge_alpha_manual(..., values, breaks = waiver(), na.value = NA)
 
 scale_edge_alpha_identity(..., guide = "none")
 }
 \arguments{
-\item{...}{Other arguments passed on to \code{\link[ggplot2:continuous_scale]{continuous_scale()}}, \link[ggplot2]{binned_scale},
+\item{...}{Other arguments passed on to \code{\link[ggplot2:continuous_scale]{continuous_scale()}}, \code{\link[ggplot2:binned_scale]{binned_scale()}},
 or \code{\link[ggplot2:discrete_scale]{discrete_scale()}} as appropriate, to control name, limits,
 breaks, labels and so forth.}
 
@@ -30,6 +33,17 @@ will be matched in order (usually alphabetical) with the limits of the
 scale, or with \code{breaks} if provided. If this is a named vector, then the
 values will be matched based on the names instead. Data values that don't
 match will be given \code{na.value}.}
+
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
+
+\item{na.value}{The aesthetic value to use for missing (\code{NA}) values}
 
 \item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
 }

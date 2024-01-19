@@ -5,7 +5,7 @@
 #' leafs out on the plane without putting any special emphasis on a particular
 #' node using an unrooted layout. The standard algorithm is the equal angle
 #' algorithm, but it can struggle with optimising the leaf distribution for
-#' large trees trees with very uneven branch length. The equal daylight
+#' large trees with very uneven branch length. The equal daylight
 #' algorithm modifies the output of the equal angle algorithm to better disperse
 #' the leaves, at the cost of higher computational cost and the possibility of
 #' edge crossings for very large unbalanced trees. For standard sized trees the
@@ -39,18 +39,16 @@
 #' @importFrom igraph as.undirected gorder
 layout_tbl_graph_unrooted <- function(graph, daylight = TRUE, length = NULL, tolerance = 0.05, rotation_mod = 1, maxiter = 100, circular = FALSE) {
   extra_data <- as_tibble(graph, active = 'nodes')
-  graph <- as.undirected(graph)
+  graph <- as_tbl_graph(as.undirected(graph))
   length <- enquo(length)
   length <- eval_tidy(length, .E())
   hierarchy <- tree_to_hierarchy(graph, 'out', seq_len(gorder(graph)), weight = NULL, length)
   layout <- unrooted(hierarchy$parent, hierarchy$order, hierarchy$height, daylight, tolerance, rotation_mod, maxiter)[-1, ]
-  layout <- new_data_frame(list(
+  nodes <- data_frame0(
     x = layout[, 1],
     y = layout[, 2],
     circular = FALSE,
     leaf = degree(graph) == 1
-  ))
-  warn_dropped_vars(layout, extra_data)
-  layout <- cbind(layout, extra_data[, !names(extra_data) %in% names(layout), drop = FALSE])
-  layout
+  )
+  combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

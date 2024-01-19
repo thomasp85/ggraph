@@ -1,12 +1,13 @@
 #' @aliases ggraph-package
+#' @keywords internal
 '_PACKAGE'
 
 # The following block is used by usethis to automatically manage
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
-#' @useDynLib ggraph
-#' @import ggplot2 tidygraph
+#' @import ggplot2 tidygraph rlang vctrs
+#' @importFrom lifecycle deprecated
 #' @importFrom Rcpp sourceCpp
-#' @importFrom rlang .data
+#' @useDynLib ggraph
 ## usethis namespace: end
 NULL

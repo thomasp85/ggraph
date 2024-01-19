@@ -19,7 +19,7 @@ facet_graph(
 )
 }
 \arguments{
-\item{facets}{This argument is soft-deprecated, please use \code{rows}
+\item{facets}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Please use \code{rows}
 and \code{cols} instead.}
 
 \item{row_type, col_type}{Either \code{'node'} or \code{'edge'}. Which data
@@ -55,8 +55,8 @@ one with \code{vars(cyl, am)}. Each output
 column gets displayed as one separate line in the strip
 label. This function should inherit from the "labeller" S3 class
 for compatibility with \code{\link[ggplot2:labeller]{labeller()}}. You can use different labeling
-functions for different kind of labels, for example use \code{\link[ggplot2:labellers]{label_parsed()}} for
-formatting facet labels. \code{\link[ggplot2:labellers]{label_value()}} is used by default,
+functions for different kind of labels, for example use \code{\link[ggplot2:label_parsed]{label_parsed()}} for
+formatting facet labels. \code{\link[ggplot2:label_value]{label_value()}} is used by default,
 check it for more details and pointers to other options.}
 
 \item{as.table}{If \code{TRUE}, the default, the facets are laid out like

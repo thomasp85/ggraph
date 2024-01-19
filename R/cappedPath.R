@@ -16,7 +16,7 @@ cappedPathGrob <- function(x, y, id = NULL, id.lengths = NULL, arrow = NULL,
       id <- rep(1, length(x))
     }
   }
-  n <- length(unique(id))
+  n <- length(unique0(id))
   start.cap <- validate_cap(start.cap, default.units, n)
   if (is.null(start.cap2)) {
     start.cap2 <- start.cap
@@ -30,7 +30,7 @@ cappedPathGrob <- function(x, y, id = NULL, id.lengths = NULL, arrow = NULL,
     end.cap2 <- validate_cap(end.cap2, default.units, n)
   }
   if (!all(c(start.captype, end.captype) %in% c('circle', 'rect'))) {
-    stop('captype must be either `circle` or `rect`', call. = FALSE)
+    cli::cli_abort('{.arg captype} must be either {.val circle} or {.val rect}', call. = FALSE)
   }
   start.captype <- rep(start.captype, length.out = n)
   end.captype <- rep(end.captype, length.out = n)
@@ -106,7 +106,7 @@ makeContent.cappedpathgrob <- function(x) {
     x_new <- truncated$x[keep]
     y_new <- truncated$y[keep]
     id <- x$id[keep]
-    all_id <- unique(id)
+    all_id <- unique0(id)
     gp <- lapply(x$gp, function(par) {
       if (length(par) == 1) {
         par

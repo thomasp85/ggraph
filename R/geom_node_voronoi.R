@@ -8,7 +8,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_node_voronoi` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -56,7 +56,7 @@ geom_node_voronoi <- function(mapping = NULL, data = NULL, position = 'identity'
   layer(
     data = data, mapping = mapping, stat = StatNodeVoronoi, geom = GeomShape,
     position = position, show.legend = show.legend, inherit.aes = FALSE,
-    params = list(na.rm = FALSE, bound = bound, eps = eps, max.radius = max.radius,
+    params = list2(bound = bound, eps = eps, max.radius = max.radius,
                   normalize = normalize, asp.ratio = asp.ratio, expand = expand,
                   radius = radius, ...)
   )
@@ -69,14 +69,7 @@ geom_node_voronoi <- function(mapping = NULL, data = NULL, position = 'identity'
 #' @export
 StatNodeVoronoi <- ggproto('StatNodeVoronoi', StatVoronoiTile,
   finish_layer = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
-    data
+    StatFilter$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
 )

@@ -19,16 +19,18 @@ get_con(
 \item{paths}{A list of integer vectors giving the index of nodes defining
 connections}
 
-\item{...}{Additional information to be added to the final data output}
+\item{...}{Additional information to be added to the final data output.
+Accepts expressions that will be evaluated on the node data in it's
+original order (irrespective of any reordering by the layout)}
 
 \item{weight}{An expression to be evaluated on the edge data to provide
 weights for the shortest path calculations}
 
 \item{mode}{Character constant, gives whether the shortest paths to or from
 the given vertices should be calculated for directed graphs. If \code{out}
-then the shortest paths \emph{from} the vertex, if \code{in} then \emph{to}
+then the shortest paths \emph{from} the vertex, if \verb{in} then \emph{to}
 it will be considered. If \code{all}, the default, then the corresponding
-undirected graph will be used, ie. not directed paths are searched. This
+undirected graph will be used, i.e. not directed paths are searched. This
 argument is ignored for undirected graphs.}
 }
 \value{

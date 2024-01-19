@@ -1,5 +1,56 @@
 # ggraph (development version)
 
+* Fix a precision bug in circle pack layout (#345)
+* `GeomEdgeTile` now uses `edge_width` instead of `edge_size` for the border
+* Fix a bug in `geom_edge_parallel()` when used with edge labels. Edges are now
+  correctly offset, though label may still overlap (#227)
+* Fix a bug with auto layout on undirected trees (#247)
+* Fix a bug in `get_con()` that would lead to wrong matching of additional data
+  (#249)
+* Allow `na.rm` in geoms (#301)
+* If `check_overlap = TRUE` in `geom_node_text()` the rendering order is 
+  reversed so that the top nodes are rendered, not the bottom ones
+* Updated guides to the new ggplot2 interface. For `guide_edge_direction()`,
+  this update adds the option to use labels instead of an arrow using the 
+  `labels` argument.
+* `create_layout()` now returns a modified tibble rather than a data.frame
+* The `...` in `get_nodes()`, `get_edges()`, and `get_con()` now accepts 
+  tidy evaluation. `get_nodes()` and `get_con()` will get evaluated on the node
+  data in the original order (layouts may reorder nodes), and `get_edges()` will
+  get evaluated on the edge data (#272)
+* The linear layout has gained a `weight` argument allowing you to set how much
+  space each node occupy. Further, the layout now calculates statistics so that
+  it can be used in conjunction with `geom_node_tile()` and `geom_node_arc_bar()`
+* New layout added. Cactustree is a hierarchical layout optimised for 
+  hierarchical edge bundling by placing nodes as budding circles on the 
+  periphery of their parent (#226)
+* Updated layout functions from the graphlayouts package to support grouped and
+  constrained versions (centrality, focus, and stress layouts)
+* Added H Tree layout for binary trees (#58)
+* Added `geom_edge_bundle_force()`, `geom_edge_bundle_path()`, and 
+  `geom_edge_bundle_minimal()` (+ variants) to provide support for edge bundling 
+  (#267)
+
+# ggraph 2.1.0
+
+* Update errors to use cli
+* Use vctrs internally
+* Add binned edge scales
+* Fix a bug where removing the full data with a filter would throw an error
+* Make sure all lyaout functions now correctly merge the layout with the node
+  data without getting duplicate column names
+* Fixed a bug in the start_cap implementation that would cause edges consisting
+  of only two points to disappear
+* Fixed a bug in `facet_graph()` when using `.` on either dimension (#313)
+* Move dendrogram layout calculations to compiled code to avoid R's recursion
+  stack limitations (#311)
+* Fixed a bug in the circle pack algorithm that could result in overlapping 
+  circles (#305)
+
+# ggraph 2.0.6
+
+* Fix vignette errors on CRAN
+
 # ggraph 2.0.5
 
 * Fix deprecation of std::random_shuffle in C++14 by specifyin C++11 as the

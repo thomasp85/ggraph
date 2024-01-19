@@ -54,7 +54,7 @@ will be used as the layer data. A \code{function} can be created
 from a \code{formula} (e.g. \code{~ head(.x, 10)}).}
 
 \item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function. Cannot be jointy specified with
+a call to a position adjustment function. Cannot be jointly specified with
 \code{nudge_x} or \code{nudge_y}.}
 
 \item{parse}{If \code{TRUE}, the labels will be parsed into expressions and
@@ -66,7 +66,8 @@ Useful for offsetting text from points, particularly on discrete scales.}
 \item{check_overlap}{If \code{TRUE}, text that overlaps previous text in the
 same layer will not be plotted. \code{check_overlap} happens at draw time and in
 the order of the data. Therefore data should be arranged by the label
-column before calling \code{geom_label()} or \code{geom_text()}.}
+column before calling \code{geom_text()}. Note that this argument is not
+supported by \code{geom_label()}.}
 
 \item{show.legend}{logical. Should this layer be included in the legends?
 \code{NA}, the default, includes if any aesthetics are mapped.
@@ -96,7 +97,7 @@ These geoms are equivalent in functionality to \code{\link[ggplot2:geom_text]{gg
 \section{Aesthetics}{
 
 \code{geom_node_text} understands the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden. Italic aesthetics are required but
+automatically set, but can be overwritten. Italic aesthetics are required but
 not set by default
 \itemize{
 \item \strong{x}

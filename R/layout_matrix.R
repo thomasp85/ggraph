@@ -37,10 +37,7 @@ layout_tbl_graph_matrix <- function(graph, circular = FALSE, sort.by = NULL) {
   } else {
     pos <- seq_len(gorder(graph))
   }
-  nodes <- new_data_frame(list(x = pos, y = pos))
-  extra_data <- as_tibble(graph, active = 'nodes')
-  warn_dropped_vars(nodes, extra_data)
-  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
-  nodes$circular <- FALSE
+  nodes <- data_frame0(x = pos, y = pos, circular = FALSE)
+  nodes <- combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
   nodes
 }

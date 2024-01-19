@@ -9,7 +9,7 @@
 #' of points (`n`) along the edge and draws it as a path. Each point along
 #' the line has a numeric value associated with it giving the position along the
 #' path, and it is therefore possible to show the direction of the edge by
-#' mapping to this e.g. `colour = stat(index)`. The version postfixed with a
+#' mapping to this e.g. `colour = after_stat(index)`. The version postfixed with a
 #' "2" uses the "long" edge format (see [get_edges()]) and makes it
 #' possible to interpolate node parameter between the start and end node along
 #' the edge. It is considerable less performant so should only be used if this
@@ -46,7 +46,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_link` and `geom_edge_link0` understand the following
-#' aesthetics. Bold aesthetics are automatically set, but can be overridden.
+#' aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -59,7 +59,7 @@
 #' - filter
 #'
 #' `geom_edge_link2` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -140,7 +140,7 @@
 #'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 #'
 #' ggraph(gr, 'stress') +
-#'   geom_edge_link(aes(alpha = stat(index)))
+#'   geom_edge_link(aes(alpha = after_stat(index)))
 #'
 #' ggraph(gr, 'stress') +
 #'   geom_edge_link2(aes(colour = node.class))
@@ -159,14 +159,9 @@ NULL
 #' @export
 StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     StatLink$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
@@ -178,14 +173,9 @@ StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
 #' @export
 StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     StatLink2$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
@@ -211,10 +201,9 @@ geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
     geom = GeomEdgePath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
+      list2(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, na.rm = FALSE, n = n,
-        interpolate = FALSE,
+        linemitre = linemitre, n = n, interpolate = FALSE,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
         angle_calc = angle_calc, force_flip = force_flip,
@@ -243,10 +232,9 @@ geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
     geom = GeomEdgePath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
+      list2(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, na.rm = FALSE, n = n,
-        interpolate = TRUE,
+        linemitre = linemitre, n = n, interpolate = TRUE,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
         angle_calc = angle_calc, force_flip = force_flip,
@@ -270,7 +258,7 @@ geom_edge_link0 <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgeSegment, position = position,
     show.legend = show.legend, inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(arrow = arrow, lineend = lineend, na.rm = FALSE, ...)
+      list2(arrow = arrow, lineend = lineend, ...)
     )
   )
 }

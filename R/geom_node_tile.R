@@ -8,7 +8,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_treemap` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -59,7 +59,7 @@ geom_node_tile <- function(mapping = NULL, data = NULL, position = 'identity',
   layer(
     data = data, mapping = mapping, stat = StatFilter, geom = GeomNodeTile,
     position = position, show.legend = show.legend, inherit.aes = FALSE,
-    params = list(na.rm = FALSE, ...)
+    params = list2(...)
   )
 }
 
@@ -69,9 +69,6 @@ geom_node_tile <- function(mapping = NULL, data = NULL, position = 'identity',
 #' @export
 #'
 GeomNodeTile <- ggproto('GeomNodeTile', GeomTile,
-  default_aes = aes(
-    fill = NA, colour = 'black', size = 0.5, linetype = 1,
-    alpha = NA, width = 1, height = 1
-  ),
+  default_aes = combine_aes(GeomTile$default_aes, aes(fill = NA, colour = 'black', width = 1, height = 1)),
   required_aes = c('x', 'y')
 )

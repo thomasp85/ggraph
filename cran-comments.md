@@ -1,13 +1,20 @@
-This is a very minor release addressing the std::random_shuffle() deprecation in
-C++14
+Two failures in the reverse dependencies was detected with this release. Both
+have been contacted and have prepared a fix
 
-## Test environments
+## revdepcheck results
 
-* GitHub Actions (ubuntu-16.04): devel, release, oldrel, 3.5, 3.4, 3.3
-* GitHub Actions (windows): release, oldrel
-* GitHub Actions (macOS): release
-* win-builder: devel
+We checked 81 reverse dependencies (80 from CRAN + 1 from Bioconductor), comparing R CMD check results across CRAN and dev versions of this package.
 
-## R CMD check results
+ * We saw 2 new problems
+ * We failed to check 0 packages
 
-0 errors | 0 warnings | 0 note
+Issues with CRAN packages are summarised below.
+
+### New problems
+(This reports the first line of each new failure)
+
+* LabApplStat
+  checking examples ... ERROR
+
+* migraph
+  checking tests ... ERROR

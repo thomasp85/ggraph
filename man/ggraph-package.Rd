@@ -6,12 +6,9 @@
 \alias{_PACKAGE}
 \title{ggraph: An Implementation of Grammar of Graphics for Graphs and Networks}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
-The grammar of graphics as implemented in ggplot2 is a poor fit for
-    graph and network visualizations due to its reliance on tabular data input.
-    ggraph is an extension of the ggplot2 API tailored to graph visualizations
-    and provides the same flexible approach to building up plots layer by layer.
+The grammar of graphics as implemented in ggplot2 is a poor fit for graph and network visualizations due to its reliance on tabular data input. ggraph is an extension of the ggplot2 API tailored to graph visualizations and provides the same flexible approach to building up plots layer by layer.
 }
 \seealso{
 Useful links:
@@ -31,3 +28,4 @@ Other contributors:
 }
 
 }
+\keyword{internal}

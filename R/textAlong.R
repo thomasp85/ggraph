@@ -19,9 +19,7 @@ textAlongGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
     )
   } else {
     if (!rot.type %in% c('along', 'across')) {
-      stop('rot.type must be either `rot`, `along`, or `across`',
-        call. = FALSE
-      )
+      cli::cli_abort('{.arg rot.type} must be either {.val rot}, {.val along), or {.val across}')
     }
     if (!is.unit(x0)) {
       x0 <- unit(x0, default.units)

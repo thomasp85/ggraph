@@ -32,11 +32,8 @@
 layout_tbl_graph_backbone <- function(graph, keep = 0.2, circular = FALSE) {
   layout <- layout_as_backbone(graph, keep = keep, backbone = TRUE)
   xy <- layout$xy
-  nodes <- new_data_frame(list(x = xy[,1], y = xy[,2]))
-  nodes$circular <- FALSE
-  extra_data <- as_tibble(graph, active = 'nodes')
-  warn_dropped_vars(nodes, extra_data)
-  nodes <- cbind(nodes, extra_data[, !names(extra_data) %in% names(nodes), drop = FALSE])
+  nodes <- data_frame0(x = xy[,1], y = xy[,2], circular = FALSE)
+  nodes <- combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
   graph <- activate(graph, 'edges')
   graph <- mutate(graph, backbone = seq_len(graph_size()) %in% layout$backbone)
   attr(nodes, 'graph') <- activate(graph, 'nodes')

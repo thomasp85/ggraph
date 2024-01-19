@@ -16,7 +16,7 @@
 #'
 #' @section Aesthetics:
 #' geom_conn_bundle* understands the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #' \itemize{
 #'  \item{\strong{x}}
 #'  \item{\strong{y}}
@@ -72,7 +72,7 @@
 #'
 #' # Use class inheritance for layout but plot class imports as bundles
 #' ggraph(flareGraph, 'dendrogram', circular = TRUE) +
-#'   geom_conn_bundle(aes(colour = stat(index)),
+#'   geom_conn_bundle(aes(colour = after_stat(index)),
 #'     data = get_con(importFrom, importTo),
 #'     edge_alpha = 0.25
 #'   ) +
@@ -92,13 +92,8 @@ NULL
 #' @export
 StatConnBundle <- ggproto('StatConnBundle', StatBspline,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
+    data <- StatFilter$setup_data(data, params)
+    if (nrow(data) == 0) return(data)
     relax(data, params$tension)
   },
   setup_params = function(data, params) {
@@ -128,9 +123,9 @@ geom_conn_bundle <- function(mapping = NULL, data = get_con(),
     geom = GeomEdgePath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-        interpolate = FALSE, tension = tension, type = 'clamped', ...
+      list2(
+        arrow = arrow, lineend = lineend, n = n, interpolate = FALSE,
+        tension = tension, type = 'clamped', ...
       )
     )
   )
@@ -167,8 +162,8 @@ geom_conn_bundle2 <- function(mapping = NULL, data = get_con(),
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE, n = n,
-        interpolate = TRUE, tension = tension, type = 'clamped', ...
+        arrow = arrow, lineend = lineend, n = n, interpolate = TRUE,
+        tension = tension, type = 'clamped', ...
       )
     )
   )
@@ -203,9 +198,9 @@ geom_conn_bundle0 <- function(mapping = NULL, data = get_con(),
     geom = GeomEdgeBspline, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE,
-        tension = tension, type = 'clamped', ...
+      list2(
+        arrow = arrow, lineend = lineend, tension = tension, type = 'clamped',
+        ...
       )
     )
   )

@@ -5,6 +5,27 @@
 
 using namespace Rcpp;
 
+#ifdef RCPP_USE_GLOBAL_ROSTREAM
+Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
+Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
+#endif
+
+// cactusTree
+NumericMatrix cactusTree(IntegerVector parent, IntegerVector order, NumericVector weight, double scale, double overlap, bool upright);
+RcppExport SEXP _ggraph_cactusTree(SEXP parentSEXP, SEXP orderSEXP, SEXP weightSEXP, SEXP scaleSEXP, SEXP overlapSEXP, SEXP uprightSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type order(orderSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type weight(weightSEXP);
+    Rcpp::traits::input_parameter< double >::type scale(scaleSEXP);
+    Rcpp::traits::input_parameter< double >::type overlap(overlapSEXP);
+    Rcpp::traits::input_parameter< bool >::type upright(uprightSEXP);
+    rcpp_result_gen = Rcpp::wrap(cactusTree(parent, order, weight, scale, overlap, upright));
+    return rcpp_result_gen;
+END_RCPP
+}
 // pack
 NumericMatrix pack(NumericVector areas);
 RcppExport SEXP _ggraph_pack(SEXP areasSEXP) {
@@ -25,6 +46,56 @@ BEGIN_RCPP
     Rcpp::traits::input_parameter< IntegerVector >::type parent(parentSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type weight(weightSEXP);
     rcpp_result_gen = Rcpp::wrap(circlePackLayout(parent, weight));
+    return rcpp_result_gen;
+END_RCPP
+}
+// dendrogram_spread
+NumericVector dendrogram_spread(ListOf<IntegerVector> graph, IntegerVector starts, NumericVector y, LogicalVector leaf, bool repel, double pad, double ratio);
+RcppExport SEXP _ggraph_dendrogram_spread(SEXP graphSEXP, SEXP startsSEXP, SEXP ySEXP, SEXP leafSEXP, SEXP repelSEXP, SEXP padSEXP, SEXP ratioSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< ListOf<IntegerVector> >::type graph(graphSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type starts(startsSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type y(ySEXP);
+    Rcpp::traits::input_parameter< LogicalVector >::type leaf(leafSEXP);
+    Rcpp::traits::input_parameter< bool >::type repel(repelSEXP);
+    Rcpp::traits::input_parameter< double >::type pad(padSEXP);
+    Rcpp::traits::input_parameter< double >::type ratio(ratioSEXP);
+    rcpp_result_gen = Rcpp::wrap(dendrogram_spread(graph, starts, y, leaf, repel, pad, ratio));
+    return rcpp_result_gen;
+END_RCPP
+}
+// force_bundle_iter
+List force_bundle_iter(NumericMatrix edges_xy, List elist, double K, int C, int P, int P_rate, double S, int I, double I_rate, double compatibility_threshold, double eps);
+RcppExport SEXP _ggraph_force_bundle_iter(SEXP edges_xySEXP, SEXP elistSEXP, SEXP KSEXP, SEXP CSEXP, SEXP PSEXP, SEXP P_rateSEXP, SEXP SSEXP, SEXP ISEXP, SEXP I_rateSEXP, SEXP compatibility_thresholdSEXP, SEXP epsSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< NumericMatrix >::type edges_xy(edges_xySEXP);
+    Rcpp::traits::input_parameter< List >::type elist(elistSEXP);
+    Rcpp::traits::input_parameter< double >::type K(KSEXP);
+    Rcpp::traits::input_parameter< int >::type C(CSEXP);
+    Rcpp::traits::input_parameter< int >::type P(PSEXP);
+    Rcpp::traits::input_parameter< int >::type P_rate(P_rateSEXP);
+    Rcpp::traits::input_parameter< double >::type S(SSEXP);
+    Rcpp::traits::input_parameter< int >::type I(ISEXP);
+    Rcpp::traits::input_parameter< double >::type I_rate(I_rateSEXP);
+    Rcpp::traits::input_parameter< double >::type compatibility_threshold(compatibility_thresholdSEXP);
+    Rcpp::traits::input_parameter< double >::type eps(epsSEXP);
+    rcpp_result_gen = Rcpp::wrap(force_bundle_iter(edges_xy, elist, K, C, P, P_rate, S, I, I_rate, compatibility_threshold, eps));
+    return rcpp_result_gen;
+END_RCPP
+}
+// hTree
+NumericMatrix hTree(IntegerVector parent, IntegerVector order);
+RcppExport SEXP _ggraph_hTree(SEXP parentSEXP, SEXP orderSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< IntegerVector >::type parent(parentSEXP);
+    Rcpp::traits::input_parameter< IntegerVector >::type order(orderSEXP);
+    rcpp_result_gen = Rcpp::wrap(hTree(parent, order));
     return rcpp_result_gen;
 END_RCPP
 }
@@ -107,8 +178,12 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_ggraph_cactusTree", (DL_FUNC) &_ggraph_cactusTree, 6},
     {"_ggraph_pack", (DL_FUNC) &_ggraph_pack, 1},
     {"_ggraph_circlePackLayout", (DL_FUNC) &_ggraph_circlePackLayout, 2},
+    {"_ggraph_dendrogram_spread", (DL_FUNC) &_ggraph_dendrogram_spread, 7},
+    {"_ggraph_force_bundle_iter", (DL_FUNC) &_ggraph_force_bundle_iter, 11},
+    {"_ggraph_hTree", (DL_FUNC) &_ggraph_hTree, 2},
     {"_ggraph_partitionTree", (DL_FUNC) &_ggraph_partitionTree, 4},
     {"_ggraph_cut_lines", (DL_FUNC) &_ggraph_cut_lines, 9},
     {"_ggraph_pathAttr", (DL_FUNC) &_ggraph_pathAttr, 2},

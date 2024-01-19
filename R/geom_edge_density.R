@@ -10,7 +10,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_density` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' **x**
 #' **y**
@@ -93,13 +93,7 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
     df
   },
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    data
+    StatFilter$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE),
   required_aes = c('x', 'y', 'xend', 'yend')
@@ -111,25 +105,20 @@ StatEdgeDensity <- ggproto('StatEdgeDensity', Stat,
 GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
   draw_panel = function(self, data, panel_scales, coord, ...) {
     groups <- split(data, factor(data$group))
-    max_density <- max(rowSums(do.call(
-      cbind,
-      lapply(groups, `[[`, i = 'density')
-    )))
+    max_density <- max(rowSums(inject(cbind(!!!lapply(groups, `[[`, i = 'density')))))
     grobs <- lapply(groups, function(group) {
       self$draw_group(group, panel_scales, coord,
         max.alpha = max_density,
         ...
       )
     })
-    grobs <- gTree(children = do.call('gList', grobs))
+    grobs <- gTree(children = inject(gList(!!!grobs)))
     grobs$name <- grobName(grobs, 'geom_edge_density')
     grobs
   },
-  draw_group = function(data, panel_scales, coord, max.alpha) {
+  draw_group = function(self, data, panel_scales, coord, max.alpha) {
     if (!inherits(coord, 'CoordCartesian')) {
-      stop('geom_raster only works with Cartesian coordinates',
-        call. = FALSE
-      )
+      cli::cli_abort('{.fn {snake_class(self)}} only works with {.fn coord_cartesian')
     }
     data <- coord$transform(data, panel_scales)
     x_pos <- as.integer((data$x - min(data$x)) / resolution(
@@ -157,7 +146,8 @@ GeomEdgeDensity <- ggproto('GeomEdgeDensity', GeomRaster,
   },
   draw_key = function(data, params, size) {
     rectGrob(gp = gpar(
-      col = NA, fill = alpha(data),
+      col = NA,
+      fill = alpha(data$edge_fill %||% data$fill %||% "darkgrey"),
       lty = 0
     ))
   },
@@ -179,7 +169,7 @@ geom_edge_density <- function(mapping = NULL, data = get_edges('short'),
     geom = GeomEdgeDensity, position = position,
     show.legend = show.legend, inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(na.rm = FALSE, n = n, ...)
+      list2(n = n, ...)
     )
   )
 }

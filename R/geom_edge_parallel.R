@@ -8,7 +8,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_parallel` and `geom_edge_parallel0` understand the following
-#' aesthetics. Bold aesthetics are automatically set, but can be overridden.
+#' aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -23,7 +23,7 @@
 #' - filter
 #'
 #' `geom_edge_parallel2` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -75,7 +75,7 @@
 #'   mutate(class = sample(c('x', 'y'), 5, TRUE))
 #'
 #' ggraph(gr, 'stress') +
-#'   geom_edge_parallel(aes(alpha = stat(index)))
+#'   geom_edge_parallel(aes(alpha = after_stat(index)))
 #'
 #' ggraph(gr, 'stress') +
 #'   geom_edge_parallel2(aes(colour = node.class))
@@ -101,14 +101,9 @@ NULL
 #' @export
 StatEdgeParallel <- ggproto('StatEdgeParallel', StatLink,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data2 <- data
     data2$x <- data2$xend
     data2$y <- data2$yend
@@ -140,9 +135,8 @@ geom_edge_parallel <- function(mapping = NULL, data = get_edges(),
         geom = GeomEdgeParallelPath, position = position, show.legend = show.legend,
         inherit.aes = FALSE,
         params = expand_edge_aes(
-          list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, na.rm = FALSE, sep = sep, n = n,
-               interpolate = FALSE,
+          list2(arrow = arrow, lineend = lineend, linejoin = linejoin,
+               linemitre = linemitre, sep = sep, n = n, interpolate = FALSE,
                label_colour = label_colour, label_alpha = label_alpha,
                label_parse = label_parse, check_overlap = check_overlap,
                angle_calc = angle_calc, force_flip = force_flip,
@@ -157,14 +151,9 @@ geom_edge_parallel <- function(mapping = NULL, data = get_edges(),
 #' @export
 StatEdgeParallel2 <- ggproto('StatEdgeParallel2', StatLink2,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data1 <- data[c(TRUE, FALSE), ]
@@ -197,9 +186,8 @@ geom_edge_parallel2 <- function(mapping = NULL, data = get_edges('long'),
     geom = GeomEdgeParallelPath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(arrow = arrow, lineend = lineend, linejoin = linejoin,
-           linemitre = linemitre, na.rm = FALSE, sep = sep, n = n,
-           interpolate = TRUE,
+      list2(arrow = arrow, lineend = lineend, linejoin = linejoin,
+           linemitre = linemitre, sep = sep, n = n, interpolate = TRUE,
            label_colour = label_colour, label_alpha = label_alpha,
            label_parse = label_parse, check_overlap = check_overlap,
            angle_calc = angle_calc, force_flip = force_flip,
@@ -236,9 +224,8 @@ geom_edge_parallel0 <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgeParallelSegment, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE,
-        sep = sep, ...
+      list2(
+        arrow = arrow, lineend = lineend, sep = sep, ...
       )
     )
   )

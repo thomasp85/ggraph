@@ -10,7 +10,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_edge_hive` and `geom_edge_hive0` understand the following
-#' aesthetics. Bold aesthetics are automatically set, but can be overridden.
+#' aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -23,7 +23,7 @@
 #' - filter
 #'
 #' `geom_edge_hive2` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **y**
@@ -105,14 +105,9 @@ NULL
 #' @export
 StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
@@ -137,7 +132,7 @@ geom_edge_hive <- function(mapping = NULL, data = get_edges(),
                            label_dodge = NULL, label_push = NULL,
                            show.legend = NA, ..., curvature) {
   if (!missing(curvature)) {
-    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_hive(curvature)', 'geom_edge_hive(strength)')
     strength <- curvature * 2
   }
   mapping <- complete_edge_aes(mapping)
@@ -149,9 +144,9 @@ geom_edge_hive <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgePath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
+      list2(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, na.rm = FALSE, n = n,
+        linemitre = linemitre, n = n,
         interpolate = FALSE, strength = strength,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
@@ -168,19 +163,14 @@ geom_edge_hive <- function(mapping = NULL, data = get_edges(),
 #' @export
 StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
+    data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(NULL)
+    if (nrow(data) == 0) return(data)
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
     keep <- atan2(data$y, data$x) != atan2(data2$y, data2$x)
-    create_hive_bazier(data[keep, ], data2[keep, ], params)
+    create_hive_bezier(data[keep, ], data2[keep, ], params)
   },
   required_aes = c('x', 'y', 'group'),
   default_aes = aes(filter = TRUE),
@@ -199,7 +189,7 @@ geom_edge_hive2 <- function(mapping = NULL, data = get_edges('long'),
                             label_dodge = NULL, label_push = NULL,
                             show.legend = NA, ..., curvature) {
   if (!missing(curvature)) {
-    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_hive2(curvature)', 'geom_edge_hive2(strength)')
     strength <- curvature * 2
   }
   mapping <- complete_edge_aes(mapping)
@@ -210,9 +200,9 @@ geom_edge_hive2 <- function(mapping = NULL, data = get_edges('long'),
     geom = GeomEdgePath, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
+      list2(
         arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, na.rm = FALSE, n = n,
+        linemitre = linemitre, n = n,
         interpolate = TRUE, strength = strength,
         label_colour = label_colour, label_alpha = label_alpha,
         label_parse = label_parse, check_overlap = check_overlap,
@@ -242,7 +232,7 @@ geom_edge_hive0 <- function(mapping = NULL, data = get_edges(),
                             position = 'identity', arrow = NULL, strength = 1,
                             lineend = 'butt', show.legend = NA, ..., curvature) {
   if (!missing(curvature)) {
-    .Deprecated(msg = 'The curvature argument has been deprecated in favour of strength')
+    lifecycle::deprecate_warn('2.0.0', 'geom_edge_hive0(curvature)', 'geom_edge_hive0(strength)')
     strength <- curvature * 2
   }
   mapping <- complete_edge_aes(mapping)
@@ -253,9 +243,8 @@ geom_edge_hive0 <- function(mapping = NULL, data = get_edges(),
     geom = GeomEdgeBezier, position = position, show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list(
-        arrow = arrow, lineend = lineend, na.rm = FALSE,
-        strength = strength, ...
+      list2(
+        arrow = arrow, lineend = lineend, strength = strength, ...
       )
     )
   )
@@ -288,6 +277,6 @@ create_hive_bezier <- function(from, to, params) {
   data2$y <- node_r2 * sin(ifelse(from_first, middle_axis1, middle_axis2))
   data3$x <- node_r3 * cos(ifelse(from_first, middle_axis2, middle_axis1))
   data3$y <- node_r3 * sin(ifelse(from_first, middle_axis2, middle_axis1))
-  data <- rbind_dfs(list(from, data2, data3, to))
+  data <- vec_rbind(from, data2, data3, to)
   data[order(data$index), names(data) != 'index']
 }

@@ -9,6 +9,10 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+```{r, include=FALSE}
+set.seed(2022)
+```
+
 In very short terms, a layout is the vertical and horizontal placement of nodes
 when plotting a particular graph structure. Conversely, a layout algorithm is an
 algorithm that takes in a graph structure (and potentially some additional 
@@ -105,8 +109,8 @@ method to tidygraph so others can benefit from your work.
 
 ## Layouts abound
 There's a lot of different layouts in `ggraph` --- All layouts from the 
-graphlayouts and igraph packages are available, an ggraph itself also provide
-some of the more specialised layouts itself. All in all ggraph provides well 
+graphlayouts and igraph packages are available, and ggraph itself also provides
+some of the more specialised layouts itself. All in all, ggraph provides well 
 above 20 different layouts to choose from, far more than we can cover in this 
 text. I urge you to explore the different layout types. Blindly running along 
 with the default layouts is a sad but common mistake in network visualisation 
@@ -247,6 +251,32 @@ ggraph(graph, 'treemap', weight = size) +
 ggraph(graph, 'treemap', weight = size) + 
   geom_edge_link() + 
   geom_node_point(aes(colour = depth))
+```
+
+Cactustree is a layout type specifically developed for use with hierarchical 
+edge bundling, but can be used on it's own as well
+
+```{r}
+ggraph(graph, 'cactustree') + 
+  geom_node_circle(aes(fill = depth), size = 0.25) + 
+  coord_fixed()
+```
+
+```{r}
+importFrom <- match(flare$imports$from, flare$vertices$name)
+importTo <- match(flare$imports$to, flare$vertices$name)
+
+ggraph(graph, 'cactustree') + 
+  geom_node_circle(aes(fill = depth), 
+    size = 0.25, 
+    alpha = 0.2
+  ) + 
+  geom_conn_bundle(aes(colour = after_stat(index)),
+    data = get_con(importFrom, importTo),
+    edge_alpha = 0.25
+  ) +
+  theme(legend.position = "none") +
+  coord_fixed()
 ```
 
 The most recognized tree plot is probably dendrograms though. If nothing else is

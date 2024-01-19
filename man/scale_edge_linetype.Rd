@@ -4,6 +4,7 @@
 \alias{scale_edge_linetype}
 \alias{scale_edge_linetype_continuous}
 \alias{scale_edge_linetype_discrete}
+\alias{scale_edge_linetype_binned}
 \alias{scale_edge_linetype_manual}
 \alias{scale_edge_linetype_identity}
 \title{Edge linetype scales}
@@ -14,7 +15,9 @@ scale_edge_linetype_continuous(...)
 
 scale_edge_linetype_discrete(..., na.value = "blank")
 
-scale_edge_linetype_manual(..., values)
+scale_edge_linetype_binned(..., na.value = "blank")
+
+scale_edge_linetype_manual(..., values, breaks = waiver(), na.value = "blank")
 
 scale_edge_linetype_identity(..., guide = "none")
 }
@@ -24,14 +27,15 @@ scale_edge_linetype_identity(..., guide = "none")
   \describe{
     \item{\code{palette}}{A palette function that when called with a single integer
 argument (the number of levels in the scale) returns the values that
-they should take (e.g., \code{\link[scales:hue_pal]{scales::hue_pal()}}).}
+they should take (e.g., \code{\link[scales:pal_hue]{scales::pal_hue()}}).}
     \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks
 \item \code{waiver()} for the default breaks (the scale limits)
 \item A character vector of breaks
 \item A function that takes the limits as input and returns breaks
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{limits}}{One of:
 \itemize{
@@ -39,7 +43,8 @@ as output
 \item A character vector that defines possible values of the scale and their
 order
 \item A function that accepts the existing (automatic) values and returns
-new ones
+new ones. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
@@ -48,23 +53,22 @@ The default, \code{TRUE}, uses the levels that appear in the data;
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
     \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
-    \item{\code{scale_name}}{The name of the scale that should be used for error messages
-associated with this scale.}
-    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
-\code{waiver()}, the default, the name of the scale is taken from the first
-mapping used for that aesthetic. If \code{NULL}, the legend title will be
-omitted.}
+    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
+that should be used for error messages associated with this scale.}
     \item{\code{labels}}{One of:
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
 transformation object
 \item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
 \item A function that takes the breaks as input and returns labels
-as output
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
     \item{\code{guide}}{A function used to create a guide or its name. See
 \code{\link[ggplot2:guides]{guides()}} for more information.}
+    \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
@@ -75,6 +79,15 @@ will be matched in order (usually alphabetical) with the limits of the
 scale, or with \code{breaks} if provided. If this is a named vector, then the
 values will be matched based on the names instead. Data values that don't
 match will be given \code{na.value}.}
+
+\item{breaks}{One of:
+\itemize{
+\item \code{NULL} for no breaks
+\item \code{waiver()} for the default breaks (the scale limits)
+\item A character vector of breaks
+\item A function that takes the limits as input and returns breaks
+as output
+}}
 
 \item{guide}{Guide to use for this scale. Defaults to \code{"none"}.}
 }

@@ -5,7 +5,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_node_point` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x**
 #' - **xend**
@@ -41,6 +41,6 @@ geom_node_range <- function(mapping = NULL, data = NULL, position = 'identity',
   layer(
     data = data, mapping = mapping, stat = StatFilter, geom = GeomSegment,
     position = position, show.legend = show.legend, inherit.aes = FALSE,
-    params = list(na.rm = FALSE, ...)
+    params = list2(...)
   )
 }

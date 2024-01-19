@@ -101,6 +101,37 @@ subdivides the division given by the preceding layer. See
 \item{\code{hive}}{Positions nodes on axes spreading out from the center
 based on node attributes. See \code{\link[=layout_tbl_graph_hive]{layout_tbl_graph_hive()}} for further
 details}
+\item{\code{cactustree}}{Positions nodes as circles on the periphery of their
+parent circle. See \code{\link[=layout_tbl_graph_cactustree]{layout_tbl_graph_cactustree()}} for further
+details}
+\item{\code{backbone}}{Layout optimised for highly connected small-world graphs
+such as social networks. See \code{\link[=layout_tbl_graph_backbone]{layout_tbl_graph_backbone()}} for further
+details}
+\item{\code{centrality}}{Place nodes around origin based on their centrality.
+See \code{\link[=layout_tbl_graph_centrality]{layout_tbl_graph_centrality()}} for further
+details}
+\item{\code{eigen}}{Spectral layout based on the eigenvector of a matrix
+representation of the graph. See \code{\link[=layout_tbl_graph_eigen]{layout_tbl_graph_eigen()}} for further
+details}
+\item{\code{fabric}}{Draw nodes as horizontal lines and connect them with
+vertical lines if an edge exists between them. See
+\code{\link[=layout_tbl_graph_fabric]{layout_tbl_graph_fabric()}} for further
+details}
+\item{\code{focus}}{Place nodes around a focus node based on their distance to
+that node. See \code{\link[=layout_tbl_graph_focus]{layout_tbl_graph_focus()}} for further
+details}
+\item{\code{pmds}}{Layout based on multidimensional scaling of a set of pivot
+nodes, allowing MDS layout to be used on larger graphs. See
+\code{\link[=layout_tbl_graph_pmds]{layout_tbl_graph_pmds()}} for further
+details}
+\item{\code{stress}}{Layout based on stress minimisation with better stability
+than Kamada-Kawai layout. See \code{\link[=layout_tbl_graph_stress]{layout_tbl_graph_stress()}} for further
+details}
+\item{\code{unrooted}}{Draws unrooted trees based on equal angle with optional
+equal daylight modification. See \code{\link[=layout_tbl_graph_unrooted]{layout_tbl_graph_unrooted()}} for further
+details}
+\item{\code{htree}}{Draws binary trees as a space filling fractal. See
+\code{\link[=layout_tbl_graph_htree]{layout_tbl_graph_htree()}} for further details}
 }
 
 Alternatively a matrix or a data.frame can be provided to the \code{layout}

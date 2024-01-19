@@ -23,8 +23,10 @@ data.}
 giving edges in correct format (see details for for guidance on the format).
 See \code{\link[=get_edges]{get_edges()}} for more details on edge extraction.}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{mirror}{Logical. Should edge points be duplicated on both sides of the
 diagonal. Intended for undirected graphs. Default to \code{FALSE}}
@@ -49,7 +51,7 @@ conjunction with \code{\link[=layout_tbl_graph_matrix]{layout_tbl_graph_matrix()
 \section{Aesthetics}{
 
 \code{geom_edge_point} understands the following
-aesthetics. Bold aesthetics are automatically set, but can be overridden.
+aesthetics. Bold aesthetics are automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
 \item \strong{y}
@@ -89,6 +91,9 @@ ggraph(gr, 'matrix', sort.by = node_rank_hclust()) +
 Other geom_edge_*: 
 \code{\link{geom_edge_arc}()},
 \code{\link{geom_edge_bend}()},
+\code{\link{geom_edge_bundle_force}()},
+\code{\link{geom_edge_bundle_minimal}()},
+\code{\link{geom_edge_bundle_path}()},
 \code{\link{geom_edge_density}()},
 \code{\link{geom_edge_diagonal}()},
 \code{\link{geom_edge_elbow}()},

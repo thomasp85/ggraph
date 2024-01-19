@@ -5,12 +5,11 @@
 
 <!-- badges: start -->
 
-[![R build
-status](https://github.com/thomasp85/ggraph/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/ggraph/actions)
-[![CRAN\_Release\_Badge](http://www.r-pkg.org/badges/version-ago/ggraph)](https://CRAN.R-project.org/package=ggraph)
-[![CRAN\_Download\_Badge](http://cranlogs.r-pkg.org/badges/ggraph)](https://CRAN.R-project.org/package=ggraph)
+[![R-CMD-check](https://github.com/thomasp85/ggraph/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/thomasp85/ggraph/actions/workflows/R-CMD-check.yaml)
+[![CRAN_Release_Badge](http://www.r-pkg.org/badges/version-ago/ggraph)](https://CRAN.R-project.org/package=ggraph)
+[![CRAN_Download_Badge](http://cranlogs.r-pkg.org/badges/ggraph)](https://CRAN.R-project.org/package=ggraph)
 [![Codecov test
-coverage](https://codecov.io/gh/thomasp85/ggraph/branch/master/graph/badge.svg)](https://codecov.io/gh/thomasp85/ggraph?branch=master)
+coverage](https://codecov.io/gh/thomasp85/ggraph/branch/main/graph/badge.svg)](https://app.codecov.io/gh/thomasp85/ggraph?branch=main)
 <!-- badges: end -->
 
 */dʒiː.dʒɪˈrɑːf/* (or g-giraffe)
@@ -41,7 +40,7 @@ graph <- as_tbl_graph(highschool) %>%
 
 # plot using ggraph
 ggraph(graph, layout = 'kk') + 
-    geom_edge_fan(aes(alpha = stat(index)), show.legend = FALSE) + 
+    geom_edge_fan(aes(alpha = after_stat(index)), show.legend = FALSE) + 
     geom_node_point(aes(size = Popularity)) + 
     facet_edges(~year) + 
     theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
@@ -103,7 +102,8 @@ though and the latest set of features can be obtained by installing from
 this repository using `devtools`
 
 ``` r
-devtools::install_github('thomasp85/ggraph')
+# install.packages("pak")
+pak::pak('thomasp85/ggraph')
 ```
 
 ## Related work

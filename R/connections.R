@@ -16,7 +16,9 @@
 #' @param paths A list of integer vectors giving the index of nodes defining
 #' connections
 #'
-#' @param ... Additional information to be added to the final data output
+#' @param ... Additional information to be added to the final data output.
+#' Accepts expressions that will be evaluated on the node data in it's
+#' original order (irrespective of any reordering by the layout)
 #'
 #' @param weight An expression to be evaluated on the edge data to provide
 #' weights for the shortest path calculations
@@ -31,8 +33,9 @@
 #' @export
 get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight = NULL, mode = 'all') {
   if (length(from) != length(to)) {
-    stop('from and to must be of equal length')
+    cli::cli_abort('{.arg from} and {.arg to} must be of equal length')
   }
+  dots <- enquos(...)
   function(layout) {
     if (length(from) == 0) {
       return(NULL)
@@ -45,24 +48,27 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
         }
       }, mode = mode
     )
-    nodes <- as.data.frame(layout, stringsAsFactors = FALSE)[unlist(connections), ]
+    nodes <- data_frame0(layout)[unlist(connections), ]
     nodes$con.id <- rep(seq_along(connections), lengths(connections))
     if (!is.null(paths)) {
-      extra <- as.data.frame(layout, stringsAsFactors = FALSE)[unlist(paths), ]
+      extra <- data_frame0(layout)[unlist(paths), ]
       extra$con.id <- rep(
         seq_along(paths) + length(connections),
         lengths(paths)
       )
-      nodes <- rbind_dfs(list(nodes, extra))
+      nodes <- vec_rbind(nodes, extra)
     }
-    nodes <- do.call(
-      cbind,
-      c(
-        list(nodes),
-        lapply(list(...), function(x) rep_len(x, length(from))[nodes$con.id]),
-        list(stringsAsFactors = FALSE)
+    layout <- layout[order(layout$.ggraph.orig_index), ]
+    extra_data <- lapply(dots, function(x) {
+      val <- eval_tidy(x, layout)
+      rep(val, length.out = length(from))[nodes$con.id]
+    })
+    if (length(extra_data) > 0) {
+      nodes <- cbind(
+        nodes,
+        data_frame0(!!!extra_data)
       )
-    )
+    }
     attr(nodes, 'type') <- 'connection_ggraph'
     nodes
   }
@@ -86,5 +92,5 @@ collect_connections <- function(layout, from, to, ...) {
   UseMethod('collect_connections', layout)
 }
 collect_connections.default <- function(layout, ...) {
-  stop('Don\'t know how to get connections from an object of class ', class(layout))
+  cli::cli_abort('Don\'t know how to get connections from an object of class {.cls {class(layout)[1]}}')
 }

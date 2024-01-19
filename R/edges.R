@@ -49,7 +49,7 @@
 #' details for more information
 #'
 #' @param ... Additional data that will be cbind'ed together with the returned
-#' edge data.
+#' edge data. Accepts expressions that will be evaluated on the edge data
 #'
 #' @return A data.frame with columns dependent on format as well as the graph
 #' type. In addition to the columns discussed in the details section,
@@ -74,8 +74,9 @@
 #'
 get_edges <- function(format = 'short', collapse = 'none', ...) {
   if (!collapse %in% c('none', 'all', 'direction')) {
-    stop('Collapse must be either "none", "all" or "direction"')
+    cli::cli_abort('{.arg collapse} must be either {.val none}, {.val all} or {.val direction}')
   }
+  dots <- enquos(...)
   function(layout) {
     edges <- collect_edges(layout)
     edges <- switch(
@@ -88,16 +89,18 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
       format,
       short = format_short_edges(edges, layout),
       long = format_long_edges(edges, layout),
-      stop('Unknown format. Use either "short" or "long"')
+      cli::cli_abort('Unknown {.arg format}. Use either {.val short} or {.val long}')
     )
-    edges <- do.call(
-      cbind,
-      c(
-        list(edges),
-        lapply(list(...), rep, length.out = nrow(edges)),
-        list(stringsAsFactors = FALSE)
+    extra_data <- lapply(dots, function(x) {
+      val <- eval_tidy(x, edges)
+      rep(val, length.out = nrow(edges))
+    })
+    if (length(extra_data) > 0) {
+      edges <- cbind(
+        edges,
+        data_frame0(!!!extra_data)
       )
-    )
+    }
     attr(edges, 'type_ggraph') <- 'edge_ggraph'
     edges
   }
@@ -112,28 +115,28 @@ collect_edges.default <- function(layout) {
 }
 check_short_edges <- function(edges) {
   if (!inherits(edges, 'data.frame')) {
-    stop('edges must by of class data.frame', call. = FALSE)
+    cli::cli_abort('{.arg edges} must by of class {.cls data.frame}')
   }
   if (!all(c('from', 'to', 'x', 'y', 'xend', 'yend', 'circular', 'edge.id') %in% names(edges))) {
-    stop('edges must contain the columns from, to, x, y, xend, yend, circular, and edge.id', call. = FALSE)
+    cli::cli_abort('{.arg edges} must contain the columns {.and {.col {c("from", "to", "x", "y", "xend", "yend", "circular", "edge.id")}}}')
   }
   if (!is.logical(edges$circular)) {
-    stop('circular column must be logical', call. = FALSE)
+    cli::cli_abort('The {.col circular} column must be logical')
   }
   edges
 }
 check_long_edges <- function(edges) {
   if (!inherits(edges, 'data.frame')) {
-    stop('edges must by of class data.frame', call. = FALSE)
+    cli::cli_abort('{.arg edges} must by of class {.cls data.frame}')
   }
   if (!all(c('edge.id', 'node', 'x', 'y', 'circular') %in% names(edges))) {
-    stop('edges must contain the columns edge.id, node, x, y and circular', call. = FALSE)
+    cli::cli_abort('{.arg edges} must contain the columns {.and {.col {c("edge.id", "node", "x", "y", "circular")}}}')
   }
   if (!all(range(table(edges$edge.id)) == 2)) {
-    stop('Each edge must consist of two rows')
+    cli::cli_abort('Each edge must consist of two rows')
   }
   if (!is.logical(edges$circular)) {
-    stop('circular column must be logical', call. = FALSE)
+    cli::cli_abort('The {.col circular} column must be logical')
   }
   edges
 }
@@ -168,7 +171,7 @@ format_long_edges <- function(edges, layout) {
     layout[edges$to, c('x', 'y')],
     edges
   )
-  edges <- rbind_dfs(list(from, to))
+  edges <- vec_rbind(from, to)
   node <- layout[edges$node, , drop = FALSE]
   names(node) <- paste0('node.', names(node))
   edges <- cbind(edges, node)
@@ -186,9 +189,12 @@ complete_edge_aes <- function(aesthetics) {
 }
 expand_edge_aes <- function(x) {
   short_names <- names(x) %in% c(
-    'colour', 'color', 'fill', 'linetype', 'shape', 'size', 'width', 'alpha'
+    'colour', 'color', 'fill', 'linetype', 'shape', 'size', 'width', 'alpha', 'linewidth'
   )
   names(x)[short_names] <- paste0('edge_', names(x)[short_names])
+  if (all(c('edge_linewidth', 'edge_width') %in% names(x) == c(TRUE, FALSE))) {
+    names(x)[names(x) == 'edge_linewidth'] <- 'edge_width'
+  }
   x
 }
 #' @importFrom dplyr %>% group_by top_n ungroup
@@ -203,7 +209,7 @@ collapse_all_edges <- function(edges) {
       top_n(1) %>%
       ungroup()
   }
-  as.data.frame(edges, stringsAsFactors = FALSE)
+  data_frame0(edges)
 }
 #' @importFrom dplyr %>% group_by top_n ungroup
 collapse_dir_edges <- function(edges) {
@@ -215,5 +221,5 @@ collapse_dir_edges <- function(edges) {
       top_n(1) %>%
       ungroup()
   }
-  as.data.frame(edges, stringsAsFactors = FALSE)
+  data_frame0(edges)
 }

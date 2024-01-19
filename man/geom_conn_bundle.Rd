@@ -49,8 +49,10 @@ data.}
 
 \item{data}{The result of a call to \code{\link[=get_con]{get_con()}}}
 
-\item{position}{Position adjustment, either as a string, or the result of
-a call to a position adjustment function.}
+\item{position}{Position adjustment, either as a string naming the adjustment
+(e.g. \code{"jitter"} to use \code{position_jitter}), or the result of a call to a
+position adjustment function. Use the latter if you need to change the
+settings of the adjustment.}
 
 \item{arrow}{Arrow specification, as created by \code{\link[grid:arrow]{grid::arrow()}}.}
 
@@ -92,7 +94,7 @@ automatically be renamed appropriately.
 \section{Aesthetics}{
 
 geom_conn_bundle* understands the following aesthetics. Bold aesthetics are
-automatically set, but can be overridden.
+automatically set, but can be overwritten.
 \itemize{
 \item{\strong{x}}
 \item{\strong{y}}
@@ -131,7 +133,7 @@ importTo <- match(flare$imports$to, flare$vertices$name)
 
 # Use class inheritance for layout but plot class imports as bundles
 ggraph(flareGraph, 'dendrogram', circular = TRUE) +
-  geom_conn_bundle(aes(colour = stat(index)),
+  geom_conn_bundle(aes(colour = after_stat(index)),
     data = get_con(importFrom, importTo),
     edge_alpha = 0.25
   ) +

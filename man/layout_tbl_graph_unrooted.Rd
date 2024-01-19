@@ -42,7 +42,7 @@ implicitly creates a visual root node. Instead it is possible to spread the
 leafs out on the plane without putting any special emphasis on a particular
 node using an unrooted layout. The standard algorithm is the equal angle
 algorithm, but it can struggle with optimising the leaf distribution for
-large trees trees with very uneven branch length. The equal daylight
+large trees with very uneven branch length. The equal daylight
 algorithm modifies the output of the equal angle algorithm to better disperse
 the leaves, at the cost of higher computational cost and the possibility of
 edge crossings for very large unbalanced trees. For standard sized trees the
@@ -61,6 +61,7 @@ Assoc., pp 573-584
 Other layout_tbl_graph_*: 
 \code{\link{layout_tbl_graph_auto}()},
 \code{\link{layout_tbl_graph_backbone}()},
+\code{\link{layout_tbl_graph_cactustree}()},
 \code{\link{layout_tbl_graph_centrality}()},
 \code{\link{layout_tbl_graph_circlepack}()},
 \code{\link{layout_tbl_graph_dendrogram}()},
@@ -68,6 +69,7 @@ Other layout_tbl_graph_*:
 \code{\link{layout_tbl_graph_fabric}()},
 \code{\link{layout_tbl_graph_focus}()},
 \code{\link{layout_tbl_graph_hive}()},
+\code{\link{layout_tbl_graph_htree}()},
 \code{\link{layout_tbl_graph_igraph}()},
 \code{\link{layout_tbl_graph_linear}()},
 \code{\link{layout_tbl_graph_manual}()},

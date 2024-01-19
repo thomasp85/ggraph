@@ -7,7 +7,7 @@
 #'
 #' @section Aesthetics:
 #' `geom_node_point` understand the following aesthetics. Bold aesthetics are
-#' automatically set, but can be overridden.
+#' automatically set, but can be overwritten.
 #'
 #' - **x0**
 #' - **y0**
@@ -49,7 +49,7 @@ geom_node_arc_bar <- function(mapping = NULL, data = NULL, position = 'identity'
   layer(
     data = data, mapping = mapping, stat = StatNodeArcBar, geom = GeomArcBar,
     position = position, show.legend = show.legend, inherit.aes = FALSE,
-    params = list(na.rm = FALSE, ...)
+    params = list2(...)
   )
 }
 
@@ -60,14 +60,7 @@ geom_node_arc_bar <- function(mapping = NULL, data = NULL, position = 'identity'
 #' @export
 StatNodeArcBar <- ggproto('StatNodeArcBar', StatArcBar,
   setup_data = function(data, params) {
-    if (any(names(data) == 'filter')) {
-      if (!is.logical(data$filter)) {
-        stop('filter must be logical')
-      }
-      data <- data[data$filter, names(data) != 'filter']
-    }
-    if (nrow(data) == 0) return(NULL)
-    data
+    StatFilter$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
 )

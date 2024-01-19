@@ -12,6 +12,7 @@ vignette: >
 ```{r, include=FALSE}
 library(ggraph)
 set_graph_style(family = 'Arial', size = 7, foreground = 'lightgrey', plot_margin = margin(0, 0, 0, 0))
+set.seed(2022)
 ```
 
 
@@ -96,7 +97,7 @@ node and edge parameters affecting layouts as it is not necessary to modify the
 underlying graph but only the plotting code, e.g.:
 
 ```{r}
-ggraph(graph, layout = 'fr', weights = log(weight)) + 
+ggraph(graph, layout = 'fr', weights = exp(weight)) + 
   geom_edge_link() + 
   geom_node_point()
 ```

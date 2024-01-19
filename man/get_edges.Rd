@@ -15,7 +15,7 @@ details for a descriptions of the differences}
 details for more information}
 
 \item{...}{Additional data that will be cbind'ed together with the returned
-edge data.}
+edge data. Accepts expressions that will be evaluated on the edge data}
 }
 \value{
 A data.frame with columns dependent on format as well as the graph
