@@ -33,11 +33,12 @@
 geom_edge_sf <- function(mapping = NULL, data = get_sf_edges(),
                          position = 'identity', show.legend = NA, ...) {
   mapping <- complete_edge_aes(mapping)
+  mapping <- aes_intersect(mapping, aes(geometry = geometry))
   c(
     layer_sf(
       geom = GeomEdgeSf, data = data, mapping = mapping, stat = StatFilterSf,
       position = position, show.legend = show.legend, inherit.aes = FALSE,
-      params = list(na.rm = FALSE, ...)
+      params = list2(na.rm = FALSE, ...)
     ),
     coord_sf(default = TRUE)
   )
