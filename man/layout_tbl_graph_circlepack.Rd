@@ -79,6 +79,7 @@ Other layout_tbl_graph_*:
 \code{\link{layout_tbl_graph_linear}()},
 \code{\link{layout_tbl_graph_manual}()},
 \code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_metro}()},
 \code{\link{layout_tbl_graph_partition}()},
 \code{\link{layout_tbl_graph_pmds}()},
 \code{\link{layout_tbl_graph_stress}()},
