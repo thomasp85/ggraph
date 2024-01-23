@@ -25,9 +25,6 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
     'layout_ggraph',
     class(layout)
   )
-  if (inherits(graph, 'sfnetwork')) {
-    class(layout) <- append('layout_sfnetwork', class(layout))
-  }
   check_layout(layout)
 }
 collect_edges.layout_tbl_graph <- function(layout) {
