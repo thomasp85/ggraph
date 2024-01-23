@@ -61,5 +61,11 @@ GeomEdgeSf = ggproto("GeomEdgeSf", GeomSf,
     names(data) <- sub('edge_', '', names(data))
     names(data)[names(data) == 'width'] <- 'size'
     GeomSf$draw_panel(data, panel_params, coords)
-  }
+  },
+  draw_key = GeomEdgePath$draw_key,
+  default_aes = aes(
+    edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
+    edge_alpha = NA
+  ),
+  rename_size = FALSE
 )
