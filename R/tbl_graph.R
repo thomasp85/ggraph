@@ -97,8 +97,11 @@ prepare_graph <- function(graph, layout, direction = 'out', ...) {
     if (!graph_is_treeish) graph <- graph_to_tree(graph, mode = direction)
     graph <- permute(graph, match(seq_len(gorder(graph)), order(node_depth(graph, direction))))
   }
-  if (inherits(graph, "sfnetwork")) graph
-  else as_tbl_graph(graph)
+  if (inherits(graph, "sfnetwork")) {
+    graph
+  } else {
+    as_tbl_graph(graph)
+  }
 }
 #' @importFrom igraph degree unfold_tree components induced_subgraph vertex_attr vertex_attr<- is.directed simplify
 graph_to_tree <- function(graph, mode) {

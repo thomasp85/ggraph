@@ -58,7 +58,7 @@ StatFilterSf <- ggproto('StatFilterSf', StatSf,
   setup_data = function(data, params) {
     if (any(names(data) == 'filter')) {
       if (!is.logical(data$filter)) {
-        stop('filter must be logical')
+        cli::cli_abort('{.field filter} must be logical')
       }
       data <- data[data$filter, names(data) != 'filter']
     }
