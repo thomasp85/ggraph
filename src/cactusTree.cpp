@@ -1,6 +1,8 @@
-#include <Rcpp.h>
 #include "nodes.h"
-using namespace Rcpp;
+
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/matrix.hpp>
 
 void cactusTreeCircle(Node* node, double x, double y, double scale, double alpha, double span, double overlap) {
   Rectangle r = {x, y, std::pow(node->weight(), scale), 0.0};
@@ -17,15 +19,10 @@ void cactusTreeCircle(Node* node, double x, double y, double scale, double alpha
     total_angle += std::pow(children[i]->weight(), scale * (children.size() < 5 ? 2 : 0.75));
     ordered_children.insert(ordered_children.begin() + int(ordered_children.size() / 2), children[i]);
   }
-  //std::reverse(ordered_children.begin(), ordered_children.end());
-  //for (unsigned int i = 1; i < children.size(); i+=2) {
-  //  ordered_children.push_back(children[i]);
-  //}
 
-   alpha -= span / 2;
+  alpha -= span / 2;
 
   for (unsigned int i = 0; i < ordered_children.size(); i++) {
-    //Rprintf("%f ", ordered_children[i]->weight());
     double local_span = 0.5 * span * std::pow(ordered_children[i]->weight(), scale * (children.size() < 5 ? 2 : 0.75)) / total_angle;
     alpha += local_span;
     double child_r = std::pow(ordered_children[i]->weight(), scale);
@@ -35,15 +32,14 @@ void cactusTreeCircle(Node* node, double x, double y, double scale, double alpha
     cactusTreeCircle(ordered_children[i], x2, y2, scale, alpha, 3.926991, overlap);
     alpha += local_span;
   }
-  //Rprintf("\n");
 }
 
-//[[Rcpp::export]]
-NumericMatrix cactusTree(IntegerVector parent, IntegerVector order, NumericVector weight, double scale, double overlap, bool upright) {
-  NumericMatrix circ(parent.size(), 3);
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> cactusTree(cpp11::integers parent, cpp11::integers order, cpp11::doubles weight, double scale, double overlap, bool upright) {
+  cpp11::writable::doubles_matrix<> circ(parent.size(), 3);
   unsigned int i;
 
-  std::vector<Node*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<int> >(order), as< std::vector<double> >(weight));
+  std::vector<Node*> nodes = createHierarchy(parent, order, weight);
 
   Node* startNode = nodes[0]->getRoot();
   startNode->tallyWeights();

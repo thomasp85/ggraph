@@ -96,8 +96,15 @@ makeContent.cappedpathgrob <- function(x) {
   start.cap2 <- convertHeight(x$start.cap2, 'mm', TRUE)
   end.cap2 <- convertHeight(x$end.cap2, 'mm', TRUE)
   truncated <- cut_lines(
-    x_new, y_new, as.integer(x$id), start.cap, start.cap2,
-    end.cap, end.cap2, x$start.captype, x$end.captype
+    as.numeric(x_new),
+    as.numeric(y_new),
+    as.integer(x$id),
+    as.numeric(start.cap),
+    as.numeric(start.cap2),
+    as.numeric(end.cap),
+    as.numeric(end.cap2),
+    as.character(x$start.captype),
+    as.character(x$end.captype)
   )
   keep <- !is.na(truncated$x)
   if (!any(keep)) {

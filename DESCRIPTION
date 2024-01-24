@@ -19,7 +19,6 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: TRUE
 Imports:
-    Rcpp (>= 0.12.2),
     dplyr,
     ggforce (>= 0.3.1),
     grid,
@@ -48,7 +47,8 @@ Suggests:
     deldir,
     gganimate,
     covr
-LinkingTo: Rcpp
+LinkingTo: 
+    cpp11
 RoxygenNote: 7.2.3
 Depends:
     R (>= 2.10),

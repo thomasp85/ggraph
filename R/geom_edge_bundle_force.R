@@ -280,25 +280,16 @@ force_bundle <- function(data, K, C, P, S, P_rate, I, I_rate, compatibility_thre
 
   # initialize matrix with coordinates
   m <- nrow(data)
-  elist <- lapply(seq_len(m), function(i) {
-    matrix(as.vector(data[i, ]), ncol = 2, byrow = TRUE)
-  })
+
+  mode(data) <- 'numeric'
 
   # main force bundling routine
-  elist <- force_bundle_iter(
-    data, elist, K, C, P, P_rate,
-    S, I, I_rate, compatibility_threshold, eps
-  )
-
-  # assemble data frame
-  segments <- nrow(elist[[1]])
-  elist <- inject(rbind(!!!elist))
-
-  data_frame0(
-    x = elist[, 1],
-    y = elist[, 2],
-    group = rep(seq_len(m), each = segments)
+  force_bundle_iter(
+    data, as.numeric(K), as.integer(C), as.integer(P), as.integer(P_rate),
+    as.numeric(S), as.integer(I), as.numeric(I_rate),
+    as.numeric(compatibility_threshold), as.numeric(eps)
   )
 }
 
-force_bundle_mem <- memoise::memoise(force_bundle)
+#force_bundle_mem <- memoise::memoise(force_bundle)
+force_bundle_mem <- force_bundle

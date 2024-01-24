@@ -11,7 +11,8 @@ layout_tbl_graph_metro(
   length = 2,
   grid_space = 0.0025,
   optimization_weights = NULL,
-  max_movement = 5
+  max_movement = 5,
+  circular = FALSE
 )
 }
 \arguments{

@@ -59,7 +59,7 @@ layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
     xy <- cbind(x_coord, y_coord)
     if (anyNA(xy)) {
       xy <- layout_with_fixed_coords(graph, xy, weights = weights, iter = niter,
-                                     tol = tol, mds = mds, bbox = bbox)
+                                     tol = tolerance, mds = mds, bbox = bbox)
     }
   } else {
     dim <- if (is.null(x_coord)) "y" else "x"

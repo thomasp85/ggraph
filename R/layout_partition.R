@@ -65,7 +65,12 @@ layout_tbl_graph_partition <- function(graph, weight = NULL, circular = FALSE, h
   sort.by <- enquo(sort.by)
   sort.by <- eval_tidy(sort.by, .N())
   hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight, height)
-  layout <- partitionTree(hierarchy$parent, hierarchy$order, hierarchy$weight, hierarchy$height)[-1, ]
+  layout <- partitionTree(
+    as.integer(hierarchy$parent),
+    as.integer(hierarchy$order),
+    as.numeric(hierarchy$weight),
+    as.numeric(hierarchy$height)
+  )[-1, ]
   if (circular) {
     if (const.area) {
       y0 <- sqrt(layout[, 2])

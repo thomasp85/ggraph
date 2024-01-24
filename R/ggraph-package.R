@@ -7,7 +7,6 @@
 ## usethis namespace: start
 #' @import ggplot2 tidygraph rlang vctrs
 #' @importFrom lifecycle deprecated
-#' @importFrom Rcpp sourceCpp
-#' @useDynLib ggraph
+#' @useDynLib ggraph, .registration = TRUE
 ## usethis namespace: end
 NULL

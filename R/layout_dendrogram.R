@@ -78,7 +78,15 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
   startnode <- which(degree(graph, mode = reverse_dir) == 0)
   if (length(startnode) < 1) cli::cli_abort('The graph doesn\'t contain a root node')
   neighbors <- lapply(adjacent_vertices(graph, seq_len(gorder(graph)), direction), as.integer)
-  nodes$x <- dendrogram_spread(neighbors, startnode, nodes$y, nodes$leaf, repel, pad, ratio)
+  nodes$x <- dendrogram_spread(
+    neighbors,
+    as.integer(startnode),
+    as.numeric(nodes$y),
+    as.logical(nodes$leaf),
+    as.logical(repel),
+    as.numeric(pad),
+    as.numeric(ratio)
+  )
   graph <- add_direction(graph, nodes)
   if (circular) {
     radial <- radial_trans(

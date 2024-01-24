@@ -50,7 +50,14 @@ layout_tbl_graph_cactustree <- function(graph, direction = "out", weight = NULL,
     weight <- as.numeric(degree(graph, mode = direction) == 0)
   }
   hierarchy <- tree_to_hierarchy(graph, direction, NULL, weight, NULL)
-  layout <- cactusTree(hierarchy$parent, hierarchy$order, hierarchy$weight, scale_factor, overlap, upright)[-1, ]
+  layout <- cactusTree(
+    as.integer(hierarchy$parent),
+    as.integer(hierarchy$order),
+    as.numeric(hierarchy$weight),
+    as.numeric(scale_factor),
+    as.numeric(overlap),
+    as.logical(upright)
+  )[-1, ]
   nodes <- data_frame0(
     x = layout[, 1],
     y = layout[, 2],
