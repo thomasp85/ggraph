@@ -11,8 +11,6 @@
 
 using namespace cpp11::literals;
 
-//static bool printing = false;
-
 class Point {
 public:
   double x;
@@ -128,10 +126,7 @@ public:
 private:
   double visibility(const Segment& s, double eps = 0.0) const {
     Segment proj_s = project(s, eps);
-    //if (printing) {
-    //  Rprintf("A: %f-%f, B: %f-%f, PA: %f-%f, PB: %f-%f, MO: %f-%f, M: %f-%f\n", s.a.x, s.a.y, s.b.x, s.b.y, proj_s.a.x, proj_s.a.y, proj_s.b.x, proj_s.b.y, s.midpoint().x, s.midpoint().y, midpoint().x, midpoint().y);
-    //}
-    return std::max(1.0 - 2.0 * midpoint().distance_to(s.midpoint(), eps) / proj_s.length(eps), 0.0);
+    return std::max(1.0 - 2.0 * midpoint().distance_to(proj_s.midpoint(), eps) / proj_s.length(eps), 0.0);
   }
   double angle_comp(const Segment& Q, double eps = 0.0) const {
     double dot_PQ = as_vec() * Q.as_vec();
@@ -213,15 +208,11 @@ std::vector< std::vector<int> > compute_compatibility_lists(std::vector<Path>& e
   for (size_t e = 0; e < (m - 1); ++e) {
     Segment P(edges[e][0], edges[e][1]);
     for (size_t oe = (e + 1); oe < m; ++oe) {
-      //if (e == 3 && oe == 4) {
-      //  printing = true;
-      //}
       Segment Q(edges[oe][0], edges[oe][1]);
       if (P.are_compatible(Q, compatibility_threshold)) {
         comp[e].push_back(oe);
         comp[oe].push_back(e);
       }
-      //printing = false;
     }
   }
   return comp;
