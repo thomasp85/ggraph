@@ -32,7 +32,7 @@
 #'
 #' @export
 #'
-geom_node_sf <- function(mapping = NULL, data = get_sf_nodes(),
+geom_node_sf <- function(mapping = NULL, data = NULL,
                           position = 'identity', show.legend = NA, ...) {
   mapping <- aes_intersect(mapping, aes(geometry = geometry))
   c(
