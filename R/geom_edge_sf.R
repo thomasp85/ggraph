@@ -38,7 +38,7 @@ geom_edge_sf <- function(mapping = NULL, data = get_sf_edges(),
     layer_sf(
       geom = GeomEdgeSf, data = data, mapping = mapping, stat = StatFilterSf,
       position = position, show.legend = show.legend, inherit.aes = FALSE,
-      params = list2(na.rm = FALSE, ...)
+      params = expand_edge_aes(list2(na.rm = FALSE, ...))
     ),
     coord_sf(default = TRUE)
   )
