@@ -32,7 +32,7 @@
 #'
 #' @export
 #'
-geom_node_sf <- function(mapping = NULL, data = NULL,
+geom_node_sf <- function(mapping = NULL, data = get_sf_nodes(),
                           position = 'identity', show.legend = NA, ...) {
   mapping <- aes_intersect(mapping, aes(geometry = geometry))
   c(
@@ -43,4 +43,12 @@ geom_node_sf <- function(mapping = NULL, data = NULL,
     ),
     coord_sf(default = TRUE)
   )
+}
+
+get_sf_nodes <- function(){
+  function(layout) {
+    nodes <- sf::st_as_sf(attr(layout, "graph"), "nodes")
+    attr(nodes, 'type_ggraph') <- 'node_ggraph'
+    nodes
+  }
 }
