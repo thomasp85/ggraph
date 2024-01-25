@@ -59,7 +59,7 @@ get_sf_edges <- function(){
 GeomEdgeSf = ggproto("GeomEdgeSf", GeomSf,
   draw_panel = function(data, panel_params, coords) {
     names(data) <- sub('edge_', '', names(data))
-    names(data)[names(data) == 'width'] <- 'size'
+    names(data)[names(data) == 'width'] <- 'linewidth'
     GeomSf$draw_panel(data, panel_params, coords)
   },
   draw_key = GeomEdgePath$draw_key,
