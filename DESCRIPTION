@@ -48,7 +48,8 @@ Suggests:
     deldir,
     gganimate,
     covr,
-    sf
+    sf,
+    sfnetworks
 LinkingTo: Rcpp
 RoxygenNote: 7.3.1
 Depends:

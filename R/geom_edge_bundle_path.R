@@ -325,4 +325,4 @@ path_bundle <- function(graph, nodes, from, to, directed = directed, max_distort
   data_frame0(x = nodes$x[paths], y = nodes$y[paths], group = ids)
 }
 
-path_bundle_mem <- memoise::memoise(path_bundle)
+path_bundle_mem <- memoise(path_bundle)

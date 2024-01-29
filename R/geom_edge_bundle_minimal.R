@@ -274,4 +274,4 @@ minimal_bundle <- function(graph, nodes, from, to, max_distortion = 2, weight_fa
   data_frame0(x = nodes$x[paths], y = nodes$y[paths], group = ids)
 }
 
-minimal_bundle_mem <- memoise::memoise(minimal_bundle)
+minimal_bundle_mem <- memoise(minimal_bundle)

@@ -67,10 +67,12 @@ different shapes, colours and sizes.
 }
 
 \examples{
+library(tidygraph)
+
 if (require("sfnetworks", quietly = TRUE)) {
-  gr <- sfnetworks::as_sfnetwork(roxel) \%>\%
-    mutate(centrality = centrality_betweenness())
-  ggraph(gr, 'sf') + geom_node_sf(aes(color = centrality))
+  gr <- sfnetworks::as_sfnetwork(roxel)
+  ggraph(gr, 'sf') +
+    geom_node_sf(aes(color = centrality_betweenness()))
 }
 
 }

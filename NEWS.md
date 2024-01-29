@@ -31,7 +31,8 @@
   `geom_edge_bundle_minimal()` (+ variants) to provide support for edge bundling 
   (#267)
 * Add "metro" layout from graphlayouts for metroline like layouts
-* Add `layout_sf()`, `geom_node_sf()` and `geom_edge_sf()` to support plotting of [`sfnetwork`](https://luukvdmeer.github.io/sfnetworks/) objects (#275)
+* Add `layout_sf()`, `geom_node_sf()` and `geom_edge_sf()` to support plotting of
+  [`sfnetwork`](https://luukvdmeer.github.io/sfnetworks/) objects (#275)
 
 # ggraph 2.1.0
 
