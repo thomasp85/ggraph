@@ -110,6 +110,7 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
 collect_edges <- function(layout) {
   UseMethod('collect_edges', layout)
 }
+#' @export
 collect_edges.default <- function(layout) {
   attr(layout, 'edges')
 }

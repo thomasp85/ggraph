@@ -52,6 +52,6 @@ connection.
 \seealso{
 Other extractors: 
 \code{\link{get_edges}()},
-\code{\link{get_nodes}()}
+\code{\link{get_sf_nodes}()}
 }
 \concept{extractors}

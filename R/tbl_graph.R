@@ -27,6 +27,7 @@ create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
   )
   check_layout(layout)
 }
+#' @export
 collect_edges.layout_tbl_graph <- function(layout) {
   gr <- attr(layout, 'graph')
   edges <- as_tibble(gr, active = 'edges')

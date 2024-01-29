@@ -2,6 +2,9 @@
 
 S3method(as.data.frame,layout_ggraph)
 S3method(autograph,default)
+S3method(collect_connections,default)
+S3method(collect_edges,default)
+S3method(collect_edges,layout_tbl_graph)
 S3method(create_layout,default)
 S3method(create_layout,layout_ggraph)
 S3method(create_layout,tbl_graph)

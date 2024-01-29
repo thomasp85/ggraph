@@ -43,7 +43,7 @@ geom_edge_sf <- function(mapping = NULL, data = get_sf_edges(),
     coord_sf(default = TRUE)
   )
 }
-
+#' @rdname get_edges
 get_sf_edges <- function(){
   function(layout) {
     edges <- sf::st_as_sf(attr(layout, "graph"), "edges")

@@ -11,7 +11,8 @@ layout_tbl_graph_metro(
   length = 2,
   grid_space = 0.0025,
   optimization_weights = NULL,
-  max_movement = 5
+  max_movement = 5,
+  circular = FALSE
 )
 }
 \arguments{
@@ -88,6 +89,7 @@ Other layout_tbl_graph_*:
 \code{\link{layout_tbl_graph_matrix}()},
 \code{\link{layout_tbl_graph_partition}()},
 \code{\link{layout_tbl_graph_pmds}()},
+\code{\link{layout_tbl_graph_sf}()},
 \code{\link{layout_tbl_graph_stress}()},
 \code{\link{layout_tbl_graph_treemap}()},
 \code{\link{layout_tbl_graph_unrooted}()}

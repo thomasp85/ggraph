@@ -79,6 +79,8 @@ reference:
       - layout_tbl_graph_matrix
       - layout_tbl_graph_hive
       - layout_tbl_graph_fabric
+      - layout_tbl_graph_sf
+      - layout_tbl_graph_metro
   - title: "Nodes"
     desc: >
       While nodes are often thought of as points in a hairball graph, they are
@@ -91,6 +93,7 @@ reference:
       - geom_node_circle
       - geom_node_arc_bar
       - geom_node_range
+      - geom_node_sf
   - title: "Edges"
     desc: >
       Edges are the entities connecting nodes, often drawn with some sort of
@@ -113,6 +116,7 @@ reference:
       - geom_edge_bundle_force
       - geom_edge_bundle_path
       - geom_edge_bundle_minimal
+      - geom_edge_sf
   - title: "Connections"
     desc: >
       Connections are meta-edges, connecting nodes that are not direct

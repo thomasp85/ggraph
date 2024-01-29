@@ -91,6 +91,7 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
 collect_connections <- function(layout, from, to, ...) {
   UseMethod('collect_connections', layout)
 }
+#' @export
 collect_connections.default <- function(layout, ...) {
   cli::cli_abort('Don\'t know how to get connections from an object of class {.cls {class(layout)[1]}}')
 }
