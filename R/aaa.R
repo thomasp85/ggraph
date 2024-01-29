@@ -50,6 +50,23 @@ StatReverse <- ggproto('StatReverse', StatFilter,
   }
 )
 
+#' @rdname ggraph-extensions
+#' @format NULL
+#' @usage NULL
+#' @export
+StatFilterSf <- ggproto('StatFilterSf', StatSf,
+  setup_data = function(data, params) {
+    if (any(names(data) == 'filter')) {
+      if (!is.logical(data$filter)) {
+        cli::cli_abort('{.field filter} must be logical')
+      }
+      data <- data[data$filter, names(data) != 'filter']
+    }
+    data
+  },
+  default_aes = aes(filter = TRUE)
+)
+
 aes_intersect <- function(aes1, aes2) {
   aes <- c(as.list(aes1), aes2[!names(aes2) %in% names(aes1)])
   class(aes) <- 'uneval'

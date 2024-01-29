@@ -47,7 +47,8 @@ Suggests:
     seriation,
     deldir,
     gganimate,
-    covr
+    covr,
+    sf
 LinkingTo: Rcpp
 RoxygenNote: 7.2.3
 Depends:
