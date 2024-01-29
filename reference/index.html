@@ -192,6 +192,14 @@
           <p><code><a href="layout_tbl_graph_fabric.html">layout_tbl_graph_fabric()</a></code> <code><a href="layout_tbl_graph_fabric.html">node_rank_fabric()</a></code> </p>
         </td>
         <td><p>Create a fabric layout</p></td>
+      </tr><tr><td>
+          <p><code><a href="layout_tbl_graph_sf.html">layout_tbl_graph_sf()</a></code> </p>
+        </td>
+        <td><p>Place nodes on their geographical space</p></td>
+      </tr><tr><td>
+          <p><code><a href="layout_tbl_graph_metro.html">layout_tbl_graph_metro()</a></code> </p>
+        </td>
+        <td><p>Place nodes according to the standard design of metro maps</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="nodes">Nodes <a href="#nodes" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>While nodes are often thought of as points in a hairball graph, they are much more than that, depending on the layout type.</p>
@@ -224,6 +232,10 @@
           <p><code><a href="geom_node_range.html">geom_node_range()</a></code> </p>
         </td>
         <td><p>Show nodes as a line spanning a horizontal range</p></td>
+      </tr><tr><td>
+          <p><code><a href="geom_node_sf.html">geom_node_sf()</a></code> </p>
+        </td>
+        <td><p>Show nodes as POINTs in geographical space</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="edges">Edges <a href="#edges" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Edges are the entities connecting nodes, often drawn with some sort of line. Certain layouts calls for other types, e.g. a matrix plot where edges are illustrated with points.</p>
@@ -292,6 +304,10 @@
           <p><code><a href="geom_edge_bundle_minimal.html">geom_edge_bundle_minimal()</a></code> <code><a href="geom_edge_bundle_minimal.html">geom_edge_bundle_minimal2()</a></code> <code><a href="geom_edge_bundle_minimal.html">geom_edge_bundle_minimal0()</a></code> </p>
         </td>
         <td><p>Bundle edges along the minimal spanning tree</p></td>
+      </tr><tr><td>
+          <p><code><a href="geom_edge_sf.html">geom_edge_sf()</a></code> </p>
+        </td>
+        <td><p>Draw edges as LINESTRINGs in geographical space</p></td>
       </tr></tbody><tbody><tr><th colspan="2">
           <h2 id="connections">Connections <a href="#connections" class="anchor" aria-hidden="true"></a></h2>
           <p class="section-desc"></p><p>Connections are meta-edges, connecting nodes that are not direct neighbors, either through their shortest path or directly.</p>
@@ -377,11 +393,11 @@
         </td>
         <td><p>Draw rectangular bars and labels on hive axes</p></td>
       </tr><tr><td>
-          <p><code><a href="get_nodes.html">get_nodes()</a></code> </p>
+          <p><code><a href="get_nodes.html">get_sf_nodes()</a></code> <code><a href="get_nodes.html">get_nodes()</a></code> </p>
         </td>
         <td><p>Create a node extractor function</p></td>
       </tr><tr><td>
-          <p><code><a href="get_edges.html">get_edges()</a></code> </p>
+          <p><code><a href="get_edges.html">get_edges()</a></code> <code><a href="get_edges.html">get_sf_edges()</a></code> </p>
         </td>
         <td><p>Create edge extractor function</p></td>
       </tr><tr><td>
