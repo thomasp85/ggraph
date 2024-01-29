@@ -47,7 +47,7 @@ geom_node_sf <- function(mapping = NULL, data = get_sf_nodes(),
 
 get_sf_nodes <- function(){
   function(layout) {
-    nodes <- sf::st_as_sf(attr(layout, "graph"), "nodes")
+    nodes <- sf::st_as_sf(layout)
     attr(nodes, 'type_ggraph') <- 'node_ggraph'
     nodes
   }
