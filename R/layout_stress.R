@@ -19,7 +19,8 @@
 #' @param bbox constrain dimension of output. Only relevant to determine the
 #' placement of disconnected graphs.
 #' @param x_coord,y_coord Expressions evaluated on the node data giving
-#' coordinates along x and/or y axis to fix nodes to.
+#' coordinates along x and/or y axis to fix nodes to. You can chose to only fix
+#' selected nodes by leaving the remaining nodes with `NA` values.
 #' @param circular ignored
 #'
 #' @return A data.frame with the columns `x`, `y`, `circular` as
@@ -36,7 +37,7 @@
 #' @author The underlying algorithm is implemented in the graphlayouts package
 #' by David Schoch
 #'
-#' @importFrom graphlayouts layout_with_stress layout_with_constrained_stress
+#' @importFrom graphlayouts layout_with_stress layout_with_constrained_stress layout_with_fixed_coords
 #' @importFrom rlang eval_tidy enquo
 #'
 layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
@@ -56,6 +57,10 @@ layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
                              tol = tolerance, mds = mds, bbox = bbox)
   } else if (!is.null(x_coord) && !is.null(y_coord)) {
     xy <- cbind(x_coord, y_coord)
+    if (anyNA(xy)) {
+      xy <- layout_with_fixed_coords(graph, xy, weights = weights, iter = niter,
+                                     tol = tol, mds = mds, bbox = bbox)
+    }
   } else {
     dim <- if (is.null(x_coord)) "y" else "x"
     coord <- if (is.null(x_coord)) y_coord else x_coord

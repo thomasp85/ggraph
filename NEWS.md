@@ -30,6 +30,7 @@
 * Added `geom_edge_bundle_force()`, `geom_edge_bundle_path()`, and 
   `geom_edge_bundle_minimal()` (+ variants) to provide support for edge bundling 
   (#267)
+* Add "metro" layout from graphlayouts for metroline like layouts
 
 # ggraph 2.1.0
 

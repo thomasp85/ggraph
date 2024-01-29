@@ -41,7 +41,8 @@ weights for the layout. Currently ignored for the sparse version}
 placement of disconnected graphs.}
 
 \item{x_coord, y_coord}{Expressions evaluated on the node data giving
-coordinates along x and/or y axis to fix nodes to.}
+coordinates along x and/or y axis to fix nodes to. You can chose to only fix
+selected nodes by leaving the remaining nodes with \code{NA} values.}
 
 \item{circular}{ignored}
 
@@ -84,6 +85,7 @@ Other layout_tbl_graph_*:
 \code{\link{layout_tbl_graph_linear}()},
 \code{\link{layout_tbl_graph_manual}()},
 \code{\link{layout_tbl_graph_matrix}()},
+\code{\link{layout_tbl_graph_metro}()},
 \code{\link{layout_tbl_graph_partition}()},
 \code{\link{layout_tbl_graph_pmds}()},
 \code{\link{layout_tbl_graph_sf}()},
