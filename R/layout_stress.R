@@ -38,6 +38,7 @@
 #' by David Schoch
 #'
 #' @importFrom graphlayouts layout_with_stress layout_with_constrained_stress layout_with_fixed_coords
+#' @importFrom igraph gorder
 #' @importFrom rlang eval_tidy enquo
 #'
 layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
@@ -55,18 +56,15 @@ layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
   if (is.null(x_coord) && is.null(y_coord)) {
     xy <- layout_with_stress(graph, weights = weights, iter = niter,
                              tol = tolerance, mds = mds, bbox = bbox)
-  } else if (!is.null(x_coord) && !is.null(y_coord)) {
-    xy <- cbind(x_coord, y_coord)
+  } else {
+    xy <- cbind(x_coord %||% NA, y_coord %||% NA)
+    if (nrow(xy) != gorder(graph)) {
+      cli::cli_abort("If {.arg x_coord} and/or {.arg y_coord} is given they must equal the number of nodes in the graph")
+    }
     if (anyNA(xy)) {
       xy <- layout_with_fixed_coords(graph, xy, weights = weights, iter = niter,
                                      tol = tolerance, mds = mds, bbox = bbox)
     }
-  } else {
-    dim <- if (is.null(x_coord)) "y" else "x"
-    coord <- if (is.null(x_coord)) y_coord else x_coord
-    xy <- layout_with_constrained_stress(graph, coord = coord, fixdim = dim,
-                                         weights = weights, iter = niter,
-                                         tol = tolerance, mds = mds, bbox = bbox)
   }
 
   nodes <- data_frame0(x = xy[,1],y = xy[,2], circular = FALSE)

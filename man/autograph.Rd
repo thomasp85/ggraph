@@ -41,7 +41,7 @@ it should be created manually.
 }
 \examples{
 library(tidygraph)
-gr <- create_notable('herschel') \%>\%
+gr <- create_notable('herschel') |>
   mutate(class = sample(letters[1:3], n(), TRUE)) \%E>\%
   mutate(weight = runif(n()))
 

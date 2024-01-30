@@ -2,7 +2,7 @@
 #' @format NULL
 #' @usage NULL
 #' @importFrom grid segmentsGrob polylineGrob gpar
-#' @importFrom dplyr %>% group_by_ do ungroup
+#' @importFrom dplyr group_by_ do ungroup
 #' @importFrom ggforce interpolateDataFrame
 #' @export
 GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,

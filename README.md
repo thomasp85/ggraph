@@ -35,7 +35,7 @@ library(tidygraph)
 #>     filter
 
 # Create graph of highschool friendships
-graph <- as_tbl_graph(highschool) %>% 
+graph <- as_tbl_graph(highschool) |> 
     mutate(Popularity = centrality_degree(mode = 'in'))
 
 # plot using ggraph

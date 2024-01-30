@@ -105,7 +105,7 @@ from a voronoi tesselation. This is useful for e.g. showing dominance of certain
 node types in an area as overlapping is avoided:
 
 ```{r}
-graph <- create_notable('meredith') %>% 
+graph <- create_notable('meredith') |> 
   mutate(group = sample(c('A', 'B'), n(), TRUE))
 
 ggraph(graph, 'stress') + 

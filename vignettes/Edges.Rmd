@@ -43,7 +43,7 @@ library(purrr)
 library(rlang)
 
 set_graph_style(plot_margin = margin(1,1,1,1))
-hierarchy <- as_tbl_graph(hclust(dist(iris[, 1:4]))) %>% 
+hierarchy <- as_tbl_graph(hclust(dist(iris[, 1:4]))) |> 
   mutate(Class = map_bfs_back_chr(node_is_root(), .f = function(node, path, ...) {
     if (leaf[node]) {
       as.character(iris$Species[as.integer(label[node])])
@@ -57,10 +57,10 @@ hierarchy <- as_tbl_graph(hclust(dist(iris[, 1:4]))) %>%
     }
   }))
 
-hairball <- as_tbl_graph(highschool) %>% 
+hairball <- as_tbl_graph(highschool) |> 
   mutate(
     year_pop = map_local(mode = 'in', .f = function(neighborhood, ...) {
-      neighborhood %E>% pull(year) %>% table() %>% sort(decreasing = TRUE)
+      neighborhood %E>% pull(year) |> table() |> sort(decreasing = TRUE)
     }),
     pop_devel = map_chr(year_pop, function(pop) {
       if (length(pop) == 0 || length(unique(pop)) == 1) return('unchanged')
@@ -69,8 +69,8 @@ hairball <- as_tbl_graph(highschool) %>%
              '1958' = 'increased')
     }),
     popularity = map_dbl(year_pop, ~ .[1]) %|% 0
-  ) %>% 
-  activate(edges) %>% 
+  ) |> 
+  activate(edges) |> 
   mutate(year = as.character(year))
 ```
 
@@ -119,7 +119,7 @@ Loops cannot be shown with regular edges as they have no length. A dedicated
 
 ```{r}
 # let's make some of the student love themselves
-loopy_hairball <- hairball %>% 
+loopy_hairball <- hairball |> 
   bind_edges(tibble::tibble(from = 1:5, to = 1:5, year = rep('1957', 5)))
 ggraph(loopy_hairball, layout = 'stress') + 
   geom_edge_link(aes(colour = year), alpha = 0.25) + 
@@ -166,6 +166,54 @@ ggraph(hairball, layout = 'linear', circular = TRUE) +
   geom_edge_arc(aes(colour = year)) + 
   coord_fixed()
 ```
+
+### Bundling
+Edge bundling is a technique to reduce clutter in a network visualization by
+bundling edges that flows in the same direction. There are various ways of doing
+this, many with heavy computational cost and the potential to mislead. The 
+technique were initially confined to connections between nodes with a 
+[hierarchical structure](#Connections) but has been expanded to general graphs.
+ggraph provides 3 different bundling geoms with various up- and downsides. 
+
+#### Force directed
+This is perhaps the most classic. It treats the edges as an array of points with
+the propensity to attract each other if edges are parallel. It suffers from bad
+performance (though the edge bundling geoms uses memoisation to avoid 
+recomputations) and can also be misleading as it doesn't use the underlying 
+topology of the graph to determine if edges should be bundled, only whether they
+are parallel.
+
+```{r}
+ggraph(hairball) + 
+  geom_edge_bundle_force(n_cycle = 2, threshold = 0.4)
+```
+
+#### Edge path
+An alternative is to let the edges follow the shortest paths rather than 
+attract each other. This means the topology is being used in the bundling and
+in theory lead to less misleading results. It also has the upside of being 
+faster. The algorithm is iterative so that if an edge has been bundled it is
+deleted from the graph where the shortest path is being searched in. In this
+way the edges naturally converge towards a few "highways".
+
+```{r}
+ggraph(hairball) + 
+  geom_edge_bundle_path()
+```
+
+#### Minimal
+In the same vein as edge path bundling but even simpler, you can use the minimal
+spanning tree of the graph as the scaffold to bundle edges along. As such, it 
+changes to the hierarchical edge bundling approach, just with an implicit 
+hierarchy calculated on the graph. This method is very fast but does create bias
+in the output as edges will (obviously) travel along the minimal spanning tree 
+thus amplifying that topology.
+
+```{r}
+ggraph(hairball) + 
+  geom_edge_bundle_minimal()
+```
+
 
 ### Elbow
 Aah... The classic dendrogram with its right angle bends. Of course such
@@ -321,9 +369,9 @@ see the effect here we will use a slightly simpler graph
 
 ```{r}
 # Random names - I swear
-simple <- create_notable('bull') %>% 
-  mutate(name = c('Thomas', 'Bob', 'Hadley', 'Winston', 'Baptiste')) %>% 
-  activate(edges) %>% 
+simple <- create_notable('bull') |> 
+  mutate(name = c('Thomas', 'Bob', 'Hadley', 'Winston', 'Baptiste')) |> 
+  activate(edges) |> 
   mutate(type = sample(c('friend', 'foe'), 5, TRUE))
 ```
 

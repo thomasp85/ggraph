@@ -1,12 +1,12 @@
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
-#' @importFrom dplyr %>% group_by mutate slice ungroup
+#' @importFrom dplyr group_by mutate slice ungroup
 #' @export
 StatAxisHive <- ggproto('StatAxisHive', StatFilter,
   setup_data = function(data, params) {
-    data <- data %>%
-      group_by(.data$angle, .data$section, .data$PANEL) %>%
+    data <- data |>
+      group_by(.data$angle, .data$section, .data$PANEL) |>
       mutate(
         x = min(.data$r) * cos(.data$angle[1]) * 1.1,
         y = min(.data$r) * sin(.data$angle[1]) * 1.1,
@@ -14,8 +14,8 @@ StatAxisHive <- ggproto('StatAxisHive', StatFilter,
         yend = max(.data$r) * sin(.data$angle[1]) * 1.1,
         max_r = max(.data$r),
         min_r = min(.data$r)
-      ) %>%
-      slice(1) %>%
+      ) |>
+      slice(1) |>
       ungroup()
     data_frame0(data)
   },
@@ -26,7 +26,7 @@ StatAxisHive <- ggproto('StatAxisHive', StatFilter,
 #' @format NULL
 #' @usage NULL
 #' @importFrom grid textGrob nullGrob
-#' @importFrom dplyr %>% group_by summarise
+#' @importFrom dplyr group_by summarise
 #' @export
 GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
   draw_panel = function(data, panel_scales, coord, label = TRUE, axis = TRUE, label_colour = 'black') {
@@ -35,8 +35,8 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     data$xend <- data$xend / 1.1
     data$yend <- data$yend / 1.1
     data <- coord$transform(data, panel_scales)
-    label_data <- data %>%
-      group_by(.data$axis) %>%
+    label_data <- data |>
+      group_by(.data$axis) |>
       summarise(
         x = max(.data$max_r) * cos(mean(.data$angle)),
         y = max(.data$max_r) * sin(mean(.data$angle)),
@@ -132,15 +132,15 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
 #' @examples
 #' # Plot the flare import graph as a hive plot
 #' library(tidygraph)
-#' flareGr <- as_tbl_graph(flare$imports) %>%
+#' flareGr <- as_tbl_graph(flare$imports) |>
 #'   mutate(
 #'     type = dplyr::case_when(
 #'       centrality_degree(mode = 'in') == 0 ~ 'Source',
 #'       centrality_degree(mode = 'out') == 0 ~ 'Sink',
 #'       TRUE ~ 'Both'
 #'     )
-#'   ) %>%
-#'   activate(edges) %>%
+#'   ) |>
+#'   activate(edges) |>
 #'   mutate(
 #'     type = dplyr::case_when(
 #'       grepl('flare.analytics', paste(.N()$name[from], .N()$name[to])) ~ 'Analytics',

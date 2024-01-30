@@ -278,7 +278,7 @@ geom_edge_bundle_path0 <- function(mapping = NULL, data = get_edges(),
     )
   )
 }
-#' @importFrom igraph gsize delete_edges shortest_paths get.edge.ids is_directed
+#' @importFrom igraph gsize delete_edges shortest_paths is_directed as_edgelist
 path_bundle <- function(graph, nodes, from, to, directed = directed, max_distortion = 2, weight_fac = 2) {
   m <- gsize(graph)
   lock <- rep(FALSE, m)
@@ -294,6 +294,13 @@ path_bundle <- function(graph, nodes, from, to, directed = directed, max_distort
     cli::cli_warn("Ignoring {.arg directed} for undirected graphs")
   }
   mode <- if (is.null(directed) || !directed) "all" else "out"
+
+  all_edges <- as_edgelist(graph)
+  if (directed) {
+    all_edges <- paste(all_edges[,1], "-", all_edges[,2])
+  } else {
+    all_edges <- paste(pmin(all_edges[,1], all_edges[,2]), "-", pmax(all_edges[,1], all_edges[,2]))
+  }
   # iterate
   for (e in edges_order) {
     s <- from[e]
@@ -315,8 +322,15 @@ path_bundle <- function(graph, nodes, from, to, directed = directed, max_distort
       next()
     }
     all_edges_on_path <- rep(as.integer(path), each = 2)
-    all_edges_on_path <- all_edges_on_path[-c(1, length(all_edges_on_path))]
-    all_edges_on_path <- get.edge.ids(graph, all_edges_on_path, directed = mode != "all", error = FALSE, multi = TRUE)
+    all_edges_on_path <- matrix(all_edges_on_path[-c(1, length(all_edges_on_path))], ncol = 2, byrow = TRUE)
+    if (directed) {
+      all_edges_on_path <- paste(all_edges_on_path[,1], "-", all_edges_on_path[,2])
+    } else {
+      all_edges_on_path <- paste(pmin(all_edges_on_path[,1], all_edges_on_path[,2]),
+                                 "-",
+                                 pmax(all_edges_on_path[,1], all_edges_on_path[,2]))
+    }
+    all_edges_on_path <- all_edges %in% all_edges_on_path
     lock[all_edges_on_path] <- TRUE
     paths[[e]] <- path
   }
