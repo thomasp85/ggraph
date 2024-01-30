@@ -7,6 +7,7 @@
 #include <R_ext/Random.h>
 
 #include <deque>
+#include <vector>
 
 struct randWrapper {
   using result_type = unsigned int;

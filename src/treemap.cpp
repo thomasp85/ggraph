@@ -4,6 +4,8 @@
 #include <cpp11/integers.hpp>
 #include <cpp11/matrix.hpp>
 
+#include <vector>
+
 double w(std::vector<Node*>& nodes) {
   double w = 0;
   for (unsigned int i = 0; i < nodes.size(); ++i) {

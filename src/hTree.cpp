@@ -4,6 +4,8 @@
 #include <cpp11/integers.hpp>
 #include <cpp11/matrix.hpp>
 
+#include <vector>
+
 void hLayout(Node* node, double x, double y, bool horizontal, double length) {
   Rectangle r = {x, y, 0.0, 0.0};
   node->bounds = r;

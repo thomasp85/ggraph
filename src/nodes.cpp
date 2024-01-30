@@ -1,5 +1,7 @@
 #include "nodes.h"
 
+#include <vector>
+
 std::vector<Node*> createHierarchy(cpp11::integers parent, cpp11::integers order, cpp11::doubles weight) {
   std::vector<Node*> nodes;
   for (R_xlen_t i = 0; i < parent.size(); ++i) {

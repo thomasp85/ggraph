@@ -9,6 +9,8 @@
 #include <cpp11/data_frame.hpp>
 #include <cpp11/list_of.hpp>
 
+#include <vector>
+
 using namespace cpp11::literals;
 
 class Point {

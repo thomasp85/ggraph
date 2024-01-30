@@ -4,6 +4,8 @@
 #include <cpp11/integers.hpp>
 #include <cpp11/matrix.hpp>
 
+#include <vector>
+
 const double PI2 = 6.28318;
 
 void equalAngle(Node* node, double start, double angle) {

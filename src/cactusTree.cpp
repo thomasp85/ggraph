@@ -4,6 +4,8 @@
 #include <cpp11/integers.hpp>
 #include <cpp11/matrix.hpp>
 
+#include <vector>
+
 void cactusTreeCircle(Node* node, double x, double y, double scale, double alpha, double span, double overlap) {
   Rectangle r = {x, y, std::pow(node->weight(), scale), 0.0};
   node->bounds = r;

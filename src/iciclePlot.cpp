@@ -4,6 +4,8 @@
 #include <cpp11/integers.hpp>
 #include <cpp11/matrix.hpp>
 
+#include <vector>
+
 void icicleLayout(Node* node, double x, double y) {
   Rectangle r = {x, y, node->weight(), node->height()};
   node->bounds = r;
