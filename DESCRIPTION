@@ -46,10 +46,12 @@ Suggests:
     seriation,
     deldir,
     gganimate,
-    covr
+    covr,
+    sf,
+    sfnetworks
 LinkingTo: 
     cpp11
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 Depends:
     R (>= 2.10),
     ggplot2 (>= 3.0.0)

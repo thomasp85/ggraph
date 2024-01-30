@@ -291,5 +291,4 @@ force_bundle <- function(data, K, C, P, S, P_rate, I, I_rate, compatibility_thre
   )
 }
 
-#force_bundle_mem <- memoise::memoise(force_bundle)
-force_bundle_mem <- force_bundle
+force_bundle_mem <- memoise(force_bundle)

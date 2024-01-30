@@ -1,4 +1,3 @@
-#' @aliases ggraph-package
 #' @keywords internal
 '_PACKAGE'
 
@@ -6,6 +5,7 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @import ggplot2 tidygraph rlang vctrs
+#' @importFrom memoise memoise
 #' @importFrom lifecycle deprecated
 #' @useDynLib ggraph, .registration = TRUE
 ## usethis namespace: end
