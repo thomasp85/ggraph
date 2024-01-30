@@ -370,7 +370,7 @@ of possible “optimal node position” results. Below is a sample of some
 of the layouts available through <code>igraph</code> applied to the
 highschool graph.</p>
 <div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html" class="external-link">as_tbl_graph</a></span><span class="op">(</span><span class="va">highschool</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/tbl_graph.html" class="external-link">as_tbl_graph</a></span><span class="op">(</span><span class="va">highschool</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>degree <span class="op">=</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html" class="external-link">centrality_degree</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="https://rdrr.io/r/base/lapply.html" class="external-link">lapply</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">'stress'</span>, <span class="st">'fr'</span>, <span class="st">'lgl'</span>, <span class="st">'graphopt'</span><span class="op">)</span>, <span class="kw">function</span><span class="op">(</span><span class="va">layout</span><span class="op">)</span> <span class="op">{</span></span>
 <span>  <span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">graph</span>, layout <span class="op">=</span> <span class="va">layout</span><span class="op">)</span> <span class="op">+</span> </span>
@@ -379,6 +379,13 @@ highschool graph.</p>
 <span>    <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html" class="external-link">labs</a></span><span class="op">(</span>caption <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste0</a></span><span class="op">(</span><span class="st">'Layout: '</span>, <span class="va">layout</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="op">}</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-12-1.png" width="700"><img src="Layouts_files/figure-html/unnamed-chunk-12-2.png" width="700"><img src="Layouts_files/figure-html/unnamed-chunk-12-3.png" width="700"><img src="Layouts_files/figure-html/unnamed-chunk-12-4.png" width="700"></p>
+<p>The default plot is the <code>"stress"</code> layout that uses stress
+majorization to spread out nodes. It generally does a good job and is
+deterministic so that it doesn’t change upon every call (many other
+layouts does that as they use randomisation for the initial node
+positions). The stress layout also makes it possible to fix the location
+of certain nodes in one or two dimensions making it a very versatile
+starting point for your visualisation.</p>
 </div>
 <div class="section level3">
 <h3 id="hive-plots">Hive plots<a class="anchor" aria-label="anchor" href="#hive-plots"></a>
@@ -390,7 +397,7 @@ hive plots, to a certain extent are more interpretable as well as less
 vulnerable to small changes in the graph structure. They are less common
 though, so use will often require some additional explanation.</p>
 <div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="va">graph</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">graph</span> <span class="op">&lt;-</span> <span class="va">graph</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>friends <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span></span>
 <span>    <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html" class="external-link">centrality_degree</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">'in'</span><span class="op">)</span> <span class="op">&lt;</span> <span class="fl">5</span>, <span class="st">'few'</span>,</span>
 <span>    <span class="fu"><a href="https://rdrr.io/r/base/ifelse.html" class="external-link">ifelse</a></span><span class="op">(</span><span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/centrality.html" class="external-link">centrality_degree</a></span><span class="op">(</span>mode <span class="op">=</span> <span class="st">'in'</span><span class="op">)</span> <span class="op">&gt;=</span> <span class="fl">15</span>, <span class="st">'many'</span>, <span class="st">'medium'</span><span class="op">)</span></span>
@@ -499,8 +506,8 @@ where no node is considered the root. Often a dendrogram layout will not
 be faithful as it implicitly position a node at the root. To avoid that
 you can use the <code>unrooted</code> layout instead.</p>
 <div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_tree</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">2</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
-<span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html" class="external-link">%&gt;%</a></span> </span>
+<code class="sourceCode R"><span><span class="va">tree</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_tree</a></span><span class="op">(</span><span class="fl">100</span>, <span class="fl">2</span>, directed <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
+<span>  <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/activate.html" class="external-link">activate</a></span><span class="op">(</span><span class="va">edges</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
 <span>  <span class="fu"><a href="https://dplyr.tidyverse.org/reference/mutate.html" class="external-link">mutate</a></span><span class="op">(</span>length <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html" class="external-link">runif</a></span><span class="op">(</span><span class="fu"><a href="https://dplyr.tidyverse.org/reference/context.html" class="external-link">n</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">tree</span>, <span class="st">'unrooted'</span>, length <span class="op">=</span> <span class="va">length</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
@@ -565,6 +572,42 @@ each node.</p>
 <span>  <span class="fu"><a href="../reference/geom_edge_span.html">geom_edge_span</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>filter <span class="op">=</span> <span class="op">!</span><span class="va">shadow_edge</span><span class="op">)</span>, end_shape <span class="op">=</span> <span class="st">'square'</span><span class="op">)</span> <span class="op">+</span> </span>
 <span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/coord_fixed.html" class="external-link">coord_fixed</a></span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
 <p><img src="Layouts_files/figure-html/unnamed-chunk-28-1.png" width="700"></p>
+</div>
+<div class="section level3">
+<h3 id="spatial-layouts">Spatial layouts<a class="anchor" aria-label="anchor" href="#spatial-layouts"></a>
+</h3>
+<p>ggraph has a few layouts aimed at data where the node has a physical
+location. You may think this requires no layout at all and to some
+extent you are correct.</p>
+<p>ggraph supports spatial networks through the sfnetworks package and
+grabs the node position and CRS from the data correctly when using the
+“sf” layout:</p>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu">sfnetworks</span><span class="fu">::</span><span class="fu"><a href="https://luukvdmeer.github.io/sfnetworks/reference/as_sfnetwork.html" class="external-link">as_sfnetwork</a></span><span class="op">(</span><span class="fu">sfnetworks</span><span class="fu">::</span><span class="va"><a href="https://luukvdmeer.github.io/sfnetworks/reference/roxel.html" class="external-link">roxel</a></span><span class="op">)</span></span></code></pre></div>
+<pre><code><span><span class="co">## Registered S3 methods overwritten by 'proxy':</span></span>
+<span><span class="co">##   method               from    </span></span>
+<span><span class="co">##   print.registry_field registry</span></span>
+<span><span class="co">##   print.registry_entry registry</span></span></code></pre>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, <span class="st">'sf'</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_edge_sf.html">geom_edge_sf</a></span><span class="op">(</span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html" class="external-link">aes</a></span><span class="op">(</span>color <span class="op">=</span> <span class="va">type</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_node_sf.html">geom_node_sf</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">0.3</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-29-1.png" width="700"></p>
+<p>Another type of spatial layout is the metro layout which takes in a
+prior position and attempts to make these positions fit into a grid-like
+structure, well known in railroad and metro maps.</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gr</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://tidygraph.data-imaginist.com/reference/create_graphs.html" class="external-link">create_notable</a></span><span class="op">(</span><span class="st">'Walther'</span><span class="op">)</span></span>
+<span><span class="co"># Use stress layout to come up with a initial position</span></span>
+<span><span class="va">prior</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/ggraph.html">create_layout</a></span><span class="op">(</span><span class="va">gr</span>, <span class="st">'stress'</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Optimise placement with metro layout</span></span>
+<span><span class="fu"><a href="../reference/ggraph.html">ggraph</a></span><span class="op">(</span><span class="va">gr</span>, <span class="st">'metro'</span>, x <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">x</span>, y <span class="op">=</span> <span class="va">prior</span><span class="op">$</span><span class="va">y</span>, grid_space <span class="op">=</span> <span class="fl">1</span>, max_movement <span class="op">=</span> <span class="fl">50</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">4</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>size <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_edge_link.html">geom_edge_link</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'white'</span>, width <span class="op">=</span> <span class="fl">1</span><span class="op">)</span> <span class="op">+</span> </span>
+<span>  <span class="fu"><a href="../reference/geom_node_point.html">geom_node_point</a></span><span class="op">(</span>color <span class="op">=</span> <span class="st">'white'</span>, size <span class="op">=</span> <span class="fl">4</span><span class="op">)</span></span></code></pre></div>
+<p><img src="Layouts_files/figure-html/unnamed-chunk-30-1.png" width="700"></p>
 </div>
 </div>
 <div class="section level2">
