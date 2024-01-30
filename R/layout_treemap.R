@@ -77,7 +77,13 @@ layout_tbl_graph_treemap <- function(graph, algorithm = 'split', weight = NULL, 
   hierarchy <- tree_to_hierarchy(graph, direction, sort.by, weight)
   layout <- switch(
     algorithm,
-    split = splitTreemap(hierarchy$parent, hierarchy$order, hierarchy$weight, width, height),
+    split = splitTreemap(
+      as.integer(hierarchy$parent),
+      as.integer(hierarchy$order),
+      as.numeric(hierarchy$weight),
+      as.numeric(width),
+      as.numeric(height)
+    ),
     cli::cli_abort('Unknown treemap algorithm')
   )[-1, ]
   nodes <- data_frame0(

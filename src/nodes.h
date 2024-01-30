@@ -1,5 +1,7 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#pragma once
+#include <cpp11/integers.hpp>
+#include <cpp11/doubles.hpp>
+#include <vector>
 
 struct Rectangle {
   double x;
@@ -195,7 +197,8 @@ public:
   Rectangle bounds;
 };
 
-std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight);
-std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order, std::vector<double> weight, std::vector<double> height);
-std::vector<Node*> createHierarchy(std::vector<int> parent, std::vector<int> order);
-std::vector<Node*> createUnrooted(std::vector<int> parent, std::vector<int> order, std::vector<double> length);
+
+std::vector<Node*> createHierarchy(cpp11::integers parent, cpp11::integers order, cpp11::doubles weight);
+std::vector<Node*> createHierarchy(cpp11::integers parent, cpp11::integers order, cpp11::doubles weight, cpp11::doubles height);
+std::vector<Node*> createHierarchy(cpp11::integers parent, cpp11::integers order);
+std::vector<Node*> createUnrooted(cpp11::integers parent, cpp11::integers order, cpp11::doubles length);

@@ -1,5 +1,9 @@
-#include <Rcpp.h>
-using namespace Rcpp;
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/strings.hpp>
+#include <cpp11/data_frame.hpp>
+
+using namespace cpp11::literals;
 
 double copy_sign(double from, double to) {
   if (from > 0) {
@@ -105,7 +109,7 @@ bool inside_ellipsis(Point p, Point p0, double width, double height) {
   double pY = p.y - p0.y;
   return (pX * pX) / (width * width) + (pY * pY) / (height * height) < 1;
 }
-void capRectStart(NumericVector &x, NumericVector &y, int from, int to, double width, double height) {
+void capRectStart(cpp11::writable::doubles &x, cpp11::writable::doubles &y, int from, int to, double width, double height) {
   int i;
   Point p;
   Point p0 = point(x[from], y[from]);
@@ -127,7 +131,7 @@ void capRectStart(NumericVector &x, NumericVector &y, int from, int to, double w
     }
   }
 }
-void capRectEnd(NumericVector &x, NumericVector &y, int from, int to, double width, double height) {
+void capRectEnd(cpp11::writable::doubles &x, cpp11::writable::doubles &y, int from, int to, double width, double height) {
   int i = to - 1;
   Point p;
   Point p0 = point(x[i], y[i]);
@@ -149,7 +153,7 @@ void capRectEnd(NumericVector &x, NumericVector &y, int from, int to, double wid
     }
   }
 }
-void capEllipStart(NumericVector &x, NumericVector &y, int from, int to, double width, double height) {
+void capEllipStart(cpp11::writable::doubles &x, cpp11::writable::doubles &y, int from, int to, double width, double height) {
   int i;
   Point p;
   Point p0 = point(x[from], y[from]);
@@ -171,7 +175,7 @@ void capEllipStart(NumericVector &x, NumericVector &y, int from, int to, double 
     }
   }
 }
-void capEllipEnd(NumericVector &x, NumericVector &y, int from, int to, double width, double height) {
+void capEllipEnd(cpp11::writable::doubles &x, cpp11::writable::doubles &y, int from, int to, double width, double height) {
   int i = to - 1;
   Point p;
   Point p0 = point(x[i], y[i]);
@@ -194,10 +198,10 @@ void capEllipEnd(NumericVector &x, NumericVector &y, int from, int to, double wi
   }
 }
 
-//[[Rcpp::export]]
-List cut_lines(NumericVector x, NumericVector y, IntegerVector id, NumericVector start_width, NumericVector start_height, NumericVector end_width, NumericVector end_height, CharacterVector start_type, CharacterVector end_type) {
-  NumericVector new_x = clone(x);
-  NumericVector new_y = clone(y);
+[[cpp11::register]]
+cpp11::writable::data_frame cut_lines(cpp11::doubles x, cpp11::doubles y, cpp11::integers id, cpp11::doubles start_width, cpp11::doubles start_height, cpp11::doubles end_width, cpp11::doubles end_height, cpp11::strings start_type, cpp11::strings end_type) {
+  cpp11::writable::doubles new_x(x);
+  cpp11::writable::doubles new_y(y);
   int i, j, group, group_ind;
   group_ind = j = 0;
   group = id[group_ind];
@@ -238,5 +242,8 @@ List cut_lines(NumericVector x, NumericVector y, IntegerVector id, NumericVector
     }
   }
 
-  return List::create(Named("x") = new_x, Named("y") = new_y);
+  return cpp11::writable::data_frame({
+    "x"_nm = x,
+    "y"_nm = y
+  });
 }

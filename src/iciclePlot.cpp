@@ -1,6 +1,10 @@
-#include <Rcpp.h>
 #include "nodes.h"
-using namespace Rcpp;
+
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/matrix.hpp>
+
+#include <vector>
 
 void icicleLayout(Node* node, double x, double y) {
   Rectangle r = {x, y, node->weight(), node->height()};
@@ -15,12 +19,12 @@ void icicleLayout(Node* node, double x, double y) {
   }
 }
 
-//[[Rcpp::export]]
-NumericMatrix partitionTree(IntegerVector parent, IntegerVector order, NumericVector weight, NumericVector height) {
-  NumericMatrix rect(parent.size(), 4);
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> partitionTree(cpp11::integers parent, cpp11::integers order, cpp11::doubles weight, cpp11::doubles height) {
+  cpp11::writable::doubles_matrix<> rect(parent.size(), 4);
   unsigned int i;
 
-  std::vector<Node*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<int> >(order), as< std::vector<double> >(weight), as< std::vector<double> >(height));
+  std::vector<Node*> nodes = createHierarchy(parent, order, weight, height);
 
   for (i = 0; i < nodes.size(); ++i) {
     nodes[i]->sortChildren();

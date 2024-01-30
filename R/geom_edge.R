@@ -30,7 +30,14 @@ GeomEdgePath <- ggproto('GeomEdgePath', GeomPath,
     if (nrow(data) < 2) {
       return(zeroGrob())
     }
-    attr <- pathAttr(data, length(unique0(data$group)))
+    attr <- pathAttr(
+      as.integer(data$group),
+      as.numeric(data$edge_alpha),
+      as.numeric(data$edge_width),
+      as.character(data$edge_linetype),
+      as.character(data$edge_colour),
+      length(unique0(data$group))
+    )
 
     if (all(is.na(data$start_cap))) {
       start_captype <- 'circle'

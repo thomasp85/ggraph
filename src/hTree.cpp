@@ -1,6 +1,10 @@
-#include <Rcpp.h>
 #include "nodes.h"
-using namespace Rcpp;
+
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/matrix.hpp>
+
+#include <vector>
 
 void hLayout(Node* node, double x, double y, bool horizontal, double length) {
   Rectangle r = {x, y, 0.0, 0.0};
@@ -13,12 +17,12 @@ void hLayout(Node* node, double x, double y, bool horizontal, double length) {
   }
 }
 
-//[[Rcpp::export]]
-NumericMatrix hTree(IntegerVector parent, IntegerVector order) {
-  NumericMatrix pos(parent.size(), 2);
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> hTree(cpp11::integers parent, cpp11::integers order) {
+  cpp11::writable::doubles_matrix<> pos(parent.size(), 2);
   unsigned int i;
 
-  std::vector<Node*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<int> >(order));
+  std::vector<Node*> nodes = createHierarchy(parent, order);
 
   for (i = 0; i < nodes.size(); ++i) {
     nodes[i]->sortChildren();

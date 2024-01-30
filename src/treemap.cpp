@@ -1,6 +1,10 @@
-#include <Rcpp.h>
 #include "nodes.h"
-using namespace Rcpp;
+
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/matrix.hpp>
+
+#include <vector>
 
 double w(std::vector<Node*>& nodes) {
   double w = 0;
@@ -70,12 +74,12 @@ void splitLayout(std::vector<Node*> items, Rectangle r) {
   }
 }
 
-//[[Rcpp::export]]
-NumericMatrix splitTreemap(IntegerVector parent, IntegerVector order, NumericVector weight, double width, double height) {
-  NumericMatrix rect(parent.size(), 4);
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> splitTreemap(cpp11::integers parent, cpp11::integers order, cpp11::doubles weight, double width, double height) {
+  cpp11::writable::doubles_matrix<> rect(parent.size(), 4);
   unsigned int i;
 
-  std::vector<Node*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<int> >(order), as< std::vector<double> >(weight));
+  std::vector<Node*> nodes = createHierarchy(parent, order, weight);
 
   for (i = 0; i < nodes.size(); ++i) {
     nodes[i]->sortChildren();

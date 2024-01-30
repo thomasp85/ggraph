@@ -1,10 +1,12 @@
-#include <Rcpp.h>
 #include "nodes.h"
-using namespace Rcpp;
+
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/matrix.hpp>
+
+#include <vector>
 
 const double PI2 = 6.28318;
-
-
 
 void equalAngle(Node* node, double start, double angle) {
   if (node->leaf()) return;
@@ -90,11 +92,11 @@ double equalDaylight(Node* node, double rotation_mod) {
   return daylight_change / leafs.size();
 }
 
-//[[Rcpp::export]]
-NumericMatrix unrooted(IntegerVector parent, IntegerVector order, NumericVector length, bool daylight, double tol, double rotation_mod, int maxiter) {
-  NumericMatrix rect(parent.size(), 2);
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> unrooted(cpp11::integers parent, cpp11::integers order, cpp11::doubles length, bool daylight, double tol, double rotation_mod, int maxiter) {
+  cpp11::writable::doubles_matrix<> rect(parent.size(), 2);
 
-  std::vector<Node*> nodes = createUnrooted(as< std::vector<int> >(parent), as< std::vector<int> >(order), as< std::vector<double> >(length));
+  std::vector<Node*> nodes = createUnrooted(parent, order, length);
   Node* startNode = nodes[0]->getRoot();
   std::vector<Node*> children = startNode->getChildren();
   for (unsigned int i = 0; i < children.size(); ++i) {

@@ -1,7 +1,13 @@
-#include <Rcpp.h>
 #include <algorithm>
 
-using namespace Rcpp;
+#include <cpp11/doubles.hpp>
+#include <cpp11/integers.hpp>
+#include <cpp11/matrix.hpp>
+#include <cpp11/R.hpp>
+#include <R_ext/Random.h>
+
+#include <deque>
+#include <vector>
 
 struct randWrapper {
   using result_type = unsigned int;
@@ -99,7 +105,7 @@ class FrontChain {
   Circle enclose1(Circle* c1) {
     Circle enc = {c1->x, c1->y, c1->r};
     if (enc.r > 1e10 || enc.r < 0) {
-      stop("enc1 error");
+      cpp11::stop("enc1 error");
     }
     return enc;
   };
@@ -114,7 +120,7 @@ class FrontChain {
       (l + c1->r + c2->r) / 2
     };
     if (enc.r > 1e10 || enc.r < 0) {
-      stop("enc2 error");
+      cpp11::stop("enc2 error");
     }
     return enc;
   };
@@ -143,7 +149,7 @@ class FrontChain {
       r
     };
     if (enc.r > 1e10 || enc.r < 0) {
-      stop("enc3 error");
+      cpp11::stop("enc3 error");
     }
     return enc;
   };
@@ -179,7 +185,7 @@ public:
     c1->x = 0;
     c1->y = 0;
     double d12 = c1->r + c2->r;
-    double angle2 = (2 * M_PI) * R::runif(0, 1);
+    double angle2 = (2 * M_PI) * unif_rand();
     c2->x = std::cos(float(angle2)) * d12;
     c2->y = std::sin(float(angle2)) * d12;
 
@@ -200,7 +206,7 @@ public:
     c1->x = 0;
     c1->y = 0;
     double d12 = c1->r + c2->r;
-    double angle2 = (2 * M_PI) * R::runif(0, 1);
+    double angle2 = (2 * M_PI) * unif_rand();
     c2->x = std::cos(float(angle2)) * d12;
     c2->y = std::sin(float(angle2)) * d12;
 
@@ -313,7 +319,7 @@ public:
 
 FrontChain pack_circles(std::deque<Circle> &circles) {
   if (circles.size() == 0) {
-    stop("Cannot pack an empty set of circles");
+    cpp11::stop("Cannot pack an empty set of circles");
   }
 
   std::deque<Circle>::iterator itc;
@@ -403,14 +409,13 @@ public:
     }
   }
 };
-std::vector<NodePack*> createHierarchy(std::vector<int> parent, std::vector<double> weight) {
+std::vector<NodePack*> createHierarchy(cpp11::integers &parent, cpp11::doubles &weight) {
   std::vector<NodePack*> nodes;
-  unsigned int i;
-  for (i = 0; i < parent.size(); ++i) {
+  for (R_xlen_t i = 0; i < parent.size(); ++i) {
     NodePack* node = new NodePack(i + 1, weight[i]);
     nodes.push_back(node);
   }
-  for (i = 0; i < parent.size(); ++i) {
+  for (R_xlen_t i = 0; i < parent.size(); ++i) {
     if (parent[i] >= 0) {
       nodes[parent[i]]->addNode(nodes[i]);
     }
@@ -427,58 +432,23 @@ int findTopNode(std::vector<NodePack*>& nodes) {
     }
   }
   if (!found) {
-    stop("No top node. Is this a tree structure?");
+    cpp11::stop("No top node. Is this a tree structure?");
   }
   return (int) i;
 }
-//' Pack circles together
-//'
-//' This function is a direct interface to the circle packing algorithm used by
-//' \code{\link{layout_tbl_graph_circlepack}}. It takes a vector of sizes and
-//' returns the x and y position of each circle as a two-column matrix.
-//'
-//' @param areas A vector of circle areas
-//'
-//' @return A matrix with two columns and the same number of rows as the length
-//' of the "areas" vector. The matrix has the following attributes added:
-//' "enclosing_radius" giving the radius of the smallest enclosing circle, and
-//' "front_chain" giving the terminating members of the front chain (see
-//' Wang \emph{et al}. 2006).
-//'
-//' @references
-//' Wang, W., Wang, H. H., Dai, G., & Wang, H. (2006). \emph{Visualization of
-//' large hierarchical data by circle packing}. Chi, 517-520.
-//'
-//' @export
-//'
-//' @examples
-//' library(ggforce)
-//' sizes <- sample(10, 100, TRUE)
-//'
-//' position <- pack_circles(sizes)
-//' data <- data.frame(x = position[,1], y = position[,2], r = sqrt(sizes/pi))
-//'
-//' ggplot() +
-//'   geom_circle(aes(x0 = x, y0 = y, r = r), data = data, fill = 'steelblue') +
-//'   geom_circle(aes(x0 = 0, y0 = 0, r = attr(position, 'enclosing_radius'))) +
-//'   geom_polygon(aes(x = x, y = y),
-//'                data = data[attr(position, 'front_chain'), ],
-//'                fill = NA,
-//'                colour = 'black')
-//'
-//[[Rcpp::export(name = "pack_circles")]]
-NumericMatrix pack(NumericVector areas) {
+
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> pack(cpp11::doubles areas) {
   GetRNGstate();
-  NumericVector::iterator itr;
   std::deque<Circle> circles;
-  NumericMatrix res(areas.size(), 2);
-  for (itr = areas.begin(); itr != areas.end(); itr++) {
-    Circle c = {0, 0, std::sqrt(float(*itr / M_PI)), static_cast<int>(circles.size()) + 1};
+  cpp11::writable::doubles_matrix<> res(areas.size(), 2);
+  for (R_xlen_t i = 0; i < areas.size(); ++i) {
+    Circle c = {0, 0, std::sqrt(areas[i] / M_PI), static_cast<int>(circles.size()) + 1};
     circles.push_back(c);
   }
   if (circles.size() == 0) {
     res.attr("enclosing_radius") = 0;
-    res.attr("front_chain") = IntegerVector(0);
+    res.attr("front_chain") = cpp11::writable::integers();
   } else {
     FrontChain fc = pack_circles(circles);
 
@@ -487,19 +457,20 @@ NumericMatrix pack(NumericVector areas) {
       res(i, 1) = circles[i].y;
     }
 
-    res.attr("enclosing_radius") = fc.enclose_radius();
-    res.attr("front_chain") = wrap(fc.chain_ind());
+    res.attr("enclosing_radius") = Rf_ScalarReal(fc.enclose_radius());
+    auto chain_ind = fc.chain_ind();
+    res.attr("front_chain") = cpp11::writable::integers(chain_ind.begin(), chain_ind.end());
   }
   PutRNGstate();
   return res;
 }
 
-//[[Rcpp::export]]
-NumericMatrix circlePackLayout(IntegerVector parent, NumericVector weight) {
+[[cpp11::register]]
+cpp11::writable::doubles_matrix<> circlePackLayout(cpp11::integers parent, cpp11::doubles weight) {
   GetRNGstate();
-  NumericMatrix res(parent.size(), 3);
+  cpp11::writable::doubles_matrix<> res(parent.size(), 3);
   unsigned int i;
-  std::vector<NodePack*> nodes = createHierarchy(as< std::vector<int> >(parent), as< std::vector<double> >(weight));
+  std::vector<NodePack*> nodes = createHierarchy(parent, weight);
 
   int startNode = findTopNode(nodes);
 

@@ -38,7 +38,7 @@ layout_tbl_graph_htree <- function(graph, sort.by = NULL, direction = 'out', cir
   sort.by <- enquo(sort.by)
   sort.by <- eval_tidy(sort.by, .N())
   hierarchy <- tree_to_hierarchy(graph, direction, sort.by, NULL)
-  layout <- hTree(hierarchy$parent, hierarchy$order)[-1, ]
+  layout <- hTree(as.integer(hierarchy$parent), as.integer(hierarchy$order))[-1, ]
   nodes <- data_frame0(
     x = layout[, 1],
     y = layout[, 2],
