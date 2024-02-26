@@ -66,7 +66,7 @@
 #' plots-rational approach to visualizing networks*. Brief Bioinform 13 (5):
 #' 627-644. https://doi.org/10.1093/bib/bbr069
 #'
-#' <http://www.hiveplot.net>
+#' <https://www.hiveplot.net/>
 #'
 #' @family layout_tbl_graph_*
 #'

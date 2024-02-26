@@ -33,7 +33,7 @@
 #' @importFrom rlang enquo eval_tidy
 #'
 #' @references
-#' BioFabric website: <http://www.biofabric.org>
+#' BioFabric website: <https://biofabric.systemsbiology.net>
 #'
 #' Longabaugh, William J.R. (2012).
 #' *Combing the hairball with BioFabric: a new approach for visualization of large networks*.

@@ -45,7 +45,7 @@ something that should be handled with care - e.g. by only zooming in on a
 specific region.
 }
 \references{
-BioFabric website: \url{http://www.biofabric.org}
+BioFabric website: \url{https://biofabric.systemsbiology.net}
 
 Longabaugh, William J.R. (2012).
 \emph{Combing the hairball with BioFabric: a new approach for visualization of large networks}.
