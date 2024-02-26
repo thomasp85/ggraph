@@ -18,7 +18,7 @@
 #' @param mds should an MDS layout be used as initial layout (default: TRUE)
 #' @param bbox constrain dimension of output. Only relevant to determine the
 #' placement of disconnected graphs.
-#' @param x_coord,y_coord Expressions evaluated on the node data giving
+#' @param x,y Expressions evaluated on the node data giving
 #' coordinates along x and/or y axis to fix nodes to. You can chose to only fix
 #' selected nodes by leaving the remaining nodes with `NA` values.
 #' @param circular ignored
@@ -43,21 +43,20 @@
 #'
 layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
                                     tolerance = 1e-4, mds = TRUE, bbox = 50,
-                                    x_coord = NULL, y_coord = NULL,
-                                    circular = FALSE) {
+                                    x = NULL, y = NULL, circular = FALSE) {
   weights <- eval_tidy(enquo(weights), .E())
   if (is.null(weights)) {
     weights <- NA
   } else {
     weights <- 1 / weights
   }
-  x_coord <- eval_tidy(enquo(x_coord), .N())
-  y_coord <- eval_tidy(enquo(y_coord), .N())
-  if (is.null(x_coord) && is.null(y_coord)) {
+  x <- eval_tidy(enquo(x), .N())
+  y <- eval_tidy(enquo(y), .N())
+  if (is.null(x) && is.null(y)) {
     xy <- layout_with_stress(graph, weights = weights, iter = niter,
                              tol = tolerance, mds = mds, bbox = bbox)
   } else {
-    xy <- cbind(x_coord %||% NA, y_coord %||% NA)
+    xy <- cbind(x %||% NA, y %||% NA)
     if (nrow(xy) != gorder(graph)) {
       cli::cli_abort("If {.arg x_coord} and/or {.arg y_coord} is given they must equal the number of nodes in the graph")
     }
