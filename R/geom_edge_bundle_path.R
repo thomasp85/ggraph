@@ -292,6 +292,8 @@ path_bundle <- function(graph, nodes, from, to, directed = directed, max_distort
     directed <- directed %||% TRUE
   } else if (!is.null(directed)) {
     cli::cli_warn("Ignoring {.arg directed} for undirected graphs")
+  } else {
+    directed <- FALSE
   }
   mode <- if (is.null(directed) || !directed) "all" else "out"
 
