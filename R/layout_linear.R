@@ -47,6 +47,9 @@ layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric
   if (length(weight) != gorder(graph)) {
     cli::cli_abort('{.arg weight} must match the order of the graph')
   }
+  if (any(weight < 0)) {
+    cli::cli_abort("{.arg weight} must be positive")
+  }
 
   if (!is.null(sort.by)) {
     if (length(sort.by) != gorder(graph)) {
@@ -75,14 +78,9 @@ layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric
       nodes$start <- 2 * pi * nodes$x / full_width
       nodes$end <- nodes$start
     }
-    radial <- radial_trans(
-      r.range = rev(range(nodes$y)),
-      a.range = c(0, full_width),
-      offset = offset
-    )
-    coords <- radial$transform(nodes$y, nodes$x)
-    nodes$x <- coords$x
-    nodes$y <- coords$y
+    mid <- (nodes$start + nodes$end) / 2
+    nodes$x <- sin(mid)
+    nodes$y <- cos(mid)
     nodes$r0 <- 1
   }
   nodes <- combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
