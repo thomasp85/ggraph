@@ -243,7 +243,7 @@ cpp11::writable::data_frame cut_lines(cpp11::doubles x, cpp11::doubles y, cpp11:
   }
 
   return cpp11::writable::data_frame({
-    "x"_nm = x,
-    "y"_nm = y
+    "x"_nm = new_x,
+    "y"_nm = new_y
   });
 }
