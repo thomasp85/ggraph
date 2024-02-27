@@ -8,7 +8,6 @@
 guide_edge_coloursteps(
   even.steps = TRUE,
   show.limits = NULL,
-  ticks = FALSE,
   ...,
   available_aes = c("edge_colour", "edge_fill")
 )
@@ -16,7 +15,6 @@ guide_edge_coloursteps(
 guide_edge_colorsteps(
   even.steps = TRUE,
   show.limits = NULL,
-  ticks = FALSE,
   ...,
   available_aes = c("edge_colour", "edge_fill")
 )
