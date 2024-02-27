@@ -3,6 +3,7 @@
 #include <cpp11/doubles.hpp>
 #include <cpp11/integers.hpp>
 #include <cpp11/matrix.hpp>
+#include <cpp11/sexp.hpp>
 #include <cpp11/R.hpp>
 #include <R_ext/Random.h>
 
@@ -438,7 +439,7 @@ int findTopNode(std::vector<NodePack*>& nodes) {
 }
 
 [[cpp11::register]]
-cpp11::writable::doubles_matrix<> pack(cpp11::doubles areas) {
+cpp11::sexp pack(cpp11::doubles areas) {
   GetRNGstate();
   std::deque<Circle> circles;
   cpp11::writable::doubles_matrix<> res(areas.size(), 2);
@@ -446,10 +447,10 @@ cpp11::writable::doubles_matrix<> pack(cpp11::doubles areas) {
     Circle c = {0, 0, std::sqrt(areas[i] / M_PI), static_cast<int>(circles.size()) + 1};
     circles.push_back(c);
   }
-  if (circles.size() == 0) {
-    res.attr("enclosing_radius") = 0;
-    res.attr("front_chain") = cpp11::writable::integers();
-  } else {
+  cpp11::writable::doubles rad = {0.0};
+  cpp11::writable::integers chain;
+
+  if (circles.size() != 0) {
     FrontChain fc = pack_circles(circles);
 
     for (int i = 0; i < areas.size(); i++) {
@@ -457,12 +458,17 @@ cpp11::writable::doubles_matrix<> pack(cpp11::doubles areas) {
       res(i, 1) = circles[i].y;
     }
 
-    res.attr("enclosing_radius") = Rf_ScalarReal(fc.enclose_radius());
+    rad[0] = fc.enclose_radius();
     auto chain_ind = fc.chain_ind();
-    res.attr("front_chain") = cpp11::writable::integers(chain_ind.begin(), chain_ind.end());
+    chain = cpp11::writable::integers(chain_ind.begin(), chain_ind.end());
   }
+  cpp11::sexp resexp(res.data());
+  resexp.attr("enclosing_radius") = rad;
+  resexp.attr("front_chain") = chain;
+
   PutRNGstate();
-  return res;
+
+  return resexp;
 }
 
 [[cpp11::register]]

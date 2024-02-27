@@ -13,7 +13,7 @@ extern "C" SEXP _ggraph_cactusTree(SEXP parent, SEXP order, SEXP weight, SEXP sc
   END_CPP11
 }
 // circlePack.cpp
-cpp11::writable::doubles_matrix<> pack(cpp11::doubles areas);
+cpp11::sexp pack(cpp11::doubles areas);
 extern "C" SEXP _ggraph_pack(SEXP areas) {
   BEGIN_CPP11
     return cpp11::as_sexp(pack(cpp11::as_cpp<cpp11::decay_t<cpp11::doubles>>(areas)));
