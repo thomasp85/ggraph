@@ -1,4 +1,4 @@
-# ggraph (development version)
+# ggraph 2.2.0
 
 * Fix a precision bug in circle pack layout (#345)
 * `GeomEdgeTile` now uses `edge_width` instead of `edge_size` for the border
