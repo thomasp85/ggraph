@@ -36,7 +36,8 @@ collect_edges.layout_tbl_graph <- function(layout) {
 }
 #' @importFrom igraph shortest_paths
 #' @importFrom rlang enquo eval_tidy
-collect_connections.layout_tbl_graph <- function(layout, from, to, weight = NULL, mode = 'all') {
+#' @export
+collect_connections.layout_tbl_graph <- function(layout, from, to, weight = NULL, mode = 'all', ...) {
   from <- match(from, layout$.ggraph.orig_index)
   to <- match(to, layout$.ggraph.orig_index)
   weight <- eval_tidy(enquo(weight), collect_edges(layout))
