@@ -30,6 +30,8 @@ navbar:
     - text: News
       menu:
       - text: "Release notes"
+      - text: "Version 2.2.0"
+        href: https://www.data-imaginist.com/posts/2024-02-15-ggraph-2-2-0/
       - text: "Version 2.0.0"
         href: https://www.data-imaginist.com/2019/1-giraffe-2-giraffe-go/
       - text: "Version 1.0.0"
