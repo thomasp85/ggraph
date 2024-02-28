@@ -1,3 +1,5 @@
+# ggraph (development version)
+
 # ggraph 2.2.0
 
 * Fix a precision bug in circle pack layout (#345)
