@@ -13,68 +13,68 @@
 
 using namespace cpp11::literals;
 
-class Point {
+class Point2 {
 public:
   double x;
   double y;
 
-  Point() : x(0.0), y(0.0) {};
-  Point(double _x, double _y) : x(_x), y(_y) {};
-  Point(const Point& p) : x(p.x), y(p.y) {};
+  Point2() : x(0.0), y(0.0) {};
+  Point2(double _x, double _y) : x(_x), y(_y) {};
+  Point2(const Point2& p) : x(p.x), y(p.y) {};
 
-  Point operator+(const Point& p) const {
+  Point2 operator+(const Point2& p) const {
     return {x + p.x, y + p.y};
   };
 
-  Point& operator+=(const Point& p) {
+  Point2& operator+=(const Point2& p) {
     x += p.x;
     y += p.y;
     return *this;
   };
 
-  Point operator-(const Point& p) const {
+  Point2 operator-(const Point2& p) const {
     return {x - p.x, y - p.y};
   };
 
-  Point& operator-=(const Point& p) {
+  Point2& operator-=(const Point2& p) {
     x -= p.x;
     y -= p.y;
     return *this;
   };
 
-  Point operator*(double fac) const {
+  Point2 operator*(double fac) const {
     return {x * fac, y * fac};
   };
 
-  Point& operator*=(double fac) {
+  Point2& operator*=(double fac) {
     x *= fac;
     y *= fac;
     return *this;
   };
 
-  double operator*(const Point& p) const {
+  double operator*(const Point2& p) const {
     return dot(p);
   };
 
-  Point operator/(double fac) const {
+  Point2 operator/(double fac) const {
     return {x / fac, y / fac};
   };
 
-  Point& operator/=(double fac) {
+  Point2& operator/=(double fac) {
     x /= fac;
     y /= fac;
     return *this;
   };
 
-  bool operator==(const Point& p) const {
+  bool operator==(const Point2& p) const {
     return x == p.x && y == p.y;
   };
 
-  bool operator!=(const Point& p) const {
+  bool operator!=(const Point2& p) const {
     return x != p.x || y != p.y;
   };
 
-  double distance_to(const Point& p, double eps = 0) const {
+  double distance_to(const Point2& p, double eps = 0) const {
     double dx = x - p.x;
     double dy = y - p.y;
     if (std::abs(dx) < eps && std::abs(dy) < eps) return eps;
@@ -82,17 +82,17 @@ public:
     return std::sqrt(dx * dx + dy * dy);
   }
 
-  double dot(const Point& p) const {
+  double dot(const Point2& p) const {
     return x * p.x + y * p.y;
   }
 };
 class Segment {
 public:
-  Point a;
-  Point b;
+  Point2 a;
+  Point2 b;
 
   Segment() : a(), b() {};
-  Segment(Point _a, Point _b) : a(_a), b(_b) {};
+  Segment(Point2 _a, Point2 _b) : a(_a), b(_b) {};
   Segment(double x0, double y0, double x1, double y1) : a(x0, y0), b(x1, y1) {};
   Segment(const Segment& s) : a(s.a), b(s.b) {};
 
@@ -100,12 +100,12 @@ public:
     return a.distance_to(b, eps);
   }
 
-  Point as_vec() const {
+  Point2 as_vec() const {
     return b - a;
   }
 
-  Point project(const Point& p, double eps = 0.0) const {
-    Point vec = as_vec();
+  Point2 project(const Point2& p, double eps = 0.0) const {
+    Point2 vec = as_vec();
 
     double l2 = vec * vec;
     double u = ((p.x - a.x) * vec.x + (p.y - a.y) * vec.y) / l2;
@@ -117,7 +117,7 @@ public:
     return {project(s.a, eps), project(s.b, eps)};
   }
 
-  Point midpoint() const {
+  Point2 midPoint2() const {
     return (a + b) / 2.0;
   }
 
@@ -128,7 +128,7 @@ public:
 private:
   double visibility(const Segment& s, double eps = 0.0) const {
     Segment proj_s = project(s, eps);
-    return std::max(1.0 - 2.0 * midpoint().distance_to(proj_s.midpoint(), eps) / proj_s.length(eps), 0.0);
+    return std::max(1.0 - 2.0 * midPoint2().distance_to(proj_s.midPoint2(), eps) / proj_s.length(eps), 0.0);
   }
   double angle_comp(const Segment& Q, double eps = 0.0) const {
     double dot_PQ = as_vec() * Q.as_vec();
@@ -148,7 +148,7 @@ private:
 
     double lavg = (euc_P + euc_Q) / 2.0;
 
-    double euc_mid = midpoint().distance_to(Q.midpoint(), eps);
+    double euc_mid = midPoint2().distance_to(Q.midPoint2(), eps);
     return lavg / (lavg + euc_mid);
   }
   double visibility_comp(const Segment& Q, double eps = 0.0) const {
@@ -159,7 +159,7 @@ private:
   }
 };
 
-typedef std::vector<Point> Path;
+typedef std::vector<Point2> Path;
 
 
 double compute_divided_edge_length(Path& edge) {
@@ -174,7 +174,7 @@ double compute_divided_edge_length(Path& edge) {
 void update_edge_divisions(std::vector<Path>& elist, int P) {
   for (size_t e_idx = 0; e_idx < elist.size(); ++e_idx) {
     if (P == 1) {
-      elist[e_idx].insert(elist[e_idx].begin() + 1, Segment(elist[e_idx][0], elist[e_idx][1]).midpoint());
+      elist[e_idx].insert(elist[e_idx].begin() + 1, Segment(elist[e_idx][0], elist[e_idx][1]).midPoint2());
     } else {
       Path edge = elist[e_idx];
       double current_edge_length = compute_divided_edge_length(edge);
@@ -184,19 +184,19 @@ void update_edge_divisions(std::vector<Path>& elist, int P) {
       elist[e_idx].reserve(P + 2);
       elist[e_idx].push_back(edge[0]);
       for (size_t i = 1; i < edge.size(); ++i) {
-        Point& start_point = edge[i - 1];
-        Point vec = edge[i] - start_point;
-        double segment_length = start_point.distance_to(edge[i]);
+        Point2& start_Point2 = edge[i - 1];
+        Point2 vec = edge[i] - start_Point2;
+        double segment_length = start_Point2.distance_to(edge[i]);
         while (segment_length > current_segment_length) {
           double percent_position = current_segment_length / segment_length;
 
-          elist[e_idx].push_back(start_point + vec * percent_position);
+          elist[e_idx].push_back(start_Point2 + vec * percent_position);
 
           current_segment_length += new_segment_length;
         }
         current_segment_length -= segment_length;
       }
-      while (elist[e_idx].size() > P + 1) {
+      while (elist[e_idx].size() > size_t(P + 1)) {
         elist[e_idx].pop_back();
       }
       elist[e_idx].push_back(edge.back());
@@ -220,16 +220,16 @@ std::vector< std::vector<int> > compute_compatibility_lists(std::vector<Path>& e
   return comp;
 }
 
-Point apply_spring_force(const std::vector<Path>& edges, int e_idx, int i, double kP) {
+Point2 apply_spring_force(const std::vector<Path>& edges, int e_idx, int i, double kP) {
   const Path& edge = edges[e_idx];
 
   return (edge[i - 1] + edge[i + 1] - edge[i] * 2) * kP;
 }
 
-Point apply_electrostatic_force(const std::vector<Path>& edges,
+Point2 apply_electrostatic_force(const std::vector<Path>& edges,
                                 const std::vector< std::vector<int> >& comp,
                                 int e_idx, int i, double eps) {
-  Point sum_of_forces;
+  Point2 sum_of_forces;
   if (comp[e_idx].empty()) {
     return sum_of_forces;
   }
@@ -238,7 +238,7 @@ Point apply_electrostatic_force(const std::vector<Path>& edges,
 
   for (size_t oe = 0; oe < compatible_edges.size(); ++oe) {
     const Path& edge2 = edges[compatible_edges[oe]];
-    Point force = edge2[i] - edge[i];
+    Point2 force = edge2[i] - edge[i];
     if ((std::abs(force.x) > eps) || (std::abs(force.y) > eps)) {
       double euc = edge2[i].distance_to(edge[i]);
       double diff = std::pow(euc, -1.0);
@@ -249,7 +249,7 @@ Point apply_electrostatic_force(const std::vector<Path>& edges,
   return sum_of_forces;
 }
 
-std::vector<Point> apply_resulting_forces_on_subdivision_points(const std::vector<Path>& edges,
+std::vector<Point2> apply_resulting_forces_on_subdivision_Point2s(const std::vector<Path>& edges,
                                                                 const std::vector< std::vector<int> >& comp,
                                                                 int e_idx, int P,
                                                                 double S, double K,
@@ -258,16 +258,16 @@ std::vector<Point> apply_resulting_forces_on_subdivision_points(const std::vecto
 
   double kP = K / (edge[0].distance_to(edge[P + 1], eps) * (P + 1));
 
-  std::vector<Point> resulting_forces_for_subdivision_points(P + 2);
+  std::vector<Point2> resulting_forces_for_subdivision_Point2s(P + 2);
   for (int i = 1; i < (P + 1); ++i) {
-    Point spring_force = apply_spring_force(edges, e_idx, i, kP);
+    Point2 spring_force = apply_spring_force(edges, e_idx, i, kP);
 
-    Point electrostatic_force = apply_electrostatic_force(edges, comp, e_idx, i, eps);
+    Point2 electrostatic_force = apply_electrostatic_force(edges, comp, e_idx, i, eps);
 
-    resulting_forces_for_subdivision_points[i] = (spring_force + electrostatic_force) * S;
+    resulting_forces_for_subdivision_Point2s[i] = (spring_force + electrostatic_force) * S;
   }
 
-  return resulting_forces_for_subdivision_points;
+  return resulting_forces_for_subdivision_Point2s;
 }
 
 
@@ -279,8 +279,8 @@ cpp11::writable::data_frame force_bundle_iter(cpp11::doubles_matrix<> edges_xy, 
   // first division
   std::vector<Path> edges(m);
   for (R_xlen_t i = 0; i < m; ++i) {
-    edges[i].push_back(Point(edges_xy(i, 0), edges_xy(i, 1)));
-    edges[i].push_back(Point(edges_xy(i, 2), edges_xy(i, 3)));
+    edges[i].push_back(Point2(edges_xy(i, 0), edges_xy(i, 1)));
+    edges[i].push_back(Point2(edges_xy(i, 2), edges_xy(i, 3)));
   }
 
   // compute compatibility list
@@ -291,9 +291,9 @@ cpp11::writable::data_frame force_bundle_iter(cpp11::doubles_matrix<> edges_xy, 
   // main loop
   for (int cycle = 0; cycle < C; ++cycle) {
     for (int iteration = 0; iteration < I; ++iteration) {
-      std::vector< std::vector<Point> > forces(m);
+      std::vector< std::vector<Point2> > forces(m);
       for (R_xlen_t e = 0; e < m; ++e) {
-        forces[e] = apply_resulting_forces_on_subdivision_points(edges, comp, e, P, S, K, eps);
+        forces[e] = apply_resulting_forces_on_subdivision_Point2s(edges, comp, e, P, S, K, eps);
       }
       for (int e = 0; e < m; ++e) {
         for (int i = 0; i < (P + 1); ++i) {
