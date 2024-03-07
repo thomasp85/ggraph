@@ -71,7 +71,7 @@ automatically set, but can be overwritten.
 
 \examples{
 require(tidygraph)
-gr <- create_notable('bull') |>
+gr <- create_notable('bull') \%>\%
   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 
 ggraph(gr, 'stress') + geom_node_point()

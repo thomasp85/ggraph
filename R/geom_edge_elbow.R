@@ -74,10 +74,10 @@
 #'
 #' @examples
 #' require(tidygraph)
-#' irisDen <- hclust(dist(iris[1:4], method = 'euclidean'), method = 'ward.D2') |>
-#'   as_tbl_graph() |>
-#'   mutate(class = sample(letters[1:3], n(), TRUE)) |>
-#'   activate(edges) |>
+#' irisDen <- hclust(dist(iris[1:4], method = 'euclidean'), method = 'ward.D2') %>%
+#'   as_tbl_graph() %>%
+#'   mutate(class = sample(letters[1:3], n(), TRUE)) %>%
+#'   activate(edges) %>%
 #'   mutate(class = sample(letters[1:3], n(), TRUE))
 #'
 #' ggraph(irisDen, 'dendrogram', circular = TRUE) +

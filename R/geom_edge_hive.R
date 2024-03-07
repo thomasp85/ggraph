@@ -74,15 +74,15 @@
 #' @examples
 #' # Plot the flare import graph as a hive plot
 #' library(tidygraph)
-#' flareGr <- as_tbl_graph(flare$imports) |>
+#' flareGr <- as_tbl_graph(flare$imports) %>%
 #'   mutate(
 #'     type = dplyr::case_when(
 #'       centrality_degree(mode = 'in') == 0 ~ 'Source',
 #'       centrality_degree(mode = 'out') == 0 ~ 'Sink',
 #'       TRUE ~ 'Both'
 #'     )
-#'   ) |>
-#'   activate(edges) |>
+#'   ) %>%
+#'   activate(edges) %>%
 #'   mutate(
 #'     type = dplyr::case_when(
 #'       grepl('flare.analytics', paste(.N()$name[from], .N()$name[to])) ~ 'Analytics',

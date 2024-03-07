@@ -114,7 +114,7 @@ automatically set, but can be overwritten.
 
 \examples{
 require(tidygraph)
-gr <- create_notable('meredith') |>
+gr <- create_notable('meredith') \%>\%
   mutate(group = sample(letters[1:4], n(), TRUE))
 
 ggraph(gr) +

@@ -205,9 +205,9 @@ collapse_all_edges <- function(edges) {
   id <- paste(from, to, sep = '-')
   if (anyDuplicated(id)) {
     edges$.id <- id
-    edges <- edges |>
-      group_by(.data$.id) |>
-      top_n(1) |>
+    edges <- edges %>%
+      group_by(.data$.id) %>%
+      top_n(1) %>%
       ungroup()
   }
   data_frame0(edges)
@@ -217,9 +217,9 @@ collapse_dir_edges <- function(edges) {
   id <- paste(edges$from, edges$to, sep = '-')
   if (anyDuplicated(id)) {
     edges$.id <- id
-    edges <- edges |>
-      group_by(.data$.id) |>
-      top_n(1) |>
+    edges <- edges %>%
+      group_by(.data$.id) %>%
+      top_n(1) %>%
       ungroup()
   }
   data_frame0(edges)

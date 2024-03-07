@@ -39,8 +39,8 @@
 #'
 #' @examples
 #' require(tidygraph)
-#' gr <- create_notable('bull') |>
-#'   activate(edges) |>
+#' gr <- create_notable('bull') %>%
+#'   activate(edges) %>%
 #'   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 #'
 #' ggraph(gr, 'stress') +

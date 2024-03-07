@@ -249,8 +249,8 @@ automatically be renamed appropriately.
 
 \examples{
 require(tidygraph)
-gr <- create_notable('bull') |>
-  convert(to_directed) |>
+gr <- create_notable('bull') \%>\%
+  convert(to_directed) \%>\%
   bind_edges(data.frame(from = c(1, 2, 2, 3), to = c(2, 1, 3, 2))) \%E>\%
   mutate(class = sample(letters[1:3], 9, TRUE)) \%N>\%
   mutate(class = sample(c('x', 'y'), 5, TRUE))

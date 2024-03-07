@@ -58,7 +58,7 @@
 #' @examples
 #' # Create a graph of the flare class system
 #' library(tidygraph)
-#' flareGraph <- tbl_graph(flare$vertices, flare$edges) |>
+#' flareGraph <- tbl_graph(flare$vertices, flare$edges) %>%
 #'   mutate(
 #'     class = map_bfs_chr(node_is_root(), .f = function(node, dist, path, ...) {
 #'       if (dist <= 1) {

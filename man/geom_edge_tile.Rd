@@ -73,11 +73,11 @@ automatically be renamed appropriately.
 
 \examples{
 require(tidygraph)
-gr <- create_notable('zachary') |>
-  mutate(group = group_infomap()) |>
-  morph(to_split, group) |>
-  activate(edges) |>
-  mutate(edge_group = as.character(.N()$group[1])) |>
+gr <- create_notable('zachary') \%>\%
+  mutate(group = group_infomap()) \%>\%
+  morph(to_split, group) \%>\%
+  activate(edges) \%>\%
+  mutate(edge_group = as.character(.N()$group[1])) \%>\%
   unmorph()
 
 ggraph(gr, 'matrix', sort.by = node_rank_hclust()) +

@@ -87,7 +87,7 @@ each panel (even when nodes are not drawn).
 }
 \examples{
 library(tidygraph)
-gr <- as_tbl_graph(highschool) |>
+gr <- as_tbl_graph(highschool) \%>\%
   mutate(popularity = as.character(cut(centrality_degree(mode = 'in'),
     breaks = 3,
     labels = c('low', 'medium', 'high')

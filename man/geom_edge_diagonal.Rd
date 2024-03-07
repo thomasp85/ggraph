@@ -247,9 +247,9 @@ automatically be renamed appropriately.
 
 \examples{
 require(tidygraph)
-gr <- create_tree(20, 4) |>
-  mutate(class = sample(letters[1:3], n(), replace = TRUE)) |>
-  activate(edges) |>
+gr <- create_tree(20, 4) \%>\%
+  mutate(class = sample(letters[1:3], n(), replace = TRUE)) \%>\%
+  activate(edges) \%>\%
   mutate(class = sample(letters[1:3], n(), replace = TRUE))
 
 ggraph(gr, 'tree') +

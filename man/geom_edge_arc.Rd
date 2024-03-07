@@ -255,14 +255,14 @@ automatically be renamed appropriately.
 \examples{
 require(tidygraph)
 # Make a graph with different directions of edges
-gr <- create_notable('Meredith') |>
-  convert(to_directed) |>
-  mutate(class = sample(letters[1:3], n(), replace = TRUE)) |>
-  activate(edges) |>
+gr <- create_notable('Meredith') \%>\%
+  convert(to_directed) \%>\%
+  mutate(class = sample(letters[1:3], n(), replace = TRUE)) \%>\%
+  activate(edges) \%>\%
   mutate(
     class = sample(letters[1:3], n(), replace = TRUE),
     switch = sample(c(TRUE, FALSE), n(), replace = TRUE)
-  ) |>
+  ) \%>\%
   reroute(from = to, to = from, subset = switch)
 
 ggraph(gr, 'linear') +

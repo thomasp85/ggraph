@@ -68,8 +68,8 @@
 #'
 #' @examples
 #' require(tidygraph)
-#' gr <- create_notable('bull') |>
-#'   convert(to_directed) |>
+#' gr <- create_notable('bull') %>%
+#'   convert(to_directed) %>%
 #'   bind_edges(data.frame(from = c(1, 2, 2, 3), to = c(2, 1, 3, 2))) %E>%
 #'   mutate(class = sample(letters[1:3], 9, TRUE)) %N>%
 #'   mutate(class = sample(c('x', 'y'), 5, TRUE))
@@ -234,12 +234,12 @@ geom_edge_parallel0 <- function(mapping = NULL, data = get_edges(),
 edge_positions <- function(from, to, params) {
   from$.id <- paste(pmin(from$from, to$to), pmax(from$from, to$to), sep = '-')
   from$.orig_ind <- seq_len(nrow(from))
-  from |>
-    group_by(.data$PANEL, .data$.id) |>
-    arrange(.data$from) |>
-    mutate(position = seq_len(n()) - 0.5 - n() / 2) |>
-    mutate(position = .data$position * ifelse(.data$from < .data$to, 1, -1)) |>
-    ungroup() |>
-    arrange(.data$.orig_ind) |>
+  from %>%
+    group_by(.data$PANEL, .data$.id) %>%
+    arrange(.data$from) %>%
+    mutate(position = seq_len(n()) - 0.5 - n() / 2) %>%
+    mutate(position = .data$position * ifelse(.data$from < .data$to, 1, -1)) %>%
+    ungroup() %>%
+    arrange(.data$.orig_ind) %>%
     pull(.data$position)
 }
