@@ -1,5 +1,7 @@
 # ggraph (development version)
 
+* Fixed a bug in the collapse functionality of `get_edges()` (#362)
+
 # ggraph 2.2.1
 
 * Rolling back use of native pipe (#364 and #365)

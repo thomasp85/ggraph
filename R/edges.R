@@ -203,24 +203,10 @@ collapse_all_edges <- function(edges) {
   from <- pmin(edges$from, edges$to)
   to <- pmax(edges$to, edges$from)
   id <- paste(from, to, sep = '-')
-  if (anyDuplicated(id)) {
-    edges$.id <- id
-    edges <- edges %>%
-      group_by(.data$.id) %>%
-      top_n(1) %>%
-      ungroup()
-  }
-  data_frame0(edges)
+  edges[!duplicated(id), , drop = FALSE]
 }
 #' @importFrom dplyr group_by top_n ungroup
 collapse_dir_edges <- function(edges) {
   id <- paste(edges$from, edges$to, sep = '-')
-  if (anyDuplicated(id)) {
-    edges$.id <- id
-    edges <- edges %>%
-      group_by(.data$.id) %>%
-      top_n(1) %>%
-      ungroup()
-  }
-  data_frame0(edges)
+  edges[!duplicated(id), , drop = FALSE]
 }
