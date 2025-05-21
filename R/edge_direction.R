@@ -164,8 +164,8 @@ GuideEdgeDirection <- ggproto(
     return(list(guide = self, params = params))
   },
 
-  get_layer_key = function(params, layers, data = NULL) {
-    decor <- GuideLegend$get_layer_key(params, layers, data)$decor
+  get_layer_key = function(params, ...) {
+    decor <- GuideLegend$get_layer_key(params, ...)$decor
     extra_data <- lapply(decor, `[[`, 'data')
     missing_aes <- setdiff(c("edge_colour", "edge_alpha", "edge_width"), names(params$decor))
     for (d in extra_data) {
