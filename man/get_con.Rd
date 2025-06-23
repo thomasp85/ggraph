@@ -29,8 +29,8 @@ weights for the shortest path calculations}
 \item{mode}{Character constant, gives whether the shortest paths to or from
 the given vertices should be calculated for directed graphs. If \code{out}
 then the shortest paths \emph{from} the vertex, if \verb{in} then \emph{to}
-it will be considered. If \code{all}, the default, then the corresponding
-undirected graph will be used, i.e. not directed paths are searched. This
+it will be considered. If \code{all}, the default, then the graph is treated
+as undirected, i.e. edge directions are not taken into account. This
 argument is ignored for undirected graphs.}
 }
 \value{

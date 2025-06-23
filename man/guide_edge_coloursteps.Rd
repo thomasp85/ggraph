@@ -38,7 +38,11 @@ If \code{NULL}, the title is not shown. By default
 specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
     \item{\code{theme}}{A \code{\link[ggplot2:theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide overrides, and is combined with, the plot's theme.}
+guide partially overrides, and is combined with, the plot's theme.
+Arguments that apply to a single legend are respected, most of which have
+the \code{legend}-prefix. Arguments that apply to combined legends
+(the legend box) are ignored, including \code{legend.position},
+\verb{legend.justification.*}, \code{legend.location} and \verb{legend.box.*}.}
     \item{\code{nbin}}{A numeric specifying the number of bins for drawing the
 colourbar. A smoother colourbar results from a larger value.}
     \item{\code{display}}{A string indicating a method to display the colourbar. Can be
@@ -61,8 +65,13 @@ the bar. Use \code{NA} to preserve the alpha encoded in the colour itself
 be visible.}
     \item{\code{draw.llim}}{A logical specifying if the lower limit tick marks should
 be visible.}
+    \item{\code{angle}}{Overrules the theme settings to automatically apply appropriate
+\code{hjust} and \code{vjust} for angled legend text. Can be a single number
+representing the text angle in degrees, or \code{NULL} to not overrule the
+settings (default).}
     \item{\code{position}}{A character string indicating where the legend should be
-placed relative to the plot panels.}
+placed relative to the plot panels.
+One of "top", "right", "bottom", "left", or "inside".}
     \item{\code{direction}}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
     \item{\code{reverse}}{logical. If \code{TRUE} the colourbar is reversed. By default,
