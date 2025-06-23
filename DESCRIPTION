@@ -48,10 +48,11 @@ Suggests:
     gganimate,
     covr,
     sf,
-    sfnetworks
+    sfnetworks,
+    testthat (>= 3.0.0)
 LinkingTo: 
     cpp11
-RoxygenNote: 7.3.1
+RoxygenNote: 7.3.2
 Depends:
     R (>= 2.10),
     ggplot2 (>= 3.5.0)
@@ -59,3 +60,4 @@ VignetteBuilder: knitr
 URL: https://ggraph.data-imaginist.com, https://github.com/thomasp85/ggraph
 BugReports: https://github.com/thomasp85/ggraph/issues
 Roxygen: list(markdown = TRUE)
+Config/testthat/edition: 3
