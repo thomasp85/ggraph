@@ -94,7 +94,7 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
                             parse = FALSE, nudge_x = 0, nudge_y = 0,
                             label.padding = unit(0.25, 'lines'),
                             label.r = unit(0.15, 'lines'),
-                            label.size = 0.25, show.legend = NA,
+                            show.legend = NA,
                             repel = FALSE, ...) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
@@ -107,7 +107,7 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
   }
   params <- list2(
     parse = parse, label.padding = label.padding,
-    label.r = label.r, label.size = label.size, ...
+    label.r = label.r, ...
   )
   if (repel) {
     geom <- GeomLabelRepel

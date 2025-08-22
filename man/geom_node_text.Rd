@@ -27,7 +27,6 @@ geom_node_label(
   nudge_y = 0,
   label.padding = unit(0.25, "lines"),
   label.r = unit(0.15, "lines"),
-  label.size = 0.25,
   show.legend = NA,
   repel = FALSE,
   ...
@@ -121,9 +120,6 @@ lists which parameters it can accept.
 \item{label.padding}{Amount of padding around label. Defaults to 0.25 lines.}
 
 \item{label.r}{Radius of rounded corners. Defaults to 0.15 lines.}
-
-\item{label.size}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Replaced by the
-\code{linewidth} aesthetic. Size of label border, in mm.}
 }
 \description{
 These geoms are equivalent in functionality to \code{\link[ggplot2:geom_text]{ggplot2::geom_text()}} and
