@@ -99,11 +99,15 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatLink
 #' @export
-StatEdgeParallel <- ggproto('StatEdgeParallel', StatLink,
+StatEdgeParallel <- ggproto(
+  'StatEdgeParallel',
+  StatLink,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data2 <- data
     data2$x <- data2$xend
     data2$y <- data2$yend
@@ -119,29 +123,68 @@ StatEdgeParallel <- ggproto('StatEdgeParallel', StatLink,
 #'
 #' @importFrom ggforce StatLink
 #' @export
-geom_edge_parallel <- function(mapping = NULL, data = get_edges(),
-                               position = "identity", arrow = NULL,
-                               sep = unit(2, 'mm'), n = 100, lineend = "butt",
-                               linejoin = "round", linemitre = 1,
-                               label_colour = 'black',  label_alpha = 1,
-                               label_parse = FALSE, check_overlap = FALSE,
-                               angle_calc = 'rot', force_flip = TRUE,
-                               label_dodge = NULL, label_push = NULL,
-                               show.legend = NA, ...) {
+geom_edge_parallel <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = "identity",
+  arrow = NULL,
+  sep = unit(2, 'mm'),
+  n = 100,
+  lineend = "butt",
+  linejoin = "round",
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = x, y = y, xend = xend, yend = yend,
-                                        from = from, to = to, group = edge.id))
-  layer(data = data, mapping = mapping, stat = StatEdgeParallel,
-        geom = GeomEdgeParallelPath, position = position, show.legend = show.legend,
-        inherit.aes = FALSE,
-        params = expand_edge_aes(
-          list2(arrow = arrow, lineend = lineend, linejoin = linejoin,
-               linemitre = linemitre, sep = sep, n = n, interpolate = FALSE,
-               label_colour = label_colour, label_alpha = label_alpha,
-               label_parse = label_parse, check_overlap = check_overlap,
-               angle_calc = angle_calc, force_flip = force_flip,
-               label_dodge = label_dodge, label_push = label_push, ...)
-        )
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      from = from,
+      to = to,
+      group = edge.id
+    )
+  )
+  layer(
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeParallel,
+    geom = GeomEdgeParallelPath,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = expand_edge_aes(
+      list2(
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        sep = sep,
+        n = n,
+        interpolate = FALSE,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
+      )
+    )
   )
 }
 #' @rdname ggraph-extensions
@@ -149,11 +192,15 @@ geom_edge_parallel <- function(mapping = NULL, data = get_edges(),
 #' @usage NULL
 #' @importFrom ggforce StatBezier2
 #' @export
-StatEdgeParallel2 <- ggproto('StatEdgeParallel2', StatLink2,
+StatEdgeParallel2 <- ggproto(
+  'StatEdgeParallel2',
+  StatLink2,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data1 <- data[c(TRUE, FALSE), ]
@@ -167,31 +214,65 @@ StatEdgeParallel2 <- ggproto('StatEdgeParallel2', StatLink2,
 #' @rdname geom_edge_parallel
 #'
 #' @export
-geom_edge_parallel2 <- function(mapping = NULL, data = get_edges('long'),
-                                position = 'identity', arrow = NULL,
-                                sep = unit(2, 'mm'), n = 100, lineend = 'butt',
-                                linejoin = 'round', linemitre = 1,
-                                label_colour = 'black', label_alpha = 1,
-                                label_parse = FALSE, check_overlap = FALSE,
-                                angle_calc = 'rot', force_flip = TRUE,
-                                label_dodge = NULL, label_push = NULL,
-                                show.legend = NA, ...) {
+geom_edge_parallel2 <- function(
+  mapping = NULL,
+  data = get_edges('long'),
+  position = 'identity',
+  arrow = NULL,
+  sep = unit(2, 'mm'),
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, group = edge.id,
-    from = from, to = to
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      group = edge.id,
+      from = from,
+      to = to
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeParallel2,
-    geom = GeomEdgeParallelPath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeParallel2,
+    geom = GeomEdgeParallelPath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
-      list2(arrow = arrow, lineend = lineend, linejoin = linejoin,
-           linemitre = linemitre, sep = sep, n = n, interpolate = TRUE,
-           label_colour = label_colour, label_alpha = label_alpha,
-           label_parse = label_parse, check_overlap = check_overlap,
-           angle_calc = angle_calc, force_flip = force_flip,
-           label_dodge = label_dodge, label_push = label_push, ...)
+      list2(
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        sep = sep,
+        n = n,
+        interpolate = TRUE,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
+      )
     )
   )
 }
@@ -200,7 +281,9 @@ geom_edge_parallel2 <- function(mapping = NULL, data = get_edges('long'),
 #' @usage NULL
 #' @importFrom ggforce StatBezier0
 #' @export
-StatEdgeParallel0 <- ggproto('StatEdgeFan0', StatIdentity,
+StatEdgeParallel0 <- ggproto(
+  'StatEdgeFan0',
+  StatIdentity,
   setup_data = function(data, params) {
     StatEdgeParallel$setup_data(data, params)
   },
@@ -211,21 +294,42 @@ StatEdgeParallel0 <- ggproto('StatEdgeFan0', StatIdentity,
 #' @rdname geom_edge_parallel
 #'
 #' @export
-geom_edge_parallel0 <- function(mapping = NULL, data = get_edges(),
-                           position = 'identity', arrow = NULL, sep = unit(2, 'mm'),
-                           lineend = 'butt', show.legend = NA, ...) {
+geom_edge_parallel0 <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  sep = unit(2, 'mm'),
+  lineend = 'butt',
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend,
-    from = from, to = to
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      from = from,
+      to = to
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeParallel0,
-    geom = GeomEdgeParallelSegment, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeParallel0,
+    geom = GeomEdgeParallelSegment,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, sep = sep, ...
+        arrow = arrow,
+        lineend = lineend,
+        sep = sep,
+        ...
       )
     )
   )

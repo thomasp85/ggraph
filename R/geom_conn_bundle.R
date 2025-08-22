@@ -90,18 +90,26 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatBspline
 #' @export
-StatConnBundle <- ggproto('StatConnBundle', StatBspline,
+StatConnBundle <- ggproto(
+  'StatConnBundle',
+  StatBspline,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     relax(data, params$tension)
   },
   setup_params = function(data, params) {
     if (is.null(params$tension)) {
       params$tension <- 0.8
     }
-    if (params$tension < 0) params$tension <- 0
-    if (params$tension > 1) params$tension <- 1
+    if (params$tension < 0) {
+      params$tension <- 0
+    }
+    if (params$tension > 1) {
+      params$tension <- 1
+    }
     params
   },
   required_aes = c('x', 'y'),
@@ -111,21 +119,36 @@ StatConnBundle <- ggproto('StatConnBundle', StatBspline,
 #' @rdname geom_conn_bundle
 #'
 #' @export
-geom_conn_bundle <- function(mapping = NULL, data = get_con(),
-                             position = 'identity', arrow = NULL,
-                             lineend = 'butt', show.legend = NA,
-                             n = 100, tension = 0.8, ...) {
+geom_conn_bundle <- function(
+  mapping = NULL,
+  data = get_con(),
+  position = 'identity',
+  arrow = NULL,
+  lineend = 'butt',
+  show.legend = NA,
+  n = 100,
+  tension = 0.8,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = x, y = y,
-                                        group = con.id))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y, group = con.id))
   layer(
-    data = data, mapping = mapping, stat = StatConnBundle,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatConnBundle,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, n = n, interpolate = FALSE,
-        tension = tension, type = 'clamped', ...
+        arrow = arrow,
+        lineend = lineend,
+        n = n,
+        interpolate = FALSE,
+        tension = tension,
+        type = 'clamped',
+        ...
       )
     )
   )
@@ -135,7 +158,9 @@ geom_conn_bundle <- function(mapping = NULL, data = get_con(),
 #' @usage NULL
 #' @importFrom ggforce StatBspline2
 #' @export
-StatConnBundle2 <- ggproto('StatConnBundle2', StatBspline2,
+StatConnBundle2 <- ggproto(
+  'StatConnBundle2',
+  StatBspline2,
   setup_data = function(data, params) {
     StatConnBundle$setup_data(data, params)
   },
@@ -149,21 +174,36 @@ StatConnBundle2 <- ggproto('StatConnBundle2', StatBspline2,
 #' @rdname geom_conn_bundle
 #'
 #' @export
-geom_conn_bundle2 <- function(mapping = NULL, data = get_con(),
-                              position = 'identity', arrow = NULL,
-                              lineend = 'butt', show.legend = NA,
-                              n = 100, tension = 0.8, ...) {
+geom_conn_bundle2 <- function(
+  mapping = NULL,
+  data = get_con(),
+  position = 'identity',
+  arrow = NULL,
+  lineend = 'butt',
+  show.legend = NA,
+  n = 100,
+  tension = 0.8,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = x, y = y,
-                                        group = con.id))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y, group = con.id))
   layer(
-    data = data, mapping = mapping, stat = StatConnBundle2,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatConnBundle2,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list(
-        arrow = arrow, lineend = lineend, n = n, interpolate = TRUE,
-        tension = tension, type = 'clamped', ...
+        arrow = arrow,
+        lineend = lineend,
+        n = n,
+        interpolate = TRUE,
+        tension = tension,
+        type = 'clamped',
+        ...
       )
     )
   )
@@ -172,7 +212,9 @@ geom_conn_bundle2 <- function(mapping = NULL, data = get_con(),
 #' @format NULL
 #' @usage NULL
 #' @export
-StatConnBundle0 <- ggproto('StatConnBundle0', StatIdentity,
+StatConnBundle0 <- ggproto(
+  'StatConnBundle0',
+  StatIdentity,
   setup_data = function(data, params) {
     StatConnBundle$setup_data(data, params)
   },
@@ -186,20 +228,32 @@ StatConnBundle0 <- ggproto('StatConnBundle0', StatIdentity,
 #' @rdname geom_conn_bundle
 #'
 #' @export
-geom_conn_bundle0 <- function(mapping = NULL, data = get_con(),
-                              position = 'identity', arrow = NULL,
-                              lineend = 'butt', show.legend = NA,
-                              tension = 0.8, ...) {
+geom_conn_bundle0 <- function(
+  mapping = NULL,
+  data = get_con(),
+  position = 'identity',
+  arrow = NULL,
+  lineend = 'butt',
+  show.legend = NA,
+  tension = 0.8,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = x, y = y,
-                                        group = con.id))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y, group = con.id))
   layer(
-    data = data, mapping = mapping, stat = StatConnBundle0,
-    geom = GeomEdgeBspline, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatConnBundle0,
+    geom = GeomEdgeBspline,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, tension = tension, type = 'clamped',
+        arrow = arrow,
+        lineend = lineend,
+        tension = tension,
+        type = 'clamped',
         ...
       )
     )

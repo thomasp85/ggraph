@@ -1,10 +1,25 @@
-textAlongGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
-                          just = 'centre', hjust = NULL, vjust = NULL, rot = 0,
-                          check.overlap = FALSE, rot.type = 'rot', x0 = 0,
-                          y0 = 0, x1 = 0, y1 = 0, force.rot = TRUE, dodge = NULL,
-                          push = NULL,
-                          default.units = 'npc', name = NULL, gp = gpar(),
-                          vp = NULL) {
+textAlongGrob <- function(
+  label,
+  x = unit(0.5, 'npc'),
+  y = unit(0.5, 'npc'),
+  just = 'centre',
+  hjust = NULL,
+  vjust = NULL,
+  rot = 0,
+  check.overlap = FALSE,
+  rot.type = 'rot',
+  x0 = 0,
+  y0 = 0,
+  x1 = 0,
+  y1 = 0,
+  force.rot = TRUE,
+  dodge = NULL,
+  push = NULL,
+  default.units = 'npc',
+  name = NULL,
+  gp = gpar(),
+  vp = NULL
+) {
   if (!is.unit(x)) {
     x <- unit(x, default.units)
   }
@@ -13,13 +28,24 @@ textAlongGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
   }
   if (rot.type == 'rot') {
     textGrob(
-      label = label, x = x, y = y, just = just, hjust = hjust,
-      vjust = vjust, rot = rot, check.overlap = check.overlap,
-      default.units = default.units, name = name, gp = gp, vp = vp
+      label = label,
+      x = x,
+      y = y,
+      just = just,
+      hjust = hjust,
+      vjust = vjust,
+      rot = rot,
+      check.overlap = check.overlap,
+      default.units = default.units,
+      name = name,
+      gp = gp,
+      vp = vp
     )
   } else {
     if (!rot.type %in% c('along', 'across')) {
-      cli::cli_abort('{.arg rot.type} must be either {.val rot}, {.val along), or {.val across}')
+      cli::cli_abort(
+        '{.arg rot.type} must be either {.val rot}, {.val along), or {.val across}'
+      )
     }
     if (!is.unit(x0)) {
       x0 <- unit(x0, default.units)
@@ -34,10 +60,24 @@ textAlongGrob <- function(label, x = unit(0.5, 'npc'), y = unit(0.5, 'npc'),
       y1 <- unit(y1, default.units)
     }
     grob(
-      label = label, x = x, y = y, just = just, hjust = hjust,
-      vjust = vjust, rot.type = rot.type, x0 = x0, y0 = y0, x1 = x1,
-      y1 = y1, force.rot = force.rot, dodge = dodge, push = push,
-      check.overlap = check.overlap, name = name, gp = gp, vp = vp,
+      label = label,
+      x = x,
+      y = y,
+      just = just,
+      hjust = hjust,
+      vjust = vjust,
+      rot.type = rot.type,
+      x0 = x0,
+      y0 = y0,
+      x1 = x1,
+      y1 = y1,
+      force.rot = force.rot,
+      dodge = dodge,
+      push = push,
+      check.overlap = check.overlap,
+      name = name,
+      gp = gp,
+      vp = vp,
       cl = 'textalong'
     )
   }
@@ -82,9 +122,17 @@ makeContent.textalong <- function(x) {
     angle[fix] <- angle[fix] + 180
   }
   grob(
-    label = x$label, x = unit(xpos, 'mm'), y = unit(ypos, 'mm'),
-    just = x$just, hjust = x$hjust, vjust = x$vjust, rot = angle,
-    check.overlap = x$check.overlap, name = x$name, gp = x$gp, vp = x$vp,
+    label = x$label,
+    x = unit(xpos, 'mm'),
+    y = unit(ypos, 'mm'),
+    just = x$just,
+    hjust = x$hjust,
+    vjust = x$vjust,
+    rot = angle,
+    check.overlap = x$check.overlap,
+    name = x$name,
+    gp = x$gp,
+    vp = x$vp,
     cl = 'text'
   )
 }

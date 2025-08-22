@@ -50,7 +50,13 @@
 #'
 #' @family layout_tbl_graph_*
 #'
-layout_tbl_graph_circlepack <- function(graph, weight = NULL, circular = FALSE, sort.by = NULL, direction = 'out') {
+layout_tbl_graph_circlepack <- function(
+  graph,
+  weight = NULL,
+  circular = FALSE,
+  sort.by = NULL,
+  direction = 'out'
+) {
   weight <- enquo(weight)
   weight <- eval_tidy(weight, .N())
   sort.by <- enquo(sort.by)

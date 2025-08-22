@@ -28,17 +28,26 @@
 #'
 #' @importFrom igraph degree count_components
 #'
-layout_tbl_graph_htree <- function(graph, sort.by = NULL, direction = 'out', circular = FALSE) {
+layout_tbl_graph_htree <- function(
+  graph,
+  sort.by = NULL,
+  direction = 'out',
+  circular = FALSE
+) {
   if (any(degree(graph, mode = direction) > 2)) {
     cli::cli_abort("H-Tree layouts can only be used with binary trees")
   }
   if (count_components(graph, "weak") != 1) {
-    cli::cli_abort("H-Tree layouts can only be used with fully connected graphs")
+    cli::cli_abort(
+      "H-Tree layouts can only be used with fully connected graphs"
+    )
   }
   sort.by <- enquo(sort.by)
   sort.by <- eval_tidy(sort.by, .N())
   hierarchy <- tree_to_hierarchy(graph, direction, sort.by, NULL)
-  layout <- hTree(as.integer(hierarchy$parent), as.integer(hierarchy$order))[-1, ]
+  layout <- hTree(as.integer(hierarchy$parent), as.integer(hierarchy$order))[
+    -1,
+  ]
   nodes <- data_frame0(
     x = layout[, 1],
     y = layout[, 2],

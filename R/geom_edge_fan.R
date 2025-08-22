@@ -101,11 +101,15 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatBezier
 #' @export
-StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
+StatEdgeFan <- ggproto(
+  'StatEdgeFan',
+  StatBezier,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
@@ -119,37 +123,75 @@ StatEdgeFan <- ggproto('StatEdgeFan', StatBezier,
 #' @rdname geom_edge_fan
 #'
 #' @export
-geom_edge_fan <- function(mapping = NULL, data = get_edges(),
-                          position = 'identity', arrow = NULL,
-                          strength = 1, n = 100, lineend = 'butt',
-                          linejoin = 'round', linemitre = 1,
-                          label_colour = 'black', label_alpha = 1,
-                          label_parse = FALSE, check_overlap = FALSE,
-                          angle_calc = 'rot', force_flip = TRUE,
-                          label_dodge = NULL, label_push = NULL,
-                          show.legend = NA, ..., spread) {
+geom_edge_fan <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...,
+  spread
+) {
   if (!missing(spread)) {
-    lifecycle::deprecate_warn('2.0.0', 'geom_edge_fan(spread)', 'geom_edge_fan(strength)')
+    lifecycle::deprecate_warn(
+      '2.0.0',
+      'geom_edge_fan(spread)',
+      'geom_edge_fan(strength)'
+    )
     strength <- spread
   }
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend,
-    from = from, to = to, group = edge.id
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      from = from,
+      to = to,
+      group = edge.id
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeFan,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeFan,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = FALSE, strength = strength,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = FALSE,
+        strength = strength,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -159,11 +201,15 @@ geom_edge_fan <- function(mapping = NULL, data = get_edges(),
 #' @usage NULL
 #' @importFrom ggforce StatBezier2
 #' @export
-StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
+StatEdgeFan2 <- ggproto(
+  'StatEdgeFan2',
+  StatBezier2,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
@@ -176,37 +222,73 @@ StatEdgeFan2 <- ggproto('StatEdgeFan2', StatBezier2,
 #' @rdname geom_edge_fan
 #'
 #' @export
-geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
-                           position = 'identity', arrow = NULL,
-                           strength = 1, n = 100, lineend = 'butt',
-                           linejoin = 'round', linemitre = 1,
-                           label_colour = 'black', label_alpha = 1,
-                           label_parse = FALSE, check_overlap = FALSE,
-                           angle_calc = 'rot', force_flip = TRUE,
-                           label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ..., spread) {
+geom_edge_fan2 <- function(
+  mapping = NULL,
+  data = get_edges('long'),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...,
+  spread
+) {
   if (!missing(spread)) {
-    lifecycle::deprecate_warn('2.0.0', 'geom_edge_fan2(spread)', 'geom_edge_fan2(strength)')
+    lifecycle::deprecate_warn(
+      '2.0.0',
+      'geom_edge_fan2(spread)',
+      'geom_edge_fan2(strength)'
+    )
     strength <- spread
   }
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, group = edge.id,
-    from = from, to = to
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      group = edge.id,
+      from = from,
+      to = to
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeFan2,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeFan2,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = TRUE, strength = strength,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = TRUE,
+        strength = strength,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -216,7 +298,9 @@ geom_edge_fan2 <- function(mapping = NULL, data = get_edges('long'),
 #' @usage NULL
 #' @importFrom ggforce StatBezier0
 #' @export
-StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
+StatEdgeFan0 <- ggproto(
+  'StatEdgeFan0',
+  StatBezier0,
   setup_data = function(data, params) {
     StatEdgeFan$setup_data(data, params)
   },
@@ -227,25 +311,51 @@ StatEdgeFan0 <- ggproto('StatEdgeFan0', StatBezier0,
 #' @rdname geom_edge_fan
 #'
 #' @export
-geom_edge_fan0 <- function(mapping = NULL, data = get_edges(),
-                           position = 'identity', arrow = NULL, strength = 1,
-                           lineend = 'butt', show.legend = NA, ..., spread) {
+geom_edge_fan0 <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  lineend = 'butt',
+  show.legend = NA,
+  ...,
+  spread
+) {
   if (!missing(spread)) {
-    lifecycle::deprecate_warn('2.0.0', 'geom_edge_fan0(spread)', 'geom_edge_fan0(strength)')
+    lifecycle::deprecate_warn(
+      '2.0.0',
+      'geom_edge_fan0(spread)',
+      'geom_edge_fan0(strength)'
+    )
     strength <- spread
   }
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend,
-    from = from, to = to
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      from = from,
+      to = to
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeFan0,
-    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeFan0,
+    geom = GeomEdgeBezier,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, strength = strength, ...
+        arrow = arrow,
+        lineend = lineend,
+        strength = strength,
+        ...
       )
     )
   )

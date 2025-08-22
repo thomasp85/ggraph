@@ -57,7 +57,16 @@
 #'
 #' @importFrom ggforce radial_trans
 #'
-layout_tbl_graph_partition <- function(graph, weight = NULL, circular = FALSE, height = NULL, sort.by = NULL, direction = 'out', offset = pi / 2, const.area = TRUE) {
+layout_tbl_graph_partition <- function(
+  graph,
+  weight = NULL,
+  circular = FALSE,
+  height = NULL,
+  sort.by = NULL,
+  direction = 'out',
+  offset = pi / 2,
+  const.area = TRUE
+) {
   weight <- enquo(weight)
   weight <- eval_tidy(weight, .N())
   height <- enquo(height)

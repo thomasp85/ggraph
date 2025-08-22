@@ -44,9 +44,16 @@ autograph <- function(graph, ...) {
 #' @param node_colour,edge_colour Colour mapping for nodes and edges
 #' @param node_size,edge_width Size/width mapping for nodes and edges
 #' @param node_label,edge_label Label mapping for nodes and edges
-autograph.default <- function(graph, ..., node_colour = NULL, edge_colour = NULL,
-                              node_size = NULL, edge_width = NULL,
-                              node_label = NULL, edge_label = NULL) {
+autograph.default <- function(
+  graph,
+  ...,
+  node_colour = NULL,
+  edge_colour = NULL,
+  node_size = NULL,
+  edge_width = NULL,
+  node_label = NULL,
+  edge_label = NULL
+) {
   node_colour <- enquo(node_colour)
   edge_colour <- enquo(edge_colour)
   node_size <- enquo(node_size)
@@ -63,11 +70,20 @@ autograph.default <- function(graph, ..., node_colour = NULL, edge_colour = NULL
       geom_edge_elbow0(aes(colour = !!edge_colour, width = !!edge_width))
     if (!quo_is_null(node_colour) || !quo_is_null(node_size)) {
       p <- p +
-        geom_node_point(aes(filter = leaf, colour = !!node_colour, size = !!node_size))
+        geom_node_point(aes(
+          filter = leaf,
+          colour = !!node_colour,
+          size = !!node_size
+        ))
     }
     if (!quo_is_null(node_label)) {
       p <- p +
-        geom_node_text(aes(filter = leaf, label = !!node_label, colour = !!node_colour), angle = 40, hjust = 1, vjust = 1) +
+        geom_node_text(
+          aes(filter = leaf, label = !!node_label, colour = !!node_colour),
+          angle = 40,
+          hjust = 1,
+          vjust = 1
+        ) +
         coord_cartesian(clip = 'off')
     }
   } else {
@@ -79,15 +95,28 @@ autograph.default <- function(graph, ..., node_colour = NULL, edge_colour = NULL
       start_label <- sym(label_col[1])
       end_label <- sym(label_col[2])
       p <- p +
-        geom_edge_link(aes(colour = !!edge_colour, label = !!edge_label,
-                           width = !!edge_width, start_cap = label_rect(!!start_label),
-                           end_cap = label_rect(!!end_label)),
-                       angle_calc = 'along', label_dodge = unit(2.5, 'mm'))
+        geom_edge_link(
+          aes(
+            colour = !!edge_colour,
+            label = !!edge_label,
+            width = !!edge_width,
+            start_cap = label_rect(!!start_label),
+            end_cap = label_rect(!!end_label)
+          ),
+          angle_calc = 'along',
+          label_dodge = unit(2.5, 'mm')
+        )
     } else if (!quo_is_null(edge_label)) {
       p <- p +
-        geom_edge_link(aes(colour = !!edge_colour, label = !!edge_label,
-                            width = !!edge_width),
-                        angle_calc = 'along', label_dodge = unit(2.5, 'mm'))
+        geom_edge_link(
+          aes(
+            colour = !!edge_colour,
+            label = !!edge_label,
+            width = !!edge_width
+          ),
+          angle_calc = 'along',
+          label_dodge = unit(2.5, 'mm')
+        )
     } else {
       p <- p +
         geom_edge_link0(aes(colour = !!edge_colour, width = !!edge_width))

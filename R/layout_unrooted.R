@@ -37,12 +37,26 @@
 #' @family layout_tbl_graph_*
 #'
 #' @importFrom igraph as.undirected gorder
-layout_tbl_graph_unrooted <- function(graph, daylight = TRUE, length = NULL, tolerance = 0.05, rotation_mod = 1, maxiter = 100, circular = FALSE) {
+layout_tbl_graph_unrooted <- function(
+  graph,
+  daylight = TRUE,
+  length = NULL,
+  tolerance = 0.05,
+  rotation_mod = 1,
+  maxiter = 100,
+  circular = FALSE
+) {
   extra_data <- as_tibble(graph, active = 'nodes')
   graph <- as_tbl_graph(as.undirected(graph))
   length <- enquo(length)
   length <- eval_tidy(length, .E())
-  hierarchy <- tree_to_hierarchy(graph, 'out', seq_len(gorder(graph)), weight = NULL, length)
+  hierarchy <- tree_to_hierarchy(
+    graph,
+    'out',
+    seq_len(gorder(graph)),
+    weight = NULL,
+    length
+  )
   layout <- unrooted(
     as.integer(hierarchy$parent),
     as.integer(hierarchy$order),

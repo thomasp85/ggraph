@@ -43,7 +43,16 @@
 #' @importFrom tidygraph node_is_root
 #' @importFrom rlang enquo eval_tidy
 #'
-layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2, height = NULL, length = NULL, repel = FALSE, ratio = 1, direction = 'out') {
+layout_tbl_graph_dendrogram <- function(
+  graph,
+  circular = FALSE,
+  offset = pi / 2,
+  height = NULL,
+  length = NULL,
+  repel = FALSE,
+  ratio = 1,
+  direction = 'out'
+) {
   height <- enquo(height)
   length <- enquo(length)
   reverse_dir <- if (direction == 'out') 'in' else 'out'
@@ -52,7 +61,12 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
       height <- NA
     } else {
       length <- eval_tidy(length, .E())
-      full_lengths <- distances(graph, to = node_is_root(), weights = length, mode = reverse_dir)
+      full_lengths <- distances(
+        graph,
+        to = node_is_root(),
+        weights = length,
+        mode = reverse_dir
+      )
       full_lengths[is.infinite(full_lengths)] <- 0
       height <- unname(apply(full_lengths, 1, max))
       height <- abs(height - max(height))
@@ -66,9 +80,23 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
     leaf = degree(graph, mode = direction) == 0
   )
   if (all(is.na(nodes$y))) {
-    nodes$y <- vapply(seq_len(gorder(graph)), function(i) {
-      max(bfs(graph, i, direction, unreachable = FALSE, order = FALSE, dist = TRUE)$dist, na.rm = TRUE)
-    }, numeric(1))
+    nodes$y <- vapply(
+      seq_len(gorder(graph)),
+      function(i) {
+        max(
+          bfs(
+            graph,
+            i,
+            direction,
+            unreachable = FALSE,
+            order = FALSE,
+            dist = TRUE
+          )$dist,
+          na.rm = TRUE
+        )
+      },
+      numeric(1)
+    )
   }
   if (repel) {
     pad <- min(nodes$y[nodes$y != 0]) / 2
@@ -76,8 +104,13 @@ layout_tbl_graph_dendrogram <- function(graph, circular = FALSE, offset = pi / 2
     pad <- 0
   }
   startnode <- which(degree(graph, mode = reverse_dir) == 0)
-  if (length(startnode) < 1) cli::cli_abort('The graph doesn\'t contain a root node')
-  neighbors <- lapply(adjacent_vertices(graph, seq_len(gorder(graph)), direction), as.integer)
+  if (length(startnode) < 1) {
+    cli::cli_abort('The graph doesn\'t contain a root node')
+  }
+  neighbors <- lapply(
+    adjacent_vertices(graph, seq_len(gorder(graph)), direction),
+    as.integer
+  )
   nodes$x <- dendrogram_spread(
     neighbors,
     as.integer(startnode),

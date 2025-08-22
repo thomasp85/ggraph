@@ -91,11 +91,15 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatBezier
 #' @export
-StatEdgeBend <- ggproto('StatEdgeBend', StatBezier,
+StatEdgeBend <- ggproto(
+  'StatEdgeBend',
+  StatBezier,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
@@ -109,33 +113,67 @@ StatEdgeBend <- ggproto('StatEdgeBend', StatBezier,
 #' @rdname geom_edge_bend
 #'
 #' @export
-geom_edge_bend <- function(mapping = NULL, data = get_edges(),
-                           position = 'identity', arrow = NULL, strength = 1,
-                           flipped = FALSE, n = 100, lineend = 'butt',
-                           linejoin = 'round', linemitre = 1,
-                           label_colour = 'black', label_alpha = 1,
-                           label_parse = FALSE, check_overlap = FALSE,
-                           angle_calc = 'rot', force_flip = TRUE,
-                           label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ...) {
+geom_edge_bend <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  flipped = FALSE,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend,
-    circular = circular, group = edge.id
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      circular = circular,
+      group = edge.id
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeBend,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeBend,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = FALSE, flipped = flipped, strength = strength,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = FALSE,
+        flipped = flipped,
+        strength = strength,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -145,11 +183,15 @@ geom_edge_bend <- function(mapping = NULL, data = get_edges(),
 #' @usage NULL
 #' @importFrom ggforce StatBezier2
 #' @export
-StatEdgeBend2 <- ggproto('StatEdgeBend2', StatBezier2,
+StatEdgeBend2 <- ggproto(
+  'StatEdgeBend2',
+  StatBezier2,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
@@ -162,33 +204,65 @@ StatEdgeBend2 <- ggproto('StatEdgeBend2', StatBezier2,
 #' @rdname geom_edge_bend
 #'
 #' @export
-geom_edge_bend2 <- function(mapping = NULL, data = get_edges('long'),
-                            position = 'identity', arrow = NULL, strength = 1,
-                            flipped = FALSE, n = 100, lineend = 'butt',
-                            linejoin = 'round', linemitre = 1,
-                            label_colour = 'black', label_alpha = 1,
-                            label_parse = FALSE, check_overlap = FALSE,
-                            angle_calc = 'rot', force_flip = TRUE,
-                            label_dodge = NULL, label_push = NULL,
-                            show.legend = NA, ...) {
+geom_edge_bend2 <- function(
+  mapping = NULL,
+  data = get_edges('long'),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  flipped = FALSE,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, group = edge.id,
-    circular = circular
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      group = edge.id,
+      circular = circular
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeBend2,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeBend2,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = TRUE, flipped = flipped, strength = strength,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = TRUE,
+        flipped = flipped,
+        strength = strength,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -198,7 +272,9 @@ geom_edge_bend2 <- function(mapping = NULL, data = get_edges('long'),
 #' @usage NULL
 #' @importFrom ggforce StatBezier0
 #' @export
-StatEdgeBend0 <- ggproto('StatEdgeBend0', StatBezier0,
+StatEdgeBend0 <- ggproto(
+  'StatEdgeBend0',
+  StatBezier0,
   setup_data = function(data, params) {
     StatEdgeBend$setup_data(data, params)
   },
@@ -209,23 +285,43 @@ StatEdgeBend0 <- ggproto('StatEdgeBend0', StatBezier0,
 #' @rdname geom_edge_bend
 #'
 #' @export
-geom_edge_bend0 <- function(mapping = NULL, data = get_edges(),
-                            position = 'identity', arrow = NULL, strength = 1,
-                            flipped = FALSE, lineend = 'butt',
-                            show.legend = NA, ...) {
+geom_edge_bend0 <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  flipped = FALSE,
+  lineend = 'butt',
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend,
-    circular = circular
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      circular = circular
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeBend0,
-    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeBend0,
+    geom = GeomEdgeBezier,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, strength = strength,
-        flipped = flipped, ...
+        arrow = arrow,
+        lineend = lineend,
+        strength = strength,
+        flipped = flipped,
+        ...
       )
     )
   )
@@ -264,12 +360,14 @@ create_bend <- function(from, to, params) {
     if (params$flipped) {
       h_diff <- from$x[!from$circular] - to$x[!from$circular]
       w_diff <- from$y[!from$circular] - to$y[!from$circular]
-      data2$y[!from$circular] <- from$y[!from$circular] - w_diff * params$strength
+      data2$y[!from$circular] <- from$y[!from$circular] -
+        w_diff * params$strength
       data3$x[!from$circular] <- to$x[!from$circular] + h_diff * params$strength
     } else {
       h_diff <- from$y[!from$circular] - to$y[!from$circular]
       w_diff <- from$x[!from$circular] - to$x[!from$circular]
-      data2$x[!from$circular] <- from$x[!from$circular] - w_diff * params$strength
+      data2$x[!from$circular] <- from$x[!from$circular] -
+        w_diff * params$strength
       data3$y[!from$circular] <- to$y[!from$circular] + h_diff * params$strength
     }
   }

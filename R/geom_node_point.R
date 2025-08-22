@@ -35,12 +35,22 @@
 #' ggraph(gr, 'stress') + geom_node_point()
 #' @export
 #'
-geom_node_point <- function(mapping = NULL, data = NULL, position = 'identity',
-                            show.legend = NA, ...) {
+geom_node_point <- function(
+  mapping = NULL,
+  data = NULL,
+  position = 'identity',
+  show.legend = NA,
+  ...
+) {
   mapping <- aes_intersect(mapping, aes(x = x, y = y))
   layer(
-    data = data, mapping = mapping, stat = StatFilter, geom = GeomPoint,
-    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatFilter,
+    geom = GeomPoint,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = list2(...)
   )
 }

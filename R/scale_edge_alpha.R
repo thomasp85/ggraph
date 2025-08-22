@@ -61,8 +61,18 @@ scale_edge_alpha_binned <- function(..., range = c(0.1, 1)) {
 #' @inheritParams ggplot2::scale_alpha_manual
 #'
 #' @export
-scale_edge_alpha_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-  sc <- scale_alpha_manual(..., values = values, breaks = breaks, na.value = na.value)
+scale_edge_alpha_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA
+) {
+  sc <- scale_alpha_manual(
+    ...,
+    values = values,
+    breaks = breaks,
+    na.value = na.value
+  )
   sc$aesthetics <- 'edge_alpha'
   sc
 }

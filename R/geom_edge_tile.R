@@ -60,14 +60,24 @@ NULL
 #' @rdname geom_edge_tile
 #'
 #' @export
-geom_edge_tile <- function(mapping = NULL, data = get_edges(),
-                            position = 'identity', mirror = FALSE,
-                            show.legend = NA, ...) {
+geom_edge_tile <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  mirror = FALSE,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(x = x, y = yend))
   layer(
-    data = data, mapping = mapping, stat = StatFilter, geom = GeomEdgeTile,
-    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatFilter,
+    geom = GeomEdgeTile,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = list2(mirror = mirror, ...)
   )
 }

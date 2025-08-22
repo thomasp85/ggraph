@@ -23,10 +23,20 @@
 #'
 #' @importFrom graphlayouts layout_with_focus layout_with_focus_group
 #' @importFrom rlang eval_tidy enquo
-layout_tbl_graph_focus <- function(graph, focus, weights = NULL, niter = 500, tolerance = 1e-4,
-                                   group = NULL, shrink = 10, circular = TRUE) {
+layout_tbl_graph_focus <- function(
+  graph,
+  focus,
+  weights = NULL,
+  niter = 500,
+  tolerance = 1e-4,
+  group = NULL,
+  shrink = 10,
+  circular = TRUE
+) {
   focus <- eval_tidy(enquo(focus), .N())
-  if (is.logical(focus)) focus <- which(focus)[1]
+  if (is.logical(focus)) {
+    focus <- which(focus)[1]
+  }
 
   weights <- eval_tidy(enquo(weights), .E())
   if (is.null(weights)) {
@@ -36,16 +46,32 @@ layout_tbl_graph_focus <- function(graph, focus, weights = NULL, niter = 500, to
   group <- eval_tidy(enquo(group), .N())
 
   if (is.null(group)) {
-    layout <- layout_with_focus(graph, v = focus, weights = weights, iter = niter,
-                                tol = tolerance)
+    layout <- layout_with_focus(
+      graph,
+      v = focus,
+      weights = weights,
+      iter = niter,
+      tol = tolerance
+    )
   } else {
-    layout <- layout_with_focus_group(graph, v = focus, group = group,
-                                      shrink = shrink, weights = weights, iter = niter,
-                                      tol = tolerance)
+    layout <- layout_with_focus_group(
+      graph,
+      v = focus,
+      group = group,
+      shrink = shrink,
+      weights = weights,
+      iter = niter,
+      tol = tolerance
+    )
   }
 
   xy <- layout$xy
 
-  nodes <- data_frame0(x = xy[,1],y = xy[,2], distance = layout$distance, circular = FALSE)
+  nodes <- data_frame0(
+    x = xy[, 1],
+    y = xy[, 2],
+    distance = layout$distance,
+    circular = FALSE
+  )
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

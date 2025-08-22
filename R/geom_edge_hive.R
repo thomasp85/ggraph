@@ -103,11 +103,15 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatBezier
 #' @export
-StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
+StatEdgeHive <- ggproto(
+  'StatEdgeHive',
+  StatBezier,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
@@ -122,36 +126,73 @@ StatEdgeHive <- ggproto('StatEdgeHive', StatBezier,
 #' @rdname geom_edge_hive
 #'
 #' @export
-geom_edge_hive <- function(mapping = NULL, data = get_edges(),
-                           position = 'identity', arrow = NULL,
-                           strength = 1, n = 100, lineend = 'butt',
-                           linejoin = 'round', linemitre = 1,
-                           label_colour = 'black', label_alpha = 1,
-                           label_parse = FALSE, check_overlap = FALSE,
-                           angle_calc = 'rot', force_flip = TRUE,
-                           label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ..., curvature) {
+geom_edge_hive <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...,
+  curvature
+) {
   if (!missing(curvature)) {
-    lifecycle::deprecate_warn('2.0.0', 'geom_edge_hive(curvature)', 'geom_edge_hive(strength)')
+    lifecycle::deprecate_warn(
+      '2.0.0',
+      'geom_edge_hive(curvature)',
+      'geom_edge_hive(strength)'
+    )
     strength <- curvature * 2
   }
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend, group = edge.id
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      group = edge.id
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeHive,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeHive,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = FALSE, strength = strength,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = FALSE,
+        strength = strength,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -161,11 +202,15 @@ geom_edge_hive <- function(mapping = NULL, data = get_edges(),
 #' @usage NULL
 #' @importFrom ggforce StatBezier2
 #' @export
-StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
+StatEdgeHive2 <- ggproto(
+  'StatEdgeHive2',
+  StatBezier2,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
@@ -179,35 +224,64 @@ StatEdgeHive2 <- ggproto('StatEdgeHive2', StatBezier2,
 #' @rdname geom_edge_hive
 #'
 #' @export
-geom_edge_hive2 <- function(mapping = NULL, data = get_edges('long'),
-                            position = 'identity', arrow = NULL,
-                            strength = 1, n = 100, lineend = 'butt',
-                            linejoin = 'round', linemitre = 1,
-                            label_colour = 'black', label_alpha = 1,
-                            label_parse = FALSE, check_overlap = FALSE,
-                            angle_calc = 'rot', force_flip = TRUE,
-                            label_dodge = NULL, label_push = NULL,
-                            show.legend = NA, ..., curvature) {
+geom_edge_hive2 <- function(
+  mapping = NULL,
+  data = get_edges('long'),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...,
+  curvature
+) {
   if (!missing(curvature)) {
-    lifecycle::deprecate_warn('2.0.0', 'geom_edge_hive2(curvature)', 'geom_edge_hive2(strength)')
+    lifecycle::deprecate_warn(
+      '2.0.0',
+      'geom_edge_hive2(curvature)',
+      'geom_edge_hive2(strength)'
+    )
     strength <- curvature * 2
   }
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = x, y = y,
-                                        group = edge.id))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y, group = edge.id))
   layer(
-    data = data, mapping = mapping, stat = StatEdgeHive2,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeHive2,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = TRUE, strength = strength,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = TRUE,
+        strength = strength,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -217,7 +291,9 @@ geom_edge_hive2 <- function(mapping = NULL, data = get_edges('long'),
 #' @usage NULL
 #' @importFrom ggforce StatBezier0
 #' @export
-StatEdgeHive0 <- ggproto('StatEdgeHive0', StatBezier0,
+StatEdgeHive0 <- ggproto(
+  'StatEdgeHive0',
+  StatBezier0,
   setup_data = function(data, params) {
     StatEdgeHive$setup_data(data, params)
   },
@@ -228,23 +304,41 @@ StatEdgeHive0 <- ggproto('StatEdgeHive0', StatBezier0,
 #' @rdname geom_edge_hive
 #'
 #' @export
-geom_edge_hive0 <- function(mapping = NULL, data = get_edges(),
-                            position = 'identity', arrow = NULL, strength = 1,
-                            lineend = 'butt', show.legend = NA, ..., curvature) {
+geom_edge_hive0 <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  lineend = 'butt',
+  show.legend = NA,
+  ...,
+  curvature
+) {
   if (!missing(curvature)) {
-    lifecycle::deprecate_warn('2.0.0', 'geom_edge_hive0(curvature)', 'geom_edge_hive0(strength)')
+    lifecycle::deprecate_warn(
+      '2.0.0',
+      'geom_edge_hive0(curvature)',
+      'geom_edge_hive0(strength)'
+    )
     strength <- curvature * 2
   }
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = x, y = y,
-                                        xend = xend, yend = yend))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y, xend = xend, yend = yend))
   layer(
-    data = data, mapping = mapping, stat = StatEdgeHive0,
-    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeHive0,
+    geom = GeomEdgeBezier,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, strength = strength, ...
+        arrow = arrow,
+        lineend = lineend,
+        strength = strength,
+        ...
       )
     )
   )
@@ -261,13 +355,18 @@ create_hive_bezier <- function(from, to, params) {
   from_axis[from_axis < 0] <- from_axis[from_axis < 0] + 2 * pi
   to_axis <- atan2(to$y, to$x)
   to_axis[to_axis < 0] <- to_axis[to_axis < 0] + 2 * pi
-  from_first <- ifelse(from_axis < to_axis,
+  from_first <- ifelse(
+    from_axis < to_axis,
     to_axis - from_axis < pi,
     to_axis - from_axis < -pi
   )
   middle_axis1 <- ifelse(from_first, from_axis, to_axis)
   middle_axis2 <- ifelse(from_first, to_axis, from_axis)
-  middle_axis2 <- ifelse(middle_axis2 < middle_axis1, middle_axis2 + 2 * pi, middle_axis2)
+  middle_axis2 <- ifelse(
+    middle_axis2 < middle_axis1,
+    middle_axis2 + 2 * pi,
+    middle_axis2
+  )
   mean_axis <- (middle_axis2 - middle_axis1) / 2
   middle_axis1 <- middle_axis1 + mean_axis * params$strength / 2
   middle_axis2 <- middle_axis2 - mean_axis * params$strength / 2

@@ -18,7 +18,9 @@ is_layout <- function(x) inherits(x, 'layout_ggraph')
 #' @export
 create_layout.default <- function(graph, layout, ...) {
   graph <- try_fetch(as_tbl_graph(graph), error = function(e) {
-    cli::cli_abort('No layout function defined for objects of class {.cls {class(graph)[1]}}')
+    cli::cli_abort(
+      'No layout function defined for objects of class {.cls {class(graph)[1]}}'
+    )
   })
   create_layout(graph, layout, ...)
 }
@@ -40,14 +42,20 @@ check_layout <- function(layout) {
     cli::cli_abort('{.arg layout} must be a {.cls data.frame}')
   }
   if (!(is.numeric(layout$x) && is.numeric(layout$y))) {
-    cli::cli_abort('{.arg layout} must contain numeric {.col x} and {.col y} columns')
+    cli::cli_abort(
+      '{.arg layout} must contain numeric {.col x} and {.col y} columns'
+    )
   }
   graph <- attr(layout, 'graph')
   if (!is.tbl_graph(graph)) {
-    cli::cli_abort('{.arg layout} must have a {.cls tbl_graph} as the {.arg graph} attribute')
+    cli::cli_abort(
+      '{.arg layout} must have a {.cls tbl_graph} as the {.arg graph} attribute'
+    )
   }
   if (nrow(layout) != gorder(graph)) {
-    cli::cli_abort('{.arg layout} must contain the same number of rows as the number of nodes in the graph')
+    cli::cli_abort(
+      '{.arg layout} must contain the same number of rows as the number of nodes in the graph'
+    )
   }
   if (!'circular' %in% names(layout)) {
     layout$circular <- FALSE

@@ -74,7 +74,9 @@
 #'
 get_edges <- function(format = 'short', collapse = 'none', ...) {
   if (!collapse %in% c('none', 'all', 'direction')) {
-    cli::cli_abort('{.arg collapse} must be either {.val none}, {.val all} or {.val direction}')
+    cli::cli_abort(
+      '{.arg collapse} must be either {.val none}, {.val all} or {.val direction}'
+    )
   }
   dots <- enquos(...)
   function(layout) {
@@ -89,7 +91,9 @@ get_edges <- function(format = 'short', collapse = 'none', ...) {
       format,
       short = format_short_edges(edges, layout),
       long = format_long_edges(edges, layout),
-      cli::cli_abort('Unknown {.arg format}. Use either {.val short} or {.val long}')
+      cli::cli_abort(
+        'Unknown {.arg format}. Use either {.val short} or {.val long}'
+      )
     )
     extra_data <- lapply(dots, function(x) {
       val <- eval_tidy(x, edges)
@@ -118,8 +122,15 @@ check_short_edges <- function(edges) {
   if (!inherits(edges, 'data.frame')) {
     cli::cli_abort('{.arg edges} must by of class {.cls data.frame}')
   }
-  if (!all(c('from', 'to', 'x', 'y', 'xend', 'yend', 'circular', 'edge.id') %in% names(edges))) {
-    cli::cli_abort('{.arg edges} must contain the columns {.and {.col {c("from", "to", "x", "y", "xend", "yend", "circular", "edge.id")}}}')
+  if (
+    !all(
+      c('from', 'to', 'x', 'y', 'xend', 'yend', 'circular', 'edge.id') %in%
+        names(edges)
+    )
+  ) {
+    cli::cli_abort(
+      '{.arg edges} must contain the columns {.and {.col {c("from", "to", "x", "y", "xend", "yend", "circular", "edge.id")}}}'
+    )
   }
   if (!is.logical(edges$circular)) {
     cli::cli_abort('The {.col circular} column must be logical')
@@ -131,7 +142,9 @@ check_long_edges <- function(edges) {
     cli::cli_abort('{.arg edges} must by of class {.cls data.frame}')
   }
   if (!all(c('edge.id', 'node', 'x', 'y', 'circular') %in% names(edges))) {
-    cli::cli_abort('{.arg edges} must contain the columns {.and {.col {c("edge.id", "node", "x", "y", "circular")}}}')
+    cli::cli_abort(
+      '{.arg edges} must contain the columns {.and {.col {c("edge.id", "node", "x", "y", "circular")}}}'
+    )
   }
   if (!all(range(table(edges$edge.id)) == 2)) {
     cli::cli_abort('Each edge must consist of two rows')
@@ -189,9 +202,18 @@ complete_edge_aes <- function(aesthetics) {
   expand_edge_aes(aesthetics)
 }
 expand_edge_aes <- function(x) {
-  short_names <- names(x) %in% c(
-    'colour', 'color', 'fill', 'linetype', 'shape', 'size', 'width', 'alpha', 'linewidth'
-  )
+  short_names <- names(x) %in%
+    c(
+      'colour',
+      'color',
+      'fill',
+      'linetype',
+      'shape',
+      'size',
+      'width',
+      'alpha',
+      'linewidth'
+    )
   names(x)[short_names] <- paste0('edge_', names(x)[short_names])
   if (all(c('edge_linewidth', 'edge_width') %in% names(x) == c(TRUE, FALSE))) {
     names(x)[names(x) == 'edge_linewidth'] <- 'edge_width'

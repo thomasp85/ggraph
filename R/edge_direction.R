@@ -41,33 +41,57 @@
 #'     )
 #'   )
 #'
-guide_edge_direction <- function(title = NULL, theme = NULL, arrow = NULL,
-                                 labels = NULL,
-                                 nbin = 500, position = NULL, direction = NULL,
-                                 reverse = FALSE,  order = 0,
-                                 override.aes = list(), ...,
-                                 available_aes = c("edge_colour", "edge_alpha", "edge_width"),
-                                 arrow.position = deprecated()) {
+guide_edge_direction <- function(
+  title = NULL,
+  theme = NULL,
+  arrow = NULL,
+  labels = NULL,
+  nbin = 500,
+  position = NULL,
+  direction = NULL,
+  reverse = FALSE,
+  order = 0,
+  override.aes = list(),
+  ...,
+  available_aes = c("edge_colour", "edge_alpha", "edge_width"),
+  arrow.position = deprecated()
+) {
   # Piggyback on non-exported `deprecated_guide_args()`
   theme <- guide_colourbar(theme = theme, ...)$params$theme
 
   if (!is.null(arrow) && !is.null(labels)) {
-    cli::cli_abort("{.arg arrow} and {.arg labels} can't be used at the same time")
+    cli::cli_abort(
+      "{.arg arrow} and {.arg labels} can't be used at the same time"
+    )
   }
-  if (is.null(arrow) && is.null(labels)) arrow <- TRUE
-  if (!is.null(labels)) arrow <- FALSE
-  if (!arrow && is.null(labels)) labels <- c("from", "to")
-
+  if (is.null(arrow) && is.null(labels)) {
+    arrow <- TRUE
+  }
+  if (!is.null(labels)) {
+    arrow <- FALSE
+  }
+  if (!arrow && is.null(labels)) {
+    labels <- c("from", "to")
+  }
 
   if (lifecycle::is_present(arrow.position)) {
-    lifecycle::deprecate_warn('2.2.0', 'guide_edge_direction(arrow.position)', 'guide_edge_direction(theme = "theme(legend.text.position)")')
+    lifecycle::deprecate_warn(
+      '2.2.0',
+      'guide_edge_direction(arrow.position)',
+      'guide_edge_direction(theme = "theme(legend.text.position)")'
+    )
     if (!is.null(arrow.position)) {
-      if (is.null(theme)) theme <- theme()
+      if (is.null(theme)) {
+        theme <- theme()
+      }
       theme$legend.text.position <- arrow.position
     }
   }
   if (!is.null(position)) {
-    position <- arg_match0(position, c("top", "right", "bottom", "left", "inside"))
+    position <- arg_match0(
+      position,
+      c("top", "right", "bottom", "left", "inside")
+    )
   }
   if (!is.null(labels) && (length(labels) != 2 || !is.character(labels))) {
     cli::cli_abort('{.arg label} must be a vector of two strings')
@@ -89,7 +113,8 @@ guide_edge_direction <- function(title = NULL, theme = NULL, arrow = NULL,
   )
 }
 GuideEdgeDirection <- ggproto(
-  "GuideEdgeDirection", GuideLegend,
+  "GuideEdgeDirection",
+  GuideLegend,
 
   params = list(
     # title
@@ -120,16 +145,16 @@ GuideEdgeDirection <- ggproto(
   hashables = exprs(title, decor$value, name),
 
   elements = list(
-    background     = "legend.background",
-    margin         = "legend.margin",
-    key            = "legend.key",
-    key_height     = "legend.key.height",
-    key_width      = "legend.key.width",
-    text           = "legend.text",
-    theme.title    = "legend.title",
-    text_position  = "legend.text.position",
+    background = "legend.background",
+    margin = "legend.margin",
+    key = "legend.key",
+    key_height = "legend.key.height",
+    key_width = "legend.key.width",
+    text = "legend.text",
+    theme.title = "legend.title",
+    text_position = "legend.text.position",
     title_position = "legend.title.position",
-    arrow_line     = "legend.axis.line"
+    arrow_line = "legend.axis.line"
   ),
 
   extract_key = function(scale, aesthetic, ...) {
@@ -148,9 +173,9 @@ GuideEdgeDirection <- ggproto(
     }
     aes <- scale$aesthetics[1]
     bar <- data_frame0(
-      {{aes}} := scale$map(bar),
-      value  = bar,
-      .size  = length(bar)
+      {{ aes }} := scale$map(bar),
+      value = bar,
+      .size = length(bar)
     )
     if (reverse) {
       bar <- bar[rev(seq_len(nrow(bar))), , drop = FALSE]
@@ -167,7 +192,10 @@ GuideEdgeDirection <- ggproto(
   get_layer_key = function(params, ...) {
     decor <- GuideLegend$get_layer_key(params, ...)$decor
     extra_data <- lapply(decor, `[[`, 'data')
-    missing_aes <- setdiff(c("edge_colour", "edge_alpha", "edge_width"), names(params$decor))
+    missing_aes <- setdiff(
+      c("edge_colour", "edge_alpha", "edge_width"),
+      names(params$decor)
+    )
     for (d in extra_data) {
       for (aes in missing_aes) {
         if (!is.null(d[[aes]])) params$decor[[aes]] <- d[[aes]][1]
@@ -179,7 +207,8 @@ GuideEdgeDirection <- ggproto(
   setup_params = function(params) {
     params$direction <- arg_match0(
       params$direction,
-      c("horizontal", "vertical"), arg_nm = "direction"
+      c("horizontal", "vertical"),
+      arg_nm = "direction"
     )
     params
   },
@@ -195,21 +224,25 @@ GuideEdgeDirection <- ggproto(
 
   build_labels = function(key, elements, params) {
     if (params$arrow) {
-      list(labels = flip_element_grob(
-        elements$arrow_line,
-        x = unit(c(0, 1), "npc"),
-        y = unit(c(0.5, 0.5), "npc"),
-        flip = params$direction == "vertical"
-      ))
+      list(
+        labels = flip_element_grob(
+          elements$arrow_line,
+          x = unit(c(0, 1), "npc"),
+          y = unit(c(0.5, 0.5), "npc"),
+          flip = params$direction == "vertical"
+        )
+      )
     } else {
-      list(labels = flip_element_grob(
-        elements$text,
-        label = params$labels,
-        x = unit(c(0, 1), "npc"),
-        margin_x = FALSE,
-        margin_y = TRUE,
-        flip = params$direction == "vertical"
-      ))
+      list(
+        labels = flip_element_grob(
+          elements$text,
+          label = params$labels,
+          x = unit(c(0, 1), "npc"),
+          margin_x = FALSE,
+          margin_y = TRUE,
+          flip = params$direction == "vertical"
+        )
+      )
     }
   },
 
@@ -232,7 +265,10 @@ GuideEdgeDirection <- ggproto(
       yend <- tmp
     }
     grob <- segmentsGrob(
-      x0 = x, y0 = y, x1 = xend, y1 = yend,
+      x0 = x,
+      y0 = y,
+      x1 = xend,
+      y1 = yend,
       default.units = "npc",
       gp = gpar(
         col = alpha(decor$edge_colour, decor$edge_alpha),
@@ -247,12 +283,16 @@ GuideEdgeDirection <- ggproto(
 
   measure_grobs = function(grobs, params, elements) {
     params$sizes <- list(
-      widths  = elements$width_cm,
+      widths = elements$width_cm,
       heights = elements$height_cm
     )
     sizes <- GuideLegend$measure_grobs(grobs, params, elements)
     if (params$arrow) {
-      l <- convertHeight(elements$arrow_line$arrow$length, "cm", valueOnly = TRUE)
+      l <- convertHeight(
+        elements$arrow_line$arrow$length,
+        "cm",
+        valueOnly = TRUE
+      )
       a <- 2 * pi * elements$arrow_line$arrow$angle / 360
       width <- sin(a) * l * 2 + elements$arrow_line$linewidth / 10
       if (params$direction == "vertical") {

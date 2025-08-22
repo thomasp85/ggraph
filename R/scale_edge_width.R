@@ -23,11 +23,24 @@ NULL
 #' @inheritParams ggplot2::scale_size_continuous
 #'
 #' @export
-scale_edge_width_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                                        limits = NULL, range = c(1, 6),
-                                        trans = "identity", guide = "legend") {
-  sc <- scale_radius(name = name, breaks = breaks, labels = labels, limits = limits,
-                     range = range, trans = trans, guide = guide)
+scale_edge_width_continuous <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  trans = "identity",
+  guide = "legend"
+) {
+  sc <- scale_radius(
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    range = range,
+    trans = trans,
+    guide = guide
+  )
   sc$scale_name <- 'width_c'
   sc$aesthetics <- 'edge_width'
   sc
@@ -41,7 +54,9 @@ scale_edge_width <- scale_edge_width_continuous
 #' @inheritParams ggplot2::scale_size_discrete
 #' @export
 scale_edge_width_discrete <- function(...) {
-  cli::cli_warn("Using {.field edge_width} for a discrete variable is not advised.")
+  cli::cli_warn(
+    "Using {.field edge_width} for a discrete variable is not advised."
+  )
   sc <- scale_size_ordinal(...)
   sc$scale_name <- 'width_d'
   sc$aesthetics <- 'edge_width'
@@ -51,12 +66,28 @@ scale_edge_width_discrete <- function(...) {
 #'
 #' @inheritParams ggplot2::scale_size_binned
 #' @export
-scale_edge_width_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                                    limits = NULL, range = c(1, 6), n.breaks = NULL,
-                                    nice.breaks = TRUE, trans = "identity", guide = "bins") {
-  sc <- scale_size_binned(name = name, breaks = breaks, labels = labels, limits = limits,
-                          range = range, n.breaks = n.breaks, nice.breaks = nice.breaks,
-                          trans = trans, guide = guide)
+scale_edge_width_binned <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  n.breaks = NULL,
+  nice.breaks = TRUE,
+  trans = "identity",
+  guide = "bins"
+) {
+  sc <- scale_size_binned(
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    range = range,
+    n.breaks = n.breaks,
+    nice.breaks = nice.breaks,
+    trans = trans,
+    guide = guide
+  )
   sc$scale_name <- 'width_b'
   sc$aesthetics <- 'edge_width'
   sc
@@ -66,8 +97,18 @@ scale_edge_width_binned <- function(name = waiver(), breaks = waiver(), labels =
 #' @inheritParams ggplot2::scale_size_manual
 #'
 #' @export
-scale_edge_width_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-  sc <- scale_size_manual(..., values = values, breaks = breaks, na.value = na.value)
+scale_edge_width_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA
+) {
+  sc <- scale_size_manual(
+    ...,
+    values = values,
+    breaks = breaks,
+    na.value = na.value
+  )
   sc$aesthetics <- 'edge_width'
   sc
 }

@@ -20,10 +20,15 @@
 #' by David Schoch
 #'
 #' @importFrom graphlayouts layout_with_eigen
-layout_tbl_graph_eigen <- function(graph, type = 'laplacian', eigenvector = 'smallest', circular = FALSE) {
+layout_tbl_graph_eigen <- function(
+  graph,
+  type = 'laplacian',
+  eigenvector = 'smallest',
+  circular = FALSE
+) {
   type <- match.arg(type, c('laplacian', 'adjacency'))
   eigenvector <- match.arg(eigenvector, c('smallest', 'largest'))
   xy <- layout_with_eigen(graph, type = type, ev = eigenvector)
-  nodes <- data_frame0(x = xy[,1],y = xy[,2], circular = FALSE)
+  nodes <- data_frame0(x = xy[, 1], y = xy[, 2], circular = FALSE)
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

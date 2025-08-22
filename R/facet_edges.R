@@ -16,35 +16,53 @@
 #'   facet_edges(~year)
 #' @export
 #'
-facet_edges <- function(facets, nrow = NULL, ncol = NULL, scales = 'fixed',
-                        shrink = TRUE, labeller = 'label_value', as.table = TRUE,
-                        switch = deprecated(), drop = TRUE, dir = 'h',
-                        strip.position = 'top') {
+facet_edges <- function(
+  facets,
+  nrow = NULL,
+  ncol = NULL,
+  scales = 'fixed',
+  shrink = TRUE,
+  labeller = 'label_value',
+  as.table = TRUE,
+  switch = deprecated(),
+  drop = TRUE,
+  dir = 'h',
+  strip.position = 'top'
+) {
   # Work around non-lifecycle deprecation
-  if (!lifecycle::is_present(switch) && utils::packageVersion('ggplot2') <= '3.3.6') {
+  if (
+    !lifecycle::is_present(switch) &&
+      utils::packageVersion('ggplot2') <= '3.3.6'
+  ) {
     switch <- NULL
   }
   facet <- facet_wrap(
-    facets = facets, nrow = nrow, ncol = ncol,
-    scales = scales, shrink = shrink, labeller = labeller,
-    as.table = as.table, switch = switch, drop = drop,
-    dir = dir, strip.position = strip.position
+    facets = facets,
+    nrow = nrow,
+    ncol = ncol,
+    scales = scales,
+    shrink = shrink,
+    labeller = labeller,
+    as.table = as.table,
+    switch = switch,
+    drop = drop,
+    dir = dir,
+    strip.position = strip.position
   )
   seed <- sample(.Machine$integer.max, 1L)
   facet$params$facets[] <- lapply(seq_along(facet$params$facets), function(i) {
     rlang::quo(withr::with_seed(seed, !!facet$params$facets[[i]]))
   })
-  ggproto(NULL, FacetEdges,
-    shrink = shrink,
-    params = facet$params
-  )
+  ggproto(NULL, FacetEdges, shrink = shrink, params = facet$params)
 }
 
 #' @rdname ggraph-extensions
 #' @format NULL
 #' @usage NULL
 #' @export
-FacetEdges <- ggproto('FacetEdges', FacetWrap,
+FacetEdges <- ggproto(
+  'FacetEdges',
+  FacetWrap,
   compute_layout = function(data, params) {
     plot_data <- data[[1]]
     data <- split(data, vapply(data, data_type, character(1)))
@@ -66,7 +84,8 @@ FacetEdges <- ggproto('FacetEdges', FacetWrap,
         node_map$PANEL <- factor(panel, levels = levels(layout$PANEL))
         node_map
       },
-      edge_ggraph = , {
+      edge_ggraph = ,
+      {
         FacetWrap$map_data(data, layout, params)
       }
     )

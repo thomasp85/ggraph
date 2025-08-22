@@ -3,7 +3,9 @@
 #' @usage NULL
 #' @importFrom dplyr group_by mutate slice ungroup
 #' @export
-StatAxisHive <- ggproto('StatAxisHive', StatFilter,
+StatAxisHive <- ggproto(
+  'StatAxisHive',
+  StatFilter,
   setup_data = function(data, params) {
     data <- data %>%
       group_by(.data$angle, .data$section, .data$PANEL) %>%
@@ -28,8 +30,17 @@ StatAxisHive <- ggproto('StatAxisHive', StatFilter,
 #' @importFrom grid textGrob nullGrob
 #' @importFrom dplyr group_by summarise
 #' @export
-GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
-  draw_panel = function(data, panel_scales, coord, label = TRUE, axis = TRUE, label_colour = 'black') {
+GeomAxisHive <- ggproto(
+  'GeomAxisHive',
+  GeomSegment,
+  draw_panel = function(
+    data,
+    panel_scales,
+    coord,
+    label = TRUE,
+    axis = TRUE,
+    label_colour = 'black'
+  ) {
     data$x <- data$x / 1.1
     data$y <- data$y / 1.1
     data$xend <- data$xend / 1.1
@@ -54,7 +65,8 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     label_data$x <- label_data$x * (dist_dodge + lab_dist) / lab_dist
     label_data$y <- label_data$y * (dist_dodge + lab_dist) / lab_dist
     label_data$angle <- label_data$angle + ifelse(label_data$angle < 0, 360, 0)
-    label_data$angle <- label_data$angle - ifelse(label_data$angle > 360, 360, 0)
+    label_data$angle <- label_data$angle -
+      ifelse(label_data$angle > 360, 360, 0)
     upside_label <- label_data$angle > 90 & label_data$angle < 270
     label_data$angle[upside_label] <- label_data$angle[upside_label] + 180
     label_data <- coord$transform(label_data, panel_scales)
@@ -64,8 +76,12 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
       label_colour
     }
     label_grob <- if (label) {
-      textGrob(label_data$label, label_data$x, label_data$y,
-        default.units = 'native', rot = label_data$angle,
+      textGrob(
+        label_data$label,
+        label_data$x,
+        label_data$y,
+        default.units = 'native',
+        rot = label_data$angle,
         gp = gpar(
           col = label_data$label_colour,
           fontsize = label_data$label_size * .pt,
@@ -78,7 +94,11 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
       nullGrob()
     }
     axis_grob <- if (axis) {
-      segmentsGrob(data$x, data$y, data$xend, data$yend,
+      segmentsGrob(
+        data$x,
+        data$y,
+        data$xend,
+        data$yend,
         default.units = 'native',
         gp = gpar(
           col = alpha(data$colour, data$alpha),
@@ -94,8 +114,13 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
     gList(axis_grob, label_grob)
   },
   default_aes = aes(
-    colour = 'black', linewidth = 0.5, linetype = 1, alpha = NA,
-    label_size = 3.88, family = '', fontface = 1,
+    colour = 'black',
+    linewidth = 0.5,
+    linetype = 1,
+    alpha = NA,
+    label_size = 3.88,
+    family = '',
+    fontface = 1,
     lineheight = 1.2
   )
 )
@@ -151,14 +176,32 @@ GeomAxisHive <- ggproto('GeomAxisHive', GeomSegment,
 #'   geom_edge_hive(aes(colour = type), edge_alpha = 0.1) +
 #'   geom_axis_hive(aes(colour = type)) +
 #'   coord_fixed()
-geom_axis_hive <- function(mapping = NULL, data = NULL,
-                           position = 'identity', label = TRUE, axis = TRUE, show.legend = NA, ...) {
-  mapping <- aes_intersect(mapping, aes(r = r, angle = angle,
-                                        center_size = center_size,
-                                        axis = axis, section = section))
+geom_axis_hive <- function(
+  mapping = NULL,
+  data = NULL,
+  position = 'identity',
+  label = TRUE,
+  axis = TRUE,
+  show.legend = NA,
+  ...
+) {
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      r = r,
+      angle = angle,
+      center_size = center_size,
+      axis = axis,
+      section = section
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatAxisHive,
-    geom = GeomAxisHive, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatAxisHive,
+    geom = GeomAxisHive,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = list2(label = label, axis = axis, ...)
   )

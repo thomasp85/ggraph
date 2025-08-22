@@ -25,11 +25,24 @@ NULL
 #' @inheritParams ggplot2::scale_size_continuous
 #'
 #' @export
-scale_edge_size_continuous <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                                       limits = NULL, range = c(1, 6),
-                                       trans = "identity", guide = "legend") {
-  sc <- scale_size_continuous(name = name, breaks = breaks, labels = labels, limits = limits,
-                              range = range, trans = trans, guide = guide)
+scale_edge_size_continuous <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  trans = "identity",
+  guide = "legend"
+) {
+  sc <- scale_size_continuous(
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    range = range,
+    trans = trans,
+    guide = guide
+  )
   sc$aesthetics <- 'edge_size'
   sc
 }
@@ -38,11 +51,24 @@ scale_edge_size_continuous <- function(name = waiver(), breaks = waiver(), label
 #' @inheritParams ggplot2::scale_radius
 #'
 #' @export
-scale_edge_radius <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                              limits = NULL, range = c(1, 6),
-                              trans = "identity", guide = "legend") {
-  sc <- scale_radius(name = name, breaks = breaks, labels = labels, limits = limits,
-                     range = range, trans = trans, guide = guide)
+scale_edge_radius <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  trans = "identity",
+  guide = "legend"
+) {
+  sc <- scale_radius(
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    range = range,
+    trans = trans,
+    guide = guide
+  )
   sc$aesthetics <- 'edge_size'
   sc
 }
@@ -55,7 +81,9 @@ scale_edge_size <- scale_edge_size_continuous
 #' @inheritParams ggplot2::scale_size_discrete
 #' @export
 scale_edge_size_discrete <- function(...) {
-  cli::cli_warn("Using {.field edge_size} for a discrete variable is not advised.")
+  cli::cli_warn(
+    "Using {.field edge_size} for a discrete variable is not advised."
+  )
   sc <- scale_size_ordinal(...)
   sc$aesthetics <- 'edge_size'
   sc
@@ -64,12 +92,28 @@ scale_edge_size_discrete <- function(...) {
 #'
 #' @inheritParams ggplot2::scale_size_binned
 #' @export
-scale_edge_size_binned <- function(name = waiver(), breaks = waiver(), labels = waiver(),
-                                   limits = NULL, range = c(1, 6), n.breaks = NULL,
-                                   nice.breaks = TRUE, trans = "identity", guide = "bins") {
-  sc <- scale_size_binned(name = name, breaks = breaks, labels = labels, limits = limits,
-                          range = range, n.breaks = n.breaks, nice.breaks = nice.breaks,
-                          trans = trans, guide = guide)
+scale_edge_size_binned <- function(
+  name = waiver(),
+  breaks = waiver(),
+  labels = waiver(),
+  limits = NULL,
+  range = c(1, 6),
+  n.breaks = NULL,
+  nice.breaks = TRUE,
+  trans = "identity",
+  guide = "bins"
+) {
+  sc <- scale_size_binned(
+    name = name,
+    breaks = breaks,
+    labels = labels,
+    limits = limits,
+    range = range,
+    n.breaks = n.breaks,
+    nice.breaks = nice.breaks,
+    trans = trans,
+    guide = guide
+  )
   sc$aesthetics <- 'edge_size'
   sc
 }
@@ -99,8 +143,18 @@ scale_edge_size_binned_area <- function(..., max_size = 6) {
 #' @inheritParams ggplot2::scale_size_manual
 #'
 #' @export
-scale_edge_size_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-  sc <- scale_size_manual(..., values = values, breaks = breaks, na.value = na.value)
+scale_edge_size_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA
+) {
+  sc <- scale_size_manual(
+    ...,
+    values = values,
+    breaks = breaks,
+    na.value = na.value
+  )
   sc$aesthetics <- 'edge_size'
   sc
 }

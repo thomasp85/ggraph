@@ -79,10 +79,14 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatBezier
 #' @export
-StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
+StatEdgeLoop <- ggproto(
+  'StatEdgeLoop',
+  StatBezier,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data <- data[data$from == data$to, ]
     data$group <- make_unique(data$group)
     if (nrow(data) != 0) {
@@ -98,31 +102,65 @@ StatEdgeLoop <- ggproto('StatEdgeLoop', StatBezier,
 #' @rdname geom_edge_loop
 #'
 #' @export
-geom_edge_loop <- function(mapping = NULL, data = get_edges(),
-                           position = 'identity', arrow = NULL, n = 100,
-                           lineend = 'butt', linejoin = 'round', linemitre = 1,
-                           label_colour = 'black', label_alpha = 1,
-                           label_parse = FALSE, check_overlap = FALSE,
-                           angle_calc = 'rot', force_flip = TRUE,
-                           label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ...) {
+geom_edge_loop <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, from = from, to = to, group = edge.id,
-    span = 90, direction = 45, strength = 1
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      from = from,
+      to = to,
+      group = edge.id,
+      span = 90,
+      direction = 45,
+      strength = 1
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeLoop,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeLoop,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n, interpolate = FALSE,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = FALSE,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -132,7 +170,9 @@ geom_edge_loop <- function(mapping = NULL, data = get_edges(),
 #' @usage NULL
 #' @importFrom ggforce StatBezier0
 #' @export
-StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
+StatEdgeLoop0 <- ggproto(
+  'StatEdgeLoop0',
+  StatBezier0,
   setup_data = function(data, params) {
     StatEdgeLoop$setup_data(data, params)
   },
@@ -143,17 +183,35 @@ StatEdgeLoop0 <- ggproto('StatEdgeLoop0', StatBezier0,
 #' @rdname geom_edge_loop
 #'
 #' @export
-geom_edge_loop0 <- function(mapping = NULL, data = get_edges(),
-                            position = 'identity', arrow = NULL,
-                            lineend = 'butt', show.legend = NA, ...) {
+geom_edge_loop0 <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  lineend = 'butt',
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, from = from, to = to,
-    span = 90, direction = 45, strength = 1
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      from = from,
+      to = to,
+      span = 90,
+      direction = 45,
+      strength = 1
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeLoop0,
-    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeLoop0,
+    geom = GeomEdgeBezier,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(arrow = arrow, lineend = lineend, ...)

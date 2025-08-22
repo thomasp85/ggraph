@@ -35,12 +35,22 @@
 #'   geom_node_range()
 #' @export
 #'
-geom_node_range <- function(mapping = NULL, data = NULL, position = 'identity',
-                            show.legend = NA, ...) {
+geom_node_range <- function(
+  mapping = NULL,
+  data = NULL,
+  position = 'identity',
+  show.legend = NA,
+  ...
+) {
   mapping <- aes_intersect(mapping, aes(x = xmin, xend = xmax, y = y, yend = y))
   layer(
-    data = data, mapping = mapping, stat = StatFilter, geom = GeomSegment,
-    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatFilter,
+    geom = GeomSegment,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = list2(...)
   )
 }

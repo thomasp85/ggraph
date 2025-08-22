@@ -48,17 +48,39 @@
 #' @export
 #' @importFrom ggforce GeomShape
 #'
-geom_node_voronoi <- function(mapping = NULL, data = NULL, position = 'identity',
-                              show.legend = NA, bound = NULL, eps = 1e-09,
-                              max.radius = NULL, normalize = FALSE,
-                              asp.ratio = 1, expand = 0, radius = 0, ...) {
+geom_node_voronoi <- function(
+  mapping = NULL,
+  data = NULL,
+  position = 'identity',
+  show.legend = NA,
+  bound = NULL,
+  eps = 1e-09,
+  max.radius = NULL,
+  normalize = FALSE,
+  asp.ratio = 1,
+  expand = 0,
+  radius = 0,
+  ...
+) {
   mapping <- aes_intersect(mapping, aes(x = x, y = y, group = -1))
   layer(
-    data = data, mapping = mapping, stat = StatNodeVoronoi, geom = GeomShape,
-    position = position, show.legend = show.legend, inherit.aes = FALSE,
-    params = list2(bound = bound, eps = eps, max.radius = max.radius,
-                  normalize = normalize, asp.ratio = asp.ratio, expand = expand,
-                  radius = radius, ...)
+    data = data,
+    mapping = mapping,
+    stat = StatNodeVoronoi,
+    geom = GeomShape,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
+    params = list2(
+      bound = bound,
+      eps = eps,
+      max.radius = max.radius,
+      normalize = normalize,
+      asp.ratio = asp.ratio,
+      expand = expand,
+      radius = radius,
+      ...
+    )
   )
 }
 
@@ -67,7 +89,9 @@ geom_node_voronoi <- function(mapping = NULL, data = NULL, position = 'identity'
 #' @usage NULL
 #' @importFrom ggforce StatVoronoiTile
 #' @export
-StatNodeVoronoi <- ggproto('StatNodeVoronoi', StatVoronoiTile,
+StatNodeVoronoi <- ggproto(
+  'StatNodeVoronoi',
+  StatVoronoiTile,
   finish_layer = function(data, params) {
     StatFilter$setup_data(data, params)
   },

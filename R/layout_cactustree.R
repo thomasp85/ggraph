@@ -43,7 +43,15 @@
 #'
 #' @family layout_tbl_graph_*
 #'
-layout_tbl_graph_cactustree <- function(graph, direction = "out", weight = NULL, scale_factor = 0.75, overlap = 0.5, upright = FALSE, circular = FALSE) {
+layout_tbl_graph_cactustree <- function(
+  graph,
+  direction = "out",
+  weight = NULL,
+  scale_factor = 0.75,
+  overlap = 0.5,
+  upright = FALSE,
+  circular = FALSE
+) {
   weight <- enquo(weight)
   weight <- eval_tidy(weight, .N())
   if (is.null(weight)) {

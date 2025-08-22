@@ -34,13 +34,23 @@
 #'
 #' @export
 #'
-geom_node_sf <- function(mapping = NULL, data = get_sf_nodes(),
-                          position = 'identity', show.legend = NA, ...) {
+geom_node_sf <- function(
+  mapping = NULL,
+  data = get_sf_nodes(),
+  position = 'identity',
+  show.legend = NA,
+  ...
+) {
   mapping <- aes_intersect(mapping, aes(geometry = geometry))
   c(
     layer_sf(
-      geom = GeomSf, data = data, mapping = mapping, stat = StatFilterSf,
-      position = position, show.legend = show.legend, inherit.aes = FALSE,
+      geom = GeomSf,
+      data = data,
+      mapping = mapping,
+      stat = StatFilterSf,
+      position = position,
+      show.legend = show.legend,
+      inherit.aes = FALSE,
       params = list2(na.rm = FALSE, ...)
     ),
     coord_sf(default = TRUE)
@@ -48,7 +58,7 @@ geom_node_sf <- function(mapping = NULL, data = get_sf_nodes(),
 }
 
 #' @rdname get_nodes
-get_sf_nodes <- function(){
+get_sf_nodes <- function() {
   function(layout) {
     nodes <- sf::st_as_sf(layout)
     attr(nodes, 'type_ggraph') <- 'node_ggraph'

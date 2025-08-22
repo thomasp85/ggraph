@@ -41,9 +41,17 @@
 #' @importFrom igraph gorder
 #' @importFrom rlang eval_tidy enquo
 #'
-layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
-                                    tolerance = 1e-4, mds = TRUE, bbox = 50,
-                                    x = NULL, y = NULL, circular = FALSE) {
+layout_tbl_graph_stress <- function(
+  graph,
+  weights = NULL,
+  niter = 500,
+  tolerance = 1e-4,
+  mds = TRUE,
+  bbox = 50,
+  x = NULL,
+  y = NULL,
+  circular = FALSE
+) {
   weights <- eval_tidy(enquo(weights), .E())
   if (is.null(weights)) {
     weights <- NA
@@ -53,32 +61,58 @@ layout_tbl_graph_stress <- function(graph, weights = NULL, niter = 500,
   x <- eval_tidy(enquo(x), .N())
   y <- eval_tidy(enquo(y), .N())
   if (is.null(x) && is.null(y)) {
-    xy <- layout_with_stress(graph, weights = weights, iter = niter,
-                             tol = tolerance, mds = mds, bbox = bbox)
+    xy <- layout_with_stress(
+      graph,
+      weights = weights,
+      iter = niter,
+      tol = tolerance,
+      mds = mds,
+      bbox = bbox
+    )
   } else {
     xy <- cbind(x %||% NA, y %||% NA)
     if (nrow(xy) != gorder(graph)) {
-      cli::cli_abort("If {.arg x_coord} and/or {.arg y_coord} is given they must equal the number of nodes in the graph")
+      cli::cli_abort(
+        "If {.arg x_coord} and/or {.arg y_coord} is given they must equal the number of nodes in the graph"
+      )
     }
     if (anyNA(xy)) {
-      xy <- layout_with_fixed_coords(graph, xy, weights = weights, iter = niter,
-                                     tol = tolerance, mds = mds, bbox = bbox)
+      xy <- layout_with_fixed_coords(
+        graph,
+        xy,
+        weights = weights,
+        iter = niter,
+        tol = tolerance,
+        mds = mds,
+        bbox = bbox
+      )
     }
   }
 
-  nodes <- data_frame0(x = xy[,1],y = xy[,2], circular = FALSE)
+  nodes <- data_frame0(x = xy[, 1], y = xy[, 2], circular = FALSE)
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }
 #' @rdname layout_tbl_graph_stress
 #' @importFrom graphlayouts layout_with_sparse_stress
-layout_tbl_graph_sparse_stress <- function(graph, pivots, weights = NULL,
-                                           niter = 500, circular = FALSE) {
+layout_tbl_graph_sparse_stress <- function(
+  graph,
+  pivots,
+  weights = NULL,
+  niter = 500,
+  circular = FALSE
+) {
   weights <- eval_tidy(enquo(weights))
   if (!is.null(weights)) {
-    cli::cli_warn('{.arg weights} is currently ignored for sparse stress layouts')
+    cli::cli_warn(
+      '{.arg weights} is currently ignored for sparse stress layouts'
+    )
   }
-  xy <- layout_with_sparse_stress(graph, pivots = pivots, weights = weights,
-                                  iter = niter)
-  nodes <- data_frame0(x = xy[,1], y = xy[,2], circular = FALSE)
+  xy <- layout_with_sparse_stress(
+    graph,
+    pivots = pivots,
+    weights = weights,
+    iter = niter
+  )
+  nodes <- data_frame0(x = xy[, 1], y = xy[, 2], circular = FALSE)
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

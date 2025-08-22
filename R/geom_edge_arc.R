@@ -109,11 +109,15 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatBezier
 #' @export
-StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
+StatEdgeArc <- ggproto(
+  'StatEdgeArc',
+  StatBezier,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
@@ -127,37 +131,76 @@ StatEdgeArc <- ggproto('StatEdgeArc', StatBezier,
 #' @rdname geom_edge_arc
 #'
 #' @export
-geom_edge_arc <- function(mapping = NULL, data = get_edges(),
-                          position = 'identity', arrow = NULL, strength = 1,
-                          n = 100, fold = FALSE, lineend = 'butt',
-                          linejoin = 'round', linemitre = 1,
-                          label_colour = 'black', label_alpha = 1,
-                          label_parse = FALSE, check_overlap = FALSE,
-                          angle_calc = 'rot', force_flip = TRUE,
-                          label_dodge = NULL, label_push = NULL,
-                          show.legend = NA, ..., curvature) {
+geom_edge_arc <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  n = 100,
+  fold = FALSE,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...,
+  curvature
+) {
   if (!missing(curvature)) {
-    lifecycle::deprecate_warn('2.0.0', 'geom_edge_arc(curvature)', 'geom_edge_arc(strength)')
+    lifecycle::deprecate_warn(
+      '2.0.0',
+      'geom_edge_arc(curvature)',
+      'geom_edge_arc(strength)'
+    )
     strength <- curvature
   }
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend,
-    circular = circular, group = edge.id
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      circular = circular,
+      group = edge.id
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeArc,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeArc,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = FALSE, strength = strength, fold = fold,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = FALSE,
+        strength = strength,
+        fold = fold,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -167,11 +210,15 @@ geom_edge_arc <- function(mapping = NULL, data = get_edges(),
 #' @usage NULL
 #' @importFrom ggforce StatBezier2
 #' @export
-StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
+StatEdgeArc2 <- ggproto(
+  'StatEdgeArc2',
+  StatBezier2,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
@@ -184,37 +231,74 @@ StatEdgeArc2 <- ggproto('StatEdgeArc2', StatBezier2,
 #' @rdname geom_edge_arc
 #'
 #' @export
-geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
-                           position = 'identity', arrow = NULL, strength = 1,
-                           n = 100, fold = FALSE, lineend = 'butt',
-                           linejoin = 'round', linemitre = 1,
-                           label_colour = 'black', label_alpha = 1,
-                           label_parse = FALSE, check_overlap = FALSE,
-                           angle_calc = 'rot', force_flip = TRUE,
-                           label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ..., curvature) {
+geom_edge_arc2 <- function(
+  mapping = NULL,
+  data = get_edges('long'),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  n = 100,
+  fold = FALSE,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...,
+  curvature
+) {
   if (!missing(curvature)) {
-    lifecycle::deprecate_warn('2.0.0', 'geom_edge_arc2(curvature)', 'geom_edge_arc2(strength)')
+    lifecycle::deprecate_warn(
+      '2.0.0',
+      'geom_edge_arc2(curvature)',
+      'geom_edge_arc2(strength)'
+    )
     strength <- curvature
   }
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, group = edge.id,
-    circular = circular
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      group = edge.id,
+      circular = circular
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeArc2,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeArc2,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = TRUE, strength = strength, fold = fold,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = TRUE,
+        strength = strength,
+        fold = fold,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -224,7 +308,9 @@ geom_edge_arc2 <- function(mapping = NULL, data = get_edges('long'),
 #' @usage NULL
 #' @importFrom ggforce StatBezier0
 #' @export
-StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
+StatEdgeArc0 <- ggproto(
+  'StatEdgeArc0',
+  StatBezier0,
   setup_data = function(data, params) {
     StatEdgeArc$setup_data(data, params)
   },
@@ -235,25 +321,52 @@ StatEdgeArc0 <- ggproto('StatEdgeArc0', StatBezier0,
 #' @rdname geom_edge_arc
 #'
 #' @export
-geom_edge_arc0 <- function(mapping = NULL, data = get_edges(),
-                           position = 'identity', arrow = NULL, strength = 1,
-                           lineend = 'butt', show.legend = NA, fold = fold, ..., curvature) {
+geom_edge_arc0 <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  lineend = 'butt',
+  show.legend = NA,
+  fold = fold,
+  ...,
+  curvature
+) {
   if (!missing(curvature)) {
-    lifecycle::deprecate_warn('2.0.0', 'geom_edge_arc0(curvature)', 'geom_edge_arc0(strength)')
+    lifecycle::deprecate_warn(
+      '2.0.0',
+      'geom_edge_arc0(curvature)',
+      'geom_edge_arc0(strength)'
+    )
     strength <- curvature
   }
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend,
-    circular = circular
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      circular = circular
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeArc0,
-    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeArc0,
+    geom = GeomEdgeBezier,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, strength = strength, fold = FALSE, ...
+        arrow = arrow,
+        lineend = lineend,
+        strength = strength,
+        fold = FALSE,
+        ...
       )
     )
   )

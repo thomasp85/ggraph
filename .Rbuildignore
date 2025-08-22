@@ -1,0 +1,15 @@
+^\.github$
+^codecov\.yml$
+^[\.]?air\.toml$
+^\.vscode$
+^pkgdown$
+^CRAN-RELEASE$
+^CODE_OF_CONDUCT\.md$
+^revdep$
+^_pkgdown\.yml$
+^README\.Rmd$
+^\.github$
+^cran-comments\.md$
+^LICENSE\.md$
+^CRAN-SUBMISSION$
+^docs$

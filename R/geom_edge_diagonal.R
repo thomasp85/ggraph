@@ -99,11 +99,15 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatBezier
 #' @export
-StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
+StatEdgeDiagonal <- ggproto(
+  'StatEdgeDiagonal',
+  StatBezier,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data$group <- make_unique(data$group)
     data2 <- data
     data2$x <- data2$xend
@@ -117,33 +121,67 @@ StatEdgeDiagonal <- ggproto('StatEdgeDiagonal', StatBezier,
 #' @rdname geom_edge_diagonal
 #'
 #' @export
-geom_edge_diagonal <- function(mapping = NULL, data = get_edges(),
-                               position = 'identity', arrow = NULL, strength = 1,
-                               flipped = FALSE, n = 100, lineend = 'butt',
-                               linejoin = 'round', linemitre = 1,
-                               label_colour = 'black', label_alpha = 1,
-                               label_parse = FALSE, check_overlap = FALSE,
-                               angle_calc = 'rot', force_flip = TRUE,
-                               label_dodge = NULL, label_push = NULL,
-                               show.legend = NA, ...) {
+geom_edge_diagonal <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  flipped = FALSE,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend,
-    circular = circular, group = edge.id
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      circular = circular,
+      group = edge.id
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeDiagonal,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeDiagonal,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = FALSE, flipped = flipped, strength = strength,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = FALSE,
+        flipped = flipped,
+        strength = strength,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -153,11 +191,15 @@ geom_edge_diagonal <- function(mapping = NULL, data = get_edges(),
 #' @usage NULL
 #' @importFrom ggforce StatBezier2
 #' @export
-StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
+StatEdgeDiagonal2 <- ggproto(
+  'StatEdgeDiagonal2',
+  StatBezier2,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     data <- data[order(data$group), ]
     data2 <- data[c(FALSE, TRUE), ]
     data <- data[c(TRUE, FALSE), ]
@@ -170,33 +212,65 @@ StatEdgeDiagonal2 <- ggproto('StatEdgeDiagonal2', StatBezier2,
 #' @rdname geom_edge_diagonal
 #'
 #' @export
-geom_edge_diagonal2 <- function(mapping = NULL, data = get_edges('long'),
-                                position = 'identity', arrow = NULL, strength = 1,
-                                flipped = FALSE, n = 100, lineend = 'butt',
-                                linejoin = 'round', linemitre = 1,
-                                label_colour = 'black', label_alpha = 1,
-                                label_parse = FALSE, check_overlap = FALSE,
-                                angle_calc = 'rot', force_flip = TRUE,
-                                label_dodge = NULL, label_push = NULL,
-                                show.legend = NA, ...) {
+geom_edge_diagonal2 <- function(
+  mapping = NULL,
+  data = get_edges('long'),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  flipped = FALSE,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, group = edge.id,
-    circular = circular
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      group = edge.id,
+      circular = circular
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeDiagonal2,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeDiagonal2,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n,
-        interpolate = TRUE, flipped = flipped, strength = strength,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = TRUE,
+        flipped = flipped,
+        strength = strength,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -206,7 +280,9 @@ geom_edge_diagonal2 <- function(mapping = NULL, data = get_edges('long'),
 #' @usage NULL
 #' @importFrom ggforce StatBezier0
 #' @export
-StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
+StatEdgeDiagonal0 <- ggproto(
+  'StatEdgeDiagonal0',
+  StatBezier0,
   setup_data = function(data, params) {
     StatEdgeDiagonal$setup_data(data, params)
   },
@@ -217,23 +293,43 @@ StatEdgeDiagonal0 <- ggproto('StatEdgeDiagonal0', StatBezier0,
 #' @rdname geom_edge_diagonal
 #'
 #' @export
-geom_edge_diagonal0 <- function(mapping = NULL, data = get_edges(),
-                                position = 'identity', arrow = NULL, strength = 1,
-                                flipped = FALSE, lineend = 'butt',
-                                show.legend = NA, ...) {
+geom_edge_diagonal0 <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  strength = 1,
+  flipped = FALSE,
+  lineend = 'butt',
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend,
-    circular = circular
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      circular = circular
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeDiagonal0,
-    geom = GeomEdgeBezier, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeDiagonal0,
+    geom = GeomEdgeBezier,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, strength = strength,
-        flipped = flipped, ...
+        arrow = arrow,
+        lineend = lineend,
+        strength = strength,
+        flipped = flipped,
+        ...
       )
     )
   )
@@ -266,12 +362,16 @@ create_diagonal <- function(from, to, params) {
   if (any(!from$circular)) {
     if (params$flipped) {
       h_diff <- from$x[!from$circular] - to$x[!from$circular]
-      data2$x[!from$circular] <- from$x[!from$circular] - h_diff / 2 * params$strength
-      data3$x[!from$circular] <- to$x[!from$circular] + h_diff / 2 * params$strength
+      data2$x[!from$circular] <- from$x[!from$circular] -
+        h_diff / 2 * params$strength
+      data3$x[!from$circular] <- to$x[!from$circular] +
+        h_diff / 2 * params$strength
     } else {
       h_diff <- from$y[!from$circular] - to$y[!from$circular]
-      data2$y[!from$circular] <- from$y[!from$circular] - h_diff / 2 * params$strength
-      data3$y[!from$circular] <- to$y[!from$circular] + h_diff / 2 * params$strength
+      data2$y[!from$circular] <- from$y[!from$circular] -
+        h_diff / 2 * params$strength
+      data3$y[!from$circular] <- to$y[!from$circular] +
+        h_diff / 2 * params$strength
     }
   }
   data <- vec_rbind(from, data2, data3, to)

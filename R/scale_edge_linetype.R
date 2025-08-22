@@ -51,8 +51,18 @@ scale_edge_linetype_binned <- function(..., na.value = "blank") {
 #' @inheritParams ggplot2::scale_linetype_manual
 #'
 #' @export
-scale_edge_linetype_manual <- function(..., values, breaks = waiver(), na.value = "blank") {
-  sc <- scale_linetype_manual(..., values = values, breaks = breaks, na.value = na.value)
+scale_edge_linetype_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = "blank"
+) {
+  sc <- scale_linetype_manual(
+    ...,
+    values = values,
+    breaks = breaks,
+    na.value = na.value
+  )
   sc$aesthetics <- 'edge_linetype'
   sc
 }

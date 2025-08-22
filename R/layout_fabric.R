@@ -39,7 +39,12 @@
 #' *Combing the hairball with BioFabric: a new approach for visualization of large networks*.
 #' BMC Bioinformatics, 13: 275. \doi{10.1186/1471-2105-13-275}
 #'
-layout_tbl_graph_fabric <- function(graph, circular = FALSE, sort.by = NULL, shadow.edges = FALSE) {
+layout_tbl_graph_fabric <- function(
+  graph,
+  circular = FALSE,
+  sort.by = NULL,
+  shadow.edges = FALSE
+) {
   sort.by <- enquo(sort.by)
   sort.by <- eval_tidy(sort.by, .N())
   if (!is.null(sort.by)) {
@@ -49,16 +54,26 @@ layout_tbl_graph_fabric <- function(graph, circular = FALSE, sort.by = NULL, sha
   }
 
   edges <- as_edgelist(graph, names = FALSE)
-  edges <- cbind(pos[edges[,1]], pos[edges[,2]])
-  first_node <- pmin(edges[,1], edges[,2])
-  second_node <- pmax(edges[,1], edges[,2])
+  edges <- cbind(pos[edges[, 1]], pos[edges[, 2]])
+  first_node <- pmin(edges[, 1], edges[, 2])
+  second_node <- pmax(edges[, 1], edges[, 2])
   edge_order <- order(first_node, second_node)
 
   if (shadow.edges) {
     shadow_order <- order(second_node, first_node)
-    edge_order <- split(edge_order, factor(first_node[edge_order], seq_along(pos)))
-    shadow_order <- split(shadow_order + length(second_node), factor(second_node[shadow_order], seq_along(pos)))
-    edge_order <- unlist(c(shadow_order, edge_order)[matrix(seq_len(length(pos) * 2), nrow = 2, byrow = T)])
+    edge_order <- split(
+      edge_order,
+      factor(first_node[edge_order], seq_along(pos))
+    )
+    shadow_order <- split(
+      shadow_order + length(second_node),
+      factor(second_node[shadow_order], seq_along(pos))
+    )
+    edge_order <- unlist(c(shadow_order, edge_order)[matrix(
+      seq_len(length(pos) * 2),
+      nrow = 2,
+      byrow = T
+    )])
     graph <- bind_edges(graph, as_tibble(graph, active = 'edges'))
     shadow <- rep(c(FALSE, TRUE), each = length(first_node))
   } else {
@@ -67,14 +82,18 @@ layout_tbl_graph_fabric <- function(graph, circular = FALSE, sort.by = NULL, sha
 
   edge_rank <- match(seq_along(edge_order), edge_order)
 
-  node_span <- vapply(incident_edges(graph, V(graph), mode = 'all'), function(e) {
-    range(edge_rank[as.integer(e)])
-  }, numeric(2))
+  node_span <- vapply(
+    incident_edges(graph, V(graph), mode = 'all'),
+    function(e) {
+      range(edge_rank[as.integer(e)])
+    },
+    numeric(2)
+  )
 
   nodes <- data_frame0(
     x = colMeans(node_span),
-    xmin = node_span[1,],
-    xmax = node_span[2,],
+    xmin = node_span[1, ],
+    xmax = node_span[2, ],
     y = abs(pos - max(pos)),
     circular = FALSE
   )

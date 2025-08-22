@@ -51,10 +51,18 @@
 #' @importFrom ggrepel GeomTextRepel
 #' @export
 #'
-geom_node_text <- function(mapping = NULL, data = NULL, position = 'identity',
-                           parse = FALSE, nudge_x = 0, nudge_y = 0,
-                           check_overlap = FALSE, show.legend = NA,
-                           repel = FALSE, ...) {
+geom_node_text <- function(
+  mapping = NULL,
+  data = NULL,
+  position = 'identity',
+  parse = FALSE,
+  nudge_x = 0,
+  nudge_y = 0,
+  check_overlap = FALSE,
+  show.legend = NA,
+  repel = FALSE,
+  ...
+) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
@@ -78,8 +86,13 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = 'identity',
 
   mapping <- aes_intersect(mapping, aes(x = x, y = y))
   layer(
-    data = data, mapping = mapping, stat = stat, geom = geom,
-    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = stat,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = params
   )
 }
@@ -90,12 +103,19 @@ geom_node_text <- function(mapping = NULL, data = NULL, position = 'identity',
 #' @importFrom ggrepel GeomLabelRepel
 #' @export
 #'
-geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
-                            parse = FALSE, nudge_x = 0, nudge_y = 0,
-                            label.padding = unit(0.25, 'lines'),
-                            label.r = unit(0.15, 'lines'),
-                            show.legend = NA,
-                            repel = FALSE, ...) {
+geom_node_label <- function(
+  mapping = NULL,
+  data = NULL,
+  position = 'identity',
+  parse = FALSE,
+  nudge_x = 0,
+  nudge_y = 0,
+  label.padding = unit(0.25, 'lines'),
+  label.r = unit(0.15, 'lines'),
+  show.legend = NA,
+  repel = FALSE,
+  ...
+) {
   if (!missing(nudge_x) || !missing(nudge_y)) {
     if (!missing(position)) {
       cli::cli_abort(c(
@@ -106,8 +126,10 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
     position <- position_nudge(nudge_x, nudge_y)
   }
   params <- list2(
-    parse = parse, label.padding = label.padding,
-    label.r = label.r, ...
+    parse = parse,
+    label.padding = label.padding,
+    label.r = label.r,
+    ...
   )
   if (repel) {
     geom <- GeomLabelRepel
@@ -117,8 +139,13 @@ geom_node_label <- function(mapping = NULL, data = NULL, position = 'identity',
 
   mapping <- aes_intersect(mapping, aes(x = x, y = y))
   layer(
-    data = data, mapping = mapping, stat = StatFilter, geom = geom,
-    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatFilter,
+    geom = geom,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = params
   )
 }

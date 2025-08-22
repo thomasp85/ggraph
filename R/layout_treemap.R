@@ -69,7 +69,16 @@
 #'
 #' @family layout_tbl_graph_*
 #'
-layout_tbl_graph_treemap <- function(graph, algorithm = 'split', weight = NULL, circular = FALSE, sort.by = NULL, direction = 'out', height = 1, width = 1) {
+layout_tbl_graph_treemap <- function(
+  graph,
+  algorithm = 'split',
+  weight = NULL,
+  circular = FALSE,
+  sort.by = NULL,
+  direction = 'out',
+  height = 1,
+  width = 1
+) {
   weight <- enquo(weight)
   weight <- eval_tidy(weight, .N())
   sort.by <- enquo(sort.by)

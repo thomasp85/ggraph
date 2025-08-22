@@ -92,20 +92,32 @@
 #' @importFrom rlang quos eval_tidy
 #' @importFrom stats setNames
 #'
-layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi / 2, use.dummy = FALSE, ...) {
+layout_tbl_graph_igraph <- function(
+  graph,
+  algorithm,
+  circular,
+  offset = pi / 2,
+  use.dummy = FALSE,
+  ...
+) {
   algorithm <- as.igraphlayout(algorithm)
   dots <- quos(...)
-  dots <- setNames(lapply(names(dots), function(nq) {
-    if (nq == 'weights') {
-      eval_tidy(dots[[nq]], as_tibble(graph, active = 'edges'))
-    } else {
-      eval_tidy(dots[[nq]])
-    }
-  }), names(dots))
+  dots <- setNames(
+    lapply(names(dots), function(nq) {
+      if (nq == 'weights') {
+        eval_tidy(dots[[nq]], as_tibble(graph, active = 'edges'))
+      } else {
+        eval_tidy(dots[[nq]])
+      }
+    }),
+    names(dots)
+  )
   alg_fun <- try_fetch(
     utils::getFromNamespace(algorithm, 'igraph'),
     error = function(cnd) {
-      cli::cli_abort("Could not find the {.val {algorithm}} layout algorithm in the {.var igraph} namespace")
+      cli::cli_abort(
+        "Could not find the {.val {algorithm}} layout algorithm in the {.var igraph} namespace"
+      )
     }
   )
   layout <- inject(alg_fun(graph, !!!dots))
@@ -121,9 +133,14 @@ layout_tbl_graph_igraph <- function(graph, algorithm, circular, offset = pi / 2,
     layout[, 1] <- layout[, 1] + components(graph)$membership - 1
   }
   if ('dim' %in% names(dots) && isTRUE(dots$dim > 2)) {
-    cli::cli_warn('Only the first two dimensions will be used despite requesting more')
+    cli::cli_warn(
+      'Only the first two dimensions will be used despite requesting more'
+    )
   }
-  nodes <- combine_layout_nodes(data_frame0(x = layout[, 1], y = layout[, 2]), as_tibble(graph, active = 'nodes'))
+  nodes <- combine_layout_nodes(
+    data_frame0(x = layout[, 1], y = layout[, 2]),
+    as_tibble(graph, active = 'nodes')
+  )
   graph <- add_direction(graph, nodes)
   if (circular) {
     if (!algorithm %in% c('layout_as_tree', 'layout_with_sugiyama')) {

@@ -33,7 +33,14 @@
 #'
 #' @importFrom igraph gorder
 #'
-layout_tbl_graph_linear <- function(graph, circular, sort.by = NULL, use.numeric = FALSE, offset = pi / 2, weight = NULL) {
+layout_tbl_graph_linear <- function(
+  graph,
+  circular,
+  sort.by = NULL,
+  use.numeric = FALSE,
+  offset = pi / 2,
+  weight = NULL
+) {
   sort.by <- enquo(sort.by)
   sort.by <- eval_tidy(sort.by, .N())
   weight <- enquo(weight)

@@ -105,15 +105,28 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatBspline
 #' @export
-StatEdgeBundlePath <- ggproto("StatEdgeBundlePath", Stat,
+StatEdgeBundlePath <- ggproto(
+  "StatEdgeBundlePath",
+  Stat,
   setup_data = function(data, params) {
     StatEdgeBundlePath0$setup_data(data, params)
   },
-  compute_panel = function(data, scales, n = 100, directed = NULL, max_distortion = 2,
-                           weight_fac = 2, tension = 1) {
+  compute_panel = function(
+    data,
+    scales,
+    n = 100,
+    directed = NULL,
+    max_distortion = 2,
+    weight_fac = 2,
+    tension = 1
+  ) {
     edges <- StatEdgeBundlePath0$compute_panel(
-      data, scales, directed = directed, max_distortion = max_distortion,
-      weight_fac = weight_fac, tension = tension
+      data,
+      scales,
+      directed = directed,
+      max_distortion = max_distortion,
+      weight_fac = weight_fac,
+      tension = tension
     )
     StatBspline$compute_layer(edges, list(n = n), NULL)
   },
@@ -125,34 +138,71 @@ StatEdgeBundlePath <- ggproto("StatEdgeBundlePath", Stat,
 #' @rdname geom_edge_bundle_path
 #'
 #' @export
-geom_edge_bundle_path <- function(mapping = NULL, data = get_edges(),
-                                  position = "identity", arrow = NULL,
-                                  n = 100, directed = NULL, max_distortion = 2,
-                                  weight_fac = 2, tension = 1,
-                                  lineend = 'butt', linejoin = 'round', linemitre = 1,
-                                  label_colour = 'black', label_alpha = 1,
-                                  label_parse = FALSE, check_overlap = FALSE,
-                                  angle_calc = 'rot', force_flip = TRUE,
-                                  label_dodge = NULL, label_push = NULL,
-                                  show.legend = NA, ...) {
+geom_edge_bundle_path <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = "identity",
+  arrow = NULL,
+  n = 100,
+  directed = NULL,
+  max_distortion = 2,
+  weight_fac = 2,
+  tension = 1,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend, group = edge.id, edge_id = edge.id
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      group = edge.id,
+      edge_id = edge.id
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeBundlePath,
-    geom = GeomEdgePath, position = position,
-    show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeBundlePath,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n, interpolate = FALSE, directed = directed,
-        max_distortion = max_distortion, weight_fac = weight_fac,
-        tension = tension, label_colour = label_colour,
-        label_alpha = label_alpha, label_parse = label_parse,
-        check_overlap = check_overlap, angle_calc = angle_calc,
-        force_flip = force_flip, label_dodge = label_dodge,
-        label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = FALSE,
+        directed = directed,
+        max_distortion = max_distortion,
+        weight_fac = weight_fac,
+        tension = tension,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -162,25 +212,44 @@ geom_edge_bundle_path <- function(mapping = NULL, data = get_edges(),
 #' @usage NULL
 #' @importFrom ggforce StatBspline
 #' @export
-StatEdgeBundlePath2 <- ggproto("StatEdgeBundlePath2", Stat,
+StatEdgeBundlePath2 <- ggproto(
+  "StatEdgeBundlePath2",
+  Stat,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     remove_loop2(data)
   },
-  compute_panel = function(data, scales, n = 100, directed = NULL, max_distortion = 2,
-                           weight_fac = 2, tension = 1) {
+  compute_panel = function(
+    data,
+    scales,
+    n = 100,
+    directed = NULL,
+    max_distortion = 2,
+    weight_fac = 2,
+    tension = 1
+  ) {
     graph <- .G()
     nodes <- data_frame0(x = .N()$.ggraph_layout_x, y = .N()$.ggraph_layout_y)
     data <- data[order(data$group), ]
     edge_id <- data$edge_id[c(TRUE, FALSE)]
-    edges <- path_bundle_mem(graph, nodes, .E()$from[edge_id], .E()$to[edge_id],
-                             directed = directed, max_distortion = max_distortion,
-                             weight_fac = weight_fac)
-    if (tension < 1) edges <- relax(edges, tension)
+    edges <- path_bundle_mem(
+      graph,
+      nodes,
+      .E()$from[edge_id],
+      .E()$to[edge_id],
+      directed = directed,
+      max_distortion = max_distortion,
+      weight_fac = weight_fac
+    )
+    if (tension < 1) {
+      edges <- relax(edges, tension)
+    }
     edges$PANEL <- data$PANEL[1]
     edges$group <- data$group[edges$group * 2]
     edges <- StatBspline$compute_layer(edges, list(n = n), NULL)
-    extra_data <- data[1, !names(data) %in% c("x", "y", "group", "PANEL")][rep(NA, nrow(edges)), ]
+    extra_data <- data[1, !names(data) %in% c("x", "y", "group", "PANEL")][
+      rep(NA, nrow(edges)),
+    ]
     edges$.interp <- TRUE
     ends <- !duplicated(edges$group) | !duplicated(edges$group, fromLast = TRUE)
     edges$.interp[ends] <- FALSE
@@ -195,34 +264,69 @@ StatEdgeBundlePath2 <- ggproto("StatEdgeBundlePath2", Stat,
 #' @rdname geom_edge_bundle_path
 #'
 #' @export
-geom_edge_bundle_path2 <- function(mapping = NULL, data = get_edges("long"),
-                                    position = "identity", arrow = NULL,
-                                    n = 100, directed = NULL, max_distortion = 2,
-                                    weight_fac = 2, tension = 1,
-                                    lineend = 'butt', linejoin = 'round', linemitre = 1,
-                                    label_colour = 'black', label_alpha = 1,
-                                    label_parse = FALSE, check_overlap = FALSE,
-                                    angle_calc = 'rot', force_flip = TRUE,
-                                    label_dodge = NULL, label_push = NULL,
-                                    show.legend = NA, ...) {
+geom_edge_bundle_path2 <- function(
+  mapping = NULL,
+  data = get_edges("long"),
+  position = "identity",
+  arrow = NULL,
+  n = 100,
+  directed = NULL,
+  max_distortion = 2,
+  weight_fac = 2,
+  tension = 1,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, group = edge.id, edge_id = edge.id
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      group = edge.id,
+      edge_id = edge.id
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeBundlePath2,
-    geom = GeomEdgePath, position = position,
-    show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeBundlePath2,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n, interpolate = TRUE, directed = directed,
-        max_distortion = max_distortion, weight_fac = weight_fac,
-        tension = tension, label_colour = label_colour,
-        label_alpha = label_alpha, label_parse = label_parse,
-        check_overlap = check_overlap, angle_calc = angle_calc,
-        force_flip = force_flip, label_dodge = label_dodge,
-        label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = TRUE,
+        directed = directed,
+        max_distortion = max_distortion,
+        weight_fac = weight_fac,
+        tension = tension,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -231,23 +335,46 @@ geom_edge_bundle_path2 <- function(mapping = NULL, data = get_edges("long"),
 #' @format NULL
 #' @usage NULL
 #' @export
-StatEdgeBundlePath0 <- ggproto('StatEdgeBundlePath0', Stat,
+StatEdgeBundlePath0 <- ggproto(
+  'StatEdgeBundlePath0',
+  Stat,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     remove_loop(data)
   },
-  compute_panel = function(data, scales, directed = NULL, max_distortion = 2,
-                           weight_fac = 2, tension = 1) {
+  compute_panel = function(
+    data,
+    scales,
+    directed = NULL,
+    max_distortion = 2,
+    weight_fac = 2,
+    tension = 1
+  ) {
     graph <- .G()
     nodes <- data_frame0(x = .N()$.ggraph_layout_x, y = .N()$.ggraph_layout_y)
     from <- .E()$from[data$edge_id]
     to <- .E()$to[data$edge_id]
-    edges <- path_bundle_mem(graph, nodes, from, to, directed = directed,
-                             max_distortion = max_distortion, weight_fac = weight_fac)
-    if (tension < 1) edges <- relax(edges, tension)
+    edges <- path_bundle_mem(
+      graph,
+      nodes,
+      from,
+      to,
+      directed = directed,
+      max_distortion = max_distortion,
+      weight_fac = weight_fac
+    )
+    if (tension < 1) {
+      edges <- relax(edges, tension)
+    }
     edges$PANEL <- data$PANEL[1]
     edges$group <- data$group[edges$group]
-    cbind(edges, data[edges$group, !names(data) %in% c("x", "y", "xend", "yend", "PANEL", "group")])
+    cbind(
+      edges,
+      data[
+        edges$group,
+        !names(data) %in% c("x", "y", "xend", "yend", "PANEL", "group")
+      ]
+    )
   },
   required_aes = c('x', 'y', 'xend', 'yend', 'edge_id'),
   default_aes = aes(filter = TRUE),
@@ -256,35 +383,69 @@ StatEdgeBundlePath0 <- ggproto('StatEdgeBundlePath0', Stat,
 #' @rdname geom_edge_bundle_path
 #'
 #' @export
-geom_edge_bundle_path0 <- function(mapping = NULL, data = get_edges(),
-                                    position = "identity", arrow = NULL,
-                                    directed = NULL, max_distortion = 2,
-                                    weight_fac = 2, tension = 1,
-                                    lineend = 'butt', show.legend = NA, ...) {
+geom_edge_bundle_path0 <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = "identity",
+  arrow = NULL,
+  directed = NULL,
+  max_distortion = 2,
+  weight_fac = 2,
+  tension = 1,
+  lineend = 'butt',
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend, group = edge.id, edge_id = edge.id
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      group = edge.id,
+      edge_id = edge.id
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeBundlePath0,
-    geom = GeomEdgeBspline, position = position,
-    show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeBundlePath0,
+    geom = GeomEdgeBspline,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, directed = directed,
-        max_distortion = max_distortion, weight_fac = weight_fac,
-        tension = tension, ...
+        arrow = arrow,
+        lineend = lineend,
+        directed = directed,
+        max_distortion = max_distortion,
+        weight_fac = weight_fac,
+        tension = tension,
+        ...
       )
     )
   )
 }
 #' @importFrom igraph gsize delete_edges shortest_paths is_directed as_edgelist
-path_bundle <- function(graph, nodes, from, to, directed = directed, max_distortion = 2, weight_fac = 2) {
+path_bundle <- function(
+  graph,
+  nodes,
+  from,
+  to,
+  directed = directed,
+  max_distortion = 2,
+  weight_fac = 2
+) {
   m <- gsize(graph)
   lock <- rep(FALSE, m)
   skip <- rep(FALSE, m)
 
-  edge_length <- sqrt((nodes$x[from] - nodes$x[to])^2 + (nodes$y[from] - nodes$y[to])^2)
+  edge_length <- sqrt(
+    (nodes$x[from] - nodes$x[to])^2 + (nodes$y[from] - nodes$y[to])^2
+  )
   weights <- edge_length^weight_fac
   edges_order <- order(weights, decreasing = TRUE)
   paths <- vector("list", m)
@@ -299,9 +460,13 @@ path_bundle <- function(graph, nodes, from, to, directed = directed, max_distort
 
   all_edges <- as_edgelist(graph)
   if (directed) {
-    all_edges <- paste(all_edges[,1], "-", all_edges[,2])
+    all_edges <- paste(all_edges[, 1], "-", all_edges[, 2])
   } else {
-    all_edges <- paste(pmin(all_edges[,1], all_edges[,2]), "-", pmax(all_edges[,1], all_edges[,2]))
+    all_edges <- paste(
+      pmin(all_edges[, 1], all_edges[, 2]),
+      "-",
+      pmax(all_edges[, 1], all_edges[, 2])
+    )
   }
   # iterate
   for (e in edges_order) {
@@ -313,24 +478,44 @@ path_bundle <- function(graph, nodes, from, to, directed = directed, max_distort
     }
     skip[e] <- TRUE
     g_temp <- delete_edges(graph, which(skip))
-    path <- suppressWarnings(shortest_paths(g_temp, s, t, weights = weights[!skip], mode = mode, output = "vpath")$vpath[[1]])
+    path <- suppressWarnings(shortest_paths(
+      g_temp,
+      s,
+      t,
+      weights = weights[!skip],
+      mode = mode,
+      output = "vpath"
+    )$vpath[[1]])
     if (length(path) < 2) {
       skip[e] <- FALSE
       next()
     }
-    path_length <- sum(sqrt((nodes$x[path[-length(path)]] - nodes$x[path[-1]])^2 + (nodes$y[path[-length(path)]] - nodes$y[path[-1]])^2))
+    path_length <- sum(sqrt(
+      (nodes$x[path[-length(path)]] - nodes$x[path[-1]])^2 +
+        (nodes$y[path[-length(path)]] - nodes$y[path[-1]])^2
+    ))
     if (path_length >= max_distortion * edge_length[e]) {
       skip[e] <- FALSE
       next()
     }
     all_edges_on_path <- rep(as.integer(path), each = 2)
-    all_edges_on_path <- matrix(all_edges_on_path[-c(1, length(all_edges_on_path))], ncol = 2, byrow = TRUE)
+    all_edges_on_path <- matrix(
+      all_edges_on_path[-c(1, length(all_edges_on_path))],
+      ncol = 2,
+      byrow = TRUE
+    )
     if (directed) {
-      all_edges_on_path <- paste(all_edges_on_path[,1], "-", all_edges_on_path[,2])
+      all_edges_on_path <- paste(
+        all_edges_on_path[, 1],
+        "-",
+        all_edges_on_path[, 2]
+      )
     } else {
-      all_edges_on_path <- paste(pmin(all_edges_on_path[,1], all_edges_on_path[,2]),
-                                 "-",
-                                 pmax(all_edges_on_path[,1], all_edges_on_path[,2]))
+      all_edges_on_path <- paste(
+        pmin(all_edges_on_path[, 1], all_edges_on_path[, 2]),
+        "-",
+        pmax(all_edges_on_path[, 1], all_edges_on_path[, 2])
+      )
     }
     all_edges_on_path <- all_edges %in% all_edges_on_path
     lock[all_edges_on_path] <- TRUE

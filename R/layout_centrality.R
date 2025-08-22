@@ -30,23 +30,47 @@
 #'
 #' @importFrom graphlayouts layout_with_centrality layout_with_centrality_group
 #' @importFrom rlang eval_tidy enquo
-layout_tbl_graph_centrality <- function(graph, centrality, scale = TRUE,
-                                        niter = 500, tolerance = 1e-4,
-                                        tseq = seq(0,1,0.2), group = NULL,
-                                        shrink = 10, circular = FALSE) {
+layout_tbl_graph_centrality <- function(
+  graph,
+  centrality,
+  scale = TRUE,
+  niter = 500,
+  tolerance = 1e-4,
+  tseq = seq(0, 1, 0.2),
+  group = NULL,
+  shrink = 10,
+  circular = FALSE
+) {
   centrality <- eval_tidy(enquo(centrality), .N())
   group <- eval_tidy(enquo(group), .N())
   if (is.null(group)) {
-    xy <- layout_with_centrality(graph, cent = centrality, scale = scale,
-                                 iter = niter, tol = tolerance, tseq = tseq)
+    xy <- layout_with_centrality(
+      graph,
+      cent = centrality,
+      scale = scale,
+      iter = niter,
+      tol = tolerance,
+      tseq = tseq
+    )
   } else {
-    xy <- layout_with_centrality_group(graph, cent = centrality, group = group,
-                                       shrink = shrink, scale = scale,
-                                       iter = niter, tol = tolerance,
-                                       tseq = tseq)
+    xy <- layout_with_centrality_group(
+      graph,
+      cent = centrality,
+      group = group,
+      shrink = shrink,
+      scale = scale,
+      iter = niter,
+      tol = tolerance,
+      tseq = tseq
+    )
   }
 
-  nodes <- data_frame0(x = xy[,1],y = xy[,2], centrality = centrality,
-                       group = group, circular = FALSE)
+  nodes <- data_frame0(
+    x = xy[, 1],
+    y = xy[, 2],
+    centrality = centrality,
+    group = group,
+    circular = FALSE
+  )
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

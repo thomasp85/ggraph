@@ -41,14 +41,25 @@
 #' @export
 #' @importFrom ggforce GeomArcBar
 #'
-geom_node_arc_bar <- function(mapping = NULL, data = NULL, position = 'identity',
-                              show.legend = NA, ...) {
-  mapping <- aes_intersect(mapping, aes(x0 = 0, y0 = 0, r0 = r0,
-                                        r = r, start = start,
-                                        end = end))
+geom_node_arc_bar <- function(
+  mapping = NULL,
+  data = NULL,
+  position = 'identity',
+  show.legend = NA,
+  ...
+) {
+  mapping <- aes_intersect(
+    mapping,
+    aes(x0 = 0, y0 = 0, r0 = r0, r = r, start = start, end = end)
+  )
   layer(
-    data = data, mapping = mapping, stat = StatNodeArcBar, geom = GeomArcBar,
-    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatNodeArcBar,
+    geom = GeomArcBar,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = list2(...)
   )
 }
@@ -58,7 +69,9 @@ geom_node_arc_bar <- function(mapping = NULL, data = NULL, position = 'identity'
 #' @usage NULL
 #' @importFrom ggforce StatArcBar
 #' @export
-StatNodeArcBar <- ggproto('StatNodeArcBar', StatArcBar,
+StatNodeArcBar <- ggproto(
+  'StatNodeArcBar',
+  StatArcBar,
   setup_data = function(data, params) {
     StatFilter$setup_data(data, params)
   },

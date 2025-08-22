@@ -31,7 +31,14 @@
 #' @family extractors
 #'
 #' @export
-get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight = NULL, mode = 'all') {
+get_con <- function(
+  from = integer(),
+  to = integer(),
+  paths = NULL,
+  ...,
+  weight = NULL,
+  mode = 'all'
+) {
   if (length(from) != length(to)) {
     cli::cli_abort('{.arg from} and {.arg to} must be of equal length')
   }
@@ -41,12 +48,11 @@ get_con <- function(from = integer(), to = integer(), paths = NULL, ..., weight 
       return(NULL)
     }
     connections <- collect_connections(
-      layout = layout, from = from, to = to,
-      weight = {
-        {
-          weight
-        }
-      }, mode = mode
+      layout = layout,
+      from = from,
+      to = to,
+      weight = {{ weight }},
+      mode = mode
     )
     nodes <- data_frame0(layout)[unlist(connections), ]
     nodes$con.id <- rep(seq_along(connections), lengths(connections))
@@ -93,5 +99,7 @@ collect_connections <- function(layout, from, to, ...) {
 }
 #' @export
 collect_connections.default <- function(layout, ...) {
-  cli::cli_abort('Don\'t know how to get connections from an object of class {.cls {class(layout)[1]}}')
+  cli::cli_abort(
+    'Don\'t know how to get connections from an object of class {.cls {class(layout)[1]}}'
+  )
 }

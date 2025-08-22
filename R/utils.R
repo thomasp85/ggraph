@@ -34,7 +34,7 @@ node_angle <- function(x, y, degrees = TRUE, avoid_flip = TRUE) {
   angles <- atan2(y, x)
   angles[angles < 0] <- angles[angles < 0] + 2 * pi
   if (avoid_flip) {
-    needs_flip <- angles > pi/2 & angles < 3*pi/2
+    needs_flip <- angles > pi / 2 & angles < 3 * pi / 2
     angles[needs_flip] <- angles[needs_flip] + pi
   }
   if (degrees) {
@@ -63,7 +63,9 @@ rename_aes <- function(x) {
   names(x) <- standardise_aes_names(names(x))
   duplicated_names <- names(x)[duplicated(names(x))]
   if (length(duplicated_names) > 0L) {
-    cli::cli_warn("Duplicated aesthetics after name standardisation: {.field {unique0(duplicated_names)}}")
+    cli::cli_warn(
+      "Duplicated aesthetics after name standardisation: {.field {unique0(duplicated_names)}}"
+    )
   }
   x
 }
@@ -162,16 +164,14 @@ id <- function(.variables, drop = FALSE) {
   if (n > 2^31) {
     char_id <- inject(paste(!!!ids, sep = '\r'))
     res <- match(char_id, unique0(char_id))
-  }
-  else {
+  } else {
     combs <- c(1, cumprod(ndistinct[-p]))
     mat <- inject(cbind(!!!ids))
     res <- c((mat - 1L) %*% combs + 1L)
   }
   if (drop) {
     id_var(res, drop = TRUE)
-  }
-  else {
+  } else {
     res <- as.integer(res)
     attr(res, 'n') <- n
     res
@@ -185,11 +185,15 @@ to_lower_ascii <- function(x) chartr(upper_ascii, lower_ascii, x)
 to_upper_ascii <- function(x) chartr(lower_ascii, upper_ascii, x)
 
 tolower <- function(x) {
-  cli::cli_abort("Please use {.fn to_lower_ascii}, which works fine in all locales.")
+  cli::cli_abort(
+    "Please use {.fn to_lower_ascii}, which works fine in all locales."
+  )
 }
 
 toupper <- function(x) {
-  cli::cli_abort("Please use {.fn to_upper_ascii}, which works fine in all locales.")
+  cli::cli_abort(
+    "Please use {.fn to_upper_ascii}, which works fine in all locales."
+  )
 }
 
 snakeize <- function(x) {

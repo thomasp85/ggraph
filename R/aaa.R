@@ -27,7 +27,9 @@ utils::globalVariables(c(
 #' @format NULL
 #' @usage NULL
 #' @export
-StatFilter <- ggproto('StatFilter', StatIdentity,
+StatFilter <- ggproto(
+  'StatFilter',
+  StatIdentity,
   setup_data = function(data, params) {
     if (any(names(data) == 'filter')) {
       if (!is.logical(data$filter)) {
@@ -43,7 +45,9 @@ StatFilter <- ggproto('StatFilter', StatIdentity,
 #' @format NULL
 #' @usage NULL
 #' @export
-StatReverse <- ggproto('StatReverse', StatFilter,
+StatReverse <- ggproto(
+  'StatReverse',
+  StatFilter,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data[rev(seq_len(nrow(data))), ]
@@ -54,7 +58,9 @@ StatReverse <- ggproto('StatReverse', StatFilter,
 #' @format NULL
 #' @usage NULL
 #' @export
-StatFilterSf <- ggproto('StatFilterSf', StatSf,
+StatFilterSf <- ggproto(
+  'StatFilterSf',
+  StatSf,
   setup_data = function(data, params) {
     if (any(names(data) == 'filter')) {
       if (!is.logical(data$filter)) {
@@ -87,7 +93,9 @@ data_type <- function(data) {
 
 # non-orderaltering version of make.unique
 make_unique <- function(x, sep = '.') {
-  if (!anyDuplicated(x)) return(x)
+  if (!anyDuplicated(x)) {
+    return(x)
+  }
   groups <- match(x, unique0(x))
   suffix <- unsplit(lapply(split(x, groups), seq_along), groups)
   max_chars <- nchar(max(suffix))
@@ -97,8 +105,13 @@ make_unique <- function(x, sep = '.') {
 
 warn_dropped_vars <- function(layout, data) {
   overlap <- intersect(names(layout), names(data))
-  if (length(overlap) > 0 && !identical(as.list(layout[overlap]), as.list(data[overlap]))) {
-    cli::cli_warn('Existing variables {.var {overlap}} overwritten by layout variables')
+  if (
+    length(overlap) > 0 &&
+      !identical(as.list(layout[overlap]), as.list(data[overlap]))
+  ) {
+    cli::cli_warn(
+      'Existing variables {.var {overlap}} overwritten by layout variables'
+    )
   }
 }
 

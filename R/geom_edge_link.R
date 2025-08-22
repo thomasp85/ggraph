@@ -157,11 +157,15 @@ NULL
 #' @usage NULL
 #' @importFrom ggforce StatLink
 #' @export
-StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
+StatEdgeLink <- ggproto(
+  'StatEdgeLink',
+  StatLink,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     StatLink$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
@@ -171,11 +175,15 @@ StatEdgeLink <- ggproto('StatEdgeLink', StatLink,
 #' @usage NULL
 #' @importFrom ggforce StatLink2
 #' @export
-StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
+StatEdgeLink2 <- ggproto(
+  'StatEdgeLink2',
+  StatLink2,
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) return(data)
+    if (nrow(data) == 0) {
+      return(data)
+    }
     StatLink2$setup_data(data, params)
   },
   default_aes = aes(filter = TRUE)
@@ -184,30 +192,62 @@ StatEdgeLink2 <- ggproto('StatEdgeLink2', StatLink2,
 #'
 #' @importFrom ggforce StatLink
 #' @export
-geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
-                           position = 'identity', arrow = NULL, n = 100,
-                           lineend = 'butt', linejoin = 'round', linemitre = 1,
-                           label_colour = 'black', label_alpha = 1,
-                           label_parse = FALSE, check_overlap = FALSE,
-                           angle_calc = 'rot', force_flip = TRUE,
-                           label_dodge = NULL, label_push = NULL,
-                           show.legend = NA, ...) {
+geom_edge_link <- function(
+  mapping = NULL,
+  data = get_edges('short'),
+  position = 'identity',
+  arrow = NULL,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(
-    x = x, y = y, xend = xend, yend = yend, group = edge.id
-  ))
+  mapping <- aes_intersect(
+    mapping,
+    aes(
+      x = x,
+      y = y,
+      xend = xend,
+      yend = yend,
+      group = edge.id
+    )
+  )
   layer(
-    data = data, mapping = mapping, stat = StatEdgeLink,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeLink,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n, interpolate = FALSE,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = FALSE,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -216,29 +256,53 @@ geom_edge_link <- function(mapping = NULL, data = get_edges('short'),
 #'
 #' @importFrom ggforce StatLink2
 #' @export
-geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
-                            position = 'identity', arrow = NULL, n = 100,
-                            lineend = 'butt', linejoin = 'round', linemitre = 1,
-                            label_colour = 'black', label_alpha = 1,
-                            label_parse = FALSE, check_overlap = FALSE,
-                            angle_calc = 'rot', force_flip = TRUE,
-                            label_dodge = NULL, label_push = NULL,
-                            show.legend = NA, ...) {
+geom_edge_link2 <- function(
+  mapping = NULL,
+  data = get_edges('long'),
+  position = 'identity',
+  arrow = NULL,
+  n = 100,
+  lineend = 'butt',
+  linejoin = 'round',
+  linemitre = 1,
+  label_colour = 'black',
+  label_alpha = 1,
+  label_parse = FALSE,
+  check_overlap = FALSE,
+  angle_calc = 'rot',
+  force_flip = TRUE,
+  label_dodge = NULL,
+  label_push = NULL,
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = x, y = y,
-                                        group = edge.id))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y, group = edge.id))
   layer(
-    data = data, mapping = mapping, stat = StatEdgeLink2,
-    geom = GeomEdgePath, position = position, show.legend = show.legend,
+    data = data,
+    mapping = mapping,
+    stat = StatEdgeLink2,
+    geom = GeomEdgePath,
+    position = position,
+    show.legend = show.legend,
     inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(
-        arrow = arrow, lineend = lineend, linejoin = linejoin,
-        linemitre = linemitre, n = n, interpolate = TRUE,
-        label_colour = label_colour, label_alpha = label_alpha,
-        label_parse = label_parse, check_overlap = check_overlap,
-        angle_calc = angle_calc, force_flip = force_flip,
-        label_dodge = label_dodge, label_push = label_push, ...
+        arrow = arrow,
+        lineend = lineend,
+        linejoin = linejoin,
+        linemitre = linemitre,
+        n = n,
+        interpolate = TRUE,
+        label_colour = label_colour,
+        label_alpha = label_alpha,
+        label_parse = label_parse,
+        check_overlap = check_overlap,
+        angle_calc = angle_calc,
+        force_flip = force_flip,
+        label_dodge = label_dodge,
+        label_push = label_push,
+        ...
       )
     )
   )
@@ -247,16 +311,25 @@ geom_edge_link2 <- function(mapping = NULL, data = get_edges('long'),
 #'
 #' @importFrom ggforce StatLink2
 #' @export
-geom_edge_link0 <- function(mapping = NULL, data = get_edges(),
-                            position = 'identity', arrow = NULL,
-                            lineend = 'butt', show.legend = NA, ...) {
+geom_edge_link0 <- function(
+  mapping = NULL,
+  data = get_edges(),
+  position = 'identity',
+  arrow = NULL,
+  lineend = 'butt',
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
-  mapping <- aes_intersect(mapping, aes(x = x, y = y,
-                                        xend = xend, yend = yend))
+  mapping <- aes_intersect(mapping, aes(x = x, y = y, xend = xend, yend = yend))
   layer(
-    data = data, mapping = mapping, stat = StatFilter,
-    geom = GeomEdgeSegment, position = position,
-    show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatFilter,
+    geom = GeomEdgeSegment,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = expand_edge_aes(
       list2(arrow = arrow, lineend = lineend, ...)
     )

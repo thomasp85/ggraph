@@ -24,10 +24,17 @@
 #' by David Schoch
 #'
 #' @importFrom graphlayouts layout_with_pmds
-layout_tbl_graph_pmds <- function(graph, pivots, weights = NULL, circular = FALSE) {
+layout_tbl_graph_pmds <- function(
+  graph,
+  pivots,
+  weights = NULL,
+  circular = FALSE
+) {
   weights <- eval_tidy(enquo(weights), .E())
-  if (is.null(weights)) weights <- NA
+  if (is.null(weights)) {
+    weights <- NA
+  }
   xy <- layout_with_pmds(graph, pivots = pivots, weights = weights)
-  nodes <- data_frame0(x = xy[,1], y = xy[,2], circular = FALSE)
+  nodes <- data_frame0(x = xy[, 1], y = xy[, 2], circular = FALSE)
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

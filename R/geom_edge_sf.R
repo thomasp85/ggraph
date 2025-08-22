@@ -30,21 +30,31 @@
 #'
 #' @export
 #'
-geom_edge_sf <- function(mapping = NULL, data = get_sf_edges(),
-                         position = 'identity', show.legend = NA, ...) {
+geom_edge_sf <- function(
+  mapping = NULL,
+  data = get_sf_edges(),
+  position = 'identity',
+  show.legend = NA,
+  ...
+) {
   mapping <- complete_edge_aes(mapping)
   mapping <- aes_intersect(mapping, aes(geometry = geometry))
   c(
     layer_sf(
-      geom = GeomEdgeSf, data = data, mapping = mapping, stat = StatFilterSf,
-      position = position, show.legend = show.legend, inherit.aes = FALSE,
+      geom = GeomEdgeSf,
+      data = data,
+      mapping = mapping,
+      stat = StatFilterSf,
+      position = position,
+      show.legend = show.legend,
+      inherit.aes = FALSE,
       params = expand_edge_aes(list2(na.rm = FALSE, ...))
     ),
     coord_sf(default = TRUE)
   )
 }
 #' @rdname get_edges
-get_sf_edges <- function(){
+get_sf_edges <- function() {
   function(layout) {
     edges <- sf::st_as_sf(attr(layout, "graph"), "edges")
     attr(edges, 'type_ggraph') <- 'edge_ggraph'
@@ -56,7 +66,9 @@ get_sf_edges <- function(){
 #' @format NULL
 #' @usage NULL
 #' @export
-GeomEdgeSf = ggproto("GeomEdgeSf", GeomSf,
+GeomEdgeSf = ggproto(
+  "GeomEdgeSf",
+  GeomSf,
   draw_panel = function(data, panel_params, coords) {
     names(data) <- sub('edge_', '', names(data))
     names(data)[names(data) == 'width'] <- 'linewidth'
@@ -64,7 +76,9 @@ GeomEdgeSf = ggproto("GeomEdgeSf", GeomSf,
   },
   draw_key = GeomEdgePath$draw_key,
   default_aes = aes(
-    edge_colour = 'black', edge_width = 0.5, edge_linetype = 1,
+    edge_colour = 'black',
+    edge_width = 0.5,
+    edge_linetype = 1,
     edge_alpha = NA
   ),
   rename_size = FALSE

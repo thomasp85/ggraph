@@ -53,8 +53,18 @@ scale_edge_shape_binned <- function(..., solid = TRUE) {
 #' @inheritParams ggplot2::scale_shape_manual
 #'
 #' @export
-scale_edge_shape_manual <- function(..., values, breaks = waiver(), na.value = NA) {
-  sc <- scale_shape_manual(..., values = values, breaks = breaks, na.value = na.value)
+scale_edge_shape_manual <- function(
+  ...,
+  values,
+  breaks = waiver(),
+  na.value = NA
+) {
+  sc <- scale_shape_manual(
+    ...,
+    values = values,
+    breaks = breaks,
+    na.value = na.value
+  )
   sc$aesthetics <- 'edge_shape'
   sc
 }

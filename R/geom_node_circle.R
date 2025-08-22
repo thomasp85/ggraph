@@ -40,12 +40,22 @@
 #' @export
 #' @importFrom ggforce GeomCircle
 #'
-geom_node_circle <- function(mapping = NULL, data = NULL, position = 'identity',
-                             show.legend = NA, ...) {
+geom_node_circle <- function(
+  mapping = NULL,
+  data = NULL,
+  position = 'identity',
+  show.legend = NA,
+  ...
+) {
   mapping <- aes_intersect(mapping, aes(x0 = x, y0 = y, r = r))
   layer(
-    data = data, mapping = mapping, stat = StatNodeCircle, geom = GeomCircle,
-    position = position, show.legend = show.legend, inherit.aes = FALSE,
+    data = data,
+    mapping = mapping,
+    stat = StatNodeCircle,
+    geom = GeomCircle,
+    position = position,
+    show.legend = show.legend,
+    inherit.aes = FALSE,
     params = list2(...)
   )
 }
@@ -55,7 +65,9 @@ geom_node_circle <- function(mapping = NULL, data = NULL, position = 'identity',
 #' @usage NULL
 #' @importFrom ggforce StatCircle
 #' @export
-StatNodeCircle <- ggproto('StatNodeCircle', StatCircle,
+StatNodeCircle <- ggproto(
+  'StatNodeCircle',
+  StatCircle,
   setup_data = function(data, params) {
     StatFilter$setup_data(data, params)
   },

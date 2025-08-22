@@ -5,11 +5,19 @@
 #' @export
 #'
 create_layout.tbl_graph <- function(graph, layout, circular = FALSE, ...) {
-  graph <- mutate(ungroup(activate(graph, 'nodes')), .ggraph.orig_index = seq_len(graph_order()))
+  graph <- mutate(
+    ungroup(activate(graph, 'nodes')),
+    .ggraph.orig_index = seq_len(graph_order())
+  )
   graph <- prepare_graph(graph, layout, ...)
   .register_graph_context(graph, free = TRUE)
   if (gorder(graph) == 0) {
-    layout <- data_frame0(x = numeric(), y = numeric(), circular = logical(), .N())
+    layout <- data_frame0(
+      x = numeric(),
+      y = numeric(),
+      circular = logical(),
+      .N()
+    )
   } else {
     layout <- layout_to_table(layout, graph, circular = circular, ...)
   }
@@ -37,7 +45,14 @@ collect_edges.layout_tbl_graph <- function(layout) {
 #' @importFrom igraph shortest_paths
 #' @importFrom rlang enquo eval_tidy
 #' @export
-collect_connections.layout_tbl_graph <- function(layout, from, to, weight = NULL, mode = 'all', ...) {
+collect_connections.layout_tbl_graph <- function(
+  layout,
+  from,
+  to,
+  weight = NULL,
+  mode = 'all',
+  ...
+) {
   from <- match(from, layout$.ggraph.orig_index)
   to <- match(to, layout$.ggraph.orig_index)
   weight <- eval_tidy(enquo(weight), collect_edges(layout))
@@ -47,7 +62,13 @@ collect_connections.layout_tbl_graph <- function(layout, from, to, weight = NULL
   graph <- attr(layout, 'graph')
   to_ind <- split(seq_along(to), from)
   connections <- lapply(seq_along(to_ind), function(i) {
-    paths <- shortest_paths(graph, as.integer(names(to_ind)[i]), to[to_ind[[i]]], mode = mode, weights = weight)$vpath
+    paths <- shortest_paths(
+      graph,
+      as.integer(names(to_ind)[i]),
+      to[to_ind[[i]]],
+      mode = mode,
+      weights = weight
+    )$vpath
     lapply(paths, as.numeric)
   })
   connections <- unlist(connections, recursive = FALSE)
@@ -59,7 +80,9 @@ collect_connections.layout_tbl_graph <- function(layout, from, to, weight = NULL
 is.igraphlayout <- function(type) {
   if (type %in% igraphlayouts) {
     TRUE
-  } else if (any(paste0(c('as_', 'in_', 'with_', 'on_'), type) %in% igraphlayouts)) {
+  } else if (
+    any(paste0(c('as_', 'in_', 'with_', 'on_'), type) %in% igraphlayouts)
+  ) {
     TRUE
   } else {
     FALSE
@@ -83,18 +106,24 @@ prepare_graph <- function(graph, layout, direction = 'out', ...) {
   if (!is.character(layout)) {
     return(graph)
   }
-  is_hierarchy <- layout %in% c(
-    'dendrogram',
-    'treemap',
-    'circlepack',
-    'partition',
-    'cactustree',
-    'htree'
-  )
+  is_hierarchy <- layout %in%
+    c(
+      'dendrogram',
+      'treemap',
+      'circlepack',
+      'partition',
+      'cactustree',
+      'htree'
+    )
   graph_is_treeish <- with_graph(graph, graph_is_tree() || graph_is_forest())
   if (is_hierarchy || (layout == 'auto' && graph_is_treeish)) {
-    if (!graph_is_treeish) graph <- graph_to_tree(graph, mode = direction)
-    graph <- permute(graph, match(seq_len(gorder(graph)), order(node_depth(graph, direction))))
+    if (!graph_is_treeish) {
+      graph <- graph_to_tree(graph, mode = direction)
+    }
+    graph <- permute(
+      graph,
+      match(seq_len(gorder(graph)), order(node_depth(graph, direction)))
+    )
   }
   if (inherits(graph, "sfnetwork")) {
     graph
@@ -137,7 +166,9 @@ graph_to_tree <- function(graph, mode) {
 }
 #' @importFrom igraph gorder as_edgelist delete_vertex_attr is.named
 tree_to_hierarchy <- function(graph, mode, sort.by, weight, height = NULL) {
-  if (is.named(graph)) graph <- delete_vertex_attr(graph, 'name')
+  if (is.named(graph)) {
+    graph <- delete_vertex_attr(graph, 'name')
+  }
   parent_col <- if (mode == 'out') 1 else 2
   node_col <- if (mode == 'out') 2 else 1
   edges <- as_edgelist(graph)
@@ -190,7 +221,9 @@ node_depth <- function(graph, mode) {
   root <- which(degree(graph, mode = mode_rev) == 0)
   depth <- rep(NA_integer_, gorder(graph))
   for (i in root) {
-    depth[!is.finite(depth)] <- unname(bfs(graph, root = i, unreachable = FALSE, dist = TRUE)$dist)[!is.finite(depth)]
+    depth[!is.finite(depth)] <- unname(
+      bfs(graph, root = i, unreachable = FALSE, dist = TRUE)$dist
+    )[!is.finite(depth)]
   }
   depth
 }
@@ -200,7 +233,10 @@ add_direction <- function(graph, pos, direction = 'out') {
     return(graph)
   }
   graph <- activate(graph, 'edges')
-  graph <- mutate(graph, direction = ifelse(pos$x[.data$to] < pos$x[.data$from], 'right', 'left'))
+  graph <- mutate(
+    graph,
+    direction = ifelse(pos$x[.data$to] < pos$x[.data$from], 'right', 'left')
+  )
   if (direction == 'in') {
     graph <- mutate(graph, ifelse(.data$direction == 'left', 'right', 'left'))
   }
@@ -261,7 +297,9 @@ layout_to_table.function <- function(layout, graph, circular, ...) {
         try_fetch(
           as_tbl_graph(layout),
           error = function(e) {
-            cli::cli_abort('layout function must return an object coerceble to either a {.cls data.frame} or {.cls tbl_graph}')
+            cli::cli_abort(
+              'layout function must return an object coerceble to either a {.cls data.frame} or {.cls tbl_graph}'
+            )
           }
         )
       }

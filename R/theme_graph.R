@@ -48,79 +48,118 @@
 #' graph <- as_tbl_graph(highschool)
 #'
 #' ggraph(graph) + geom_edge_link() + geom_node_point() + theme_graph()
-theme_graph <- function(base_family = 'Arial Narrow', base_size = 11,
-                        background = 'white', foreground = NULL, border = TRUE,
-                        text_colour = 'black', bg_text_colour = text_colour,
-                        fg_text_colour = text_colour,
-                        title_family = base_family, title_size = 18,
-                        title_face = 'bold', title_margin = 10,
-                        title_colour = bg_text_colour,
-                        subtitle_family = base_family, subtitle_size = 12,
-                        subtitle_face = 'plain', subtitle_margin = 15,
-                        subtitle_colour = bg_text_colour,
-                        strip_text_family = base_family, strip_text_size = 10,
-                        strip_text_face = 'bold', strip_text_colour = fg_text_colour,
-                        caption_family = base_family, caption_size = 9,
-                        caption_face = 'italic', caption_margin = 10,
-                        caption_colour = bg_text_colour,
-                        plot_margin = margin(30, 30, 30, 30)) {
+theme_graph <- function(
+  base_family = 'Arial Narrow',
+  base_size = 11,
+  background = 'white',
+  foreground = NULL,
+  border = TRUE,
+  text_colour = 'black',
+  bg_text_colour = text_colour,
+  fg_text_colour = text_colour,
+  title_family = base_family,
+  title_size = 18,
+  title_face = 'bold',
+  title_margin = 10,
+  title_colour = bg_text_colour,
+  subtitle_family = base_family,
+  subtitle_size = 12,
+  subtitle_face = 'plain',
+  subtitle_margin = 15,
+  subtitle_colour = bg_text_colour,
+  strip_text_family = base_family,
+  strip_text_size = 10,
+  strip_text_face = 'bold',
+  strip_text_colour = fg_text_colour,
+  caption_family = base_family,
+  caption_size = 9,
+  caption_face = 'italic',
+  caption_margin = 10,
+  caption_colour = bg_text_colour,
+  plot_margin = margin(30, 30, 30, 30)
+) {
   style <- theme_bw(base_size = base_size, base_family = base_family)
-  style <- style + theme(
-    text = element_text(colour = text_colour),
-    plot.title = element_text(
-      family = title_family,
-      size = title_size,
-      face = title_face,
-      colour = title_colour,
-      margin = margin(b = title_margin)
-    ),
-    plot.subtitle = element_text(
-      family = subtitle_family,
-      size = subtitle_size,
-      face = subtitle_face,
-      colour = subtitle_colour,
-      margin = margin(b = subtitle_margin)
-    ),
-    plot.caption = element_text(
-      family = caption_family,
-      size = caption_size,
-      face = caption_face,
-      colour = caption_colour,
-      margin = margin(t = caption_margin)
-    ),
-    strip.text = element_text(
-      family = strip_text_family,
-      size = strip_text_size,
-      face = strip_text_face,
-      colour = strip_text_colour
-    ),
+  style <- style +
+    theme(
+      text = element_text(colour = text_colour),
+      plot.title = element_text(
+        family = title_family,
+        size = title_size,
+        face = title_face,
+        colour = title_colour,
+        margin = margin(b = title_margin)
+      ),
+      plot.subtitle = element_text(
+        family = subtitle_family,
+        size = subtitle_size,
+        face = subtitle_face,
+        colour = subtitle_colour,
+        margin = margin(b = subtitle_margin)
+      ),
+      plot.caption = element_text(
+        family = caption_family,
+        size = caption_size,
+        face = caption_face,
+        colour = caption_colour,
+        margin = margin(t = caption_margin)
+      ),
+      strip.text = element_text(
+        family = strip_text_family,
+        size = strip_text_size,
+        face = strip_text_face,
+        colour = strip_text_colour
+      ),
 
-    plot.margin = plot_margin,
+      plot.margin = plot_margin,
 
-    legend.background = element_blank(),
-    legend.box.background = element_blank(),
-    legend.key = element_blank(),
-    panel.background = element_blank(),
-    axis.title = element_blank(),
-    axis.text = element_blank(),
-    axis.line = element_blank(),
-    axis.ticks = element_blank(),
-    panel.grid = element_blank(),
+      legend.background = element_blank(),
+      legend.box.background = element_blank(),
+      legend.key = element_blank(),
+      panel.background = element_blank(),
+      axis.title = element_blank(),
+      axis.text = element_blank(),
+      axis.line = element_blank(),
+      axis.ticks = element_blank(),
+      panel.grid = element_blank(),
 
-    strip.background = if (is.null(foreground)) element_blank() else element_rect(fill = foreground, colour = foreground),
-    plot.background = if (is.null(background)) element_blank() else element_rect(fill = background, colour = NA),
-    panel.border = if (border && !is.null(foreground)) element_rect(fill = NA, colour = foreground) else element_blank()
-  )
+      strip.background = if (is.null(foreground)) {
+        element_blank()
+      } else {
+        element_rect(fill = foreground, colour = foreground)
+      },
+      plot.background = if (is.null(background)) {
+        element_blank()
+      } else {
+        element_rect(fill = background, colour = NA)
+      },
+      panel.border = if (border && !is.null(foreground)) {
+        element_rect(fill = NA, colour = foreground)
+      } else {
+        element_blank()
+      }
+    )
 
   style
 }
 #' @rdname theme_graph
 #'
 #' @export
-th_foreground <- function(foreground = 'grey80', fg_text_colour = NULL, border = FALSE) {
+th_foreground <- function(
+  foreground = 'grey80',
+  fg_text_colour = NULL,
+  border = FALSE
+) {
   th <- theme(
-    strip.background = if (is.null(foreground)) element_blank() else element_rect(fill = foreground, colour = foreground),
-    panel.border = if (border && !is.null(foreground)) element_rect(fill = NA, colour = foreground) else element_blank()
+    strip.background = if (is.null(foreground)) {
+      element_blank()
+    } else {
+      element_rect(fill = foreground, colour = foreground)
+    },
+    panel.border = if (border && !is.null(foreground)) {
+      element_rect(fill = NA, colour = foreground)
+    } else {
+      element_blank()
+    }
   )
   if (!is.null(fg_text_colour)) {
     th <- th + theme(strip.text = element_text(colour = fg_text_colour))
@@ -175,40 +214,63 @@ th_no_axes <- function() {
 #' @param ... Parameters passed on the `theme_graph`
 #'
 #' @export
-set_graph_style <- function(family = 'Arial Narrow', face = 'plain', size = 11,
-                            text_size = 11, text_colour = 'black', ...) {
+set_graph_style <- function(
+  family = 'Arial Narrow',
+  face = 'plain',
+  size = 11,
+  text_size = 11,
+  text_colour = 'black',
+  ...
+) {
   style <- theme_graph(
-    base_family = family, base_size = size,
-    text_colour = text_colour, ...
+    base_family = family,
+    base_size = size,
+    text_colour = text_colour,
+    ...
   )
   theme_set(style)
   text_size <- text_size / .pt
 
-  update_geom_defaults(GeomEdgePath, list(
-    family = family,
-    fontface = face,
-    label_size = text_size
-  ))
-  update_geom_defaults(GeomText, list(
-    family = family,
-    fontface = face,
-    size = text_size
-  ))
-  update_geom_defaults(GeomTextRepel, list(
-    family = family,
-    fontface = face,
-    size = text_size
-  ))
-  update_geom_defaults(GeomLabel, list(
-    family = family,
-    fontface = face,
-    size = text_size
-  ))
-  update_geom_defaults(GeomLabelRepel, list(
-    family = family,
-    fontface = face,
-    size = text_size
-  ))
+  update_geom_defaults(
+    GeomEdgePath,
+    list(
+      family = family,
+      fontface = face,
+      label_size = text_size
+    )
+  )
+  update_geom_defaults(
+    GeomText,
+    list(
+      family = family,
+      fontface = face,
+      size = text_size
+    )
+  )
+  update_geom_defaults(
+    GeomTextRepel,
+    list(
+      family = family,
+      fontface = face,
+      size = text_size
+    )
+  )
+  update_geom_defaults(
+    GeomLabel,
+    list(
+      family = family,
+      fontface = face,
+      size = text_size
+    )
+  )
+  update_geom_defaults(
+    GeomLabelRepel,
+    list(
+      family = family,
+      fontface = face,
+      size = text_size
+    )
+  )
 }
 #' @rdname theme_graph
 #'
@@ -217,34 +279,52 @@ unset_graph_style <- function() {
   style <- theme_gray()
   theme_set(style)
 
-  update_geom_defaults(GeomEdgePath, list(
-    family = '',
-    fontface = 1,
-    label_size = 3.88
-  ))
-  update_geom_defaults(GeomText, list(
-    family = '',
-    fontface = 1,
-    size = 3.88
-  ))
-  update_geom_defaults(GeomTextRepel, list(
-    family = '',
-    fontface = 1,
-    size = 3.88
-  ))
-  update_geom_defaults(GeomLabel, list(
-    family = '',
-    fontface = 1,
-    size = 3.88
-  ))
-  update_geom_defaults(GeomLabelRepel, list(
-    family = '',
-    fontface = 1,
-    size = 3.88
-  ))
-  update_geom_defaults(GeomAxisHive, list(
-    family = '',
-    fontface = 1,
-    size = 3.88
-  ))
+  update_geom_defaults(
+    GeomEdgePath,
+    list(
+      family = '',
+      fontface = 1,
+      label_size = 3.88
+    )
+  )
+  update_geom_defaults(
+    GeomText,
+    list(
+      family = '',
+      fontface = 1,
+      size = 3.88
+    )
+  )
+  update_geom_defaults(
+    GeomTextRepel,
+    list(
+      family = '',
+      fontface = 1,
+      size = 3.88
+    )
+  )
+  update_geom_defaults(
+    GeomLabel,
+    list(
+      family = '',
+      fontface = 1,
+      size = 3.88
+    )
+  )
+  update_geom_defaults(
+    GeomLabelRepel,
+    list(
+      family = '',
+      fontface = 1,
+      size = 3.88
+    )
+  )
+  update_geom_defaults(
+    GeomAxisHive,
+    list(
+      family = '',
+      fontface = 1,
+      size = 3.88
+    )
+  )
 }

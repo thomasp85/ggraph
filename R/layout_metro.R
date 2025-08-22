@@ -51,16 +51,34 @@
 #'
 #' @importFrom graphlayouts layout_as_metromap
 #'
-layout_tbl_graph_metro <- function(graph, x, y, length = 2, grid_space = 0.0025,
-                                   optimization_weights = NULL, max_movement = 5,
-                                   circular = FALSE) {
+layout_tbl_graph_metro <- function(
+  graph,
+  x,
+  y,
+  length = 2,
+  grid_space = 0.0025,
+  optimization_weights = NULL,
+  max_movement = 5,
+  circular = FALSE
+) {
   x <- eval_tidy(enquo(x), .N())
   y <- eval_tidy(enquo(y), .N())
   if (is.null(x) || is.null(y)) {
-    cli::cli_abort("The metro layout must have a prior location of nodes to start with")
+    cli::cli_abort(
+      "The metro layout must have a prior location of nodes to start with"
+    )
   }
-  if (is.null(optimization_weights)) optimization_weights <- rep(1, 5)
-  xy <- layout_as_metromap(graph, xy = cbind(x, y), l = length, gr = grid_space, w = optimization_weights, bsize = max_movement)
-  nodes <- data_frame0(x = xy[,1], y = xy[,2], circular = FALSE)
+  if (is.null(optimization_weights)) {
+    optimization_weights <- rep(1, 5)
+  }
+  xy <- layout_as_metromap(
+    graph,
+    xy = cbind(x, y),
+    l = length,
+    gr = grid_space,
+    w = optimization_weights,
+    bsize = max_movement
+  )
+  nodes <- data_frame0(x = xy[, 1], y = xy[, 2], circular = FALSE)
   combine_layout_nodes(nodes, as_tibble(graph, active = 'nodes'))
 }

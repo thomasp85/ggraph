@@ -72,7 +72,22 @@
 #'
 #' @importFrom igraph gorder vertex_attr gsize induced_subgraph add_vertices E ends add_edges delete_edges %--% edge_attr
 #' @importFrom utils tail
-layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, divide.by = NULL, divide.order = NULL, normalize = TRUE, center.size = 0.1, divide.size = 0.05, use.numeric = FALSE, offset = pi / 2, split.axes = 'none', split.angle = pi / 6, circular = FALSE) {
+layout_tbl_graph_hive <- function(
+  graph,
+  axis,
+  axis.pos = NULL,
+  sort.by = NULL,
+  divide.by = NULL,
+  divide.order = NULL,
+  normalize = TRUE,
+  center.size = 0.1,
+  divide.size = 0.05,
+  use.numeric = FALSE,
+  offset = pi / 2,
+  split.axes = 'none',
+  split.angle = pi / 6,
+  circular = FALSE
+) {
   axis <- enquo(axis)
   axis <- eval_tidy(axis, .N())
   sort.by <- enquo(sort.by)
@@ -85,15 +100,23 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
     axis.pos <- rep(1, length(axes))
   } else {
     if (length(axis.pos) != length(axes)) {
-      cli::cli_warn('Number of axes {.val {length(axes)}} not matching {.arg axis.pos} argument. Recycling as needed')
+      cli::cli_warn(
+        'Number of axes {.val {length(axes)}} not matching {.arg axis.pos} argument. Recycling as needed'
+      )
       axis.pos <- rep(axis.pos, length.out = length(axes))
     }
   }
   axis.pos <- -cumsum(axis.pos)
-  axis.pos <- c(0, axis.pos[-length(axis.pos)]) / -tail(axis.pos, 1) * 2 * pi + offset
+  axis.pos <- c(0, axis.pos[-length(axis.pos)]) /
+    -tail(axis.pos, 1) *
+    2 *
+    pi +
+    offset
   if (use.numeric) {
     if (is.null(sort.by) || !is.numeric(sort.by)) {
-      cli::cli_abort('{.arg sort.by} must be a numeric vertex attribute when {.code use.numeric = TRUE}')
+      cli::cli_abort(
+        '{.arg sort.by} must be a numeric vertex attribute when {.code use.numeric = TRUE}'
+      )
     }
     numeric.range <- range(sort.by)
   }
@@ -102,77 +125,99 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
   } else {
     normalize_to <- lengths(axes) / max(lengths(axes))
   }
-  node.pos <- Map(function(nodes, axis_length, axis, angle) {
-    if (length(nodes) == 0) {
-      return(data_frame0())
-    }
-    split_axis <- switch(
-      split.axes,
-      all = TRUE,
-      loops = gsize(induced_subgraph(graph, nodes)) > 0,
-      none = FALSE,
-      cli::cli_abort('Unknown {.arg split} argument. Use {.val all}, {.val loops} or {.val none}')
-    )
-    node_div <- axis_length / length(nodes)
-    if (is.null(divide.by)) {
-      node_split <- list(`1` = nodes)
-    } else {
-      if (use.numeric) {
-        cli::cli_abort('Cannot divide axis when {.code use.numeric = TRUE}')
-      }
-      node_split <- split(nodes, divide.by[nodes])
-      if (!is.null(divide.order)) {
-        if (!all(divide.order %in% names(node_split))) {
-          cli::cli_abort('All {.arg divide.by} levels must be present in {.arg divide.order}')
-        }
-        node_split <- node_split[order(match(names(node_split), divide.order))]
-      }
-    }
-    node_pos <- lapply(node_split, function(nodes) {
+  node.pos <- Map(
+    function(nodes, axis_length, axis, angle) {
       if (length(nodes) == 0) {
-        return(numeric())
+        return(data_frame0())
       }
-      if (is.null(sort.by)) {
-        pos <- match(seq_along(nodes), order(nodes)) - 1
-        pos <- pos * node_div
+      split_axis <- switch(
+        split.axes,
+        all = TRUE,
+        loops = gsize(induced_subgraph(graph, nodes)) > 0,
+        none = FALSE,
+        cli::cli_abort(
+          'Unknown {.arg split} argument. Use {.val all}, {.val loops} or {.val none}'
+        )
+      )
+      node_div <- axis_length / length(nodes)
+      if (is.null(divide.by)) {
+        node_split <- list(`1` = nodes)
       } else {
-        pos <- sort.by[nodes]
         if (use.numeric) {
-          if (!is.numeric(pos)) {
-            cli::cli_abort('{.arg sort.by} must contain numeric data when {.code use.numeric = TRUE}')
+          cli::cli_abort('Cannot divide axis when {.code use.numeric = TRUE}')
+        }
+        node_split <- split(nodes, divide.by[nodes])
+        if (!is.null(divide.order)) {
+          if (!all(divide.order %in% names(node_split))) {
+            cli::cli_abort(
+              'All {.arg divide.by} levels must be present in {.arg divide.order}'
+            )
           }
-          if (normalize) {
-            if (diff(range(pos)) == 0) {
-              pos <- rep(0.5, length.out = length(pos))
+          node_split <- node_split[order(match(
+            names(node_split),
+            divide.order
+          ))]
+        }
+      }
+      node_pos <- lapply(node_split, function(nodes) {
+        if (length(nodes) == 0) {
+          return(numeric())
+        }
+        if (is.null(sort.by)) {
+          pos <- match(seq_along(nodes), order(nodes)) - 1
+          pos <- pos * node_div
+        } else {
+          pos <- sort.by[nodes]
+          if (use.numeric) {
+            if (!is.numeric(pos)) {
+              cli::cli_abort(
+                '{.arg sort.by} must contain numeric data when {.code use.numeric = TRUE}'
+              )
+            }
+            if (normalize) {
+              if (diff(range(pos)) == 0) {
+                pos <- rep(0.5, length.out = length(pos))
+              } else {
+                pos <- (pos - min(pos)) / diff(range(pos))
+              }
             } else {
-              pos <- (pos - min(pos)) / diff(range(pos))
+              pos <- (pos - numeric.range[1]) / diff(numeric.range)
             }
           } else {
-            pos <- (pos - numeric.range[1]) / diff(numeric.range)
+            pos <- match(seq_along(pos), order(pos)) - 1
+            pos <- pos * node_div
           }
-        } else {
-          pos <- match(seq_along(pos), order(pos)) - 1
-          pos <- pos * node_div
         }
-      }
-      pos
-    })
-    node_pos <- Reduce(function(l, r) {
-      append(l, list(r + node_div + divide.size + max(l[[length(l)]])))
-    }, x = node_pos[-1], init = node_pos[1])
-    node_pos <- unlist(node_pos) + center.size
+        pos
+      })
+      node_pos <- Reduce(
+        function(l, r) {
+          append(l, list(r + node_div + divide.size + max(l[[length(l)]])))
+        },
+        x = node_pos[-1],
+        init = node_pos[1]
+      )
+      node_pos <- unlist(node_pos) + center.size
 
-    data_frame0(
-      node = nodes,
-      r = node_pos[match(nodes, unlist(node_split))],
-      center_size = center.size,
-      split = split_axis,
-      axis = axis,
-      section = rep(names(node_split), lengths(node_split))[match(nodes, unlist(node_split))],
-      angle = angle,
-      circular = FALSE
-    )
-  }, nodes = axes, axis_length = normalize_to, axis = names(axes), angle = axis.pos)
+      data_frame0(
+        node = nodes,
+        r = node_pos[match(nodes, unlist(node_split))],
+        center_size = center.size,
+        split = split_axis,
+        axis = axis,
+        section = rep(names(node_split), lengths(node_split))[match(
+          nodes,
+          unlist(node_split)
+        )],
+        angle = angle,
+        circular = FALSE
+      )
+    },
+    nodes = axes,
+    axis_length = normalize_to,
+    axis = names(axes),
+    angle = axis.pos
+  )
   for (i in seq_along(node.pos)) {
     if (nrow(node.pos[[i]]) > 0 && node.pos[[i]]$split[1]) {
       n_new_nodes <- nrow(node.pos[[i]])
@@ -185,17 +230,39 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
       loop_edges <- E(graph)[node.pos[[i]]$node %--% node.pos[[i]]$node]
       if (length(loop_edges) != 0) {
         loop_edges_ends <- ends(graph, loop_edges, names = FALSE)
-        correct_order_ends <- node.pos[[i]]$r[match(loop_edges_ends[, 1], node.pos[[i]]$node)] <
+        correct_order_ends <- node.pos[[i]]$r[match(
+          loop_edges_ends[, 1],
+          node.pos[[i]]$node
+        )] <
           node.pos[[i]]$r[match(loop_edges_ends[, 2], node.pos[[i]]$node)]
         loop_edges_ends <- data_frame0(
-          from = ifelse(correct_order_ends, loop_edges_ends[, 1], loop_edges_ends[, 2]),
-          to = ifelse(correct_order_ends, loop_edges_ends[, 2], loop_edges_ends[, 1])
+          from = ifelse(
+            correct_order_ends,
+            loop_edges_ends[, 1],
+            loop_edges_ends[, 2]
+          ),
+          to = ifelse(
+            correct_order_ends,
+            loop_edges_ends[, 2],
+            loop_edges_ends[, 1]
+          )
         )
-        loop_edges_ends$to <- extra_nodes$node[match(loop_edges_ends$to, node.pos[[i]]$node)]
-        loop_edges_ends <- matrix(c(
-          ifelse(correct_order_ends, loop_edges_ends$from, loop_edges_ends$to),
-          ifelse(correct_order_ends, loop_edges_ends$to, loop_edges_ends$from)
-        ), nrow = 2, byrow = TRUE)
+        loop_edges_ends$to <- extra_nodes$node[match(
+          loop_edges_ends$to,
+          node.pos[[i]]$node
+        )]
+        loop_edges_ends <- matrix(
+          c(
+            ifelse(
+              correct_order_ends,
+              loop_edges_ends$from,
+              loop_edges_ends$to
+            ),
+            ifelse(correct_order_ends, loop_edges_ends$to, loop_edges_ends$from)
+          ),
+          nrow = 2,
+          byrow = TRUE
+        )
         eattr <- lapply(edge_attr(graph), `[`, i = as.numeric(loop_edges))
         graph <- add_edges(graph, as.vector(loop_edges_ends), attr = eattr)
         graph <- delete_edges(graph, as.numeric(loop_edges))
@@ -213,9 +280,16 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
         correct_edges <- E(graph)[node.pos[[i]]$node %--% node_correction]
         correct_edges_ends <- ends(graph, correct_edges, names = FALSE)
         new_node_ind <- correct_edges_ends %in% node.pos[[i]]$node
-        correct_edges_ends[new_node_ind] <- extra_nodes$node[match(correct_edges_ends[new_node_ind], node.pos[[i]]$node)]
+        correct_edges_ends[new_node_ind] <- extra_nodes$node[match(
+          correct_edges_ends[new_node_ind],
+          node.pos[[i]]$node
+        )]
         eattr <- lapply(edge_attr(graph), `[`, i = as.numeric(correct_edges))
-        graph <- add_edges(graph, as.vector(t(correct_edges_ends)), attr = eattr)
+        graph <- add_edges(
+          graph,
+          as.vector(t(correct_edges_ends)),
+          attr = eattr
+        )
         graph <- delete_edges(graph, as.numeric(correct_edges))
       }
 
@@ -234,7 +308,10 @@ layout_tbl_graph_hive <- function(graph, axis, axis.pos = NULL, sort.by = NULL, 
   node.pos <- vec_rbind(!!!node.pos)
   node.pos <- node.pos[order(node.pos$node), names(node.pos) != 'node']
   extra_data <- as_tibble(as_tbl_graph(graph), active = 'nodes')
-  node.pos <- cbind(node.pos, extra_data[, !names(extra_data) %in% names(node.pos), drop = FALSE])
+  node.pos <- cbind(
+    node.pos,
+    extra_data[, !names(extra_data) %in% names(node.pos), drop = FALSE]
+  )
   attr(node.pos, 'graph') <- as_tbl_graph(graph)
   node.pos
 }

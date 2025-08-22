@@ -1,8 +1,22 @@
 #' @importFrom grid grob is.unit unit gTree
-cappedPathGrob <- function(x, y, id = NULL, id.lengths = NULL, arrow = NULL,
-                           start.cap = NULL, start.cap2 = NULL, start.captype = 'circle',
-                           end.cap = NULL, end.cap2 = NULL, end.captype = 'circle',
-                           default.units = 'npc', name = NULL, gp = gpar(), vp = NULL, constant = TRUE) {
+cappedPathGrob <- function(
+  x,
+  y,
+  id = NULL,
+  id.lengths = NULL,
+  arrow = NULL,
+  start.cap = NULL,
+  start.cap2 = NULL,
+  start.captype = 'circle',
+  end.cap = NULL,
+  end.cap2 = NULL,
+  end.captype = 'circle',
+  default.units = 'npc',
+  name = NULL,
+  gp = gpar(),
+  vp = NULL,
+  constant = TRUE
+) {
   if (!is.unit(x)) {
     x <- unit(x, default.units)
   }
@@ -30,7 +44,10 @@ cappedPathGrob <- function(x, y, id = NULL, id.lengths = NULL, arrow = NULL,
     end.cap2 <- validate_cap(end.cap2, default.units, n)
   }
   if (!all(c(start.captype, end.captype) %in% c('circle', 'rect'))) {
-    cli::cli_abort('{.arg captype} must be either {.val circle} or {.val rect}', call. = FALSE)
+    cli::cli_abort(
+      '{.arg captype} must be either {.val circle} or {.val rect}',
+      call. = FALSE
+    )
   }
   start.captype <- rep(start.captype, length.out = n)
   end.captype <- rep(end.captype, length.out = n)
@@ -62,21 +79,49 @@ cappedPathGrob <- function(x, y, id = NULL, id.lengths = NULL, arrow = NULL,
   if (is.null(start.cap) && is.null(end.cap)) {
     if (constant) {
       grob(
-        x = x, y = y, id = id, id.lengths = NULL, arrow = arrow,
-        name = name, gp = gp, vp = vp, cl = 'polyline'
+        x = x,
+        y = y,
+        id = id,
+        id.lengths = NULL,
+        arrow = arrow,
+        name = name,
+        gp = gp,
+        vp = vp,
+        cl = 'polyline'
       )
     } else {
       grob(
-        x0 = x[!end], y0 = y[!end], x1 = x[!start], y1 = y[!start], id = id[!end],
-        arrow = arrow, name = name, gp = gp, vp = vp, cl = 'segments'
+        x0 = x[!end],
+        y0 = y[!end],
+        x1 = x[!start],
+        y1 = y[!start],
+        id = id[!end],
+        arrow = arrow,
+        name = name,
+        gp = gp,
+        vp = vp,
+        cl = 'segments'
       )
     }
   } else {
     gTree(
-      x = x, y = y, id = id, arrow = arrow, constant = constant, start = start, end = end,
-      start.cap = start.cap, start.cap2 = start.cap2, start.captype = start.captype,
-      end.cap = end.cap, end.cap2 = end.cap2, end.captype = end.captype,
-      name = name, gp = gp, vp = vp, cl = 'cappedpathgrob'
+      x = x,
+      y = y,
+      id = id,
+      arrow = arrow,
+      constant = constant,
+      start = start,
+      end = end,
+      start.cap = start.cap,
+      start.cap2 = start.cap2,
+      start.captype = start.captype,
+      end.cap = end.cap,
+      end.cap2 = end.cap2,
+      end.captype = end.captype,
+      name = name,
+      gp = gp,
+      vp = vp,
+      cl = 'cappedpathgrob'
     )
   }
 }
@@ -124,9 +169,15 @@ makeContent.cappedpathgrob <- function(x) {
     class(gp) <- 'gpar'
     id <- match(id, all_id)
     lines <- grob(
-      x = unit(x_new, 'mm'), y = unit(y_new, 'mm'), id = id,
-      id.lengths = NULL, arrow = x$arrow, name = x$name, gp = gp,
-      vp = x$vp, cl = 'polyline'
+      x = unit(x_new, 'mm'),
+      y = unit(y_new, 'mm'),
+      id = id,
+      id.lengths = NULL,
+      arrow = x$arrow,
+      name = x$name,
+      gp = gp,
+      vp = x$vp,
+      cl = 'polyline'
     )
   } else {
     x0 <- truncated$x[!x$end]
@@ -134,9 +185,16 @@ makeContent.cappedpathgrob <- function(x) {
     x1 <- truncated$x[!x$start]
     y1 <- truncated$y[!x$start]
     lines <- grob(
-      x0 = unit(x0, 'mm'), y0 = unit(y0, 'mm'), x1 = unit(x1, 'mm'), id = x$id[!x$end],
-      y1 = unit(y1, 'mm'), arrow = x$arrow, name = x$name, gp = x$gp,
-      vp = x$vp, cl = 'segments'
+      x0 = unit(x0, 'mm'),
+      y0 = unit(y0, 'mm'),
+      x1 = unit(x1, 'mm'),
+      id = x$id[!x$end],
+      y1 = unit(y1, 'mm'),
+      arrow = x$arrow,
+      name = x$name,
+      gp = x$gp,
+      vp = x$vp,
+      cl = 'segments'
     )
   }
   setChildren(x, gList(lines))
@@ -146,6 +204,8 @@ validate_cap <- function(cap, default.units, n) {
   if (is.null(cap)) {
     return()
   }
-  if (!is.unit(cap)) cap <- unit(cap, default.units)
+  if (!is.unit(cap)) {
+    cap <- unit(cap, default.units)
+  }
   rep(cap, length.out = n)
 }

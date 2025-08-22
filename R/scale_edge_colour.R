@@ -20,43 +20,98 @@ NULL
 #' @inheritParams ggplot2::scale_colour_hue
 #'
 #' @export
-scale_edge_colour_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                                  direction = 1, na.value = "grey50", aesthetics = "edge_colour") {
-  scale_colour_hue(..., h = h, c = c, l = l, h.start = h.start,
-                   direction = direction, na.value = na.value, aesthetics = aesthetics)
+scale_edge_colour_hue <- function(
+  ...,
+  h = c(0, 360) + 15,
+  c = 100,
+  l = 65,
+  h.start = 0,
+  direction = 1,
+  na.value = "grey50",
+  aesthetics = "edge_colour"
+) {
+  scale_colour_hue(
+    ...,
+    h = h,
+    c = c,
+    l = l,
+    h.start = h.start,
+    direction = direction,
+    na.value = na.value,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_brewer
 #'
 #' @export
-scale_edge_colour_brewer <- function(..., type = "seq", palette = 1, direction = 1,
-                                     aesthetics = "edge_colour") {
-  scale_colour_brewer(..., type = type, palette = palette, direction = direction,
-                      aesthetics = aesthetics)
+scale_edge_colour_brewer <- function(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = 1,
+  aesthetics = "edge_colour"
+) {
+  scale_colour_brewer(
+    ...,
+    type = type,
+    palette = palette,
+    direction = direction,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_distiller
 #'
 #' @export
-scale_edge_colour_distiller <- function(..., type = "seq", palette = 1, direction = -1,
-                                        values = NULL, space = "Lab", na.value = "grey50",
-                                        guide = "edge_colourbar", aesthetics = "edge_colour") {
-  scale_color_distiller(..., type = type, palette = palette, direction = direction,
-                        values = values, space = space, na.value = na.value,
-                        guide = guide, aesthetics = aesthetics)
+scale_edge_colour_distiller <- function(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
+) {
+  scale_color_distiller(
+    ...,
+    type = type,
+    palette = palette,
+    direction = direction,
+    values = values,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_gradient
 #'
 #' @export
-scale_edge_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
-                                       na.value = "grey50", guide = "edge_colourbar",
-                                       aesthetics = "edge_colour") {
-  scale_colour_gradient(..., low = low, high = high, space = space, na.value = na.value,
-                        guide = guide, aesthetics = aesthetics)
+scale_edge_colour_gradient <- function(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
+) {
+  scale_colour_gradient(
+    ...,
+    low = low,
+    high = high,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'
@@ -64,41 +119,85 @@ scale_edge_colour_gradient <- function(..., low = "#132B43", high = "#56B1F7", s
 #'
 #' @importFrom scales muted
 #' @export
-scale_edge_colour_gradient2 <- function(..., low = muted("red"), mid = "white",
-                                        high = muted("blue"), midpoint = 0,
-                                        space = "Lab", na.value = "grey50",
-                                        guide = "edge_colourbar", aesthetics = "edge_colour") {
-  scale_colour_gradient2(..., low = low, mid = mid, high = high, midpoint = midpoint,
-                         space = space, na.value = na.value, guide = guide,
-                         aesthetics = aesthetics)
+scale_edge_colour_gradient2 <- function(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour"
+) {
+  scale_colour_gradient2(
+    ...,
+    low = low,
+    mid = mid,
+    high = high,
+    midpoint = midpoint,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_gradientn
 #'
 #' @export
-scale_edge_colour_gradientn <- function(..., colours, values = NULL, space = "Lab",
-                                        na.value = "grey50", guide = "edge_colourbar",
-                                        aesthetics = "edge_colour", colors) {
-  scale_colour_gradientn(..., colours = colours, values = values, space = space,
-                         na.value = na.value, guide = guide, aesthetics = aesthetics,
-                         colors = colors)
+scale_edge_colour_gradientn <- function(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  aesthetics = "edge_colour",
+  colors
+) {
+  scale_colour_gradientn(
+    ...,
+    colours = colours,
+    values = values,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics,
+    colors = colors
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_grey
 #'
 #' @export
-scale_edge_colour_grey <- function(..., start = 0.2, end = 0.8, na.value = "red",
-                                   aesthetics = "edge_colour") {
-  scale_colour_grey(..., start = start, end = end, na.value = na.value, aesthetics = aesthetics)
+scale_edge_colour_grey <- function(
+  ...,
+  start = 0.2,
+  end = 0.8,
+  na.value = "red",
+  aesthetics = "edge_colour"
+) {
+  scale_colour_grey(
+    ...,
+    start = start,
+    end = end,
+    na.value = na.value,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_identity
 #'
 #' @export
-scale_edge_colour_identity <- function(..., guide = "none", aesthetics = "edge_colour") {
+scale_edge_colour_identity <- function(
+  ...,
+  guide = "none",
+  aesthetics = "edge_colour"
+) {
   scale_colour_identity(..., guide = guide, aesthetics = aesthetics)
 }
 #' @rdname scale_edge_colour
@@ -106,9 +205,20 @@ scale_edge_colour_identity <- function(..., guide = "none", aesthetics = "edge_c
 #' @inheritParams ggplot2::scale_colour_manual
 #'
 #' @export
-scale_edge_colour_manual <- function(..., values, aesthetics = "edge_colour", breaks = waiver(), na.value = "grey50") {
-  scale_colour_manual(..., values = values, aesthetics = aesthetics, breaks = breaks,
-                      na.value = na.value)
+scale_edge_colour_manual <- function(
+  ...,
+  values,
+  aesthetics = "edge_colour",
+  breaks = waiver(),
+  na.value = "grey50"
+) {
+  scale_colour_manual(
+    ...,
+    values = values,
+    aesthetics = aesthetics,
+    breaks = breaks,
+    na.value = na.value
+  )
 }
 #' @rdname scale_edge_colour
 #'
@@ -116,51 +226,124 @@ scale_edge_colour_manual <- function(..., values, aesthetics = "edge_colour", br
 #'
 #' @importFrom viridis scale_colour_viridis
 #' @export
-scale_edge_colour_viridis <- function (..., alpha = 1, begin = 0, end = 1, direction = 1,
-                                       discrete = FALSE, option = "D", aesthetics = 'edge_colour') {
-  scale_colour_viridis(..., alpha = alpha, begin = begin, end = end, direction = direction,
-                       discrete = discrete, option = option, aesthetics = aesthetics)
+scale_edge_colour_viridis <- function(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  discrete = FALSE,
+  option = "D",
+  aesthetics = 'edge_colour'
+) {
+  scale_colour_viridis(
+    ...,
+    alpha = alpha,
+    begin = begin,
+    end = end,
+    direction = direction,
+    discrete = discrete,
+    option = option,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_steps
 #' @export
-scale_edge_colour_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
-                                    na.value = "grey50", guide = "edge_coloursteps",
-                                    aesthetics = "edge_colour") {
-  scale_colour_steps(..., low = low, high = high, space = space, na.value = na.value,
-                     guide = guide, aesthetics = aesthetics)
+scale_edge_colour_steps <- function(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
+) {
+  scale_colour_steps(
+    ...,
+    low = low,
+    high = high,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_steps2
 #' @export
-scale_edge_colour_steps2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
-                                     midpoint = 0, space = "Lab", na.value = "grey50",
-                                     guide = "edge_coloursteps",
-                                     aesthetics = "edge_colour") {
-  scale_colour_steps2(..., low = low, mid = mid, high = high, midpoint = midpoint, space = space,
-                      na.value = na.value, guide = guide, aesthetics = aesthetics)
+scale_edge_colour_steps2 <- function(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
+) {
+  scale_colour_steps2(
+    ...,
+    low = low,
+    mid = mid,
+    high = high,
+    midpoint = midpoint,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_steps2
 #' @export
-scale_edge_colour_stepsn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50",
-                                     guide = "edge_coloursteps", aesthetics = "edge_colour", colors) {
-  scale_colour_stepsn(..., colours = colours, values = values, space = space,
-                      na.value = na.value, guide = guide, aesthetics = aesthetics,
-                      colors = colors)
+scale_edge_colour_stepsn <- function(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour",
+  colors
+) {
+  scale_colour_stepsn(
+    ...,
+    colours = colours,
+    values = values,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics,
+    colors = colors
+  )
 }
 #' @rdname scale_edge_colour
 #'
 #' @inheritParams ggplot2::scale_colour_steps2
 #' @export
-scale_edge_colour_fermenter <- function(..., type = "seq", palette = 1, direction = -1,
-                                        na.value = "grey50", guide = "edge_coloursteps",
-                                        aesthetics = "edge_colour") {
-  scale_colour_fermenter(..., type = type, palette = palette, direction = direction,
-                      na.value = na.value, guide = guide, aesthetics = aesthetics)
+scale_edge_colour_fermenter <- function(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_colour"
+) {
+  scale_colour_fermenter(
+    ...,
+    type = type,
+    palette = palette,
+    direction = direction,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_colour
 #'

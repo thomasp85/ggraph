@@ -20,8 +20,8 @@ layout_tbl_graph_sf <- function(graph, circular = FALSE) {
   }
   # Extract X and Y coordinates from the nodes
   graph <- activate(graph, "nodes")
-  x <- sf::st_coordinates(graph)[,"X"]
-  y <- sf::st_coordinates(graph)[,"Y"]
+  x <- sf::st_coordinates(graph)[, "X"]
+  y <- sf::st_coordinates(graph)[, "Y"]
   # Create layout data frame
   nodes <- data_frame0(x = x, y = y, circular = FALSE)
   # Convert to tbl_graph to 'unstick' geometry column

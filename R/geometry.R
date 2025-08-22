@@ -36,8 +36,13 @@
 #' label_rect(c('some', 'different', 'words'), fontsize = 18)
 #' @export
 #'
-geometry <- function(type = 'circle', width = 1, height = width,
-                     width_unit = 'cm', height_unit = width_unit) {
+geometry <- function(
+  type = 'circle',
+  width = 1,
+  height = width,
+  width_unit = 'cm',
+  height_unit = width_unit
+) {
   l <- max(length(type), length(width), length(height))
   g <- rep_len(vec_cast(type, character()), l)
   g_na <- is.na(g)
@@ -56,21 +61,28 @@ geometry <- function(type = 'circle', width = 1, height = width,
     height_unit = uheight
   )
 }
-new_geometry <- function(geometry = character(), width = numeric(),
-                         height = numeric(), width_unit = character(),
-                         height_unit = character()) {
+new_geometry <- function(
+  geometry = character(),
+  width = numeric(),
+  height = numeric(),
+  width_unit = character(),
+  height_unit = character()
+) {
   vec_assert(geometry, character())
   vec_assert(width, double())
   vec_assert(height, double())
   vec_assert(width_unit, character())
   vec_assert(height_unit, character())
-  new_rcrd(list(
-    geometry = geometry,
-    width = width,
-    height = height,
-    width_unit = width_unit,
-    height_unit = height_unit
-  ), class = 'ggraph_geometry')
+  new_rcrd(
+    list(
+      geometry = geometry,
+      width = width,
+      height = height,
+      width_unit = width_unit,
+      height_unit = height_unit
+    ),
+    class = 'ggraph_geometry'
+  )
 }
 #' @rdname geometry
 #'
@@ -88,18 +100,28 @@ square <- function(length = 1, unit = 'cm') {
 #'
 #' @export
 ellipsis <- function(a = 1, b = 1, a_unit = 'cm', b_unit = a_unit) {
-  geometry('circle',
-    width = a * 2, height = b * 2, width_unit = a_unit,
+  geometry(
+    'circle',
+    width = a * 2,
+    height = b * 2,
+    width_unit = a_unit,
     height_unit = b_unit
   )
 }
 #' @rdname geometry
 #'
 #' @export
-rectangle <- function(width = 1, height = 1, width_unit = 'cm',
-                      height_unit = width_unit) {
-  geometry('rect',
-    width = width, height = height, width_unit = width_unit,
+rectangle <- function(
+  width = 1,
+  height = 1,
+  width_unit = 'cm',
+  height_unit = width_unit
+) {
+  geometry(
+    'rect',
+    width = width,
+    height = height,
+    width_unit = width_unit,
     height_unit = height_unit
   )
 }
@@ -131,8 +153,14 @@ is.geometry <- function(x) inherits(x, 'ggraph_geometry')
 #' @export
 format.ggraph_geometry <- function(x, ...) {
   paste0(
-    field(x, 'geometry'), '(', field(x, 'width'), field(x, 'width_unit'),
-    ', ', field(x, 'height'), field(x, 'height_unit'), ')'
+    field(x, 'geometry'),
+    '(',
+    field(x, 'width'),
+    field(x, 'width_unit'),
+    ', ',
+    field(x, 'height'),
+    field(x, 'height_unit'),
+    ')'
   )
 }
 #' @export
@@ -140,20 +168,30 @@ is.na.ggraph_geometry <- function(x) {
   is.na(field(x, 'geometry'))
 }
 geo_type <- function(x) {
-  if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls ggraph_geometry} object')
+  if (!is.geometry(x)) {
+    cli::cli_abort('{.arg x} must be a {.cls ggraph_geometry} object')
+  }
   field(x, 'geometry')
 }
 geo_width <- function(x) {
-  if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls geometry} object')
+  if (!is.geometry(x)) {
+    cli::cli_abort('{.arg x} must be a {.cls geometry} object')
+  }
   unit(field(x, 'width'), field(x, 'width_unit'))
 }
 geo_height <- function(x) {
-  if (!is.geometry(x)) cli::cli_abort('{.arg x} must be a {.cls geometry} object')
+  if (!is.geometry(x)) {
+    cli::cli_abort('{.arg x} must be a {.cls geometry} object')
+  }
   unit(field(x, 'height'), field(x, 'height_unit'))
 }
 #' @importFrom grid convertHeight grobHeight
 abs_height <- function(grobs) {
-  vapply(grobs, function(g) convertHeight(grobHeight(g), 'cm', TRUE), numeric(1))
+  vapply(
+    grobs,
+    function(g) convertHeight(grobHeight(g), 'cm', TRUE),
+    numeric(1)
+  )
 }
 #' @importFrom grid convertWidth grobWidth
 abs_width <- function(grobs) {
@@ -167,7 +205,9 @@ vec_ptype2.ggraph_geometry.character <- function(x, y, ...) character()
 #' @export
 vec_ptype2.character.ggraph_geometry <- function(x, y, ...) character()
 #' @export
-vec_cast.character.ggraph_geometry <- function(x, to, ...) as.character(field(x, 'geometry'))
+vec_cast.character.ggraph_geometry <- function(x, to, ...) {
+  as.character(field(x, 'geometry'))
+}
 
 #' Define default scale type for geometry
 #'

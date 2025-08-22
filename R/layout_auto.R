@@ -30,19 +30,41 @@ layout_tbl_graph_auto <- function(graph, circular, ...) {
   } else if (with_graph(graph, graph_is_tree() || graph_is_forest())) {
     if (is.null(with_graph(graph, .N()[['height']]))) {
       cli::cli_inform('Using {.val tree} as default layout')
-      layout_tbl_graph_igraph(graph, algorithm = 'tree', circular = circular, ...)
+      layout_tbl_graph_igraph(
+        graph,
+        algorithm = 'tree',
+        circular = circular,
+        ...
+      )
     } else {
       cli::cli_inform('Using {.val dendrogram} as default layout')
-      layout_tbl_graph_dendrogram(graph, circular = circular, height = .data$height, ...)
+      layout_tbl_graph_dendrogram(
+        graph,
+        circular = circular,
+        height = .data$height,
+        ...
+      )
     }
   } else if (with_graph(graph, graph_is_dag())) {
     cli::cli_inform('Using {.val sugiyama} as default layout')
-    layout_tbl_graph_igraph(graph, algorithm = 'sugiyama', circular = circular, ...)
+    layout_tbl_graph_igraph(
+      graph,
+      algorithm = 'sugiyama',
+      circular = circular,
+      ...
+    )
   } else if (with_graph(graph, graph_order()) < 2000) {
     cli::cli_inform('Using {.val stress} as default layout')
     layout_tbl_graph_stress(graph, circular = circular, ...)
   } else {
-    cli::cli_inform('Using {.val sparse_stress} with 250 pivots as default layout')
-    layout_tbl_graph_sparse_stress(graph, pivots = 250, circular = circular, ...)
+    cli::cli_inform(
+      'Using {.val sparse_stress} with 250 pivots as default layout'
+    )
+    layout_tbl_graph_sparse_stress(
+      graph,
+      pivots = 250,
+      circular = circular,
+      ...
+    )
   }
 }

@@ -20,43 +20,98 @@ NULL
 #' @inheritParams ggplot2::scale_fill_hue
 #'
 #' @export
-scale_edge_fill_hue <- function(..., h = c(0, 360) + 15, c = 100, l = 65, h.start = 0,
-                                  direction = 1, na.value = "grey50", aesthetics = "edge_fill") {
-  scale_fill_hue(..., h = h, c = c, l = l, h.start = h.start,
-                   direction = direction, na.value = na.value, aesthetics = aesthetics)
+scale_edge_fill_hue <- function(
+  ...,
+  h = c(0, 360) + 15,
+  c = 100,
+  l = 65,
+  h.start = 0,
+  direction = 1,
+  na.value = "grey50",
+  aesthetics = "edge_fill"
+) {
+  scale_fill_hue(
+    ...,
+    h = h,
+    c = c,
+    l = l,
+    h.start = h.start,
+    direction = direction,
+    na.value = na.value,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_brewer
 #'
 #' @export
-scale_edge_fill_brewer <- function(..., type = "seq", palette = 1, direction = 1,
-                                     aesthetics = "edge_fill") {
-  scale_fill_brewer(..., type = type, palette = palette, direction = direction,
-                      aesthetics = aesthetics)
+scale_edge_fill_brewer <- function(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = 1,
+  aesthetics = "edge_fill"
+) {
+  scale_fill_brewer(
+    ...,
+    type = type,
+    palette = palette,
+    direction = direction,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_distiller
 #'
 #' @export
-scale_edge_fill_distiller <- function(..., type = "seq", palette = 1, direction = -1,
-                                        values = NULL, space = "Lab", na.value = "grey50",
-                                        guide = "edge_colourbar", aesthetics = "edge_fill") {
-  scale_color_distiller(..., type = type, palette = palette, direction = direction,
-                        values = values, space = space, na.value = na.value,
-                        guide = guide, aesthetics = aesthetics)
+scale_edge_fill_distiller <- function(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  aesthetics = "edge_fill"
+) {
+  scale_color_distiller(
+    ...,
+    type = type,
+    palette = palette,
+    direction = direction,
+    values = values,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_gradient
 #'
 #' @export
-scale_edge_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
-                                       na.value = "grey50", guide = "edge_colourbar",
-                                       aesthetics = "edge_fill") {
-  scale_fill_gradient(..., low = low, high = high, space = space, na.value = na.value,
-                        guide = guide, aesthetics = aesthetics)
+scale_edge_fill_gradient <- function(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  aesthetics = "edge_fill"
+) {
+  scale_fill_gradient(
+    ...,
+    low = low,
+    high = high,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
@@ -64,41 +119,85 @@ scale_edge_fill_gradient <- function(..., low = "#132B43", high = "#56B1F7", spa
 #'
 #' @importFrom scales muted
 #' @export
-scale_edge_fill_gradient2 <- function(..., low = muted("red"), mid = "white",
-                                        high = muted("blue"), midpoint = 0,
-                                        space = "Lab", na.value = "grey50",
-                                        guide = "edge_colourbar", aesthetics = "edge_fill") {
-  scale_fill_gradient2(..., low = low, mid = mid, high = high, midpoint = midpoint,
-                         space = space, na.value = na.value, guide = guide,
-                         aesthetics = aesthetics)
+scale_edge_fill_gradient2 <- function(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  aesthetics = "edge_fill"
+) {
+  scale_fill_gradient2(
+    ...,
+    low = low,
+    mid = mid,
+    high = high,
+    midpoint = midpoint,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_gradientn
 #'
 #' @export
-scale_edge_fill_gradientn <- function(..., colours, values = NULL, space = "Lab",
-                                        na.value = "grey50", guide = "edge_colourbar",
-                                        aesthetics = "edge_fill", colors) {
-  scale_fill_gradientn(..., colours = colours, values = values, space = space,
-                         na.value = na.value, guide = guide, aesthetics = aesthetics,
-                         colors = colors)
+scale_edge_fill_gradientn <- function(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_colourbar",
+  aesthetics = "edge_fill",
+  colors
+) {
+  scale_fill_gradientn(
+    ...,
+    colours = colours,
+    values = values,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics,
+    colors = colors
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_grey
 #'
 #' @export
-scale_edge_fill_grey <- function(..., start = 0.2, end = 0.8, na.value = "red",
-                                   aesthetics = "edge_fill") {
-  scale_fill_grey(..., start = start, end = end, na.value = na.value, aesthetics = aesthetics)
+scale_edge_fill_grey <- function(
+  ...,
+  start = 0.2,
+  end = 0.8,
+  na.value = "red",
+  aesthetics = "edge_fill"
+) {
+  scale_fill_grey(
+    ...,
+    start = start,
+    end = end,
+    na.value = na.value,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_identity
 #'
 #' @export
-scale_edge_fill_identity <- function(..., guide = "none", aesthetics = "edge_fill") {
+scale_edge_fill_identity <- function(
+  ...,
+  guide = "none",
+  aesthetics = "edge_fill"
+) {
   scale_fill_identity(..., guide = guide, aesthetics = aesthetics)
 }
 #' @rdname scale_edge_fill
@@ -106,9 +205,20 @@ scale_edge_fill_identity <- function(..., guide = "none", aesthetics = "edge_fil
 #' @inheritParams ggplot2::scale_fill_manual
 #'
 #' @export
-scale_edge_fill_manual <- function(..., values, aesthetics = "edge_fill", breaks = waiver(), na.value = "grey50") {
-  scale_fill_manual(..., values = values, aesthetics = aesthetics, breaks = breaks,
-                      na.value = na.value)
+scale_edge_fill_manual <- function(
+  ...,
+  values,
+  aesthetics = "edge_fill",
+  breaks = waiver(),
+  na.value = "grey50"
+) {
+  scale_fill_manual(
+    ...,
+    values = values,
+    aesthetics = aesthetics,
+    breaks = breaks,
+    na.value = na.value
+  )
 }
 #' @rdname scale_edge_fill
 #'
@@ -116,51 +226,124 @@ scale_edge_fill_manual <- function(..., values, aesthetics = "edge_fill", breaks
 #'
 #' @importFrom viridis scale_fill_viridis
 #' @export
-scale_edge_fill_viridis <- function (..., alpha = 1, begin = 0, end = 1, direction = 1,
-                                       discrete = FALSE, option = "D", aesthetics = 'edge_fill') {
-  scale_fill_viridis(..., alpha = alpha, begin = begin, end = end, direction = direction,
-                       discrete = discrete, option = option, aesthetics = aesthetics)
+scale_edge_fill_viridis <- function(
+  ...,
+  alpha = 1,
+  begin = 0,
+  end = 1,
+  direction = 1,
+  discrete = FALSE,
+  option = "D",
+  aesthetics = 'edge_fill'
+) {
+  scale_fill_viridis(
+    ...,
+    alpha = alpha,
+    begin = begin,
+    end = end,
+    direction = direction,
+    discrete = discrete,
+    option = option,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_steps
 #' @export
-scale_edge_fill_steps <- function(..., low = "#132B43", high = "#56B1F7", space = "Lab",
-                                    na.value = "grey50", guide = "edge_coloursteps",
-                                    aesthetics = "edge_fill") {
-  scale_fill_steps(..., low = low, high = high, space = space, na.value = na.value,
-                     guide = guide, aesthetics = aesthetics)
+scale_edge_fill_steps <- function(
+  ...,
+  low = "#132B43",
+  high = "#56B1F7",
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_fill"
+) {
+  scale_fill_steps(
+    ...,
+    low = low,
+    high = high,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_steps2
 #' @export
-scale_edge_fill_steps2 <- function(..., low = muted("red"), mid = "white", high = muted("blue"),
-                                     midpoint = 0, space = "Lab", na.value = "grey50",
-                                     guide = "edge_coloursteps",
-                                     aesthetics = "edge_fill") {
-  scale_fill_steps2(..., low = low, mid = mid, high = high, midpoint = midpoint, space = space,
-                      na.value = na.value, guide = guide, aesthetics = aesthetics)
+scale_edge_fill_steps2 <- function(
+  ...,
+  low = muted("red"),
+  mid = "white",
+  high = muted("blue"),
+  midpoint = 0,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_fill"
+) {
+  scale_fill_steps2(
+    ...,
+    low = low,
+    mid = mid,
+    high = high,
+    midpoint = midpoint,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_stepsn
 #' @export
-scale_edge_fill_stepsn <- function(..., colours, values = NULL, space = "Lab", na.value = "grey50",
-                                     guide = "edge_coloursteps", aesthetics = "edge_fill", colors) {
-  scale_fill_stepsn(..., colours = colours, values = values, space = space,
-                      na.value = na.value, guide = guide, aesthetics = aesthetics,
-                      colors = colors)
+scale_edge_fill_stepsn <- function(
+  ...,
+  colours,
+  values = NULL,
+  space = "Lab",
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_fill",
+  colors
+) {
+  scale_fill_stepsn(
+    ...,
+    colours = colours,
+    values = values,
+    space = space,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics,
+    colors = colors
+  )
 }
 #' @rdname scale_edge_fill
 #'
 #' @inheritParams ggplot2::scale_fill_fermenter
 #' @export
-scale_edge_fill_fermenter <- function(..., type = "seq", palette = 1, direction = -1,
-                                        na.value = "grey50", guide = "edge_coloursteps",
-                                        aesthetics = "edge_fill") {
-  scale_fill_fermenter(..., type = type, palette = palette, direction = direction,
-                         na.value = na.value, guide = guide, aesthetics = aesthetics)
+scale_edge_fill_fermenter <- function(
+  ...,
+  type = "seq",
+  palette = 1,
+  direction = -1,
+  na.value = "grey50",
+  guide = "edge_coloursteps",
+  aesthetics = "edge_fill"
+) {
+  scale_fill_fermenter(
+    ...,
+    type = type,
+    palette = palette,
+    direction = direction,
+    na.value = na.value,
+    guide = guide,
+    aesthetics = aesthetics
+  )
 }
 #' @rdname scale_edge_fill
 #'
