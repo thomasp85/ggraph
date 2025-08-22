@@ -166,9 +166,11 @@ check it for more details and pointers to other options.</p></dd>
 
 
 <dt id="arg-as-table">as.table<a class="anchor" aria-label="anchor" href="#arg-as-table"></a></dt>
-<dd><p>If <code>TRUE</code>, the default, the facets are laid out like
-a table with highest values at the bottom-right. If <code>FALSE</code>, the
-facets are laid out like a plot with the highest value at the top-right.</p></dd>
+<dd><p><a href="https://lifecycle.r-lib.org/articles/stages.html#superseded" class="external-link"><img src="figures/lifecycle-superseded.svg" alt="[Superseded]"></a> The <code>as.table</code> argument
+is now absorbed into the <code>dir</code> argument via the two letter options.
+If <code>TRUE</code>, the facets are laid out like a table with highest values at the
+bottom-right. If <code>FALSE</code>, the facets are laid out like a plot with the
+highest value at the top-right.</p></dd>
 
 
 <dt id="arg-switch">switch<a class="anchor" aria-label="anchor" href="#arg-switch"></a></dt>
@@ -187,7 +189,12 @@ will be shown, regardless of whether or not they appear in the data.</p></dd>
 
 <dt id="arg-dir">dir<a class="anchor" aria-label="anchor" href="#arg-dir"></a></dt>
 <dd><p>Direction: either <code>"h"</code> for horizontal, the default, or <code>"v"</code>,
-for vertical.</p></dd>
+for vertical. When <code>"h"</code> or <code>"v"</code> will be combined with <code>as.table</code> to
+set final layout. Alternatively, a combination of <code>"t"</code> (top) or
+<code>"b"</code> (bottom) with <code>"l"</code> (left) or <code>"r"</code> (right) to set a layout directly.
+These two letters give the starting position and the first letter gives
+the growing direction. For example <code>"rt"</code> will place the first panel in
+the top-right and starts filling in panels right-to-left.</p></dd>
 
 
 <dt id="arg-strip-position">strip.position<a class="anchor" aria-label="anchor" href="#arg-strip-position"></a></dt>

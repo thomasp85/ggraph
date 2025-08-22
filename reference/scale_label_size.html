@@ -165,12 +165,15 @@ omitted.</p></dd>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that takes the limits as input and returns breaks
 as output (e.g., a function returned by <code><a href="https://scales.r-lib.org/reference/breaks_extended.html" class="external-link">scales::extended_breaks()</a></code>).
+Note that for position scales, limits are provided after scale expansion.
 Also accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation.</p></li>
 </ul></dd>
 
 
 <dt id="arg-labels">labels<a class="anchor" aria-label="anchor" href="#arg-labels"></a></dt>
-<dd><p>One of:</p><ul><li><p><code>NULL</code> for no labels</p></li>
+<dd><p>One of the options below. Please note that when <code>labels</code> is a
+vector, it is highly recommended to also set the <code>breaks</code> argument as a
+vector to protect against unintended mismatches.</p><ul><li><p><code>NULL</code> for no labels</p></li>
 <li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default labels computed by the
 transformation object</p></li>
 <li><p>A character vector giving labels (must be same length as <code>breaks</code>)</p></li>
@@ -212,13 +215,13 @@ maximum size of the plotting symbol after transformation.</p></dd>
 <dt id="arg--">...<a class="anchor" aria-label="anchor" href="#arg--"></a></dt>
 <dd><p>Arguments passed on to <code><a href="https://ggplot2.tidyverse.org/reference/continuous_scale.html" class="external-link">continuous_scale</a></code></p><dl><dt><code>minor_breaks</code></dt>
 <dd><p>One of:</p><ul><li><p><code>NULL</code> for no minor breaks</p></li>
-<li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks (one minor break between
-each major break)</p></li>
+<li><p><code><a href="https://ggplot2.tidyverse.org/reference/waiver.html" class="external-link">waiver()</a></code> for the default breaks (none for discrete, one minor break
+between each major break for continuous)</p></li>
 <li><p>A numeric vector of positions</p></li>
 <li><p>A function that given the limits returns a vector of minor breaks. Also
 accepts rlang <a href="https://rlang.r-lib.org/reference/as_function.html" class="external-link">lambda</a> function notation. When
 the function has two arguments, it will be given the limits and major
-breaks.</p></li>
+break positions.</p></li>
 </ul></dd>
 
     <dt><code>oob</code></dt>
@@ -233,18 +236,6 @@ bounds values with <code>NA</code>.</p></li>
 
     <dt><code>na.value</code></dt>
 <dd><p>Missing values will be replaced with this value.</p></dd>
-
-    <dt><code>expand</code></dt>
-<dd><p>For position scales, a vector of range expansion constants used to add some
-padding around the data to ensure that they are placed some distance
-away from the axes. Use the convenience function <code><a href="https://ggplot2.tidyverse.org/reference/expansion.html" class="external-link">expansion()</a></code>
-to generate the values for the <code>expand</code> argument. The defaults are to
-expand the scale by 5% on each side for continuous variables, and by
-0.6 units on each side for discrete variables.</p></dd>
-
-    <dt><code>position</code></dt>
-<dd><p>For position scales, The position of the axis.
-<code>left</code> or <code>right</code> for y axes, <code>top</code> or <code>bottom</code> for x axes.</p></dd>
 
     <dt><code>call</code></dt>
 <dd><p>The <code>call</code> used to construct the scale for reporting messages.</p></dd>

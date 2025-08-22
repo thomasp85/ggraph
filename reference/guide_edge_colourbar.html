@@ -127,7 +127,11 @@ specified in <code><a href="https://ggplot2.tidyverse.org/reference/labs.html" c
     <dt><code>theme</code></dt>
 <dd><p>A <code><a href="https://ggplot2.tidyverse.org/reference/theme.html" class="external-link">theme</a></code> object to style the guide individually or
 differently from the plot's theme settings. The <code>theme</code> argument in the
-guide overrides, and is combined with, the plot's theme.</p></dd>
+guide partially overrides, and is combined with, the plot's theme.
+Arguments that apply to a single legend are respected, most of which have
+the <code>legend</code>-prefix. Arguments that apply to combined legends
+(the legend box) are ignored, including <code>legend.position</code>,
+<code>legend.justification.*</code>, <code>legend.location</code> and <code>legend.box.*</code>.</p></dd>
 
     <dt><code>nbin</code></dt>
 <dd><p>A numeric specifying the number of bins for drawing the
@@ -159,9 +163,16 @@ be visible.</p></dd>
 <dd><p>A logical specifying if the lower limit tick marks should
 be visible.</p></dd>
 
+    <dt><code>angle</code></dt>
+<dd><p>Overrules the theme settings to automatically apply appropriate
+<code>hjust</code> and <code>vjust</code> for angled legend text. Can be a single number
+representing the text angle in degrees, or <code>NULL</code> to not overrule the
+settings (default).</p></dd>
+
     <dt><code>position</code></dt>
 <dd><p>A character string indicating where the legend should be
-placed relative to the plot panels.</p></dd>
+placed relative to the plot panels.
+One of "top", "right", "bottom", "left", or "inside".</p></dd>
 
     <dt><code>direction</code></dt>
 <dd><p>A character string indicating the direction of the guide.
