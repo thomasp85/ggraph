@@ -25,9 +25,6 @@ scale_edge_linetype_identity(..., guide = "none")
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:discrete_scale]{discrete_scale}}
   \describe{
-    \item{\code{palette}}{A palette function that when called with a single integer
-argument (the number of levels in the scale) returns the values that
-they should take (e.g., \code{\link[scales:pal_hue]{scales::pal_hue()}}).}
     \item{\code{breaks}}{One of:
 \itemize{
 \item \code{NULL} for no breaks
@@ -48,14 +45,25 @@ notation.
 }}
     \item{\code{drop}}{Should unused factor levels be omitted from the scale?
 The default, \code{TRUE}, uses the levels that appear in the data;
-\code{FALSE} uses all the levels in the factor.}
+\code{FALSE} includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use \code{show.legend = TRUE}.}
     \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
 missing values, and do so by default. If you want to remove missing values
 from a discrete scale, specify \code{na.translate = FALSE}.}
-    \item{\code{aesthetics}}{The names of the aesthetics that this scale works with.}
-    \item{\code{scale_name}}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} The name of the scale
-that should be used for error messages associated with this scale.}
-    \item{\code{labels}}{One of:
+    \item{\code{minor_breaks}}{One of:
+\itemize{
+\item \code{NULL} for no minor breaks
+\item \code{waiver()} for the default breaks (none for discrete, one minor break
+between each major break for continuous)
+\item A numeric vector of positions
+\item A function that given the limits returns a vector of minor breaks. Also
+accepts rlang \link[rlang:as_function]{lambda} function notation. When
+the function has two arguments, it will be given the limits and major
+break positions.
+}}
+    \item{\code{labels}}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
 \item \code{NULL} for no labels
 \item \code{waiver()} for the default labels computed by the
@@ -72,7 +80,7 @@ notation.
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
 
-\item{na.value}{The linetype to use for \code{NA} values.}
+\item{na.value}{The aesthetic value to use for missing (\code{NA}) values}
 
 \item{values}{a set of aesthetic values to map data values to. The values
 will be matched in order (usually alphabetical) with the limits of the

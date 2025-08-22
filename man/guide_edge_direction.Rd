@@ -28,7 +28,11 @@ specified in \code{\link[ggplot2:labs]{labs()}} is used for the title.}
 
 \item{theme}{A \code{\link[ggplot2:theme]{theme}} object to style the guide individually or
 differently from the plot's theme settings. The \code{theme} argument in the
-guide overrides, and is combined with, the plot's theme.}
+guide partially overrides, and is combined with, the plot's theme.
+Arguments that apply to a single legend are respected, most of which have
+the \code{legend}-prefix. Arguments that apply to combined legends
+(the legend box) are ignored, including \code{legend.position},
+\verb{legend.justification.*}, \code{legend.location} and \verb{legend.box.*}.}
 
 \item{arrow}{Logical. Should an arrow be drawn to illustrate the direction.
 Defaults to \code{TRUE}. The arrow is styled with the \code{legend.axis.line} theme
@@ -42,7 +46,8 @@ start and the end of the legend to indicate direction if \code{arrow = FALSE}}
 colourbar. A smoother colourbar results from a larger value.}
 
 \item{position}{A character string indicating where the legend should be
-placed relative to the plot panels.}
+placed relative to the plot panels.
+One of "top", "right", "bottom", "left", or "inside".}
 
 \item{direction}{A character string indicating the direction of the guide.
 One of "horizontal" or "vertical."}
