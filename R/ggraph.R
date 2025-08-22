@@ -144,7 +144,7 @@ ggraph <- function(graph, layout = 'auto', ...) {
   p
 }
 #' @export
-ggplot_build.ggraph <- function(plot) {
+ggplot_build.ggraph <- function(plot, ...) {
   .register_graph_context(attr(plot$data, 'graph'), free = TRUE)
   NextMethod()
 }
