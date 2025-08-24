@@ -1,8 +1,8 @@
 # Revdeps
 
-## New problems (1)
+## Failed to check (1)
 
-|package |version |error  |warning |note |
-|:-------|:-------|:------|:-------|:----|
-|[ggdag](problems.md#ggdag)|0.2.11  |__+1__ |        |1    |
+|package  |version |error |warning |note |
+|:--------|:-------|:-----|:-------|:----|
+|multinma |0.8.1   |1     |        |     |
 

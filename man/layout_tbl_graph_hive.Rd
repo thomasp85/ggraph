@@ -89,8 +89,6 @@ not assign nodes to axes based on a variable with more than three levels.
 Krzywinski, M., Birol, I., Jones, SJM., and Marra, MA. (2012). \emph{Hive
 plots-rational approach to visualizing networks}. Brief Bioinform 13 (5):
 627-644. https://doi.org/10.1093/bib/bbr069
-
-\url{https://www.hiveplot.net/}
 }
 \seealso{
 Other layout_tbl_graph_*: 

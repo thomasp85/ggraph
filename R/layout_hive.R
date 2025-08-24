@@ -66,8 +66,6 @@
 #' plots-rational approach to visualizing networks*. Brief Bioinform 13 (5):
 #' 627-644. https://doi.org/10.1093/bib/bbr069
 #'
-#' <https://www.hiveplot.net/>
-#'
 #' @family layout_tbl_graph_*
 #'
 #' @importFrom igraph gorder vertex_attr gsize induced_subgraph add_vertices E ends add_edges delete_edges %--% edge_attr
