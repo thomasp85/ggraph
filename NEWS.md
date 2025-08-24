@@ -1,4 +1,4 @@
-# ggraph (development version)
+# ggraph 2.2.2
 
 * Fixed a bug in the collapse functionality of `get_edges()` (#362)
 * General upkeep and compatibility with ggplot2 v4.0.0
