@@ -1,3 +1,5 @@
+# ggraph (development version)
+
 # ggraph 2.2.2
 
 * Fixed a bug in the collapse functionality of `get_edges()` (#362)
