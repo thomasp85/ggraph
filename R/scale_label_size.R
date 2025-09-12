@@ -23,8 +23,9 @@ scale_label_size_continuous <- function(
   labels = waiver(),
   limits = NULL,
   range = c(1, 6),
-  trans = "identity",
-  guide = "legend"
+  transform = "identity",
+  guide = "legend",
+  trans = deprecated()
 ) {
   sc <- scale_size_continuous(
     name = name,
@@ -67,8 +68,9 @@ scale_label_size_binned <- function(
   range = c(1, 6),
   n.breaks = NULL,
   nice.breaks = TRUE,
-  trans = "identity",
-  guide = "bins"
+  transform = "identity",
+  guide = "bins",
+  trans = deprecated()
 ) {
   sc <- scale_size_binned(
     name = name,
@@ -78,6 +80,7 @@ scale_label_size_binned <- function(
     range = range,
     n.breaks = n.breaks,
     nice.breaks = nice.breaks,
+    transform = transform,
     trans = trans,
     guide = guide
   )

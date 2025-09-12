@@ -29,8 +29,9 @@ scale_edge_width_continuous <- function(
   labels = waiver(),
   limits = NULL,
   range = c(1, 6),
-  trans = "identity",
-  guide = "legend"
+  transform = "identity",
+  guide = "legend",
+  trans = deprecated()
 ) {
   sc <- scale_radius(
     name = name,
@@ -39,9 +40,9 @@ scale_edge_width_continuous <- function(
     limits = limits,
     range = range,
     trans = trans,
+    transform = transform,
     guide = guide
   )
-  sc$scale_name <- 'width_c'
   sc$aesthetics <- 'edge_width'
   sc
 }
@@ -58,7 +59,6 @@ scale_edge_width_discrete <- function(...) {
     "Using {.field edge_width} for a discrete variable is not advised."
   )
   sc <- scale_size_ordinal(...)
-  sc$scale_name <- 'width_d'
   sc$aesthetics <- 'edge_width'
   sc
 }
@@ -74,8 +74,9 @@ scale_edge_width_binned <- function(
   range = c(1, 6),
   n.breaks = NULL,
   nice.breaks = TRUE,
-  trans = "identity",
-  guide = "bins"
+  transform = "identity",
+  guide = "bins",
+  trans = deprecated()
 ) {
   sc <- scale_size_binned(
     name = name,
@@ -85,10 +86,10 @@ scale_edge_width_binned <- function(
     range = range,
     n.breaks = n.breaks,
     nice.breaks = nice.breaks,
+    transform = transform,
     trans = trans,
     guide = guide
   )
-  sc$scale_name <- 'width_b'
   sc$aesthetics <- 'edge_width'
   sc
 }

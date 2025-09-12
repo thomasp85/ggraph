@@ -15,8 +15,9 @@ scale_edge_width_continuous(
   labels = waiver(),
   limits = NULL,
   range = c(1, 6),
-  trans = "identity",
-  guide = "legend"
+  transform = "identity",
+  guide = "legend",
+  trans = deprecated()
 )
 
 scale_edge_width(
@@ -25,8 +26,9 @@ scale_edge_width(
   labels = waiver(),
   limits = NULL,
   range = c(1, 6),
-  trans = "identity",
-  guide = "legend"
+  transform = "identity",
+  guide = "legend",
+  trans = deprecated()
 )
 
 scale_edge_width_discrete(...)
@@ -39,8 +41,9 @@ scale_edge_width_binned(
   range = c(1, 6),
   n.breaks = NULL,
   nice.breaks = TRUE,
-  trans = "identity",
-  guide = "bins"
+  transform = "identity",
+  guide = "bins",
+  trans = deprecated()
 )
 
 scale_edge_width_manual(..., values, breaks = waiver(), na.value = NA)
@@ -95,11 +98,24 @@ If the purpose is to zoom, use the limit argument in the coordinate system
 \item{range}{a numeric vector of length 2 that specifies the minimum and
 maximum size of the plotting symbol after transformation.}
 
-\item{trans}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
-\code{transform}.}
+\item{transform}{For continuous scales, the name of a transformation object
+or the object itself. Built-in transformations include "asn", "atanh",
+"boxcox", "date", "exp", "hms", "identity", "log", "log10", "log1p", "log2",
+"logit", "modulus", "probability", "probit", "pseudo_log", "reciprocal",
+"reverse", "sqrt" and "time".
+
+A transformation object bundles together a transform, its inverse,
+and methods for generating breaks and labels. Transformation objects
+are defined in the scales package, and are called \verb{transform_<name>}. If
+transformations require arguments, you can call them from the scales
+package, e.g. \code{\link[scales:transform_boxcox]{scales::transform_boxcox(p = 2)}}.
+You can create your own transformation with \code{\link[scales:new_transform]{scales::new_transform()}}.}
 
 \item{guide}{A function used to create a guide or its name. See
 \code{\link[ggplot2:guides]{guides()}} for more information.}
+
+\item{trans}{\ifelse{html}{\href{https://lifecycle.r-lib.org/articles/stages.html#deprecated}{\figure{lifecycle-deprecated.svg}{options: alt='[Deprecated]'}}}{\strong{[Deprecated]}} Deprecated in favour of
+\code{transform}.}
 
 \item{...}{
   Arguments passed on to \code{\link[ggplot2:continuous_scale]{continuous_scale}}
