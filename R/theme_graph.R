@@ -29,6 +29,9 @@
 #' @param border Logical. Should border be drawn if a foreground colour is
 #' provided?
 #'
+#' @param ink,paper The colour for foreground and background respectively,
+#'   permeating to layer defaults when possible.
+#'
 #' @param family,base_family,title_family,subtitle_family,strip_text_family,caption_family The font to use for the different elements
 #'
 #' @param base_size,size,text_size,title_size,subtitle_size,strip_text_size,caption_size The size to use for the various text elements. `text_size` will be used as geom defaults
@@ -51,12 +54,14 @@
 theme_graph <- function(
   base_family = 'Arial Narrow',
   base_size = 11,
-  background = 'white',
+  ink = "black",
+  paper = "white",
+  background = paper,
   foreground = NULL,
   border = TRUE,
-  text_colour = 'black',
-  bg_text_colour = text_colour,
-  fg_text_colour = text_colour,
+  text_colour = ink,
+  bg_text_colour = ink,
+  fg_text_colour = ink,
   title_family = base_family,
   title_size = 18,
   title_face = 'bold',
@@ -78,7 +83,17 @@ theme_graph <- function(
   caption_colour = bg_text_colour,
   plot_margin = margin(30, 30, 30, 30)
 ) {
-  style <- theme_bw(base_size = base_size, base_family = base_family)
+  if (all(c("ink", "paper") %in% names(formals(theme_bw)))) {
+    style <- theme_bw(
+      base_size = base_size,
+      base_family = base_family,
+      ink = ink,
+      paper = paper
+    )
+  } else {
+    style <- theme_bw(base_size = base_size, base_family = base_family)
+  }
+
   style <- style +
     theme(
       text = element_text(colour = text_colour),
@@ -213,71 +228,77 @@ th_no_axes <- function() {
 #'
 #' @param ... Parameters passed on the `theme_graph`
 #'
+#' @importFrom ggplot2 aes from_theme
 #' @export
 set_graph_style <- function(
   family = 'Arial Narrow',
   face = 'plain',
   size = 11,
   text_size = 11,
-  text_colour = 'black',
+  ink = "black",
+  text_colour = ink,
   ...
 ) {
   style <- theme_graph(
     base_family = family,
     base_size = size,
     text_colour = text_colour,
+    ink = ink,
     ...
   )
+  fontsize <- text_size / .pt
+
+  if (exists("element_geom", asNamespace("ggplot2"))) {
+    # Set family/fontsize globally
+    style <- style + theme(geom = element_geom(
+      family = family,
+      fontsize = fontsize
+    ))
+    new_settings <- aes(
+      family = from_theme(family),
+      size = from_theme(fontsize),
+      fontface = {{ face }}
+    )
+  } else {
+    new_settings <- aes(
+      famly = {{ family }},
+      size = {{ fontsize }},
+      fontface = {{ face }}
+    )
+  }
+
   theme_set(style)
-  text_size <- text_size / .pt
 
   update_geom_defaults(
     GeomEdgePath,
-    list(
-      family = family,
-      fontface = face,
-      label_size = text_size
+    aes(
+      !!!new_settings[c("family", "fontface")],
+      label_size = !!new_settings[["size"]]
     )
   )
-  update_geom_defaults(
-    GeomText,
-    list(
-      family = family,
-      fontface = face,
-      size = text_size
-    )
-  )
-  update_geom_defaults(
-    GeomTextRepel,
-    list(
-      family = family,
-      fontface = face,
-      size = text_size
-    )
-  )
-  update_geom_defaults(
-    GeomLabel,
-    list(
-      family = family,
-      fontface = face,
-      size = text_size
-    )
-  )
-  update_geom_defaults(
-    GeomLabelRepel,
-    list(
-      family = family,
-      fontface = face,
-      size = text_size
-    )
-  )
+  update_geom_defaults(GeomText, new_settings)
+  update_geom_defaults(GeomTextRepel, new_settings)
+  update_geom_defaults(GeomLabel, new_settings)
+  update_geom_defaults(GeomLabelRepel, new_settings)
 }
 #' @rdname theme_graph
 #'
 #' @export
 unset_graph_style <- function() {
+  # replace by ggplot2#6629 mechanism at some point
   style <- theme_gray()
   theme_set(style)
+
+  if (exists("element_geom", asNamespace("ggplot2"))) {
+    # From 4.0.0 onward, updating with `NULL` will reset defaults
+    update_geom_defaults(GeomEdgePath, NULL)
+    update_geom_defaults(GeomText, NULL)
+    update_geom_defaults(GeomTextRepel, NULL)
+    update_geom_defaults(GeomLabel, NULL)
+    update_geom_defaults(GeomLabelRepel, NULL)
+    update_geom_defaults(GeomAxisHive, NULL)
+    return(invisible())
+  }
 
   update_geom_defaults(
     GeomEdgePath,

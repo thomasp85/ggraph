@@ -23,7 +23,7 @@ Imports:
     ggforce (>= 0.3.1),
     grid,
     igraph (>= 1.0.0),
-    scales,
+    scales (>= 1.4.0),
     MASS,
     ggrepel,
     utils,
@@ -51,7 +51,7 @@ Suggests:
     sfnetworks
 LinkingTo: 
     cpp11
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 Depends:
     R (>= 2.10),
     ggplot2 (>= 3.5.0)

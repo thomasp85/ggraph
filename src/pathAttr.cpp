@@ -24,7 +24,7 @@ cpp11::writable::data_frame pathAttr(cpp11::integers group, cpp11::doubles alpha
   for (i = 1; i < group.size(); ++i) {
     if (group[i] == currentGroup) {
       if (solid[currentIndex] == TRUE) {
-        solid[currentIndex] = lty[i] == "solid" && lty[i] == lty[i-1];
+        solid[currentIndex] = ((lty[i] == "solid") || (lty[i] == "1")) && lty[i] == lty[i-1];
       }
       if (constant[currentIndex] == TRUE) {
         constant[currentIndex] =

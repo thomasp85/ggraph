@@ -11,12 +11,14 @@
 theme_graph(
   base_family = "Arial Narrow",
   base_size = 11,
-  background = "white",
+  ink = "black",
+  paper = "white",
+  background = paper,
   foreground = NULL,
   border = TRUE,
-  text_colour = "black",
-  bg_text_colour = text_colour,
-  fg_text_colour = text_colour,
+  text_colour = ink,
+  bg_text_colour = ink,
+  fg_text_colour = ink,
   title_family = base_family,
   title_size = 18,
   title_face = "bold",
@@ -48,7 +50,8 @@ set_graph_style(
   face = "plain",
   size = 11,
   text_size = 11,
-  text_colour = "black",
+  ink = "black",
+  text_colour = ink,
   ...
 )
 
@@ -56,6 +59,9 @@ unset_graph_style()
 }
 \arguments{
 \item{base_size, size, text_size, title_size, subtitle_size, strip_text_size, caption_size}{The size to use for the various text elements. \code{text_size} will be used as geom defaults}
+
+\item{ink, paper}{The colour for foreground and background respectively,
+permeating to layer defaults when possible.}
 
 \item{background}{The colour to use for the background. This theme sets all
 background elements except for plot.background to \code{element_blank} so
