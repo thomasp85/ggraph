@@ -84,13 +84,11 @@ lists which parameters it can accept.
 \description{
 A treemap is a space filling layout that recursively divides a rectangle to
 the children of the node. Often only the leaf nodes are drawn as nodes higher
-up in the hierarchy would obscure what is below. \code{geom_treemap} is a
-shorthand for \code{geom_node_treemap} as node is implicit in the case of
-treemap drawing
+up in the hierarchy would obscure what is below.
 }
 \section{Aesthetics}{
 
-\code{geom_treemap} understand the following aesthetics. Bold aesthetics are
+\code{geom_node_tile} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
@@ -100,8 +98,8 @@ automatically set, but can be overwritten.
 \item alpha
 \item colour
 \item fill
-\item size
-\item stroke
+\item linewidth
+\item linetype
 \item filter
 }
 }

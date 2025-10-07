@@ -2,12 +2,10 @@
 #'
 #' A treemap is a space filling layout that recursively divides a rectangle to
 #' the children of the node. Often only the leaf nodes are drawn as nodes higher
-#' up in the hierarchy would obscure what is below. `geom_treemap` is a
-#' shorthand for `geom_node_treemap` as node is implicit in the case of
-#' treemap drawing
+#' up in the hierarchy would obscure what is below.
 #'
 #' @section Aesthetics:
-#' `geom_treemap` understand the following aesthetics. Bold aesthetics are
+#' `geom_node_tile` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overwritten.
 #'
 #' - **x**
@@ -17,8 +15,8 @@
 #' - alpha
 #' - colour
 #' - fill
-#' - size
-#' - stroke
+#' - linewidth
+#' - linetype
 #' - filter
 #'
 #' @inheritParams ggplot2::geom_tile

@@ -97,9 +97,8 @@ automatically set, but can be overwritten.
 \item alpha
 \item colour
 \item fill
-\item shape
-\item size
-\item stroke
+\item linewidth
+\item linetype
 \item filter
 }
 }

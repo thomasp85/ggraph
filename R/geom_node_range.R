@@ -4,7 +4,7 @@
 #' layout for showing the horizontal span of each node.
 #'
 #' @section Aesthetics:
-#' `geom_node_point` understand the following aesthetics. Bold aesthetics are
+#' `geom_node_range` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overwritten.
 #'
 #' - **x**
@@ -14,7 +14,7 @@
 #' - alpha
 #' - colour
 #' - linetype
-#' - size
+#' - linewidth
 #' - filter
 #'
 #' @inheritParams ggplot2::geom_linerange

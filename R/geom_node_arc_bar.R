@@ -6,7 +6,7 @@
 #' as created with circular partition layouts
 #'
 #' @section Aesthetics:
-#' `geom_node_point` understand the following aesthetics. Bold aesthetics are
+#' `geom_node_arc_bar` understand the following aesthetics. Bold aesthetics are
 #' automatically set, but can be overwritten.
 #'
 #' - **x0**
@@ -18,9 +18,8 @@
 #' - alpha
 #' - colour
 #' - fill
-#' - shape
-#' - size
-#' - stroke
+#' - linewidth
+#' - linetype
 #' - filter
 #'
 #' @inheritParams ggforce::geom_circle

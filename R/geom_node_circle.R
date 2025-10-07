@@ -16,9 +16,8 @@
 #' - alpha
 #' - colour
 #' - fill
-#' - shape
-#' - size
-#' - stroke
+#' - linewidth
+#' - linetype
 #' - filter
 #'
 #' @inheritParams ggforce::geom_circle

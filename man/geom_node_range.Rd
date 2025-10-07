@@ -87,7 +87,7 @@ layout for showing the horizontal span of each node.
 }
 \section{Aesthetics}{
 
-\code{geom_node_point} understand the following aesthetics. Bold aesthetics are
+\code{geom_node_range} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overwritten.
 \itemize{
 \item \strong{x}
@@ -97,7 +97,7 @@ automatically set, but can be overwritten.
 \item alpha
 \item colour
 \item linetype
-\item size
+\item linewidth
 \item filter
 }
 }

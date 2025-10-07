@@ -102,8 +102,28 @@ maximum size of the plotting symbol after transformation.}
 \code{\link[ggplot2:guides]{guides()}} for more information.}
 
 \item{...}{
-  Arguments passed on to \code{\link[ggplot2:continuous_scale]{continuous_scale}}
+  Arguments passed on to \code{\link[ggplot2:discrete_scale]{discrete_scale}}
   \describe{
+    \item{\code{limits}}{One of:
+\itemize{
+\item \code{NULL} to use the default scale values
+\item A character vector that defines possible values of the scale and their
+order
+\item A function that accepts the existing (automatic) values and returns
+new ones. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
+}}
+    \item{\code{drop}}{Should unused factor levels be omitted from the scale?
+The default, \code{TRUE}, uses the levels that appear in the data;
+\code{FALSE} includes the levels in the factor. Please note that to display
+every level in a legend, the layer should use \code{show.legend = TRUE}.}
+    \item{\code{na.translate}}{Unlike continuous scales, discrete scales can easily show
+missing values, and do so by default. If you want to remove missing values
+from a discrete scale, specify \code{na.translate = FALSE}.}
+    \item{\code{name}}{The name of the scale. Used as the axis or legend title. If
+\code{waiver()}, the default, the name of the scale is taken from the first
+mapping used for that aesthetic. If \code{NULL}, the legend title will be
+omitted.}
     \item{\code{minor_breaks}}{One of:
 \itemize{
 \item \code{NULL} for no minor breaks
@@ -115,17 +135,21 @@ accepts rlang \link[rlang:as_function]{lambda} function notation. When
 the function has two arguments, it will be given the limits and major
 break positions.
 }}
-    \item{\code{oob}}{One of:
+    \item{\code{labels}}{One of the options below. Please note that when \code{labels} is a
+vector, it is highly recommended to also set the \code{breaks} argument as a
+vector to protect against unintended mismatches.
 \itemize{
-\item Function that handles limits outside of the scale limits
-(out of bounds). Also accepts rlang \link[rlang:as_function]{lambda}
-function notation.
-\item The default (\code{\link[scales:oob]{scales::censor()}}) replaces out of
-bounds values with \code{NA}.
-\item \code{\link[scales:oob]{scales::squish()}} for squishing out of bounds values into range.
-\item \code{\link[scales:oob]{scales::squish_infinite()}} for squishing infinite values into range.
+\item \code{NULL} for no labels
+\item \code{waiver()} for the default labels computed by the
+transformation object
+\item A character vector giving labels (must be same length as \code{breaks})
+\item An expression vector (must be the same length as breaks). See ?plotmath for details.
+\item A function that takes the breaks as input and returns labels
+as output. Also accepts rlang \link[rlang:as_function]{lambda} function
+notation.
 }}
-    \item{\code{na.value}}{Missing values will be replaced with this value.}
+    \item{\code{guide}}{A function used to create a guide or its name. See
+\code{\link[ggplot2:guides]{guides()}} for more information.}
     \item{\code{call}}{The \code{call} used to construct the scale for reporting messages.}
     \item{\code{super}}{The super class to use for the constructed scale}
   }}
@@ -153,13 +177,11 @@ match will be given \code{na.value}.}
 A ggproto object inheriting from \code{Scale}
 }
 \description{
-This set of scales defines width scales for edge geoms. Of all the new edge
-scales defined in ggraph, this is the only one not having an equivalent in
-ggplot2. In essence it mimics the use of size in
-\code{\link[ggplot2:geom_path]{ggplot2::geom_line()}} and related. As almost all edge
-representations are lines of some sort, edge_width will be used much more
-often than edge_size. It is not necessary to spell out that it is an edge
-scale as the geom knows if it is drawing an edge. Just write \code{width} and
+This set of scales defines width scales for edge geoms. In essence it mimics
+the use of \code{linewidth} in \code{\link[ggplot2:geom_path]{ggplot2::geom_line()}} and related. As almost all
+edge representations are lines of some sort, \code{edge_width} will be used much
+more often than \code{edge_size}. It is not necessary to spell out that it is an
+edge scale as the geom knows if it is drawing an edge. Just write \code{width} and
 not \code{edge_width} in the call to geoms.
 }
 \seealso{

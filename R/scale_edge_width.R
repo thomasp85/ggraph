@@ -1,12 +1,10 @@
 #' Edge width scales
 #'
-#' This set of scales defines width scales for edge geoms. Of all the new edge
-#' scales defined in ggraph, this is the only one not having an equivalent in
-#' ggplot2. In essence it mimics the use of size in
-#' [ggplot2::geom_line()] and related. As almost all edge
-#' representations are lines of some sort, edge_width will be used much more
-#' often than edge_size. It is not necessary to spell out that it is an edge
-#' scale as the geom knows if it is drawing an edge. Just write `width` and
+#' This set of scales defines width scales for edge geoms. In essence it mimics
+#' the use of `linewidth` in [ggplot2::geom_line()] and related. As almost all
+#' edge representations are lines of some sort, `edge_width` will be used much
+#' more often than `edge_size`. It is not necessary to spell out that it is an
+#' edge scale as the geom knows if it is drawing an edge. Just write `width` and
 #' not `edge_width` in the call to geoms.
 #'
 #' @return A ggproto object inheriting from `Scale`
@@ -20,7 +18,7 @@ NULL
 
 #' @rdname scale_edge_width
 #'
-#' @inheritParams ggplot2::scale_size_continuous
+#' @inheritParams ggplot2::scale_linewidth_continuous
 #'
 #' @export
 scale_edge_width_continuous <- function(
@@ -32,7 +30,7 @@ scale_edge_width_continuous <- function(
   trans = "identity",
   guide = "legend"
 ) {
-  sc <- scale_radius(
+  sc <- scale_linewidth_continuous(
     name = name,
     breaks = breaks,
     labels = labels,
@@ -41,7 +39,6 @@ scale_edge_width_continuous <- function(
     trans = trans,
     guide = guide
   )
-  sc$scale_name <- 'width_c'
   sc$aesthetics <- 'edge_width'
   sc
 }
@@ -51,20 +48,19 @@ scale_edge_width_continuous <- function(
 scale_edge_width <- scale_edge_width_continuous
 #' @rdname scale_edge_width
 #'
-#' @inheritParams ggplot2::scale_size_discrete
+#' @inheritParams ggplot2::scale_linewidth_discrete
 #' @export
 scale_edge_width_discrete <- function(...) {
   cli::cli_warn(
     "Using {.field edge_width} for a discrete variable is not advised."
   )
-  sc <- scale_size_ordinal(...)
-  sc$scale_name <- 'width_d'
+  sc <- scale_linewidth_ordinal(...)
   sc$aesthetics <- 'edge_width'
   sc
 }
 #' @rdname scale_edge_width
 #'
-#' @inheritParams ggplot2::scale_size_binned
+#' @inheritParams ggplot2::scale_linewidth_binned
 #' @export
 scale_edge_width_binned <- function(
   name = waiver(),
@@ -77,7 +73,7 @@ scale_edge_width_binned <- function(
   trans = "identity",
   guide = "bins"
 ) {
-  sc <- scale_size_binned(
+  sc <- scale_linewidth_binned(
     name = name,
     breaks = breaks,
     labels = labels,
@@ -88,13 +84,12 @@ scale_edge_width_binned <- function(
     trans = trans,
     guide = guide
   )
-  sc$scale_name <- 'width_b'
   sc$aesthetics <- 'edge_width'
   sc
 }
 #' @rdname scale_edge_width
 #'
-#' @inheritParams ggplot2::scale_size_manual
+#' @inheritParams ggplot2::scale_linewidth_manual
 #'
 #' @export
 scale_edge_width_manual <- function(
@@ -103,7 +98,7 @@ scale_edge_width_manual <- function(
   breaks = waiver(),
   na.value = NA
 ) {
-  sc <- scale_size_manual(
+  sc <- scale_linewidth_manual(
     ...,
     values = values,
     breaks = breaks,
@@ -114,11 +109,11 @@ scale_edge_width_manual <- function(
 }
 #' @rdname scale_edge_width
 #'
-#' @inheritParams ggplot2::scale_size_identity
+#' @inheritParams ggplot2::scale_linewidth_identity
 #'
 #' @export
 scale_edge_width_identity <- function(..., guide = 'none') {
-  sc <- scale_size_identity(..., guide = guide)
+  sc <- scale_linewidth_identity(..., guide = guide)
   sc$aesthetics <- 'edge_width'
   sc
 }

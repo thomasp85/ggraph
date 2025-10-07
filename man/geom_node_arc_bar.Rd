@@ -87,7 +87,7 @@ as created with circular partition layouts
 }
 \section{Aesthetics}{
 
-\code{geom_node_point} understand the following aesthetics. Bold aesthetics are
+\code{geom_node_arc_bar} understand the following aesthetics. Bold aesthetics are
 automatically set, but can be overwritten.
 \itemize{
 \item \strong{x0}
@@ -99,9 +99,8 @@ automatically set, but can be overwritten.
 \item alpha
 \item colour
 \item fill
-\item shape
-\item size
-\item stroke
+\item linewidth
+\item linetype
 \item filter
 }
 }
