@@ -224,10 +224,11 @@ GuideEdgeDirection <- ggproto(
 
   build_labels = function(key, elements, params) {
     if (params$arrow) {
+      size <- switch(params$direction, horizontal = elements$width_cm, elements$height_cm)
       list(
         labels = flip_element_grob(
           elements$arrow_line,
-          x = unit(c(0, 1), "npc"),
+          x = unit(c(0, size), "cm"),
           y = unit(c(0.5, 0.5), "npc"),
           flip = params$direction == "vertical"
         )
