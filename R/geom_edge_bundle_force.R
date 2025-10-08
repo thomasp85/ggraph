@@ -243,6 +243,9 @@ StatEdgeBundleForce2 <- ggproto(
     threshold = 0.6,
     eps = 1e-8
   ) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
     data <- data[order(data$group), ]
     edges <- cbind(
       data$x[c(TRUE, FALSE)],
@@ -382,6 +385,9 @@ StatEdgeBundleForce0 <- ggproto(
     threshold = 0.6,
     eps = 1e-8
   ) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
     edges <- cbind(data$x, data$y, data$xend, data$yend)
     edges <- force_bundle_mem(
       edges,

@@ -186,6 +186,12 @@ StatEdgeLink2 <- ggproto(
     }
     StatLink2$setup_data(data, params)
   },
+  compute_layer = function(data, params, layout) {
+    if (empty(data)) {
+      return(data)
+    }
+    StatLink2$compute_layer(data, params, layout)
+  },
   default_aes = aes(filter = TRUE)
 )
 #' @rdname geom_edge_link

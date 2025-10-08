@@ -108,6 +108,10 @@ StatEdgeElbow <- ggproto(
     n = 100,
     strength = 1
   ) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
+
     data$group <- make_unique(data$group)
     if (data$circular[1] && n %% 2 == 1) {
       n <- n + 1
@@ -234,9 +238,6 @@ StatEdgeElbow <- ggproto(
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop(data)
-    if (nrow(data) == 0) {
-      return(data)
-    }
     data
   },
   default_aes = aes(filter = TRUE),
@@ -325,6 +326,9 @@ StatEdgeElbow2 <- ggproto(
     n = 100,
     strength = 1
   ) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
     pos_cols <- c('x', 'y', 'group', 'circular', 'direction', 'PANEL')
     data <- data[order(data$group), ]
     pos_data <- cbind(
@@ -359,9 +363,6 @@ StatEdgeElbow2 <- ggproto(
   setup_data = function(data, params) {
     data <- StatFilter$setup_data(data, params)
     data <- remove_loop2(data)
-    if (nrow(data) == 0) {
-      return(data)
-    }
     data
   },
   default_aes = aes(filter = TRUE),
@@ -442,6 +443,9 @@ StatEdgeElbow0 <- ggproto(
   'StatEdgeElbow0',
   Stat,
   compute_panel = function(data, scales, flipped = FALSE, strength = 1) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
     data$group <- make_unique(data$group)
     if (any(data$circular)) {
       if (strength != 1) {

@@ -207,6 +207,12 @@ StatEdgeParallel2 <- ggproto(
     data$.position <- rep(edge_positions(data1, data2), each = 2)
     StatLink2$setup_data(data, params)
   },
+  compute_layer = function(data, params, layout) {
+    if (empty(data)) {
+      return(data)
+    }
+    StatEdgeLink2$compute_layer(data, params, layout)
+  },
   required_aes = c('x', 'y', 'group', 'from', 'to'),
   default_aes = aes(filter = TRUE),
   extra_params = c('na.rm', 'n')

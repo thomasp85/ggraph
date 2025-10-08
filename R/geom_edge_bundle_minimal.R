@@ -203,6 +203,9 @@ StatEdgeBundleMinimal2 <- ggproto(
     weight_fac = 2,
     tension = 1
   ) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
     graph <- .G()
     nodes <- data_frame0(x = .N()$.ggraph_layout_x, y = .N()$.ggraph_layout_y)
     data <- data[order(data$group), ]
@@ -321,6 +324,9 @@ StatEdgeBundleMinimal0 <- ggproto(
     weight_fac = 2,
     tension = 1
   ) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
     graph <- .G()
     nodes <- data_frame0(x = .N()$.ggraph_layout_x, y = .N()$.ggraph_layout_y)
     edges <- minimal_bundle_mem(

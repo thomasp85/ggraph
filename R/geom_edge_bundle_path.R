@@ -228,6 +228,9 @@ StatEdgeBundlePath2 <- ggproto(
     weight_fac = 2,
     tension = 1
   ) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
     graph <- .G()
     nodes <- data_frame0(x = .N()$.ggraph_layout_x, y = .N()$.ggraph_layout_y)
     data <- data[order(data$group), ]
@@ -350,6 +353,9 @@ StatEdgeBundlePath0 <- ggproto(
     weight_fac = 2,
     tension = 1
   ) {
+    if (empty(data)) {
+      return(data_frame0())
+    }
     graph <- .G()
     nodes <- data_frame0(x = .N()$.ggraph_layout_x, y = .N()$.ggraph_layout_y)
     from <- .E()$from[data$edge_id]

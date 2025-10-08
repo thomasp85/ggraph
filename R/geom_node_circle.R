@@ -71,5 +71,11 @@ StatNodeCircle <- ggproto(
   setup_data = function(data, params) {
     StatFilter$setup_data(data, params)
   },
+  compute_layer = function(data, params, layout) {
+    if (empty(data)) {
+      return(data)
+    }
+    StatCircle$compute_layer(data, params, layout)
+  },
   default_aes = aes(filter = TRUE)
 )

@@ -206,3 +206,7 @@ snakeize <- function(x) {
 snake_class <- function(x) {
   snakeize(class(x)[1])
 }
+
+empty <- function(df) {
+  is.null(df) || nrow(df) == 0 || ncol(df) == 0 || inherits(df, "waiver")
+}
