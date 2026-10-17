@@ -61,6 +61,7 @@ public:
   };
   std::vector<Node*> getChildren() {
     std::vector<Node*> childVec;
+    childVec.reserve(children.size());
     for (unsigned int i = 0; i < children.size(); ++i) {
       childVec.push_back(children[i]);
     }
@@ -112,6 +113,7 @@ public:
 
     for (unsigned int i = 0; i < allLeafs.size(); ++i) {
       std::vector<Node*> leafVec;
+      leafVec.reserve(allLeafs[i].size());
       for (unsigned int j = 0; j < allLeafs[i].size(); ++j) {
         leafVec.push_back(allLeafs[i][j]);
       }
